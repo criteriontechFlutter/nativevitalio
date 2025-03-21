@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary Colors -->
+    <color name="primaryBlue">#1564ED</color>
+    <color name="primaryBlue2">#0C73BB</color>
+    <color name="primaryBlueLight">#F5F8FC</color>
+
+    <!-- Accent Colors -->
+    <color name="skyBlue">#05BAC9</color>
+    <color name="blueLight">#DDFDFF</color>
+    <color name="blue2">#0095FF</color>
+
+    <!-- Grey Tones -->
+    <color name="greyText">#546788</color>
+    <color name="greyText2">#828691</color>
+    <color name="greyText3">#9B9B9B</color>
+    <color name="darkGreyText">#546788</color>
+    <color name="blackText">#202529</color>
+    <color name="charcoalGray">#202529</color>
+    <color name="darkblue">#1153C9</color>
+    <color name="textGrey2">#5F6471</color>
+
+    <!-- Background Colors -->
+    <color name="greyBG">#EDF1F6</color>
+    <color name="greyBG2">#F7F9FB</color>
+    <color name="greyBlueBG">#EDF1F6</color>
+    <color name="bgDark">#141415</color>
+    <color name="bgDark2">#252527</color>
+    <color name="cardDark">#24252B</color>
+    <color name="glassbg">#EDF3FC</color>
+
+    <!-- Alert & Status Colors -->
+    <color name="brightRed">#D40000</color>
+    <color name="error">#E8B44A</color>
+    <color name="delete">#F73030</color>
+    <color name="info">#1153C9</color>
+    <color name="bgClose">#FFEDED</color>
+    <color name="closeIcon">#E56B6B</color>
+
+    <!-- Borders & Highlights -->
+    <color name="bordergrey">#EDF1F6</color>
+    <color name="icongrey">#505050</color>
+
+    <!-- Special Colors -->
+    <color name="urinescale">#80FEF8E7</color> <!-- Transparent urine scale color -->
+    <color name="scale2">#FEF8E7</color> <!-- Light yellowish color -->
+    <color name="neoGreyLight">#474747</color>
+    <color name="paleGray">#ECECEC</color>
+    <color name="randomColor1">#A4A4A4</color> <!-- Consider renaming this -->
+
+    <!-- Whites -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="whiteDull">#E4EEFF</color>
+
+</resources>

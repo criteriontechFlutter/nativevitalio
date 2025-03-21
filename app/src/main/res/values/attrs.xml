@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="CustomTextField">
+        <attr name="hintTextColor" format="color" />
+        <attr name="placeholderTextColor" format="color" />
+    </declare-styleable>
+</resources>
