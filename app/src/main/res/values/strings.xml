@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">nativevitalio</string>
+    <string name="vitals">Vitals</string>
+    <string name="primary_actions">Primary Actions</string>
+    <string name="other">Other</string>
+
+    <string name="home">Home</string>
+    <string name="reminders">Reminders</string>
+    <string name="chat">Chat</string>
+
+
+
+</resources>
