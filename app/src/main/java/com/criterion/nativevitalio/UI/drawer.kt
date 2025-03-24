@@ -1,23 +1,19 @@
 package com.criterion.nativevitalio.UI
 
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ActivityDrawerBinding
 import com.google.android.material.navigation.NavigationView
 
 open class drawer : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var activityDrawerBinding: ActivityDrawerBinding
     private lateinit var navigationView: NavigationView
 
     override fun setContentView(layoutResID: Int) {
@@ -27,11 +23,11 @@ open class drawer : AppCompatActivity() {
         LayoutInflater.from(this).inflate(layoutResID, content, true)
         super.setContentView(fullView)
 
-        drawerLayout = fullView.findViewById(R.id.drawer_layout)
-        navigationView = fullView.findViewById(R.id.navigation_view)
+//        drawerLayout = fullView.findViewById(R.id.drawer_layout)
+//        navigationView = fullView.findViewById(R.id.navigation_view)
 
         // 🔹 Get header view and find the inner clickable section
-        val headerView = navigationView.getHeaderView(0)
+        val headerView = activityDrawerBinding.navigationView.getHeaderView(0)
         val profileSection = headerView.findViewById<LinearLayout>(R.id.header_profile_section)
 
         profileSection.setOnClickListener {
@@ -58,15 +54,15 @@ open class drawer : AppCompatActivity() {
                 }
                 else -> false
             }.also {
-                drawerLayout.closeDrawer(GravityCompat.START)
+                activityDrawerBinding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
     }
 
     fun openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START)
+        activityDrawerBinding.drawerLayout.openDrawer(GravityCompat.START)
     }
     fun closeDrawer() {
-        drawerLayout.closeDrawer(GravityCompat.START)
+        activityDrawerBinding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 }
