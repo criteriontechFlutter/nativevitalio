@@ -3,4 +3,8 @@
         <attr name="hintTextColor" format="color" />
         <attr name="placeholderTextColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="CustomRoundedButton">
+        <attr name="customStrokeColor" format="color" />
+    </declare-styleable>
 </resources>
