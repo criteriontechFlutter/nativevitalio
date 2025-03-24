@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.glide)
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // or latest version
-
+    implementation ("androidx.core:core:1.10.1")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // retrofit
