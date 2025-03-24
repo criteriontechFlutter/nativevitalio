@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/sdk/icons/material/materialicons/home/baseline_home_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/sdk/icons/material/materialicons/arrow_forward_ios/baseline_arrow_forward_ios_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,7 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="home" />
+                            <entry key="outputName" value="arrow_right" />
                             <entry key="sourceFile" value="C:\Gitea_Projectsr\nativevitalio\app\src\main\res\drawable\uploadReport.svg" />
                           </map>
                         </option>
