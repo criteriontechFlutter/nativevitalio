@@ -30,6 +30,9 @@ class MovieViewModel : ViewModel() {
             }
         })
     }
+
+
+
     fun observeMovieLiveData() : LiveData<List<com.criterion.nativevitalio.model.Result>> {
         return movieLiveData
     }
