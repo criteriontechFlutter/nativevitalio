@@ -1,0 +1,282 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/primaryBlue">
+
+        <!-- Top Bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/appTitle"
+                style="@style/veryLargeWCB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Our Smart App!"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/langText"
+                app:layout_constraintStart_toEndOf="@id/info"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/langText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eng ▾"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Doctor Image -->
+        <ImageView
+            android:id="@+id/doctorsImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/doctors"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+        <!-- Bottom Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bottomCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/doctorsImage">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/only_top_corners"
+                android:padding="16dp">
+
+                <!-- Login Header -->
+                <TextView
+                    android:id="@+id/loginTitle"
+                    style="@style/veryLargeWCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login Verification!"
+                    android:textColor="@color/primaryBlue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/loginSubtitle"
+                    style="@style/smallBCN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="11dp"
+                    android:text="Verification code sent to your Mobile +91 13334464131313"
+                    android:textColor="@color/greyText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/loginTitle" />
+
+                <TextView
+                    style="@style/mediumBCN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingBottom="11dp"
+                    android:text="OTP"
+                    android:textColor="@color/greyText"
+                    app:layout_constraintStart_toStartOf="@id/otpContainer"
+                    app:layout_constraintTop_toBottomOf="@id/loginSubtitle" />
+                <!-- OTP Input -->
+                <LinearLayout
+                    android:id="@+id/otpContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/loginSubtitle">
+
+                    <EditText
+                        android:id="@+id/otp1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/otp3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp4"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp5"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp6"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <!-- Button -->
+                <com.criterion.nativevitalio.Utils.CustomRoundedButton
+                    android:id="@+id/verify"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/rounded_corners"
+                    android:backgroundTint="#C4C4C4"
+                    android:enabled="false"
+                    android:text="Verify"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/otpContainer"
+                    app:strokeColor="@android:color/holo_red_dark"
+                    app:strokeWidth="5dp" />
+
+                <!-- Terms -->
+                <TextView
+                    android:id="@+id/termsPrefix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="Didn't reveive the Code?"
+                    android:textColor="#808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/verify" />
+
+                <LinearLayout
+                    android:id="@+id/legalLinks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/termsPrefix">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Resend OTP "
+                        android:textColor="@color/primaryBlue"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
