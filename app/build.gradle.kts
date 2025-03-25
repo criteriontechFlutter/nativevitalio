@@ -44,10 +44,23 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     implementation(libs.glide)
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // or latest version
+    //Dimen
+    implementation (libs.ssp.android)
+    implementation (libs.sdp.android)
+
+    //otp view
+    implementation (libs.otpview)
+
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
