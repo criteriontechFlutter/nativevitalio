@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,8 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
+        android:layout_height="0dp"
         android:background="@color/primaryBlue">
 
         <!-- Top Bar -->
@@ -63,7 +61,7 @@
             android:adjustViewBounds="true"
             android:src="@drawable/doctors"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/bottomCard"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topBar" />
 
         <!-- Bottom Card -->
@@ -72,7 +70,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="0dp"
-            android:clipToOutline="true"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardElevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/only_top_corners"
-                android:padding="24dp">
+                android:padding="16dp">
 
                 <!-- Login Header -->
                 <TextView
@@ -92,76 +89,171 @@
                     style="@style/veryLargeWCB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login/Sign Up"
+                    android:text="Login Verification!"
                     android:textColor="@color/primaryBlue"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/loginSubtitle"
-                    style="@style/mediumBCN"
+                    style="@style/smallBCN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Access your health records and services"
+                    android:paddingBottom="11dp"
+                    android:text="Verification code sent to your Mobile +91 13334464131313"
                     android:textColor="@color/greyText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
-                <!-- Input Section -->
                 <TextView
-                    android:id="@+id/inputLabel"
-                    style="@style/mediumGCN"
+                    style="@style/mediumBCN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Enter UHID/Mobile No."
-                    android:textColor="@color/blackText"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="0dp"
+                    android:paddingBottom="11dp"
+                    android:text="OTP"
+                    android:textColor="@color/greyText"
+                    app:layout_constraintStart_toStartOf="@id/otpContainer"
                     app:layout_constraintTop_toBottomOf="@id/loginSubtitle" />
-
-                <EditText
-                    android:id="@+id/inputField"
-                    android:layout_width="0dp"
+                <!-- OTP Input -->
+                <LinearLayout
+                    android:id="@+id/otpContainer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_edittext_rounded"
-                    android:hint="Enter UHID/Mobile No."
-                    android:padding="12dp"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/inputLabel" />
+                    app:layout_constraintTop_toBottomOf="@id/loginSubtitle">
 
-                <!-- Action Button -->
+                    <EditText
+                        android:id="@+id/otp1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/otp3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp4"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:maxLength="1"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp5"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/otp6"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/rounded_corners"
+                        android:gravity="center"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:hint="-"
+                        android:textColorHint="@color/greyText2"
+                        android:textColor="#000000"
+                        android:textCursorDrawable="@null"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <!-- Button -->
                 <com.criterion.nativevitalio.Utils.CustomRoundedButton
-                    android:id="@+id/sendOtpBtn"
+                    android:id="@+id/verify"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/rounded_corners"
                     android:backgroundTint="#C4C4C4"
-                    android:enabled="true"
-                    android:text="Send OTP"
+                    android:enabled="false"
+                    android:text="Verify"
                     android:textColor="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/inputField"
-                    app:strokeWidth="5dp"
-                    app:strokeColor="@android:color/holo_red_dark" />
+                    app:layout_constraintTop_toBottomOf="@id/otpContainer"
+                    app:strokeColor="@android:color/holo_red_dark"
+                    app:strokeWidth="5dp" />
 
-                <!-- Legal Text -->
+                <!-- Terms -->
                 <TextView
                     android:id="@+id/termsPrefix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
-                    android:text="By signing in you agree to our "
+                    android:text="Didn't reveive the Code?"
                     android:textColor="#808080"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/sendOtpBtn" />
+                    app:layout_constraintTop_toBottomOf="@id/verify" />
 
                 <LinearLayout
                     android:id="@+id/legalLinks"
@@ -174,28 +266,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/termsPrefix">
 
-                    <TextView
-                        android:id="@+id/term_condition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Terms &amp; Conditions"
-                        android:textColor="#808080"
-                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" and "
-                        android:textColor="#808080"
+                        android:text="Resend OTP "
+                        android:textColor="@color/primaryBlue"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/privacy_policy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Privacy Policy"
-                        android:textColor="#808080"
-                        android:textSize="12sp" />
+
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

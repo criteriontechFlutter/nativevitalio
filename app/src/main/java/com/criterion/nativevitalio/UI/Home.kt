@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.ActivityDashboardBinding
 
-class Dashboard :  AppCompatActivity() {
+class Home :  AppCompatActivity() {
     private lateinit var binding : ActivityDashboardBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

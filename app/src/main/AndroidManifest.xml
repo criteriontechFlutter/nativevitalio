@@ -17,7 +17,10 @@
         android:theme="@style/Theme.Nativevitalio"
         tools:targetApi="31">
         <activity
-            android:name=".UI.Dashboard"
+            android:name=".UI.otp"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Home"
             android:exported="false" />
         <activity
             android:name=".UI.EditProfile"
