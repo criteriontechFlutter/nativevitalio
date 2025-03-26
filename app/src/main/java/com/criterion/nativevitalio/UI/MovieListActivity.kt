@@ -20,7 +20,7 @@ class MovieListActivity : AppCompatActivity() {
         prepareRecyclerView()
         viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
         if (NetworkUtils.checkAndShowToast()) {
-            viewModel.getPopularMovies()
+//            viewModel.getPopularMovies()
         } else {
             // Show retry or skip
         }
