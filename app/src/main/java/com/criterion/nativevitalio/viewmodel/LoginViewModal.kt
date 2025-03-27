@@ -2,12 +2,19 @@ package com.criterion.nativevitalio.viewmodel
 
 import Patient
 import PrefsManager
+import android.app.AlertDialog
+import android.content.Context
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.Utils.ApiEndPoint
+import com.criterion.nativevitalio.Utils.MyApplication
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.google.gson.Gson
@@ -16,8 +23,6 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-    private val _movieResults = MutableLiveData<List<Patient>>()
-    val movieResults: LiveData<List<Patient>> get() = _movieResults
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -49,8 +54,7 @@ class LoginViewModel : ViewModel() {
 
                 if (response.isSuccessful) {
                     val responseBodyString = response.body()?.string()
-//                    val patient = Gson().fromJson(jsonString, Patient::class.java)
-//                    PrefsManager().savePatient( )
+
 
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
@@ -58,20 +62,14 @@ class LoginViewModel : ViewModel() {
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
                     val firstPatient = parsed.responseValue.firstOrNull()
 
-                    if (firstPatient != null) {
-                        Log.d("RESPONSE", "Full Patient: ${Gson().toJson(firstPatient)}")
-                    } else {
-                        Log.e("RESPONSE", "No patient data found.")
-                    }
-                    firstPatient?.let {
-                        PrefsManager( ).savePatient(it)
 
+                    firstPatient?.let {
+//                        PrefsManager( ).savePatient(it)
+                        sentLogInOTPForSHFCApp(it.uhid )
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhid.toString()}")
                     }
-                    SentLogInOTPForSHFCApp(PrefsManager().getPatient()?.uhid.toString())
-                    // Optionally parse it:
-                    // val patient = Gson().fromJson(responseBodyString, Patient::class.java)
-                    // _userData.value = patient
+
+
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }
@@ -83,9 +81,8 @@ class LoginViewModel : ViewModel() {
             }
         }
     }
-//    https://api.medvantage.tech:7082/api/LogInForSHFCApp/SentLogInOTPForSHFCApp?UHID=uhid01256&ifLoggedOutFromAllDevices=0
 
-    fun SentLogInOTPForSHFCApp(uhid: String) {
+    private fun sentLogInOTPForSHFCApp(uhid: String,ifLoggedOutFromAllDevices: String="0") {
         _loading.value = true
 
         viewModelScope.launch {
@@ -93,7 +90,7 @@ class LoginViewModel : ViewModel() {
 
 
                 val queryParams = mapOf(
-                    "ifLoggedOutFromAllDevices" to "0",
+                    "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
                     "UHID" to uhid
                 )
 
@@ -101,21 +98,17 @@ class LoginViewModel : ViewModel() {
                 val response = RetrofitInstance
                     .createApiService( )
                     .dynamicGet(
-                        url = "api/LogInForSHFCApp/SentLogInOTPForSHFCApp",
+                        url = ApiEndPoint().sentLogInOTPForSHFCApp,
                         params = queryParams
                     )
 
                 _loading.value = false
-
+                showVitalDialog("title")
                 if (response.isSuccessful) {
                     val responseBodyString = response.body()?.string()
-//                    val patient = Gson().fromJson(jsonString, Patient::class.java)
-//                    PrefsManager().savePatient( )
 
                     Log.d("RESPONSE", "responseValue: ${responseBodyString }")
-                    // Optionally parse it:
-                    // val patient = Gson().fromJson(responseBodyString, Patient::class.java)
-                    // _userData.value = patient
+
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }
@@ -126,5 +119,28 @@ class LoginViewModel : ViewModel() {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun showVitalDialog(  title: String) {  // Use Activity, not Application Context
+//        if (activity.isFinishing || activity.isDestroyed) return  // Safety check
+//
+//        val dialogView = LayoutInflater.from(activity).inflate(R.layout.login_multiple_dialog, null)
+//
+//        val dialog = AlertDialog.Builder(activity)  // Use Activity context
+//            .setView(dialogView)
+//            .create()
+//
+//        dialogView.findViewById<TextView>(R.id.title).text = title
+//
+//        dialogView.findViewById<Button>(R.id.btnLogoutAll).setOnClickListener {
+//            dialog.dismiss()
+//            // Your function (e.g., logout)
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.btnCancel).setOnClickListener {
+//            dialog.dismiss()
+//        }
+//
+//        dialog.show()
     }
 }

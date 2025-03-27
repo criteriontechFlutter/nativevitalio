@@ -5,9 +5,13 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -74,15 +78,33 @@ class Login : AppCompatActivity() {
             }
         }
 
-        viewModel.movieResults.observe(this) { resultList ->
-            if (!resultList.isNullOrEmpty()) {
-                val userInput = binding.inputField.text.toString().trim()
-                val intent = Intent(this, otp::class.java)
-                intent.putExtra("user_input", userInput)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "No patient data found.", Toast.LENGTH_SHORT).show()
-            }
+
+    }
+
+
+    private fun setupObservers() {
+//        viewModel.showDialog.observe(this) { title ->
+//            title?.let { showVitalDialog(it) }
+//        }
+    }
+    private fun showVitalDialog(title: String) {
+        if (isFinishing || isDestroyed) return
+
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.login_multiple_dialog, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        dialogView.findViewById<TextView>(R.id.title)?.text = title
+        dialogView.findViewById<Button>(R.id.btnLogoutAll)?.setOnClickListener {
+            dialog.dismiss()
+            // Handle logout from all devices
+//            viewModel.sentLogInOTPForSHFCApp(uhid, "1")
         }
+        dialogView.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

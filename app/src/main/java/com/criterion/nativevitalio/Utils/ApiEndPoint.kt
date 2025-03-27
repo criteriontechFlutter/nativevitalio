@@ -2,5 +2,6 @@ package com.criterion.nativevitalio.Utils
 
 class ApiEndPoint {
 
-    var getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
+    val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
+    val sentLogInOTPForSHFCApp="api/LogInForSHFCApp/SentLogInOTPForSHFCApp"
 }
