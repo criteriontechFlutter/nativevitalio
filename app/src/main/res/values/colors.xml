@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Primary Colors -->
+    <color name="primaryColor">#001767</color>
     <color name="primaryBlue">#1564ED</color>
     <color name="primaryBlue2">#0C73BB</color>
     <color name="primaryBlueLight">#F5F8FC</color>
@@ -51,6 +52,7 @@
 
     <!-- Whites -->
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#B90505</color>
     <color name="whiteDull">#E4EEFF</color>
     <color name="bgcolor_signup">#1564ED</color>
     <color name="black">black</color>
@@ -59,4 +61,9 @@
     <color name="terms_color">#828691</color>
     <color name="purple_200">#FFBB86FC</color>
 
+
+    <color name="dullBlack">#2D3344FF</color>
+    <color name="greyDark">#616161FF</color>
+    <color name="darkYellow">#FFC107FF</color>
+    <color name="black">#000000</color>
 </resources>
