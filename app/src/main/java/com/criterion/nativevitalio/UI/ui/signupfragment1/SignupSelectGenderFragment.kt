@@ -12,11 +12,6 @@ import com.criterion.nativevitalio.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignupSelectGenderFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignupSelectGenderFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -35,18 +30,11 @@ class SignupSelectGenderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_signup_select_gender, container, false)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignupSelectGenderFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

@@ -13,7 +13,8 @@ import retrofit2.Response
 class MovieViewModel : ViewModel() {
     private var movieLiveData = MutableLiveData<List<com.criterion.nativevitalio.model.Result>>()
     fun getPopularMovies() {
-        RetrofitInstance.api.getPopularMovies("Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNjNkZGZjM2UxNTYwMjI4NDIzMmMzYzY5OWRiOTA3YSIsIm5iZiI6MTc0MjU3NjQxNC43ODgsInN1YiI6IjY3ZGQ5YjFlYzcwYWNkZDlkZjY5OWMwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SMADbRO6a7UycFI0lFJ8szk4dMAxL-rLo2tIYFmSgU0").enqueue(object :
+        RetrofitInstance.api.getPopularMovies(
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNjNkZGZjM2UxNTYwMjI4NDIzMmMzYzY5OWRiOTA3YSIsIm5iZiI6MTc0MjU3NjQxNC43ODgsInN1YiI6IjY3ZGQ5YjFlYzcwYWNkZDlkZjY5OWMwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SMADbRO6a7UycFI0lFJ8szk4dMAxL-rLo2tIYFmSgU0").enqueue(object :
             Callback<Movies> {
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                 if (response.body()!=null){
@@ -29,6 +30,9 @@ class MovieViewModel : ViewModel() {
             }
         })
     }
+
+
+
     fun observeMovieLiveData() : LiveData<List<com.criterion.nativevitalio.model.Result>> {
         return movieLiveData
     }

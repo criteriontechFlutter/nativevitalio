@@ -1,5 +1,6 @@
 package com.criterion.nativevitalio.UI
 
+import NetworkUtils
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -18,9 +19,15 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(binding.root)
         prepareRecyclerView()
         viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
-        viewModel.getPopularMovies()
+        if (NetworkUtils.checkAndShowToast()) {
+            viewModel.getPopularMovies()
+        } else {
+            // Show retry or skip
+        }
+
         viewModel.observeMovieLiveData().observe(this, fun(movieLiveData: List<Any>) {
             movieAdapter.setMovieList(movieLiveData)
+
         })
     }
 
