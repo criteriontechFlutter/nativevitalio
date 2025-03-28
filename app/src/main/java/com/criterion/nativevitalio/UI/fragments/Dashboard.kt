@@ -25,7 +25,7 @@ class Dashboard : Fragment() {
 
 
         binding.profileSection.setOnClickListener {
-          findNavController().navigate(R.id.action_dashboard_to_drawer)
+          findNavController().navigate(R.id.action_dashboard_to_drawer4)
 
         }
     }

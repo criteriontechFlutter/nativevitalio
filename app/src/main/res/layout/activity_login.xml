@@ -149,6 +149,7 @@
                     app:strokeWidth="5dp"
                     app:strokeColor="@android:color/holo_red_dark" />
 
+
                 <!-- Legal Text -->
                 <TextView
                     android:id="@+id/termsPrefix"
@@ -179,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Terms &amp; Conditions"
-                        android:textColor="#808080"
+                        android:textColor="@color/primaryBlue"
                         android:textSize="12sp" />
 
                     <TextView
@@ -194,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Privacy Policy"
-                        android:textColor="#808080"
+                        android:textColor="@color/primaryBlue"
                         android:textSize="12sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

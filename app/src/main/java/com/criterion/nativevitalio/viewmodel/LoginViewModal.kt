@@ -3,16 +3,25 @@ package com.criterion.nativevitalio.viewmodel
 import Patient
 import PrefsManager
 import android.app.AlertDialog
+import android.app.usage.UsageEvents
 import android.content.Context
+import android.content.Intent
+import android.media.metrics.Event
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.app.PendingIntentCompat
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.ContentInfoCompat.Flags
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.UI.Home
+import com.criterion.nativevitalio.UI.Login
+import com.criterion.nativevitalio.UI.otp
 import com.criterion.nativevitalio.Utils.ApiEndPoint
 import com.criterion.nativevitalio.Utils.MyApplication
 import com.criterion.nativevitalio.model.BaseResponse
@@ -22,6 +31,12 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
+
+
+    private val _showDialog = MutableLiveData<String?>()
+    val showDialog: LiveData<String?> get() = _showDialog
+
+
 
 
     private val _errorMessage = MutableLiveData<String>()
@@ -65,6 +80,7 @@ class LoginViewModel : ViewModel() {
 
                     firstPatient?.let {
 //                        PrefsManager( ).savePatient(it)
+                        Login.storedUHID=it.uhid
                         sentLogInOTPForSHFCApp(it.uhid )
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhid.toString()}")
                     }
@@ -82,7 +98,7 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    private fun sentLogInOTPForSHFCApp(uhid: String,ifLoggedOutFromAllDevices: String="0") {
+    fun sentLogInOTPForSHFCApp(uhid: String,ifLoggedOutFromAllDevices: String="0") {
         _loading.value = true
 
         viewModelScope.launch {
@@ -103,13 +119,21 @@ class LoginViewModel : ViewModel() {
                     )
 
                 _loading.value = false
-                showVitalDialog("title")
+
                 if (response.isSuccessful) {
                     val responseBodyString = response.body()?.string()
 
-                    Log.d("RESPONSE", "responseValue: ${responseBodyString }")
+                    val intent = Intent(MyApplication.appContext, otp::class.java).apply {
+                        putExtra("UHID", uhid)
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    MyApplication.appContext.startActivity(intent)
+
+
+                    Log.d("RESPONSE", "responseValue: $responseBodyString")
 
                 } else {
+                    _showDialog.postValue("Logout Confirmation")
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -121,26 +145,5 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun showVitalDialog(  title: String) {  // Use Activity, not Application Context
-//        if (activity.isFinishing || activity.isDestroyed) return  // Safety check
-//
-//        val dialogView = LayoutInflater.from(activity).inflate(R.layout.login_multiple_dialog, null)
-//
-//        val dialog = AlertDialog.Builder(activity)  // Use Activity context
-//            .setView(dialogView)
-//            .create()
-//
-//        dialogView.findViewById<TextView>(R.id.title).text = title
-//
-//        dialogView.findViewById<Button>(R.id.btnLogoutAll).setOnClickListener {
-//            dialog.dismiss()
-//            // Your function (e.g., logout)
-//        }
-//
-//        dialogView.findViewById<Button>(R.id.btnCancel).setOnClickListener {
-//            dialog.dismiss()
-//        }
-//
-//        dialog.show()
-    }
+
 }

@@ -11,11 +11,20 @@
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_dashboard_to_drawer"
-            app:destination="@id/drawer" />
+            android:id="@+id/action_dashboard_to_drawer4"
+            app:destination="@id/drawer4" />
     </fragment>
-    <activity
-        android:id="@+id/drawer"
-        android:name="com.criterion.nativevitalio.UI.drawer"
-        android:label="drawer" />
+    <fragment
+        android:id="@+id/allergies3"
+        android:name="com.criterion.nativevitalio.UI.fragments.Allergies"
+        android:label="Allergies" />
+    <fragment
+        android:id="@+id/drawer4"
+        android:name="com.criterion.nativevitalio.UI.fragments.drawer"
+        android:label="drawer" >
+        <action
+            android:id="@+id/action_drawer4_to_allergies3"
+            app:destination="@id/allergies3" />
+    </fragment>
+
 </navigation>
