@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UI.ui.signupfragment1.BloodGroupFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="And what is your Blood Group?"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.circularreveal.CircularRevealGridLayout
+            android:id="@+id/gridBloodGroups"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="4"
+            android:layout_marginVertical="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingTop="@dimen/_20sdp">
+
+            <Button
+                android:id="@+id/btnAplus"
+                android:text="@string/a"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnAminus"
+                android:text="@string/a_minus"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnBplus"
+                android:text="@string/b_positive"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnBminus"
+                android:text="@string/b_minus"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnABplus"
+                android:text="@string/ab_positive"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnABminus"
+                android:text="@string/ab_minus"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnOplus"
+                android:text="@string/o_positive"
+                style="@style/BloodGroupButton"/>
+            <Button
+                android:id="@+id/btnOminus"
+                android:text="@string/o_minus"
+                style="@style/BloodGroupButton"/>
+
+        </com.google.android.material.circularreveal.CircularRevealGridLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryBlue"
+            android:text="@string/next"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

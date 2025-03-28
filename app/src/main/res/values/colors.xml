@@ -54,6 +54,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#B90505</color>
     <color name="whiteDull">#E4EEFF</color>
+    <color name="bgcolor_signup">#1564ED</color>
+    <color name="black">black</color>
+    <color name="edttxt_bg">#EDF1F6</color>
+    <color name="edt_bg">#EDF1F6</color>
+    <color name="terms_color">#828691</color>
+    <color name="purple_200">#FFBB86FC</color>
 
 
     <color name="dullBlack">#2D3344FF</color>
