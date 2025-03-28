@@ -23,6 +23,9 @@
             android:name=".UI.Home"
             android:exported="false" />
         <activity
+            android:name=".UI.Login"
+            android:exported="false" />
+        <activity
             android:name=".UI.EditProfile"
             android:exported="false" />
         <activity
@@ -34,7 +37,7 @@
             android:name=".UI.MovieListActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.Login"
+            android:name=".UI.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
