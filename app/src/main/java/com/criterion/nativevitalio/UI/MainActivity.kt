@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ProgressBar
 import androidx.navigation.NavController
-import com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment1
 
 class MainActivity : AppCompatActivity() {
 

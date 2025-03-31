@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupfragment1
+package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import androidx.lifecycle.ViewModel
 
