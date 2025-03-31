@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/uhidFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment1"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment1"
         android:label="Enter UHID"
         tools:layout="@layout/fragment_sign_up_fragment1">
         <action
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/otpFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupfragment1.OtpVerificationFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.OtpVerificationFragment"
         android:label="Verify OTP"
         tools:layout="@layout/fragment_otp_verification" />
     <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nameFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment2"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment2"
         android:label="Verify OTP"
         tools:layout="@layout/fragment_sign_up2" />
     <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupfragment1.SignupSelectGenderFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
         android:label="Verify OTP"
         tools:layout="@layout/fragment_signup_select_gender" />
 <!--    <action-->

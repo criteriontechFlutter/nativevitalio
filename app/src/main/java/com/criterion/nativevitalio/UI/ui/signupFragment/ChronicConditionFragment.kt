@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupfragment1
+package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [OtpVerificationFragment.newInstance] factory method to
+ * Use the [ChronicConditionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class OtpVerificationFragment : Fragment() {
+class ChronicConditionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +35,7 @@ class OtpVerificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+        return inflater.inflate(R.layout.fragment_chronic_condition, container, false)
     }
 
     companion object {
@@ -45,29 +45,16 @@ class OtpVerificationFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment OtpVerificationFragment.
+         * @return A new instance of fragment ChronicConditionFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            OtpVerificationFragment().apply {
+            ChronicConditionFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
-        var otpView = findViewById<OTPView>(R.id.otpView)
-
-        /*otpView.setOTPListener(object : OTPView.OTPListener {
-            override fun onOTPCompleted(otp: String) {
-                Toast.makeText(this@MainActivity, "OTP Completed $otp", Toast.LENGTH_LONG).show()
-                if(otp == "123456"){
-                    otpView.showSuccess()
-                }else{
-                    otpView.showFailure()
-                }
-            }
-
-        })*/
     }
 }

@@ -29,7 +29,7 @@
         app:layout_constraintMarginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- Skip Button -->
+
     <TextView
         android:id="@+id/skipButton"
         android:layout_width="wrap_content"
@@ -164,20 +164,17 @@
         app:layout_constraintMarginEnd="16dp"
         app:layout_constraintMarginTop="8dp"/>
 
-    <!-- Next Button -->
     <Button
         android:id="@+id/nextButton"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:backgroundTint="@color/primaryBlue"
+        android:backgroundTint="@color/bgcolor_signup"
         android:text="@string/next"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/rounded_button_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginEnd="50dp"
-        app:layout_constraintMarginStart="16dp"
-        app:layout_constraintMarginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
