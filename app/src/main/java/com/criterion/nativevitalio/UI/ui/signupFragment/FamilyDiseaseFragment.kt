@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupfragment1
+package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [BloodGroupFragment.newInstance] factory method to
+ * Use the [FamilyDiseaseFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BloodGroupFragment : Fragment() {
+class FamilyDiseaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +35,7 @@ class BloodGroupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blood_group, container, false)
+        return inflater.inflate(R.layout.fragment_family_disease, container, false)
     }
 
     companion object {
@@ -45,12 +45,12 @@ class BloodGroupFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment BloodGroupFragment.
+         * @return A new instance of fragment FamilyDiseaseFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            BloodGroupFragment().apply {
+            FamilyDiseaseFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
