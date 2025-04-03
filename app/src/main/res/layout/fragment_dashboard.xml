@@ -185,6 +185,7 @@
 
            <!-- Symptoms Tracker -->
            <FrameLayout
+               android:id="@+id/symptoms_tracker"
                android:layout_width="0dp"
                android:layout_height="wrap_content"
                android:layout_columnWeight="1"
@@ -215,6 +216,7 @@
 
            <!-- Pills Reminder -->
            <FrameLayout
+               android:id="@+id/pills_reminder"
                android:layout_width="0dp"
                android:layout_height="wrap_content"
                android:layout_columnWeight="1"

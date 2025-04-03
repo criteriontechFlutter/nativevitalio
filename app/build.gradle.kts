@@ -56,7 +56,7 @@ dependencies {
     implementation (libs.sdp.android)
 
     //otp view
-    implementation (libs.otpview)
+//    implementation (libs.otpview)
 
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
 

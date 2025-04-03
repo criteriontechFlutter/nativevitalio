@@ -28,6 +28,19 @@ class Dashboard : Fragment() {
           findNavController().navigate(R.id.action_dashboard_to_drawer4)
 
         }
+
+
+
+        binding.pillsReminder.setOnClickListener {
+            findNavController().navigate(R.id.pillsReminder)
+
+        }
+
+        binding.symptomsTracker.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_symtoms)
+
+        }
+
     }
 
 

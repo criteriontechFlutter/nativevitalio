@@ -1,5 +1,6 @@
 package com.criterion.nativevitalio.UI.fragments
 
+import PrefsManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,11 @@ class drawer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.allergies.setOnClickListener {
+            findNavController().navigate(R.id.action_drawer4_to_allergies3)
+
+        }
+        binding.logoout.setOnClickListener {
+            PrefsManager().clearPatient()
             findNavController().navigate(R.id.action_drawer4_to_allergies3)
 
         }

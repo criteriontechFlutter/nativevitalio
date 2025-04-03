@@ -56,7 +56,7 @@ class OtpVerificationFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
-        var otpView = findViewById<OTPView>(R.id.otpView)
+//        var otpView = findViewById<OTPView>(R.id.otpView)
 
         /*otpView.setOTPListener(object : OTPView.OTPListener {
             override fun onOTPCompleted(otp: String) {

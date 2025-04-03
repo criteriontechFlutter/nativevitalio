@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Top bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/reminders"
+                android:contentDescription="Back" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Symptom Tracker"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:textColor="#000000"
+                android:layout_height="0dp"/>
+
+            <TextView
+                android:id="@+id/historyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textColor="#1976D2"
+                android:textSize="14sp"
+                android:drawableEnd="@drawable/reminders"
+                android:drawablePadding="4dp" />
+        </LinearLayout>
+
+        <!-- Search -->
+        <EditText
+            android:id="@+id/searchSymptom"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Search Symptoms i.e. cold, cough"
+            android:background="@drawable/rounded_coner_gl_16"
+            android:paddingHorizontal="16dp"
+            android:drawableStart="@drawable/reminders"
+            android:drawablePadding="8dp" />
+
+        <!-- Highlight section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Highlight any other symptoms you’re experiencing from the list below."
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Symptom Grid -->
+        <GridLayout
+            android:id="@+id/symptomGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="4"
+            android:orientation="horizontal"
+            android:useDefaultMargins="true">
+
+            <!-- Example Symptom Card -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="center"
+                android:layout_margin="4dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/reminders"
+                    android:contentDescription="Icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Acidity"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- Repeat above block for Body Pain, Fever, etc. -->
+
+        </GridLayout>
+
+        <!-- Other Symptoms -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Other Symptoms"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp" />
+
+        <!-- Flow symptoms -->
+<!--        <FlowLayout-->
+<!--            android:id="@+id/otherSymptomsFlow"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:lineSpacing="8dp"-->
+<!--            android:rowSpacing="8dp">-->
+
+<!--            &lt;!&ndash; Example Chip &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Abdominal Pain"-->
+<!--                android:paddingHorizontal="12dp"-->
+<!--                android:paddingVertical="6dp"-->
+<!--                android:background="@drawable/rounded_corners"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textSize="13sp" />-->
+<!--        </FlowLayout>-->
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/saveSymptomsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:text="Save and Update Symptoms"
+            android:backgroundTint="#1976D2"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

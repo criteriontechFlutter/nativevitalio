@@ -28,9 +28,6 @@
         <activity
             android:name=".UI.EditProfile"
             android:exported="false" />
-        <activity
-            android:name=".UI.drawer"
-            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".UI.MovieListActivity" -->
         <!-- android:exported="false" /> -->
         <activity

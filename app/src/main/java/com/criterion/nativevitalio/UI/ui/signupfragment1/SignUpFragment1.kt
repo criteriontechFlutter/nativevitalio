@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.criterion.nativevitalio.R
 
-import com.criterion.nativevitalio.UI.R
 
 class SignUpFragment1 : Fragment() {
 

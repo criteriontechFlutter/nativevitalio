@@ -1,0 +1,53 @@
+<com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rowScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <!-- DRUG INFO -->
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:paddingEnd="8dp">
+
+            <TextView
+                android:id="@+id/tvDrugName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medicine Name"
+
+                style="@style/mediumBCN"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true" />
+
+            <TextView
+                android:id="@+id/tvDoseFrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dosage"
+
+                style="@style/smallGCN" />
+        </LinearLayout>
+
+        <!-- TIME ICONS -->
+        <LinearLayout
+            android:id="@+id/dynamicIconsLayout"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </LinearLayout>
+</com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView>
