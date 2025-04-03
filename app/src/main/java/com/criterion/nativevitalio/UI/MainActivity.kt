@@ -10,14 +10,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.ui.signupfragment1.ProgressViewModel
 import com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment1
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var progressBar: ProgressBar
-    private val progressViewModel: ProgressViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +30,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
         // Observe progress changes and update progress bar
-        progressViewModel.progress.observe(this, Observer { progress ->
-            progressBar.progress = progress
-        })
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
