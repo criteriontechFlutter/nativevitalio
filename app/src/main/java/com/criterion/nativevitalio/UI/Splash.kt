@@ -26,7 +26,6 @@ class Splash : AppCompatActivity() {
 
             // Navigate to the appropriate screen
             if (!currentPatientUHID.isNullOrEmpty()) {
-
                 startActivity(Intent(this, Home::class.java))
             } else {
                 startActivity(Intent(this, Login::class.java))

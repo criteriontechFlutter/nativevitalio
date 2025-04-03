@@ -3,7 +3,14 @@ package com.criterion.nativevitalio.UI
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ProgressBar
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.UI.ui.signupfragment1.ProgressViewModel
 import com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment1
 
 class MainActivity : AppCompatActivity() {

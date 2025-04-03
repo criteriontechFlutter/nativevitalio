@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 // Data class for patient (include all fields from your JSON)
 data class Patient(
-//    @SerializedName("id") val id: String,
+    @SerializedName("id") val id: String,
 //    @SerializedName("token") val token: String,
     @SerializedName("pid") val pid: String,
     @SerializedName("patientName") val name: String,

@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_dashboard_to_drawer4"
             app:destination="@id/drawer4" />
+        <action
+            android:id="@+id/action_dashboard_to_pillsReminder"
+            app:destination="@id/pillsReminder" />
+        <action
+            android:id="@+id/action_dashboard_to_symtoms"
+            app:destination="@id/symtoms" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -26,5 +32,13 @@
             android:id="@+id/action_drawer4_to_allergies3"
             app:destination="@id/allergies3" />
     </fragment>
+    <fragment
+        android:id="@+id/pillsReminder"
+        android:name="com.criterion.nativevitalio.UI.fragments.PillsReminder"
+        android:label="PillsReminder" />
+    <fragment
+        android:id="@+id/symtoms"
+        android:name="com.criterion.nativevitalio.UI.fragments.Symtoms"
+        android:label="Symtoms" />
 
 </navigation>

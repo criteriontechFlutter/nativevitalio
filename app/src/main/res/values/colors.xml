@@ -13,7 +13,7 @@
     <color name="blue2">#0095FF</color>
 
     <!-- Grey Tones -->
-    <color name="greyText">#546788</color>
+    <color name="greyText">#818284</color>
     <color name="greyText2">#828691</color>
     <color name="greyText3">#9B9B9B</color>
     <color name="darkGreyText">#546788</color>
@@ -55,7 +55,6 @@
     <color name="red">#B90505</color>
     <color name="whiteDull">#E4EEFF</color>
     <color name="bgcolor_signup">#1564ED</color>
-    <color name="black">black</color>
     <color name="edttxt_bg">#EDF1F6</color>
     <color name="edt_bg">#EDF1F6</color>
     <color name="terms_color">#828691</color>
