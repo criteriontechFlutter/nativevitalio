@@ -21,10 +21,7 @@ class MovieListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
         if (NetworkUtils.checkAndShowToast()) {
 //            viewModel.getPopularMovies()
-        } else {
-            // Show retry or skip
         }
-
         viewModel.observeMovieLiveData().observe(this, fun(movieLiveData: List<Any>) {
             movieAdapter.setMovieList(movieLiveData)
 

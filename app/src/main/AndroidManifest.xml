@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".Utils.MyApplication"
         android:allowBackup="true"
@@ -15,6 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nativevitalio"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".UI.otp"
@@ -34,7 +38,7 @@
             android:name=".UI.MovieListActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.Splash"
+            android:name=".Omron.Activities.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +46,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+        <activity android:name=".Omron.Activities.SupportDeviceListActivity" android:exported="false" android:label="@string/title_activity_support_device_list"  android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.WheezeMainActivity" android:exported="false" android:screenOrientation="portrait">
+            <meta-data android:name="android.app.lib_name" android:value=""/>
+        </activity>
+        <activity android:name=".Omron.Activities.WeightScaleDataListingActivity" android:exported="false" android:screenOrientation="portrait">
+            <meta-data android:name="android.app.lib_name" android:value=""/>
+        </activity>
+        <activity android:name=".Omron.Activities.WheezeDataListingActivity" android:exported="false" android:screenOrientation="fullSensor">
+            <meta-data android:name="android.app.lib_name" android:value=""/>
+        </activity>
+        <activity android:name=".Omron.Activities.UserPersonalSettingsActivity" android:screenOrientation="fullSensor"/>
+        <activity android:name=".Omron.Activities.BloodPressureMainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.OmronConnectedDeviceList" android:screenOrientation="portrait" />
+        <activity android:name=".Omron.Activities.BloodPressureDataListingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.BaseActivity"/>
+        <activity android:name=".Omron.Activities.WeightScaleMainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.TemperatureRecordingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.PulseOxymeterMainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.PulseOxymeterDataListingActivity" android:screenOrientation="fullSensor"/>
+        <activity android:name=".Omron.Activities.ActivityMainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.ScanActivity" android:screenOrientation="portrait" />
+        <provider android:name=".Omron.Database.OmronDBProvider" android:authorities="com.criterion.nativevitalio.Database.OmronDBProvider" android:exported="false"/>
+
+        <activity android:name=".Omron.Activities.DataListingActivity" android:label="@string/title_activity_data_listing" android:screenOrientation="fullSensor" />
+        <activity android:name=".Omron.Activities.ActivityDataActivity" android:label="@string/title_activity_data_listing" android:screenOrientation="portrait" />
+        <activity android:name=".Omron.Activities.ReminderActivity" android:label="@string/title_activity_reminder" android:screenOrientation="portrait" />
+        <activity android:name=".Omron.Activities.DataDeviceListingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Omron.Activities.ActivityListingActivity" android:label="@string/title_activity_listing" android:screenOrientation="portrait" />
+        <receiver android:name=".Omron.utility.NotificationPublisher" android:exported="false"/>
+        
     </application>
 
 </manifest>

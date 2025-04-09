@@ -64,5 +64,15 @@
     <color name="dullBlack">#2D3344FF</color>
     <color name="greyDark">#616161FF</color>
     <color name="darkYellow">#FFC107FF</color>
-    <color name="black">#000000</color>
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="light_grey">#d3d3d3</color>
+    <color name="start_blue">#1E90FF</color>
+    <color name="start_blue_dark">#006ad1</color>
+    <color name="omron_blue">#0072BB</color>
+    <color name="button_grey">#808080</color>
+    <color name="black">#000</color>
 </resources>

@@ -37,7 +37,7 @@ class Dashboard : Fragment() {
         }
 
         binding.symptomsTracker.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_symtoms)
+            findNavController().navigate(R.id.action_dashboard_to_symptomsFragment)
 
         }
 

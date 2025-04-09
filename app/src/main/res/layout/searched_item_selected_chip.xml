@@ -1,0 +1,22 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="symptom"
+            type="com.criterion.nativevitalio.model.ProblemWithIcon" />
+    </data>
+
+    <TextView
+        android:id="@+id/searchChipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{symptom.problemName}"
+        android:padding="12dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/chip_background_unselected"
+    android:textColor="@color/terms_color"
+    android:textSize="14sp"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:clickable="true"
+    android:focusable="true" />
+</layout>

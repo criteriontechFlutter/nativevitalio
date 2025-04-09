@@ -16,9 +16,16 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+
+        flatDir {
+            dirs("libs")
+        }
     }
 }
 
 rootProject.name = "nativevitalio"
 include(":app")
+include( ":omronconnectivitylibrary")
+include(":omronconnectivitylibraryassets")
+
  

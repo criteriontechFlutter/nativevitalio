@@ -71,7 +71,7 @@ class OtpViewModal  :ViewModel(){
         }
     }
 
-    fun getPatientDetailsByUHID(uhid: String) {
+    private fun getPatientDetailsByUHID(uhid: String) {
         _loading.value = true
 
         viewModelScope.launch {
