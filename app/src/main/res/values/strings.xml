@@ -42,7 +42,6 @@
     <string name="o_minus">O-</string>
 
 
-
     <string name="symptoms_tracker">Symptom Tracker</string>
     <string name="history">History-</string>
     <string name="search_symptom">Search Symptoms i.e. cold, cough-</string>
@@ -55,15 +54,10 @@
     <string name="monthly">Monthly</string>
 
 
-
-
-
-
     <string name="pills_checklist">Pills Checklist</string>
     <string name="medicine_box">Medicine box</string>
     <string name="pills_for_the_day">Pills for the day</string>
     <string name="see_timeline">See Timeline</string>
-
 
 
     <string name="menu1">Personal Settings</string>
