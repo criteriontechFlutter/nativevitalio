@@ -52,10 +52,16 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+//    implementation(fileTree(mapOf(
+//        "dir" to "C:\\Gitea_Projects\\nativevitalio\\app\\libs\\omronconnectivitylibrary.aar",
+//        "include" to listOf("*.aar", "*.jar"),
+//    )))
     implementation(fileTree(mapOf(
-        "dir" to "C:\\Gitea_Projects\\nativevitalio\\app\\libs\\omronconnectivitylibrary.aar",
-        "include" to listOf("*.aar", "*.jar"),
+        "dir" to "libs",
+        "include" to listOf("*.aar", "*.jar")
     )))
+
+
     /*    implementation(libs.androidx.navigation.fragment.ktx)
         implementation(libs.androidx.navigation.ui.ktx)*/
     testImplementation(libs.junit)
