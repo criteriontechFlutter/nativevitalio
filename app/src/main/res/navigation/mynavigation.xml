@@ -17,8 +17,8 @@
             android:id="@+id/action_dashboard_to_pillsReminder"
             app:destination="@id/pillsReminder" />
         <action
-            android:id="@+id/action_dashboard_to_symtoms"
-            app:destination="@id/symtoms" />
+            android:id="@+id/action_dashboard_to_symptomsFragment"
+            app:destination="@id/symptomsFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -37,8 +37,24 @@
         android:name="com.criterion.nativevitalio.UI.fragments.PillsReminder"
         android:label="PillsReminder" />
     <fragment
-        android:id="@+id/symtoms"
-        android:name="com.criterion.nativevitalio.UI.fragments.Symtoms"
-        android:label="Symtoms" />
+        android:id="@+id/symptomsFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.SymptomsFragment"
+        android:label="SymptomsFragment" >
+        <action
+            android:id="@+id/action_symptomsFragment_to_symptomTrackerFragments"
+            app:destination="@id/symptomTrackerFragments" />
+        <action
+            android:id="@+id/action_symptomsFragment_to_symptomHistory"
+            app:destination="@id/symptomHistory" />
+    </fragment>
+    <fragment
+        android:id="@+id/symptomTrackerFragments"
+        android:name="com.criterion.nativevitalio.UI.fragments.SymptomTrackerFragments"
+        android:label="fragment_symptom_tracker_fragments"
+        tools:layout="@layout/fragment_symptom_tracker_fragments" />
+    <fragment
+        android:id="@+id/symptomHistory"
+        android:name="com.criterion.nativevitalio.UI.fragments.SymptomHistory"
+        android:label="SymptomHistory" />
 
 </navigation>

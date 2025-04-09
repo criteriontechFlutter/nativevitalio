@@ -57,5 +57,11 @@ interface ApiService {
         @Body body: Map<String, @JvmSuppressWildcards Any>
     ): Response<ResponseBody>
 
+    @POST
+    suspend fun queryDynamicRawPost(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @QueryMap(encoded = true) params: Map<String, @JvmSuppressWildcards Any>
+    ): Response<ResponseBody>
     // Add similar annotations for PUT, DELETE, etc.
 }

@@ -7,6 +7,9 @@ android {
     namespace = "com.criterion.nativevitalio"
     compileSdk = 35
 
+    sourceSets["main"].resources.srcDir("libs")
+
+
     defaultConfig {
         applicationId = "com.criterion.nativevitalio"
         minSdk = 24
@@ -34,8 +37,12 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        //noinspection DataBindingWithoutKapt
+        dataBinding = true
     }
 }
+
+
 
 dependencies {
 
@@ -44,29 +51,33 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-/*    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)*/
+
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Gitea_Projects\\nativevitalio\\app\\libs\\omronconnectivitylibrary.aar",
+        "include" to listOf("*.aar", "*.jar"),
+    )))
+    /*    implementation(libs.androidx.navigation.fragment.ktx)
+        implementation(libs.androidx.navigation.ui.ktx)*/
     testImplementation(libs.junit)
     implementation(libs.glide)
     implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // or latest version
+    implementation(libs.logging.interceptor) // or latest version
     implementation ("androidx.core:core:1.10.1")
     //Dimen
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)
-
     //otp view
 //    implementation (libs.otpview)
 
-    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
+    implementation (libs.android.gif.drawable)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation ("com.airbnb.android:lottie:6.1.0")
-
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation (libs.lottie)
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
+    implementation (libs.flexbox)
 }
