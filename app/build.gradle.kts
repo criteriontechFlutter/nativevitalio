@@ -68,7 +68,7 @@ dependencies {
     implementation(libs.glide)
     implementation("com.squareup.okhttp3:okhttp")
     implementation(libs.logging.interceptor) // or latest version
-    implementation ("androidx.core:core:1.10.1")
+    implementation (libs.androidx.core)
     //Dimen
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)

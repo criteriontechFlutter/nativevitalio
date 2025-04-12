@@ -2,15 +2,15 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/nav_reminders"
         android:icon="@drawable/reminders"
-        android:title="Reminders" />
+        android:title="@string/reminders" />
 
     <item
         android:id="@+id/nav_chat"
         android:icon="@drawable/chat"
-        android:title="Chat" />
+        android:title="@string/chat" />
 </menu>

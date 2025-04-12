@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F9FAFB"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fluid Data Input"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="left"/>
+               
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="History"
+                    android:layout_gravity="end"
+                    android:textColor="#356DF3"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!-- Tabs -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="#356DF3"
+                app:tabSelectedTextColor="#356DF3"
+                app:tabTextColor="#999999"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.tabs.TabItem
+                    android:text="Fluid Intake"  android:layout_height="match_parent" android:layout_width="match_parent"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:text="Fluid Output"  android:layout_height="match_parent" android:layout_width="match_parent"/>
+            </com.google.android.material.tabs.TabLayout>
+
+            <!-- Recommended / Intake / Remaining -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="fill"
+                android:layout_marginTop="12dp">
+
+                <TextView android:text="Recommended Fluid: 2,000 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <TextView android:text="Intake: 1700 ml"  android:layout_height="wrap_content"
+                    android:gravity="end|right"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:progress="85"
+                android:progressDrawable="@drawable/custom_progress" />
+
+            <TextView
+                android:text="Remaining: 300 ml"
+                android:layout_marginTop="4dp"
+                android:textColor="#F59E0B"
+                android:textSize="14sp"
+                android:gravity="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+            <!-- Glass animation/graphic -->
+            <com.criterion.nativevitalio.Utils.GlassFillView
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                />
+
+
+
+            <TextView
+                android:text="0 ml of 150 ml"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+            <TextView
+                android:text="Last intake: 1h 34m ago"
+                android:textSize="14sp"
+                android:textColor="#999"
+                android:layout_marginTop="4dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+            <!-- Drink Selection -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="12dp">
+
+                <!-- Example: Repeat for each drink type -->
+
+                <ImageView
+                    android:id="@+id/waterBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/selector_button_bg"
+                    android:src="@drawable/ic_water" />
+
+                <ImageView android:src="@drawable/ic_juice"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp" />
+                <!-- Add more drinks -->
+            </LinearLayout>
+
+            <TextView
+                android:text="Enter Fluid Manually"
+                android:textColor="#356DF3"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+            <!-- Glass Size -->
+            <TextView
+                android:text="Select Your Glass Size"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <RadioButton android:text="150 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <RadioButton android:text="250 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
+                <RadioButton android:text="300 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
+                <RadioButton android:text="400 ml"   android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+            </RadioGroup>
+
+            <!-- Add Intake Button -->
+            <Button
+                android:id="@+id/btnAddIntake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Intake"
+                android:textAllCaps="false"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#356DF3"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

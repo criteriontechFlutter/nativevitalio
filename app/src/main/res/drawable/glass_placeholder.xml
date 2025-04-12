@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/_200sdp"
+    android:height="250dp"
+    android:viewportWidth="100"
+    android:viewportHeight="250">
+
+    <!-- Glass outline -->
+    <path
+        android:pathData="M25,10 L75,10 L65,240 L35,240 Z"
+        android:strokeWidth="2"
+        android:strokeColor="#93C5FD"
+        android:fillColor="@android:color/transparent"/>
+</vector>

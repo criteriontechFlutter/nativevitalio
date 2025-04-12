@@ -72,6 +72,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="fluidFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-169" />
+                            <option name="y" value="-339" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="pillsReminder">
                     <value>
                       <LayoutPositions>
@@ -119,6 +131,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_symptomsFragment_to_symptomHistory">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_symptomsFragment_to_symptomTrackerFragments">
                               <value>
                                 <LayoutPositions />
