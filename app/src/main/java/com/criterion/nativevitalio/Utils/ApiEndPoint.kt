@@ -20,4 +20,7 @@ class ApiEndPoint {
     val getAllProblems="Patient/getAllProblems"
     val insertSymtoms="api/PatientIPDPrescription/InsertSymtoms"
     val getSymptoms="api/PatientIPDPrescription/GetSymtoms"
+
+
+    val getFluidIntakeDetails="api/ManualFoodAssign/GetManualFoodAssignList"
 }
