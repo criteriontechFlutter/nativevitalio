@@ -36,6 +36,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_fluidFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_pillsReminder">
                               <value>
                                 <LayoutPositions />
@@ -67,6 +72,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_drawer4_to_settingsFragmentVitalio">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -84,6 +94,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="fluidInputHistoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="35" />
+                            <option name="y" value="-682" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="pillsReminder">
                     <value>
                       <LayoutPositions>
@@ -91,6 +113,18 @@
                           <Point>
                             <option name="x" value="-151" />
                             <option name="y" value="328" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="settingsFragmentVitalio">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="66" />
+                            <option name="y" value="-273" />
                           </Point>
                         </option>
                       </LayoutPositions>

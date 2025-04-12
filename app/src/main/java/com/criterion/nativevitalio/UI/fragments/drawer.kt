@@ -36,10 +36,10 @@ class drawer : Fragment() {
             findNavController().navigate(R.id.action_drawer4_to_allergies3)
 
         }
-//        binding.btnEditProfile.setOnClickListener {
-//           val intent=Intent()
-//
-//        }
+        binding.darkModeRow.root.setOnClickListener {
+         findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
+
+        }
 
 
         initDrawerLayout()
@@ -80,6 +80,7 @@ class drawer : Fragment() {
 
         binding.darkModeRow.title.text = getString(R.string.dark_mode)
         binding.darkModeRow.icon.setImageResource(R.drawable.ic_theme)
+
 
         binding.FAQsRow.title.text = getString(R.string.f_q)
         binding.FAQsRow.icon.setImageResource(R.drawable.ic_faqs)

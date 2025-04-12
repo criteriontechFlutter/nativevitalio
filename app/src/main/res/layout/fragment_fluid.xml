@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F9FAFB"
-        android:padding="16dp">
+        android:padding="5sp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,81 +18,185 @@
             android:gravity="center_horizontal">
 
             <!-- Header -->
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_height="56dp"
+                android:paddingHorizontal="10dp"
+                android:background="#F9FBFF">
 
+                <!-- Back Icon -->
                 <ImageView
+                    android:id="@+id/backIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_back"
+                    android:contentDescription="Back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
+                <!-- Title -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/headerTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Fluid Data Input"
+                    android:text="@string/fluid_data_input"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="left"/>
-               
+                    android:textStyle="normal"
+                    android:textColor="#1B1C1F"
+                    app:layout_constraintStart_toEndOf="@id/backIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/historyBtn"
+                    android:paddingStart="12dp" />
 
-                <TextView
+                <!-- History Button -->
+                <LinearLayout
+                    android:id="@+id/historyBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="History"
-                    android:layout_gravity="end"
-                    android:textColor="#356DF3"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/rounded_button_bg"
+                    android:backgroundTint="@color/white"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Tabs -->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_health_history"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/primaryBlue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="History"
+                        android:textColor="#356DF3"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/fluidToggleGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="#356DF3"
-                app:tabSelectedTextColor="#356DF3"
-                app:tabTextColor="#999999"
-                android:layout_marginTop="16dp">
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:backgroundTint="@android:color/transparent"
+                app:singleSelection="true"
+                app:checkedButton="@id/btnIntake">
 
-                <com.google.android.material.tabs.TabItem
-                    android:text="Fluid Intake"  android:layout_height="match_parent" android:layout_width="match_parent"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIntake"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:text="Fluid Intake"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@color/primaryBlue" />
 
-                <com.google.android.material.tabs.TabItem
-                    android:text="Fluid Output"  android:layout_height="match_parent" android:layout_width="match_parent"/>
-            </com.google.android.material.tabs.TabLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOutput"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Fluid Output"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:textColor="@color/gray"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@android:color/white" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <!-- Recommended / Intake / Remaining -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="fill"
-                android:layout_marginTop="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <TextView android:text="Recommended Fluid: 2,000 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                <TextView android:text="Intake: 1700 ml"  android:layout_height="wrap_content"
-                    android:gravity="end|right"
-                    android:layout_width="wrap_content"/>
+                <!-- Top Info Row -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                   >
+
+                    <TextView
+                        android:id="@+id/recommendedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Recommended Fluid: "
+                        android:textColor="#607D8B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/intakeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Intake: "
+                        android:textColor="#607D8B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Stacked Bar Container -->
+                <LinearLayout
+                    android:id="@+id/stackedBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:background="#E0E0E0"
+                    android:weightSum="1"/>
+
+                <!-- Bottom Info Row -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/remainingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="@string/remaining"
+                        android:textColor="#607D8B"
+                        app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/legendLayout"
+                        app:layout_constraintTop_toTopOf="@+id/legendLayout" />
+
+                    <!-- Legend -->
+                    <LinearLayout
+                        android:id="@+id/legendLayout"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
-
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:progress="85"
-                android:progressDrawable="@drawable/custom_progress" />
-
-            <TextView
-                android:text="Remaining: 300 ml"
-                android:layout_marginTop="4dp"
-                android:textColor="#F59E0B"
-                android:textSize="14sp"
-                android:gravity="end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
 
 
             <!-- Glass animation/graphic -->
@@ -116,61 +220,42 @@
                 android:layout_marginTop="4dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
 
             <!-- Drink Selection -->
-            <LinearLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fluidRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="12dp">
+                android:padding="12dp"
+                android:clipToPadding="false" />
 
-                <!-- Example: Repeat for each drink type -->
-
-                <ImageView
-                    android:id="@+id/waterBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/selector_button_bg"
-                    android:src="@drawable/ic_water" />
-
-                <ImageView android:src="@drawable/ic_juice"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="8dp" />
-                <!-- Add more drinks -->
-            </LinearLayout>
-
-            <TextView
-                android:text="Enter Fluid Manually"
-                android:textColor="#356DF3"
-                android:layout_marginTop="8dp"
-                android:textSize="14sp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
 
             <!-- Glass Size -->
-            <TextView
-                android:text="Select Your Glass Size"
-                android:textSize="14sp"
-                android:layout_marginTop="16dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-
-            <RadioGroup
-                android:orientation="horizontal"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="8dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <RadioButton android:text="150 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                <RadioButton android:text="250 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
-                <RadioButton android:text="300 ml"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
-                <RadioButton android:text="400 ml"   android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-            </RadioGroup>
+                <TextView
+                    android:id="@+id/selectedSizeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Your Glass Size"
+                    android:textColor="#607D8B"
+                    android:layout_marginBottom="12dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewGlassSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
             <!-- Add Intake Button -->
             <Button
                 android:id="@+id/btnAddIntake"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Intake"
+                android:text="@string/add_intake"
                 android:textAllCaps="false"
                 android:layout_marginTop="12dp"
                 android:backgroundTint="#356DF3"

@@ -67,6 +67,8 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.glide)
     implementation("com.squareup.okhttp3:okhttp")
+    implementation(libs.shimmer)
+
     implementation(libs.logging.interceptor) // or latest version
     implementation (libs.androidx.core)
     //Dimen
