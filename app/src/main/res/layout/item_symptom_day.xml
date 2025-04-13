@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="12dp">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunday, 01 September 2024"
+        android:textColor="#808080"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
+
+
+    <LinearLayout
+        android:id="@+id/symptomCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:divider="?android:dividerHorizontal"
+        android:showDividers="middle"/>
+
+
+</LinearLayout>

@@ -14,4 +14,26 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/_5sdp</item>
     </style>
+
+
+
+    <style name="Color1SwitchStyle">
+        <item name="colorControlActivated">@color/start_blue</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="EditTextNumberInputStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:inputType">textVisiblePassword|textCapCharacters</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+    <style name="TextViewCalendarInputStyle">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">15dp</item>
+    </style>
 </resources>

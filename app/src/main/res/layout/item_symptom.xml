@@ -1,0 +1,37 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="symptom"
+            type="com.criterion.nativevitalio.model.ProblemWithIcon" />
+    </data>
+
+
+        <LinearLayout
+            android:id="@+id/selectedIconSymptoms"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_corners"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <!-- Optional: Add an ImageView if your symptoms have icons -->
+            <!-- <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_symptom_placeholder"
+                android:layout_gravity="center" /> -->
+
+            <TextView
+                android:id="@+id/symptom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{symptom.problemName}"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:textColor="@color/greyText"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+</layout>

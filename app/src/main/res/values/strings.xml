@@ -3,7 +3,6 @@
     <string name="vitals">Vitals</string>
     <string name="primary_actions">Primary Actions</string>
     <string name="other">Other</string>
-
     <string name="home">Home</string>
     <string name="reminders">Reminders</string>
     <string name="chat">Chat</string>
@@ -32,6 +31,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+
     <string name="a">A+</string>
     <string name="a_minus">A-</string>
     <string name="b_positive">B+</string>
@@ -48,5 +48,198 @@
     <string name="and_what_is_your_blood_group">And what is your Blood Group?</string>
     <string name="and_what_is_your_height">And what is your height?</string>
 
+
+    <string name="symptoms_tracker">Symptom Tracker</string>
+    <string name="history">History-</string>
+    <string name="search_symptom">Search Symptoms i.e. cold, cough-</string>
+    <string name="highligh_any_other">Highlight any other symptoms you’re experiencing from the list below.</string>
+    <string name="save_and_update_symptoms">Save and Update Symptoms</string>
+
+    <string name="symptom_history">Symptoms History</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+
+
+    <string name="pills_checklist">Pills Checklist</string>
+    <string name="medicine_box">Medicine box</string>
+    <string name="pills_for_the_day">Pills for the day</string>
+    <string name="see_timeline">See Timeline</string>
+
+
+    <string name="menu1">Personal Settings</string>
+    <string name="menu2">Device Data History</string>
+    <string name="menu3">Support Devices</string>
+    <string name="user">User 1</string>
+    <string name="user_1">User 2</string>
+    <string name="user_3">User 3</string>
+    <string name="user_4">User 4</string>
+    <string name="user_height">Height</string>
+    <string name="user_body_fat">Body Fat</string>
+    <string name="user_body_fat_level">Body Fat Level</string>
+    <string name="user_body_age">Body Age</string>
+    <string name="user_weight">Weight</string>
+    <string name="user_stride">Stride</string>
+    <string name="user_stride_length">Walking stride length</string>
+    <string name="btnstart">Start</string>
+    <string name="select_user">Select User</string>
+    <string name="saved_devices">Saved Devices</string>
+    <string name="device_list">Paired Devices</string>
+    <string name="enter_user_details">Personal Settings</string>
+    <string name="device_reg_sucess">Device Registration Successful</string>
+    <string name="pair_amp_transfer">
+<![CDATA[ Pair & Transfer ]]>
+</string>
+    <string name="DevicePairing">Device Pairing</string>
+    <string name="ConnectingDevice">Connecting to device</string>
+    <string name="scan">Scan</string>
+    <string name="data_transfer">Data Transfer</string>
+    <string name="transfer">Transfer</string>
+    <string name="update">Update</string>
+    <string name="time_format">Time format : %s HR</string>
+    <string name="time_format_12">24 H</string>
+    <string name="time_format_24">12 H</string>
+    <string name="omron_connected_devices">OMRON Connected Devices</string>
+    <string name="time_stamp">Timestamp</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="pulse_rate">Pulse Rate</string>
+    <string name="user_selected">User Selected</string>
+    <string name="hyphen">-</string>
+    <string name="status">Status</string>
+    <string name="Error">Error</string>
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="device_information">Device Information</string>
+    <string name="device_disconnected">Device Disconected</string>
+    <string name="retry_to_connect">"Press Retry to connect again "</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="Wheeze">Wheeze</string>
+    <string name="ErrorNoise">Error Noise</string>
+    <string name="ErrorDecreaseBreathingSoundLevel">Error Decrease Breathing Sound Level</string>
+    <string name="ErrorSurroundingNoise">Error Surrounding Noise</string>
+    <string name="WheezeData">Wheeze Data</string>
+    <string name="WeightScaleData">Weight Scale Data</string>
+    <string-array name="height_greater">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="height_lower">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
+    <string-array name="stride_greater">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="stride_lower">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
+    <string name="title_activity_data_listing">Data ListingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="device_connected">Device Connected</string>
+    <string name="device_paired">Omron Device Paired Successfully!</string>
+    <string name="device_paired_omitted_text">Paired Successfully!</string>
+    <string name="title_activity_reminder">Reminder</string>
+    <string name="update_reminder">Updating Reminder...</string>
+    <string name="update_success">Updation Success</string>
+    <string name="update_failed">Updation Failed</string>
+    <string name="update_settings_sucess">Successfully updated the settings!</string>
+    <string name="device_time_format">DeviceTime Format : </string>
+    <string-array name="days">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+    <string name="title_activity_listing">ActivityListingActivity</string>
+    <string name="bmi">BMI</string>
+    <string name="body_age">Body Age</string>
+    <string name="title_activity_user_personal_settings">UserPersonalSettingsActivity</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="weight_unit">Weight unit</string>
+    <string name="weight_Unit">Weight Unit</string>
+    <string name="weight_settings">Weight Settings</string>
+    <string name="set">Set</string>
+    <string name="user_gender">Gender</string>
+    <string name="resting_metabolism">Resting Metabolism</string>
+    <string name="skeletal_muscle">Skeletal Muscle</string>
+    <string name="visceral_fat">Visceral Fat</string>
+    <string name="sequence_number">Sequence Number</string>
+    <string name="unsent_data">Unsent Data Number</string>
+    <string name="battery_rem">Battery Remaining</string>
+    <string name="tru_read_enable">Tru Read Enable</string>
+    <string name="tru_read_interval">Tru Read Interval</string>
+    <string name="gender">Gender</string>
+    <string name="height">Height</string>
+    <string name="display_pri_body_fat">Display Priority Body Fat</string>
+    <string name="display_pri_visceral_fat_lv">Display Priority Visceral Fat Lv</string>
+    <string name="display_pri_skeletal_muscle_lv">Display Priority Skeletal Muscle Lv</string>
+    <string name="display_pri_resting_metabolism">Display Priority Resting Metabolism</string>
+    <string name="display_pri_bmi">Display Priority BMI</string>
+    <string name="display_pri_body_age">Display Priority Body Age</string>
+    <string name="display_ena_body_fat">Display Enable Body Fat</string>
+    <string name="display_ena_visceral_fat_lv">Display Enable Visceral Fat Lv</string>
+    <string name="display_ena_skeletal_muscle_lv">Display Enable Skeletal Muscle Lv</string>
+    <string name="display_ena_resting_metabolism">Display Enable Resting Metabolism</string>
+    <string name="display_ena_bmi">Display Enable BMI</string>
+    <string name="display_ena_body_age">Display Enable Body Age</string>
+    <string name="time_format_setting">Time Format</string>
+    <string name="date_format_setting">Date Format</string>
+    <string name="audio_title_permission_required">Permission is required.</string>
+    <string name="audio_message_permission">Please tap "Allow" when the audio recording permission dialog appears.</string>
+    <string name="audio_message_go_to_settings">Please give permissions on the setting screen.</string>
+    <string name="audio_signal_level">SignalLevel (0-5)</string>
+    <string name="oxygen_saturation">Oxygen Saturation</string>
+    <string name="spo2">SpO2</string>
+    <string name="title_activity_support_device_list">SupportDeviceListActivity</string>
+    <!--  Strings used for fragments for navigation  -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+    <string name="lorem_ipsum"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a, ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae, molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor bibendum, vel congue leo egestas.\n\n Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel, molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula, in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque est.\n\n Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh. Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc, quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus convallis.\n\n Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper, libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim. </string>
+    <string name="family_health_history">Family Health History</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="allergies">Allergies</string>
+    <string name="my_observer">My Observer</string>
+    <string name="shared_accounts">Shared Accounts</string>
+    <string name="connect_smart_watch">Connect Smart Watch</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="f_q"><![CDATA[F&Q]]></string>
+    <string name="feedback">Feedback</string>
+    <string name="todo">TODO</string>
+    <string name="fluid_data_input">Fluid Data Input</string>
+    <string name="remaining">Remaining:</string>
+    <string name="add_intake">Add Intake</string>
 
 </resources>
