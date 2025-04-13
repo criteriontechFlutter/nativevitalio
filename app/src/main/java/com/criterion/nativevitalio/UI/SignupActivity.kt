@@ -2,34 +2,36 @@ package com.criterion.nativevitalio.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment1
+import com.criterion.nativevitalio.databinding.ActivitySignupBinding
 
-class MainActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
-    private lateinit var progressBar: ProgressBar
+//    private lateinit var progressBar: ProgressBar
+
+    private lateinit var binding: ActivitySignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivitySignupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        progressBar = findViewById(R.id.progressBar)
+//        progressBar = findViewById(R.id.progressBar)
+
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-
-        setupActionBarWithNavController(navController)
-
-        // Observe progress changes and update progress bar
+        binding.backButton.setOnClickListener{
+            super.onBackPressed();
+        }
 
     }
 

@@ -21,8 +21,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.Utils.CustomRoundedButton
 import com.criterion.nativevitalio.Utils.MyApplication
