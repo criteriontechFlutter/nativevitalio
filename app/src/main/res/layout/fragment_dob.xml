@@ -11,14 +11,68 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
+        <LinearLayout
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textAlignment="center"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_selected" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_selected" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_unselected" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_unselected" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_unselected" />
+        </LinearLayout>
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="And what is your date of birth?"
+            android:text="@string/and_what_is_your_date_of_birth"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
