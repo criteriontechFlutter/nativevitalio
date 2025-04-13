@@ -30,6 +30,14 @@ class Dashboard : Fragment() {
         }
 
 
+        binding.fluidlayout.setOnClickListener {
+          findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
+
+        }
+
+
+
+
 
         binding.pillsReminder.setOnClickListener {
             findNavController().navigate(R.id.pillsReminder)
@@ -37,7 +45,7 @@ class Dashboard : Fragment() {
         }
 
         binding.symptomsTracker.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_symtoms)
+            findNavController().navigate(R.id.action_dashboard_to_symptomsFragment)
 
         }
 

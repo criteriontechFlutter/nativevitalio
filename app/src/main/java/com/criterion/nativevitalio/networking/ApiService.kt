@@ -23,7 +23,7 @@ fun generateAuthHeaderMap(
 //    val userId = patient?.id
     val accessToken = " "
     val userId = " "
-    return if (token && !accessToken.isNullOrEmpty() && !userId.isNullOrEmpty()) {
+    return if (token && accessToken.isNotEmpty() && userId.isNotEmpty()) {
         mapOf(
             "x-access-token" to accessToken,
             "userID" to userId,
@@ -34,15 +34,7 @@ fun generateAuthHeaderMap(
     }
 }
 
-//interface ApiService {
-//    @GET("")
-//    fun loginApi( )  : Call<ResponseBody>
-//
-//
-//
-//
-//
-//}
+
 interface ApiService {
     @GET
     suspend fun dynamicGet(
@@ -57,5 +49,11 @@ interface ApiService {
         @Body body: Map<String, @JvmSuppressWildcards Any>
     ): Response<ResponseBody>
 
+    @POST
+    suspend fun queryDynamicRawPost(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @QueryMap(encoded = true) params: Map<String, @JvmSuppressWildcards Any>
+    ): Response<ResponseBody>
     // Add similar annotations for PUT, DELETE, etc.
 }

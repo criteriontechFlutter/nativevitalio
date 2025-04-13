@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F9FAFB"
+        android:padding="5sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Header -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:paddingHorizontal="10dp"
+                android:background="#F9FBFF">
+
+                <!-- Back Icon -->
+                <ImageView
+                    android:id="@+id/backIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_back"
+                    android:contentDescription="Back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/headerTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fluid Input History"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    android:textColor="#1B1C1F"
+                    app:layout_constraintStart_toEndOf="@id/backIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:paddingStart="12dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/fluidToggleGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:backgroundTint="@android:color/transparent"
+                app:singleSelection="true"
+                app:checkedButton="@id/btnIntake">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDaily"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:text="@string/daily"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@color/primaryBlue" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnWeekly"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="@string/weekly"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:textColor="@color/gray"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@android:color/white" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMonthly"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="@string/monthly"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:textColor="@color/gray"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@android:color/white" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+            <LinearLayout
+                android:id="@+id/dateSelectorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/btnPrevDate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/arrow_left"
+                    android:contentDescription="Previous date"
+                    android:layout_marginEnd="16dp"
+                    app:tint="@color/gray" />
+
+                <TextView
+                    android:id="@+id/tvSelectedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today"
+                    android:paddingStart="@dimen/_35sdp"
+                    android:paddingEnd="@dimen/_35sdp"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/btnNextDate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/arrow_right"
+                    android:contentDescription="Next date"
+                    android:layout_marginStart="16dp"
+                    app:tint="@color/gray" />
+            </LinearLayout>
+
+            <!-- Recommended / Intake / Remaining -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Top Info Row -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/recommendedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Recommended Fluid: "
+                        android:textColor="#607D8B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/intakeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="Intake: "
+                        android:textColor="#607D8B"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Stacked Bar Container -->
+                <LinearLayout
+                    android:id="@+id/stackedBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:background="#E0E0E0"
+                    android:weightSum="1"/>
+
+                <!-- Bottom Info Row -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/remainingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="@string/remaining"
+                        android:textColor="#607D8B"
+                        app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/legendLayout"
+                        app:layout_constraintTop_toTopOf="@+id/legendLayout" />
+
+                    <!-- Legend -->
+                    <LinearLayout
+                        android:id="@+id/legendLayout"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@drawable/bg_card_selected"
+                android:backgroundTint="@color/white"
+                android:layout_margin="16dp">
+
+                <!-- Header Row -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fluid Intake Log"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentEnd="true">
+
+                        <ImageView
+                            android:id="@+id/btnList"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_list_icon"
+                            android:padding="7dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/selector_button_bg"/>
+
+                        <ImageView
+                            android:id="@+id/btnChart"
+                            android:layout_width="32dp"
+
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_graph"
+                            android:padding="7dp"
+                            android:background="@drawable/selector_button_bg"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <!-- RecyclerView for Fluid Logs -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewFluidLogs"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/fluid_history_item_layout"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"/>
+
+
+                <com.criterion.nativevitalio.Utils.FluidChartView
+                    android:id="@+id/fluidChartContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="16dp"
+
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

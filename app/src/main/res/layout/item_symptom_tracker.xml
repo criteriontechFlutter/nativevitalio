@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="symptom"
+            type="com.criterion.nativevitalio.model.SymptomDetail" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/white">
+
+
+        <!-- Progress -->
+<!--        <TextView-->
+<!--            android:id="@+id/tvProgress"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="1 of 5"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@android:color/darker_gray"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginBottom="8dp" />-->
+
+        <!-- Symptom Question -->
+        <TextView
+            android:id="@+id/tvSymptomName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text='@{"Is the " + symptom.details + " persisting?"}'
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Yes/No Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/btnYes"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Yes" />
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnNo"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="No" />
+        </LinearLayout>
+
+        <!-- Back Button -->
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Back to previous question"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+</layout>

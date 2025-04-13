@@ -13,6 +13,7 @@ data class Patient(
     @SerializedName("registrationDate") val registrationDate: String,
 //    val address: String,
 //    val age: Int,
+    @SerializedName("clientId") val clientId: String,
     @SerializedName("ageUnitId") val ageUnit: String,
     @SerializedName("bloodGroupId") val bloodGroup: String,
     @SerializedName("cityId") val cityId: String,

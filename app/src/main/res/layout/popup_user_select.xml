@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:checkableBehavior="single"
+        android:layout_gravity="center">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:text="User 1"
+            android:tag="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:actionLayout="@layout/custom_radio_button"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:checked="true"
+            app:showAsAction="never" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:text="User 2"
+            android:tag="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:actionLayout="@layout/custom_radio_button"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:checked="false"
+            app:showAsAction="never" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:text="User 3"
+            android:tag="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:actionLayout="@layout/custom_radio_button"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:checked="false"
+            android:visibility="gone"
+            app:showAsAction="never" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:text="User 4"
+            android:tag="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:actionLayout="@layout/custom_radio_button"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:checked="false"
+            android:visibility="gone"
+            app:showAsAction="never" />
+    </RadioGroup>
+</FrameLayout>
