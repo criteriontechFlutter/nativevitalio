@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_dashboard_to_symptomsFragment"
             app:destination="@id/symptomsFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_vitalDetail"
+            app:destination="@id/vitalDetail" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -56,5 +59,9 @@
         android:id="@+id/symptomHistory"
         android:name="com.criterion.nativevitalio.UI.fragments.SymptomHistory"
         android:label="SymptomHistory" />
+    <fragment
+        android:id="@+id/vitalDetail"
+        android:name="com.criterion.nativevitalio.UI.fragments.VitalDetail"
+        android:label="VitalDetail" />
 
 </navigation>

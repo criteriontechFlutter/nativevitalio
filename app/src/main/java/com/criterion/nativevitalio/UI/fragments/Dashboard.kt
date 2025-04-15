@@ -41,6 +41,10 @@ class Dashboard : Fragment() {
 
         }
 
+        binding.vitalDetails.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_vitalDetail)
+
+        }
     }
 
 
