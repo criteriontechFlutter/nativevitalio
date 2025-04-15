@@ -20,6 +20,9 @@
             android:id="@+id/action_dashboard_to_symptomsFragment"
             app:destination="@id/symptomsFragment" />
         <action
+            android:id="@+id/action_dashboard_to_fluidFragment"
+            app:destination="@id/fluidFragment" />
+        <action
             android:id="@+id/action_dashboard_to_vitalDetail"
             app:destination="@id/vitalDetail" />
     </fragment>
@@ -34,6 +37,9 @@
         <action
             android:id="@+id/action_drawer4_to_allergies3"
             app:destination="@id/allergies3" />
+        <action
+            android:id="@+id/action_drawer4_to_settingsFragmentVitalio"
+            app:destination="@id/settingsFragmentVitalio" />
     </fragment>
     <fragment
         android:id="@+id/pillsReminder"
@@ -59,6 +65,23 @@
         android:id="@+id/symptomHistory"
         android:name="com.criterion.nativevitalio.UI.fragments.SymptomHistory"
         android:label="SymptomHistory" />
+    <fragment
+        android:id="@+id/fluidFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.FluidFragment"
+        android:label="fragment_fluid"
+        tools:layout="@layout/fragment_fluid" >
+        <action
+            android:id="@+id/action_fluidFragment_to_fluidInputHistoryFragment"
+            app:destination="@id/fluidInputHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragmentVitalio"
+        android:name="com.criterion.nativevitalio.UI.fragments.SettingsFragmentVitalio"
+        android:label="SettingsFragmentVitalio" />
+    <fragment
+        android:id="@+id/fluidInputHistoryFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.FluidInputHistoryFragment"
+        android:label="FluidInputHistoryFragment" />
     <fragment
         android:id="@+id/vitalDetail"
         android:name="com.criterion.nativevitalio.UI.fragments.VitalDetail"
