@@ -23,4 +23,10 @@ class ApiEndPoint {
 
 
     val getFluidIntakeDetails="api/ManualFoodAssign/GetManualFoodAssignList"
+
+
+
+    val getPatientLastVital="api/PatientVital/GetPatientLastVital"
+    val insertPatientVital="api/PatientVital/InsertPatientVital"
+
 }

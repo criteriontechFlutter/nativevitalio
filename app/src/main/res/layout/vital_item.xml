@@ -1,0 +1,53 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/vitalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vital Title"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/vitalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="120/80 mmHg"
+        android:textSize="22sp"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/vitalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 min ago"
+        android:textColor="@color/primaryBlue"
+        android:textSize="12sp"
+        android:layout_marginTop="2dp" />
+
+    <!-- New row for Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+        <Button
+            android:id="@+id/vitalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vital"
+            android:textSize="12sp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            />
+
+    </LinearLayout>
+</LinearLayout>

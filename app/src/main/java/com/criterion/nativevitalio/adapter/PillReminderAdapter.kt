@@ -80,8 +80,6 @@ class PillReminderAdapter(
 
             iconView.setOnClickListener {
                 timeObj?.let {
-
-
                     onIconClicked(item, it, iconView)
                 }
             }
@@ -118,13 +116,7 @@ class PillReminderAdapter(
         }
     }
 
-    private fun getNextState(currentState: String?): String {
-        return when (currentState?.lowercase()) {
-            "taken" -> "missed"
-            "missed", "upcoming", "exclamation", null -> "taken"
-            else -> "taken"
-        }
-    }
+
 
     private fun getTintedIcon(  icon: String?): Drawable? {
 
@@ -132,7 +124,7 @@ class PillReminderAdapter(
         val (iconRes, colorRes) = when (icon?.lowercase()) {
             "taken" -> Pair(
                 MaterialR.drawable.ic_mtrl_checked_circle,
-                R.color.black
+                R.color.primaryBlue
             )
             "missed" -> Pair(
                 MaterialR.drawable.mtrl_ic_error,
@@ -140,18 +132,22 @@ class PillReminderAdapter(
             )
             "upcoming" -> Pair(
                 MaterialR.drawable.ic_clock_black_24dp,
-                R.color.black
+                R.color.darkYellow
             )
             "late" -> Pair(
                 MaterialR.drawable.ic_mtrl_checked_circle,
-                R.color.black
+                R.color.primaryBlue
+            )
+            "check" -> Pair(
+                MaterialR.drawable.ic_mtrl_checked_circle,
+                R.color.primaryBlue
             )
             "exclamation" -> Pair(
                 MaterialR.drawable.mtrl_ic_error,
-                R.color.black
+                R.color.red
             )
             else -> Pair(
-                MaterialR.drawable.mtrl_checkbox_button,
+                MaterialR.drawable.abc_list_pressed_holo_dark,
                 R.color.white
             )
         }

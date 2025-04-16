@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_dashboard_to_fluidFragment"
             app:destination="@id/fluidFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_vitalDetail"
+            app:destination="@id/vitalDetail" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -79,5 +82,17 @@
         android:id="@+id/fluidInputHistoryFragment"
         android:name="com.criterion.nativevitalio.UI.fragments.FluidInputHistoryFragment"
         android:label="FluidInputHistoryFragment" />
+    <fragment
+        android:id="@+id/vitalDetail"
+        android:name="com.criterion.nativevitalio.UI.fragments.VitalDetail"
+        android:label="VitalDetail" >
+        <action
+            android:id="@+id/action_vitalDetail_to_connection"
+            app:destination="@id/connection" />
+    </fragment>
+    <fragment
+        android:id="@+id/connection"
+        android:name="com.criterion.nativevitalio.UI.fragments.Connection"
+        android:label="Connection" />
 
 </navigation>

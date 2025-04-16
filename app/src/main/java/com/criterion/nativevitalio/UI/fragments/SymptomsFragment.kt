@@ -64,7 +64,18 @@ class SymptomsFragment : Fragment() {
         }
 
         binding.saveSymptomsBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
+            val selected = viewModel.selectedSymptoms.value.orEmpty()
+            val searched = viewModel.searchSelectedSymptomList.value.orEmpty()
+
+            if (selected.isEmpty() && searched.isEmpty()) {
+                findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
+            } else {
+                viewModel.insertSymptoms()
+
+                // OR: If you want to navigate immediately (not recommended if insert fails)
+                // findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
+            }
+//            findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
 
         }
     }
