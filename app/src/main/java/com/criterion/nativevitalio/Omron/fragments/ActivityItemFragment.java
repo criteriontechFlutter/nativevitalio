@@ -14,6 +14,7 @@ import com.criterion.nativevitalio.Omron.adapter.ActivityItemsListAdapter;
 import com.criterion.nativevitalio.Omron.models.ActivityDataItem;
 import com.criterion.nativevitalio.Omron.utility.Constants;
 import com.criterion.nativevitalio.R;
+import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 
 import java.util.ArrayList;
