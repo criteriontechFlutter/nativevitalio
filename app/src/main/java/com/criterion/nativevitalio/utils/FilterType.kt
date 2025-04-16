@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Utils
+package com.criterion.nativevitalio.utils
 
 enum class FilterType {
     DAILY, WEEKLY, MONTHLY

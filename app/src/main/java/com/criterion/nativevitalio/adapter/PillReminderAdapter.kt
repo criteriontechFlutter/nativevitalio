@@ -1,5 +1,4 @@
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.Gravity
@@ -15,7 +14,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView
-import com.criterion.nativevitalio.Utils.MyApplication
+import com.criterion.nativevitalio.utils.MyApplication
 
 import com.google.android.material.R as MaterialR
 

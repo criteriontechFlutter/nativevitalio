@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Utils
+package com.criterion.nativevitalio.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

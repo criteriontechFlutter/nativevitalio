@@ -3,7 +3,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import com.criterion.nativevitalio.Utils.MyApplication
+import com.criterion.nativevitalio.utils.MyApplication
 
 object NetworkUtils {
 

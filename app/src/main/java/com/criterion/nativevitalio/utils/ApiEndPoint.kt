@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Utils
+package com.criterion.nativevitalio.utils
 
 class ApiEndPoint {
 
@@ -23,6 +23,7 @@ class ApiEndPoint {
 
 
     val getFluidIntakeDetails="api/ManualFoodAssign/GetManualFoodAssignList"
+    val getFluidIntakeDetailsByRange="/api/ManualFoodAssign/FluidSummaryByDateRange"
 
 
 
