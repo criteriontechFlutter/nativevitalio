@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
@@ -53,6 +54,28 @@ class Dashboard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_vitalDetail)
 
         }
+
+
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_chat -> {
+                    findNavController().navigate(R.id.action_dashboard_to_chatFragment)
+                    true
+                }
+                R.id.nav_home -> {
+                    Toast.makeText(requireContext(), "Vitals clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_reminders -> {
+                    Toast.makeText(requireContext(), "Settings clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+
     }
 
 

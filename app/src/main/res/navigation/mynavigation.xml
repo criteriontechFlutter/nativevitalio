@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_dashboard_to_vitalDetail"
             app:destination="@id/vitalDetail" />
+        <action
+            android:id="@+id/action_dashboard_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -94,5 +97,9 @@
         android:id="@+id/connection"
         android:name="com.criterion.nativevitalio.UI.fragments.Connection"
         android:label="Connection" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.ChatFragment"
+        android:label="ChatFragment" />
 
 </navigation>
