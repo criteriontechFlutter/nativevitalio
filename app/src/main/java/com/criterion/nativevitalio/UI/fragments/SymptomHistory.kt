@@ -12,11 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.SymptomHistoryAdapter
-import com.criterion.nativevitalio.Utils.FilterType
+import com.criterion.nativevitalio.utils.FilterType
 import com.criterion.nativevitalio.databinding.FragmentSymptomHistoryBinding
 import com.criterion.nativevitalio.viewmodel.SymptomsHistoryViewModel
-import com.criterion.nativevitalio.viewmodel.SymptomsTrackerViewModel
-import com.criterion.nativevitalio.viewmodel.SymptomsViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

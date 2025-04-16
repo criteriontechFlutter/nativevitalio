@@ -30,10 +30,13 @@ class FluidIntakeLogAdapter (
             }
 
             fluidTime.text =  DateUtils.formatDate(item.givenFoodDate, "yyyy-MM-dd", "dd MMM yyyy")
-            fluidAmount.text = buildString {
-                append(item.quantity)
-                append(" ml")
+            if(item.quantity> 0.toString()){
+                fluidAmount.text = buildString {
+                    append(item.quantity)
+                    append(" ml")
+                }
             }
+
 
 
         }

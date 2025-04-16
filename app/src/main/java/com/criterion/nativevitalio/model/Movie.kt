@@ -38,3 +38,26 @@ data class FluidPoint(
     val colorHex: String // color per fluid type (e.g., #3DA5F5)
 )
 
+
+data class FluidPointGraph(
+    val timeHour: Float,     // e.g., 8.0 for 8:00 AM
+    val quantity: Float,     // in ml
+    val colorHex: String,    // "#FF0000" etc.
+    val label: String        // e.g., "Milk"
+)
+
+
+data class FluidSummaryResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<FluidSummaryItem>
+)
+
+data class FluidSummaryItem(
+    val foodQuantity: String,
+    val foodId: Int,
+    val givenFoodDate: String,
+    val assignedLimit: Double
+)
+
+
