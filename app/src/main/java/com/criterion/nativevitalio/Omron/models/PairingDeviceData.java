@@ -6,7 +6,7 @@ import android.database.Cursor;
 
 import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
 import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.Utils.MyApplication;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.SharedManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Model.OmronPeripheral;

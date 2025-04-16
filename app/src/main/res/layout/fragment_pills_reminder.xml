@@ -33,26 +33,26 @@
             android:layout_marginStart="8dp" />
 
         <!-- Medicine Box Chip -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center_vertical">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/medicine_box"
-                style="@style/smallPCN"
-                android:layout_marginStart="8dp" />
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/reminders"
-                android:contentDescription="@string/other"
-                app:tint="?attr/colorPrimary" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/medicine_box"-->
+<!--                style="@style/smallPCN"-->
+<!--                android:layout_marginStart="8dp" />-->
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/reminders"-->
+<!--                android:contentDescription="@string/other"-->
+<!--                app:tint="?attr/colorPrimary" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
     </LinearLayout>
 
     <!-- Date Row -->

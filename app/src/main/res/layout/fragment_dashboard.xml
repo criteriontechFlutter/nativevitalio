@@ -126,6 +126,7 @@
 
 
            <FrameLayout
+               android:id="@+id/vital_details"
                android:layout_width="0dp"
                android:layout_height="wrap_content"
                android:layout_columnWeight="1"
@@ -159,6 +160,7 @@
                android:layout_width="0dp"
                android:layout_height="wrap_content"
                android:layout_columnWeight="1"
+               android:id="@+id/fluidlayout"
                android:layout_margin="8dp"
                android:background="@drawable/rounded_corners">
 
@@ -335,13 +337,15 @@
            </FrameLayout>
 
        </GridLayout>
+
        <View
+           android:id="@+id/view"
            android:layout_width="match_parent"
            android:layout_height="4dp"
            android:background="@drawable/top_shadow"
            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"/>
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent" />
        <FrameLayout
            android:id="@+id/nn"
            android:layout_width="0dp"
@@ -354,17 +358,18 @@
        <com.google.android.material.bottomnavigation.BottomNavigationView
            android:id="@+id/bottom_navigation"
            android:layout_width="0dp"
-           android:layout_height="61dp"
+           android:layout_height="70dp"
            android:background="@color/white"
-           android:elevation="8dp"
-           app:menu="@menu/menu"
+           android:elevation="5dp"
+           app:itemIconSize="24dp"
+           app:itemBackground="@android:color/transparent"
            app:itemIconTint="@color/bottom_nav_selector"
            app:itemTextColor="@color/bottom_nav_selector"
-           app:itemBackground="@android:color/transparent"
-           app:labelVisibilityMode="labeled"
+
            app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"/>
+           app:menu="@menu/menu" />
 
 
    </androidx.constraintlayout.widget.ConstraintLayout>

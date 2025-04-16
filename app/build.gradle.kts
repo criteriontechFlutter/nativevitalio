@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.criterion.nativevitalio"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -52,17 +52,25 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+//    implementation(fileTree(mapOf(
+//        "dir" to "C:\\Gitea_Projects\\nativevitalio\\app\\libs\\omronconnectivitylibrary.aar",
+//        "include" to listOf("*.aar", "*.jar"),
+//    )))
     implementation(fileTree(mapOf(
-        "dir" to "app\\libs\\omronconnectivitylibrary.aar",
-        "include" to listOf("*.aar", "*.jar"),
+        "dir" to "libs",
+        "include" to listOf("*.aar", "*.jar")
     )))
+
+
     /*    implementation(libs.androidx.navigation.fragment.ktx)
         implementation(libs.androidx.navigation.ui.ktx)*/
     testImplementation(libs.junit)
     implementation(libs.glide)
     implementation("com.squareup.okhttp3:okhttp")
+    implementation(libs.shimmer)
+
     implementation(libs.logging.interceptor) // or latest version
-    implementation ("androidx.core:core:1.10.1")
+    implementation (libs.androidx.core)
     //Dimen
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)

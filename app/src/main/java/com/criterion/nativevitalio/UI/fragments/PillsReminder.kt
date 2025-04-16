@@ -57,6 +57,9 @@ class PillsReminder : Fragment() {
                 .toSet()
                 .sorted()
 
+
+
+
 //            adapter = PillReminderAdapter(list, binding.headerScrollView, allScrollViews,
 //                (){
 //
@@ -67,11 +70,7 @@ class PillsReminder : Fragment() {
                 allScrollViews
             ) { pill, timeObj, iconView ->
 
-                val newState = when (timeObj.icon?.lowercase()) {
-                    "taken" -> "missed"
-                    "missed", "upcoming", "exclamation", null -> "taken"
-                    else -> "taken"
-                }
+
 //
 //                timeObj.icon = newState
 //                iconView.setImageResource(getIconRes(newState))
