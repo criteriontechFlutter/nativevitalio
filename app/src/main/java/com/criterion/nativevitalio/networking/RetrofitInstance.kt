@@ -1,6 +1,5 @@
 package com.criterion.nativevitalio.networking
 
-import com.criterion.nativevitalio.Utils.MyApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

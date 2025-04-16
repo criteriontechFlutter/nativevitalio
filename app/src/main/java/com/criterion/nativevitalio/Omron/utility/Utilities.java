@@ -6,18 +6,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 
 import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.Utils.MyApplication;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.criterion.nativevitalio.utils.MyApplication;
 
 /**
  * Created by Omron HealthCare Inc

@@ -7,12 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.Utils.ApiEndPoint
+import com.criterion.nativevitalio.model.FluidSummaryItem
+import com.criterion.nativevitalio.model.FluidSummaryResponse
 import com.criterion.nativevitalio.model.FluidType
 import com.criterion.nativevitalio.model.GlassSize
 import com.criterion.nativevitalio.model.ManualFoodAssignResponse
 import com.criterion.nativevitalio.model.ManualFoodItem
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -27,6 +29,11 @@ class FluidIntakeOuputViewModel : ViewModel() {
     //intake list
     private val _intakeList = MutableLiveData<List<ManualFoodItem>>()
     var intakeList: LiveData<List<ManualFoodItem>> = _intakeList
+
+
+    private val _intakeListRangeWise = MutableLiveData<List<FluidSummaryItem>>()
+    var intakeListRangeWise: LiveData<List<FluidSummaryItem>> = _intakeListRangeWise
+
 
 
     //fluid list to show progressBar
@@ -140,6 +147,58 @@ class FluidIntakeOuputViewModel : ViewModel() {
                         } else null
                     }
                     _fluidList.value = filteredList
+
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    fun fetchManualFluidIntakeByRange(uhid: String, fromDate: String, toDate: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf(
+                    "Uhid" to uhid,
+                    "fromDate" to fromDate,
+                    "toDate" to toDate
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7096()
+                    .dynamicGet(
+                        url = ApiEndPoint().getFluidIntakeDetailsByRange,
+                        params = queryParams
+                    )
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<FluidSummaryResponse>() {}.type
+                    val parsed = Gson().fromJson<FluidSummaryResponse>(responseBodyString, type)
+                    val allItems = parsed.responseValue
+                    _intakeListRangeWise.value= allItems
+//                    val filteredList = parsed.responseValue.mapNotNull {
+//
+//                        Log.d("TAG", "fetchManualFluidIntake: "+intakeList.value)
+//                        val qty = it.quantity.toFloatOrNull() ?: 0f
+//                        if (qty > 0f) {
+//                            FluidType(
+//                                name = it.foodName.trim(),
+//                                amount = qty.toInt(),
+//                                color = mapColorForFood(it.foodName) ,
+//                                id= it.foodID
+//                            )
+//                        } else null
+//                    }
+                  //  _fluidList.value = filteredList
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"

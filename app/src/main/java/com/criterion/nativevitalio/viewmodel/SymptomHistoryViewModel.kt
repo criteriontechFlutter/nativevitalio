@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.Utils.ApiEndPoint
-import com.criterion.nativevitalio.model.ProblemWithIcon
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.model.SymptomDetail
 import com.criterion.nativevitalio.model.SymptomResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
