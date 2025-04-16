@@ -61,3 +61,11 @@ data class FluidSummaryItem(
 )
 
 
+data class ChatMessage(
+    val message: String,
+    val time: String,
+    val isUser: Boolean
+)
+
+
+
