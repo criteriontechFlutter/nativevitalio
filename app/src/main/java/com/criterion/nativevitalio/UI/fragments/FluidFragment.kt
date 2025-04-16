@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SeekBar
@@ -69,10 +71,14 @@ class FluidFragment : Fragment() {
 
                 when (checkedId) {
                     R.id.btnIntake -> {
+                        binding.fluidIntakeLayout.visibility=VISIBLE
+                        binding.outPutLayout.visibility=GONE
                         // Handle Fluid Intake click
                     }
 
                     R.id.btnOutput -> {
+                        binding.fluidIntakeLayout.visibility=GONE
+                        binding.outPutLayout.visibility=VISIBLE
                         // Handle Fluid Output click
                     }
                 }
