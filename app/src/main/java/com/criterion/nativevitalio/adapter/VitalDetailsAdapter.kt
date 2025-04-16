@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-class VitalDetailsAdapter : RecyclerView.Adapter<VitalDetailsAdapter.VitalViewHolder>() {
+class VitalDetailsAdapter(
+    private val onVitalButtonClick: (String) -> Unit
+) : RecyclerView.Adapter<VitalDetailsAdapter.VitalViewHolder>() {
 
     // title, valueText, vitalDateTime
     private val groupedVitals = mutableListOf<Triple<String, String, String>>()
@@ -86,6 +89,10 @@ class VitalDetailsAdapter : RecyclerView.Adapter<VitalDetailsAdapter.VitalViewHo
                 colorCritical
             else colorNormal
         )
+
+        holder.vitalButton.setOnClickListener {
+            onVitalButtonClick(title)
+        }
     }
 
     override fun getItemCount(): Int = groupedVitals.size
@@ -94,6 +101,7 @@ class VitalDetailsAdapter : RecyclerView.Adapter<VitalDetailsAdapter.VitalViewHo
         val vitalTitle: TextView = view.findViewById(R.id.vitalTitle)
         val vitalValue: TextView = view.findViewById(R.id.vitalValue)
         val vitalTime: TextView = view.findViewById(R.id.vitalTime)
+        val vitalButton: TextView = view.findViewById(R.id.vitalButton)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

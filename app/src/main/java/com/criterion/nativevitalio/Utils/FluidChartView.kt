@@ -37,11 +37,13 @@ class FluidChartView @JvmOverloads constructor(
         isAntiAlias = true
     }
 
+
     var fluidData: List<FluidPoint> = emptyList()
         set(value) {
             field = value
             invalidate()
         }
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)

@@ -27,4 +27,6 @@ class ApiEndPoint {
 
 
     val getPatientLastVital="api/PatientVital/GetPatientLastVital"
+    val insertPatientVital="api/PatientVital/InsertPatientVital"
+
 }

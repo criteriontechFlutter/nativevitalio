@@ -83,6 +83,7 @@
     <string name="pair_amp_transfer">
 <![CDATA[ Pair & Transfer ]]>
 </string>
+    <string name="connection">Connection</string>
     <string name="DevicePairing">Device Pairing</string>
     <string name="ConnectingDevice">Connecting to device</string>
     <string name="scan">Scan</string>

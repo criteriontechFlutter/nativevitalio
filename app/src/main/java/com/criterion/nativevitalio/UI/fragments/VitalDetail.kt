@@ -10,6 +10,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
@@ -36,8 +38,12 @@ class VitalDetail  : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[VitalDetailsViewModel::class.java]
-        adapter = VitalDetailsAdapter()
-
+        adapter = VitalDetailsAdapter { vitalType ->
+            val bundle = Bundle().apply {
+                putString("vitalType", vitalType)
+            }
+            findNavController().navigate(R.id.action_vitalDetail_to_connection, bundle)
+        }
         val recyclerView = view.findViewById<RecyclerView>(R.id.vitalsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -46,6 +52,9 @@ class VitalDetail  : Fragment() {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+
+
+
         viewModel.getVitals()
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->

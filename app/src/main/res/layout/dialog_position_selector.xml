@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/positionDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Position"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <ListView
+        android:id="@+id/positionListView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:choiceMode="singleChoice" />
+
+    <Button
+        android:id="@+id/btnSaveSelectedPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white" />
+</LinearLayout>
