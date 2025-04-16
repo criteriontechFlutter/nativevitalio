@@ -1,0 +1,65 @@
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/messageContainer"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical"
+
+    android:padding="8dp">
+
+    <TextView
+
+        android:id="@+id/messageTime"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:text="12:07 PM"
+
+        android:textSize="12sp"
+
+        android:textColor="#A7A7A7"
+
+        android:layout_gravity="center_horizontal"
+
+        android:paddingBottom="4dp" />
+
+    <LinearLayout
+
+        android:id="@+id/bubbleLayout"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+
+        android:background="@drawable/bubble_left"
+
+        android:padding="12dp"
+
+        android:layout_gravity="start"
+
+        android:elevation="2dp">
+
+        <TextView
+
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="Sample message"
+
+            android:textSize="14sp"
+
+            android:textColor="#000000" />
+    </LinearLayout>
+</LinearLayout>
+
