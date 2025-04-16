@@ -6,19 +6,16 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.PagerAdapter
 import com.criterion.nativevitalio.R
-import java.text.SimpleDateFormat
-import java.util.Locale
-import android.text.format.DateUtils
-import android.widget.Button
-import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+
 class DashboardAdapter(
     private val context: Context,
     private val vitalList: List<Vital>,
@@ -35,7 +32,6 @@ class DashboardAdapter(
         val valueView = view.findViewById<TextView>(R.id.vital_value)
         val unitView = view.findViewById<TextView>(R.id.vital_unit)
         val timeView = view.findViewById<TextView>(R.id.vital_time)
-        val updateBtn = view.findViewById<TextView>(R.id.update_btn)
         val addVitalButton = view.findViewById<Button>(R.id.add_vital_button)
 
         // Set title and time
@@ -49,26 +45,22 @@ class DashboardAdapter(
             if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mmHg", true)) {
                 valueView.visibility = View.GONE
                 unitView.visibility = View.GONE
-                updateBtn.visibility = View.GONE
                 addVitalButton.visibility = View.VISIBLE
             } else {
                 valueView.visibility = View.GONE
                 unitView.visibility = View.VISIBLE
                 unitView.text = vital.unit
-                updateBtn.visibility = View.VISIBLE
                 addVitalButton.visibility = View.GONE
             }
         } else if (vital.vitalValue == 0.0) {
             valueView.visibility = View.GONE
             unitView.visibility = View.GONE
-            updateBtn.visibility = View.GONE
             addVitalButton.visibility = View.VISIBLE
         } else {
             valueView.visibility = View.VISIBLE
             unitView.visibility = View.VISIBLE
             valueView.text = vital.vitalValue.toInt().toString()
             unitView.text = vital.unit ?: ""
-            updateBtn.visibility = View.VISIBLE
             addVitalButton.visibility = View.GONE
         }
 
@@ -83,9 +75,6 @@ class DashboardAdapter(
         }
         iconView.setImageResource(iconRes)
 
-        updateBtn.setOnClickListener {
-            // TODO: Handle update action
-        }
 
         view.setOnClickListener {
             onVitalCardClick.invoke(vital.vitalName ?: "")
