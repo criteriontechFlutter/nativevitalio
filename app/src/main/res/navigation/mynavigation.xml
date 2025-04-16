@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_dashboard_to_vitalDetail"
             app:destination="@id/vitalDetail" />
+        <action
+            android:id="@+id/action_dashboard_to_connection"
+            app:destination="@id/connection" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
