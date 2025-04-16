@@ -364,7 +364,7 @@
                             android:layout_width="160dp"
                             android:layout_height="300dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/oval_background">
+                            android:background="@drawable/oval_graph_bg">
 
                             <!-- Fill layer -->
                             <View
@@ -382,9 +382,9 @@
                                 android:rotation="270"
                                 android:max="1000"
                                 android:progress="0"
-                                android:progressDrawable="@drawable/progress_drawable"
-                                android:thumb="@drawable/custom_thumb"
-                                android:layout_gravity="center" />
+                                android:progressDrawable="@drawable/volume_progress_drawable"
+                                android:thumb="@drawable/ic_volume_thumb"
+                                android:layout_gravity="end" />
 
                             <!-- Floating ml label -->
                             <TextView
