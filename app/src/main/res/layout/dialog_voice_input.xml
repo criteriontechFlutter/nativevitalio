@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/voice_bg_gradient"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/voice_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <!-- Hint -->
+
+    <!-- Floating Mic Icon in Dashboard FAB position -->
+
+    <TextView
+        android:id="@+id/voice_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="42dp"
+        android:text="Speak to add your vitals or report your symptoms"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/voice_button"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/rounded_corners"
+        android:contentDescription="Mic Button"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/doctors"
+        app:tint="@android:color/white" />
+</RelativeLayout>

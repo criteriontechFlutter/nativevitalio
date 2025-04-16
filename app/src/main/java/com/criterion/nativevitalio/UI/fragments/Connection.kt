@@ -1,7 +1,6 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,25 +9,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ListView
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.ConnectionAdapter
-import com.criterion.nativevitalio.adapter.VitalDetailsAdapter
 import com.criterion.nativevitalio.databinding.FragmentConnectionBinding
-import com.criterion.nativevitalio.databinding.FragmentPillsReminderBinding
-import com.criterion.nativevitalio.databinding.FragmentVitalDetailBinding
 import com.criterion.nativevitalio.model.VitalDevice
 import com.criterion.nativevitalio.model.VitalPosition
 import com.criterion.nativevitalio.viewmodel.ConnectionViewModel
-import com.criterion.nativevitalio.viewmodel.SymptomsViewModel
-import com.criterion.nativevitalio.viewmodel.VitalDetailsViewModel
 
 class Connection: Fragment() {
 
@@ -84,6 +76,7 @@ class Connection: Fragment() {
     private fun showManualVitalDialog(vitalType: String) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.manual_vital_dialog, null)
 
+        Toast.makeText(requireContext(), vitalType, Toast.LENGTH_SHORT).show()
         val title = dialogView.findViewById<TextView>(R.id.dialogTitle)
         val sysInput = dialogView.findViewById<EditText>(R.id.sysInput)
         val diaInput = dialogView.findViewById<EditText>(R.id.diaInput)
@@ -109,6 +102,7 @@ class Connection: Fragment() {
 
         hideAllFields()
 
+
         when (vitalType) {
             "Blood Pressure" -> {
                 title.text = "Enter BP Values"
@@ -120,6 +114,13 @@ class Connection: Fragment() {
             "Body Temperature" -> tempInput.visibility = View.VISIBLE
             "RBS" -> rbsInput.visibility = View.VISIBLE
             "Body Weight" -> weightInput.visibility = View.VISIBLE
+
+
+            "SpO2" -> spo2Input.visibility = View.VISIBLE
+            "RespRate" -> rrInput.visibility = View.VISIBLE
+            "Temperature" -> tempInput.visibility = View.VISIBLE
+            "RBS" -> rbsInput.visibility = View.VISIBLE
+            "Weight" -> weightInput.visibility = View.VISIBLE
         }
 
         val dialog = AlertDialog.Builder(requireContext()).setView(dialogView).setCancelable(true).create()

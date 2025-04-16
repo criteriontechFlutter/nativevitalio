@@ -2,15 +2,13 @@ package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
 import com.criterion.nativevitalio.databinding.FragmentDrawerBinding
 
 
@@ -37,6 +35,7 @@ class drawer : Fragment() {
 
         }
         binding.darkModeRow.root.setOnClickListener {
+            PrefsManager().clearPatient()
          findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
 
         }
