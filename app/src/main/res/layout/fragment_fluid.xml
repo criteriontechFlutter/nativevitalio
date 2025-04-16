@@ -371,8 +371,9 @@
                                 android:id="@+id/fillView"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
+                                android:backgroundTint="@color/scale2"
                                 android:layout_gravity="bottom"
-                                android:background="#FFECB3" /> <!-- Light Amber -->
+                                android:background="@drawable/oval_graph_bg"/> <!-- Light Amber -->
 
                             <!-- SeekBar -->
                             <SeekBar
@@ -392,6 +393,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 ml"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="#FF6F00"
