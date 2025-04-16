@@ -2,7 +2,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.Toast
-import com.criterion.nativevitalio.Utils.MyApplication
+import androidx.appcompat.app.AppCompatDelegate
+import com.criterion.nativevitalio.utils.MyApplication
 
 object NetworkUtils {
 
@@ -33,5 +34,20 @@ object NetworkUtils {
         }
 
         return isConnected
+    }
+
+
+    object ThemeHelper {
+        const val MODE_LIGHT = "light"
+        const val MODE_DARK = "dark"
+        const val MODE_SYSTEM = "system"
+
+        fun applyTheme(themePref: String) {
+            when (themePref) {
+                MODE_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                MODE_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                MODE_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+        }
     }
 }

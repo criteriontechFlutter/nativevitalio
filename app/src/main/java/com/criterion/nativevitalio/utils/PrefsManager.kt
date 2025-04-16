@@ -1,6 +1,6 @@
 import android.content.Context
 import androidx.core.content.edit
-import com.criterion.nativevitalio.Utils.MyApplication
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 

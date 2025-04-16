@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Utils
+package com.criterion.nativevitalio.utils
 
 class ApiEndPoint {
 
@@ -20,4 +20,14 @@ class ApiEndPoint {
     val getAllProblems="Patient/getAllProblems"
     val insertSymtoms="api/PatientIPDPrescription/InsertSymtoms"
     val getSymptoms="api/PatientIPDPrescription/GetSymtoms"
+
+
+    val getFluidIntakeDetails="api/ManualFoodAssign/GetManualFoodAssignList"
+    val getFluidIntakeDetailsByRange="/api/ManualFoodAssign/FluidSummaryByDateRange"
+
+
+
+    val getPatientLastVital="api/PatientVital/GetPatientLastVital"
+    val insertPatientVital="api/PatientVital/InsertPatientVital"
+
 }

@@ -1,6 +1,5 @@
 package com.criterion.nativevitalio.networking
 
-import com.criterion.nativevitalio.Utils.MyApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -59,6 +58,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
 
     private const val DEFAULT_BASE_URL = "https://api.medvantage.tech:7082/"
+    private const val DEFAULT_BASE_URL_7096 = "https://api.medvantage.tech:7096/"
 //    private const val DEFAULT_BASE_URL = "http://52.172.134.222:205/api/v1.0/"
 
     private val baseOkHttpClient by lazy {
@@ -81,6 +81,25 @@ object RetrofitInstance {
         additionalHeaders: Map<String, String> = emptyMap()
     ): ApiService {
         val baseUrlToUse = overrideBaseUrl ?: DEFAULT_BASE_URL
+        val headers = generateAuthHeaderMap(includeAuthHeader,additionalHeaders)
+
+        val clientWithHeaders = baseOkHttpClient.newBuilder()
+            .addInterceptor(createAuthInterceptor(headers))
+            .build()
+
+        return getRetrofitInstance(baseUrlToUse).newBuilder()
+            .client(clientWithHeaders)
+            .build()
+            .create(ApiService::class.java)
+    }
+
+
+    fun createApiService7096(
+        overrideBaseUrl: String? = null, // Optional parameter
+        includeAuthHeader: Boolean = false,
+        additionalHeaders: Map<String, String> = emptyMap()
+    ): ApiService {
+        val baseUrlToUse = overrideBaseUrl ?: DEFAULT_BASE_URL_7096
         val headers = generateAuthHeaderMap(includeAuthHeader,additionalHeaders)
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()

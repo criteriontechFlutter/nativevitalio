@@ -333,8 +333,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_chevron_right" />
-                            <entry key="sourceFile" value="C:\Users\Amit\Downloads\Login\google logo.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="sliderimage" />
+                            <entry key="sourceFile" value="C:\Users\CT-Animesh\Downloads\sliderimage.svg" />
                           </map>
                         </option>
                       </PersistentState>

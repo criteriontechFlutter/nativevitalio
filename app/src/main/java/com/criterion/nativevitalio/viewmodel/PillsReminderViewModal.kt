@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.Utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import kotlinx.coroutines.launch
 import org.json.JSONArray

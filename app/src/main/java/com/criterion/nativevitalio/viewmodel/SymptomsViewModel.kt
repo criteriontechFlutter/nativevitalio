@@ -2,12 +2,13 @@ package com.criterion.nativevitalio.viewmodel
 
 import PrefsManager
 import android.os.Build
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.Utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.model.ProblemWithIcon
 import com.criterion.nativevitalio.model.SymptomDetail
 import com.criterion.nativevitalio.model.SymptomResponse
@@ -268,6 +269,8 @@ fun insertSymptoms( ) {
                 _loading.value = false
 
                 if (response.isSuccessful) {
+                    val context = MyApplication.appContext
+                    Toast.makeText(context, "Symptom saved successfully!!", Toast.LENGTH_SHORT).show()
 
                     getSymptoms()
                     _selectedSymptoms.value = mutableListOf()
