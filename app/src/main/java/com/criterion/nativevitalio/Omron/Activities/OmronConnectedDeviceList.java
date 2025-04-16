@@ -44,7 +44,7 @@ import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
 import com.criterion.nativevitalio.Omron.utility.dataListData;
 import com.criterion.nativevitalio.Omron.utility.sampleLog;
 import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.Utils.MyApplication;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.SharedManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;

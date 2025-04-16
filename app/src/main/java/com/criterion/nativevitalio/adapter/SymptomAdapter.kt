@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.Utils.MyApplication
+import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.databinding.ItemSymptomBinding
 import com.criterion.nativevitalio.interfaces.AdapterInterface
 import com.criterion.nativevitalio.model.ProblemWithIcon

@@ -5,11 +5,11 @@
 
 
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F9FAFB"
-        android:padding="5sp">
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#F9FAFB"-->
+<!--        android:padding="5sp">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                     android:layout_height="60dp"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingEnd="@dimen/_16sdp"
-                    android:text="Fluid Intake"
+                    android:text="@string/fluid_intake"
                     android:textColor="@android:color/white"
                     app:cornerRadius="14dp"
                     app:backgroundTint="@color/primaryBlue" />
@@ -119,136 +119,336 @@
 
             <!-- Recommended / Intake / Remaining -->
 
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:id="@+id/fluidIntakeLayout"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Top Info Row -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                   >
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/recommendedText"
-                        android:layout_width="wrap_content"
+                    <!-- Top Info Row -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Recommended Fluid: "
-                        android:textColor="#607D8B"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/intakeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Intake: "
-                        android:textColor="#607D8B"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Stacked Bar Container -->
-                <LinearLayout
-                    android:id="@+id/stackedBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal"
-                    android:background="#E0E0E0"
-                    android:weightSum="1"/>
-
-                <!-- Bottom Info Row -->
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/remainingText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:text="@string/remaining"
-                        android:textColor="#607D8B"
-                        app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/legendLayout"
-                        app:layout_constraintTop_toTopOf="@+id/legendLayout" />
-
-                    <!-- Legend -->
-                    <LinearLayout
-                        android:id="@+id/legendLayout"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingTop="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        >
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/recommendedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Recommended Fluid: "
+                            android:textColor="#607D8B"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/intakeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="Intake: "
+                            android:textColor="#607D8B"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Stacked Bar Container -->
+                    <LinearLayout
+                        android:id="@+id/stackedBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        android:background="#E0E0E0"
+                        android:weightSum="1"/>
+
+                    <!-- Bottom Info Row -->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/remainingText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:text="@string/remaining"
+                            android:textColor="#607D8B"
+                            app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/legendLayout"
+                            app:layout_constraintTop_toTopOf="@+id/legendLayout" />
+
+                        <!-- Legend -->
+                        <LinearLayout
+                            android:id="@+id/legendLayout"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <!-- Glass animation/graphic -->
+                <com.criterion.nativevitalio.utils.GlassFillView
+                    android:layout_width="150dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    />
 
 
-            <!-- Glass animation/graphic -->
-            <com.criterion.nativevitalio.Utils.GlassFillView
-                android:layout_width="150dp"
-                android:layout_height="250dp"
-                android:layout_gravity="center"
-                />
-
-
-
-            <TextView
-                android:text="0 ml of 150 ml"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-
-            <TextView
-                android:text="Last intake: 1h 34m ago"
-                android:textSize="14sp"
-                android:textColor="#999"
-                android:layout_marginTop="4dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-
-            <!-- Drink Selection -->
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fluidRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:clipToPadding="false" />
-
-
-            <!-- Glass Size -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/selectedSizeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Your Glass Size"
-                    android:textColor="#607D8B"
-                    android:layout_marginBottom="12dp"/>
+                    android:text="0 ml of 150 ml"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+                <TextView
+                    android:text="Last intake: 1h 34m ago"
+                    android:textSize="14sp"
+                    android:textColor="#999"
+                    android:layout_marginTop="4dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+                <!-- Drink Selection -->
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewGlassSize"
+                    android:id="@+id/fluidRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:clipToPadding="false" />
+
+
+                <!-- Glass Size -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/selectedSizeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Your Glass Size"
+                        android:textColor="#607D8B"
+                        android:layout_marginBottom="12dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewGlassSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
+
+
+
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:background="#F9FBFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <!-- Top counts -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:text="Urination count"
+                                android:textColor="#888"
+                                android:textSize="14sp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:text="8 times"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textColor="#000"
+                                android:gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="40dp"
+                            android:background="#CCC" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:text="Urination volume"
+                                android:textColor="#888"
+                                android:textSize="14sp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:text="1450 ml"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textColor="#000"
+                                android:gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Custom draggable progress visual mimic -->
+                    <RelativeLayout
+                        android:id="@+id/ovalContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F7F9FC"
+                        android:padding="24dp">
+
+                        <!-- Vertical Scale Labels -->
+                        <LinearLayout
+                            android:id="@+id/scaleLabels"
+                            android:layout_width="wrap_content"
+                            android:layout_height="300dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginEnd="12dp" />
+
+                        <!-- Oval tank fill area -->
+                        <FrameLayout
+                            android:id="@+id/ovalFrame"
+                            android:layout_width="160dp"
+                            android:layout_height="300dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/oval_background">
+
+                            <!-- Fill layer -->
+                            <View
+                                android:id="@+id/fillView"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_gravity="bottom"
+                                android:background="#FFECB3" /> <!-- Light Amber -->
+
+                            <!-- SeekBar -->
+                            <SeekBar
+                                android:id="@+id/fluidSeekBar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:rotation="270"
+                                android:max="1000"
+                                android:progress="0"
+                                android:progressDrawable="@drawable/progress_drawable"
+                                android:thumb="@drawable/custom_thumb"
+                                android:layout_gravity="center" />
+
+                            <!-- Floating ml label -->
+                            <TextView
+                                android:id="@+id/fluidLevelLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 ml"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="#FF6F00"
+                                android:layout_gravity="end"
+                                android:padding="4dp"
+                                android:background="@android:color/transparent" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+
+
+
+                    <!-- Last urination time -->
+                    <TextView
+                        android:text="Last urination  •  1h 34m ago"
+                        android:textColor="#888"
+                        android:textSize="14sp"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <!-- Color Bar -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="24dp">
+
+                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFFDE7"/>
+                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFF176"/>
+                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFEB3B"/>
+                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFC107"/>
+                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#A1887F"/>
+                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#D32F2F"/>
+                    </LinearLayout>
+
+                    <!-- Color Bar Labels -->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Light\nYellow" android:textSize="10sp"/>-->
+<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>-->
+<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>-->
+<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>-->
+<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>-->
+<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>-->
+<!--                    </LinearLayout>-->
+
+                </LinearLayout>
+            </ScrollView>
+
+
+
 
             <!-- Add Intake Button -->
             <Button
@@ -262,5 +462,5 @@
                 android:textColor="#fff" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+<!--    </androidx.core.widget.NestedScrollView>-->
 </layout>

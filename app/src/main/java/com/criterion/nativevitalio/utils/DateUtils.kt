@@ -51,4 +51,33 @@ object DateUtils {
             else -> format(date, "dd MMM yyyy")
         }
     }
+
+
+
+    private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+    fun getCurrentWeekRange(): Pair<String, String> {
+        val calendar = Calendar.getInstance()
+        calendar.firstDayOfWeek = Calendar.MONDAY
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        val start = calendar.time
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+        val end = calendar.time
+
+        return Pair(sdf.format(start), sdf.format(end))
+    }
+
+    fun getCurrentMonthRange(): Pair<String, String> {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val start = calendar.time
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        val end = calendar.time
+
+        return Pair(sdf.format(start), sdf.format(end))
+    }
+
+
 }

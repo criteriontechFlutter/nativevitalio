@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,6 +30,7 @@ class FluidFragment : Fragment() {
     private lateinit var binding: FragmentFluidBinding
     private lateinit var adapter: FluidOptionAdapter
     private lateinit var adapterGlassSize: GlassSizeAdapter
+    private val labelViews = mutableListOf<TextView>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +54,12 @@ class FluidFragment : Fragment() {
             findNavController().navigate(R.id.action_fluidFragment_to_fluidInputHistoryFragment)
         }
 
+        populateScale()
+        setupSeekBar()
+
+
+
+
 
 
         // Listen for changes
@@ -72,6 +80,9 @@ class FluidFragment : Fragment() {
 
 
         }
+
+
+
 
         viewModel.fetchManualFluidIntake("UHID01235")
 
@@ -177,6 +188,57 @@ class FluidFragment : Fragment() {
         viewModel.selectedVolume.observe(viewLifecycleOwner) { volume ->
             binding.selectedSizeText.text = "Selected: ${volume} ml"
         }
+    }
+
+
+
+    private fun populateScale() {
+        val step = 100
+        for (i in 1000 downTo 0 step step) {
+            val label = TextView(activity).apply {
+                text = "$i ml"
+                setTextColor(Color.GRAY)
+                textSize = 12f
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    0,
+                    1f
+                )
+            }
+           labelViews.add(label)
+            binding.scaleLabels.addView(label)
+        }
+    }
+
+    private fun setupSeekBar() {
+        binding.fluidSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.fluidLevelLabel.text = "$progress ml"
+
+                // Position label vertically
+                val seekBarHeight =   binding.fluidSeekBar.height
+                val percent = progress.toFloat() /   binding.fluidSeekBar.max
+                val yPos =   binding.fluidSeekBar.top + seekBarHeight * (1 - percent)
+                binding.fluidLevelLabel.y = yPos -   binding.fluidLevelLabel.height / 2
+
+                // Animate fill view height
+                val fillHeight = (seekBarHeight * percent).toInt()
+                val params =   binding.fillView.layoutParams
+                params.height = fillHeight
+                binding.fillView.layoutParams = params
+
+                // Color scale labels
+                for ((index, label) in labelViews.withIndex()) {
+                    val labelValue = 1000 - index * 100
+                    label.setTextColor(
+                        if (progress >= labelValue) Color.parseColor("#FF6F00") else Color.GRAY
+                    )
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     private fun updateToggleStyles(checkedId: Int) {

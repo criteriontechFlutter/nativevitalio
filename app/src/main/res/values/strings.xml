@@ -49,7 +49,7 @@
     <string name="save_and_update_symptoms">Save and Update Symptoms</string>
 
     <string name="symptom_history">Symptoms History</string>
-    <string name="daily">Daily</string>
+    <string name="daily"> Daily</string>
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
 
@@ -235,5 +235,6 @@
     <string name="fluid_data_input">Fluid Data Input</string>
     <string name="remaining">Remaining:</string>
     <string name="add_intake">Add Intake</string>
+    <string name="fluid_intake">Fluid Intake</string>
 
 </resources>
