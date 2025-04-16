@@ -85,6 +85,14 @@
     <fragment
         android:id="@+id/vitalDetail"
         android:name="com.criterion.nativevitalio.UI.fragments.VitalDetail"
-        android:label="VitalDetail" />
+        android:label="VitalDetail" >
+        <action
+            android:id="@+id/action_vitalDetail_to_connection"
+            app:destination="@id/connection" />
+    </fragment>
+    <fragment
+        android:id="@+id/connection"
+        android:name="com.criterion.nativevitalio.UI.fragments.Connection"
+        android:label="Connection" />
 
 </navigation>

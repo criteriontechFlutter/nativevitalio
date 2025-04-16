@@ -282,13 +282,13 @@
                     android:layout_marginTop="16dp"/>
 
 
-                <com.criterion.nativevitalio.Utils.FluidChartView
-                    android:id="@+id/fluidChartContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="16dp"
+<!--                <com.criterion.nativevitalio.Utils.FluidChartView-->
+<!--                    android:id="@+id/fluidChartContent"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="300dp"-->
+<!--                    android:layout_margin="16dp"-->
 
-                    />
+<!--                    />-->
 
 
 

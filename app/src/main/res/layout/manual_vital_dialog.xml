@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@drawable/rounded_corners"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Vital"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- BP Layout -->
+    <LinearLayout
+        android:id="@+id/layoutBP"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/sysInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter SYS (mmHg)"
+            android:inputType="number"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/diaInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter DIA (mmHg)"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <!-- RR Layout -->
+    <EditText
+        android:id="@+id/rrInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Respiratory Rate"
+        android:inputType="number"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <!-- SpO2 Layout -->
+    <EditText
+        android:id="@+id/spo2Input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter SpO2 (%)"
+        android:inputType="number"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Heart Rate -->
+    <EditText
+        android:id="@+id/heartRateInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Heart Rate"
+        android:inputType="number"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Temperature -->
+    <EditText
+        android:id="@+id/tempInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Temperature (°F)"
+        android:inputType="numberDecimal"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <!-- RBS -->
+    <EditText
+        android:id="@+id/rbsInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter RBS (mg/dL)"
+        android:inputType="number"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Weight -->
+    <EditText
+        android:id="@+id/weightInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Weight (kg)"
+        android:inputType="numberDecimal"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/saveVitalsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Vitals"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>
