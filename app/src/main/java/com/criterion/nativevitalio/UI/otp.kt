@@ -5,21 +5,12 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.fragments.Dashboard
-import com.criterion.nativevitalio.databinding.ActivityLoginBinding
 import com.criterion.nativevitalio.databinding.ActivityOtpBinding
-import com.criterion.nativevitalio.viewmodel.LoginViewModel
 import com.criterion.nativevitalio.viewmodel.OtpViewModal
 
 class otp : AppCompatActivity() {
