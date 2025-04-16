@@ -6,7 +6,11 @@
         <item name="bottomNavigationStyle">@style/NoRoundedNav</item>
     </style>
 
-    <style name="Theme.Nativevitalio" parent="Base.Theme.Nativevitalio" />
+    <style name="Theme.Nativevitalio" parent="Base.Theme.Nativevitalio">
+
+    <item name="android:statusBarColor">@android:color/transparent</item>
+
+    </style>
     <style name="NoRoundedNav" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemShapeAppearanceOverlay">@style/NoItemShape</item>
     </style>

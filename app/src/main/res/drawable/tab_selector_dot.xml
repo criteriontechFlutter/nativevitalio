@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Focused and Selected (Largest) -->
+    <item android:state_selected="true" android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/blue" />
+            <size android:width="18dp" android:height="1dp" />
+        </shape>
+    </item>
+
+    <!-- Selected (Medium) -->
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/blue" />
+            <size android:width="12dp" android:height="1dp" />
+        </shape>
+    </item>
+
+    <!-- Default (Small) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#CCCCCC" />
+            <size android:width="6dp" android:height="1dp" />
+        </shape>
+    </item>
+</selector>
