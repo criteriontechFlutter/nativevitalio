@@ -1,25 +1,30 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import DateUtils
+import PrefsManager
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.BPReadingAdapter
 import com.criterion.nativevitalio.databinding.FragmentVitalHistoryBinding
+import com.criterion.nativevitalio.viewmodel.VitalHistoryViewModel
 
 
 class VitalHistoryFragment : Fragment() {
 
     private lateinit var binding: FragmentVitalHistoryBinding
-
+    private val viewModel: VitalHistoryViewModel by viewModels()
+    private lateinit var bloodPressureAdapter: BPReadingAdapter
+    private lateinit var vitalId: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,10 +45,20 @@ class VitalHistoryFragment : Fragment() {
             .split(",")
             .map { it.trim() }
 
-        Log.d("Vital", "Type: $type, Value: $value, Time: $timestamp")
+
+if(vitalType=="Blood Pressure"){
+    vitalId="6,4"
+    }else{
+    vitalId="5"
+   }
+
+        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
 
 
-        Log.d("ReceivedVital", "Type: $vitalType,")
+        viewModel.bpList.observe(viewLifecycleOwner) { list ->
+            bloodPressureAdapter = BPReadingAdapter(list.reversed())
+            binding.recyclerViewFluidLogs.adapter = bloodPressureAdapter
+        }
 
         binding.backIcon.setOnClickListener {
             findNavController().popBackStack()
@@ -90,12 +105,16 @@ class VitalHistoryFragment : Fragment() {
                     R.id.btnDaily -> {
                         binding.btnGraphToggleLayout.visibility= View.VISIBLE
                         binding.tvSelectedDate.setText("Today")
+                        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
+
 
                     }
                     R.id.btnWeekly -> {
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getCurrentWeekRange()
                         binding.tvSelectedDate.setText("$from--$to")
+                        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
+
 
                     }
                     R.id.btnMonthly -> {
@@ -103,6 +122,7 @@ class VitalHistoryFragment : Fragment() {
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getCurrentMonthRange()
                         binding.tvSelectedDate.setText("$from--$to")
+                        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
                     }
                 }
             }

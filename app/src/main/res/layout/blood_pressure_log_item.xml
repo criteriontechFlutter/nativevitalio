@@ -23,24 +23,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Standing"
+        android:textColor="#000000"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- BP Value -->
     <TextView
         android:id="@+id/bpValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="120/78"
-        android:textSize="20sp"
         android:textColor="#1D67EA"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/vitalTime"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
+        app:layout_constraintTop_toBottomOf="@id/vitalTime" />
 
     <!-- mmHg -->
     <TextView
@@ -59,25 +60,27 @@
         android:id="@+id/pulseValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:text="76"
+        android:textColor="#1D67EA"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#1D67EA"
-        app:layout_constraintTop_toTopOf="@id/bpValue"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/bpUnit"
-        android:layout_marginStart="32dp"/>
+        app:layout_constraintTop_toTopOf="@id/bpValue" />
 
     <!-- BPM -->
     <TextView
         android:id="@+id/pulseUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:text="BPM"
-        android:textSize="14sp"
         android:textColor="#9BA1A7"
+        android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/pulseValue"
-        app:layout_constraintStart_toEndOf="@id/pulseValue"
-        android:layout_marginStart="4dp"/>
+        app:layout_constraintStart_toEndOf="@id/pulseValue" />
 
     <!-- SYS - DIA Label -->
     <TextView
@@ -96,12 +99,13 @@
         android:id="@+id/pulseLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:text="Pulse"
-        android:textSize="12sp"
         android:textColor="#999999"
-        app:layout_constraintTop_toBottomOf="@id/pulseValue"
+        android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/pulseValue"
-        android:layout_marginTop="6dp"/>
+        app:layout_constraintTop_toBottomOf="@id/pulseValue" />
 
     <View
         android:id="@+id/dividerLine"

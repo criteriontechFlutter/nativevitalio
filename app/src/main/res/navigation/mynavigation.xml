@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mynavigation"
@@ -98,6 +98,9 @@
         <action
             android:id="@+id/action_vitalDetail_to_connection"
             app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_vitalDetail_to_vitalHistoryFragment"
+            app:destination="@id/vitalHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/connection"
@@ -111,5 +114,9 @@
         android:id="@+id/dietChecklist"
         android:name="com.criterion.nativevitalio.UI.fragments.DietChecklist"
         android:label="DietChecklist" />
+    <fragment
+        android:id="@+id/vitalHistoryFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.VitalHistoryFragment"
+        android:label="VitalHistoryFragment" />
 
 </navigation>

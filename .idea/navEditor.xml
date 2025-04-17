@@ -65,6 +65,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_dietChecklist">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_drawer4">
                               <value>
                                 <LayoutPositions />
@@ -256,11 +261,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_vitalDetail_to_vitalHistoryFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -271,8 +271,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-368" />
-                            <option name="y" value="784" />
+                            <option name="x" value="-381" />
+                            <option name="y" value="821" />
                           </Point>
                         </option>
                       </LayoutPositions>

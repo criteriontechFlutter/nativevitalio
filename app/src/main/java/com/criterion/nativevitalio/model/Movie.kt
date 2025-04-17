@@ -85,3 +85,43 @@ data class BloodPressureReading(
 )
 
 
+data class VitalResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: BloodPressureHistory
+)
+
+
+data class BloodPressureHistory(
+    val patientGraph: List<PatientGraph>,
+    val patientVital: List<PatientVital>,
+    val vitalsDate: List<VitalsDate>
+)
+
+
+data class PatientGraph(
+    val vitalDateTime: String,
+    val vitalDetails: String // This is a raw JSON string that you'll parse separately
+)
+
+data class VitalDetail(
+    val vitalid: Int,
+    val vitalName: String,
+    val vitalValue: Double,
+    val vitaldate: String
+)
+
+
+data class PatientVital(
+    val id: Int,
+    val vitalName: String,
+    val vitalIcon: String
+)
+
+data class VitalsDate(
+    val vitalDate: String
+)
+
+
+
+

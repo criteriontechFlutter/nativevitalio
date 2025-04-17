@@ -188,8 +188,10 @@
                     android:id="@+id/pulseIcon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignBottom="@id/heartImage"
+                    android:layout_alignTop="@+id/bpText"
                     android:layout_alignEnd="@id/heartImage"
+                    android:layout_alignBottom="@id/heartImage"
+                    android:layout_marginTop="87dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/wave_bp" />

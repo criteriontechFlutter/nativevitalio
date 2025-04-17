@@ -79,5 +79,10 @@ object DateUtils {
         return Pair(sdf.format(start), sdf.format(end))
     }
 
+    fun getTodayDate(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return formatter.format(Date())
+    }
+
 
 }
