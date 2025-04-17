@@ -50,10 +50,10 @@
                    android:textSize="16sp" />
 
                <TextView
-                   android:id="@+id/demo_id"
+                   android:id="@+id/userName"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Demo 211"
+                   android:text=""
                    android:textColor="@android:color/black"
                    android:textSize="18sp"
                    android:textStyle="bold" />

@@ -18,15 +18,19 @@ class VitalDetailsAdapter(
     private val onVitalButtonClick: (String) -> Unit
 ) : RecyclerView.Adapter<VitalDetailsAdapter.VitalViewHolder>() {
 
-    // title, valueText, vitalDateTime
     private val groupedVitals = mutableListOf<Triple<String, String, String>>()
+
+    private val colorNormal = Color.parseColor("#1753DA") // Orange
+    private val colorBorderline = Color.parseColor("#FFA500") // Orange
     private val colorCritical = Color.RED
-    private val colorNormal = Color.BLACK
+
+    enum class RangeStatus {
+        NORMAL, BORDERLINE, CRITICAL
+    }
 
     fun submitVitals(list: List<Vital>) {
         groupedVitals.clear()
 
-        // Group systolic and diastolic BP
         val sys = list.find { it.vitalName == "BP_Sys" }
         val dias = list.find { it.vitalName == "BP_Dias" }
         if (sys != null && dias != null) {
@@ -39,7 +43,6 @@ class VitalDetailsAdapter(
             )
         }
 
-        // Add other vitals
         list.forEach { vital ->
             val title = when (vital.vitalName) {
                 "HeartRate" -> "Heart Rate"
@@ -84,16 +87,23 @@ class VitalDetailsAdapter(
         holder.vitalValue.text = valueText
         holder.vitalTime.text = getTimeAgo(dateTime)
 
-        // Highlight critical values
+        val status = getVitalRangeStatus(title, valueText)
+
         holder.vitalValue.setTextColor(
-            if (title == "Body Temperature" && valueText.contains("102") || valueText.contains("88/54"))
-                colorCritical
-            else colorNormal
+            when (status) {
+                RangeStatus.NORMAL -> colorNormal
+                RangeStatus.BORDERLINE -> colorBorderline
+                RangeStatus.CRITICAL -> colorCritical
+            }
         )
 
-        holder.vitalButton.setOnClickListener {
+        holder.vitalText.setOnClickListener {
             onVitalButtonClick(title)
         }
+
+//        holder.warningIcon.visibility =
+//            if (status == RangeStatus.BORDERLINE || status == RangeStatus.CRITICAL) View.VISIBLE
+//            else View.GONE
     }
 
     override fun getItemCount(): Int = groupedVitals.size
@@ -102,7 +112,74 @@ class VitalDetailsAdapter(
         val vitalTitle: TextView = view.findViewById(R.id.vitalTitle)
         val vitalValue: TextView = view.findViewById(R.id.vitalValue)
         val vitalTime: TextView = view.findViewById(R.id.vitalTime)
-        val vitalButton: TextView = view.findViewById(R.id.vitalButton)
+        val vitalText: TextView = view.findViewById(R.id.addVitalText)
+        //val warningIcon: ImageView = view.findViewById(R.id.warningIcon)
+    }
+
+    private fun getVitalRangeStatus(title: String, valueText: String): RangeStatus {
+        return when (title) {
+            "Blood Pressure" -> {
+                val match = Regex("(\\d{2,3})/(\\d{2,3})").find(valueText)
+                val (sys, dia) = match?.destructured?.let {
+                    it.component1().toInt() to it.component2().toInt()
+                } ?: return RangeStatus.NORMAL
+
+                when {
+                    sys in 90..120 && dia in 60..80 -> RangeStatus.NORMAL
+                    sys in 121..139 || dia in 81..89 -> RangeStatus.BORDERLINE
+                    else -> RangeStatus.CRITICAL
+                }
+            }
+
+            "Heart Rate", "Pulse Rate" -> {
+                val value = valueText.replace(Regex("[^\\d]"), "").toIntOrNull() ?: return RangeStatus.NORMAL
+                when {
+                    value in 60..100 -> RangeStatus.NORMAL
+                    value in 50..59 || value in 101..110 -> RangeStatus.BORDERLINE
+                    else -> RangeStatus.CRITICAL
+                }
+            }
+
+            "Blood Oxygen (SpO2)" -> {
+                val value = valueText.replace("%", "").toIntOrNull() ?: return RangeStatus.NORMAL
+                when {
+                    value >= 95 -> RangeStatus.NORMAL
+                    value in 90..94 -> RangeStatus.BORDERLINE
+                    else -> RangeStatus.CRITICAL
+                }
+            }
+
+            "Body Temperature" -> {
+                val value = valueText.replace(Regex("[^\\d.]"), "").toFloatOrNull() ?: return RangeStatus.NORMAL
+                when {
+                    value in 97.0..99.5 -> RangeStatus.NORMAL
+                    value in 99.6..100.4 -> RangeStatus.BORDERLINE
+                    else -> RangeStatus.CRITICAL
+                }
+            }
+
+            "Respiratory Rate" -> {
+                val value = valueText.replace(Regex("[^\\d]"), "").toIntOrNull() ?: return RangeStatus.NORMAL
+                when {
+                    value in 12..20 -> RangeStatus.NORMAL
+                    value in 10..11 || value in 21..24 -> RangeStatus.BORDERLINE
+                    else -> RangeStatus.CRITICAL
+                }
+            }
+
+            "RBS" -> {
+                val value = valueText.replace(Regex("[^\\d]"), "").toIntOrNull() ?: return RangeStatus.NORMAL
+                when {
+                    value in 70..140 -> RangeStatus.NORMAL
+                    value in 141..180 -> RangeStatus.BORDERLINE
+                    else -> RangeStatus.CRITICAL
+                }
+            }
+
+            "Body Weight" -> RangeStatus.NORMAL
+
+            else -> RangeStatus.NORMAL
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
