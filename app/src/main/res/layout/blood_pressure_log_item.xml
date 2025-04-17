@@ -1,0 +1,118 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <!-- Time (top left) -->
+    <TextView
+        android:id="@+id/vitalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⏱ Just Now"
+        android:textSize="12sp"
+        android:textColor="#9BA1A7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Posture (top right) -->
+    <TextView
+        android:id="@+id/postureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Standing"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- BP Value -->
+    <TextView
+        android:id="@+id/bpValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="120/78"
+        android:textSize="20sp"
+        android:textColor="#1D67EA"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/vitalTime"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <!-- mmHg -->
+    <TextView
+        android:id="@+id/bpUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mmHg"
+        android:textSize="14sp"
+        android:textColor="#9BA1A7"
+        app:layout_constraintBottom_toBottomOf="@id/bpValue"
+        app:layout_constraintStart_toEndOf="@id/bpValue"
+        android:layout_marginStart="6dp"/>
+
+    <!-- Pulse Value -->
+    <TextView
+        android:id="@+id/pulseValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="76"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#1D67EA"
+        app:layout_constraintTop_toTopOf="@id/bpValue"
+        app:layout_constraintStart_toEndOf="@id/bpUnit"
+        android:layout_marginStart="32dp"/>
+
+    <!-- BPM -->
+    <TextView
+        android:id="@+id/pulseUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BPM"
+        android:textSize="14sp"
+        android:textColor="#9BA1A7"
+        app:layout_constraintBottom_toBottomOf="@id/pulseValue"
+        app:layout_constraintStart_toEndOf="@id/pulseValue"
+        android:layout_marginStart="4dp"/>
+
+    <!-- SYS - DIA Label -->
+    <TextView
+        android:id="@+id/bpLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SYS - DIA"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        app:layout_constraintTop_toBottomOf="@id/bpValue"
+        app:layout_constraintStart_toStartOf="@id/bpValue"
+        android:layout_marginTop="6dp"/>
+
+    <!-- Pulse Label -->
+    <TextView
+        android:id="@+id/pulseLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulse"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        app:layout_constraintTop_toBottomOf="@id/pulseValue"
+        app:layout_constraintStart_toStartOf="@id/pulseValue"
+        android:layout_marginTop="6dp"/>
+
+    <View
+        android:id="@+id/dividerLine"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/greyDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pulseLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
