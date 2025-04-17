@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">nativevitalio</string>
+    <string name="app_name">Vitalio</string>
     <string name="vitals">Vitals</string>
     <string name="primary_actions">Primary Actions</string>
     <string name="other">Other</string>

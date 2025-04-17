@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.UI.Login
 import com.criterion.nativevitalio.UI.otp
-import com.criterion.nativevitalio.utils.ApiEndPoint
-import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -52,9 +52,9 @@ class LoginViewModel : ViewModel() {
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
                     val firstPatient = parsed.responseValue.firstOrNull()
                     firstPatient?.let {
-                        Login.storedUHID = it.uhid
-                        sentLogInOTPForSHFCApp(it.uhid)
-                        Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhid.toString()}"
+                        Login.storedUHID = it.uhID
+                        sentLogInOTPForSHFCApp(it.uhID)
+                        Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}"
                         )
                     }
 

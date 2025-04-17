@@ -1,6 +1,7 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import FluidAmountBottomSheet
+import PrefsManager
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
@@ -90,7 +91,7 @@ class FluidFragment : Fragment() {
 
 
 
-        viewModel.fetchManualFluidIntake("UHID01235")
+        PrefsManager().getPatient()?.let { viewModel.fetchManualFluidIntake(it.uhID) }
 
 
 
