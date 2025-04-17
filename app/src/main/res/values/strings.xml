@@ -236,5 +236,6 @@
     <string name="remaining">Remaining:</string>
     <string name="add_intake">Add Intake</string>
     <string name="fluid_intake">Fluid Intake</string>
+    <string name="diet_checklist">Diet Checklist</string>
 
 </resources>
