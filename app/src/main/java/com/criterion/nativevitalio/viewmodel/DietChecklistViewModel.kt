@@ -28,15 +28,20 @@ class DietChecklistViewModel: ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
-    fun getFoodIntake() {
+    fun getFoodIntake(date:  String?) {
         _loading.value = true
+        val finalDate = if (date.isNullOrBlank()) {
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        } else {
+            date
+        }
 
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
                     "Uhid" to PrefsManager().getPatient()?.uhID.toString(),
                     "entryType" to "D",
-                    "fromDate" to SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
+                    "fromDate" to finalDate,
                 )
 
                 val response = RetrofitInstance
@@ -58,11 +63,13 @@ class DietChecklistViewModel: ViewModel() {
 
                     _dietList.postValue(parsedList)
                 } else {
+                    _dietList.postValue(emptyList())
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {
                 _loading.value = false
+                _dietList.postValue(emptyList())
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
             }
@@ -95,12 +102,13 @@ class DietChecklistViewModel: ViewModel() {
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService( )
+                    .createApiService7096(
+                    )
                     .queryDynamicRawPost(
                         url = ApiEndPoint().intakeByDietID,
                         params = queryParams
                     )
-                getFoodIntake()
+                getFoodIntake( "")
                 _loading.value = false
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
