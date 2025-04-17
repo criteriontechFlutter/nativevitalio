@@ -43,10 +43,8 @@ class VitalDetail  : Fragment() {
         recyclerView.adapter = adapter
 
         binding.backButton.setOnClickListener(){
-
             findNavController().popBackStack()
         }
-
 
 
         viewModel.getVitals()
