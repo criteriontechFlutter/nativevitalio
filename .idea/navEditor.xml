@@ -95,6 +95,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="dietChecklist">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-537" />
+                            <option name="y" value="169" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="drawer4">
                     <value>
                       <LayoutPositions>

@@ -118,6 +118,9 @@ class Dashboard  : Fragment() {
         binding.vitalDetails.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_vitalDetail)
         }
+        binding.dietChecklist.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_dietChecklist)
+        }
 
         binding.fabAdd.setOnTouchListener { _, event ->
             when (event.action) {

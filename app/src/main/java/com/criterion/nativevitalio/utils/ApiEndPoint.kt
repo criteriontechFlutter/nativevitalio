@@ -30,4 +30,8 @@ class ApiEndPoint {
     val getPatientLastVital="api/PatientVital/GetPatientLastVital"
     val insertPatientVital="api/PatientVital/InsertPatientVital"
 
+
+    val getFoodIntake="api/FoodIntake/GetFoodIntake"
+    val intakeByDietID="api/FoodIntake/IntakeByDietID"
+
 }
