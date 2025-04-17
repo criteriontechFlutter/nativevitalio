@@ -69,3 +69,19 @@ data class ChatMessage(
 
 
 
+data class Vital(
+    val type: String,
+    val value: String,
+    val timestamp: String
+)
+
+
+
+data class BloodPressureReading(
+    val time: String,  // e.g. "02:26 PM"
+    val sys: Int,
+    val dia: Int,
+    val bp: String     // "120/80 mmHg"
+)
+
+

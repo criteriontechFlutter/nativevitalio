@@ -37,8 +37,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-348" />
-                            <option name="y" value="762" />
+                            <option name="x" value="-119" />
+                            <option name="y" value="956" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -55,6 +55,16 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboard_to_chatFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_drawer4">
                               <value>
                                 <LayoutPositions />
@@ -223,8 +233,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-366" />
-                            <option name="y" value="428" />
+                            <option name="x" value="-377" />
+                            <option name="y" value="412" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -234,7 +244,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_vitalDetail_to_vitalHistoryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="vitalHistoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-368" />
+                            <option name="y" value="784" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

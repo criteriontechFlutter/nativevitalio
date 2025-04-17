@@ -3,11 +3,14 @@ package com.criterion.nativevitalio.adapter
 import Vital
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
 import java.time.LocalDateTime
@@ -15,11 +18,12 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 class VitalDetailsAdapter(
-    private val onVitalButtonClick: (String) -> Unit
+    private val onVitalButtonClick: (String) -> Unit,
+    private val navController: NavController
 ) : RecyclerView.Adapter<VitalDetailsAdapter.VitalViewHolder>() {
 
-    private val groupedVitals = mutableListOf<Triple<String, String, String>>()
 
+    private val groupedVitals = mutableListOf<Triple<String, String, String>>()
     private val colorNormal = Color.parseColor("#1753DA") // Orange
     private val colorBorderline = Color.parseColor("#FFA500") // Orange
     private val colorCritical = Color.RED
@@ -100,6 +104,13 @@ class VitalDetailsAdapter(
         holder.vitalText.setOnClickListener {
             onVitalButtonClick(title)
         }
+        holder.vitalLayout.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("vitalType", title)
+                putString("itemData", groupedVitals[position].toString())
+            }
+            navController.navigate(R.id.action_vitalDetail_to_vitalHistoryFragment,bundle)
+        }
 
 //        holder.warningIcon.visibility =
 //            if (status == RangeStatus.BORDERLINE || status == RangeStatus.CRITICAL) View.VISIBLE
@@ -113,6 +124,7 @@ class VitalDetailsAdapter(
         val vitalValue: TextView = view.findViewById(R.id.vitalValue)
         val vitalTime: TextView = view.findViewById(R.id.vitalTime)
         val vitalText: TextView = view.findViewById(R.id.addVitalText)
+        val vitalLayout: CardView = view.findViewById(R.id.vitalsLayout)
         //val warningIcon: ImageView = view.findViewById(R.id.warningIcon)
     }
 
