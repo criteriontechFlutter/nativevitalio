@@ -69,3 +69,59 @@ data class ChatMessage(
 
 
 
+data class Vital(
+    val type: String,
+    val value: String,
+    val timestamp: String
+)
+
+
+
+data class BloodPressureReading(
+    val time: String,  // e.g. "02:26 PM"
+    val sys: Int,
+    val dia: Int,
+    val bp: String     // "120/80 mmHg"
+)
+
+
+data class VitalResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: BloodPressureHistory
+)
+
+
+data class BloodPressureHistory(
+    val patientGraph: List<PatientGraph>,
+    val patientVital: List<PatientVital>,
+    val vitalsDate: List<VitalsDate>
+)
+
+
+data class PatientGraph(
+    val vitalDateTime: String,
+    val vitalDetails: String // This is a raw JSON string that you'll parse separately
+)
+
+data class VitalDetail(
+    val vitalid: Int,
+    val vitalName: String,
+    val vitalValue: Double,
+    val vitaldate: String
+)
+
+
+data class PatientVital(
+    val id: Int,
+    val vitalName: String,
+    val vitalIcon: String
+)
+
+data class VitalsDate(
+    val vitalDate: String
+)
+
+
+
+

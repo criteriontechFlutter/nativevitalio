@@ -37,8 +37,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-348" />
-                            <option name="y" value="762" />
+                            <option name="x" value="-119" />
+                            <option name="y" value="956" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -61,6 +61,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_dietChecklist">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -245,8 +250,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-366" />
-                            <option name="y" value="428" />
+                            <option name="x" value="-377" />
+                            <option name="y" value="412" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -257,6 +262,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="vitalHistoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-381" />
+                            <option name="y" value="821" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
