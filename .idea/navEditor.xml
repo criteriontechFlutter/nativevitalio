@@ -55,6 +55,16 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboard_to_chatFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_drawer4">
                               <value>
                                 <LayoutPositions />
@@ -81,6 +91,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="dietChecklist">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-537" />
+                            <option name="y" value="169" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

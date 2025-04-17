@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_dashboard_to_connection"
             app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_dashboard_to_dietChecklist"
+            app:destination="@id/dietChecklist" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -104,5 +107,9 @@
         android:id="@+id/chatFragment"
         android:name="com.criterion.nativevitalio.UI.fragments.ChatFragment"
         android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/dietChecklist"
+        android:name="com.criterion.nativevitalio.UI.fragments.DietChecklist"
+        android:label="DietChecklist" />
 
 </navigation>
