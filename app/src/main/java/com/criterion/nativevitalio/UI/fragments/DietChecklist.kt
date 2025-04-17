@@ -13,6 +13,9 @@ import com.criterion.nativevitalio.adapter.DietChecklistAdapter
 import com.criterion.nativevitalio.databinding.FragmentDietChecklistBinding
 import com.criterion.nativevitalio.model.DietListItem
 import com.criterion.nativevitalio.viewmodel.DietChecklistViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DietChecklist : Fragment() {
 
@@ -32,7 +35,12 @@ class DietChecklist : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[DietChecklistViewModel::class.java]
-        adapter = DietChecklistAdapter()
+        adapter = DietChecklistAdapter(requireContext()) { dietId, time ->
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val fullDateTime = "$date $time" // e.g., 2025-04-17 07:34 PM
+            viewModel.intakeByDietID(dietId, fullDateTime)
+        }
+        binding.recyclerView.adapter = adapter
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter

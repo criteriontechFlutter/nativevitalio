@@ -1,6 +1,7 @@
 package com.criterion.nativevitalio.viewmodel
 
 import PrefsManager
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -69,5 +70,51 @@ class DietChecklistViewModel: ViewModel() {
     }
 
 
-    FoodIntake/IntakeByDietID
+
+
+    fun intakeByDietID(
+        dietID:String,
+        fullDateTime:String
+    ) {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+//                val convertedTime = convertTo24Hour(compareTime)
+
+                val queryParams = mapOf(
+                    "Uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "userID" to PrefsManager().getPatient()?.id.toString(),
+                    "dietID"  to  dietID,
+//                    "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
+
+                    "givenAt" to fullDateTime
+
+//                      givenAt=2025-04-17 07:34 PM
+                )
+
+                // This response is of type Response<ResponseBody>
+                val response = RetrofitInstance
+                    .createApiService( )
+                    .queryDynamicRawPost(
+                        url = ApiEndPoint().intakeByDietID,
+                        params = queryParams
+                    )
+                getFoodIntake()
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val json = response.body()?.string()
+                    Log.d("RESPONSE", "responseValue: $json")
+
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
 }
