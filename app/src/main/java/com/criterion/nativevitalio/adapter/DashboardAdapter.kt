@@ -34,13 +34,28 @@ class DashboardAdapter(
         val timeView = view.findViewById<TextView>(R.id.vital_time)
         val addVitalButton = view.findViewById<Button>(R.id.add_vital_button)
 
-        // Set title and time
-        titleView.text = vital.vitalName ?: "--"
+        // ✅ Map proper title
+        val title = when (vital.vitalName) {
+            "HeartRate" -> "Heart Rate"
+            "Spo2" -> "Blood Oxygen (SpO2)"
+            "Temperature" -> "Body Temperature"
+            "RespRate" -> "Respiratory Rate"
+            "RBS" -> "RBS"
+            "Pulse" -> "Pulse Rate"
+            "Weight" -> "Body Weight"
+            "Blood Pressure" -> "Blood Pressure"
+            else -> vital.vitalName ?: "--"
+        }
+
+        titleView.text = title
+
+        // ✅ Format timestamp
         timeView.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vital.vitalDateTime != null)
             getTimeAgo(vital.vitalDateTime!!)
         else
             vital.vitalDateTime ?: "--"
 
+        // ✅ Show values or add button
         if (vital.vitalName.equals("Blood Pressure", true)) {
             if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mmHg", true)) {
                 valueView.visibility = View.GONE
@@ -64,6 +79,7 @@ class DashboardAdapter(
             addVitalButton.visibility = View.GONE
         }
 
+        // ✅ Icon assignment based on vital name
         val iconRes = when (vital.vitalName?.lowercase()) {
             "spo2" -> R.drawable.doctors
             "heartrate" -> R.drawable.doctors
@@ -75,9 +91,9 @@ class DashboardAdapter(
         }
         iconView.setImageResource(iconRes)
 
-
+        // ✅ Card click callback
         view.setOnClickListener {
-            onVitalCardClick.invoke(vital.vitalName ?: "")
+            onVitalCardClick.invoke(title)
         }
 
         container.addView(view)

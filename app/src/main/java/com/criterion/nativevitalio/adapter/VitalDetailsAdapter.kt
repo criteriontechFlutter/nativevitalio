@@ -6,7 +6,6 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +47,7 @@ class VitalDetailsAdapter(
                 "Temperature" -> "Body Temperature"
                 "RespRate" -> "Respiratory Rate"
                 "RBS" -> "RBS"
+                "Pulse" -> "Pulse Rate"
                 "Weight" -> "Body Weight"
                 else -> null
             }
@@ -59,6 +59,7 @@ class VitalDetailsAdapter(
                     "Temperature" -> "${vital.vitalValue} °F"
                     "RespRate" -> "${vital.vitalValue.toInt()} /min"
                     "RBS" -> "${vital.vitalValue.toInt()} mg/dL"
+                    "Pulse" -> "${vital.vitalValue.toInt()} /min"
                     "Weight" -> "${vital.vitalValue} kg"
                     else -> ""
                 }

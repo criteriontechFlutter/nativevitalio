@@ -88,6 +88,15 @@
         android:inputType="number"
         android:visibility="gone"
         android:layout_marginBottom="8dp" />
+    <!-- RBS -->
+    <EditText
+        android:id="@+id/pulseInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Pulse (/min)"
+        android:inputType="number"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
 
     <!-- Weight -->
     <EditText

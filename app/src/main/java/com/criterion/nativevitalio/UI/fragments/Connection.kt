@@ -66,6 +66,7 @@ class Connection: Fragment() {
             "Blood Oxygen (SpO2)" -> "spo2"
             "Body Temperature" -> "temp"
             "Respiratory Rate" -> "rr"
+            "Pulse" -> "/min"
             "RBS" -> "rbs"
             "Body Weight" -> "weight"
             else -> null
@@ -76,7 +77,7 @@ class Connection: Fragment() {
     private fun showManualVitalDialog(vitalType: String) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.manual_vital_dialog, null)
 
-        Toast.makeText(requireContext(), vitalType, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), vitalType, Toast.LENGTH_SHORT).show()
         val title = dialogView.findViewById<TextView>(R.id.dialogTitle)
         val sysInput = dialogView.findViewById<EditText>(R.id.sysInput)
         val diaInput = dialogView.findViewById<EditText>(R.id.diaInput)
@@ -86,6 +87,7 @@ class Connection: Fragment() {
         val tempInput = dialogView.findViewById<EditText>(R.id.tempInput)
         val rbsInput = dialogView.findViewById<EditText>(R.id.rbsInput)
         val weightInput = dialogView.findViewById<EditText>(R.id.weightInput)
+        val pulseInput = dialogView.findViewById<EditText>(R.id.pulseInput)
         val layoutBP = dialogView.findViewById<LinearLayout>(R.id.layoutBP)
         val saveButton = dialogView.findViewById<Button>(R.id.saveVitalsBtn)
 //        val selectedPositionText = dialogView.findViewById<TextView>(R.id.tvSelectedPosition)
@@ -98,6 +100,7 @@ class Connection: Fragment() {
             tempInput.visibility = View.GONE
             rbsInput.visibility = View.GONE
             weightInput.visibility = View.GONE
+            pulseInput.visibility = View.GONE
         }
 
         hideAllFields()
@@ -114,13 +117,9 @@ class Connection: Fragment() {
             "Body Temperature" -> tempInput.visibility = View.VISIBLE
             "RBS" -> rbsInput.visibility = View.VISIBLE
             "Body Weight" -> weightInput.visibility = View.VISIBLE
+            "Pulse Rate" -> pulseInput.visibility = View.VISIBLE
 
 
-            "SpO2" -> spo2Input.visibility = View.VISIBLE
-            "RespRate" -> rrInput.visibility = View.VISIBLE
-            "Temperature" -> tempInput.visibility = View.VISIBLE
-            "RBS" -> rbsInput.visibility = View.VISIBLE
-            "Weight" -> weightInput.visibility = View.VISIBLE
         }
 
         val dialog = AlertDialog.Builder(requireContext()).setView(dialogView).setCancelable(true).create()
@@ -133,17 +132,32 @@ class Connection: Fragment() {
                 VitalPosition(133, "Lying", "VitalPosition", true, "2024-08-07T12:28:13")
             )
 
+//            val isValid = when (vitalType) {
+//                "Blood Pressure" -> sysInput.text.isNotBlank() && diaInput.text.isNotBlank()
+//                "Respiratory Rate" -> rrInput.text.isNotBlank()
+//                "Blood Oxygen (SpO2)" -> spo2Input.text.isNotBlank()
+//                "Heart Rate" -> heartRateInput.text.isNotBlank()
+//                "Body Temperature" -> tempInput.text.isNotBlank()
+//                "RBS" -> rbsInput.text.isNotBlank()
+//                "Body Weight" -> weightInput.text.isNotBlank()
+//                "Pulse" -> pulseInput.text.isNotBlank()
+//                else -> false
+//            }
+
             val isValid = when (vitalType) {
-                "Blood Pressure" -> sysInput.text.isNotBlank() && diaInput.text.isNotBlank()
-                "Respiratory Rate" -> rrInput.text.isNotBlank()
-                "Blood Oxygen (SpO2)" -> spo2Input.text.isNotBlank()
-                "Heart Rate" -> heartRateInput.text.isNotBlank()
-                "Body Temperature" -> tempInput.text.isNotBlank()
-                "RBS" -> rbsInput.text.isNotBlank()
-                "Body Weight" -> weightInput.text.isNotBlank()
+                "Blood Pressure" -> {
+                    validateField(sysInput, "Systolic", 60.0, 250.0) &&
+                            validateField(diaInput, "Diastolic", 40.0, 150.0)
+                }
+                "Respiratory Rate" -> validateField(rrInput, "Respiratory Rate", 5.0, 50.0)
+                "Blood Oxygen (SpO2)" -> validateField(spo2Input, "SpO2", 50.0, 100.0)
+                "Heart Rate" -> validateField(heartRateInput, "Heart Rate", 30.0, 200.0)
+                "Body Temperature" -> validateField(tempInput, "Temperature", 30.0, 45.0)
+                "RBS" -> validateField(rbsInput, "RBS", 40.0, 600.0)
+                "Body Weight" -> validateField(weightInput, "Weight", 1.0, 300.0)
+                "Pulse" -> validateField(pulseInput, "Pulse", 30.0, 200.0)
                 else -> false
             }
-
             if (!isValid) {
                 Toast.makeText(requireContext(), "Please enter valid input", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -160,6 +174,7 @@ class Connection: Fragment() {
                     "Heart Rate" -> viewModel.insertPatientVital(hr = heartRateInput.text.toString(), positionId = positionId.toString())
                     "Body Temperature" -> viewModel.insertPatientVital(tmp = tempInput.text.toString(), positionId = positionId.toString())
                     "RBS" -> viewModel.insertPatientVital(rbs = rbsInput.text.toString(), positionId = positionId.toString())
+                    "Pulse" -> viewModel.insertPatientVital(weight = pulseInput.text.toString(), positionId = positionId.toString())
                     "Body Weight" -> viewModel.insertPatientVital(weight = weightInput.text.toString(), positionId = positionId.toString())
                 }
 
@@ -198,5 +213,27 @@ class Connection: Fragment() {
         }
 
         dialog.show()
+    }
+
+
+    fun validateField(field: EditText, fieldName: String, min: Double = 0.0, max: Double = 300.0): Boolean {
+        val text = field.text.toString()
+        val value = text.toDoubleOrNull()
+
+        return when {
+            text.isBlank() -> {
+                field.error = "$fieldName is required"
+                false
+            }
+            value == null -> {
+                field.error = "$fieldName must be a number"
+                false
+            }
+            value < min || value > max -> {
+                field.error = "$fieldName must be between $min and $max"
+                false
+            }
+            else -> true
+        }
     }
 }
