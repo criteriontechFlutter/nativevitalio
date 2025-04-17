@@ -1,24 +1,25 @@
 package com.criterion.nativevitalio.UI.fragments
 
+import PrefsManager
 import Vital
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
-import com.criterion.nativevitalio.viewmodel.DashboardViewModel
-import com.criterion.nativevitalio.viewmodel.VitalDetailsViewModel
-import android.os.Handler
-import android.os.Looper
-import android.view.MotionEvent
-import android.widget.ImageView
 import com.criterion.nativevitalio.adapter.DashboardAdapter
-import com.criterion.nativevitalio.adapter.VitalDetailsAdapter
+import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
+import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.viewmodel.DashboardViewModel
 
 class Dashboard  : Fragment() {
 
@@ -90,6 +91,13 @@ class Dashboard  : Fragment() {
             handler.postDelayed(sliderRunnable!!, slideDelay)
         }
 
+
+        Glide.with(MyApplication.appContext) // or `this` if inside Activity
+            .load(PrefsManager().getPatient()?.profileUrl.toString()) // or R.drawable.image
+            .placeholder(R.drawable.baseline_person_24)
+            .circleCrop() // optional: makes it circular
+            .into(binding.profileImage)
+
         binding.profileSection.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
@@ -123,6 +131,28 @@ class Dashboard  : Fragment() {
                 else -> false
             }
         }
+
+
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_chat -> {
+                    findNavController().navigate(R.id.action_dashboard_to_chatFragment)
+                    true
+                }
+                R.id.nav_home -> {
+                    Toast.makeText(requireContext(), "Vitals clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_reminders -> {
+                    Toast.makeText(requireContext(), "Settings clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+
     }
 
     private fun showVoiceOverlay() {

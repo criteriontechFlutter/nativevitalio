@@ -4,7 +4,7 @@
     <!-- Focused and Selected (Largest) -->
     <item android:state_selected="true" android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/blue" />
+            <solid android:color="@color/greyDark" />
             <size android:width="18dp" android:height="1dp" />
         </shape>
     </item>
@@ -13,7 +13,7 @@
     <item android:state_selected="true">
         <shape android:shape="oval">
             <solid android:color="@color/blue" />
-            <size android:width="12dp" android:height="1dp" />
+            <size android:width="12dp" android:height="12dp" />
         </shape>
     </item>
 
