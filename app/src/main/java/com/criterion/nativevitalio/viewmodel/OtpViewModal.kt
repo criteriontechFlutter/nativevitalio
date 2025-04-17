@@ -9,10 +9,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.UI.Login
-import com.criterion.nativevitalio.utils.ApiEndPoint
-import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -26,20 +26,14 @@ class OtpViewModal  :ViewModel(){
     val errorMessage: LiveData<String> get() = _errorMessage
     fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String) {
         _loading.value = true
-
         viewModelScope.launch {
             try {
-
-//                UHID=${uhid}&otp=${otpC.value.text.toString()}&deviceToken=${token}&ifLoggedOutFromAllDevices=0",
-
                 val queryParams = mapOf(
                     "otp" to otp,
                     "UHID" to uhid,
                     "deviceToken" to deviceToken,
                     "ifLoggedOutFromAllDevices" to  "0"
-
                 )
-
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
                     .createApiService( )
@@ -53,9 +47,6 @@ class OtpViewModal  :ViewModel(){
                 if (response.isSuccessful) {
                     val responseBodyString = response.body()?.string()
                     getPatientDetailsByUHID(uhid)
-
-
-
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
@@ -94,22 +85,19 @@ class OtpViewModal  :ViewModel(){
                 if (response.isSuccessful) {
                     val responseBodyString = response.body()?.string()
 
-
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
-
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
                     val firstPatient = parsed.responseValue.firstOrNull()
 
 
                     firstPatient?.let {
                         PrefsManager( ).savePatient(it)
-                        Login.storedUHID=it.uhid
+                        Login.storedUHID=it.uhID
                         val intent = Intent(MyApplication.appContext, com.criterion.nativevitalio.UI.Home::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         MyApplication.appContext.startActivity(intent)
-
-                        Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhid.toString()}")
+                        Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}")
                     }
 
 

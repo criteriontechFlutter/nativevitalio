@@ -74,7 +74,8 @@
     <color name="start_blue_dark">#006ad1</color>
     <color name="omron_blue">#0072BB</color>
     <color name="button_grey">#808080</color>
-    <color name="black">#000</color>
+    <color name="black">#546788</color>
+    <color name="darkBackGround">#141415</color>
 
     <color name="blue">#1E6CFF</color>
     <color name="gray">#888888</color>
