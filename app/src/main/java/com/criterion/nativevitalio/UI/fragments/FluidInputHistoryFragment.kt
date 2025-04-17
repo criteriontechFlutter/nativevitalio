@@ -1,6 +1,7 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import DateUtils
+import PrefsManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -51,7 +52,7 @@ class FluidInputHistoryFragment : Fragment() {
         updateToggleStyles(binding.fluidToggleGroup.checkedButtonId)
 
         viewModel = ViewModelProvider(this)[FluidIntakeOuputViewModel::class.java]
-        viewModel.fetchManualFluidIntake("UHID01235")
+        PrefsManager().getPatient()?.let { viewModel.fetchManualFluidIntake(it.uhID) }
 
         viewModel.intakeList.observe(viewLifecycleOwner) { list ->
             fluidIntakeAdapter = FluidIntakeLogAdapter(list)

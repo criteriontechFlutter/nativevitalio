@@ -98,6 +98,7 @@ class Dashboard  : Fragment() {
             .circleCrop() // optional: makes it circular
             .into(binding.profileImage)
 
+        binding.userName.text=PrefsManager().getPatient()!!.patientName
         binding.profileSection.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
