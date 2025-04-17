@@ -2,14 +2,21 @@ package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentDrawerBinding
+import com.criterion.nativevitalio.utils.MyApplication
 
 
 class drawer : Fragment() {
@@ -27,6 +34,7 @@ class drawer : Fragment() {
         // Inflate the layout for this fragment
 
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,11 +43,76 @@ class drawer : Fragment() {
 
         }
         binding.darkModeRow.root.setOnClickListener {
-            PrefsManager().clearPatient()
-         findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
+            //PrefsManager().clearPatient()
+            findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
 
         }
 
+        binding.userName.text = PrefsManager().getPatient()!!.patientName
+        binding.userUhid.text = PrefsManager().getPatient()!!.uhID
+        Glide.with(MyApplication.appContext) // or `this` if inside Activity
+            .load(PrefsManager().getPatient()!!.profileUrl) // or R.drawable.image
+            .placeholder(com.criterion.nativevitalio.R.drawable.baseline_person_24)
+            .circleCrop() // optional: makes it circular
+            .into(binding.userImage)
+
+        binding.backDrawer.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.logoutMenu.setOnClickListener {
+            val popupView: View =
+                LayoutInflater.from(context).inflate(R.layout.layout_logout_popup, null)
+            val popupWindow = PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+            )
+
+            popupWindow.elevation = 10f
+
+
+            // Optional: handle logout click
+            popupView.findViewById<View>(R.id.logoutText).setOnClickListener { view: View? ->
+                popupWindow.dismiss()
+
+                val dialogView =
+                    LayoutInflater.from(context).inflate(R.layout.dialog_logout_app, null)
+
+                val dialog = context?.let { it1 ->
+                    AlertDialog.Builder(it1, R.style.BottomDialogTheme)
+                        .setView(dialogView)
+                        .create()
+                }
+
+                dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.show()
+
+// ⚙ Fix width and gravity
+                dialog.window?.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                dialog.window?.setGravity(Gravity.BOTTOM)
+
+// Button listeners
+                dialogView.findViewById<View>(R.id.btnCancel).setOnClickListener {
+                    dialog.dismiss()
+                }
+                dialogView.findViewById<View>(R.id.btnRemove).setOnClickListener {
+                    dialog.dismiss()
+                    // Your logout logic
+                }
+
+
+            }
+
+
+            // Show below the menu icon
+            popupWindow.showAsDropDown(binding.logoutMenu, -200, -75)
+
+        }
 
         initDrawerLayout()
 
