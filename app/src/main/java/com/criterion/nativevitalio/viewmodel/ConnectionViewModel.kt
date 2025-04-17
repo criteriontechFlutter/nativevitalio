@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -48,7 +48,7 @@ class ConnectionViewModel : ViewModel() {
                     "vmValueRbs" to rbs.toString(),
                     "vitalTime" to SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date()),
                     "vitalDate" to SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
-                    "uhid" to PrefsManager().getPatient()?.uhid.toString(),
+                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
                     "currentDate" to  SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date()),
                     "clientId" to PrefsManager().getPatient()?.clientId.toString(),
                     "isFromPatient" to true,

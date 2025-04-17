@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.databinding.ItemSymptomBinding
 import com.criterion.nativevitalio.interfaces.AdapterInterface
 import com.criterion.nativevitalio.model.ProblemWithIcon
+import com.criterion.nativevitalio.utils.MyApplication
 
 class SymptomAdapter(
     private var items: List<ProblemWithIcon>,
@@ -44,6 +45,7 @@ class SymptomAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
+
         when (holder) {
             is SymptomViewHolder -> {
                 holder.bind(item, selectedItems.contains(item))
@@ -83,7 +85,11 @@ class SymptomAdapter(
 
             binding.root.setBackgroundColor(binding.root.context.getColor(bgColor))
             binding.symptomText.setTextColor(MyApplication.appContext.getColor(textColor))
-
+            Glide.with(MyApplication.appContext) // or `this` if inside Activity
+                .load(item.displayIcon) // or R.drawable.image
+                .placeholder(R.drawable.baseline_person_24)
+                .circleCrop() // optional: makes it circular
+                .into(binding.problemICon)
             binding.executePendingBindings()
         }
     }

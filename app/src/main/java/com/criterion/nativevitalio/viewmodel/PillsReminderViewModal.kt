@@ -10,8 +10,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
@@ -38,7 +38,7 @@ class PillsReminderViewModal : ViewModel() {
 
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhid.toString()
+                    "UhID" to PrefsManager().getPatient()?.uhID.toString()
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -140,7 +140,7 @@ class PillsReminderViewModal : ViewModel() {
                 val convertedTime = convertTo24Hour(compareTime)
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhid.toString(),
+                    "UhID" to PrefsManager().getPatient()?.uhID.toString(),
                     "pmID"  to  pmID,
                     "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
 

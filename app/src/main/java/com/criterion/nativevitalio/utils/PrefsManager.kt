@@ -1,37 +1,62 @@
+
 import android.content.Context
 import androidx.core.content.edit
 import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 
 // Data class for patient (include all fields from your JSON)
 data class Patient(
-    @SerializedName("id") val id: String,
-//    @SerializedName("token") val token: String,
-    @SerializedName("pid") val pid: String,
-    @SerializedName("patientName") val name: String,
-    @SerializedName("registrationDate") val registrationDate: String,
-//    val address: String,
-//    val age: Int,
-    @SerializedName("clientId") val clientId: String,
-    @SerializedName("ageUnitId") val ageUnit: String,
-    @SerializedName("bloodGroupId") val bloodGroup: String,
-    @SerializedName("cityId") val cityId: String,
-    @SerializedName("countryId") val countryId: String,
-    @SerializedName("dob") val dateOfBirth: String,
-    @SerializedName("emailID") val email: String,
-    @SerializedName("mobileNo") val phone: String,
-    @SerializedName("uhID") val uhid: String,
-    @SerializedName("departmentName") val department: String,
-    @SerializedName("isCashLess") val cashless: Boolean,
-
-    // Nullable fields
-    @SerializedName("categoryId") val category: String? = null,
-    @SerializedName("guardianName") val guardian: String? = null,
-    @SerializedName("height") val height: String? = null,
-    @SerializedName("weight") val weight: String? = null,
-    // Add all other nullable fields...
+    val pid: String,
+    val patientName: String,
+    val registrationDate: String,
+    val address: String,
+    val age: String,
+    val ageUnitId: String,
+    val bloodGroupId: String,
+    val categoryId: String?,
+    val cityId: String,
+    val countryCallingCode: String,
+    val countryId: String,
+    val createdDate: String,
+    val dob: String,
+    val educationalQualificationId: String?,
+    val emailID: String,
+    val ethinicityId: String?,
+    val gender: String,
+    val genderId: String,
+    val guardianAddress: String,
+    val guardianMobileNo: String,
+    val guardianName: String,
+    val guardianRelationId: String?,
+    val height: String,
+    val id: String,
+    val idNumber: String,
+    val idTypeId: String,
+    val imageURL: String,
+    val languageId: String,
+    val maritalStatusId: String,
+    val mobileNo: String,
+    val occupationId: String?,
+    val raceTypeId: String?,
+    val refferedFrom: String?,
+    val sexualOrientation: String,
+    val stateId: String,
+    val status: String,
+    val uhID: String,
+    val userId: String,
+    val weight: String,
+    val zip: String,
+    val departmentId: String,
+    val doctorID: String,
+    val patientGender: String,
+    val departmentName: String,
+    val clientId: Int,
+    val isCashLess: Boolean,
+    val insuranceCompanyId: Int,
+    val policyOrCardNumber: String,
+    val profileUrl: String
 )
+
 
 class PrefsManager( ) {
     val context = MyApplication.appContext
@@ -68,8 +93,8 @@ class PrefsManager( ) {
 
     // Optional: Direct property access
     val currentPatientName: String?
-        get() = getPatient()?.name
+        get() = getPatient()?.patientName
 
     val currentPatientUHID: String?
-        get() = getPatient()?.uhid
+        get() = getPatient()?.uhID
 }

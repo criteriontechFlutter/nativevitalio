@@ -107,10 +107,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:overScrollMode="never"
             android:clipToPadding="false"
-            android:paddingBottom="8dp"
             android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:paddingBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="4" />
 <!--        <TextView-->

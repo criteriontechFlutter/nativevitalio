@@ -7,12 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.utils.ApiEndPoint
-import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.model.ProblemWithIcon
 import com.criterion.nativevitalio.model.SymptomDetail
 import com.criterion.nativevitalio.model.SymptomResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
@@ -50,7 +50,7 @@ class SymptomsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhid.toString(),
+                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
@@ -250,7 +250,7 @@ fun insertSymptoms( ) {
                 }
 
                 val queryParams = mapOf(
-                    "uhID" to (PrefsManager().getPatient()?.uhid ?: ""),
+                    "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
                     "userID" to  "0",
                     "doctorId" to  "0",
                     "jsonSymtoms" to  Gson().toJson(dtDataTable),

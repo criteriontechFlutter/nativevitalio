@@ -27,7 +27,7 @@ class DashboardViewModel : ViewModel() {
         _loading.value = true
         viewModelScope.launch {
             try {
-                val uhid = PrefsManager().getPatient()?.uhid.orEmpty()
+                val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
                 val queryParams = mapOf(
                     "uhID" to uhid
