@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import Vital
 import android.graphics.Color
@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit

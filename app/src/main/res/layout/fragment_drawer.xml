@@ -107,9 +107,10 @@
                 android:background="@drawable/section_bg"
                 >
 
-                <include
-                    layout="@layout/item_profile_row"
-                    android:id="@+id/personalInfoRow" />
+<!--                <include-->
+<!--                    android:visibility="gone"-->
+<!--                    layout="@layout/item_profile_row"-->
+<!--                    android:id="@+id/personalInfoRow" />-->
 
                 <include layout="@layout/item_profile_row"
                     android:id="@+id/allergiesRow"
@@ -125,9 +126,10 @@
                 android:background="@drawable/section_bg"
                 >
 
-                <include
-                    layout="@layout/item_profile_row"
-                    android:id="@+id/myObserverRow" />
+<!--                <include-->
+<!--                    layout="@layout/item_profile_row"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:id="@+id/myObserverRow" />-->
 
                 <include layout="@layout/item_profile_row"
                     android:id="@+id/sharedAccountRow"
@@ -138,13 +140,15 @@
                     />
 
 
-                <include layout="@layout/item_profile_row"
-                    android:id="@+id/emergencyContactRow"
-                    />
+<!--                <include layout="@layout/item_profile_row"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:id="@+id/emergencyContactRow"-->
+<!--                    />-->
 
-                <include layout="@layout/item_profile_row"
-                    android:id="@+id/familyHealthHistoryRow"
-                    />
+<!--                <include layout="@layout/item_profile_row"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:id="@+id/familyHealthHistoryRow"-->
+<!--                    />-->
 
 
 

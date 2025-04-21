@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.model.DietItemModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.model.DietItemModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

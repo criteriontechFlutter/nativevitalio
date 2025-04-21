@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 
 
@@ -10,7 +10,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.criterion.nativevitalio.model.FluidPointGraph
+import com.critetiontech.ctvitalio.model.FluidPointGraph
 
 class FluidGraphView(
     context: Context, attrs: AttributeSet? = null

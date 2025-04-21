@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.Activities;
+package com.critetiontech.ctvitalio.Omron.Activities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,14 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
-import com.criterion.nativevitalio.Omron.models.PairingDeviceData;
-import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
-import com.criterion.nativevitalio.Omron.utility.Utilities;
-import com.criterion.nativevitalio.Omron.utility.sampleLog;
-import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.utils.MyApplication;
+import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
+import com.critetiontech.ctvitalio.Omron.models.PairingDeviceData;
+import com.critetiontech.ctvitalio.Omron.utility.Constants;
+import com.critetiontech.ctvitalio.Omron.utility.PreferencesManager;
+import com.critetiontech.ctvitalio.Omron.utility.Utilities;
+import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
+import com.critetiontech.ctvitalio.R;
+import com.critetiontech.ctvitalio.utils.MyApplication;
 import com.intuit.sdp.BuildConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;
@@ -532,7 +532,7 @@ public class ActivityMainActivity extends BaseActivity {
         notificationsAvailable.add("android.intent.action.PHONE_STATE");
         notificationsAvailable.add("com.google.android.gm");
         notificationsAvailable.add("android.provider.Telephony.SMS_RECEIVED");
-        notificationsAvailable.add(" com.criterion.nativevitalio");
+        notificationsAvailable.add(" com.critetiontech.ctvitalio");
         HashMap<String, Object> notificationSettings = new HashMap<String, Object>();
         notificationSettings.put(OmronConstants.OMRONDeviceNotificationSettingsKey, notificationsAvailable);
 

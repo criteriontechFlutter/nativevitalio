@@ -133,7 +133,7 @@
                     app:layout_constraintTop_toBottomOf="@id/inputLabel" />
 
                 <!-- Action Button -->
-                <com.criterion.nativevitalio.utils.CustomRoundedButton
+                <com.critetiontech.ctvitalio.utils.CustomRoundedButton
                     android:id="@+id/sendOtpBtn"
                     android:layout_width="0dp"
                     android:layout_height="48dp"

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.fragments;
+package com.critetiontech.ctvitalio.Omron.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.criterion.nativevitalio.Omron.Activities.ActivityListingActivity;
-import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
-import com.criterion.nativevitalio.Omron.adapter.ActivityDataListAdapter;
-import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.R;
+import com.critetiontech.ctvitalio.Omron.Activities.ActivityListingActivity;
+import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
+import com.critetiontech.ctvitalio.Omron.adapter.ActivityDataListAdapter;
+import com.critetiontech.ctvitalio.Omron.utility.Constants;
+import com.critetiontech.ctvitalio.R;
 
 
 /**

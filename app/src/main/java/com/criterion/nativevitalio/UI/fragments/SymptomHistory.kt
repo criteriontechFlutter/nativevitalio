@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -10,11 +10,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.SymptomHistoryAdapter
-import com.criterion.nativevitalio.utils.FilterType
-import com.criterion.nativevitalio.databinding.FragmentSymptomHistoryBinding
-import com.criterion.nativevitalio.viewmodel.SymptomsHistoryViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.SymptomHistoryAdapter
+import com.critetiontech.ctvitalio.utils.FilterType
+import com.critetiontech.ctvitalio.databinding.FragmentSymptomHistoryBinding
+import com.critetiontech.ctvitalio.viewmodel.SymptomsHistoryViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

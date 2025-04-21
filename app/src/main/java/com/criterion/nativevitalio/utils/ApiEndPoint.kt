@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 class ApiEndPoint {
 
@@ -7,6 +7,7 @@ class ApiEndPoint {
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
     val sentLogInOTPForSHFCApp="api/LogInForSHFCApp/SentLogInOTPForSHFCApp"
     val verifyLogInOTPForSHFCApp= "api/LogInForSHFCApp/VerifyLogInOTPForSHFCApp"
+    val logoutFromApp= "api/LogInForSHFCApp/LogOutOTPForSHFCApp"
 
 
 

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="symptom"
-            type="com.criterion.nativevitalio.model.SymptomDetail" />
+            type="com.critetiontech.ctvitalio.model.SymptomDetail" />
     </data>
 
     <LinearLayout

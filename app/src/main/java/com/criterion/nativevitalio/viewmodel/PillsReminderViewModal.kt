@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import PillReminderModel
 import PillTime
@@ -10,8 +10,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject

@@ -1,12 +1,12 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.ItemFluidOptionBinding
-import com.criterion.nativevitalio.model.ManualFoodItem
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.ItemFluidOptionBinding
+import com.critetiontech.ctvitalio.model.ManualFoodItem
 
 class FluidOptionAdapter(
     private val items: List<ManualFoodItem>,
@@ -55,10 +55,10 @@ class FluidOptionAdapter(
     private fun getIconForFood(name: String): Int {
         return when (name.trim().lowercase()) {
             "water" -> R.drawable.ic_water
-            "milk" -> R.drawable.ic_water
-            "tea" -> R.drawable.ic_water
-            "coffee" -> R.drawable.ic_water
-            "juice", "fruit juice" -> R.drawable.ic_juice
+            "milk" -> R.drawable.ic_milk
+            "tea" -> R.drawable.ic_tea
+            "coffee" -> R.drawable.ic_coffee
+            "juice", "fruit juice" -> R.drawable.ic_fruite_juice
             "beverage" -> R.drawable.ic_water
             else -> R.drawable.ic_water
         }

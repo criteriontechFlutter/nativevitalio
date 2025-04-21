@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.utility;
+package com.critetiontech.ctvitalio.Omron.utility;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronDebugLog;
 
 import android.content.Context;

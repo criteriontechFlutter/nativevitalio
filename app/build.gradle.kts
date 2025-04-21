@@ -1,17 +1,19 @@
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.google.gms) // This is critical!
 }
 
 android {
-    namespace = "com.criterion.nativevitalio"
+    namespace = "com.critetiontech.ctvitalio"
     compileSdk = 35
 
     sourceSets["main"].resources.srcDir("libs")
 
 
     defaultConfig {
-        applicationId = "com.criterion.nativevitalio"
+        applicationId = "com.critetiontech.ctvitalio"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -74,6 +76,8 @@ dependencies {
     //Dimen
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)
+    implementation("com.google.firebase:firebase-messaging:24.1.1")
+
     //otp view
 //    implementation (libs.otpview)
 

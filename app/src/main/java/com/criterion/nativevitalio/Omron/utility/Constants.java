@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.utility;
+package com.critetiontech.ctvitalio.Omron.utility;
 
 /**
  * Created by Omron HealthCare Inc

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.Activities;
+package com.critetiontech.ctvitalio.Omron.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,9 +7,9 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.criterion.nativevitalio.utils.MyApplication;
-import  com.criterion.nativevitalio.Omron.models.PersonalData;
-import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.critetiontech.ctvitalio.utils.MyApplication;
+import  com.critetiontech.ctvitalio.Omron.models.PersonalData;
+import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
 
 import java.text.DateFormat;
 import java.text.ParseException;

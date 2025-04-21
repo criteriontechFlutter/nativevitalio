@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import android.content.Context
 import android.util.Log
