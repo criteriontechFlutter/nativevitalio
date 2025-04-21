@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 import android.app.Application
 import android.content.Context

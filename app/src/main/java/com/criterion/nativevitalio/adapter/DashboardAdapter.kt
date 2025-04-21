@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import Vital
 import android.content.Context
@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.PagerAdapter
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -47,6 +47,7 @@ class DashboardAdapter(
             else -> vital.vitalName ?: "--"
         }
 
+
         titleView.text = title
 
         // ✅ Format timestamp
@@ -81,12 +82,12 @@ class DashboardAdapter(
 
         // ✅ Icon assignment based on vital name
         val iconRes = when (vital.vitalName?.lowercase()) {
-            "spo2" -> R.drawable.doctors
-            "heartrate" -> R.drawable.doctors
-            "temperature" -> R.drawable.doctors
-            "pulse" -> R.drawable.doctors
+            "spo2" -> R.drawable.spo2
+            "heartrate" -> R.drawable.heart_rate_1
+            "temperature" -> R.drawable.body_temperature
+            "pulse" -> R.drawable.spo2
             "weight" -> R.drawable.doctors
-            "blood pressure" -> R.drawable.doctors
+            "blood pressure" -> R.drawable.bloodpressure
             else -> R.drawable.doctors
         }
         iconView.setImageResource(iconRes)

@@ -1,10 +1,12 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import FluidAmountBottomSheet
 import PrefsManager
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -19,11 +21,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.FluidOptionAdapter
-import com.criterion.nativevitalio.adapter.GlassSizeAdapter
-import com.criterion.nativevitalio.databinding.FragmentFluidBinding
-import com.criterion.nativevitalio.viewmodel.FluidIntakeOuputViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.FluidOptionAdapter
+import com.critetiontech.ctvitalio.adapter.GlassSizeAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentFluidBinding
+import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
 
 
 class FluidFragment : Fragment() {
@@ -60,6 +62,12 @@ class FluidFragment : Fragment() {
         populateScale()
         setupSeekBar()
 
+
+       // viewModel.selectedVolume.value?.let { binding.glassView.setGlassSize(it) } // Set max to 500ml
+
+        binding.glassView.setOnFillChangedListener { percent, ml ->
+
+        }
 
 
 
@@ -100,6 +108,7 @@ class FluidFragment : Fragment() {
             if (volume == 0) {
                 FluidAmountBottomSheet { selectedAmount ->
                     viewModel.setSelectedGlassSize(selectedAmount)
+
                 }.show(parentFragmentManager, "FluidAmountBottomSheet")
             }
         }
@@ -155,18 +164,23 @@ class FluidFragment : Fragment() {
             list.forEach {
                 val itemLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.HORIZONTAL
+                    gravity=Gravity.CENTER_VERTICAL
                     setPadding(0, 0, 32, 0)
                 }
-
                 val colorDot = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(20, 20).apply { rightMargin = 8 }
-                    setBackgroundColor(it.color)
+
+                    // Create circular shape with color
+                    background = GradientDrawable().apply {
+                        shape = GradientDrawable.OVAL
+                        setColor(it.color) // Set your dynamic color
+                    }
                 }
 
                 val label = TextView(requireContext()).apply {
                     text = it.name
                     setTextColor(Color.DKGRAY)
-                    textSize = 14f
+                    textSize = 10f
                 }
 
                 itemLayout.addView(colorDot)
@@ -193,7 +207,7 @@ class FluidFragment : Fragment() {
 
 
         viewModel.selectedVolume.observe(viewLifecycleOwner) { volume ->
-            binding.selectedSizeText.text = "Selected: ${volume} ml"
+            //binding.selectedSizeText.text = "Selected: ${volume} ml"
         }
     }
 

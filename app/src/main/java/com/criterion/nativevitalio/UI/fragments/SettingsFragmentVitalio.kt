@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import NetworkUtils
 import android.content.SharedPreferences
@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentSettingsBinding
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentSettingsBinding
 
 
 class SettingsFragmentVitalio : Fragment() {

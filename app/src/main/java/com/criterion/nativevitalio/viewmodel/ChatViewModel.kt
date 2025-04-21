@@ -1,9 +1,9 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.criterion.nativevitalio.model.ChatMessage
+import com.critetiontech.ctvitalio.model.ChatMessage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

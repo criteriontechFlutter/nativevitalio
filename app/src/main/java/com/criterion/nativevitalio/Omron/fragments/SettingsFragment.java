@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.fragments;
+package com.critetiontech.ctvitalio.Omron.fragments;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
-import com.criterion.nativevitalio.Omron.adapter.SettingsListAdapter;
-import com.criterion.nativevitalio.Omron.models.ReminderItem;
-import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.R;
+import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
+import com.critetiontech.ctvitalio.Omron.adapter.SettingsListAdapter;
+import com.critetiontech.ctvitalio.Omron.models.ReminderItem;
+import com.critetiontech.ctvitalio.Omron.utility.Constants;
+import com.critetiontech.ctvitalio.R;
 
 
 import java.util.ArrayList;

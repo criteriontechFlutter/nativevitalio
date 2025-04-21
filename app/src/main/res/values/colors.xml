@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Primary Colors -->
-    <color name="primaryColor">#001767</color>
+    <color name="primaryColor">#007AFF</color>
     <color name="primaryBlue">#1564ED</color>
     <color name="primaryBlue2">#0C73BB</color>
     <color name="primaryBlueLight">#F5F8FC</color>

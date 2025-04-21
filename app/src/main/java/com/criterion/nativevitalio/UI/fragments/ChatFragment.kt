@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import ChatAdapter
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.databinding.FragmentChatBinding
-import com.criterion.nativevitalio.viewmodel.ChatViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentChatBinding
+import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
 
 
 class ChatFragment : Fragment() {

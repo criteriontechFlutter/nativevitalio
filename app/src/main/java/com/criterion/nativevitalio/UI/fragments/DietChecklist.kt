@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.app.DatePickerDialog
 import android.os.Build
@@ -10,10 +10,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.adapter.DietChecklistAdapter
-import com.criterion.nativevitalio.databinding.FragmentDietChecklistBinding
-
-import com.criterion.nativevitalio.viewmodel.DietChecklistViewModel
+import com.critetiontech.ctvitalio.adapter.DietChecklistAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentDietChecklistBinding
+import com.critetiontech.ctvitalio.viewmodel.DietChecklistViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -49,14 +48,14 @@ class DietChecklist : Fragment() {
         viewModel.getFoodIntake("")
 
         viewModel.dietList.observe(viewLifecycleOwner) { dietList ->
-            val flatList = mutableListOf<com.criterion.nativevitalio.adapter.DietListItem>()
+            val flatList = mutableListOf<com.critetiontech.ctvitalio.adapter.DietListItem>()
 
             dietList
                 .groupBy { it.foodGivenAt ?: "Others" }
                 .forEach { (timeSlot, items) ->
                     items.forEachIndexed { index, item ->
                         flatList.add(
-                            com.criterion.nativevitalio.adapter.DietListItem(
+                            com.critetiontech.ctvitalio.adapter.DietListItem(
                                 diet = item,
                                 timeSlot = timeSlot,
                                 showHeader = index == 0

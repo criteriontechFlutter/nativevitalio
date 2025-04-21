@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.Activities;
+package com.critetiontech.ctvitalio.Omron.Activities;
 
 import android.os.Bundle;
 
@@ -7,12 +7,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.criterion.nativevitalio.Omron.fragments.ActivityItemFragment;
-import com.criterion.nativevitalio.Omron.fragments.RecordsDataFragment;
-import com.criterion.nativevitalio.Omron.fragments.SleepDataFragment;
-import com.criterion.nativevitalio.Omron.fragments.VitalDataFragment;
-import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.R;
+import com.critetiontech.ctvitalio.Omron.fragments.ActivityItemFragment;
+import com.critetiontech.ctvitalio.Omron.fragments.RecordsDataFragment;
+import com.critetiontech.ctvitalio.Omron.fragments.SleepDataFragment;
+import com.critetiontech.ctvitalio.Omron.fragments.VitalDataFragment;
+import com.critetiontech.ctvitalio.Omron.utility.Constants;
+import com.critetiontech.ctvitalio.R;
 
 
 /**

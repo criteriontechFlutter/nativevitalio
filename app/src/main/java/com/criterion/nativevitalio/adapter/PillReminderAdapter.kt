@@ -1,4 +1,5 @@
-import android.app.AlertDialog
+
+
 import android.app.TimePickerDialog
 import android.content.Context
 import android.graphics.Color
@@ -10,17 +11,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView
-import com.criterion.nativevitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 import com.google.android.material.R as MaterialR
 
 class PillReminderAdapter(
@@ -91,7 +93,7 @@ class PillReminderAdapter(
                                     set(Calendar.MINUTE, minute)
                                 }
 
-                                val selectedTime = java.text.SimpleDateFormat("hh:mm a", Locale.getDefault()).format(cal.time)
+                                val selectedTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(cal.time)
 
                                 AlertDialog.Builder(fragment.requireContext())
                                     .setTitle("Confirm Intake")

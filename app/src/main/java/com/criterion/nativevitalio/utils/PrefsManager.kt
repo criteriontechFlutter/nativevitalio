@@ -1,7 +1,8 @@
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
-import com.criterion.nativevitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 
 // Data class for patient (include all fields from your JSON)
@@ -65,6 +66,7 @@ class PrefsManager( ) {
 
     companion object {
         private const val KEY_PATIENT = "current_patient"
+        private const val KEY_DEVICE_TOKEN = "deviceToken"
     }
 
     // Save patient object
@@ -72,6 +74,20 @@ class PrefsManager( ) {
         sharedPref.edit {
             putString(KEY_PATIENT, gson.toJson(patient))
         }
+    }
+
+
+    fun saveDeviceToken(deviceToken: String) {
+        Log.d("TAG", "saveDeviceToken: "+deviceToken.toString())
+        sharedPref.edit {
+            putString(KEY_DEVICE_TOKEN,deviceToken)
+        }
+    }
+
+    fun getDeviceToken(): String? {
+        Log.d("TAG", "saveDeviceToken: "+sharedPref.getString(KEY_DEVICE_TOKEN, null))
+        return sharedPref.getString(KEY_DEVICE_TOKEN, null)
+
     }
 
     // Retrieve patient with null safety

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.adapter;
+package com.critetiontech.ctvitalio.Omron.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
+import com.critetiontech.ctvitalio.Omron.utility.PreferencesManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
-import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.critetiontech.ctvitalio.R;
+import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;

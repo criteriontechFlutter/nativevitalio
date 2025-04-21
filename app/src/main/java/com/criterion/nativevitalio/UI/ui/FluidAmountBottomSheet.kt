@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import android.widget.SeekBar
-import com.criterion.nativevitalio.databinding.LayoutBottomSheetFluidBinding
+import com.critetiontech.ctvitalio.databinding.LayoutBottomSheetFluidBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FluidAmountBottomSheet(
