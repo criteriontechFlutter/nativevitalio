@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.adapter.SymptomsTrackerAdapter
-import com.criterion.nativevitalio.databinding.FragmentSymptomTrackerFragmentsBinding
-import com.criterion.nativevitalio.model.SymptomDetail
 import com.criterion.nativevitalio.viewmodel.SymptomsTrackerViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentSymptomTrackerFragmentsBinding
+import com.critetiontech.ctvitalio.model.SymptomDetail
 
 class SymptomTrackerFragments : Fragment() {
 
