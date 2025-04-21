@@ -15,10 +15,8 @@ import com.criterion.nativevitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
-import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
 
 class PillsReminderViewModal : ViewModel() {
@@ -51,14 +49,14 @@ class PillsReminderViewModal : ViewModel() {
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     val list = parseMedicationNameAndDateList(json)
-                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
-                        Date()
-                    )
-
-// Filter the list to only include today's medications
-                    val todaysMedications = list.filter { it.date == currentDate }
-                    _pillList.postValue(todaysMedications)
-                    Log.d("RESPONSE", "responseValue: $todaysMedications")
+//                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+//                        Date()
+//                    )
+//
+//// Filter the list to only include today's medications
+//                    val todaysMedications = list.filter { it.date == currentDate }
+                    _pillList.postValue(list)
+                    Log.d("RESPONSE", "responseValue: $_pillList")
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
@@ -143,6 +141,8 @@ class PillsReminderViewModal : ViewModel() {
                     "UhID" to PrefsManager().getPatient()?.uhID.toString(),
                     "pmID"  to  pmID,
                     "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
+
+
 
                     "prescriptionID" to prescriptionID,
                     "userID"  to PrefsManager().getPatient()?.id.toString(),
