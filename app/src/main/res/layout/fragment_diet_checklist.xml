@@ -7,6 +7,7 @@
     android:background="@android:color/white"
     android:padding="16dp">
 
+    <!-- 🔙 Back + Title Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,18 +31,30 @@
             android:textStyle="bold"
             android:layout_marginStart="12dp"
             android:textColor="#000000" />
-
-
     </LinearLayout>
 
+    <!-- 📅 Date Picker Field -->
+    <TextView
+        android:id="@+id/datePickerField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_diet_card"
+        android:padding="12dp"
+        android:text="Select Date"
+        android:textSize="14sp"
+        android:drawableEnd="@drawable/ic_calendar"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:textColor="#000000"
+        android:layout_marginBottom="12dp" />
 
-    <!-- ✅ Required RecyclerView -->
+    <!-- 📋 RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:scrollbars="horizontal" />
+        android:scrollbars="vertical" />
 
 </LinearLayout>

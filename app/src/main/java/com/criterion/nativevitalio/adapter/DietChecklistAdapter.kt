@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
@@ -8,28 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.model.DietListItem
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.model.DietItemModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+// Combined model for row: food + header visibility
+data class DietListItem(
+    val diet: DietItemModel,
+    val timeSlot: String,
+    val showHeader: Boolean
+)
 
 class DietChecklistAdapter(
     private val context: Context,
     private val onDietGiven: ((dietId: String, givenAt: String) -> Unit)? = null
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<DietChecklistAdapter.ItemViewHolder>() {
 
     private val items = mutableListOf<DietListItem>()
-
-    companion object {
-        private const val TYPE_HEADER = 0
-        private const val TYPE_ITEM = 1
-    }
 
     fun setData(data: List<DietListItem>) {
         items.clear()
@@ -37,51 +36,39 @@ class DietChecklistAdapter(
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return when (items[position]) {
-            is DietListItem.Header -> TYPE_HEADER
-            is DietListItem.Item -> TYPE_ITEM
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_diet_entry, parent, false)
+        return ItemViewHolder(view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_diet_header, parent, false)
-            HeaderViewHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_diet_entry, parent, false)
-            ItemViewHolder(view)
-        }
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (val item = items[position]) {
-            is DietListItem.Header -> (holder as HeaderViewHolder).bind(item)
-            is DietListItem.Item -> (holder as ItemViewHolder).bind(item.diet)
-        }
-    }
-
-    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(header: DietListItem.Header) {
-            itemView.findViewById<TextView>(R.id.tvHeader).text = header.title
-        }
-    }
-
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvFoodName = itemView.findViewById<TextView>(R.id.tvFoodName)
-        private val tvQtyUnit = itemView.findViewById<TextView>(R.id.tvQtyUnit)
-        private val imgGivenStatus = itemView.findViewById<ImageView>(R.id.imgGivenStatus)
+        private val tvFoodName: TextView = itemView.findViewById(R.id.tvFoodName)
+        private val tvQtyUnit: TextView = itemView.findViewById(R.id.tvQtyUnit)
+        private val tvHeader: TextView = itemView.findViewById(R.id.tvHeader)
+        private val imgGivenStatus: ImageView = itemView.findViewById(R.id.imgGivenStatus)
 
-        fun bind(model: DietItemModel) {
+        fun bind(item: DietListItem) {
+            val model = item.diet
+
             tvFoodName.text = model.foodName.trim()
             tvQtyUnit.text = "${model.foodQty} ${model.unitName}"
 
+            if (item.showHeader) {
+                tvHeader.visibility = View.VISIBLE
+                tvHeader.text = item.timeSlot
+            } else {
+                tvHeader.visibility = View.INVISIBLE
+            }
+
             imgGivenStatus.setImageResource(
-                if (model.isGiven == 1  )
+                if (model.isGiven == 1)
                     R.drawable.ic_checkbox_checked
                 else
                     R.drawable.ic_checkbox_square
@@ -92,8 +79,7 @@ class DietChecklistAdapter(
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
-                    Toast.makeText(itemView.context, "Clicked!", Toast.LENGTH_SHORT).show()
-                    // ✅ SAFER context source
+
                     TimePickerDialog(itemView.context, { _, selectedHour, selectedMinute ->
                         calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
                         calendar.set(Calendar.MINUTE, selectedMinute)
@@ -105,7 +91,8 @@ class DietChecklistAdapter(
                             .setTitle("Confirm Time")
                             .setMessage("Mark intake at $formattedTime?")
                             .setPositiveButton("Save") { _, _ ->
-                                val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                                val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                    .format(Date())
                                 val fullDateTime = "$date $formattedTime"
                                 onDietGiven?.invoke(model.dietId.toString(), fullDateTime)
                             }
