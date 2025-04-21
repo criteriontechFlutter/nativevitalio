@@ -1,0 +1,41 @@
+package com.criterion.nativevitalio.utils
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.widget.TextView
+import android.widget.Toast
+import com.critetiontech.ctvitalio.R
+
+
+object ToastUtils {
+
+    fun showSuccess(context: Context, message: String) {
+        showCustomToast(context, message, "#4CAF50") // Green
+    }
+
+    fun showFailure(context: Context, message: String) {
+        showCustomToast(context, message, "#F44336") // Red
+    }
+
+    fun showInfo(context: Context, message: String) {
+        showCustomToast(context, message, "#2196F3") // Blue
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showCustomToast(context: Context, message: String, bgColor: String) {
+        val toast = Toast(context)
+        val inflater = LayoutInflater.from(context)
+        val view = inflater.inflate(R.layout.custom_toast_layout, null)
+        val textView = view.findViewById<TextView>(R.id.toastText)
+        textView.text = message
+        textView.setBackgroundColor(Color.parseColor(bgColor))
+
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = view
+        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 100)
+        toast.show()
+    }
+}

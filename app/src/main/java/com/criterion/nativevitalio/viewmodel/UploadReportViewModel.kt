@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import androidx.lifecycle.ViewModel
 

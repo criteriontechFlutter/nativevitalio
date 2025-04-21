@@ -5,6 +5,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
 //object RetrofitInstance {
 //
 //    private const val BASE_URL = "https://api.medvantage.tech:7082/"
@@ -65,6 +67,10 @@ object RetrofitInstance {
     private val baseOkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(createLoggingInterceptor())
+            .connectTimeout(60, TimeUnit.SECONDS) // default is 10 seconds
+            .readTimeout(60, TimeUnit.SECONDS)    // default is 10 seconds
+            .writeTimeout(60, TimeUnit.SECONDS)   // default is 10 seconds
+            .retryOnConnectionFailure(true)
             .build()
     }
 

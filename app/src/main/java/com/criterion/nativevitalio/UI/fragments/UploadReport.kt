@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.criterion.nativevitalio.adapter.VitalDetailsAdapter
-import com.criterion.nativevitalio.databinding.FragmentUploadReportBinding
-import com.criterion.nativevitalio.viewmodel.UploadReportViewModel
+import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
+import com.critetiontech.ctvitalio.adapter.VitalDetailsAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
 
 class UploadReport : Fragment() {
     private lateinit var binding: FragmentUploadReportBinding
