@@ -1,8 +1,13 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
 import Vital
+import android.Manifest
 import android.app.Dialog
+import android.content.pm.PackageManager
+import android.media.AudioFormat
+import android.media.AudioRecord
+import android.media.MediaRecorder
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,12 +17,26 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.DashboardAdapter
+import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
+import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.viewmodel.DashboardViewModel
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import okio.ByteString.Companion.toByteString
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
@@ -25,7 +44,6 @@ import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 
 class Dashboard  : Fragment() {
-
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var viewModel: DashboardViewModel
     private lateinit var adapter: DashboardAdapter
@@ -35,6 +53,12 @@ class Dashboard  : Fragment() {
     private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
     private var sliderRunnable: Runnable? = null
+
+    private var audioRecord: AudioRecord? = null
+    private var isRecording = false
+    private var webSocket: WebSocket? = null
+    private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
+    private val PERMISSION_REQUEST_CODE = 101
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +75,6 @@ class Dashboard  : Fragment() {
         viewModel.getVitals()
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-
             val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
             val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
 
@@ -94,14 +117,13 @@ class Dashboard  : Fragment() {
             handler.postDelayed(sliderRunnable!!, slideDelay)
         }
 
-
-        Glide.with(MyApplication.appContext) // or `this` if inside Activity
-            .load(PrefsManager().getPatient()?.profileUrl.toString()) // or R.drawable.image
+        Glide.with(MyApplication.appContext)
+            .load(PrefsManager().getPatient()?.profileUrl.toString())
             .placeholder(R.drawable.baseline_person_24)
-            .circleCrop() // optional: makes it circular
+            .circleCrop()
             .into(binding.profileImage)
 
-        binding.userName.text=PrefsManager().getPatient()!!.patientName
+        binding.userName.text = PrefsManager().getPatient()!!.patientName
         binding.profileImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
@@ -135,6 +157,7 @@ class Dashboard  : Fragment() {
         binding.vitalDetails.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_vitalDetail)
         }
+
         binding.dietChecklist.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_dietChecklist)
         }
@@ -143,16 +166,19 @@ class Dashboard  : Fragment() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     showVoiceOverlay()
+                    connectWebSocket()
+                    checkAndStartAudio()
                     true
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     hideVoiceOverlay()
+                    stopAudioStreaming()
+                    disconnectWebSocket()
                     true
                 }
                 else -> false
             }
         }
-
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -171,9 +197,6 @@ class Dashboard  : Fragment() {
                 else -> false
             }
         }
-
-
-
     }
 
     private fun showVoiceOverlay() {
@@ -188,6 +211,115 @@ class Dashboard  : Fragment() {
 
     private fun hideVoiceOverlay() {
         voiceDialog?.dismiss()
+    }
+
+    private fun connectWebSocket() {
+        val url = "ws://182.156.200.177:8002/listen?token=1"
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+
+        webSocket = client.newWebSocket(request, object : WebSocketListener() {
+            override fun onMessage(webSocket: WebSocket, text: String) {
+                super.onMessage(webSocket, text)
+                requireActivity().runOnUiThread {
+                    voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.let {
+                        it.text = "${it.text} $text"
+                    }
+                }
+            }
+
+            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                super.onClosed(webSocket, code, reason)
+                voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.let { transcriptView ->
+                    val transcriptText = transcriptView.text.toString()
+                    if (transcriptText.isNotBlank()) {
+                        viewModel.postAnalyzedVoiceData(requireContext(), transcriptText)
+                    } else {
+                        Toast.makeText(requireContext(), "No speech input found", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                println("❌ WebSocket Error: ${t.message}")
+            }
+
+            override fun onOpen(webSocket: WebSocket, response: Response) {
+                println("✅ WebSocket Connected")
+            }
+        })
+    }
+
+    private fun disconnectWebSocket() {
+        webSocket?.close(1000, "Closing")
+        webSocket = null
+    }
+
+    private fun checkAndStartAudio() {
+        if (ContextCompat.checkSelfPermission(requireContext(), RECORD_AUDIO_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+            startAudioStreaming()
+        } else {
+            requestPermissions(arrayOf(RECORD_AUDIO_PERMISSION), PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startAudioStreaming()
+        } else {
+            Toast.makeText(requireContext(), "Microphone permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun startAudioStreaming() {
+        val bufferSize = AudioRecord.getMinBufferSize(
+            16000,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT
+        )
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),  // ✅ Corrected
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        audioRecord = AudioRecord(
+            MediaRecorder.AudioSource.MIC,
+            16000,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT,
+            bufferSize
+        )
+
+        audioRecord?.startRecording()
+        isRecording = true
+
+        Thread {
+            val buffer = ByteArray(bufferSize)
+            while (isRecording && audioRecord != null) {
+                val read = audioRecord!!.read(buffer, 0, buffer.size)
+                if (read > 0) {
+                    webSocket?.send(buffer.toByteString(0, read))
+                }
+            }
+        }.start()
+    }
+
+    private fun stopAudioStreaming() {
+        isRecording = false
+        audioRecord?.stop()
+        audioRecord?.release()
+        audioRecord = null
     }
 
     override fun onResume() {
