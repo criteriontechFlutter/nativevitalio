@@ -1,5 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
+import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +10,12 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.DietChecklistAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentDietChecklistBinding
-import com.critetiontech.ctvitalio.model.DietListItem
-import com.critetiontech.ctvitalio.viewmodel.DietChecklistViewModel
+import com.criterion.nativevitalio.adapter.DietChecklistAdapter
+import com.criterion.nativevitalio.databinding.FragmentDietChecklistBinding
+
+import com.criterion.nativevitalio.viewmodel.DietChecklistViewModel
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -36,27 +38,62 @@ class DietChecklist : Fragment() {
 
         viewModel = ViewModelProvider(this)[DietChecklistViewModel::class.java]
         adapter = DietChecklistAdapter(requireContext()) { dietId, time ->
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            val fullDateTime = "$date $time" // e.g., 2025-04-17 07:34 PM
-            viewModel.intakeByDietID(dietId, fullDateTime)
+
+            viewModel.intakeByDietID(dietId, time)
         }
         binding.recyclerView.adapter = adapter
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        viewModel.getFoodIntake()
+        viewModel.getFoodIntake("")
 
         viewModel.dietList.observe(viewLifecycleOwner) { dietList ->
-            val grouped = dietList
+            val flatList = mutableListOf<com.criterion.nativevitalio.adapter.DietListItem>()
+
+            dietList
                 .groupBy { it.foodGivenAt ?: "Others" }
-                .flatMap { (timeSlot, items) ->
-                    listOf(DietListItem.Header(timeSlot)) + items.map { DietListItem.Item(it) }
+                .forEach { (timeSlot, items) ->
+                    items.forEachIndexed { index, item ->
+                        flatList.add(
+                            com.criterion.nativevitalio.adapter.DietListItem(
+                                diet = item,
+                                timeSlot = timeSlot,
+                                showHeader = index == 0
+                            )
+                        )
+                    }
                 }
 
-            adapter.setData(grouped)
+            adapter.setData(flatList)
         }
 
+
+
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        binding.datePickerField.text = today
+        viewModel.getFoodIntake(today)
+
+
+        binding.datePickerField.setOnClickListener {
+            val calendar = Calendar.getInstance()
+
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, month, day ->
+                    val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}"
+                    binding.datePickerField.text = selectedDate
+                    viewModel.getFoodIntake(selectedDate) // Pass selected date
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+
+            // ✅ Disable future dates
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+            datePickerDialog.show()
+        }
         viewModel.errorMessage.observe(viewLifecycleOwner) {
             // You can show a toast or log here
         }
