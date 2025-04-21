@@ -75,7 +75,7 @@ class DietChecklistAdapter(
             )
 
             imgGivenStatus.setOnClickListener {
-                if (model.isGiven == 2) {
+                if (model.isGiven == 2 || model.isGiven == 0) {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
