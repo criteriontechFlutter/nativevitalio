@@ -1,14 +1,14 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.model.SymptomDetail
-import com.criterion.nativevitalio.model.SymptomResponse
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.model.SymptomDetail
+import com.critetiontech.ctvitalio.model.SymptomResponse
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.SymptomsTrackerAdapter
-import com.criterion.nativevitalio.databinding.FragmentSymptomTrackerFragmentsBinding
-import com.criterion.nativevitalio.model.SymptomDetail
-import com.criterion.nativevitalio.viewmodel.SymptomsTrackerViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.SymptomsTrackerAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentSymptomTrackerFragmentsBinding
+import com.critetiontech.ctvitalio.model.SymptomDetail
+import com.critetiontech.ctvitalio.viewmodel.SymptomsTrackerViewModel
 
 class SymptomTrackerFragments : Fragment() {
 

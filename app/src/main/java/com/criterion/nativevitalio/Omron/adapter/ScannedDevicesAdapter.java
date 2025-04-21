@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.adapter;
+package com.critetiontech.ctvitalio.Omron.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Model.OmronPeripheral;
-import com.criterion.nativevitalio.R;
+import com.critetiontech.ctvitalio.R;
 
 import java.util.List;
 

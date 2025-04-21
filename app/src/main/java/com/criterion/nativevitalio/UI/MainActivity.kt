@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI
+package com.critetiontech.ctvitalio.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.ui.signupfragment1.SignUpFragment1
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.signupfragment1.SignUpFragment1
 
 class MainActivity : AppCompatActivity() {
 

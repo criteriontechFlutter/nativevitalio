@@ -13,63 +13,97 @@
        android:layout_height="match_parent">
 
        <!-- Profile Section -->
-       <LinearLayout
-           android:id="@+id/profile_section"
+       <androidx.constraintlayout.widget.ConstraintLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:gravity="center_vertical"
-           android:orientation="horizontal"
-           android:paddingLeft="16dp"
-           android:paddingRight="16dp"
-
+           android:id="@+id/profile_section"
+           android:padding="16dp"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toTopOf="parent">
 
+           <!-- Profile Image -->
            <ImageView
                android:id="@+id/profile_image"
                android:layout_width="50dp"
                android:layout_height="50dp"
-               android:layout_marginEnd="10dp"
-               android:background="?attr/selectableItemBackgroundBorderless"
                android:scaleType="centerCrop"
-               android:src="@drawable/baseline_person_24" />
+               android:src="@drawable/baseline_person_24"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
+           <!-- Greeting and Name -->
            <LinearLayout
                android:id="@+id/patient_data"
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:orientation="vertical">
+               android:layout_marginStart="10dp"
+               android:orientation="vertical"
+               app:layout_constraintBottom_toBottomOf="@id/profile_image"
+               app:layout_constraintStart_toEndOf="@id/profile_image"
+               app:layout_constraintTop_toTopOf="@id/profile_image">
 
                <TextView
                    android:id="@+id/greeting"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Good Afternoon"
-                   android:textColor="@android:color/black"
-                   android:textSize="16sp" />
+                   android:text="Good Morning,"
+                   android:textColor="@android:color/darker_gray"
+                   android:textSize="13sp" />
 
                <TextView
                    android:id="@+id/userName"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text=""
+                   android:text="Abhay Sharma"
                    android:textColor="@android:color/black"
                    android:textSize="18sp"
                    android:textStyle="bold" />
            </LinearLayout>
 
+           <!-- Notification Icon -->
+           <RelativeLayout
+               android:id="@+id/notification_icon_wrapper"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginEnd="12dp"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toStartOf="@id/sos_icon"
+               app:layout_constraintTop_toTopOf="parent">
+
+               <ImageView
+                   android:id="@+id/notification_icon"
+                   android:layout_width="28dp"
+                   android:layout_height="28dp"
+                   android:layout_centerInParent="true"
+                   android:src="@drawable/bell" />
+
+               <TextView
+                   android:id="@+id/notification_badge"
+                   android:layout_width="16dp"
+                   android:layout_height="16dp"
+                   android:layout_alignTop="@id/notification_icon"
+                   android:layout_alignEnd="@id/notification_icon"
+                   android:background="@drawable/badge_circle_red"
+                   android:gravity="center"
+                   android:text="2"
+                   android:textColor="@android:color/white"
+                   android:textSize="10sp" />
+           </RelativeLayout>
+
+           <!-- SOS Icon -->
            <ImageView
-               android:id="@+id/sos_button"
+               android:id="@+id/sos_icon"
                android:layout_width="40dp"
                android:layout_height="40dp"
-               android:layout_marginStart="@dimen/cardview_default_radius"
-               android:background="?attr/selectableItemBackgroundBorderless"
                android:src="@drawable/sos"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
-               app:layout_constraintStart_toStartOf="@id/patient_data"
-               />
-       </LinearLayout>
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
 
        <!-- Vitals Section -->
        <TextView
@@ -80,7 +114,7 @@
            android:text="Vitals"
            android:textColor="@android:color/black"
            android:textSize="18sp"
-           android:textStyle="bold"
+           android:textStyle="normal"
            android:paddingLeft="16dp"
            android:paddingRight="16dp"
            app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +125,6 @@
            android:layout_width="match_parent"
            android:padding="15dp"
            android:layout_height="114dp"
-
            android:layout_marginTop="8dp"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
@@ -103,10 +136,9 @@
            android:layout_marginTop="0dp"
            android:layout_marginRight="4dp"
            app:tabIndicatorHeight="8dp"
-           android:paddingRight="4dp"
+           android:layout_margin="4dp"
            app:tabIndicatorColor="@color/primaryBlue"
            android:background="@color/primaryBlueLight"
-
        app:tabGravity="center"
        app:tabMode="fixed"
        app:tabBackground="@drawable/tab_selector_dot"
@@ -123,7 +155,7 @@
            android:text="Primary Actions"
            android:textColor="@android:color/black"
            android:textSize="16sp"
-           android:textStyle="bold"
+           android:textStyle="normal"
            android:paddingLeft="16dp"
            android:paddingRight="16dp"
            app:layout_constraintStart_toStartOf="parent"
@@ -167,7 +199,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:gravity="center"
-                       android:text="Vitals Detail"
+                       android:layout_marginTop="5sp"
+                       android:text="Vitals\nDetails"
                        android:textFontWeight="500"
                        android:textSize="13dp" />
                </LinearLayout>
@@ -198,7 +231,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:gravity="center"
-                       android:text="Fluid Intake/Output"
+                       android:layout_marginTop="5sp"
+                       android:text="Fluid Intake\n/Output"
                        android:textFontWeight="500"
                        android:textSize="13dp" />
                </LinearLayout>
@@ -228,8 +262,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:gravity="center"
-
-                       android:text="Symptoms Tracker"
+                       android:layout_marginTop="5sp"
+                       android:text="Symptom\nTracker"
                        android:textFontWeight="500"
                        android:textSize="13dp" />
                </LinearLayout>
@@ -260,7 +294,7 @@
                        android:layout_height="wrap_content"
                        android:gravity="center"
 
-                       android:text="Pills Reminder"
+                       android:text="Pills\nReminder"
                        android:textFontWeight="500"
                        android:textSize="13dp" />
                </LinearLayout>
@@ -291,7 +325,7 @@
                        android:layout_height="wrap_content"
                        android:gravity="center"
 
-                       android:text="Diet Checklist"
+                       android:text="Diet\nChecklist"
                        android:textFontWeight="500"
                        android:textSize="13dp" />
                </LinearLayout>
@@ -308,7 +342,7 @@
            android:text="Other"
            android:textColor="@android:color/black"
            android:textSize="18sp"
-           android:textStyle="bold"
+           android:textStyle="normal"
            android:paddingLeft="16dp"
            android:paddingRight="16dp"
            app:layout_constraintStart_toStartOf="parent"

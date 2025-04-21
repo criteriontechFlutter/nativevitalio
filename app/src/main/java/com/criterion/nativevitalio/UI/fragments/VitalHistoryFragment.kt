@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import DateUtils
 import PrefsManager
@@ -13,10 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.BPReadingAdapter
-import com.criterion.nativevitalio.databinding.FragmentVitalHistoryBinding
-import com.criterion.nativevitalio.viewmodel.VitalHistoryViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.BPReadingAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentVitalHistoryBinding
+import com.critetiontech.ctvitalio.viewmodel.VitalHistoryViewModel
 
 
 class VitalHistoryFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.Activities;
+package com.critetiontech.ctvitalio.Omron.Activities;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -10,11 +10,11 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
-import com.criterion.nativevitalio.Omron.adapter.ActivityListAdapter;
-import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.Omron.utility.sampleLog;
-import com.criterion.nativevitalio.R;
+import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
+import com.critetiontech.ctvitalio.Omron.adapter.ActivityListAdapter;
+import com.critetiontech.ctvitalio.Omron.utility.Constants;
+import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
+import com.critetiontech.ctvitalio.R;
 
 
 public class ActivityListingActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {

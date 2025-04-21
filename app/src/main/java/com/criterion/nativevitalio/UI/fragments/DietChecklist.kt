@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -9,10 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.adapter.DietChecklistAdapter
-import com.criterion.nativevitalio.databinding.FragmentDietChecklistBinding
-import com.criterion.nativevitalio.model.DietListItem
-import com.criterion.nativevitalio.viewmodel.DietChecklistViewModel
+import com.critetiontech.ctvitalio.adapter.DietChecklistAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentDietChecklistBinding
+import com.critetiontech.ctvitalio.model.DietListItem
+import com.critetiontech.ctvitalio.viewmodel.DietChecklistViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

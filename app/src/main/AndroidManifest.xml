@@ -22,12 +22,14 @@
         tools:targetApi="31">
         <activity
             android:name=".UI.otp"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".UI.Home"
             android:exported="false" />
         <activity
             android:name=".UI.Login"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".UI.EditProfile"
@@ -70,7 +72,7 @@
         <activity android:name=".Omron.Activities.PulseOxymeterDataListingActivity" android:screenOrientation="fullSensor"/>
         <activity android:name=".Omron.Activities.ActivityMainActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Omron.Activities.ScanActivity" android:screenOrientation="portrait" />
-        <provider android:name=".Omron.Database.OmronDBProvider" android:authorities="com.criterion.nativevitalio.Database.OmronDBProvider" android:exported="false"/>
+        <provider android:name=".Omron.Database.OmronDBProvider" android:authorities="com.critetiontech.ctvitalio.Database.OmronDBProvider" android:exported="false"/>
         <activity android:name=".Omron.Activities.DataListingActivity" android:label="@string/title_activity_data_listing" android:screenOrientation="fullSensor" />
         <activity android:name=".Omron.Activities.ActivityDataActivity" android:label="@string/title_activity_data_listing" android:screenOrientation="portrait" />
         <activity android:name=".Omron.Activities.ReminderActivity" android:label="@string/title_activity_reminder" android:screenOrientation="portrait" />

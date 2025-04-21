@@ -1,8 +1,8 @@
-package com.criterion.nativevitalio
+package com.critetiontech.ctvitalio
 
+import NetworkUtils
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+
 
     }
 }

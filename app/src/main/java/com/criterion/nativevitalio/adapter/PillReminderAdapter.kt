@@ -12,9 +12,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView
-import com.criterion.nativevitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.customviews.SyncedHorizontalScrollView
+import com.critetiontech.ctvitalio.utils.MyApplication
 
 import com.google.android.material.R as MaterialR
 
