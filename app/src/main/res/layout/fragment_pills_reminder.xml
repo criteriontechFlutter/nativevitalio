@@ -57,11 +57,16 @@
 
     <!-- Date Row -->
     <LinearLayout
+        android:id="@+id/datePickerField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp">
 
         <!-- Calendar Icon -->
         <ImageView
@@ -72,14 +77,15 @@
             android:contentDescription="@string/other"
             app:tint="?attr/colorPrimary" />
 
-        <!-- Date -->
+        <!-- Date Text -->
         <TextView
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23 jul 2024"
+            android:text="Select Date"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="12dp"
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 
     <!-- Section Header -->
@@ -136,4 +142,18 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="8dp" />
+
+    <ScrollView
+        android:id="@+id/timelineScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/timelineContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </LinearLayout>
