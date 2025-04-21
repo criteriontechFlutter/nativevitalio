@@ -1,4 +1,8 @@
 package com.critetiontech.ctvitalio.model
+
+import com.google.gson.JsonObject
+import com.google.gson.annotations.SerializedName
+
 data class Movies(
     val page: Int,
     val results: List<Result>,
@@ -121,6 +125,15 @@ data class PatientVital(
 data class VitalsDate(
     val vitalDate: String
 )
+
+
+data class ApiGenericResponse(
+    val status: Int,
+    val message: String,
+    @SerializedName("data")
+    val rawPayload: JsonObject? = null
+)
+
 
 
 

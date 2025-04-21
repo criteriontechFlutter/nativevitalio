@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.criterion.nativevitalio.utils.FCMHelper
+import com.critetiontech.ctvitalio.utils.FCMHelper
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.firebase.FirebaseApp
 

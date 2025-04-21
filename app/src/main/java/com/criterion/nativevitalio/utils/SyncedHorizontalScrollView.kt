@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.customviews
+package com.critetiontech.ctvitalio.utils
 
 import android.content.Context
 import android.util.AttributeSet

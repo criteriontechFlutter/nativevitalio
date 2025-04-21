@@ -1,4 +1,4 @@
-<com.critetiontech.ctvitalio.UI.customviews.SyncedHorizontalScrollView
+<com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rowScrollView"
     android:layout_width="match_parent"
@@ -50,4 +50,4 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" />
     </LinearLayout>
-</com.critetiontech.ctvitalio.UI.customviews.SyncedHorizontalScrollView>
+</com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView>

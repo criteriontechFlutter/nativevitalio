@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.UI.otp
 import com.critetiontech.ctvitalio.model.BaseResponse
@@ -18,6 +19,7 @@ import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 
 class LoginViewModel : ViewModel() {
 
@@ -111,16 +113,15 @@ class LoginViewModel : ViewModel() {
     }
 
 
-    fun logoutFromApp(uhid: String, deviceToken: String ) {
+    fun logoutFromApp(uhid: String, deviceToken: String) {
         _loading.value = true
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
                     "UHID" to uhid,
-                    "deviceToken" to  PrefsManager().getDeviceToken().toString()
-
+                    "deviceToken" to PrefsManager().getDeviceToken().toString()
                 )
-                // This response is of type Response<ResponseBody>
+
                 val response = RetrofitInstance
                     .createApiService7082()
                     .dynamicGet(
@@ -129,26 +130,40 @@ class LoginViewModel : ViewModel() {
                     )
 
                 _loading.value = false
-                if (response.isSuccessful) {
 
+                if (response.isSuccessful) {
                     PrefsManager().clearPatient()
                     val intent = Intent(MyApplication.appContext, Login::class.java)
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
                     MyApplication.appContext.startActivity(intent)
 
                     _finishEvent.value = true
-
                 } else {
-
-                    _errorMessage.value = "Error: ${response.code()}"
+                    val errorMsg = parseErrorMessage(response.errorBody())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
+                    _errorMessage.value = "Logout failed: $errorMsg"
                 }
             } catch (e: Exception) {
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
+                ToastUtils.showFailure(MyApplication.appContext, _errorMessage.value ?: "")
                 e.printStackTrace()
             }
         }
     }
+
+
+    fun parseErrorMessage(errorBody: ResponseBody?): String {
+        return try {
+            val gson = Gson()
+            val type = object : TypeToken<Map<String, Any>>() {}.type
+            val errorMap: Map<String, Any> = gson.fromJson(errorBody?.charStream(), type)
+            errorMap["message"]?.toString() ?: "Something went wrong"
+        } catch (e: Exception) {
+            "Unable to parse error"
+        }
+    }
+
 
     fun triggerFinishActivity() {
         _finishEvent.value = true

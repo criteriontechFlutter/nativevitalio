@@ -1,15 +1,15 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import Vital
 import android.Manifest
 import android.app.Dialog
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,8 +17,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,22 +26,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.DashboardAdapter
-import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.viewmodel.DashboardViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.DashboardAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
