@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_dashboard_to_dietChecklist"
             app:destination="@id/dietChecklist" />
+        <action
+            android:id="@+id/action_dashboard_to_uploadReport"
+            app:destination="@id/uploadReport" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -118,5 +121,9 @@
         android:id="@+id/vitalHistoryFragment"
         android:name="com.criterion.nativevitalio.UI.fragments.VitalHistoryFragment"
         android:label="VitalHistoryFragment" />
+    <fragment
+        android:id="@+id/uploadReport"
+        android:name="com.criterion.nativevitalio.UI.fragments.UploadReport"
+        android:label="UploadReport" />
 
 </navigation>

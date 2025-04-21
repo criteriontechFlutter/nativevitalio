@@ -329,6 +329,7 @@
 
            <!-- Upload Report (Fixed Width) -->
            <FrameLayout
+               android:id="@+id/upload_report"
                android:layout_width="111dp"
                android:layout_height="wrap_content"
                android:layout_margin="8dp"

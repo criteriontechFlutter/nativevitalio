@@ -140,6 +140,10 @@ class Dashboard  : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_dietChecklist)
         }
 
+        binding.uploadReport.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_uploadReport)
+        }
+
         binding.fabAdd.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
