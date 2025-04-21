@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.adapter.DietChecklistAdapter
-import com.criterion.nativevitalio.databinding.FragmentDietChecklistBinding
-
-import com.criterion.nativevitalio.viewmodel.DietChecklistViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentDietChecklistBinding
+import com.critetiontech.ctvitalio.viewmodel.DietChecklistViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
