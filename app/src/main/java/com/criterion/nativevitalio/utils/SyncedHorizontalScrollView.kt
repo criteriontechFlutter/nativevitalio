@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.customviews
+package com.critetiontech.ctvitalio.UI.customviews
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.HorizontalScrollView

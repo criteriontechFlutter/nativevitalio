@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.model.VitalDevice
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.model.VitalDevice
 
 class ConnectionAdapter (private val devices: List<VitalDevice>) :
     RecyclerView.Adapter<ConnectionAdapter.DeviceViewHolder>() {

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,12 +15,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.ConnectionAdapter
-import com.criterion.nativevitalio.databinding.FragmentConnectionBinding
-import com.criterion.nativevitalio.model.VitalDevice
-import com.criterion.nativevitalio.model.VitalPosition
-import com.criterion.nativevitalio.viewmodel.ConnectionViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.ConnectionAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentConnectionBinding
+import com.critetiontech.ctvitalio.model.VitalDevice
+import com.critetiontech.ctvitalio.model.VitalPosition
+import com.critetiontech.ctvitalio.viewmodel.ConnectionViewModel
 
 class Connection: Fragment() {
 

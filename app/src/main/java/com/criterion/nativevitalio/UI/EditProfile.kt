@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI
+package com.critetiontech.ctvitalio.UI
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.R
 
 class EditProfile : AppCompatActivity() {
 

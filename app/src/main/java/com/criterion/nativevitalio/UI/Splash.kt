@@ -1,10 +1,13 @@
-package com.criterion.nativevitalio.UI
+package com.critetiontech.ctvitalio.UI
 
 import PrefsManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.criterion.nativevitalio.utils.FCMHelper
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.google.firebase.FirebaseApp
 
 class Splash : AppCompatActivity() {
 
@@ -12,6 +15,18 @@ class Splash : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         try {
+
+            FirebaseApp.initializeApp(MyApplication.appContext)
+            FCMHelper.initializeFCM(
+                onTokenReceived = { token ->
+                    // You can send this token to your backend
+                    Log.d("MainActivity", "Device token: $token")
+                },
+                onError = { error ->
+                    Log.e("MainActivity", "Error getting token: ${error.message}")
+                }
+            )
+
             // Check if user data is saved locally using PrefsManager
             val currentPatientUHID = PrefsManager().currentPatientUHID
 

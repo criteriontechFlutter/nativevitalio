@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import android.graphics.Color
 import android.util.Log
@@ -7,14 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.model.FluidSummaryItem
-import com.criterion.nativevitalio.model.FluidSummaryResponse
-import com.criterion.nativevitalio.model.FluidType
-import com.criterion.nativevitalio.model.GlassSize
-import com.criterion.nativevitalio.model.ManualFoodAssignResponse
-import com.criterion.nativevitalio.model.ManualFoodItem
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.model.FluidSummaryItem
+import com.critetiontech.ctvitalio.model.FluidSummaryResponse
+import com.critetiontech.ctvitalio.model.FluidType
+import com.critetiontech.ctvitalio.model.GlassSize
+import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
+import com.critetiontech.ctvitalio.model.ManualFoodItem
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class FluidIntakeOuputViewModel : ViewModel() {
 
     //recommended Variable
-    private val _recommended = MutableLiveData(2000)
+    private val _recommended = MutableLiveData(5000)
     val recommended: LiveData<Int> = _recommended
 
 

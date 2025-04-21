@@ -1,13 +1,13 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentAllergiesBinding
-import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
+import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 
 
 class Allergies : Fragment() {

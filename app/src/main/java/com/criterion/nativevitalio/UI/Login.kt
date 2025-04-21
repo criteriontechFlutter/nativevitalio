@@ -1,10 +1,9 @@
-package com.criterion.nativevitalio.UI
+package com.critetiontech.ctvitalio.UI
 
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.TextView
@@ -14,9 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.ActivityLoginBinding
-import com.criterion.nativevitalio.viewmodel.LoginViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
+import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 
 class Login : AppCompatActivity() {
 
@@ -32,12 +31,9 @@ class Login : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-
         // Disable button initially
         binding.sendOtpBtn.isEnabled = false
-
         // Enable button only when text is valid
         binding.inputField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -115,24 +111,30 @@ class Login : AppCompatActivity() {
 
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
 
     override fun onPause() {
-        Log.d("TAG111111", "onPause: ")
+
         super.onPause()
     }
 
     override fun onStart() {
-        Log.d("TAG111111", "onStart: ")
+
         super.onStart()
     }
 
     override fun onResume() {
-        Log.d("TAG111111", "onResume: ")
+
         super.onResume()
     }
 
     override fun onRestart() {
-        Log.d("TAG111111", "onRestart: ")
+
         super.onRestart()
     }
 

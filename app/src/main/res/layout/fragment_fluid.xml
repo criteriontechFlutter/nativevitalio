@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:backgroundTint="@color/primaryBlueLight"
             android:gravity="center_horizontal">
 
             <!-- Header -->
@@ -22,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:paddingHorizontal="10dp"
-                android:background="#F9FBFF">
+                android:background="@color/primaryBlueLight">
 
                 <!-- Back Icon -->
                 <ImageView
@@ -96,7 +97,7 @@
                     android:id="@+id/btnIntake"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:text="@string/fluid_intake"
@@ -108,7 +109,7 @@
                     android:id="@+id/btnOutput"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:text="Fluid Output"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingEnd="@dimen/_16sdp"
@@ -130,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="12dp">
 
                     <!-- Top Info Row -->
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -167,9 +168,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        android:background="#E0E0E0"
+                        android:backgroundTint="#E0E0E0"
                         android:weightSum="1"/>
 
                     <!-- Bottom Info Row -->
@@ -181,44 +183,43 @@
                         <TextView
                             android:id="@+id/remainingText"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:text="@string/remaining"
                             android:textColor="#607D8B"
-                            app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/legendLayout"
                             app:layout_constraintTop_toTopOf="@+id/legendLayout" />
 
-                        <!-- Legend -->
+
                         <LinearLayout
                             android:id="@+id/legendLayout"
-                            android:layout_width="250dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingTop="@dimen/_10sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/remainingText"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+                        <!-- Legend -->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 </LinearLayout>
 
                 <!-- Glass animation/graphic -->
-                <com.criterion.nativevitalio.utils.GlassFillView
-                    android:layout_width="150dp"
+                <com.critetiontech.ctvitalio.utils.CupGlassFilledView
+                    android:layout_width="140dp"
                     android:layout_height="250dp"
+                    android:id="@+id/glassView"
                     android:layout_gravity="center"
                     />
 
 
 
-                <TextView
-                    android:text="0 ml of 150 ml"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
 
                 <TextView
                     android:text="Last intake: 1h 34m ago"
@@ -233,8 +234,8 @@
                     android:id="@+id/fluidRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:clipToPadding="false" />
+                    android:padding="10dp"
+                    android:clipToPadding="true" />
 
 
                 <!-- Glass Size -->
@@ -244,13 +245,6 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/selectedSizeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Select Your Glass Size"
-                        android:textColor="#607D8B"
-                        android:layout_marginBottom="12dp"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewGlassSize"
@@ -258,8 +252,6 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
             </LinearLayout>
-
-
 
 
 

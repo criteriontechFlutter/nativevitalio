@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.Omron.adapter;
+package com.critetiontech.ctvitalio.Omron.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.criterion.nativevitalio.Omron.Activities.OmronConnectedDeviceList;
-import com.criterion.nativevitalio.Omron.utility.Constants;
-import com.criterion.nativevitalio.R;
+import com.critetiontech.ctvitalio.Omron.Activities.OmronConnectedDeviceList;
+import com.critetiontech.ctvitalio.Omron.utility.Constants;
+import com.critetiontech.ctvitalio.R;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 

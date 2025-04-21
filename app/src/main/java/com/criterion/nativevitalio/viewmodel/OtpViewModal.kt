@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import Patient
 import PrefsManager
@@ -8,11 +8,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.UI.Login
-import com.criterion.nativevitalio.model.BaseResponse
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
-import com.criterion.nativevitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.UI.Login
+import com.critetiontech.ctvitalio.model.BaseResponse
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -25,13 +25,14 @@ class OtpViewModal  :ViewModel(){
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
     fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String) {
+
         _loading.value = true
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
                     "otp" to otp,
                     "UHID" to uhid,
-                    "deviceToken" to deviceToken,
+                    "deviceToken" to  PrefsManager().getDeviceToken().toString(),
                     "ifLoggedOutFromAllDevices" to  "0"
                 )
                 // This response is of type Response<ResponseBody>
@@ -94,7 +95,7 @@ class OtpViewModal  :ViewModel(){
                     firstPatient?.let {
                         PrefsManager( ).savePatient(it)
                         Login.storedUHID=it.uhID
-                        val intent = Intent(MyApplication.appContext, com.criterion.nativevitalio.UI.Home::class.java)
+                        val intent = Intent(MyApplication.appContext, com.critetiontech.ctvitalio.UI.Home::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         MyApplication.appContext.startActivity(intent)
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}")

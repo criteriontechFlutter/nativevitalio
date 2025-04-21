@@ -1,8 +1,10 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import Vital
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,16 +12,17 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.DashboardAdapter
-import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.viewmodel.DashboardViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 
 class Dashboard  : Fragment() {
 
@@ -99,8 +102,22 @@ class Dashboard  : Fragment() {
             .into(binding.profileImage)
 
         binding.userName.text=PrefsManager().getPatient()!!.patientName
-        binding.profileSection.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
+        }
+
+
+        binding.sosIcon.setOnClickListener {
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.emergency_popup)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            val closeBtn = dialog.findViewById<ImageView>(R.id.closeBtn)
+            closeBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
         }
 
         binding.fluidlayout.setOnClickListener {
