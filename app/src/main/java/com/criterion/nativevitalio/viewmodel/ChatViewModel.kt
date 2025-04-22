@@ -1,14 +1,15 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.ChatMessage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class ChatViewModel : ViewModel() {
+class ChatViewModel (application: Application) : BaseViewModel(application) {
 
     private val _messages = MutableLiveData<MutableList<ChatMessage>>()
     val messages: LiveData<MutableList<ChatMessage>> get() = _messages
