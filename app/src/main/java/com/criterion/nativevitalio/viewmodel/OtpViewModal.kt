@@ -2,12 +2,13 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import Patient
 import PrefsManager
+import android.app.Application
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -17,7 +18,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 
-class OtpViewModal  :ViewModel(){
+class OtpViewModal  (application: Application) : BaseViewModel(application){
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading

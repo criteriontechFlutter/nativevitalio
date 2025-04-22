@@ -1,9 +1,10 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.BloodPressureReading
 import com.critetiontech.ctvitalio.model.VitalResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -16,11 +17,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class VitalHistoryViewModel: ViewModel() {
+class VitalHistoryViewModel(application: Application) : BaseViewModel(application) {
 
     private val _bpList = MutableLiveData<List<BloodPressureReading>>()
     val bpList: LiveData<List<BloodPressureReading>> = _bpList
-
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading

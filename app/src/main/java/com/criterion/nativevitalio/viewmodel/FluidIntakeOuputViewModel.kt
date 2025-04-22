@@ -1,12 +1,13 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import android.app.Application
 import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.FluidSummaryItem
 import com.critetiontech.ctvitalio.model.FluidSummaryResponse
 import com.critetiontech.ctvitalio.model.FluidType
@@ -19,7 +20,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 
-class FluidIntakeOuputViewModel : ViewModel() {
+class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(application) {
 
     //recommended Variable
     private val _recommended = MutableLiveData(5000)
