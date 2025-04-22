@@ -160,5 +160,23 @@ data class ApiGenericResponse(
 
 
 
+data class FluidOutputSummaryResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<FluidOutputSummary>
+)
+
+data class FluidOutputSummary(
+    val pmID: Int,
+    val quantity: Double,
+    val repetition: Int,
+    val unitID: Int,
+    val unitName: String,
+    val outputDate: String
+)
+
+
+
+
 
 
