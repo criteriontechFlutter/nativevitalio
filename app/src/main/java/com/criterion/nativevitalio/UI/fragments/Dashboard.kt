@@ -26,11 +26,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.criterion.nativevitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -43,7 +45,7 @@ class Dashboard  : Fragment() {
     private lateinit var viewModel: DashboardViewModel
     private lateinit var adapter: DashboardAdapter
     private var voiceDialog: Dialog? = null
-
+    private var snackbar: Snackbar? = null
     private var currentPage = 0
     private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
@@ -67,7 +69,18 @@ class Dashboard  : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
-        viewModel.getVitals()
+
+
+
+        viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected) {
+                snackbar?.dismiss()
+                viewModel.getVitals()
+            } else {
+                showRetrySnackbar()
+            }
+        }
+
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
