@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.criterion.nativevitalio.R
+
 import com.criterion.nativevitalio.model.UploadReportItem
+import com.critetiontech.ctvitalio.R
 
 class UploadReportAdapter(
     private val context: Context,

@@ -17,12 +17,12 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.UploadReportAdapter
-import com.criterion.nativevitalio.databinding.FragmentUploadReportBinding
 import com.criterion.nativevitalio.model.UploadReportItem
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.viewmodel.UploadReportViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import java.io.File
