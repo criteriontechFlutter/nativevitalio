@@ -73,7 +73,6 @@ class FluidInputHistoryFragment : Fragment() {
             binding.recyclerViewFluidLogs.visibility = VISIBLE
             binding.fluidGraph.visibility=GONE
 
-
             binding.btnChart.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.gray),
                 PorterDuff.Mode.SRC_IN
@@ -115,9 +114,9 @@ class FluidInputHistoryFragment : Fragment() {
                     R.id.btnWeekly -> {
                         binding.progressBarLayout.visibility=GONE
                         binding.btnGraphToggleLayout.visibility=GONE
-                        val (from, to) = DateUtils.getCurrentWeekRange()
+                        val (from, to) = DateUtils.getLastWeekRange()
                         binding.tvSelectedDate.setText("$from--$to")
-                        viewModel.fetchManualFluidIntakeByRange("UHID01235",from,to)
+                        viewModel.fetchManualFluidIntakeByRange(PrefsManager().getPatient()!!.uhID,from,to)
                         viewModel.intakeListRangeWise.observe(viewLifecycleOwner) { list ->
                             Log.d("TAG", "onViewCreated: "+list.size.toString())
                             fluidIntakeAdapterRange = FluidIntakeRangeAdapter(list)
@@ -129,9 +128,9 @@ class FluidInputHistoryFragment : Fragment() {
                     R.id.btnMonthly -> {
                         binding.progressBarLayout.visibility=GONE
                         binding.btnGraphToggleLayout.visibility=GONE
-                        val (from, to) = DateUtils.getCurrentMonthRange()
+                        val (from, to) = DateUtils.getLastMonthRange()
                         binding.tvSelectedDate.setText("$from--$to")
-                        viewModel.fetchManualFluidIntakeByRange("UHID01235",from,to)
+                        viewModel.fetchManualFluidIntakeByRange(PrefsManager().getPatient()!!.uhID,from,to)
                         viewModel.intakeListRangeWise.observe(viewLifecycleOwner) { list ->
                             Log.d("TAG", "onViewCreated: "+list.size.toString())
                             fluidIntakeAdapterRange = FluidIntakeRangeAdapter(list)

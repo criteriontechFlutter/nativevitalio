@@ -5,5 +5,6 @@
         <domain includeSubdomains="true">182.156.200.177</domain>
         <domain includeSubdomains="true">food.shopright.ai</domain>
         <domain includeSubdomains="true">182.156.200.178</domain>
+        <domain includeSubdomains="true">172.16.61.31</domain>
     </domain-config>
 </network-security-config>

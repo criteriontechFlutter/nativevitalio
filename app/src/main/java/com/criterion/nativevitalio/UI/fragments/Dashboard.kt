@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 import PrefsManager
 import Vital
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -65,6 +66,7 @@ class Dashboard  : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -170,6 +172,10 @@ class Dashboard  : Fragment() {
 
         binding.dietChecklist.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_dietChecklist)
+        }
+
+        binding.notificationIconWrapper.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
         }
 
         binding.uploadReport.setOnClickListener {

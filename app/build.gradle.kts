@@ -87,6 +87,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     // retrofit
     implementation(libs.retrofit)
+    implementation(libs.lottie.v601)
+
     implementation(libs.converter.gson)
     implementation (libs.lottie)
     implementation (libs.androidx.navigation.fragment.ktx)

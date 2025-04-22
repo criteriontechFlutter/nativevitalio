@@ -111,7 +111,7 @@ if(vitalType=="Blood Pressure"){
                     }
                     R.id.btnWeekly -> {
                         binding.btnGraphToggleLayout.visibility= View.GONE
-                        val (from, to) = DateUtils.getCurrentWeekRange()
+                        val (from, to) = DateUtils.getLastWeekRange()
                         binding.tvSelectedDate.setText("$from--$to")
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
 
@@ -120,7 +120,7 @@ if(vitalType=="Blood Pressure"){
                     R.id.btnMonthly -> {
 
                         binding.btnGraphToggleLayout.visibility= View.GONE
-                        val (from, to) = DateUtils.getCurrentMonthRange()
+                        val (from, to) = DateUtils.getLastMonthRange()
                         binding.tvSelectedDate.setText("$from--$to")
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
                     }

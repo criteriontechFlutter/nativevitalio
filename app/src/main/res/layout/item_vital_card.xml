@@ -6,7 +6,7 @@
     android:layout_margin="8dp"
     app:cardElevation="0dp"
     app:cardCornerRadius="16dp"
-    app:cardBackgroundColor="@color/primaryBlueLight">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:text="Heart Rate"
             android:textStyle="bold"
-            android:textColor="#000"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/vital_icon"
             app:layout_constraintTop_toTopOf="@id/vital_icon"
@@ -67,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="60"
-                android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
