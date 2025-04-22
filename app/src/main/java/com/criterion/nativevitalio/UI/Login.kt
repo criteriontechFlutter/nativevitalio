@@ -18,10 +18,8 @@ import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 
 class Login : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
-
     companion object {
         lateinit var storedUHID: String
 
@@ -38,11 +36,9 @@ class Login : AppCompatActivity() {
         binding.inputField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 val isValid = input.length >= 8
-
                 binding.sendOtpBtn.isEnabled = isValid
                 binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(this@Login,
@@ -50,6 +46,14 @@ class Login : AppCompatActivity() {
                 )
             }
         })
+
+        binding.inputField.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.main.post {
+                    binding.main.smoothScrollTo(0, binding.inputField.top)
+                }
+            }
+        }
 
         // ✅ Observe once — not on every button click
         observeViewModel()

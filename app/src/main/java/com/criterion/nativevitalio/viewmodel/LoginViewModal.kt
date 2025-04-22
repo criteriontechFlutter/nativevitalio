@@ -2,14 +2,15 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import Patient
 import PrefsManager
+import android.app.Application
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.utils.ToastUtils
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.UI.otp
 import com.critetiontech.ctvitalio.model.BaseResponse
@@ -21,7 +22,7 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel (application: Application) : BaseViewModel(application){
 
     private val _finishEvent = MutableLiveData<Boolean>()
     val finishEvent: LiveData<Boolean> get() = _finishEvent

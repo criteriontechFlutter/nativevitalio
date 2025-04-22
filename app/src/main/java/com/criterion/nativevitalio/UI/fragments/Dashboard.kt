@@ -77,7 +77,9 @@ class Dashboard  : Fragment() {
                 snackbar?.dismiss()
                 viewModel.getVitals()
             } else {
-                showRetrySnackbar()
+                showRetrySnackbar(
+                    ""
+                ) { viewModel.getVitals() }
             }
         }
 
