@@ -5,12 +5,13 @@ import PillTime
 import PrefsManager
 import Vital
 import VitalsResponse
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.DietItemModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
@@ -24,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class DashboardViewModel : ViewModel() {
+class DashboardViewModel(application: Application) : BaseViewModel(application) {
 
     private val _vitalList = MutableLiveData<List<Vital>>()
     val vitalList: LiveData<List<Vital>> get() = _vitalList
