@@ -58,17 +58,20 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
+                _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"
                 e.printStackTrace()
