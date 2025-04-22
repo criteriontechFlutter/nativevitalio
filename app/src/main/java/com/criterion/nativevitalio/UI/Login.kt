@@ -13,6 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
@@ -31,6 +33,11 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         // Disable button initially
+
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
+
         binding.sendOtpBtn.isEnabled = false
         // Enable button only when text is valid
         binding.inputField.addTextChangedListener(object : TextWatcher {
@@ -47,13 +54,7 @@ class Login : AppCompatActivity() {
             }
         })
 
-        binding.inputField.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.main.post {
-                    binding.main.smoothScrollTo(0, binding.inputField.top)
-                }
-            }
-        }
+
 
         // ✅ Observe once — not on every button click
         observeViewModel()

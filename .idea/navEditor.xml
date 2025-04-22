@@ -80,12 +80,22 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_notificationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_pillsReminder">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_symptomsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_uploadReport">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -166,6 +176,30 @@
                           <Point>
                             <option name="x" value="35" />
                             <option name="y" value="-682" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="fluidOutputFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="279" />
+                            <option name="y" value="-766" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="notificationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-929" />
+                            <option name="y" value="-642" />
                           </Point>
                         </option>
                       </LayoutPositions>

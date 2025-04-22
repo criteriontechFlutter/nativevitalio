@@ -88,12 +88,13 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                 val response = RetrofitInstance
                     .createApiService()
                     .dynamicGet(
-                        url = ApiEndPoint().sentLogInOTPForSHFCApp,
+                        url = ApiEndPoint().sentLogInOTPForVitalioApp,
                         params = queryParams
                     )
 
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val intent = Intent(MyApplication.appContext, otp::class.java).apply {
                         putExtra("UHID", uhid)
@@ -102,6 +103,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     MyApplication.appContext.startActivity(intent)
                     Log.d("RESPONSE", "responseValue: $responseBodyString")
                 } else {
+                    _loading.value = false
                     _showDialog.postValue("Logout Confirmation")
                     _errorMessage.value = "Error: ${response.code()}"
                 }

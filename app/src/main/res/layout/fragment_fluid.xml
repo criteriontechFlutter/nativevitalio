@@ -210,11 +210,44 @@
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="250dp"
+                    android:visibility="visible"
+                    android:background="@drawable/ic_no_fluid"
+                    android:id="@+id/noFluid"
+                    android:layout_gravity="center"/>
+
                 <!-- Glass animation/graphic -->
                 <com.critetiontech.ctvitalio.utils.CupGlassFilledView
                     android:layout_width="140dp"
                     android:layout_height="250dp"
-                    android:id="@+id/glassView"
+                    android:visibility="gone"
+                    android:id="@+id/cupglassView"
+                    android:layout_gravity="center"
+                    />
+
+                <com.critetiontech.ctvitalio.utils.GlassFillView
+                    android:layout_width="140dp"
+                    android:layout_height="250dp"
+                    android:visibility="gone"
+                    android:id="@+id/waterGlassView"
+                    android:layout_gravity="center"
+                    />
+
+                <com.critetiontech.ctvitalio.utils.JuiceView
+                    android:layout_width="140dp"
+                    android:layout_height="250dp"
+                    android:visibility="gone"
+                    android:id="@+id/juiceGlassView"
+                    android:layout_gravity="center"
+                    />
+
+                <com.critetiontech.ctvitalio.utils.MilkView
+                    android:layout_width="140dp"
+                    android:layout_height="250dp"
+                    android:visibility="gone"
+                    android:id="@+id/milkGlassView"
                     android:layout_gravity="center"
                     />
 
@@ -416,32 +449,43 @@
 
                     <!-- Color Bar -->
                     <LinearLayout
+                        android:id="@+id/colorBarLayout"
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
-                        android:layout_marginTop="24dp">
+                        android:background="@drawable/rounded_corners"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
 
-                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFFDE7"/>
-                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFF176"/>
-                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFEB3B"/>
-                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#FFC107"/>
-                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#A1887F"/>
-                        <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#D32F2F"/>
+                        <View android:id="@+id/colorLightYellow" android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1" android:background="#FFFDE7" android:clickable="true" android:focusable="true"/>
+                        <View android:id="@+id/colorYellow" android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1" android:background="#FFF176" android:clickable="true" android:focusable="true"/>
+                        <View android:id="@+id/colorDarkYellow" android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1" android:background="#FFEB3B" android:clickable="true" android:focusable="true"/>
+                        <View android:id="@+id/colorAmber" android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1" android:background="#FFC107" android:clickable="true" android:focusable="true"/>
+                        <View android:id="@+id/colorBrown" android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1" android:background="#A1887F" android:clickable="true" android:focusable="true"/>
+                        <View android:id="@+id/colorRed" android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1" android:background="#D32F2F" android:clickable="true" android:focusable="true"/>
                     </LinearLayout>
 
-                    <!-- Color Bar Labels -->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:orientation="horizontal">-->
 
-<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Light\nYellow" android:textSize="10sp"/>-->
-<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>-->
-<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>-->
-<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>-->
-<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>-->
-<!--                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>-->
-<!--                    </LinearLayout>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Light\nYellow" android:textSize="10sp"
+                            android:layout_height="wrap_content" />
+                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>
+                    </LinearLayout>
 
                 </LinearLayout>
             </ScrollView>
@@ -450,14 +494,15 @@
 
 
             <!-- Add Intake Button -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddIntake"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_intake"
+                android:height="@dimen/_40sdp"
                 android:textAllCaps="false"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="#356DF3"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/primaryColor"
                 android:textColor="#fff" />
 
         </LinearLayout>

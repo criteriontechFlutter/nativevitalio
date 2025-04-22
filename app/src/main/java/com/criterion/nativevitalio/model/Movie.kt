@@ -21,6 +21,30 @@ data class ManualFoodAssignResponse(
     val responseValue: List<ManualFoodItem>
 )
 
+
+data class FluidOutputResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<FluidOutput>
+)
+
+
+data class FluidOutput(
+    val id: Int,
+    val pmID: Int,
+    val outputID: Int,
+    val quantity: Double,
+    val unitID: Int,
+    val outputDate: String,
+    val userID: Int,
+    val userName: String,
+    val outputType: String,
+    val unitName: String,
+    val outputDateFormat: String,
+    val outputTimeFormat: String,
+    val colour: String
+)
+
 data class ManualFoodItem(
     val foodID: Int,
     val foodName: String,

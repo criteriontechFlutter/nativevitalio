@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_dashboard_to_uploadReport"
             app:destination="@id/uploadReport" />
+        <action
+            android:id="@+id/action_dashboard_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -85,6 +88,9 @@
         <action
             android:id="@+id/action_fluidFragment_to_fluidInputHistoryFragment"
             app:destination="@id/fluidInputHistoryFragment" />
+        <action
+            android:id="@+id/action_fluidFragment_to_fluidOutputFragment"
+            app:destination="@id/fluidOutputFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragmentVitalio"
@@ -125,5 +131,13 @@
         android:id="@+id/uploadReport"
         android:name="com.criterion.nativevitalio.UI.fragments.UploadReport"
         android:label="UploadReport" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.NotificationFragment"
+        android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/fluidOutputFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.FluidOutputFragment"
+        android:label="FluidOutputFragment" />
 
 </navigation>

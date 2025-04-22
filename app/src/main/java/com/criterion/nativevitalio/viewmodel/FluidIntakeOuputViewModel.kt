@@ -1,5 +1,7 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import DateUtils
+import PrefsManager
 import android.app.Application
 import android.graphics.Color
 import android.util.Log
@@ -7,7 +9,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
+import com.critetiontech.ctvitalio.model.FluidOutput
+import com.critetiontech.ctvitalio.model.FluidOutputResponse
 import com.critetiontech.ctvitalio.model.FluidSummaryItem
 import com.critetiontech.ctvitalio.model.FluidSummaryResponse
 import com.critetiontech.ctvitalio.model.FluidType
@@ -16,6 +21,7 @@ import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
 import com.critetiontech.ctvitalio.model.ManualFoodItem
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -27,10 +33,25 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
     val recommended: LiveData<Int> = _recommended
 
 
+    private val _progressOutput = MutableLiveData(25)
+    val progressOutput: LiveData<Int> = _progressOutput
+
+    private val _selectedColor = MutableLiveData("")
+    val selectedColor: LiveData<String> = _selectedColor
+
+
+    private val _selectedIntakeButton = MutableLiveData(false)
+    val selectedIntakeButton: LiveData<Boolean> = _selectedIntakeButton
+
+
     //intake list
     private val _intakeList = MutableLiveData<List<ManualFoodItem>>()
     var intakeList: LiveData<List<ManualFoodItem>> = _intakeList
 
+
+    //intake list
+    private val _outputList = MutableLiveData<List<FluidOutput>>()
+    var outputList: LiveData<List<FluidOutput>> = _outputList
 
     private val _intakeListRangeWise = MutableLiveData<List<FluidSummaryItem>>()
     var intakeListRangeWise: LiveData<List<FluidSummaryItem>> = _intakeListRangeWise
@@ -77,6 +98,19 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
     }
 
+   fun setSelectedIntakeButton(item: Boolean){
+        _selectedIntakeButton.value=item
+    }
+
+
+    fun setSelectedColor(item: String) {
+        _selectedColor.value = item
+
+    }
+    fun setSelectedOutputProgress(progress:Int){
+        _progressOutput.value=progress
+    }
+
 
     private val _customFluidAmount = MutableLiveData<Int>()
     val customFluidAmount: LiveData<Int> = _customFluidAmount
@@ -98,7 +132,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
     private fun setDefaultSizes() {
         val sizes = listOf(
             GlassSize(0 ),
-             GlassSize(150,isSelected = true),
+            GlassSize(150,isSelected = true),
             GlassSize(250),
             GlassSize(300),
             GlassSize(400)
@@ -127,8 +161,9 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                         url = ApiEndPoint().getFluidIntakeDetails,
                         params = queryParams
                     )
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<ManualFoodAssignResponse>() {}.type
                     val parsed = Gson().fromJson<ManualFoodAssignResponse>(responseBodyString, type)
@@ -150,6 +185,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                     _fluidList.value = filteredList
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -160,6 +196,46 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
             }
         }
     }
+
+
+    fun fetchFluidOutputDaily(uhid: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf("UHID" to uhid)
+
+                val response = RetrofitInstance
+                    .createApiService7082()
+                    .dynamicGet(
+                        url = ApiEndPoint().getFluidOutputDaily,
+                        params = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<FluidOutputResponse>() {}.type
+                    val parsed = Gson().fromJson<FluidOutputResponse>(responseBodyString, type)
+                    val allItems = parsed.responseValue
+                    _outputList.value= allItems
+
+
+                } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+
 
 
 
@@ -179,8 +255,9 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                         url = ApiEndPoint().getFluidIntakeDetailsByRange,
                         params = queryParams
                     )
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<FluidSummaryResponse>() {}.type
                     val parsed = Gson().fromJson<FluidSummaryResponse>(responseBodyString, type)
@@ -202,6 +279,52 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                   //  _fluidList.value = filteredList
 
                 } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    fun insertFluidOutPut() {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf(
+                    "id" to  PrefsManager().getPatient()!!.userId,
+                "pmID" to 0.toString(),
+                "outputTypeID"  to 51.toString(),
+                "quantity"  to progressOutput.value.toString(),
+                "unitID"  to 1.toString(),
+                "outputDate"  to DateUtils.getTodayDate(),
+                "colour"  to selectedColor.value.toString(),
+                "userID"  to PrefsManager().getPatient()!!.userId,
+                "clientId"  to PrefsManager().getPatient()!!.clientId,
+                "uhid"  to PrefsManager().getPatient()!!.uhID
+                    )
+
+                val response = RetrofitInstance
+                    .createApiService7082()
+                    .dynamicRawPost(
+                        url = ApiEndPoint().savePatientOutput,
+                        body = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+
+                    ToastUtils.showSuccess(MyApplication.appContext, "Output Saved Successfully!")
+                } else {
+                    _loading.value = false
+
+
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

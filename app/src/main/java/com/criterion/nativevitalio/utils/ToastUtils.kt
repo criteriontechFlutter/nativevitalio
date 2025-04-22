@@ -8,6 +8,9 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import com.critetiontech.ctvitalio.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import okhttp3.ResponseBody
 
 
 object ToastUtils {
@@ -37,5 +40,18 @@ object ToastUtils {
         toast.view = view
         toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 100)
         toast.show()
+    }
+}
+
+object ErrorUtils {
+    fun parseErrorMessage(errorBody: ResponseBody?): String {
+        return try {
+            val gson = Gson()
+            val type = object : TypeToken<Map<String, Any>>() {}.type
+            val errorMap: Map<String, Any> = gson.fromJson(errorBody?.charStream(), type)
+            errorMap["message"]?.toString() ?: "Something went wrong"
+        } catch (e: Exception) {
+            "Unable to parse error"
+        }
     }
 }
