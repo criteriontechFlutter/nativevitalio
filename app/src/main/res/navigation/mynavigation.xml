@@ -124,6 +124,14 @@
     <fragment
         android:id="@+id/uploadReport"
         android:name="com.criterion.nativevitalio.UI.fragments.UploadReport"
-        android:label="UploadReport" />
+        android:label="UploadReport" >
+        <action
+            android:id="@+id/action_uploadReport_to_reportFieldsFragment"
+            app:destination="@id/reportFieldsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportFieldsFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.ReportFieldsFragment"
+        android:label="ReportFieldsFragment" />
 
 </navigation>
