@@ -2,7 +2,6 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import android.content.Context
 import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -85,36 +84,25 @@ class UploadReportViewModel : ViewModel() {
                         val patient = item.getJSONObject("patient_details")
 
                         val mapped = mutableMapOf<String, Any>(
-                            "P_NameC" to EditText(context).apply {
-                                setText(patient.optString("patient_name"))
-                            },
-                            "genderC" to EditText(context).apply {
-                                setText(patient.optString("sex"))
-                            },
-                            "ageC" to EditText(context).apply {
-                                setText(patient.optString("age"))
-                            },
-                            "summaryC" to EditText(context).apply {
-                                setText(item.optString("summary"))
-                            },
-                            "statusC" to EditText(context).apply {
-                                setText(item.optString("status"))
-                            },
-                            "recommended_specialtyC" to EditText(context).apply {
-                                setText(item.optString("recommended_specialty"))
-                            }
+                            "P_NameC" to patient.optString("patient_name"),
+                            "genderC" to patient.optString("sex"),
+                            "ageC" to patient.optString("age"),
+                            "summaryC" to item.optString("summary"),
+                            "statusC" to item.optString("status"),
+                            "recommended_specialtyC" to item.optString("recommended_specialty")
                         )
 
                         val reportArray = item.getJSONArray("report")
-                        val reportList = mutableListOf<Map<String, EditText>>()
-
+                        val reportList = mutableListOf<Map<String, String>>()
                         for (j in 0 until reportArray.length()) {
                             val reportItem = reportArray.getJSONObject(j)
-                            reportList.add(
-                                mapOf("val" to EditText(context).apply {
-                                    setText(reportItem.optString("result"))
-                                })
+                            val testData = mapOf(
+                                "test_name" to reportItem.optString("test_name"),
+                                "result" to reportItem.optString("result"),
+                                "unit" to reportItem.optString("unit"),
+                                "normal_values" to reportItem.optString("normal_values")
                             )
+                            reportList.add(testData)
                         }
 
                         mapped["report"] = reportList

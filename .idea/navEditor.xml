@@ -90,6 +90,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_uploadReport">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_vitalDetail">
                               <value>
                                 <LayoutPositions />
@@ -178,6 +183,18 @@
                           <Point>
                             <option name="x" value="-151" />
                             <option name="y" value="328" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="reportFieldsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1398" />
+                            <option name="y" value="465" />
                           </Point>
                         </option>
                       </LayoutPositions>

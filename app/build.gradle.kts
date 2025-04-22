@@ -77,7 +77,7 @@ dependencies {
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)
     implementation("com.google.firebase:firebase-messaging:24.1.1")
-
+    implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
     //otp view
 //    implementation (libs.otpview)
 
