@@ -60,7 +60,8 @@ class FluidFragment : Fragment() {
 
         binding.historyBtn.setOnClickListener {
             viewModel.selectedIntakeButton.observe(viewLifecycleOwner) { isLoading ->
-                if (isLoading) findNavController().navigate(R.id.action_fluidFragment_to_fluidOutputFragment) else findNavController().navigate(R.id.action_fluidFragment_to_fluidInputHistoryFragment)
+                if (isLoading) findNavController().navigate(R.id.action_fluidFragment_to_fluidOutputFragment)
+                else findNavController().navigate(R.id.action_fluidFragment_to_fluidInputHistoryFragment)
             }
 
         }
