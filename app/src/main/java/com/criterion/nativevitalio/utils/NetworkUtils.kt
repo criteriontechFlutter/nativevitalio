@@ -8,26 +8,17 @@ import com.critetiontech.ctvitalio.utils.MyApplication
 object NetworkUtils {
 
     // Checks for internet connectivity
-    private fun isInternetAvailable(): Boolean {
-        val context = MyApplication.appContext
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
-
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     // Checks and shows toast if no internet
     fun checkAndShowToast(): Boolean {
         val context = MyApplication.appContext
-        val isConnected = isInternetAvailable()
+        val isConnected = isInternetAvailable(MyApplication.appContext)
 
         if (!isConnected) {
             Toast.makeText(context, "📶 No internet connection", Toast.LENGTH_SHORT).show()
@@ -35,6 +26,35 @@ object NetworkUtils {
 
         return isConnected
     }
+
+    fun getConnectionQuality(context: Context): String {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return "No Connection"
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return "No Connection"
+
+        return when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> "Strong (Wi-Fi)"
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                when {
+                    capabilities.linkDownstreamBandwidthKbps >= 5000 -> "Strong (4G/5G)"
+                    capabilities.linkDownstreamBandwidthKbps >= 1000 -> "Moderate (3G/4G)"
+                    capabilities.linkDownstreamBandwidthKbps >= 100 -> "Weak (2G/3G)"
+                    else -> "Very Weak"
+                }
+            }
+            else -> "Unknown"
+        }
+    }
+
+    fun getDownlinkSpeedMbps(context: Context): Double {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return 0.0
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return 0.0
+
+        val kbps = capabilities.linkDownstreamBandwidthKbps
+        return kbps / 1000.0 // Mbps
+    }
+
 
 
     object ThemeHelper {
@@ -50,4 +70,7 @@ object NetworkUtils {
             }
         }
     }
+
+
+
 }
