@@ -3,16 +3,17 @@ package com.critetiontech.ctvitalio.viewmodel
 import PrefsManager
 import Vital
 import VitalsResponse
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
-class VitalDetailsViewModel: ViewModel() {
+class VitalDetailsViewModel(application: Application) : BaseViewModel(application) {
 
     private val _vitalList = MutableLiveData<List<Vital>>()
     val vitalList: LiveData<List<Vital>> get() = _vitalList
