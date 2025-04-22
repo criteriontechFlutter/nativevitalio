@@ -1,12 +1,13 @@
 package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
+import android.app.Application
 import android.os.Build
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.ProblemWithIcon
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
@@ -16,7 +17,7 @@ import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
-class SymptomsViewModel : ViewModel() {
+class SymptomsViewModel (application: Application) : BaseViewModel(application) {
 
     private val _symptomList = MutableLiveData<List<ProblemWithIcon>>()
     val symptomList: LiveData<List<ProblemWithIcon>> get() = _symptomList

@@ -1,11 +1,12 @@
 package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.DietItemModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
@@ -17,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class DietChecklistViewModel: ViewModel() {
+class DietChecklistViewModel (application: Application) : BaseViewModel(application) {
 
     private val _dietList = MutableLiveData<List<DietItemModel>>()
     val dietList: LiveData<List<DietItemModel>> get() = _dietList

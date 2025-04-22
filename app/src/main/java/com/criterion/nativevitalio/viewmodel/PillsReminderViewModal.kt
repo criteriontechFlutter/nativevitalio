@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.viewmodel
 import PillReminderModel
 import PillTime
 import PrefsManager
+import android.app.Application
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -10,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
@@ -19,7 +21,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class PillsReminderViewModal : ViewModel() {
+class PillsReminderViewModal (application: Application) : BaseViewModel(application) {
 
     private val _pillList = MutableLiveData<List<PillReminderModel>>()
     val pillList: LiveData<List<PillReminderModel>> get() = _pillList
