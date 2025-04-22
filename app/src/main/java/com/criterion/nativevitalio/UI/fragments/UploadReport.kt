@@ -1,6 +1,5 @@
 package com.criterion.nativevitalio.UI.fragments
 
-import PrefsManager
 import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -19,9 +18,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.criterion.nativevitalio.adapter.UploadReportAdapter
 import com.criterion.nativevitalio.model.UploadReportItem
+import com.criterion.nativevitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
@@ -37,28 +36,29 @@ class UploadReport : Fragment() {
 
     private var imageUri: Uri? = null
     private var imageFile: File? = null
-    private var selectedImageUri: Uri? = null
 
     private val cameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                openCamera()
-            } else {
-                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
-            }
+            if (isGranted) openCamera()
+            else Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
         }
 
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success && imageFile != null) {
-                Toast.makeText(requireContext(), "Image saved: ${imageFile!!.path}", Toast.LENGTH_SHORT).show()
+                imageUri?.let {
+                    binding.imagePreview.setImageURI(it)
+                    Toast.makeText(requireContext(), "Image captured", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
     private val galleryLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            if (uri != null) {
-                selectedImageUri = uri
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                imageUri = it
+                imageFile = FileUtil.from(requireContext(), it)
+                binding.imagePreview.setImageURI(it)
                 Toast.makeText(requireContext(), "Image selected", Toast.LENGTH_SHORT).show()
             }
         }
@@ -91,9 +91,7 @@ class UploadReport : Fragment() {
         galleryLauncher.launch("image/*")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentUploadReportBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -108,8 +106,7 @@ class UploadReport : Fragment() {
             UploadReportItem("Imaging", R.drawable.ic_list_icon),
             UploadReportItem("Lab", R.drawable.ic_list_icon)
         )
-        val adapter = UploadReportAdapter(requireContext(), upperList)
-        binding.spinnerTestType.adapter = adapter
+        binding.spinnerTestType.adapter = UploadReportAdapter(requireContext(), upperList)
 
         binding.etDate.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -117,39 +114,27 @@ class UploadReport : Fragment() {
                 .build()
 
             datePicker.show(parentFragmentManager, "report_date_picker")
-            datePicker.addOnPositiveButtonClickListener { selectedDateInMillis ->
-                val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                    .format(Date(selectedDateInMillis))
+            datePicker.addOnPositiveButtonClickListener {
+                val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date(it))
                 binding.etDate.setText(formattedDate)
             }
         }
 
-        binding.camera.setOnClickListener {
-            checkCameraPermissionAndLaunch()
-        }
+        binding.camera.setOnClickListener { checkCameraPermissionAndLaunch() }
+        binding.gallery.setOnClickListener { openGallery() }
 
-        binding.gallery.setOnClickListener {
-            openGallery()
-        }
         binding.btnUploadSave.setOnClickListener {
-
-            val category = binding.spinnerTestType.selectedItem?.let {
-                (it as? UploadReportItem)?.title
-            } ?: "Unknown"
-
+            val category = (binding.spinnerTestType.selectedItem as? UploadReportItem)?.title ?: "Unknown"
             val subCategory = binding.etTestName.text.toString()
             val dateTime = binding.etDate.text.toString()
 
-            val imageFile = imageFile ?: run {
+            val selectedFile = imageFile ?: run {
                 Toast.makeText(requireContext(), "Please capture or select an image", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val admitDoctorId = PrefsManager().getPatient()?.doctorID.toString()
-            val api = RetrofitInstance.createApiService7082()
-
             lifecycleScope.launch {
-                val result = viewModel.insertPatientMediaDataAndParseResponse(requireContext(), imageFile)
+                val result = viewModel.insertPatientMediaDataAndParseResponse(requireContext(), selectedFile)
                 Log.d("ParsedReportData", result.toString())
             }
         }
