@@ -40,21 +40,24 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 val response = RetrofitInstance
                     .createApiService( )
                     .dynamicGet(
-                        url = ApiEndPoint().verifyLogInOTPForSHFCApp,
+                        url = ApiEndPoint().verifyLogInOTPForVitalioApp,
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseBodyString = response.body()?.string()
                     getPatientDetailsByUHID(uhid)
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {
+
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
@@ -67,7 +70,6 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
         viewModelScope.launch {
             try {
-
 
                 val queryParams = mapOf(
                     "mobileNo" to "",
@@ -82,9 +84,10 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                         params = queryParams
                     )
 
-                _loading.value = false
-
                 if (response.isSuccessful) {
+
+                    _loading.value = false
+
                     val responseBodyString = response.body()?.string()
 
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
@@ -104,6 +107,9 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
 
                 } else {
+
+                    _loading.value = false
+
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

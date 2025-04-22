@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.ActivityOtpBinding
 import com.critetiontech.ctvitalio.viewmodel.OtpViewModal
@@ -36,6 +38,10 @@ class otp : AppCompatActivity() {
 
 
         viewModel = ViewModelProvider(this)[OtpViewModal::class.java]
+
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
         storedUHID = intent.getStringExtra("UHID").toString()
         setupOtpInputs(storedUHID)
 

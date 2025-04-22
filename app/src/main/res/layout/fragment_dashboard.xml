@@ -10,6 +10,7 @@
 
    <androidx.constraintlayout.widget.ConstraintLayout
        android:layout_width="match_parent"
+       android:background="@color/white"
        android:layout_height="match_parent">
 
        <!-- Profile Section -->
@@ -49,7 +50,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Good Morning,"
-                   android:textColor="@android:color/darker_gray"
+
                    android:textSize="13sp" />
 
                <TextView
@@ -57,7 +58,6 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Abhay Sharma"
-                   android:textColor="@android:color/black"
                    android:textSize="18sp"
                    android:textStyle="bold" />
            </LinearLayout>
@@ -112,7 +112,6 @@
            android:layout_height="wrap_content"
            android:layout_marginTop="16dp"
            android:text="Vitals"
-           android:textColor="@android:color/black"
            android:textSize="18sp"
            android:textStyle="normal"
            android:paddingLeft="16dp"
@@ -138,7 +137,6 @@
            app:tabIndicatorHeight="8dp"
            android:layout_margin="4dp"
            app:tabIndicatorColor="@color/primaryBlue"
-           android:background="@color/primaryBlueLight"
        app:tabGravity="center"
        app:tabMode="fixed"
        app:tabBackground="@drawable/tab_selector_dot"
@@ -153,7 +151,6 @@
            android:layout_height="wrap_content"
            android:layout_marginTop="16dp"
            android:text="Primary Actions"
-           android:textColor="@android:color/black"
            android:textSize="16sp"
            android:textStyle="normal"
            android:paddingLeft="16dp"
@@ -340,7 +337,6 @@
            android:layout_height="wrap_content"
            android:layout_marginTop="16dp"
            android:text="Other"
-           android:textColor="@android:color/black"
            android:textSize="18sp"
            android:textStyle="normal"
            android:paddingLeft="16dp"
@@ -414,8 +410,8 @@
            android:id="@+id/bottom_navigation"
            android:layout_width="0dp"
            android:layout_height="70dp"
-           android:background="@color/white"
            android:elevation="5dp"
+           android:background="@color/white"
            app:itemIconSize="24dp"
            app:itemBackground="@android:color/transparent"
            app:itemIconTint="@color/bottom_nav_selector"

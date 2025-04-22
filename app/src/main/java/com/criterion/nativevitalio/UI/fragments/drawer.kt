@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.EditProfile
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
@@ -51,6 +53,12 @@ class drawer : Fragment() {
                     requireActivity().finish()
                 }
             }
+        }
+
+        binding.btnEditProfile.setOnClickListener {
+            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            MyApplication.appContext.startActivity(intent)
         }
         binding.darkModeRow.root.setOnClickListener {
             //PrefsManager().clearPatient()

@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -81,6 +80,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
         for (i in 0 until medArray.length()) {
             val obj = medArray.getJSONObject(i)
+
             val jsonTime = JSONArray(obj.getString("jsonTime"))
 
             val times = mutableListOf<PillTime>()

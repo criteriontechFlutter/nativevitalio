@@ -5,9 +5,9 @@ class ApiEndPoint {
     val digiDoctorBaseUrl="http://52.172.134.222:205/api/v1.0/"
 
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
-    val sentLogInOTPForSHFCApp="api/LogInForSHFCApp/SentLogInOTPForSHFCApp"
-    val verifyLogInOTPForSHFCApp= "api/LogInForSHFCApp/VerifyLogInOTPForSHFCApp"
-    val logoutFromApp= "api/LogInForSHFCApp/LogOutOTPForSHFCApp"
+    val sentLogInOTPForVitalioApp="api/LogInForVitalioApp/SentLogInOTPForVitalioApp"
+    val verifyLogInOTPForVitalioApp= "api/LogInForVitalioApp/VerifyLogInOTPForVitalioApp"
+    val logoutFromApp= "api/LogInForVitalioApp/LogOutOTPForVitalioApp"
 
 
 
@@ -25,7 +25,10 @@ class ApiEndPoint {
 
     val getFluidIntakeDetails="api/ManualFoodAssign/GetManualFoodAssignList"
     val getFluidIntakeDetailsByRange="/api/ManualFoodAssign/FluidSummaryByDateRange"
+    val getFluidOutPutDetailsByRange="api/output/OutputSummaryByDateRange"
     val getBpRangeHistory="api/PatientVital/GetPatientVitalGraph"
+    val savePatientOutput="/api/v1/output/SavePatientOutput"
+    val getFluidOutputDaily="api/output/GetPatientOutputList"
 
 
 

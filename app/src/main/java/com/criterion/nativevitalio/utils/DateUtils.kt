@@ -56,28 +56,67 @@ object DateUtils {
 
     private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-    fun getCurrentWeekRange(): Pair<String, String> {
-        val calendar = Calendar.getInstance()
-        calendar.firstDayOfWeek = Calendar.MONDAY
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-        val start = calendar.time
+//    fun getLastWeekRange(): Pair<String, String> {
+//        val calendar = Calendar.getInstance()
+//        calendar.firstDayOfWeek = Calendar.MONDAY
+//
+//        // Move back 7 days to last week
+//        calendar.add(Calendar.DAY_OF_YEAR, -7)
+//
+//        // Set to last week's Monday
+//        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+//        val start = calendar.time
+//
+//        // Set to last week's Sunday
+//        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+//        val end = calendar.time
+//
+//        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//        return Pair(sdf.format(start), sdf.format(end))
+//    }
 
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-        val end = calendar.time
 
-        return Pair(sdf.format(start), sdf.format(end))
+    fun getLastWeekRange(): Pair<String, String> {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        val toCalendar = Calendar.getInstance()
+        val toDate = sdf.format(toCalendar.time)
+
+        val fromCalendar = Calendar.getInstance()
+        fromCalendar.add(Calendar.DAY_OF_YEAR, -7)
+        val fromDate = sdf.format(fromCalendar.time)
+
+        return Pair(fromDate, toDate)
     }
 
-    fun getCurrentMonthRange(): Pair<String, String> {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        val start = calendar.time
+    fun getLastMonthRange(): Pair<String, String> {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
-        val end = calendar.time
+        val toCalendar = Calendar.getInstance()
+        val toDate = sdf.format(toCalendar.time)
 
-        return Pair(sdf.format(start), sdf.format(end))
+        val fromCalendar = Calendar.getInstance()
+        fromCalendar.add(Calendar.DAY_OF_YEAR, -31)
+        val fromDate = sdf.format(fromCalendar.time)
+
+        return Pair(fromDate, toDate)
     }
+
+
+//    fun getLastMonthRange(): Pair<String, String> {
+//        val calendar = Calendar.getInstance()
+//        calendar.add(Calendar.MONTH, -1) // Move to last month
+//
+//        calendar.set(Calendar.DAY_OF_MONTH, 1)
+//        val start = calendar.time
+//
+//        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+//        val end = calendar.time
+//
+//        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//        return Pair(sdf.format(start), sdf.format(end))
+//    }
+
 
     fun getTodayDate(): String {
         val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
