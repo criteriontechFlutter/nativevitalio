@@ -38,7 +38,8 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
             try {
                 val queryParams = mapOf(
                     "mobileNo" to "",
-                    "uhid" to uhid
+                    "uhid" to uhid,
+                    "ClientId" to 194
                 )
 
                 // This response is of type Response<ResponseBody>
