@@ -1,7 +1,7 @@
 package com.criterion.nativevitalio.UI.fragments
 
-import PrefsManager
 import android.Manifest
+import android.app.TimePickerDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -17,49 +17,69 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.criterion.nativevitalio.adapter.UploadReportAdapter
 import com.criterion.nativevitalio.model.UploadReportItem
+import com.criterion.nativevitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 class UploadReport : Fragment() {
+
 
     private lateinit var binding: FragmentUploadReportBinding
     private lateinit var viewModel: UploadReportViewModel
 
     private var imageUri: Uri? = null
     private var imageFile: File? = null
-    private var selectedImageUri: Uri? = null
+
+    private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
+        when {
+            result.isSuccessful && result.uriContent != null -> {
+                val uri = result.uriContent!!
+                imageUri = uri
+                imageFile = FileUtil.from(requireContext(), uri)
+                binding.imagePreview.setImageURI(uri)
+            }
+
+            else -> {
+                Toast.makeText(requireContext(), result.error?.message ?: "Cropping failed", Toast.LENGTH_SHORT).show()
+                Log.e("CropError", "Cropping failed", result.error)
+            }
+        }
+    }
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let {
+            imageUri = it
+            launchCropper(it)
+        }
+    }
 
     private val cameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                openCamera()
-            } else {
-                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
-            }
+            if (isGranted) openCamera()
+            else Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
         }
 
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success && imageFile != null) {
-                Toast.makeText(requireContext(), "Image saved: ${imageFile!!.path}", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    private val galleryLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            if (uri != null) {
-                selectedImageUri = uri
-                Toast.makeText(requireContext(), "Image selected", Toast.LENGTH_SHORT).show()
+            if (success && imageUri != null && imageFile?.exists() == true) {
+                launchCropper(imageUri!!)
+            } else {
+                Toast.makeText(requireContext(), "Capture failed", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -74,7 +94,7 @@ class UploadReport : Fragment() {
 
     private fun openCamera() {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val imageFileName = "JPEG_${timeStamp}_"
+        val imageFileName = "IMG_${timeStamp}_"
         val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         imageFile = File.createTempFile(imageFileName, ".jpg", storageDir)
@@ -91,9 +111,31 @@ class UploadReport : Fragment() {
         galleryLauncher.launch("image/*")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    private fun launchCropper(sourceUri: Uri) {
+        val fileUri = getFileUriFromContentUri(sourceUri) // ✅ Safe URI
+        val cropOptions = CropImageOptions().apply {
+            activityTitle = "Crop Report Image"
+            cropMenuCropButtonTitle = "Crop"
+            cropMenuCropButtonIcon = 0
+            guidelines = CropImageView.Guidelines.ON
+            cropShape = CropImageView.CropShape.RECTANGLE
+            fixAspectRatio = false
+            autoZoomEnabled = true
+            scaleType = CropImageView.ScaleType.FIT_CENTER
+        }
+        cropImageLauncher.launch(CropImageContractOptions(fileUri, cropOptions))
+    }
+    private fun getFileUriFromContentUri(uri: Uri): Uri {
+        val inputStream = requireContext().contentResolver.openInputStream(uri)!!
+        val file = File.createTempFile("cropped_", ".jpg", requireContext().cacheDir)
+        file.outputStream().use { output -> inputStream.copyTo(output) }
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.provider",
+            file
+        )
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentUploadReportBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -108,48 +150,76 @@ class UploadReport : Fragment() {
             UploadReportItem("Imaging", R.drawable.ic_list_icon),
             UploadReportItem("Lab", R.drawable.ic_list_icon)
         )
-        val adapter = UploadReportAdapter(requireContext(), upperList)
-        binding.spinnerTestType.adapter = adapter
+        binding.spinnerTestType.adapter = UploadReportAdapter(requireContext(), upperList)
 
         binding.etDate.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select Report Date")
                 .build()
 
-            datePicker.show(parentFragmentManager, "report_date_picker")
-            datePicker.addOnPositiveButtonClickListener { selectedDateInMillis ->
-                val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                    .format(Date(selectedDateInMillis))
-                binding.etDate.setText(formattedDate)
+            datePicker.show(parentFragmentManager, "date_picker")
+
+            datePicker.addOnPositiveButtonClickListener { selectedDateMillis ->
+                val selectedDate = Date(selectedDateMillis)
+                val calendar = Calendar.getInstance()
+                calendar.time = selectedDate
+
+                // ✅ Launch Time Picker after Date is picked
+                val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                val minute = calendar.get(Calendar.MINUTE)
+
+                val timePicker = TimePickerDialog(
+                    requireContext(),
+                    { _, selectedHour, selectedMinute ->
+                        calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
+                        calendar.set(Calendar.MINUTE, selectedMinute)
+
+                        // ✅ Format as dd-MM-yyyy HH:mm
+                        val finalFormatted = SimpleDateFormat("dd/MM/yyyy    hh:mm a", Locale.getDefault())
+                            .format(calendar.time)
+
+                        binding.etDate.setText(finalFormatted)
+                    },
+                    hour,
+                    minute,
+                    false
+                )
+                timePicker.setTitle("Select Time")
+                timePicker.show()
             }
         }
+        binding.camera.setOnClickListener { checkCameraPermissionAndLaunch() }
+        binding.gallery.setOnClickListener { openGallery() }
 
-        binding.camera.setOnClickListener {
-            checkCameraPermissionAndLaunch()
-        }
-
-        binding.gallery.setOnClickListener {
-            openGallery()
-        }
         binding.btnUploadSave.setOnClickListener {
-
-            val category = binding.spinnerTestType.selectedItem?.let {
-                (it as? UploadReportItem)?.title
-            } ?: "Unknown"
-
-            val subCategory = binding.etTestName.text.toString()
-            val dateTime = binding.etDate.text.toString()
-
-            val imageFile = imageFile ?: run {
-                Toast.makeText(requireContext(), "Please capture or select an image", Toast.LENGTH_SHORT).show()
+            val selectedFile = imageFile ?: run {
+                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val admitDoctorId = PrefsManager().getPatient()?.doctorID.toString()
-            val api = RetrofitInstance.createApiService7082()
-
             lifecycleScope.launch {
-                val result = viewModel.insertPatientMediaDataAndParseResponse(requireContext(), imageFile)
+                val result = viewModel.insertPatientMediaDataAndParseResponse(requireContext(), selectedFile)
+
+                val testType = binding.spinnerTestType.selectedItem?.let {
+                    if (it is UploadReportItem) it.title else it.toString()
+                } ?: "Unknown"
+
+                val testName = binding.etTestName.text.toString() // Make sure this EditText exists
+                val imagePath = selectedFile.absolutePath
+
+                val bundle = Bundle().apply {
+                    putSerializable("parsedData", ArrayList(result)) // report data
+                    putString("testType", testType)
+                    putString("testName", testName)
+                    putString("imagePath", imagePath)
+                    putString("dateTime",  binding.etDate.text.toString())
+                }
+
+                findNavController().navigate(
+                    R.id.action_uploadReport_to_reportFieldsFragment,
+                    bundle
+                )
+
                 Log.d("ParsedReportData", result.toString())
             }
         }
