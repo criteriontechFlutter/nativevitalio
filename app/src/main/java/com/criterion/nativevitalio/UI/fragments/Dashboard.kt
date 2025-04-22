@@ -174,9 +174,9 @@ class Dashboard  : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_dietChecklist)
         }
 
-//        binding.notificationIconWrapper.setOnClickListener {
-//            findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
-//        }
+        binding.notificationIconWrapper.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
+        }
 
         binding.uploadReport.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_uploadReport)
