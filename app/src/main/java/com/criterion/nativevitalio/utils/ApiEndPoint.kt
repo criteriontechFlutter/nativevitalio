@@ -25,6 +25,7 @@ class ApiEndPoint {
 
     val getFluidIntakeDetails="api/ManualFoodAssign/GetManualFoodAssignList"
     val getFluidIntakeDetailsByRange="/api/ManualFoodAssign/FluidSummaryByDateRange"
+    val getFluidOutPutDetailsByRange="api/output/OutputSummaryByDateRange"
     val getBpRangeHistory="api/PatientVital/GetPatientVitalGraph"
     val savePatientOutput="/api/v1/output/SavePatientOutput"
     val getFluidOutputDaily="api/output/GetPatientOutputList"

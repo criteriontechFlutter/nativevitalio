@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.adapter.FluidOutputHistoryAdapter
+import com.criterion.nativevitalio.adapter.FluidOutputRangeAdapter
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
@@ -26,6 +27,7 @@ class FluidOutputFragment : Fragment() {
     private lateinit var binding: FragmentFluidOutputBinding
     private lateinit var viewModel: FluidIntakeOuputViewModel
     private lateinit var fluidOutputAdapter: FluidOutputHistoryAdapter
+    private lateinit var fluidOutputRangeAdapter: FluidOutputRangeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,13 +111,13 @@ class FluidOutputFragment : Fragment() {
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastWeekRange()
                         binding.tvSelectedDate.setText("$from--$to")
-                        viewModel.fetchManualFluidIntakeByRange("UHID01235",from,to)
-//                        viewModel.intakeListRangeWise.observe(viewLifecycleOwner) { list ->
-//                            Log.d("TAG", "onViewCreated: "+list.size.toString())
-//                            fluidIntakeAdapterRange = FluidIntakeRangeAdapter(list)
-//                            binding.recyclerViewFluidLogs.adapter = fluidIntakeAdapterRange
-//                            fluidIntakeAdapterRange.notifyDataSetChanged()
-//                        }
+                        viewModel.fetchManualFluidOutPutByRange(PrefsManager().getPatient()!!.uhID,from,to)
+                        viewModel.outputListRangeWise.observe(viewLifecycleOwner) { list ->
+                            Log.d("TAG", "onViewCreated: "+list.size.toString())
+                            fluidOutputRangeAdapter = FluidOutputRangeAdapter(list)
+                            binding.recyclerViewFluidLogs.adapter = fluidOutputRangeAdapter
+                            fluidOutputRangeAdapter.notifyDataSetChanged()
+                        }
                         Log.d("Toggle", "Weekly: From $from to $to")
                     }
                     R.id.btnMonthly -> {
@@ -123,13 +125,13 @@ class FluidOutputFragment : Fragment() {
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastMonthRange()
                         binding.tvSelectedDate.setText("$from--$to")
-                        viewModel.fetchManualFluidIntakeByRange("UHID01235",from,to)
-//                        viewModel.intakeListRangeWise.observe(viewLifecycleOwner) { list ->
-//                            Log.d("TAG", "onViewCreated: "+list.size.toString())
-//                            fluidIntakeAdapterRange = FluidIntakeRangeAdapter(list)
-//                            binding.recyclerViewFluidLogs.adapter = fluidIntakeAdapterRange
-//                            fluidIntakeAdapterRange.notifyDataSetChanged()
-//                        }
+                        viewModel.fetchManualFluidOutPutByRange(PrefsManager().getPatient()!!.uhID,from,to)
+                       viewModel.outputListRangeWise.observe(viewLifecycleOwner) { list ->
+                            Log.d("TAG", "onViewCreated: "+list.size.toString())
+                            fluidOutputRangeAdapter = FluidOutputRangeAdapter(list)
+                            binding.recyclerViewFluidLogs.adapter = fluidOutputRangeAdapter
+                            fluidOutputRangeAdapter.notifyDataSetChanged()
+                        }
                         Log.d("Toggle", "Weekly: From $from to $to")
                     }
                 }

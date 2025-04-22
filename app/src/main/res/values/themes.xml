@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="bottomNavigationStyle">@style/NoRoundedNav</item>
+
     </style>
 
     <style name="Theme.Nativevitalio" parent="Base.Theme.Nativevitalio">
@@ -12,7 +13,6 @@
         <item name="colorAccent">@color/white</item>
         <item name="android:colorBackground">@color/primaryBlue</item>
         <item name="android:colorPrimary">@color/primaryBlue</item>
-        <item name="android:textColor">@color/black</item>
 
     </style>
     <style name="NoRoundedNav" parent="Widget.MaterialComponents.BottomNavigationView">
@@ -35,5 +35,6 @@
         <item name="colorAccent">@color/white</item>
         <item name="android:colorBackground">@color/primaryBlue</item>
         <item name="android:colorPrimary">@color/primaryBlue</item>
+
     </style>
 </resources>

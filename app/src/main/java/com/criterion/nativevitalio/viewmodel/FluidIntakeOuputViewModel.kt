@@ -13,6 +13,8 @@ import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.FluidOutput
 import com.critetiontech.ctvitalio.model.FluidOutputResponse
+import com.critetiontech.ctvitalio.model.FluidOutputSummary
+import com.critetiontech.ctvitalio.model.FluidOutputSummaryResponse
 import com.critetiontech.ctvitalio.model.FluidSummaryItem
 import com.critetiontech.ctvitalio.model.FluidSummaryResponse
 import com.critetiontech.ctvitalio.model.FluidType
@@ -56,6 +58,10 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
     private val _intakeListRangeWise = MutableLiveData<List<FluidSummaryItem>>()
     var intakeListRangeWise: LiveData<List<FluidSummaryItem>> = _intakeListRangeWise
 
+
+
+    private val _outputListRangeWise = MutableLiveData<List<FluidOutputSummary>>()
+    var outputListRangeWise: LiveData<List<FluidOutputSummary>> = _outputListRangeWise
 
 
     //fluid list to show progressBar
@@ -277,6 +283,47 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 //                        } else null
 //                    }
                   //  _fluidList.value = filteredList
+
+                } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    fun fetchManualFluidOutPutByRange(uhid: String, fromDate: String, toDate: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf(
+                    "Uhid" to uhid,
+                    "fromDate" to fromDate,
+                    "toDate" to toDate
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7082()
+                    .dynamicGet(
+                        url = ApiEndPoint().getFluidOutPutDetailsByRange ,
+                        params = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<FluidOutputSummaryResponse>() {}.type
+                    val parsed = Gson().fromJson<FluidOutputSummaryResponse>(responseBodyString, type)
+                    val allItems = parsed.responseValue
+                    _outputListRangeWise.value= allItems
+
 
                 } else {
                     _loading.value = false
