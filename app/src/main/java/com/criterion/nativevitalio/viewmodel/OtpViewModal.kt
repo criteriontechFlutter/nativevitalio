@@ -73,7 +73,8 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
                 val queryParams = mapOf(
                     "mobileNo" to "",
-                    "uhid" to uhid
+                    "uhid" to uhid,
+                    "ClientId" to 194
                 )
 
                 // This response is of type Response<ResponseBody>
