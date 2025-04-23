@@ -1,7 +1,6 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,8 @@ class ReportFieldsFragment : Fragment() {
     private lateinit var binding: FragmentReportFeildsBinding
     private lateinit var viewModel: ReportFeildsViewModel
 
+    private val reportInputList = mutableListOf<Pair<Map<String, Any>, EditText>>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -36,20 +37,15 @@ class ReportFieldsFragment : Fragment() {
         val testType = arguments?.getString("testType") ?: "N/A"
         val testName = arguments?.getString("testName") ?: "N/A"
         val imagePath = arguments?.getString("imagePath")
-        val dateTime = arguments?.getString("dateTime")
+        val dateTime = arguments?.getString("dateTime") ?: ""
 
         val containerLayout = binding.containerDynamicFields
-
-
-
-        // ✅ Show parsed data
         val parsedData = arguments?.getSerializable("parsedData") as? List<Map<String, Any>> ?: emptyList()
 
         parsedData.forEachIndexed { index, report ->
             val reportContainer = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.VERTICAL
                 setPadding(24, 24, 24, 24)
-                setBackgroundResource(android.R.drawable.dialog_holo_light_frame)
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -67,7 +63,7 @@ class ReportFieldsFragment : Fragment() {
 
             report.forEach { (key, value) ->
                 if (key == "report" && value is List<*>) {
-                    value.filterIsInstance<Map<*, *>>().forEach { testItem ->
+                    value.filterIsInstance<Map<String, Any>>().forEach { testItem ->
                         val itemName = testItem["test_name"]?.toString() ?: "-"
                         val result = testItem["result"]?.toString() ?: "-"
                         val unit = testItem["unit"]?.toString() ?: ""
@@ -90,6 +86,8 @@ class ReportFieldsFragment : Fragment() {
                                 ViewGroup.LayoutParams.WRAP_CONTENT
                             )
                         }
+
+                        reportInputList.add(testItem to resultField)
 
                         val normalText = TextView(requireContext()).apply {
                             text = "Normal Range: $normal"
@@ -127,8 +125,11 @@ class ReportFieldsFragment : Fragment() {
 
             containerLayout.addView(reportContainer)
         }
+            binding.backButton.setOnClickListener(){
 
-        // ✅ Final Upload Button
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+
         binding.btnUploadFinal.setOnClickListener {
             if (!imagePath.isNullOrEmpty()) {
                 lifecycleScope.launch {
@@ -137,20 +138,49 @@ class ReportFieldsFragment : Fragment() {
                         testName = testName,
                         category = testType,
                         remark = "",
-                        dateTime = dateTime.toString(),
+                        dateTime = dateTime,
                         imagePath = imagePath
                     )
 
                     if (!responseUrl.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), "Upload Successful!", Toast.LENGTH_SHORT).show()
-                        Log.d("UploadResult", "File URL: $responseUrl")
+                        Toast.makeText(requireContext(), "Image Upload Successful!", Toast.LENGTH_SHORT).show()
+
+                        val updatedParsedData: List<Map<String, Any>> = parsedData.map { report ->
+                            val updatedReportList: List<Map<String, Any>> = (report["report"] as? List<Map<String, Any>>)?.map { item ->
+                                val matchedInput = reportInputList.find { it.first["id"] == item["id"] }?.second
+                                val updatedValue = matchedInput?.text?.toString()
+                                item.toMutableMap().apply {
+                                    this["result"] = updatedValue?.toString() ?: ""
+                                }
+                            } ?: emptyList()
+
+                            report.toMutableMap().apply {
+                                this["report"] = updatedReportList
+                            }
+                        }
+
+                        val investigationSuccess = viewModel.insertInvestigation(
+                            context = requireContext(),
+                            dateTime = "$dateTime 00:00",
+                            reportData = updatedParsedData
+                        )
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
+                        if (investigationSuccess) {
+
+                            Toast.makeText(requireContext(), "Investigation uploaded successfully", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(), "Investigation upload failed", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
-                        Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Image Upload Failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
                 Toast.makeText(requireContext(), "Image not selected", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
     }
 }

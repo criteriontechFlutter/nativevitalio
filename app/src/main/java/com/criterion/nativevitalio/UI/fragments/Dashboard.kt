@@ -179,7 +179,7 @@ class Dashboard  : Fragment() {
         }
 
         binding.uploadReport.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_uploadReport)
+            findNavController().navigate(R.id.action_dashboard_to_uploadReportHistory2)
         }
 
         binding.fabAdd.setOnTouchListener { _, event ->
@@ -304,13 +304,8 @@ class Dashboard  : Fragment() {
                 Manifest.permission.RECORD_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
+
             return
         }
         audioRecord = AudioRecord(
