@@ -35,8 +35,12 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
     val recommended: LiveData<Int> = _recommended
 
 
-    private val _progressOutput = MutableLiveData(25)
-    val progressOutput: LiveData<Int> = _progressOutput
+    private val _selectFluidIntakeVolume = MutableLiveData(0.0)
+    val selectFluidIntakeVolume: LiveData<Double> = _selectFluidIntakeVolume
+
+
+    private val _progressOutput = MutableLiveData(25.0)
+    val progressOutput: LiveData<Double> = _progressOutput
 
     private val _selectedColor = MutableLiveData("")
     val selectedColor: LiveData<String> = _selectedColor
@@ -104,6 +108,11 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
     }
 
+    fun setSelectedFluidIntakeVolume(item: Double) {
+        _selectFluidIntakeVolume.value = item
+
+    }
+
    fun setSelectedIntakeButton(item: Boolean){
         _selectedIntakeButton.value=item
     }
@@ -113,7 +122,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
         _selectedColor.value = item
 
     }
-    fun setSelectedOutputProgress(progress:Int){
+    fun setSelectedOutputProgress(progress:Double){
         _progressOutput.value=progress
     }
 
@@ -371,7 +380,54 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 } else {
                     _loading.value = false
 
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
 
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    fun insertFluidIntake() {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf(
+                    "givenQuanitityInGram" to '0',
+                "uhid" to PrefsManager().getPatient()!!.uhID,
+                "foodId" to _selectedFluid.value!!.foodID, // Required(fixed)
+                "pmId" to '0',
+                "givenFoodQuantity" to _selectFluidIntakeVolume.value!!.toDouble(), //Required
+                "givenFoodDate" to DateUtils.getTodayDate(), //Required
+                "givenFoodUnitID" to 27, // Required (fixed)
+                // "recommendedUserID": userRepository.getUser.admitDoctorId.toString(),
+                "recommendedUserID" to 0,
+                "jsonData" to "",
+                "fromDate" to DateUtils.getTodayDate(),
+                "isGiven" to '0',
+                "entryType" to "N", // Required (fixed)
+                "isFrom" to '0',
+                "dietID" to '0',
+                "userID" to PrefsManager().getPatient()!!.userId,
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7096()
+                    .dynamicRawPost(
+                        url = ApiEndPoint().savePatientIntake,
+                        body = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    ToastUtils.showSuccess(MyApplication.appContext, "Intake Saved Successfully!")
+                } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

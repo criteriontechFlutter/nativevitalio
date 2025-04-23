@@ -37,7 +37,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "userId" to 0,
+                    "userId" to PrefsManager().getPatient()!!.pid,
                     "vmValueBPSys" to BPSys.toString(),
                     "vmValueBPDias" to BPDias.toString(),
                     "vmValueRespiratoryRate" to rr.toString(),

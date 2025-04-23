@@ -32,10 +32,11 @@ class FluidOutputHistoryAdapter (
         binding.outputTime.text = item.outputTimeFormat
 
         // Color Code
-        val colorCode = item.colour?.takeIf { it.isNotBlank() } ?: "#EEEEEE"
+        val colorCode = item.colour.takeIf { it.isNotBlank() } ?: "#EEEEEE"
 
         // Set dot background
         try {
+
             binding.colorDot.setBackgroundColor(Color.parseColor(colorCode))
         } catch (e: Exception) {
             binding.colorDot.setBackgroundColor(Color.LTGRAY)

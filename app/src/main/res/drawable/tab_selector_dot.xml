@@ -1,28 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- Focused and Selected (Largest Circle) -->
-    <item android:state_selected="true" android:state_pressed="true">
-        <shape android:shape="oval">
-            <solid android:color="@color/greyDark" />
-            <size android:width="18dp" android:height="18dp" />
-        </shape>
-    </item>
-
-    <!-- Selected (Medium Circle) -->
     <item android:state_selected="true">
         <shape android:shape="oval">
-            <solid android:color="@color/blue" />
-            <size android:width="12dp" android:height="12dp" />
+            <solid android:color="@color/primaryBlue" />
+            <size android:width="3dp" android:height="3dp"/>
         </shape>
     </item>
-
-    <!-- Default (Small Circle) -->
     <item>
         <shape android:shape="oval">
             <solid android:color="#CCCCCC" />
-            <size android:width="6dp" android:height="6dp" />
+            <size android:width="3dp" android:height="3dp"/>
         </shape>
     </item>
-
 </selector>
