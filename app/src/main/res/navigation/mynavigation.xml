@@ -140,12 +140,12 @@
         android:name="com.criterion.nativevitalio.UI.fragments.ReportFieldsFragment"
         android:label="ReportFieldsFragment" />
     <fragment
-        android:id="@+id/notificationFragment"
-        android:name="com.criterion.nativevitalio.UI.fragments.NotificationFragment"
-        android:label="NotificationFragment" />
-    <fragment
         android:id="@+id/fluidOutputFragment"
         android:name="com.criterion.nativevitalio.UI.fragments.FluidOutputFragment"
         android:label="FluidOutputFragment" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.NotificationFragment"
+        android:label="NotificationFragment" />
 
 </navigation>
