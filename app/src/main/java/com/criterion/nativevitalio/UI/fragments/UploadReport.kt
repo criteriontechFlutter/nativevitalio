@@ -51,7 +51,10 @@ class UploadReport : Fragment() {
                 val uri = result.uriContent!!
                 imageUri = uri
                 imageFile = FileUtil.from(requireContext(), uri)
-                binding.imagePreview.setImageURI(uri)
+
+                // ✅ Show filename and file info layout
+                binding.layoutFileInfo.visibility = View.VISIBLE
+                binding.tvSelectedFileName.text = imageFile?.name ?: "File selected"
             }
 
             else -> {
@@ -112,7 +115,7 @@ class UploadReport : Fragment() {
     }
 
     private fun launchCropper(sourceUri: Uri) {
-        val fileUri = getFileUriFromContentUri(sourceUri) // ✅ Safe URI
+        val fileUri = getFileUriFromContentUri(sourceUri)
         val cropOptions = CropImageOptions().apply {
             activityTitle = "Crop Report Image"
             cropMenuCropButtonTitle = "Crop"
@@ -125,6 +128,7 @@ class UploadReport : Fragment() {
         }
         cropImageLauncher.launch(CropImageContractOptions(fileUri, cropOptions))
     }
+
     private fun getFileUriFromContentUri(uri: Uri): Uri {
         val inputStream = requireContext().contentResolver.openInputStream(uri)!!
         val file = File.createTempFile("cropped_", ".jpg", requireContext().cacheDir)
@@ -135,6 +139,7 @@ class UploadReport : Fragment() {
             file
         )
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentUploadReportBinding.inflate(inflater, container, false)
         return binding.root
@@ -160,36 +165,40 @@ class UploadReport : Fragment() {
             datePicker.show(parentFragmentManager, "date_picker")
 
             datePicker.addOnPositiveButtonClickListener { selectedDateMillis ->
-                val selectedDate = Date(selectedDateMillis)
-                val calendar = Calendar.getInstance()
-                calendar.time = selectedDate
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = selectedDateMillis
+                }
 
-                // ✅ Launch Time Picker after Date is picked
                 val hour = calendar.get(Calendar.HOUR_OF_DAY)
                 val minute = calendar.get(Calendar.MINUTE)
 
-                val timePicker = TimePickerDialog(
-                    requireContext(),
-                    { _, selectedHour, selectedMinute ->
-                        calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
-                        calendar.set(Calendar.MINUTE, selectedMinute)
+                TimePickerDialog(requireContext(), { _, h, m ->
+                    calendar.set(Calendar.HOUR_OF_DAY, h)
+                    calendar.set(Calendar.MINUTE, m)
 
-                        // ✅ Format as dd-MM-yyyy HH:mm
-                        val finalFormatted = SimpleDateFormat("dd/MM/yyyy    hh:mm a", Locale.getDefault())
-                            .format(calendar.time)
+                    val formatted = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                        .format(calendar.time)
 
-                        binding.etDate.setText(finalFormatted)
-                    },
-                    hour,
-                    minute,
-                    false
-                )
-                timePicker.setTitle("Select Time")
-                timePicker.show()
+                    binding.etDate.setText(formatted)
+                }, hour, minute, false).apply {
+                    setTitle("Select Time")
+                    show()
+                }
             }
         }
+
         binding.camera.setOnClickListener { checkCameraPermissionAndLaunch() }
         binding.gallery.setOnClickListener { openGallery() }
+
+        binding.backIcon.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+        binding.btnRemoveFile.setOnClickListener {
+            imageUri = null
+            imageFile = null
+            binding.layoutFileInfo.visibility = View.GONE
+            binding.tvSelectedFileName.text = "No file selected"
+        }
 
         binding.btnUploadSave.setOnClickListener {
             val selectedFile = imageFile ?: run {
@@ -204,21 +213,18 @@ class UploadReport : Fragment() {
                     if (it is UploadReportItem) it.title else it.toString()
                 } ?: "Unknown"
 
-                val testName = binding.etTestName.text.toString() // Make sure this EditText exists
+                val testName = binding.etTestName.text.toString()
                 val imagePath = selectedFile.absolutePath
 
                 val bundle = Bundle().apply {
-                    putSerializable("parsedData", ArrayList(result)) // report data
+                    putSerializable("parsedData", ArrayList(result))
                     putString("testType", testType)
                     putString("testName", testName)
                     putString("imagePath", imagePath)
-                    putString("dateTime",  binding.etDate.text.toString())
+                    putString("dateTime", binding.etDate.text.toString())
                 }
 
-                findNavController().navigate(
-                    R.id.action_uploadReport_to_reportFieldsFragment,
-                    bundle
-                )
+                findNavController().navigate(R.id.action_uploadReport_to_reportFieldsFragment, bundle)
 
                 Log.d("ParsedReportData", result.toString())
             }
