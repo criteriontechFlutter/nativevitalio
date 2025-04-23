@@ -130,20 +130,17 @@
            app:layout_constraintTop_toBottomOf="@id/vitals_label" />
        <com.google.android.material.tabs.TabLayout
            android:id="@+id/vitals_indicator"
-           android:layout_width="wrap_content"
-           android:layout_height="8dp"
-           android:layout_marginTop="0dp"
-           android:layout_marginRight="4dp"
-           app:tabIndicatorHeight="8dp"
-           android:layout_margin="4dp"
-           app:tabIndicatorColor="@color/primaryBlue"
-       app:tabGravity="center"
-       app:tabMode="fixed"
-       app:tabBackground="@drawable/tab_selector_dot"
-       app:tabRippleColor="@android:color/transparent"
-       app:layout_constraintTop_toBottomOf="@id/vitals_slider"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent" />
+           android:layout_width="80dp"
+           android:layout_height="5sp"
+           app:tabIndicatorColor="@android:color/transparent"
+           app:tabIndicatorHeight="0dp"
+           app:tabGravity="center"
+           app:tabMode="fixed"
+           app:tabBackground="@drawable/tab_selector_dot"
+           app:tabRippleColor="@android:color/transparent"
+           app:layout_constraintTop_toBottomOf="@id/vitals_slider"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent" />
        <!-- Primary Actions Section -->
        <TextView
            android:id="@+id/primary_actions_label"
@@ -409,14 +406,13 @@
        <com.google.android.material.bottomnavigation.BottomNavigationView
            android:id="@+id/bottom_navigation"
            android:layout_width="0dp"
-           android:layout_height="70dp"
+           android:layout_height="wrap_content"
            android:elevation="5dp"
            android:background="@color/white"
            app:itemIconSize="24dp"
            app:itemBackground="@android:color/transparent"
            app:itemIconTint="@color/bottom_nav_selector"
            app:itemTextColor="@color/bottom_nav_selector"
-
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"

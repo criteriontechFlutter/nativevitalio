@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.VitalDetailsAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentVitalDetailBinding
@@ -41,6 +43,9 @@ class VitalDetail  : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.vitalsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         binding.backButton.setOnClickListener(){
             findNavController().popBackStack()
