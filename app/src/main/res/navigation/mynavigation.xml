@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+ <?xml version="1.0" encoding="utf-8"?>
  <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -155,5 +155,9 @@
             android:id="@+id/action_uploadReportHistory_to_uploadReport3"
             app:destination="@id/uploadReport" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.criterion.nativevitalio.UI.fragments.EditProfile"
+        android:label="EditProfile" />
 
 </navigation>
