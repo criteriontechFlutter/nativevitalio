@@ -1,19 +1,23 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.SymptomHistoryAdapter
-import com.critetiontech.ctvitalio.utils.FilterType
 import com.critetiontech.ctvitalio.databinding.FragmentSymptomHistoryBinding
+import com.critetiontech.ctvitalio.utils.FilterType
 import com.critetiontech.ctvitalio.viewmodel.SymptomsHistoryViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -41,7 +45,7 @@ class SymptomHistory : Fragment() {
 
         viewModel = ViewModelProvider(this)[SymptomsHistoryViewModel::class.java]
         viewModel.getSymptoms()
-
+        updateToggleStyles(binding.tabToggleGroup.checkedButtonId)
         viewModel.symptomList.observe(viewLifecycleOwner) {
             applyFilter(FilterType.WEEKLY) // default
         }
@@ -50,6 +54,10 @@ class SymptomHistory : Fragment() {
             if (!it.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
         }
 
         binding.backButton.setOnClickListener {
@@ -73,6 +81,7 @@ class SymptomHistory : Fragment() {
             applyFilter(currentFilter, newDate)
         }
         binding.tabToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            updateToggleStyles(checkedId)
             if (!isChecked) return@addOnButtonCheckedListener
             when (checkedId) {
                 R.id.btn_daily -> applyFilter(FilterType.DAILY)
@@ -123,6 +132,20 @@ class SymptomHistory : Fragment() {
             FilterType.MONTHLY -> {
                 val month = anchorDate.month.name.lowercase().replaceFirstChar { it.uppercase() }
                 binding.dateRange.text = "$month ${anchorDate.year}"
+            }
+        }
+    }
+
+
+    private fun updateToggleStyles(checkedId: Int) {
+        val buttons = listOf(binding.btnDaily, binding.btnWeekly,binding.btnMonthly)
+        for (button in buttons) {
+            if (button.id == checkedId) {
+                button.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.blue))
+                button.setTextColor(Color.WHITE)
+            } else {
+                button.setBackgroundColor(Color.WHITE)
+                button.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gray))
             }
         }
     }

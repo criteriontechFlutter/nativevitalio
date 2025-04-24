@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,12 @@ class SymptomsTrackerAdapter(
             symptom.selection = 1
             onYesClicked(symptom)
         }
+
+
+        val details = symptom.details
+        val coloredText = "Is the <font color='#1153C9'>$details</font> persisting?"
+        holder.binding.tvSymptomName.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
+
 
         holder.binding.btnNo.setOnClickListener {
             symptom.selection = 0

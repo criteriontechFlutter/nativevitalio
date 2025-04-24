@@ -50,22 +50,24 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                         params = queryParams
                     )
 
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
                     val firstPatient = parsed.responseValue.firstOrNull()
                     firstPatient?.let {
-                        Login.storedUHID = it.uhID
-                        sentLogInOTPForSHFCApp(it.uhID)
+                        Login.storedUHID = it
+                        sentLogInOTPForSHFCApp(it)
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}"
                         )
                     }
 
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -77,13 +79,13 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         }
     }
 
-    fun sentLogInOTPForSHFCApp(uhid: String, ifLoggedOutFromAllDevices: String = "0") {
+    fun sentLogInOTPForSHFCApp(uhid: Patient, ifLoggedOutFromAllDevices: String = "0") {
         _loading.value = true
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
                     "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
-                    "UHID" to uhid
+                    "UHID" to uhid.uhID
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -98,10 +100,12 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val intent = Intent(MyApplication.appContext, otp::class.java).apply {
-                        putExtra("UHID", uhid)
+                        putExtra("UHID", uhid.uhID)
+                        putExtra("mobileNo", uhid.mobileNo)
                     }
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     MyApplication.appContext.startActivity(intent)
+
                     Log.d("RESPONSE", "responseValue: $responseBodyString")
                 } else {
                     _loading.value = false
@@ -133,9 +137,10 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     PrefsManager().clearPatient()
                     val intent = Intent(MyApplication.appContext, Login::class.java)
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
@@ -143,6 +148,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
                     _finishEvent.value = true
                 } else {
+                    _loading.value = false
                     val errorMsg = parseErrorMessage(response.errorBody())
                     ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _errorMessage.value = "Logout failed: $errorMsg"

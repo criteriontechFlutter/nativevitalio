@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 import PrefsManager
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -91,6 +92,7 @@ class drawer : Fragment() {
             popupWindow.elevation = 10f
 
 
+
             // Optional: handle logout click
             popupView.findViewById<View>(R.id.logoutText).setOnClickListener { view: View? ->
                 popupWindow.dismiss()
@@ -106,13 +108,16 @@ class drawer : Fragment() {
 
                 dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.show()
-
+                val displayMetrics = Resources.getSystem().displayMetrics
+                val screenWidth = displayMetrics.widthPixels
+                val marginInPx = (40 * displayMetrics.density).toInt() // 40dp margin
+                val popupWidth = screenWidth - (2 * marginInPx)
                  // ⚙ Fix width and gravity
                 dialog.window?.setLayout(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    popupWidth,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-                dialog.window?.setGravity(Gravity.BOTTOM)
+                dialog.window?.setGravity(Gravity.CENTER_VERTICAL)
 
 // Button listeners
                 dialogView.findViewById<View>(R.id.btnCancel).setOnClickListener {

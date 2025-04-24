@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.SymptomAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSymtomsBinding
@@ -44,7 +46,9 @@ class SymptomsFragment : Fragment() {
         viewModel.getAllSuggestedProblem()
         viewModel.getSymptoms()
 
-
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
         binding.saveSymptomsBtn.setOnClickListener(){
             viewModel.insertSymptoms();
         }

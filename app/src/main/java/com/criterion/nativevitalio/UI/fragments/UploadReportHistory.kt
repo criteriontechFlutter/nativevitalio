@@ -80,7 +80,7 @@ class UploadReportHistory : Fragment() {
 
         selectedTab?.apply {
             setBackgroundResource(R.drawable.tab_selected)
-            setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+            setTextColor(ContextCompat.getColor(requireContext(), R.color.primaryBlue))
             setTypeface(null, Typeface.BOLD)
         }
 

@@ -74,7 +74,7 @@ class SymptomHistoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class SymptomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvSymptomName: TextView = view.findViewById(R.id.tvSymptomName)
-        private val tvSymptomTime: TextView = view.findViewById(R.id.tvSymptomTime)
+        private val tvSymptomTime: TextView = view.findViewById(R.id.tvTime)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(item: SymptomDetail) {

@@ -21,6 +21,8 @@
     <color name="charcoalGray">#202529</color>
     <color name="darkblue">#1153C9</color>
     <color name="textGrey2">#5F6471</color>
+    <color name="symptomsButton">#E2E7F0</color>
+    <color name="symptomsButtonNo">#E4EEFF</color>
 
     <!-- Background Colors -->
     <color name="greyBG">#EDF1F6</color>
