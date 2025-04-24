@@ -2,7 +2,6 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -55,9 +54,11 @@ class drawer : Fragment() {
         }
 
         binding.btnEditProfile.setOnClickListener {
-            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyApplication.appContext.startActivity(intent)
+//            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            MyApplication.appContext.startActivity(intent)
+
+            findNavController().navigate(R.id.action_drawer4_to_editProfile3)
         }
         binding.darkModeRow.root.setOnClickListener {
             //PrefsManager().clearPatient()

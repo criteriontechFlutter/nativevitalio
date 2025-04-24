@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_drawer4_to_settingsFragmentVitalio"
             app:destination="@id/settingsFragmentVitalio" />
+        <action
+            android:id="@+id/action_drawer4_to_editProfile3"
+            app:destination="@id/editProfile3" />
     </fragment>
     <fragment
         android:id="@+id/pillsReminder"
@@ -155,5 +158,9 @@
             android:id="@+id/action_uploadReportHistory_to_uploadReport3"
             app:destination="@id/uploadReport" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfile3"
+        android:name="com.criterion.nativevitalio.UI.fragments.EditProfile"
+        android:label="EditProfile" />
 
 </navigation>

@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.HeaderMap
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.QueryMap
 import retrofit2.http.Url
@@ -65,6 +66,15 @@ interface ApiService {
     @Multipart
     @POST
     suspend fun dynamicMultipartPost(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @Part parts: List<MultipartBody.Part>
+    ): Response<ResponseBody>
+
+
+    @Multipart
+    @PUT
+    suspend fun dynamicMultipartPut(
         @Url url: String,
         @HeaderMap headers: Map<String, String> = emptyMap(),
         @Part parts: List<MultipartBody.Part>

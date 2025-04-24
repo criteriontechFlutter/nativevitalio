@@ -148,25 +148,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="editProfile">
+                  <entry key="editProfile3">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1500" />
-                            <option name="y" value="-1425" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="editProfile2">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-1634" />
-                            <option name="y" value="-1390" />
+                            <option name="x" value="-712" />
+                            <option name="y" value="617" />
                           </Point>
                         </option>
                       </LayoutPositions>
