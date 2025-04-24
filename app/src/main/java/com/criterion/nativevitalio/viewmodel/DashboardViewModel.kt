@@ -298,11 +298,14 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                     val symptomsList = vitalMap["symptomsList"] as? List<Map<String, Any>> ?: emptyList()
 
+
                     if (symptomsList.isNotEmpty()) {
-//                        val symptomNames = symptomsList.mapNotNull {
-//
-//                            it["symptom"]?.toString()?  }
-//                        addedData += symptomNames.joinToString(", ") + ", "
+                        val symptomNames = symptomsList.mapNotNull {
+                            it["symptom"]?.toString()?.takeIf { name -> name.isNotBlank() }
+                        }
+                        if (symptomNames.isNotEmpty()) {
+                            addedData += symptomNames.joinToString(", ") + ", "
+                        }
                     }
 
                     val fluidValue = myVital["fluidValue"] as? Map<String, Any> ?: emptyMap()
@@ -391,8 +394,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                                 if (!rawSymptoms.isNullOrEmpty()) {
                                     val selectedSymptoms = rawSymptoms.mapNotNull { symptom ->
-                                        val id = symptom["id"]?.toString()?.toIntOrNull()
-                                        val name = symptom["symptom"]?.toString()
+                                        val id = (symptom["id"] as? Number)?.toInt()
+                                        val name = symptom["symptom"] as? String
 
                                         if (id != null && !name.isNullOrBlank()) {
                                             HoldSpeakSymptomDetail(pdmID = id, details = name)
@@ -631,6 +634,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 _loading.value = true
+                val currentDateTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                    .format(Date())
 
                 val user = PrefsManager().getPatient()
                 val body = mapOf(
@@ -639,11 +644,11 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     "foodId" to foodId,
                     "pmId" to "0",
                     "givenFoodQuantity" to givenFoodQuantity,
-                    "givenFoodDate" to "2025-04-23 12:15", // e.g. "2025-04-23 12:15"
+                    "givenFoodDate" to currentDateTime, // e.g. "2025-04-23 12:15"
                     "givenFoodUnitID" to "27",
                     "recommendedUserID" to "0",
                     "jsonData" to "",
-                    "fromDate" to "2025-04-23 12:15",
+                    "fromDate" to currentDateTime,
                     "isGiven" to "0",
                     "entryType" to "N",
                     "isFrom" to "0",

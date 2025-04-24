@@ -94,8 +94,8 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
 
                 val queryParams = mapOf(
                     "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
-                    "userID" to "0",
-                    "doctorId" to "0",
+                    "userID" to (PrefsManager().getPatient()?.userId ?: ""),
+                    "doctorId" to (PrefsManager().getPatient()?.doctorID ?: ""),
                     "jsonSymtoms" to Gson().toJson(dtDataTable),
                     "clientID" to (PrefsManager().getPatient()?.clientId ?: "")
                 )
