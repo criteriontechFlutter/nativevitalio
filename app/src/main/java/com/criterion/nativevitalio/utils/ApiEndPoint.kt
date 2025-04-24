@@ -4,6 +4,11 @@ class ApiEndPoint {
 
     val digiDoctorBaseUrl="http://52.172.134.222:205/api/v1.0/"
 
+    val updatePatient="api/PatientRegistration/UpdatePatientProfile"
+
+    val patientAllergies="api/PatientIPDPrescription/PatientAllergies"
+
+
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
     val sentLogInOTPForVitalioApp="api/LogInForVitalioApp/SentLogInOTPForVitalioApp"
     val verifyLogInOTPForVitalioApp= "api/LogInForVitalioApp/VerifyLogInOTPForVitalioApp"

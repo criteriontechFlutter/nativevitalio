@@ -1,76 +1,135 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModelProvider
+import com.criterion.nativevitalio.viewmodel.EditProfileViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class EditProfile : Fragment() {
 
-    private lateinit var firstNameField: EditText
-    private lateinit var lastNameField: EditText
-    private lateinit var dobField: EditText
-    private lateinit var radioMale: RadioButton
-    private lateinit var radioFemale: RadioButton
-    private lateinit var genderGroup: RadioGroup
-    private lateinit var updateButton: Button
-
+    private lateinit var binding: FragmentEditProfileBinding
     private val prefsManager by lazy { PrefsManager() }
-
+    private lateinit var viewModel: EditProfileViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
+    ): View {
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        firstNameField = view.findViewById(R.id.firstNameField)
-        lastNameField = view.findViewById(R.id.lastNameField)
-        dobField = view.findViewById(R.id.dobField)
-        radioMale = view.findViewById(R.id.radioMale)
-        radioFemale = view.findViewById(R.id.radioFemale)
-        genderGroup = view.findViewById(R.id.genderGroup)
-        updateButton = Button(requireContext()).apply { text = "Update" }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Add button dynamically (optional)
-        (view as ViewGroup).addView(updateButton)
-
+        // Bind local patient data
         bindPatientData()
 
-        updateButton.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-//                updateUserData(
-//                    requireContext(),
-//                    prefsManager,
-//                    filePath = null // Or image path if file needs to be uploaded
-//                )
-            }
+        viewModel = ViewModelProvider(this)[EditProfileViewModel::class.java]
+        binding.dobField.setOnClickListener {
+            showDatePicker()
         }
+        // Handle update button click
+        binding.updateProfileButton.setOnClickListener {
+            val name = "${binding.firstNameField.text} ${binding.lastNameField.text}"
+            val phone = prefsManager.getPatient()?.mobileNo.toString()
+            val email = prefsManager.getPatient()?.emailID.toString()
+            val address = prefsManager.getPatient()?.address.toString()
+            val genderId = if (binding.radioMale.isChecked) "1" else "2"
+            val height = prefsManager.getPatient()?.height.toString()
+            val weight = prefsManager.getPatient()?.weight.toString()
 
-        return view
+            val rawDob = binding.dobField.text.toString()  // Expected format: yyyy-MM-dd
+
+
+            val inputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // ✅ This is the correct pattern
+            val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+            val convertedDob = try {
+                val parsedDate = inputFormat.parse(rawDob)
+                outputFormat.format(parsedDate!!)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                rawDob // fallback
+            }
+
+            viewModel.updateUserData(
+
+                filePath = null,
+                name = name,
+                phone = phone,
+                email = email,
+                dob = convertedDob,
+                address = address,
+                genderId = genderId,
+                height = height,
+                weight = weight
+            )
+        }
     }
 
     private fun bindPatientData() {
         prefsManager.getPatient()?.let { patient ->
             val nameParts = patient.patientName.split(" ")
-            firstNameField.setText(nameParts.getOrNull(0) ?: "")
-            lastNameField.setText(nameParts.getOrNull(1) ?: "")
-            dobField.setText(patient.dob)
+            binding.firstNameField.setText(nameParts.getOrNull(0) ?: "")
+            binding.lastNameField.setText(nameParts.getOrNull(1) ?: "")
 
-            if (patient.gender.lowercase() == "male") {
-                radioMale.isChecked = true
-            } else if (patient.gender.lowercase() == "female") {
-                radioFemale.isChecked = true
+            // Format date before showing
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val displayFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Example: 20 May 2025
+
+            val formattedDob = try {
+                val parsedDate = inputFormat.parse(patient.dob)
+                displayFormat.format(parsedDate!!)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                patient.dob // fallback
+            }
+
+            binding.dobField.setText(formattedDob)
+
+            val gender = patient.gender?.lowercase()
+            when (gender) {
+                "male" -> binding.radioMale.isChecked = true
+                "female" -> binding.radioFemale.isChecked = true
             }
         }
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+
+        // Try to parse the current DOB and pre-select in picker
+        val currentDob = binding.dobField.text.toString()
+        val displayFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+
+        try {
+            val date = displayFormat.parse(currentDob)
+            if (date != null) {
+                calendar.time = date
+            }
+        } catch (_: Exception) {}
+
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePicker = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            val selectedCalendar = Calendar.getInstance()
+            selectedCalendar.set(selectedYear, selectedMonth, selectedDay)
+            val formattedDate = displayFormat.format(selectedCalendar.time)
+            binding.dobField.setText(formattedDate)
+        }, year, month, day)
+
+        datePicker.datePicker.maxDate = System.currentTimeMillis() // Optional: prevent future DOB
+        datePicker.show()
     }
 }
