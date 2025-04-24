@@ -123,5 +123,11 @@ object DateUtils {
         return formatter.format(Date())
     }
 
+    fun getTodayDateTime(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return formatter.format(Date())
+    }
+
+
 
 }
