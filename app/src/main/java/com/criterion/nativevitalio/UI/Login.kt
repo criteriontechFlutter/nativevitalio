@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI
 
+import Patient
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
@@ -23,7 +24,7 @@ class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
     companion object {
-        lateinit var storedUHID: String
+        lateinit var storedUHID: Patient
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {

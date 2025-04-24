@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/primaryBlueLight"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -16,8 +16,8 @@
         <!-- Back Icon -->
         <ImageView
             android:id="@+id/backIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_back"
@@ -33,20 +33,41 @@
             android:layout_marginStart="12dp"
             android:text="Lab Reports"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@android:color/black" />
 
-        <!-- Add Report -->
-        <TextView
+
+        <LinearLayout
             android:id="@+id/addReport"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="+ Add Report"
-            android:textColor="@color/purple_200"
-            android:textStyle="bold"
-            android:padding="8dp" />
+            android:background="@drawable/rounded_button_bg"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_action_add"
+                app:tint="@color/primaryBlue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Report"
+                android:textColor="#356DF3"
+                android:textSize="14sp" />
+        </LinearLayout>
     </RelativeLayout>
 
     <!-- Tab Row -->
@@ -62,30 +83,28 @@
 
         <TextView
             android:id="@+id/tabRadiology"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:layout_marginEnd="4dp"
             android:background="@drawable/tab_disabled"
-            android:gravity="center"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="4dp"
-            android:text="Radiology\n"
+            android:gravity="center|center_vertical|center_horizontal"
+            android:text="Radiology"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tabImaging"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="2dp"
             android:background="@drawable/tab_selected"
             android:gravity="center"
             android:paddingVertical="12dp"
             android:paddingHorizontal="4dp"
-            android:text="Imaging\n"
+            android:text="Imaging"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textStyle="bold"
@@ -93,15 +112,15 @@
 
         <TextView
             android:id="@+id/tabLab"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
             android:background="@drawable/tab_disabled"
             android:gravity="center"
             android:paddingVertical="12dp"
             android:paddingHorizontal="4dp"
-            android:text="Lab\n"
+            android:text="Lab"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />

@@ -3,10 +3,10 @@ package com.critetiontech.ctvitalio.viewmodel
 import PrefsManager
 import android.app.Application
 import android.os.Build
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.ProblemWithIcon
 import com.critetiontech.ctvitalio.model.SymptomDetail
@@ -62,13 +62,15 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _patientSymptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -100,13 +102,15 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
                     _symptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -138,14 +142,16 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
                     val symptomsList: List<ProblemWithIcon> = parsed.responseValue
                     _moreSymptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -181,13 +187,15 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
                     _searchSymptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -267,11 +275,12 @@ fun insertSymptoms( ) {
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val context = MyApplication.appContext
-                    Toast.makeText(context, "Symptom saved successfully!!", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showSuccess(context, "Symptom saved successfully!!")
 
                     getSymptoms()
                     _selectedSymptoms.value = mutableListOf()
@@ -279,6 +288,7 @@ fun insertSymptoms( ) {
                     val json = response.body()?.string()
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

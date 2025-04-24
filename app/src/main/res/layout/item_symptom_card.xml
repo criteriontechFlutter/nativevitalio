@@ -1,34 +1,67 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="6dp"
-    android:layout_marginStart="24dp"
-    android:layout_marginEnd="8dp"
-    android:elevation="2dp"
-    android:radius="12dp"
-    android:padding="12dp">
+    android:orientation="horizontal"
+    android:paddingLeft="-5dp"
+    android:paddingEnd="8dp">
 
-
+    <!-- Left Timeline -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="start">
+
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/button_grey" />
+    </LinearLayout>
+
+    <!-- Content Card -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_timeline_card">
 
         <TextView
             android:id="@+id/tvSymptomName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Headache"
+            android:textStyle="bold"
             android:textColor="#000"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvSymptomTime"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4:22 PM"
-            android:textColor="#888"
-            android:textSize="13sp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/waiting_time"
+                app:tint="#888888" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3:15 PM"
+                android:layout_marginStart="4dp"
+                android:textColor="#888888"
+                android:textSize="14sp"/>
+        </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</LinearLayout>
