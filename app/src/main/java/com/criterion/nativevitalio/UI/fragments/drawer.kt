@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.EditProfile
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
