@@ -95,6 +95,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_uploadReportHistory2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_vitalDetail">
                               <value>
                                 <LayoutPositions />
@@ -122,8 +127,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-149" />
-                            <option name="y" value="44" />
+                            <option name="x" value="-1204" />
+                            <option name="y" value="-946" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -139,6 +144,30 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="editProfile">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1500" />
+                            <option name="y" value="-1425" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="editProfile2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1634" />
+                            <option name="y" value="-1390" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -320,6 +349,15 @@
                             <option name="x" value="-1663" />
                             <option name="y" value="-326" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_uploadReportHistory_to_uploadReport3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

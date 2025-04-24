@@ -7,6 +7,7 @@ import Vital
 import VitalsResponse
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,10 +15,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.utils.ConfirmationBottomSheet
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.DietItemModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -28,6 +31,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+data class HoldSpeakSymptomDetail(
+    val pdmID: Int,
+    val details: String
+)
 class DashboardViewModel(application: Application) : BaseViewModel(application) {
 
     private val _vitalList = MutableLiveData<List<Vital>>()
@@ -380,6 +387,54 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
 
+                                val rawSymptoms = myVital["symptomsList"] as? List<Map<String, Any?>>
+
+                                if (!rawSymptoms.isNullOrEmpty()) {
+                                    val selectedSymptoms = rawSymptoms.mapNotNull { symptom ->
+                                        val id = symptom["id"]?.toString()?.toIntOrNull()
+                                        val name = symptom["symptom"]?.toString()
+
+                                        if (id != null && !name.isNullOrBlank()) {
+                                            HoldSpeakSymptomDetail(pdmID = id, details = name)
+                                        } else null
+                                    }
+
+                                    if (selectedSymptoms.isNotEmpty()) {
+                                        insertSymptoms(selectedSymptoms)
+                                    }
+                                }
+
+                                val fluidValueMap = (myVital["fluidValue"] as? Map<*, *>)?.filterKeys { it != null && it.toString().isNotEmpty() } ?: emptyMap()
+
+                                if (fluidValueMap.isNotEmpty()) {
+
+                                    val predefinedFluids = listOf(
+                                        mapOf("name" to "water", "id" to "97694"),
+                                        mapOf("name" to "milk", "id" to "76"),
+                                        mapOf("name" to "green tea", "id" to "114973"),
+                                        mapOf("name" to "coffee", "id" to "168"),
+                                        mapOf("name" to "fruit juice", "id" to "66")
+                                    )
+
+                                    val fluidKeys = fluidValueMap.keys.map { it.toString() }
+
+                                    for (key in fluidKeys) {
+                                        val index = predefinedFluids.indexOfFirst { it["name"].toString() == key }
+
+                                        if (index != -1) {
+                                            val foodId = predefinedFluids[index]["id"].toString()
+                                            val quantity = fluidValueMap[key].toString()
+
+                                            // Suspend function call inside coroutine
+                                            fluidIntake(
+                                                context = context,
+                                                foodId = foodId,
+                                                givenFoodQuantity = quantity
+                                            )
+                                        }
+                                    }
+                                }
+
 
 
 
@@ -510,7 +565,112 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
+    fun insertSymptoms(selectedSymptoms: List<HoldSpeakSymptomDetail>) {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+                val dtDataTable = mutableListOf<Map<String, String>>()
+
+                // Get the current timestamp once
+                val now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    java.time.LocalDateTime.now()
+                        .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"))
+                } else {
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                }
+
+                // Populate data table from selected symptoms
+                selectedSymptoms.forEach { symptom ->
+                    dtDataTable.add(
+                        mapOf(
+                            "detailID" to symptom.pdmID.toString(),
+                            "detailsDate" to now,
+                            "details" to symptom.details,
+                            "isFromPatient" to "1"
+                        )
+                    )
+                }
+
+                val queryParams = mapOf(
+                    "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
+                    "userID" to "0",
+                    "doctorId" to "0",
+                    "jsonSymtoms" to Gson().toJson(dtDataTable),
+                    "clientID" to (PrefsManager().getPatient()?.clientId ?: "")
+                )
+
+                val response = RetrofitInstance
+                    .createApiService()
+                    .queryDynamicRawPost(
+                        url = ApiEndPoint().insertSymtoms,
+                        params = queryParams
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    val context = MyApplication.appContext
+                    Toast.makeText(context, "Symptoms saved successfully!", Toast.LENGTH_SHORT).show()
 
 
 
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun fluidIntake(context: Context, foodId: String, givenFoodQuantity: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+
+                val user = PrefsManager().getPatient()
+                val body = mapOf(
+                    "givenQuanitityInGram" to "0",
+                    "uhid" to user?.uhID.orEmpty(),
+                    "foodId" to foodId,
+                    "pmId" to "0",
+                    "givenFoodQuantity" to givenFoodQuantity,
+                    "givenFoodDate" to "2025-04-23 12:15", // e.g. "2025-04-23 12:15"
+                    "givenFoodUnitID" to "27",
+                    "recommendedUserID" to "0",
+                    "jsonData" to "",
+                    "fromDate" to "2025-04-23 12:15",
+                    "isGiven" to "0",
+                    "entryType" to "N",
+                    "isFrom" to "0",
+                    "dietID" to "0",
+                    "userID" to user?.userId.toString()
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7096()
+                    .dynamicRawPost(
+                        url = ApiEndPoint().savePatientOutput,
+                        body = body
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    ToastUtils.showSuccess(context, "Fluid intake saved successfully!")
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
 }
