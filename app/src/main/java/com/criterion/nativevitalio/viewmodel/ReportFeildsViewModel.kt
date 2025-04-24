@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -12,6 +14,7 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
 
@@ -26,8 +29,8 @@ class ReportFeildsViewModel  : ViewModel(){
         imagePath: String
     ): String? = withContext(Dispatchers.IO) {
 
-        val url = "https://api.medvantage.tech:7082/api/PatientMediaData/InsertPatientMediaData" +
-                "?uhId=${PrefsManager().getPatient()?.uhID.toString()}&subCategory=${Uri.encode(testName)}&remark=${Uri.encode(remark)}" +
+        val url = com.critetiontech.ctvitalio.networking.RetrofitInstance.DEFAULT_BASE_URL+"api/PatientMediaData/InsertPatientMediaData" +
+                "?uhId=${PrefsManager().getPatient()?.uhID.toString()}&subCategory=${Uri.encode(testName)}&remark=${Uri.encode(category)}" +
                 "&category=${Uri.encode(category)}&dateTime=${Uri.encode(dateTime)}&userId=${PrefsManager().getPatient()?.userId.toString()}"
         Log.e("UploadError", "url: ${url}")
         val client = OkHttpClient()
@@ -67,4 +70,83 @@ class ReportFeildsViewModel  : ViewModel(){
             return@withContext null
         }
     }
+
+
+
+
+    suspend fun insertInvestigation(
+        context: Context,
+        dateTime:String,
+        reportData: List<Map<String, Any>>,
+    ): Boolean = withContext(Dispatchers.IO) {
+        val tempPatientData = mutableListOf<Map<String, String>>()
+        val tempReportData = mutableListOf<Map<String, String>>()
+
+        try {
+            reportData.forEach { report ->
+                val labName = report["lab_name"].toString()
+                val collectionDate = report["collection_date"].toString()
+
+                tempPatientData.add(
+                    mapOf(
+                        "itemName" to (report["itemName"]?.toString() ?: ""),
+                        "itemId" to (report["itemId"]?.toString() ?: ""),
+                        "labName" to (report["lab_name"]?.toString() ?: ""),
+                        "receiptNo" to (report["receiptNo"]?.toString() ?: ""),
+                        "resultDateTime" to (dateTime ?: "")
+                    )
+                )
+
+                val reportList = report["report"] as? List<Map<String, Any>> ?: emptyList()
+                reportList.forEach { item ->
+                    tempReportData.add(
+                        mapOf(
+                            "subTestId" to (item["id"]?.toString() ?: ""),
+                            "subTestName" to (item["test_name"]?.toString() ?: ""),
+                            "range" to (item["normal_values"]?.toString() ?: ""),
+                            "resultDateTime" to (report["collection_date"]?.toString() ?: ""),
+                            "result" to (item["result"]?.toString() ?: ""),
+                            "unit" to (item["unit"]?.toString() ?: ""),
+                            "isNormal" to "1"
+                        )
+                    )
+                }
+            }
+
+            val body = mapOf(
+                "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                "investigationDetailsJson" to Gson().toJson(tempPatientData),
+                "clientId" to PrefsManager().getPatient()?.clientId.toString(),
+                "investigationResultJson" to Gson().toJson(tempReportData)
+            )
+
+            val url = RetrofitInstance.DEFAULT_BASE_URL_5090 + "api/InvestigationByPatient/InsertResult"
+
+            val client = OkHttpClient()
+            val mediaType = "application/json".toMediaTypeOrNull()
+            val requestBody = Gson().toJson(body).toRequestBody(mediaType)
+            Log.e("InsertInvestigation", "HTTP ${url}")
+            Log.e("InsertInvestigation", "HTTP ${body}")
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Content-Type", "application/json")
+                .build()
+
+            val response = client.newCall(request).execute()
+            val responseBody = response.body?.string()
+
+            if (response.isSuccessful) {
+                val json = JSONObject(responseBody.orEmpty())
+                return@withContext json.optInt("status") == 1
+            } else {
+                Log.e("InsertInvestigation", "HTTP ${response.code}: ${response.message}")
+                return@withContext false
+            }
+        } catch (e: Exception) {
+            Log.e("InsertInvestigation", e.localizedMessage ?: "Unknown error", e)
+            return@withContext false
+        }
+    }
+
 }

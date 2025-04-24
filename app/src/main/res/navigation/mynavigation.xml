@@ -34,12 +34,12 @@
         <action
             android:id="@+id/action_dashboard_to_dietChecklist"
             app:destination="@id/dietChecklist" />
-        <action
-            android:id="@+id/action_dashboard_to_uploadReport"
-            app:destination="@id/uploadReport" />
-        <action
+          <action
             android:id="@+id/action_dashboard_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_uploadReportHistory2"
+            app:destination="@id/uploadReportHistory" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -147,5 +147,13 @@
         android:id="@+id/notificationFragment"
         android:name="com.criterion.nativevitalio.UI.fragments.NotificationFragment"
         android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/uploadReportHistory"
+        android:name="com.criterion.nativevitalio.UI.fragments.UploadReportHistory"
+        android:label="UploadReportHistory" >
+        <action
+            android:id="@+id/action_uploadReportHistory_to_uploadReport3"
+            app:destination="@id/uploadReport" />
+    </fragment>
 
 </navigation>
