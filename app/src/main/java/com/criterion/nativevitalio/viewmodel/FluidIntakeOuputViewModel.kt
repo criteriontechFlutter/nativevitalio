@@ -403,12 +403,12 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 "foodId" to _selectedFluid.value!!.foodID, // Required(fixed)
                 "pmId" to '0',
                 "givenFoodQuantity" to _selectFluidIntakeVolume.value!!.toDouble(), //Required
-                "givenFoodDate" to DateUtils.getTodayDate(), //Required
+                "givenFoodDate" to DateUtils.getTodayDateTime(), //Required
                 "givenFoodUnitID" to 27, // Required (fixed)
                 // "recommendedUserID": userRepository.getUser.admitDoctorId.toString(),
                 "recommendedUserID" to 0,
                 "jsonData" to "",
-                "fromDate" to DateUtils.getTodayDate(),
+                "fromDate" to DateUtils.getTodayDateTime(),
                 "isGiven" to '0',
                 "entryType" to "N", // Required (fixed)
                 "isFrom" to '0',
@@ -426,6 +426,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 if (response.isSuccessful) {
                     _loading.value = false
                     ToastUtils.showSuccess(MyApplication.appContext, "Intake Saved Successfully!")
+
                 } else {
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
