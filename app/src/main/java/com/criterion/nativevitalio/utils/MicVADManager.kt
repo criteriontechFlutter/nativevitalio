@@ -1,9 +1,13 @@
 package com.criterion.nativevitalio.utils
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import com.critetiontech.ctvitalio.utils.MyApplication
 
 class MicVADManager(
     private val sampleRate: Int = 16000,
@@ -22,6 +26,20 @@ class MicVADManager(
             AudioFormat.ENCODING_PCM_16BIT
         )
 
+        if (ActivityCompat.checkSelfPermission(
+                MyApplication.appContext,
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         audioRecord = AudioRecord(
             MediaRecorder.AudioSource.MIC,
             sampleRate,
