@@ -429,6 +429,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                     }
                                 }
 
+
+
                                 Toast.makeText(context, "$addedData saved successfully!", Toast.LENGTH_SHORT).show()
                             }
                         )
@@ -644,8 +646,6 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                 if (response.isSuccessful) {
                     val context = MyApplication.appContext
-                    Toast.makeText(context, "Symptoms saved successfully!", Toast.LENGTH_SHORT).show()
-
 
 
                 } else {
