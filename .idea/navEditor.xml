@@ -150,6 +150,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_drawer4_to_connectSmartWatchFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_drawer4_to_editProfile3">
                               <value>
                                 <LayoutPositions />
@@ -400,6 +405,18 @@
                           <Point>
                             <option name="x" value="-381" />
                             <option name="y" value="821" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="voiceFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="527" />
+                            <option name="y" value="-175" />
                           </Point>
                         </option>
                       </LayoutPositions>
