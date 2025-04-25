@@ -50,7 +50,7 @@ class SymptomsFragment : Fragment() {
             if (isLoading) showLoading() else hideLoading()
         }
         binding.saveSymptomsBtn.setOnClickListener(){
-            viewModel.insertSymptoms();
+            viewModel.insertSymptoms(findNavController(),requireContext());
         }
 
         binding.backButton.setOnClickListener(){
@@ -70,7 +70,7 @@ class SymptomsFragment : Fragment() {
             if (selected.isEmpty() && searched.isEmpty()) {
                 findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
             } else {
-                viewModel.insertSymptoms()
+                viewModel.insertSymptoms(findNavController(), requireContext())
 
                 // OR: If you want to navigate immediately (not recommended if insert fails)
                 // findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)

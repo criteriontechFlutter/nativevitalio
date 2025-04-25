@@ -1,5 +1,6 @@
 package com.criterion.nativevitalio.adapter
 
+import DateUtils.toCamelCase
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -30,9 +31,9 @@ class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHo
         holder.binding.categoryText.isVisible = !item.category.isNullOrBlank()
         holder.binding.categoryText.text = item.category
 
-        holder.binding.substanceText.text = item.substance
-        holder.binding.remarkText.text = item.remark
-        holder.binding.severityText.text = item.severityLevel
+        holder.binding.substanceText.text = toCamelCase(item.substance)
+        holder.binding.remarkText.text = toCamelCase(item.remark)
+        holder.binding.severityText.text = toCamelCase(item.severityLevel)
 
         // Apply severity color
         val severityColor = when (item.severityLevel.lowercase()) {

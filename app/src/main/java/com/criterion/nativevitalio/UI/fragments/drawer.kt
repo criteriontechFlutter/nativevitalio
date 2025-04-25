@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.UI.fragments.EditProfile
+import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -56,15 +56,26 @@ class drawer : Fragment() {
             }
         }
 
+        binding.editIcon.setOnClickListener {
+            ImagePickerUtil.pickImage(requireContext(), this) { uri ->
+                binding.userImage.setImageURI(uri)
+            }
+        }
+
         binding.btnEditProfile.setOnClickListener {
-            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyApplication.appContext.startActivity(intent)
+//            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            MyApplication.appContext.startActivity(intent)
+            findNavController().navigate(R.id.action_drawer4_to_editProfile3)
         }
         binding.darkModeRow.root.setOnClickListener {
             //PrefsManager().clearPatient()
             findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
 
+        }
+
+        binding.connectSmartWatchRow.root.setOnClickListener {
+            findNavController().navigate(R.id.action_drawer4_to_connectSmartWatchFragment)
         }
 
         binding.userName.text = PrefsManager().getPatient()!!.patientName
@@ -182,6 +193,12 @@ class drawer : Fragment() {
 
         binding.feedbackRow.title.text = getString(R.string.feedback)
         binding.feedbackRow.icon.setImageResource(R.drawable.ic_feedback)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        ImagePickerUtil.handleResult(requestCode, resultCode, data)
     }
 
 }

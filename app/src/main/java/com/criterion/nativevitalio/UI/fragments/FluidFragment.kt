@@ -51,7 +51,7 @@ class FluidFragment : Fragment() {
 
 
 
-    @SuppressLint("ResourceAsColor", "ClickableViewAccessibility")
+    @SuppressLint("ResourceAsColor", "ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -147,6 +147,25 @@ class FluidFragment : Fragment() {
 
         }
 
+        binding.milkGlassView.setOnFillChangedListener { percent, ml ->
+
+            Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
+            viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
+        }
+
+        binding.cupglassView.setOnFillChangedListener { percent, ml ->
+
+            Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
+            viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
+        }
+
+        binding.juiceGlassView.setOnFillChangedListener { percent, ml ->
+
+            Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
+            viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
+        }
+
+
 
         val colorMap = mapOf(
             R.id.colorLightYellow to "#FFFDE7",
@@ -223,7 +242,7 @@ class FluidFragment : Fragment() {
         // Observe selection to refresh UI if needed
         viewModel.selectedFluid.observe(viewLifecycleOwner) { selected ->
             adapter = FluidOptionAdapter(viewModel.intakeList.value ?: emptyList(), selected?.foodID) {
-                viewModel.setSelectedFluid(it)
+                 viewModel.setSelectedFluid(it)
                 if(selected?.foodName.equals("Milk")){
                     binding.milkGlassView.visibility= VISIBLE
                     binding.waterGlassView.visibility= GONE
@@ -237,7 +256,7 @@ class FluidFragment : Fragment() {
                     binding.cupglassView.visibility= GONE
                     binding.noFluid.visibility= GONE
                 }
-                else if(selected?.foodName.equals("Green Tea")){
+                else if(selected?.foodName?.contains("Green Tea") == true){
                     binding.milkGlassView.visibility= GONE
                     binding.waterGlassView.visibility= GONE
                     binding.juiceGlassView.visibility= GONE
@@ -280,9 +299,9 @@ class FluidFragment : Fragment() {
         binding.btnAddIntake.setOnClickListener {
 
             if(viewModel.selectedIntakeButton.value == true){
-                viewModel.insertFluidOutPut()
+                viewModel.insertFluidOutPut(requireContext())
             }else{
-                viewModel.insertFluidIntake()
+                viewModel.insertFluidIntake(requireContext())
             }
 
 

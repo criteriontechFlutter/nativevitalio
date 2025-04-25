@@ -1,12 +1,10 @@
 package com.criterion.nativevitalio.UI.fragments
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -74,14 +72,14 @@ class UploadReportHistory : Fragment() {
 
         tabs.forEach { tab ->
             tab.setBackgroundResource(R.drawable.tab_disabled)
-            tab.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.darker_gray))
-            tab.setTypeface(null, Typeface.NORMAL)
+//            tab.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.darker_gray))
+//            tab.setTypeface(null, Typeface.NORMAL)
         }
 
         selectedTab?.apply {
             setBackgroundResource(R.drawable.tab_selected)
-            setTextColor(ContextCompat.getColor(requireContext(), R.color.primaryBlue))
-            setTypeface(null, Typeface.BOLD)
+//            setTextColor(ContextCompat.getColor(requireContext(), R.color.primaryBlue))
+//            setTypeface(null, Typeface.BOLD)
         }
 
         viewModel.getReportsByCategory(category)

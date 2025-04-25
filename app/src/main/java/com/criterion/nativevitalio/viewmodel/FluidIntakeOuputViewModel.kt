@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.viewmodel
 import DateUtils
 import PrefsManager
 import android.app.Application
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -23,7 +24,6 @@ import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
 import com.critetiontech.ctvitalio.model.ManualFoodItem
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -349,7 +349,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
 
 
-    fun insertFluidOutPut() {
+    fun insertFluidOutPut(requireContext: Context) {
         viewModelScope.launch {
             try {
                 _loading.value = true
@@ -375,8 +375,8 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
                 if (response.isSuccessful) {
                     _loading.value = false
+                    ToastUtils.showSuccessPopup(requireContext, "Output Saved Successfully!")
 
-                    ToastUtils.showSuccess(MyApplication.appContext, "Output Saved Successfully!")
                 } else {
                     _loading.value = false
 
@@ -393,7 +393,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
 
 
-    fun insertFluidIntake() {
+    fun insertFluidIntake(requireContext: Context) {
         viewModelScope.launch {
             try {
                 _loading.value = true
@@ -425,8 +425,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
                 if (response.isSuccessful) {
                     _loading.value = false
-                    ToastUtils.showSuccess(MyApplication.appContext, "Intake Saved Successfully!")
-
+                    ToastUtils.showSuccessPopup(requireContext, "Intake Saved Successfully!")
                 } else {
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"

@@ -2,11 +2,13 @@ package com.criterion.nativevitalio.viewmodel
 
 import Patient
 import PrefsManager
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.model.BaseResponse
@@ -30,6 +32,7 @@ class EditProfileViewModel :ViewModel() {
     val _errorMessage = MutableLiveData<String>()
 
     fun updateUserData(
+        requireContext: Context,
         filePath: String? = null,
         name: String,
         phone: String,
@@ -45,8 +48,6 @@ class EditProfileViewModel :ViewModel() {
             try {
                 val patient = PrefsManager().getPatient() ?: return@launch
                 val parts = mutableListOf<MultipartBody.Part>()
-
-                // Helper to log and create part
                 fun partFromField(key: String, value: String): MultipartBody.Part {
                     Log.d("UpdateProfile", "Field: $key = $value")
                     return MultipartBody.Part.createFormData(key, value)
@@ -94,7 +95,6 @@ class EditProfileViewModel :ViewModel() {
                     } catch (e: Exception) {
                         "Binary or file content"
                     }
-
                     val dispositionHeader = part.headers?.get("Content-Disposition")
                     val nameRegex = Regex("name=\"(.*?)\"")
                     val fieldName = nameRegex.find(dispositionHeader ?: "")?.groupValues?.getOrNull(1) ?: "unknown"
@@ -112,7 +112,8 @@ class EditProfileViewModel :ViewModel() {
                     )
 
                 if (response.isSuccessful) {
-                    Log.d("UpdateProfile", "Profile updated successfully.")
+                    ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
+
                     _updateSuccess.postValue(true)
                     getPatientDetailsByUHID()
                 } else {

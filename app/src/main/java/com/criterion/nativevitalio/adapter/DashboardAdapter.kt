@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,6 +34,9 @@ class DashboardAdapter(
         val unitView = view.findViewById<TextView>(R.id.vital_unit)
         val timeView = view.findViewById<TextView>(R.id.vital_time)
         val addVitalButton = view.findViewById<Button>(R.id.add_vital_button)
+
+        val zoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out)
+        valueView.startAnimation(zoomOut)
 
         // ✅ Map proper title
         val title = when (vital.vitalName) {

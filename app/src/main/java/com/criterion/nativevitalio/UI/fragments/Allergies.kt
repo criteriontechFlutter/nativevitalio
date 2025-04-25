@@ -57,7 +57,7 @@ class Allergies : Fragment() {
         binding.addAllergiesBtn.setOnClickListener {
             if (allergyTypeList.isNotEmpty()) {
                 val sheet = AddAllergyBottomSheet.newInstance(allergyTypeList)
-                sheet.show(childFragmentManager, "AddAllergyBottomSheet")
+                 sheet.show(childFragmentManager, "AddAllergyBottomSheet")
             } else {
                 Toast.makeText(requireContext(), "Allergy types not loaded yet.", Toast.LENGTH_SHORT).show()
             }

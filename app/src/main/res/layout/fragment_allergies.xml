@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_allergies"
     android:layout_width="match_parent"
+    android:background="@color/primaryBlueLight"
     android:layout_height="match_parent"
     tools:context=".UI.fragments.Allergies">
 
@@ -16,7 +17,6 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -38,18 +38,44 @@
             android:layout_weight="1"
             android:text="Allergies"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="#000000" />
 
         <!-- Add Allergies -->
-        <TextView
+
+
+
+        <LinearLayout
             android:id="@+id/addAllergiesBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+ Add"
-            android:textSize="14sp"
-            android:textColor="#007bff"
-            android:textStyle="bold" />
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rounded_button_bg"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_action_add"
+                app:tint="@color/primaryBlue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Allergies"
+                android:textColor="#356DF3"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- RecyclerView -->
