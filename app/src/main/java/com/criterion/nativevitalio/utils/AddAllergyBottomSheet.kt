@@ -90,7 +90,7 @@ class AddAllergyBottomSheet : BottomSheetDialogFragment() {
                 historyParameterAssignId = selectedType.historyParameterAssignId.toString(),
                 onSuccess = {
                     Toast.makeText(requireContext(), "Allergy added successfully!", Toast.LENGTH_SHORT).show()
-                    viewModel.getAllergies() // Refresh list
+                      // Refresh list
                     dismiss()
                 },
                 onError = {

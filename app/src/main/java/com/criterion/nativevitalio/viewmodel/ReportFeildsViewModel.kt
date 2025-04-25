@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,7 +30,7 @@ class ReportFeildsViewModel  : ViewModel(){
         imagePath: String
     ): String? = withContext(Dispatchers.IO) {
 
-        val url = com.critetiontech.ctvitalio.networking.RetrofitInstance.DEFAULT_BASE_URL+"api/PatientMediaData/InsertPatientMediaData" +
+        val url = com.critetiontech.ctvitalio.networking.RetrofitInstance.DEFAULT_BASE_URL+ ApiEndPoint().insertPatientMediaData +
                 "?uhId=${PrefsManager().getPatient()?.uhID.toString()}&subCategory=${Uri.encode(testName)}&remark=${Uri.encode(category)}" +
                 "&category=${Uri.encode(category)}&dateTime=${Uri.encode(dateTime)}&userId=${PrefsManager().getPatient()?.userId.toString()}"
         Log.e("UploadError", "url: ${url}")
@@ -120,7 +121,7 @@ class ReportFeildsViewModel  : ViewModel(){
                 "investigationResultJson" to Gson().toJson(tempReportData)
             )
 
-            val url = RetrofitInstance.DEFAULT_BASE_URL_5090 + "api/InvestigationByPatient/InsertResult"
+            val url = RetrofitInstance.DEFAULT_BASE_URL_5090 +  ApiEndPoint().insertResult
 
             val client = OkHttpClient()
             val mediaType = "application/json".toMediaTypeOrNull()

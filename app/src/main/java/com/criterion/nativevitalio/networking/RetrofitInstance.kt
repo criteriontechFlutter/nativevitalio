@@ -21,7 +21,9 @@ object RetrofitInstance {
       const val DEFAULT_BASE_URL_7096 = "http://172.16.61.31:5096/"
       const val DEFAULT_BASE_URL_7082 = "http://172.16.61.31:5082/"
     const val DEFAULT_BASE_URL_5090 = "http://172.16.61.31:5090/"
-
+    const val  shopright = "http://food.shopright.ai:3478/api/"
+    val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"
+    val holdSpeakWsUrl ="ws://182.156.200.177:8002/listen?token="
 
 
 //    late String baseUrlMedvanatge = "https://api.medvantage.tech:5080/";

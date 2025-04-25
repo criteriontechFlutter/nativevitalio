@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,12 +71,13 @@ class Allergies : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel._loading.observe(viewLifecycleOwner) {
-            // You can add a ProgressBar if desired
+        viewModel. loading.observe(viewLifecycleOwner) {
+            // Optionally show/hide progress
         }
 
-        viewModel._allergyList.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
+        viewModel.allergyList.observe(viewLifecycleOwner) { allergyItems ->
+            Log.d("ALLERGIES_OBSERVER", "List updated: ${allergyItems.size}")
+            adapter.submitList(allergyItems)
         }
 
         viewModel._errorMessage.observe(viewLifecycleOwner) { message ->
