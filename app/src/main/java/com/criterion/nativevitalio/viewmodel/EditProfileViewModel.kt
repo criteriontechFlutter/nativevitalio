@@ -162,7 +162,7 @@ class EditProfileViewModel :ViewModel() {
 
                     firstPatient?.let {
                         PrefsManager( ).savePatient(it)
-                        Login.storedUHID=it.uhID
+                        Login.storedUHID=it
                         val intent = Intent(MyApplication.appContext, Home::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         MyApplication.appContext.startActivity(intent)
