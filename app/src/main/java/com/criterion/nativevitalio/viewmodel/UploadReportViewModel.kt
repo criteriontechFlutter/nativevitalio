@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -26,7 +27,7 @@ class UploadReportViewModel : ViewModel() {
         imageFile: File
     ): List<Map<String, Any>> = withContext(Dispatchers.IO) {
 
-        val url = "http://182.156.200.178:8016/uploadLabreport/"
+
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart(
@@ -37,7 +38,7 @@ class UploadReportViewModel : ViewModel() {
             .build()
 
         val request = Request.Builder()
-            .url(url)
+            .url(RetrofitInstance.uploadLabreportUrl)
             .post(requestBody)
             .addHeader("Content-Type", "application/json")
             .build()
