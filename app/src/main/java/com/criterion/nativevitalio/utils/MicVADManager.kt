@@ -14,14 +14,17 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 class MicVADSocketManager(
-    private val token: String,
     private val onServerResponse: (String) -> Unit,
     private val sampleRate: Int = 16000,
     private val rmsThreshold: Int = 2000,
 ) {
+
+    // 🔁 Token is generated dynamically (you can replace with API-generated one)
+    private val token: String = UUID.randomUUID().toString()
     private val wsUrl = "ws://182.156.200.177:8002/listen?token=$token"
 
     private var isRunning = false
@@ -79,11 +82,11 @@ class MicVADSocketManager(
 
                     if (isCurrentlySpeaking != isSpeaking) {
                         isSpeaking = isCurrentlySpeaking
+                        Log.d("MicVAD", if (isSpeaking) "🎙️ Speaking..." else "🤫 Silence...")
+
                         if (!isSpeaking) {
-                            // User stopped speaking – notify server to process
-                            webSocket?.send("{\"event\": \"end\"}")
+                            webSocket?.send("{\"event\":\"end\"}")
                         }
-                        Log.d("MicVAD", if (isSpeaking) "Speaking..." else "Silent...")
                     }
 
                     if (isSpeaking) {
@@ -120,20 +123,20 @@ class MicVADSocketManager(
         webSocket = okHttpClient.newWebSocket(request, object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
-                Log.d("WebSocket", "Connected to $wsUrl")
+                Log.d("WebSocket", "✅ Connected to $wsUrl")
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                Log.d("WebSocket", "Server Response: $text")
+                Log.d("WebSocket", "📩 Server Response: $text")
                 onServerResponse(text)
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                Log.e("WebSocket", "Error: ${t.message}")
+                Log.e("WebSocket", "❌ Error: ${t.message}")
             }
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                Log.d("WebSocket", "Closing: $reason")
+                Log.d("WebSocket", "🔌 Closing: $reason")
             }
         })
     }
