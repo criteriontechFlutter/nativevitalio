@@ -11,7 +11,8 @@
         <item name="colorAccent">@color/darkBackGround</item>
         <item name="android:colorBackground">@color/darkBackGround</item>
         <item name="android:colorPrimary">@color/darkBackGround</item>
-
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="fontFamily">@font/lato_regular</item>
 
     </style>
     <style name="NoRoundedNav" parent="Widget.MaterialComponents.BottomNavigationView">

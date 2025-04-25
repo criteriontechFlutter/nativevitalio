@@ -13,7 +13,8 @@
         <item name="colorAccent">@color/white</item>
         <item name="android:colorBackground">@color/primaryBlue</item>
         <item name="android:colorPrimary">@color/primaryBlue</item>
-
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="fontFamily">@font/lato_regular</item>
     </style>
     <style name="NoRoundedNav" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemShapeAppearanceOverlay">@style/NoItemShape</item>
