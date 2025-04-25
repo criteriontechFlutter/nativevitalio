@@ -2,70 +2,70 @@
 <resources>
 
   <style name="customLargePCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">30sp</item>
     <item name="android:textColor">@color/primaryColor</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="veryLargePCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">22sp</item>
     <item name="android:textColor">@color/primaryColor</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="largePCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/primaryColor</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="mediumPCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/primaryColor</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="mediumRCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/red</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="smallPCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/primaryColor</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="veryLargePCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">22sp</item>
     <item name="android:textColor">@color/primaryColor</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="largePCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/primaryBlue</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="mediumPCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/primaryBlue</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="smallPCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/primaryBlue</item>
     <item name="android:textStyle">normal</item>
@@ -76,56 +76,56 @@
 
 
   <style name="veryLargeWCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">22sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="largeWCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="mediumWCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="smallWCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="veryLargeWCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">22sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="largeWCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="mediumWCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="smallWCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:textStyle">normal</item>
@@ -137,133 +137,133 @@
 
 
   <style name="veryLargeBCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">22sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="largeBCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="mediumBCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="mediumBCC">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">bold</item> <!-- mapped w900 to bold -->
   </style>
 
   <style name="smallBCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="veryLargeBCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">22sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="largeBCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">normal</item> <!-- w500 approximated -->
   </style>
 
   <style name="mediumBCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="mediumCCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="largeGCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="largeGCB2">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="largeGCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">18sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="mediumGCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="mediumGCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="smallBCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/black</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="smallGCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/greyText</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="smallGCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">bold</item>
   </style>
 
   <style name="smallCCN">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/greyDark</item>
     <item name="android:textStyle">normal</item>
   </style>
 
   <style name="smallOCB">
-    <item name="android:fontFamily">@font/lato</item>
+    <item name="android:fontFamily">@font/lato_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/darkYellow</item>
     <item name="android:textStyle">bold</item>
