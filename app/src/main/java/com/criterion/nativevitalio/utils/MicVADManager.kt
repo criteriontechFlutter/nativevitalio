@@ -17,14 +17,18 @@ import okio.ByteString
 import java.util.concurrent.TimeUnit
 
 class MicVADSocketManager(
-    private val wsUrl: String,
+    private val token: String,
+    private val onServerResponse: (String) -> Unit,
     private val sampleRate: Int = 16000,
     private val rmsThreshold: Int = 2000,
 ) {
+    private val wsUrl = "ws://182.156.200.177:8002/listen?token=$token"
+
     private var isRunning = false
     private var isSpeaking = false
     private var audioRecord: AudioRecord? = null
     private var vadThread: Thread? = null
+    private var webSocket: WebSocket? = null
 
     private val bufferSize = AudioRecord.getMinBufferSize(
         sampleRate,
@@ -35,8 +39,6 @@ class MicVADSocketManager(
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(5, TimeUnit.SECONDS)
         .build()
-
-    private var webSocket: WebSocket? = null
 
     fun start() {
         connectWebSocket()
@@ -63,8 +65,8 @@ class MicVADSocketManager(
             bufferSize
         )
 
-        audioRecord?.startRecording()
         isRunning = true
+        audioRecord?.startRecording()
 
         vadThread = Thread {
             val buffer = ShortArray(bufferSize)
@@ -77,16 +79,18 @@ class MicVADSocketManager(
 
                     if (isCurrentlySpeaking != isSpeaking) {
                         isSpeaking = isCurrentlySpeaking
-                        Log.d("VAD", if (isSpeaking) "Speaking..." else "Silent...")
+                        if (!isSpeaking) {
+                            // User stopped speaking – notify server to process
+                            webSocket?.send("{\"event\": \"end\"}")
+                        }
+                        Log.d("MicVAD", if (isSpeaking) "Speaking..." else "Silent...")
                     }
 
                     if (isSpeaking) {
                         val byteBuffer = ByteArray(read * 2)
-                        var i = 0
-                        while (i < read) {
-                            byteBuffer[i * 2] = (buffer[i].toInt() and 0x00FF).toByte()
+                        for (i in 0 until read) {
+                            byteBuffer[i * 2] = (buffer[i].toInt() and 0xFF).toByte()
                             byteBuffer[i * 2 + 1] = (buffer[i].toInt() shr 8).toByte()
-                            i++
                         }
                         webSocket?.send(ByteString.of(*byteBuffer))
                     }
@@ -106,16 +110,22 @@ class MicVADSocketManager(
         } catch (e: Exception) {
             Log.e("MicVADSocketManager", "Stop error: ${e.message}")
         }
+        audioRecord = null
+        vadThread = null
+        isSpeaking = false
     }
 
     private fun connectWebSocket() {
-        val request = Request.Builder()
-            .url(wsUrl)
-            .build()
-
+        val request = Request.Builder().url(wsUrl).build()
         webSocket = okHttpClient.newWebSocket(request, object : WebSocketListener() {
+
             override fun onOpen(webSocket: WebSocket, response: Response) {
-                Log.d("WebSocket", "Connected")
+                Log.d("WebSocket", "Connected to $wsUrl")
+            }
+
+            override fun onMessage(webSocket: WebSocket, text: String) {
+                Log.d("WebSocket", "Server Response: $text")
+                onServerResponse(text)
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
@@ -124,10 +134,6 @@ class MicVADSocketManager(
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
                 Log.d("WebSocket", "Closing: $reason")
-            }
-
-            override fun onMessage(webSocket: WebSocket, text: String) {
-                Log.d("WebSocket", "Text message: $text")
             }
         })
     }
