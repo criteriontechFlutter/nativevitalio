@@ -30,9 +30,9 @@ class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHo
         holder.binding.categoryText.isVisible = !item.category.isNullOrBlank()
         holder.binding.categoryText.text = item.category
 
-        holder.binding.substanceText.text = toCamelCase(item.substance)
-        holder.binding.remarkText.text = toCamelCase(item.remark)
-        holder.binding.severityText.text = toCamelCase(item.severityLevel)
+        holder.binding.substanceText.text = item.substance?.let { toCamelCase(it) }
+        holder.binding.remarkText.text = item.remark?.let { toCamelCase(it) }
+        holder.binding.severityText.text = item.severityLevel?.let { toCamelCase(it) }
 
         val severityColor = when (item.severityLevel?.lowercase()) {
             "mild" -> Color.parseColor("#FFA500")
