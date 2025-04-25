@@ -63,11 +63,13 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.ConnectionAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentConnectionBinding
@@ -47,6 +49,10 @@ class Connection: Fragment() {
         binding.btnAddVitalManually.setOnClickListener {
             showManualVitalDialog(vitalType)
         }
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
+
 
         binding.backButton.setOnClickListener(){
 

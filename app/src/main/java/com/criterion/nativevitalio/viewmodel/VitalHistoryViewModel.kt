@@ -53,6 +53,7 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                 _loading.value = false
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<VitalResponse>() {}.type
                     val parsed = Gson().fromJson<VitalResponse>(responseBodyString, type)
@@ -95,6 +96,7 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                     _bpList.postValue(result)
 
                 } else {
+                    _loading.value = false
                     // Handle API error
                 }
 
