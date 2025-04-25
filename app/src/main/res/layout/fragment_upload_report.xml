@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/primaryBlueLight"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,143 +17,273 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_back"
             android:contentDescription="Back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Title: Lab Reports aligned to back icon -->
+        <!-- Title -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Lab Report"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toEndOf="@id/backIcon"
+            android:textStyle="normal"
+            android:textColor="#000"
+            android:layout_marginStart="12dp"
             app:layout_constraintTop_toTopOf="@id/backIcon"
-            android:layout_marginStart="12dp" />
+            app:layout_constraintStart_toEndOf="@id/backIcon" />
 
-        <!-- Spinner -->
+        <!-- Test Type Spinner -->
+        <TextView
+            android:id="@+id/textTestType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Type"
+            android:textSize="14sp"
+            android:textColor="#888"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/backIcon"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Spinner
             android:id="@+id/spinnerTestType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/backIcon"
+            app:layout_constraintTop_toBottomOf="@id/textTestType"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Date Input -->
+        <!-- Date Field -->
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="14sp"
+            android:textColor="#888"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/spinnerTestType"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dateInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="Select Date"
-            app:layout_constraintTop_toBottomOf="@id/spinnerTestType"
+            app:layout_constraintTop_toBottomOf="@id/textDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDate"
                 android:layout_width="match_parent"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/white"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="none"
-                android:cursorVisible="false" />
+                android:cursorVisible="false"
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Test Name -->
+        <!-- Test Name Field -->
+        <TextView
+            android:id="@+id/textTestName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Name"
+            android:textSize="14sp"
+            android:textColor="#888"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/dateInputLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/testNameInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="Test Name"
-            app:layout_constraintTop_toBottomOf="@id/dateInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/textTestName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTestName"
                 android:layout_width="match_parent"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Upload Options -->
+        <!-- Findings Field -->
+        <TextView
+            android:id="@+id/textFindings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Findings"
+            android:textSize="14sp"
+            android:textColor="#888"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/testNameInputLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/findingsInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textFindings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFindings"
+                android:layout_width="match_parent"
+                android:gravity="start|top"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/white"
+                android:inputType="textMultiLine"
+                android:minLines="3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Upload Options Section -->
         <LinearLayout
             android:id="@+id/layoutUploadOptions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:weightSum="2"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/testNameInputLayout"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@id/findingsInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/camera"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:layout_weight="1"
+
                 android:background="@drawable/rounded_corners"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:backgroundTint="#F5F3FA"
+                android:padding="12dp">
 
+                <!-- 3-dot menu -->
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_camera_alt"
-                    android:contentDescription="Camera" />
-
-                <TextView
+                    android:id="@+id/cameraMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Camera"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:src="@drawable/menu"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    app:tint="#5B2DC4" />
 
-            <View
+                <!-- Main Content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="left"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/camera"
+                        android:contentDescription="Camera"
+                        app:tint="#2B1D6D" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Camera"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+
+                        android:textColor="#2B1D6D"
+                        android:layout_marginTop="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Capture from camera"
+                        android:textSize="12sp"
+                        android:textColor="#9985C9"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <Space
                 android:layout_width="8dp"
                 android:layout_height="match_parent" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/gallery"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_corners"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:backgroundTint="#DCF3F2"
+                android:padding="12dp">
 
+                <!-- 3-dot menu -->
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_gallery"
-                    android:contentDescription="Gallery" />
-
-                <TextView
+                    android:id="@+id/galleryMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gallery"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:src="@drawable/menu"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    app:tint="#168B87" />
+
+                <!-- Main Content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="start"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_gallery"
+                        android:contentDescription="Gallery"
+                        app:tint="#04534F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gallery"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#04534F"
+                        android:layout_marginTop="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upload files from gallery"
+                        android:textSize="12sp"
+                        android:textColor="#62B1AD"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </RelativeLayout>
+
         </LinearLayout>
 
-        <!-- File Info -->
+        <!-- Selected File Layout -->
         <LinearLayout
             android:id="@+id/layoutFileInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:background="@drawable/rounded_corners"
             android:padding="12dp"
-            android:visibility="gone"
+            android:background="@drawable/rounded_corners"
             android:gravity="center_vertical"
+            android:backgroundTint="@color/white"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/layoutUploadOptions"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -166,7 +295,7 @@
                 android:layout_weight="1"
                 android:text="No file selected"
                 android:textSize="14sp"
-                android:textColor="@android:color/black" />
+                android:textColor="#000" />
 
             <ImageView
                 android:id="@+id/btnRemoveFile"
@@ -183,11 +312,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Upload &amp; Save"
-            android:layout_marginTop="20dp"
-            app:cornerRadius="10dp"
             android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            app:cornerRadius="12dp"
             android:textColor="@android:color/white"
-            app:backgroundTint="@color/blue"
+            app:backgroundTint="@color/primaryBlue"
             app:layout_constraintTop_toBottomOf="@id/layoutFileInfo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.adapter.SymptomsTrackerAdapter
-import com.critetiontech.ctvitalio.viewmodel.SymptomsTrackerViewModel
 import com.critetiontech.ctvitalio.databinding.FragmentSymptomTrackerFragmentsBinding
 import com.critetiontech.ctvitalio.model.SymptomDetail
+import com.critetiontech.ctvitalio.viewmodel.SymptomsTrackerViewModel
 
 class SymptomTrackerFragments : Fragment() {
 
@@ -39,7 +40,11 @@ class SymptomTrackerFragments : Fragment() {
         // ⏬ Update button action
         binding.btnUpdate.setOnClickListener {
             val selected = symptomList.filter { it.selection == 1 }
-            viewModel.insertSymptoms(selected)
+            viewModel.insertSymptoms(findNavController(),requireContext(),selected)
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -104,6 +109,6 @@ class SymptomTrackerFragments : Fragment() {
 
     private fun showSummary() {
         val selected = symptomList.filter { it.selection == 1 }
-        Toast.makeText(requireContext(), "Selected: ${selected.size}", Toast.LENGTH_SHORT).show()
+      //  Toast.makeText(requireContext(), "Selected: ${selected.size}", Toast.LENGTH_SHORT).show()
     }
 }

@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.BPReadingAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentVitalHistoryBinding
@@ -67,6 +69,9 @@ if(vitalType=="Blood Pressure"){
         binding.headerTitle.text=vitalType
         binding.tvTitle.text= "$vitalType Log"
         binding.bpText.text=value
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
 
         binding.btnChart.setOnClickListener {

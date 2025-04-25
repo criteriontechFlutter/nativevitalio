@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.model.BaseResponse
@@ -99,7 +100,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
                     firstPatient?.let {
                         PrefsManager( ).savePatient(it)
-                        Login.storedUHID=it.uhID
+                        Login.storedUHID=it
                         val intent = Intent(MyApplication.appContext, com.critetiontech.ctvitalio.UI.Home::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         MyApplication.appContext.startActivity(intent)
@@ -114,6 +115,40 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    fun sentLogInOTPForSHFCApp(uhid: String, ifLoggedOutFromAllDevices: String = "0") {
+        _loading.value = true
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                    "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
+                    "UHID" to uhid
+                )
+                // This response is of type Response<ResponseBody>
+                val response = RetrofitInstance
+                    .createApiService()
+                    .dynamicGet(
+                        url = ApiEndPoint().sentLogInOTPForVitalioApp,
+                        params = queryParams
+                    )
+
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                   ToastUtils.showSuccess(MyApplication.appContext,"Otp Resent Successfully!")
+                    Log.d("RESPONSE", "responseValue: ")
+                } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
             } catch (e: Exception) {
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
