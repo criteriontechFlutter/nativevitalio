@@ -5,7 +5,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/voice_bg_gradient"
     android:padding="16dp">
-
+    <TextView
+        android:id="@+id/websocket_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Connecting..."
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        />
     <!-- Title -->
     <TextView
         android:id="@+id/voice_transcript"

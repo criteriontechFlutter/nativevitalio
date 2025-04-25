@@ -15,9 +15,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.utils.ConfirmationBottomSheet
-import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.DietItemModel
+import com.critetiontech.ctvitalio.model.SymptomDetail
+import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -35,6 +36,9 @@ data class HoldSpeakSymptomDetail(
     val pdmID: Int,
     val details: String
 )
+enum class WebSocketState {
+    CONNECTING, CONNECTED, DISCONNECTED, ERROR
+}
 class DashboardViewModel(application: Application) : BaseViewModel(application) {
 
     private val _vitalList = MutableLiveData<List<Vital>>()
@@ -51,6 +55,13 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     private val _pillList = MutableLiveData<List<PillReminderModel>>()
     val pillList: LiveData<List<PillReminderModel>> get() = _pillList
 
+
+    private val _webSocketStatus = MutableLiveData<WebSocketState>()
+    val webSocketStatus: LiveData<WebSocketState> get() = _webSocketStatus
+
+    fun setWebSocketState(state: WebSocketState) {
+        _webSocketStatus.postValue(state)
+    }
     fun getVitals() {
         _loading.value = true
         viewModelScope.launch {
@@ -117,7 +128,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 // Filter the list to only include today's medications
                     val todaysMedications = list.filter { it.date == currentDate }
-                    _pillList.postValue(list)
+                    _pillList.postValue(todaysMedications)
                     Log.d("RESPONSE", "responseValue: $_pillList")
 
                 } else {
@@ -224,11 +235,14 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     }
 
 
+
+
+
     fun postAnalyzedVoiceData(context: Context, transcript: String) {
         val patient = PrefsManager().getPatient() ?: return
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
-
+        getAllPatientMedication()
         val medicationList = listOf(
             mapOf(
                 "drugName" to "Paracetamol",
@@ -244,7 +258,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         )
 
         val data = mapOf(
-            "text" to "fever pulse rate 74 water 100 ml ",
+            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
 //            "text" to transcript,
             "userid" to patient.id.toString(),
             "uhid" to patient.uhID.toString(),
@@ -266,7 +280,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(
-                    overrideBaseUrl="http://food.shopright.ai:3478/api/",
+                    overrideBaseUrl=RetrofitInstance.shopright
 
 
                 ).dynamicRawPost(
@@ -277,182 +291,153 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 if (response.isSuccessful) {
                     val body = response.body()?.string()
                     Log.d("API_RESPONSE", "data is $body")
-                    var addedData: String = ""
+
                     val parsedJson = JSONObject(body)
                     val myVital = parsedJson.getJSONObject("echo").getJSONObject("myvital")
-                    val vitalMap = jsonObjectToMap(myVital)
-                    if (
-                        myVital["vmValueTemperature"].toString() != "0.0" ||
-                        myVital["vmValueRespiratoryRate"].toString() != "0" ||
-                        myVital["vmValueRbs"].toString() != "0" ||
-                        myVital["vmValueHeartRate"].toString() != "0" ||
-                        myVital["vmValueSPO2"].toString() != "0" ||
-                        myVital["vmValuePulse"].toString() != "0" ||
-                        myVital["vmValueBPDias"].toString() != "0" ||
-                        myVital["vmValueBPSys"].toString() != "0" ||
-                        myVital["weight"].toString() != "0"
-                    ) {
-                        addedData=  addedData + vitalName(vitalMap) ;
 
+                    var addedData = ""
+
+                    // Check vitals and construct summary
+                    val vitalKeys = listOf(
+                        "vmValueTemperature", "vmValueRespiratoryRate", "vmValueRbs",
+                        "vmValueHeartRate", "vmValueSPO2", "vmValuePulse",
+                        "vmValueBPDias", "vmValueBPSys", "weight"
+                    )
+
+                    val hasVitals = vitalKeys.any { key ->
+                        val value = myVital.optString(key, "0")
+                        value != "0" && value != "0.0"
                     }
 
-
-                    val symptomsList = vitalMap["symptomsList"] as? List<Map<String, Any>> ?: emptyList()
-
-
-                    if (symptomsList.isNotEmpty()) {
-                        val symptomNames = symptomsList.mapNotNull {
-                            it["symptom"]?.toString()?.takeIf { name -> name.isNotBlank() }
-                        }
-                        if (symptomNames.isNotEmpty()) {
-                            addedData += symptomNames.joinToString(", ") + ", "
-                        }
-                    }
-
-                    val fluidValue = vitalMap["fluidValue"] as? Map<String, Any> ?: emptyMap()
-                    val fluidList = fluidValue.keys.toList()
-                    if (fluidList.isNotEmpty()) {
-
-                        val temp = listOf(
-                            mapOf("name" to "water", "id" to "97694"),
-                            mapOf("name" to "milk", "id" to "76"),
-                            mapOf("name" to "green tea", "id" to "114973"),
-                            mapOf("name" to "coffee", "id" to "168"),
-                            mapOf("name" to "fruit juice", "id" to "66")
-                        )
-
-                        for (i in fluidList.indices) {
-                            val fluidName = fluidList[i].toString()
-                            val fluidAmount = fluidValue[fluidList[i]].toString()
-                            addedData += "$fluidName $fluidAmount ml, "
+                    if (hasVitals) {
+                        vitalKeys.forEach { key ->
+                            val value = myVital.optString(key, "0")
+                            if (value != "0" && value != "0.0") {
+                                val name = key.removePrefix("vmValue").replace("BPSys", "BP Systolic")
+                                    .replace("BPDias", "BP Diastolic")
+                                    .replace("Rbs", "RBS")
+                                    .replace("Pulse", "Pulse Rate")
+                                    .replace("HeartRate", "Heart Rate")
+                                    .replace("SPO2", "SpO2")
+                                    .replace("RespiratoryRate", "Respiratory Rate")
+                                    .replace("Temperature", "Temperature")
+                                    .replace("weight", "Weight")
+                                addedData += "$name $value, "
+                            }
                         }
                     }
 
-
-
-
-                    val foodList = (myVital["foodIntakeList"] as? List<Map<String, Any?>>) ?: emptyList()
-
-                    if (foodList.isNotEmpty()) {
-                        for (food in foodList) {
-                            val foodName = food["foodName"].toString()
-                            addedData += "$foodName, "
+                    // Symptoms
+                    val symptomsList = myVital.optJSONArray("symptomsList")
+                    symptomsList?.let {
+                        for (i in 0 until it.length()) {
+                            val symptomObj = it.getJSONObject(i)
+                            val symptomName = symptomObj.optString("symptom")
+                            if (symptomName.isNotBlank()) {
+                                addedData += "$symptomName, "
+                            }
                         }
                     }
 
-
-
-
-                    val medicationList = (myVital["myMedication"] as? List<Map<String, Any?>>) ?: emptyList()
-
-                    if (medicationList.isNotEmpty()) {
-                        for (medication in medicationList) {
-                            val drugName = medication["drugName"].toString()
-                            addedData += "$drugName, "
+                    // Fluids
+                    val fluidValue = myVital.optJSONObject("fluidValue")
+                    fluidValue?.let {
+                        val keys = fluidValue.keys()
+                        while (keys.hasNext()) {
+                            val key = keys.next()
+                            val value = fluidValue.optDouble(key, 0.0)
+                            if (value > 0.0) {
+                                addedData += "$key $value ml, "
+                            }
                         }
                     }
+
+                    // Food Intake
+                    val foodList = myVital.optJSONArray("foodIntakeList")
+                    foodList?.let {
+                        for (i in 0 until it.length()) {
+                            val foodObj = it.getJSONObject(i)
+                            val foodName = foodObj.optString("foodName")
+                            if (foodName.isNotBlank()) {
+                                addedData += "$foodName, "
+                            }
+                        }
+                    }
+
+                    // Medications
+                    val medicationList = myVital.optJSONArray("myMedication")
+                    medicationList?.let {
+                        for (i in 0 until it.length()) {
+                            val medObj = it.getJSONObject(i)
+                            val drugName = medObj.optString("drugName")
+                            if (drugName.isNotBlank()) {
+                                addedData += "$drugName, "
+                            }
+                        }
+                    }
+
                     if (addedData.isNotEmpty()) {
-                        // Remove the trailing comma and space
                         addedData = addedData.removeSuffix(", ")
 
                         val bottomSheet = ConfirmationBottomSheet(
                             message = "Are you sure you want to save $addedData?",
                             onConfirm = {
-
-                                val hasVitals = listOf(
-                                    "vmValueTemperature",
-                                    "vmValueRespiratoryRate",
-                                    "vmValueRbs",
-                                    "vmValueHeartRate",
-                                    "vmValueSPO2",
-                                    "vmValuePulse",
-                                    "vmValueBPDias",
-                                    "vmValueBPSys",
-                                    "weight"
-                                ).any { key ->
-                                    myVital[key]?.toString() != "0" && myVital[key]?.toString() != "0.0"
-                                }
-
-
+                                // Insert vitals
                                 if (hasVitals) {
                                     insertPatientVital(
-                                        BPSys = data["vmValueBPSys"].toString(),
-                                        BPDias = data["vmValueBPDias"].toString(),
-                                        rr = data["vmValueRespiratoryRate"].toString(),
-                                        spo2 = data["vmValueSPO2"].toString(),
-                                        pr = data["vmValuePulse"].toString(),
-                                        tmp = data["vmValueTemperature"].toString(),
-                                        hr = data["vmValueHeartRate"].toString(),
-                                        weight = data["weight"].toString(),
-                                        rbs = data["vmValueRbs"].toString(),
+                                        BPSys = myVital.optString("vmValueBPSys", "0"),
+                                        BPDias = myVital.optString("vmValueBPDias", "0"),
+                                        rr = myVital.optString("vmValueRespiratoryRate", "0"),
+                                        spo2 = myVital.optString("vmValueSPO2", "0"),
+                                        pr = myVital.optString("vmValuePulse", "0"),
+                                        tmp = myVital.optString("vmValueTemperature", "0"),
+                                        hr = myVital.optString("vmValueHeartRate", "0"),
+                                        weight = myVital.optString("weight", "0"),
+                                        rbs = myVital.optString("vmValueRbs", "0"),
                                         positionId = "129"
                                     )
                                 }
 
-
-
-                                val rawSymptoms = myVital["symptomsList"] as? List<Map<String, Any?>>
-
-                                if (!rawSymptoms.isNullOrEmpty()) {
-                                    val selectedSymptoms = rawSymptoms.mapNotNull { symptom ->
-                                        val id = (symptom["id"] as? Number)?.toInt()
-                                        val name = symptom["symptom"] as? String
-
-                                        if (id != null && !name.isNullOrBlank()) {
-                                            HoldSpeakSymptomDetail(pdmID = id, details = name)
-                                        } else null
+                                // Insert symptoms
+                                symptomsList?.let {
+                                    val symptomDetails = mutableListOf<HoldSpeakSymptomDetail>()
+                                    for (i in 0 until it.length()) {
+                                        val symp = it.getJSONObject(i)
+                                        val id = symp.optInt("id", -1)
+                                        val name = symp.optString("symptom")
+                                        if (id != -1 && name.isNotBlank()) {
+                                            symptomDetails.add(HoldSpeakSymptomDetail(id, name))
+                                        }
                                     }
-
-                                    if (selectedSymptoms.isNotEmpty()) {
-                                        insertSymptoms(selectedSymptoms)
-                                    }
+                                    if (symptomDetails.isNotEmpty()) insertSymptoms(symptomDetails)
                                 }
 
-                                val fluidValueMap = (myVital["fluidValue"] as? Map<*, *>)?.filterKeys { it != null && it.toString().isNotEmpty() } ?: emptyMap()
-
-                                if (fluidValueMap.isNotEmpty()) {
-
-                                    val predefinedFluids = listOf(
-                                        mapOf("name" to "water", "id" to "97694"),
-                                        mapOf("name" to "milk", "id" to "76"),
-                                        mapOf("name" to "green tea", "id" to "114973"),
-                                        mapOf("name" to "coffee", "id" to "168"),
-                                        mapOf("name" to "fruit juice", "id" to "66")
+                                // Insert fluid intake
+                                fluidValue?.let {
+                                    val fluidMap = mapOf(
+                                        "water" to "97694",
+                                        "milk" to "76",
+                                        "green tea" to "114973",
+                                        "coffee" to "168",
+                                        "fruit juice" to "66"
                                     )
-
-                                    val fluidKeys = fluidValueMap.keys.map { it.toString() }
-
-                                    for (key in fluidKeys) {
-                                        val index = predefinedFluids.indexOfFirst { it["name"].toString() == key }
-
-                                        if (index != -1) {
-                                            val foodId = predefinedFluids[index]["id"].toString()
-                                            val quantity = fluidValueMap[key].toString()
-
-                                            // Suspend function call inside coroutine
-                                            fluidIntake(
-                                                context = context,
-                                                foodId = foodId,
-                                                givenFoodQuantity = quantity
-                                            )
+                                    for (key in fluidMap.keys) {
+                                        val value = fluidValue.optDouble(key, 0.0)
+                                        if (value > 0.0) {
+                                            fluidIntake(context, fluidMap[key]!!, value.toString())
                                         }
                                     }
                                 }
 
 
 
-
-                                // Place your save logic or API call here
                                 Toast.makeText(context, "$addedData saved successfully!", Toast.LENGTH_SHORT).show()
                             }
                         )
-
                         bottomSheet.show((context as AppCompatActivity).supportFragmentManager, "ConfirmSheet")
                     }
 
-
-                    // Parse body and update your ViewModel/UI accordingly
-                } else {
+                }  else {
                     Log.e("VoicePost", "Failed: ${response.code()}")
                 }
 
@@ -463,6 +448,42 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
+
+    private val _patientSymptomList = MutableLiveData<List<SymptomDetail>>()
+    val  patientSymptomList: LiveData<List<SymptomDetail>> get() = _patientSymptomList
+    fun getSymptoms() {
+        _loading.value = true
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "clientID" to PrefsManager().getPatient()?.clientId.toString(),
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .queryDynamicRawPost(
+                        url = ApiEndPoint().getSymptoms,
+                        params = queryParams
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, SymptomResponse::class.java)
+                    _patientSymptomList.value = parsed.responseValue
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
     fun jsonObjectToMap(json: JSONObject): Map<String, Any?> {
         val map = mutableMapOf<String, Any?>()
         val keys = json.keys()
@@ -571,7 +592,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     fun insertSymptoms(selectedSymptoms: List<HoldSpeakSymptomDetail>) {
         _loading.value = true
-
+        getSymptoms()
         viewModelScope.launch {
             try {
                 val dtDataTable = mutableListOf<Map<String, String>>()
@@ -590,6 +611,16 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         mapOf(
                             "detailID" to symptom.pdmID.toString(),
                             "detailsDate" to now,
+                            "details" to symptom.details,
+                            "isFromPatient" to "1"
+                        )
+                    )
+                }
+                patientSymptomList.value?.forEach { symptom ->
+                    dtDataTable.add(
+                        mapOf(
+                            "detailID" to symptom.detailID.toString(),
+                            "detailsDate" to symptom.detailsDate ,
                             "details" to symptom.details,
                             "isFromPatient" to "1"
                         )
@@ -615,8 +646,6 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                 if (response.isSuccessful) {
                     val context = MyApplication.appContext
-                    Toast.makeText(context, "Symptoms saved successfully!", Toast.LENGTH_SHORT).show()
-
 
 
                 } else {
@@ -660,14 +689,14 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val response = RetrofitInstance
                     .createApiService7096()
                     .dynamicRawPost(
-                        url = ApiEndPoint().savePatientOutput,
+                        url = ApiEndPoint().insertFoodIntake,
                         body = body
                     )
 
                 _loading.value = false
 
                 if (response.isSuccessful) {
-                    ToastUtils.showSuccess(context, "Fluid intake saved successfully!")
+
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }

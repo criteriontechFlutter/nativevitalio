@@ -27,27 +27,27 @@ class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
-        // Only show category title (e.g., "Drug Allergies") for the first item of each group
         holder.binding.categoryText.isVisible = !item.category.isNullOrBlank()
         holder.binding.categoryText.text = item.category
 
-        holder.binding.substanceText.text = toCamelCase(item.substance)
-        holder.binding.remarkText.text = toCamelCase(item.remark)
-        holder.binding.severityText.text = toCamelCase(item.severityLevel)
+        holder.binding.substanceText.text = item.substance?.let { toCamelCase(it) }
+        holder.binding.remarkText.text = item.remark?.let { toCamelCase(it) }
+        holder.binding.severityText.text = item.severityLevel?.let { toCamelCase(it) }
 
-        // Apply severity color
-        val severityColor = when (item.severityLevel.lowercase()) {
-            "mild" -> Color.parseColor("#FFA500")    // Orange
-            "moderate" -> Color.parseColor("#FF5722") // Deep Orange
-            "severe" -> Color.parseColor("#FF0000")   // Red
+        val severityColor = when (item.severityLevel?.lowercase()) {
+            "mild" -> Color.parseColor("#FFA500")
+            "moderate" -> Color.parseColor("#FF5722")
+            "severe" -> Color.parseColor("#FF0000")
             else -> Color.DKGRAY
         }
+
         holder.binding.severityText.setTextColor(severityColor)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<AllergyHistoryItem>() {
         override fun areItemsTheSame(oldItem: AllergyHistoryItem, newItem: AllergyHistoryItem): Boolean {
-            return oldItem.rowId == newItem.rowId
+            return oldItem.rowId != null && oldItem.rowId == newItem.rowId ||
+                    oldItem.substance == newItem.substance  // fallback match
         }
 
         override fun areContentsTheSame(oldItem: AllergyHistoryItem, newItem: AllergyHistoryItem): Boolean {

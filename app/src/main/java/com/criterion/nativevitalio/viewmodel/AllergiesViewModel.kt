@@ -2,6 +2,7 @@ package com.criterion.nativevitalio.viewmodel
 
 import PrefsManager
 import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,16 +25,20 @@ import java.util.Locale
 
 class AllergiesViewModel  :ViewModel(){
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
 
-    val _loading = MutableLiveData<Boolean>()
-    val _allergyList = MutableLiveData<List<AllergyHistoryItem>>()
+    private val _allergyList = MutableLiveData<List<AllergyHistoryItem>>()
+    val allergyList: LiveData<List<AllergyHistoryItem>> get() = _allergyList
+
     val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
 
-    val allergyTypes = MutableLiveData<List<AllergyTypeItem>>() // Final spinner list
-    val errorMessage = MutableLiveData<String>()               // For allergy type API
+    val allergyTypes = MutableLiveData<List<AllergyTypeItem>>()
 
     fun getAllergies() {
-        _loading.value = true
+        _loading.postValue(true)
+
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
@@ -55,6 +60,7 @@ class AllergiesViewModel  :ViewModel(){
                     val json = response.body()?.string()
                     if (json.isNullOrEmpty()) {
                         _errorMessage.postValue("Empty response")
+                        _loading.postValue(false)
                         return@launch
                     }
 
@@ -68,7 +74,14 @@ class AllergiesViewModel  :ViewModel(){
                         val historyItems: List<AllergyHistoryItem> = Gson().fromJson(group.jsonHistory, itemType)
 
                         historyItems.forEachIndexed { index, item ->
-                            allItems.add(item.copy(category = if (index == 0) group.parameterName else null))
+                            allItems.add(
+                                item.copy(
+                                    substance = item.substance ?: "Unknown",             // ✅ fallback
+                                    remark = item.remark ?: "",
+                                    severityLevel = item.severityLevel ?: "",
+                                    category = if (index == 0) group.parameterName else null
+                                )
+                            )
                         }
                     }
 
@@ -92,7 +105,7 @@ class AllergiesViewModel  :ViewModel(){
                 val response = RetrofitInstance
                     .createApiService(includeAuthHeader = false)
                     .dynamicGet(
-                        url = "api/HistorySubCategory/GetHistorySubCategoryMasterById",
+                        url = ApiEndPoint().getHistorySubCategoryMasterById,
                         params = mapOf("CategoryId" to 23)
                     )
 
@@ -107,15 +120,15 @@ class AllergiesViewModel  :ViewModel(){
                         val data: List<AllergyTypeItem> = Gson().fromJson(jsonArray.toString(), type)
                         allergyTypes.postValue(data)
                     } else {
-                        errorMessage.postValue(parsed.getString("responseValue"))
+                        _errorMessage.postValue(parsed.getString("responseValue"))
                     }
                 } else {
-                    errorMessage.postValue("API Error: ${response.code()}")
+                    _errorMessage.postValue("API Error: ${response.code()}")
                 }
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                errorMessage.postValue("Exception: ${e.localizedMessage}")
+                _errorMessage.postValue("Exception: ${e.localizedMessage}")
             }
         }
     }
@@ -150,17 +163,24 @@ class AllergiesViewModel  :ViewModel(){
         )
 
         val encodedJson = Uri.encode(Gson().toJson(allergiesJson))
-        val url = "api/PatientIPDPrescription/SavePatientAllergies?" +
-                "uhID=${user.uhID}&clientID=${user.clientId}&allergiesJson=$encodedJson"
-
+//        val url = "api/PatientIPDPrescription/SavePatientAllergies?" +
+//                "uhID=${user.uhID}&clientID=${user.clientId}&allergiesJson=$encodedJson"
+        val params = mapOf(
+            "uhID" to user.uhID,
+            "clientID" to user.clientId,
+            "allergiesJson" to encodedJson,
+            )
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitInstance
-                    .createApiService()
-                    .dynamicRawPost(url, body = mapOf()) // Pass empty body for rawPost
+                    .createApiService(includeAuthHeader = true)
+                    .queryDynamicRawPost(
+                        url = ApiEndPoint().savePatientAllergies,
+                        params = params
+                    )
 
-                getAllergies()
+
                 withContext(Dispatchers.Main) {
 
                     if (response.isSuccessful) {
@@ -169,6 +189,7 @@ class AllergiesViewModel  :ViewModel(){
                         val jsonObject = JSONObject(data ?: "{}")
                         if (jsonObject.getInt("status") == 1) {
                             _loading.value = false
+                       getAllergies()
                             onSuccess()
                         } else {
                             _loading.value = false

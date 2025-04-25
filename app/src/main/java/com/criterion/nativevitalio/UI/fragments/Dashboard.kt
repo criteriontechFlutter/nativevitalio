@@ -31,8 +31,10 @@ import com.criterion.nativevitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.ctvitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -207,14 +209,34 @@ class Dashboard  : Fragment() {
                     true
                 }
                 R.id.nav_home -> {
-                    Toast.makeText(requireContext(), "Vitals clicked", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_reminders -> {
-                    Toast.makeText(requireContext(), "Settings clicked", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_dashboard_to_pillsReminder)
                     true
                 }
                 else -> false
+            }
+        }
+
+        viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
+            val statusText = when (status) {
+                WebSocketState.CONNECTING -> "Connecting..."
+                WebSocketState.CONNECTED -> "Connected"
+                WebSocketState.DISCONNECTED -> "Disconnected"
+                WebSocketState.ERROR -> "Connection Error"
+            }
+
+            val statusColor = when (status) {
+                WebSocketState.CONNECTED -> android.R.color.holo_green_light
+                WebSocketState.DISCONNECTED -> android.R.color.darker_gray
+                WebSocketState.ERROR -> android.R.color.holo_red_light
+                else -> android.R.color.holo_orange_light
+            }
+
+            voiceDialog?.findViewById<TextView>(R.id.websocket_status)?.apply {
+                text = statusText
+                setTextColor(ContextCompat.getColor(requireContext(), statusColor))
             }
         }
     }
@@ -234,24 +256,27 @@ class Dashboard  : Fragment() {
     }
 
     private fun connectWebSocket() {
-        val url = "ws://182.156.200.177:8002/listen?token=1"
-        val request = Request.Builder().url(url).build()
+        viewModel.setWebSocketState( WebSocketState.CONNECTING)
+
+
+        val request = Request.Builder().url(RetrofitInstance.holdSpeakWsUrl+ PrefsManager().getPatient()?.pid.toString()).build()
         val client = OkHttpClient()
 
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
+            override fun onOpen(webSocket: WebSocket, response: Response) {
+                viewModel.setWebSocketState(WebSocketState.CONNECTED)
+            }
+
             override fun onMessage(webSocket: WebSocket, text: String) {
-                super.onMessage(webSocket, text)
                 requireActivity().runOnUiThread {
-                    voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.let {
-                        it.text = "${it.text} $text"
-                    }
+                    voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.append(" $text")
                 }
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                super.onClosed(webSocket, code, reason)
-                voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.let { transcriptView ->
-                    val transcriptText = transcriptView.text.toString()
+                viewModel.setWebSocketState(WebSocketState.DISCONNECTED)
+                requireActivity().runOnUiThread {
+                    val transcriptText = voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text.toString()
                     if (transcriptText.isNotBlank()) {
                         viewModel.postAnalyzedVoiceData(requireContext(), transcriptText)
                     } else {
@@ -261,11 +286,7 @@ class Dashboard  : Fragment() {
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                println("❌ WebSocket Error: ${t.message}")
-            }
-
-            override fun onOpen(webSocket: WebSocket, response: Response) {
-                println("✅ WebSocket Connected")
+                viewModel.setWebSocketState(WebSocketState.ERROR)
             }
         })
     }
