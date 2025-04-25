@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.viewmodel.EditProfileViewModel
 import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
 import java.text.SimpleDateFormat
@@ -37,6 +38,10 @@ class EditProfile : Fragment() {
         binding.dobField.setOnClickListener {
             showDatePicker()
         }
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
         // Handle update button click
         binding.updateProfileButton.setOnClickListener {
             val name = "${binding.firstNameField.text} ${binding.lastNameField.text}"
@@ -62,7 +67,7 @@ class EditProfile : Fragment() {
             }
 
             viewModel.updateUserData(
-
+                requireContext(),
                 filePath = null,
                 name = name,
                 phone = phone,

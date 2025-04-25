@@ -1,3 +1,4 @@
+
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -126,6 +127,12 @@ object DateUtils {
     fun getTodayDateTime(): String {
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return formatter.format(Date())
+    }
+
+    fun toCamelCase(input: String): String {
+        return input.split(" ").joinToString(" ") {
+            it.lowercase().replaceFirstChar(Char::uppercaseChar)
+        }
     }
 
 

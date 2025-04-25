@@ -70,6 +70,11 @@
         </LinearLayout>
     </RelativeLayout>
 
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:scrollbars="horizontal"
+        android:layout_height="wrap_content">
     <!-- Tab Row -->
     <LinearLayout
         android:id="@+id/tabRow"
@@ -81,51 +86,142 @@
         android:padding="6dp"
         android:background="@android:color/transparent">
 
-        <TextView
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:id="@+id/tabRadiology"
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/tab_disabled"
-            android:gravity="center|center_vertical|center_horizontal"
-            android:text="Radiology"
-            android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:gravity="center_vertical">
 
-        <TextView
+            <ImageView
+                android:id="@+id/icon_radiology"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/radiology"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="Radiology Icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_radiology"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Radiology"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/greyText" />
+
+                <TextView
+                    android:id="@+id/subtitle_radiology"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 Record"
+                    android:textSize="13sp"
+                    android:textColor="@color/greyText"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:id="@+id/tabImaging"
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="2dp"
-            android:background="@drawable/tab_selected"
-            android:gravity="center"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="4dp"
-            android:text="Imaging"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:gravity="center_vertical">
 
-        <TextView
+            <ImageView
+                android:id="@+id/icon_Imaging"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/imaging"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Radiology Icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_Imaging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Imaging"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/greyText" />
+
+                <TextView
+                    android:id="@+id/subtitle_Imaging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 Record"
+                    android:textSize="13sp"
+                    android:textColor="@color/greyText"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:id="@+id/tabLab"
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/tab_disabled"
-            android:gravity="center"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="4dp"
-            android:text="Lab"
-            android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:gravity="center_vertical">
 
+            <ImageView
+                android:id="@+id/icon_Lab"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/lab"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Radiology Icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_Lab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lab"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/greyText" />
+
+                <TextView
+                    android:id="@+id/subtitle_Lab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 Record"
+                    android:textSize="13sp"
+                    android:textColor="@color/greyText"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    </HorizontalScrollView>
     <!-- Section Title -->
     <TextView
         android:layout_width="wrap_content"

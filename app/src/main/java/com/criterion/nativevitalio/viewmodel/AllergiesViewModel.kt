@@ -48,9 +48,10 @@ class AllergiesViewModel  :ViewModel(){
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     if (json.isNullOrEmpty()) {
                         _errorMessage.postValue("Empty response")
@@ -73,6 +74,7 @@ class AllergiesViewModel  :ViewModel(){
 
                     _allergyList.value = allItems
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -129,6 +131,7 @@ class AllergiesViewModel  :ViewModel(){
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
+        _loading.value = true
         val user = PrefsManager().getPatient() ?: return
 
         val allergiesJson = listOf(
@@ -161,14 +164,18 @@ class AllergiesViewModel  :ViewModel(){
                 withContext(Dispatchers.Main) {
 
                     if (response.isSuccessful) {
+                        _loading.value = false
                         val data = response.body()?.string()
                         val jsonObject = JSONObject(data ?: "{}")
                         if (jsonObject.getInt("status") == 1) {
+                            _loading.value = false
                             onSuccess()
                         } else {
+                            _loading.value = false
                             onError(jsonObject.getString("responseValue"))
                         }
                     } else {
+                        _loading.value = false
                         onError("Error: ${response.code()}")
                     }
                 }

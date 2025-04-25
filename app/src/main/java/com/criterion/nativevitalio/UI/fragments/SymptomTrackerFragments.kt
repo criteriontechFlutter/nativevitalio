@@ -40,7 +40,7 @@ class SymptomTrackerFragments : Fragment() {
         // ⏬ Update button action
         binding.btnUpdate.setOnClickListener {
             val selected = symptomList.filter { it.selection == 1 }
-            viewModel.insertSymptoms(selected)
+            viewModel.insertSymptoms(findNavController(),requireContext(),selected)
         }
 
         binding.backButton.setOnClickListener {

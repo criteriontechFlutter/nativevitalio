@@ -1,8 +1,12 @@
 package com.criterion.nativevitalio.utils
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -25,6 +29,25 @@ object ToastUtils {
 
     fun showInfo(context: Context, message: String) {
         showCustomToast(context, message, "#2196F3") // Blue
+    }
+
+
+    fun showSuccessPopup(context: Context, message: String) {
+        val dialog = Dialog(context)
+        val view = LayoutInflater.from(context).inflate(R.layout.custom_success_popup, null)
+        dialog.setContentView(view)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+      //  dialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+
+        val textView = view.findViewById<TextView>(R.id.tvPopupMessage)
+        textView.text = message
+
+        dialog.show()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (dialog.isShowing) dialog.dismiss()
+        }, 2000) // auto-hide in 2 seconds
     }
 
     @SuppressLint("InflateParams")

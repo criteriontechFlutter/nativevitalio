@@ -177,6 +177,15 @@ data class FluidOutputSummary(
 
 
 
+data class WatchModel(
+    val brand: String,
+    val model: String,
+    val watch: Int,
+
+    )
+
+
+
 
 
 
