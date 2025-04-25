@@ -306,34 +306,36 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp"
                         android:gravity="center"
-                        android:layout_marginBottom="16dp">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <TextView
-                                android:text="Urination count"
-                                android:textColor="#888"
-                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:gravity="center"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:text="Urination count"
+                                android:textColor="#888"
+                                android:textSize="14sp" />
 
                             <TextView
-                                android:text="8 times"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                android:textColor="#000"
-                                android:gravity="center"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="8 times"
+                                android:textColor="#000"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <View
@@ -343,94 +345,86 @@
 
                         <LinearLayout
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <TextView
-                                android:text="Urination volume"
-                                android:textColor="#888"
-                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:gravity="center"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:text="Urination volume"
+                                android:textColor="#888"
+                                android:textSize="14sp" />
 
                             <TextView
-                                android:text="1450 ml"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                android:textColor="#000"
-                                android:gravity="center"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="1450 ml"
+                                android:textColor="#000"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <!-- Custom draggable progress visual mimic -->
                     <RelativeLayout
-                        android:id="@+id/ovalContainer"
+                        android:id="@+id/ovalFillMeterRoot"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#F7F9FC"
-                        android:padding="24dp">
+                        android:padding="24dp"
+                        android:gravity="center_horizontal"
+                        android:background="@color/white">
 
-                        <!-- Vertical Scale Labels -->
                         <LinearLayout
-                            android:id="@+id/scaleLabels"
+                            android:id="@+id/scaleLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="300dp"
-                            android:layout_centerVertical="true"
                             android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
                             android:orientation="vertical"
-                            android:gravity="center_vertical"
-                            android:layout_marginEnd="12dp" />
+                            android:layout_marginEnd="8dp">
+                        </LinearLayout>
 
-                        <!-- Oval tank fill area -->
-                        <FrameLayout
-                            android:id="@+id/ovalFrame"
+                        <com.critetiontech.ctvitalio.utils.OvalFillMeterView
+                            android:id="@+id/ovalMeterView"
                             android:layout_width="160dp"
                             android:layout_height="300dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/oval_graph_bg">
+                            android:layout_toEndOf="@id/scaleLayout"
+                            android:layout_centerVertical="true" />
 
-                            <!-- Fill layer -->
-                            <View
-                                android:id="@+id/fillView"
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:backgroundTint="@color/scale2"
-                                android:layout_gravity="bottom"
-                                android:background="@drawable/oval_graph_bg"/> <!-- Light Amber -->
+                        <View
+                            android:id="@+id/thumbLine"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_marginStart="8dp"
+                            android:background="#FFA000"
+                            android:layout_alignTop="@id/ovalMeterView"
+                            android:layout_alignStart="@id/scaleLayout" />
 
-                            <!-- SeekBar -->
-                            <SeekBar
-                                android:id="@+id/fluidSeekBar"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:rotation="270"
-                                android:max="1000"
-                                android:progress="0"
-                                android:progressDrawable="@drawable/volume_progress_drawable"
-                                android:thumb="@drawable/ic_volume_thumb"
-                                android:layout_gravity="end" />
+                        <LinearLayout
+                            android:id="@+id/labelBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="#FFA000"
+                            android:padding="10dp"
+                            android:layout_alignTop="@id/thumbLine"
+                            android:layout_toEndOf="@id/ovalMeterView"
+                            android:layout_marginStart="16dp">
 
-                            <!-- Floating ml label -->
                             <TextView
-                                android:id="@+id/fluidLevelLabel"
+                                android:id="@+id/thumbLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0 ml"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:text="0.0"
+                                android:textColor="@color/white"
                                 android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:textColor="#FF6F00"
-                                android:layout_gravity="end"
-                                android:padding="4dp"
-                                android:background="@android:color/transparent" />
-                        </FrameLayout>
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -442,6 +436,7 @@
                         android:text="Last urination  •  1h 34m ago"
                         android:textColor="#888"
                         android:textSize="14sp"
+                        android:visibility="gone"
                         android:layout_marginVertical="8dp"
                         android:gravity="center"
                         android:layout_width="wrap_content"

@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_drawer4_to_editProfile3"
             app:destination="@id/editProfile3" />
+        <action
+            android:id="@+id/action_drawer4_to_connectSmartWatchFragment"
+            app:destination="@id/connectSmartWatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/pillsReminder"
@@ -162,5 +165,9 @@
         android:id="@+id/editProfile3"
         android:name="com.criterion.nativevitalio.UI.fragments.EditProfile"
         android:label="EditProfile" />
+    <fragment
+        android:id="@+id/connectSmartWatchFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.ConnectSmartWatchFragment"
+        android:label="ConnectSmartWatchFragment" />
 
 </navigation>

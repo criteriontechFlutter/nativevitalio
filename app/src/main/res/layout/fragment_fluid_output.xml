@@ -40,7 +40,7 @@
                     android:id="@+id/headerTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Fluid Input History"
+                    android:text="Fluid Output History"
                     android:textSize="18sp"
                     android:textStyle="normal"
                     android:textColor="#1B1C1F"

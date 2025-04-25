@@ -20,6 +20,7 @@ class otp : AppCompatActivity() {
     private lateinit var binding : ActivityOtpBinding
     private lateinit var viewModel: OtpViewModal
     lateinit var storedUHID: String
+    lateinit var mobileNo: String
     lateinit var otptext: String
     var allFilled: Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,15 +44,24 @@ class otp : AppCompatActivity() {
             if (isLoading) showLoading() else hideLoading()
         }
         storedUHID = intent.getStringExtra("UHID").toString()
+        mobileNo = intent.getStringExtra("mobileNo").toString()
         setupOtpInputs(storedUHID)
 
         binding.verify.setOnClickListener {
             if (allFilled){
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 viewModel.getPatientDetailsByUHID(storedUHID,"deviceToken",otptext )
 
             }
         }
+
+        binding.legalLinks.setOnClickListener {
+            viewModel.sentLogInOTPForSHFCApp(storedUHID)
+        }
+
+
+        binding.loginSubtitle.text= "Verification code sent to your Mobile $mobileNo"
 
     }
 
@@ -90,5 +100,12 @@ class otp : AppCompatActivity() {
             })
         }
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
 
 }

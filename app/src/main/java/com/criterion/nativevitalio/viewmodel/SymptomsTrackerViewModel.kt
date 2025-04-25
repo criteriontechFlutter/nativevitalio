@@ -2,17 +2,18 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
+import android.content.Context
 import android.os.Build
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -65,7 +66,11 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
     }
 
 
-    fun insertSymptoms(selectedSymptoms: List<SymptomDetail>) {
+    fun insertSymptoms(
+        navController: NavController,
+        requireContext: Context,
+        selectedSymptoms: List<SymptomDetail>
+    ) {
         _loading.value = true
 
         viewModelScope.launch {
@@ -107,13 +112,13 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
-                    val context = MyApplication.appContext
-                    Toast.makeText(context, "Symptoms saved successfully!", Toast.LENGTH_SHORT).show()
-
+                    _loading.value = false
+                    ToastUtils.showSuccessPopup(requireContext, "Symptoms updated successfully!")
                     getSymptoms() // reload updated list
+                   navController.popBackStack()     
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"

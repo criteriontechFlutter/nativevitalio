@@ -2,6 +2,8 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -53,17 +56,26 @@ class drawer : Fragment() {
             }
         }
 
+        binding.editIcon.setOnClickListener {
+            ImagePickerUtil.pickImage(requireContext(), this) { uri ->
+                binding.userImage.setImageURI(uri)
+            }
+        }
+
         binding.btnEditProfile.setOnClickListener {
 //            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            MyApplication.appContext.startActivity(intent)
-
             findNavController().navigate(R.id.action_drawer4_to_editProfile3)
         }
         binding.darkModeRow.root.setOnClickListener {
             //PrefsManager().clearPatient()
             findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
 
+        }
+
+        binding.connectSmartWatchRow.root.setOnClickListener {
+            findNavController().navigate(R.id.action_drawer4_to_connectSmartWatchFragment)
         }
 
         binding.userName.text = PrefsManager().getPatient()!!.patientName
@@ -91,6 +103,7 @@ class drawer : Fragment() {
             popupWindow.elevation = 10f
 
 
+
             // Optional: handle logout click
             popupView.findViewById<View>(R.id.logoutText).setOnClickListener { view: View? ->
                 popupWindow.dismiss()
@@ -106,13 +119,16 @@ class drawer : Fragment() {
 
                 dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.show()
-
+                val displayMetrics = Resources.getSystem().displayMetrics
+                val screenWidth = displayMetrics.widthPixels
+                val marginInPx = (40 * displayMetrics.density).toInt() // 40dp margin
+                val popupWidth = screenWidth - (2 * marginInPx)
                  // ⚙ Fix width and gravity
                 dialog.window?.setLayout(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    popupWidth,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-                dialog.window?.setGravity(Gravity.BOTTOM)
+                dialog.window?.setGravity(Gravity.CENTER_VERTICAL)
 
 // Button listeners
                 dialogView.findViewById<View>(R.id.btnCancel).setOnClickListener {
@@ -177,6 +193,12 @@ class drawer : Fragment() {
 
         binding.feedbackRow.title.text = getString(R.string.feedback)
         binding.feedbackRow.icon.setImageResource(R.drawable.ic_feedback)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        ImagePickerUtil.handleResult(requestCode, resultCode, data)
     }
 
 }

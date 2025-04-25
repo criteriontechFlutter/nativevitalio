@@ -2,8 +2,6 @@ package com.criterion.nativevitalio.viewmodel
 
 import PrefsManager
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -54,7 +52,10 @@ class AllergiesViewModel  :ViewModel(){
                         params = queryParams
                     )
 
+
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     if (json.isNullOrEmpty()) {
                         _errorMessage.postValue("Empty response")
@@ -83,18 +84,15 @@ class AllergiesViewModel  :ViewModel(){
                         }
                     }
 
-                    Log.d("ALLERGY_VM", "Parsed ${allItems.size} items")
-                    _allergyList.postValue(allItems.toList())  // ✅ new list instance
-                    _loading.postValue(false)
-
+                    _allergyList.value = allItems
                 } else {
-                    _loading.postValue(false)
-                    _errorMessage.postValue("Error: ${response.code()}")
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {
-                _loading.postValue(false)
-                _errorMessage.postValue(e.message ?: "Unknown error occurred")
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
             }
         }
@@ -145,6 +143,7 @@ class AllergiesViewModel  :ViewModel(){
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
+        _loading.value = true
         val user = PrefsManager().getPatient() ?: return
 
         val allergiesJson = listOf(
@@ -184,15 +183,19 @@ class AllergiesViewModel  :ViewModel(){
                 withContext(Dispatchers.Main) {
 
                     if (response.isSuccessful) {
+                        _loading.value = false
                         val data = response.body()?.string()
                         val jsonObject = JSONObject(data ?: "{}")
                         if (jsonObject.getInt("status") == 1) {
+                            _loading.value = false
                        getAllergies()
                             onSuccess()
                         } else {
+                            _loading.value = false
                             onError(jsonObject.getString("responseValue"))
                         }
                     } else {
+                        _loading.value = false
                         onError("Error: ${response.code()}")
                     }
                 }

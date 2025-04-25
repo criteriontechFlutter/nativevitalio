@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout?"
+        android:text="Are you sure you want to log out?"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginTop="16dp"
@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Once removed, the observer cannot be added back without using a new connection code.\nDo you wish to proceed?"
+        android:text="You will be signed out of your account and need to log in again to continue."
         android:textSize="14sp"
         android:layout_marginTop="8dp"
         android:gravity="center"

@@ -14,7 +14,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.ConnectionAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentConnectionBinding
@@ -47,6 +50,10 @@ class Connection: Fragment() {
         binding.btnAddVitalManually.setOnClickListener {
             showManualVitalDialog(vitalType)
         }
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
+
 
         binding.backButton.setOnClickListener(){
 
@@ -168,14 +175,14 @@ class Connection: Fragment() {
 //                selectedPositionText.text = "Position: $remark"
 
                 when (vitalType) {
-                    "Blood Pressure" -> viewModel.insertPatientVital(sysInput.text.toString(), diaInput.text.toString(), positionId.toString())
-                    "Respiratory Rate" -> viewModel.insertPatientVital(rr = rrInput.text.toString(), positionId = positionId.toString())
-                    "Blood Oxygen (SpO2)" -> viewModel.insertPatientVital(spo2 = spo2Input.text.toString(), positionId = positionId.toString())
-                    "Heart Rate" -> viewModel.insertPatientVital(hr = heartRateInput.text.toString(), positionId = positionId.toString())
-                    "Body Temperature" -> viewModel.insertPatientVital(tmp = tempInput.text.toString(), positionId = positionId.toString())
-                    "RBS" -> viewModel.insertPatientVital(rbs = rbsInput.text.toString(), positionId = positionId.toString())
-                    "Pulse" -> viewModel.insertPatientVital(weight = pulseInput.text.toString(), positionId = positionId.toString())
-                    "Body Weight" -> viewModel.insertPatientVital(weight = weightInput.text.toString(), positionId = positionId.toString())
+                    "Blood Pressure" -> viewModel.insertPatientVital(findNavController(),requireContext(),sysInput.text.toString(), diaInput.text.toString(), positionId.toString())
+                    "Respiratory Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),rr = rrInput.text.toString(), positionId = positionId.toString())
+                    "Blood Oxygen (SpO2)" -> viewModel.insertPatientVital(findNavController(),requireContext(),spo2 = spo2Input.text.toString(), positionId = positionId.toString())
+                    "Heart Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),hr = heartRateInput.text.toString(), positionId = positionId.toString())
+                    "Body Temperature" -> viewModel.insertPatientVital(findNavController(),requireContext(),tmp = tempInput.text.toString(), positionId = positionId.toString())
+                    "RBS" -> viewModel.insertPatientVital(findNavController(),requireContext(),rbs = rbsInput.text.toString(), positionId = positionId.toString())
+                    "Pulse" -> viewModel.insertPatientVital(findNavController(),requireContext(),weight = pulseInput.text.toString(), positionId = positionId.toString())
+                    "Body Weight" -> viewModel.insertPatientVital(findNavController(),requireContext(),weight = weightInput.text.toString(), positionId = positionId.toString())
                 }
 
             }

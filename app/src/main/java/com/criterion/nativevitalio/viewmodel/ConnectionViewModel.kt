@@ -2,9 +2,12 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
@@ -22,6 +25,8 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
     fun insertPatientVital(
+        navController: NavController,
+        requireContext:Context,
         BPSys: String?= "0",
         BPDias: String?= "0",
         rr: String? = "0",
@@ -37,7 +42,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "userId" to 0,
+                    "userId" to PrefsManager().getPatient()!!.pid,
                     "vmValueBPSys" to BPSys.toString(),
                     "vmValueBPDias" to BPDias.toString(),
                     "vmValueRespiratoryRate" to rr.toString(),
@@ -63,11 +68,15 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
+                    ToastUtils.showSuccessPopup(requireContext,"Vital Added Successfully!")
+                    navController.popBackStack()
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

@@ -68,7 +68,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/bottomCard"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardElevation="8dp"
@@ -271,6 +271,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Resend OTP "
+                        android:id="@+id/resendOtpText"
                         android:textColor="@color/primaryBlue"
                         android:textSize="12sp" />
 

@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.SymptomAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSymtomsBinding
@@ -44,9 +46,11 @@ class SymptomsFragment : Fragment() {
         viewModel.getAllSuggestedProblem()
         viewModel.getSymptoms()
 
-
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
         binding.saveSymptomsBtn.setOnClickListener(){
-            viewModel.insertSymptoms();
+            viewModel.insertSymptoms(findNavController(),requireContext());
         }
 
         binding.backButton.setOnClickListener(){
@@ -66,7 +70,7 @@ class SymptomsFragment : Fragment() {
             if (selected.isEmpty() && searched.isEmpty()) {
                 findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
             } else {
-                viewModel.insertSymptoms()
+                viewModel.insertSymptoms(findNavController(), requireContext())
 
                 // OR: If you want to navigate immediately (not recommended if insert fails)
                 // findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)

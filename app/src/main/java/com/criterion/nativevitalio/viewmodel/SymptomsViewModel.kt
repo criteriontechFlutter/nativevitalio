@@ -2,18 +2,20 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
+import android.content.Context
 import android.os.Build
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.ProblemWithIcon
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
@@ -62,13 +64,15 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _patientSymptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -100,13 +104,15 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
                     _symptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -138,14 +144,16 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
                     val symptomsList: List<ProblemWithIcon> = parsed.responseValue
                     _moreSymptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -181,13 +189,15 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                         body = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
                     _searchSymptomList.value = parsed.responseValue
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
@@ -202,7 +212,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
 
 // &clientID=${userRepository.getUser.clientId.toString()}',
 
-fun insertSymptoms( ) {
+fun insertSymptoms(findNavController: NavController, requireContext: Context) {
         _loading.value = true
         viewModelScope.launch {
             try {
@@ -267,18 +277,19 @@ fun insertSymptoms( ) {
                         params = queryParams
                     )
 
-                _loading.value = false
+
 
                 if (response.isSuccessful) {
-                    val context = MyApplication.appContext
-                    Toast.makeText(context, "Symptom saved successfully!!", Toast.LENGTH_SHORT).show()
-
+                    _loading.value = false
+                    ToastUtils.showSuccessPopup(requireContext, "Symptom saved successfully!!")
                     getSymptoms()
                     _selectedSymptoms.value = mutableListOf()
                     _searchSelectedSymptomList.value = mutableListOf()
                     val json = response.body()?.string()
+                    findNavController.navigate(R.id.action_symptomsFragment_to_symptomHistory)
 
                 } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

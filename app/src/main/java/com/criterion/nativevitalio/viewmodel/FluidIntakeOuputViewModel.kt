@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.viewmodel
 import DateUtils
 import PrefsManager
 import android.app.Application
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -23,7 +24,6 @@ import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
 import com.critetiontech.ctvitalio.model.ManualFoodItem
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -35,8 +35,12 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
     val recommended: LiveData<Int> = _recommended
 
 
-    private val _progressOutput = MutableLiveData(25)
-    val progressOutput: LiveData<Int> = _progressOutput
+    private val _selectFluidIntakeVolume = MutableLiveData(0.0)
+    val selectFluidIntakeVolume: LiveData<Double> = _selectFluidIntakeVolume
+
+
+    private val _progressOutput = MutableLiveData(25.0)
+    val progressOutput: LiveData<Double> = _progressOutput
 
     private val _selectedColor = MutableLiveData("")
     val selectedColor: LiveData<String> = _selectedColor
@@ -104,6 +108,11 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
     }
 
+    fun setSelectedFluidIntakeVolume(item: Double) {
+        _selectFluidIntakeVolume.value = item
+
+    }
+
    fun setSelectedIntakeButton(item: Boolean){
         _selectedIntakeButton.value=item
     }
@@ -113,7 +122,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
         _selectedColor.value = item
 
     }
-    fun setSelectedOutputProgress(progress:Int){
+    fun setSelectedOutputProgress(progress:Double){
         _progressOutput.value=progress
     }
 
@@ -340,7 +349,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
 
 
-    fun insertFluidOutPut() {
+    fun insertFluidOutPut(requireContext: Context) {
         viewModelScope.launch {
             try {
                 _loading.value = true
@@ -366,12 +375,59 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
                 if (response.isSuccessful) {
                     _loading.value = false
+                    ToastUtils.showSuccessPopup(requireContext, "Output Saved Successfully!")
 
-                    ToastUtils.showSuccess(MyApplication.appContext, "Output Saved Successfully!")
                 } else {
                     _loading.value = false
 
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
 
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    fun insertFluidIntake(requireContext: Context) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf(
+                    "givenQuanitityInGram" to '0',
+                "uhid" to PrefsManager().getPatient()!!.uhID,
+                "foodId" to _selectedFluid.value!!.foodID, // Required(fixed)
+                "pmId" to '0',
+                "givenFoodQuantity" to _selectFluidIntakeVolume.value!!.toDouble(), //Required
+                "givenFoodDate" to DateUtils.getTodayDateTime(), //Required
+                "givenFoodUnitID" to 27, // Required (fixed)
+                // "recommendedUserID": userRepository.getUser.admitDoctorId.toString(),
+                "recommendedUserID" to 0,
+                "jsonData" to "",
+                "fromDate" to DateUtils.getTodayDateTime(),
+                "isGiven" to '0',
+                "entryType" to "N", // Required (fixed)
+                "isFrom" to '0',
+                "dietID" to '0',
+                "userID" to PrefsManager().getPatient()!!.userId,
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7096()
+                    .dynamicRawPost(
+                        url = ApiEndPoint().savePatientIntake,
+                        body = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    ToastUtils.showSuccessPopup(requireContext, "Intake Saved Successfully!")
+                } else {
+                    _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
