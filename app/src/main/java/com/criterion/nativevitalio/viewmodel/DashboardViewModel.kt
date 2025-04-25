@@ -258,8 +258,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         )
 
         val data = mapOf(
-            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
-//            "text" to transcript,
+//            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
+            "text" to transcript,
             "userid" to patient.id.toString(),
             "uhid" to patient.uhID.toString(),
             "date" to currentDate,
