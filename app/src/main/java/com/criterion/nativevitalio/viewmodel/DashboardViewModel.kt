@@ -244,7 +244,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         )
 
         val data = mapOf(
-            "text" to transcript,
+            "text" to "fever pulse rate 74 water 100 ml ",
+//            "text" to transcript,
             "userid" to patient.id.toString(),
             "uhid" to patient.uhID.toString(),
             "date" to currentDate,
@@ -308,7 +309,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         }
                     }
 
-                    val fluidValue = myVital["fluidValue"] as? Map<String, Any> ?: emptyMap()
+                    val fluidValue = vitalMap["fluidValue"] as? Map<String, Any> ?: emptyMap()
                     val fluidList = fluidValue.keys.toList()
                     if (fluidList.isNotEmpty()) {
 
