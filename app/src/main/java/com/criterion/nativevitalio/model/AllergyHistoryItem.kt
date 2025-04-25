@@ -9,12 +9,11 @@ data class AllergyGroup(
 )
 
 data class AllergyHistoryItem(
-    val rowId: Int,
-    val remark: String,
-    val substance: String,
-    val severityLevel: String,
-    val isFromPatient: Int,
-    val category: String? = null     // ← "Drug Allergies", only for the first item in each group
+    val rowId: Int?,
+    val substance: String?,           // ✅ make nullable
+    val remark: String?,
+    val severityLevel: String?,
+    val category: String? = null      // For UI grouping
 )
 data class AllergyApiResponse<T>(
     val status: Int,

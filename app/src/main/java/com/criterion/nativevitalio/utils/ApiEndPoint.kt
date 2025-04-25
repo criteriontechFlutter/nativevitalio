@@ -7,6 +7,8 @@ class ApiEndPoint {
     val updatePatient="api/PatientRegistration/UpdatePatientProfile"
 
     val patientAllergies="api/PatientIPDPrescription/PatientAllergies"
+    val getHistorySubCategoryMasterById="api/HistorySubCategory/GetHistorySubCategoryMasterById"
+    val savePatientAllergies="api/PatientIPDPrescription/SavePatientAllergies"
 
 
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
@@ -20,6 +22,8 @@ class ApiEndPoint {
     val insertPatientMedication="api/PatientMedication/InsertPatientMedication"
 
 
+    val insertResult="api/InvestigationByPatient/InsertResult"
+    val insertPatientMediaData="api/PatientMediaData/InsertPatientMediaData"
 
     val getProblemsWithIcon="Patient/getProblemsWithIcon"
     val getAllSuggestedProblem="Patient/getAllSuggestedProblem"
@@ -34,6 +38,7 @@ class ApiEndPoint {
     val getBpRangeHistory="api/PatientVital/GetPatientVitalGraph"
     val savePatientOutput="/api/v1/output/SavePatientOutput"
     val getFluidOutputDaily="api/output/GetPatientOutputList"
+    val insertFoodIntake="api/FoodIntake/InsertFoodIntake"
 
 
 
