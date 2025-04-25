@@ -257,7 +257,7 @@ class Dashboard  : Fragment() {
 
     private fun connectWebSocket() {
         viewModel.setWebSocketState( WebSocketState.CONNECTING)
-
+        voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
 
         val request = Request.Builder().url(RetrofitInstance.holdSpeakWsUrl+ PrefsManager().getPatient()?.pid.toString()).build()
         val client = OkHttpClient()
