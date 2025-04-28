@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="voice_socket_shortcut"
+        android:enabled="true"
+        android:icon="@drawable/ic_water"
+        android:shortcutShortLabel="@string/daily"
+        android:shortcutLongLabel="@string/monthly">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.criterion.nativevitalio"
+            android:targetClass="com.criterion.nativevitalio.UI.fragments.FluidOutputFragment">
+            <extra android:name="navigate_to" android:value="voice_socket" />
+        </intent>
+    </shortcut>
+</shortcuts>
