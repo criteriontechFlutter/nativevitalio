@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,8 +6,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ActivityDashboardBinding
 
 class Home :  AppCompatActivity() {
     private lateinit var binding : ActivityDashboardBinding

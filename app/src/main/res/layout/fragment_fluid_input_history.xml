@@ -286,7 +286,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/fluid_history_item_layout" />
 
-                <com.critetiontech.ctvitalio.utils.FluidGraphView
+                <com.criterion.nativevitalio.utils.FluidGraphView
                     android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"

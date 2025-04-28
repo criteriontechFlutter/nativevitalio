@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.adapter.UploadHistoryAdapter
 import com.criterion.nativevitalio.viewmodel.UploadReportHistoryViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.FragmentUploadReportHistoryBinding
 
 class UploadReportHistory : Fragment() {
 

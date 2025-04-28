@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.criterion.nativevitalio.model.UploadedReportItem
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 
 
 class UploadHistoryAdapter(

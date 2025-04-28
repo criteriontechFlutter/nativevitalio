@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 
 object LoaderUtils {
     private var dialog: Dialog? = null

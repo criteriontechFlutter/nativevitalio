@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupfragment1
+package com.criterion.nativevitalio.UI.ui.signupfragment1
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment1ViewModel
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment1ViewModel
 
 
 class SignUpFragment1 : Fragment() {

@@ -1,17 +1,17 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.databinding.MovieLayoutBinding
-import com.critetiontech.ctvitalio.model.Result
+import com.criterion.nativevitalio.databinding.MovieLayoutBinding
+import com.criterion.nativevitalio.model.Result
 import java.util.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private var movieList = ArrayList<Result>()
     fun setMovieList(movieList: List<Any>){
-        this.movieList = movieList as ArrayList<com.critetiontech.ctvitalio.model.Result>
+        this.movieList = movieList as ArrayList<com.criterion.nativevitalio.model.Result>
         notifyDataSetChanged()
     }
     class ViewHolder(val binding : MovieLayoutBinding) : RecyclerView.ViewHolder(binding.root) {}

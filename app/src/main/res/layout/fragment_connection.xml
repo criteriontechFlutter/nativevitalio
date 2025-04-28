@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F8FAFC"
     android:padding="16dp">
 
@@ -31,24 +31,67 @@
             android:layout_marginStart="8dp" />
     </LinearLayout>
 
+    <!-- Device Container (optional display) -->
+    <LinearLayout
+        android:id="@+id/deviceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/rounded_corners"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/deviceImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/doctors" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/deviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Omron"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/deviceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Devices"
+                android:textSize="12sp"
+                android:textColor="#888888" />
+        </LinearLayout>
+    </LinearLayout>
+
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDevices"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/headerLayout"
+        android:layout_below="@id/deviceContainer"
         android:layout_above="@id/btnAddVitalManually"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp" />
 
     <!-- Bottom Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddVitalManually"
-        app:backgroundTint="@color/primaryBlue"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
         android:text="Add Vital Manually"
         android:textColor="@color/white"
-        android:background="@drawable/rounded_corners"
-        android:layout_alignParentBottom="true" />
+        app:backgroundTint="@color/primaryBlue"
+        android:background="@drawable/rounded_corners" />
 </RelativeLayout>

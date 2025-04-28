@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemSymptomTrackerBinding
-import com.critetiontech.ctvitalio.model.SymptomDetail
+import com.criterion.nativevitalio.databinding.ItemSymptomTrackerBinding
+import com.criterion.nativevitalio.model.SymptomDetail
 
 
 class SymptomsTrackerAdapter(

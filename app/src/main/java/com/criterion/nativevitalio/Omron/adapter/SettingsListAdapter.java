@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.adapter;
+package com.criterion.nativevitalio.Omron.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +7,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.critetiontech.ctvitalio.Omron.models.ReminderItem;
-import com.critetiontech.ctvitalio.R;
+
+import com.criterion.nativevitalio.Omron.models.ReminderItem;
+import com.criterion.nativevitalio.R;
 
 
 import java.util.List;

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.viewmodel.EditProfileViewModel
-import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
+import com.criterion.nativevitalio.databinding.FragmentEditProfileBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

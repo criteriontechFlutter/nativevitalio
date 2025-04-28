@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.fragments;
+package com.criterion.nativevitalio.Omron.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.critetiontech.ctvitalio.Omron.adapter.ActivityItemsListAdapter;
-import com.critetiontech.ctvitalio.Omron.models.ActivityDataItem;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.R;
+
+import com.criterion.nativevitalio.Omron.adapter.ActivityItemsListAdapter;
+import com.criterion.nativevitalio.Omron.models.ActivityDataItem;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.R;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 

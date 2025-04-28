@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import Patient
 import android.content.res.ColorStateList
@@ -16,9 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
-import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ActivityLoginBinding
+import com.criterion.nativevitalio.viewmodel.LoginViewModel
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

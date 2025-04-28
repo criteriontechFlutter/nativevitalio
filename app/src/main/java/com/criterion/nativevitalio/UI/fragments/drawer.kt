@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
 import android.annotation.SuppressLint
@@ -18,10 +18,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.criterion.nativevitalio.utils.ImagePickerUtil
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.FragmentDrawerBinding
+import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.viewmodel.LoginViewModel
 
 
 class drawer : Fragment() {
@@ -82,7 +82,7 @@ class drawer : Fragment() {
         binding.userUhid.text = PrefsManager().getPatient()!!.uhID
         Glide.with(MyApplication.appContext) // or `this` if inside Activity
             .load(PrefsManager().getPatient()!!.profileUrl) // or R.drawable.image
-            .placeholder(com.critetiontech.ctvitalio.R.drawable.baseline_person_24)
+            .placeholder(com.criterion.nativevitalio.R.drawable.baseline_person_24)
             .circleCrop() // optional: makes it circular
             .into(binding.userImage)
 

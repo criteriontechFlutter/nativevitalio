@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import Vital
 import android.content.Context
@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.PagerAdapter
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit

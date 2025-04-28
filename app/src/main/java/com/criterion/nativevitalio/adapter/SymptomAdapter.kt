@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemSymptomBinding
-import com.critetiontech.ctvitalio.interfaces.AdapterInterface
-import com.critetiontech.ctvitalio.model.ProblemWithIcon
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ItemSymptomBinding
+import com.criterion.nativevitalio.interfaces.AdapterInterface
+import com.criterion.nativevitalio.model.ProblemWithIcon
+import com.criterion.nativevitalio.utils.MyApplication
 
 class SymptomAdapter(
     private var items: List<ProblemWithIcon>,

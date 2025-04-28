@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.Omron.adapter.DataSavedDevicesListAdapter;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.Omron.utility.PreferencesManager;
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
+import com.criterion.nativevitalio.Omron.adapter.DataSavedDevicesListAdapter;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
+import com.criterion.nativevitalio.R;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 import org.json.JSONArray;
