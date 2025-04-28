@@ -37,7 +37,7 @@ public class ActivityListingActivity extends BaseActivity implements LoaderManag
 
 
         try {
-            localName = getIntent().getStringExtra(Co   nstants.extraKeys.KEY_DEVICE_LOCAL_NAME).toLowerCase();
+            localName = getIntent().getStringExtra(Constants.extraKeys.KEY_DEVICE_LOCAL_NAME).toLowerCase();
             type = getIntent().getStringExtra(Constants.bundleKeys.KEY_ACTIVITY_DATA_TYPE);
             seq = getIntent().getStringExtra(Constants.bundleKeys.KEY_ACTIVITY_DATA_SEQ);
             date = getIntent().getStringExtra(Constants.bundleKeys.KEY_ACTIVITY_DATA_DATE);

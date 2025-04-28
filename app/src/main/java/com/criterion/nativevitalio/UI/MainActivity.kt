@@ -1,16 +1,13 @@
 package com.critetiontech.ctvitalio.UI
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ProgressBar
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.signupfragment1.SignUpFragment1
+import com.critetiontech.ctvitalio.UI.fragments.FluidFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +27,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
         // Observe progress changes and update progress bar
+
+        val destination = intent?.getStringExtra("navigate_to")
+        if (destination == "voice_socket") {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FluidFragment())
+                .commit()
+        }
 
     }
 
