@@ -422,6 +422,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="voiceFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="527" />
+                            <option name="y" value="-175" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                 </map>
               </option>
             </LayoutPositions>

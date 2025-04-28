@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import ChatAdapter
 import android.os.Bundle
@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.databinding.FragmentChatBinding
-import com.criterion.nativevitalio.viewmodel.ChatViewModel
+import com.criterion.nativevitalio.utils.ToastUtils
+import com.critetiontech.ctvitalio.databinding.FragmentChatBinding
+import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
 
 
 class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
-
     private lateinit var viewModel: ChatViewModel
     private lateinit var adapter: ChatAdapter
 
@@ -35,19 +35,29 @@ class ChatFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[ChatViewModel::class.java]
 
+        viewModel.getMessages()
+
         // Observe chat messages
         activity?.let {
             viewModel.messages.observe(it) { messageList ->
-                adapter = ChatAdapter(messageList)
+                adapter = ChatAdapter(messageList.reversed())
                 binding.chatRecycler.layoutManager = LinearLayoutManager(context)
                 binding.chatRecycler.adapter = adapter
                 binding.chatRecycler.scrollToPosition(messageList.size - 1)
             }
         }
 
-        binding.messageBox.setOnEditorActionListener { _, _, _ ->
-            sendMessage()
-            true
+
+
+        binding.voiceBtn.setOnClickListener {
+            if(binding.messageBox.text.isEmpty()){
+                ToastUtils.showInfo(requireContext(),"Please type message")
+            }else{
+                viewModel.sentMessages(requireContext(),"",binding.messageBox.text.toString())
+                binding.messageBox.clearFocus()
+            }
+
+
         }
 
         binding.chatToolbar.setNavigationOnClickListener {
