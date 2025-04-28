@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 
-import com.critetiontech.ctvitalio.Omron.utility.PreferencesManager;
-import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+
+import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
+import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.criterion.nativevitalio.R;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 

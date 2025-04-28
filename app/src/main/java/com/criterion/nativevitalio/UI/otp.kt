@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -11,9 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityOtpBinding
-import com.critetiontech.ctvitalio.viewmodel.OtpViewModal
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ActivityOtpBinding
+import com.criterion.nativevitalio.viewmodel.OtpViewModal
 
 class otp : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -18,12 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.critetiontech.ctvitalio.Omron.adapter.ReminderListAdapter;
-import com.critetiontech.ctvitalio.Omron.models.PeripheralDevice;
-import com.critetiontech.ctvitalio.Omron.utility.PreferencesManager;
-import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
-
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.Omron.adapter.ReminderListAdapter;
+import com.criterion.nativevitalio.Omron.models.PeripheralDevice;
+import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
+import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.criterion.nativevitalio.R;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 import org.json.JSONException;

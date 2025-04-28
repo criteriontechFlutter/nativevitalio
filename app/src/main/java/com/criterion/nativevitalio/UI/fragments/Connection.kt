@@ -1,5 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +17,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.criterion.nativevitalio.Omron.Activities.ScanActivity
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.ConnectionAdapter
+import com.criterion.nativevitalio.databinding.FragmentConnectionBinding
+import com.criterion.nativevitalio.model.VitalDevice
+import com.criterion.nativevitalio.model.VitalPosition
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.ConnectionAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentConnectionBinding
-import com.critetiontech.ctvitalio.model.VitalDevice
-import com.critetiontech.ctvitalio.model.VitalPosition
-import com.critetiontech.ctvitalio.viewmodel.ConnectionViewModel
+import com.criterion.nativevitalio.viewmodel.ConnectionViewModel
 
 class Connection: Fragment() {
 
@@ -41,17 +43,35 @@ class Connection: Fragment() {
 
         val vitalType = arguments?.getString("vitalType") ?: "Blood Pressure"
         viewModel = ViewModelProvider(this)[ConnectionViewModel::class.java]
+        val showContainer = shouldShowContainerFor(vitalType)
+
+
+        binding.deviceContainer.visibility = if (showContainer) View.VISIBLE else View.GONE
+
 
         val devices = getFilteredDevices(vitalType)
-        adapter = ConnectionAdapter(devices)
+        adapter = ConnectionAdapter(devices) { selectedDevice ->
+            val bundle = Bundle().apply {
+                putString("deviceName", selectedDevice.name)
+            }
+            findNavController().navigate(R.id.action_connection_to_devicesConnectivity, bundle)
+        }
         binding.recyclerViewDevices.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewDevices.adapter = adapter
+
 
         binding.btnAddVitalManually.setOnClickListener {
             showManualVitalDialog(vitalType)
         }
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
+        }
+
+        binding.deviceContainer.setOnClickListener(){
+            val intent = Intent(requireContext(), ScanActivity::class.java)
+            startActivity(intent)
+
+
         }
 
 
@@ -61,10 +81,20 @@ class Connection: Fragment() {
         }
 
     }
-
+    private fun shouldShowContainerFor(vitalType: String?): Boolean {
+        val typeKey = when (vitalType) {
+            "Blood Pressure" -> "bp"
+            "Blood Oxygen (SpO2)" -> "spo2"
+            "Body Weight" -> "weight"
+            else -> null
+        }
+        return typeKey != null
+    }
     private fun getFilteredDevices(vitalType: String?): List<VitalDevice> {
         val allDevices = listOf(
-            VitalDevice(0, true, "yonker", "YK-81C", "Oximeter", "yonker_oxi", "YK-81C", "cdeacd80-...", "cdeacd81-...", false, listOf("spo2", "bp")),
+            VitalDevice(0, true, "OxySmart", "YK-81C",
+                "Oximeter", "yonker_oxi", "YK-81C",
+                "cdeacd80-...", "cdeacd81-...", false, listOf("spo2", "bp")),
             VitalDevice(1, true, "device2", "YK-81C", "Oximeter", "yonker_oxi", "YK-81C", "cdeacd80-...", "cdeacd81-...", false, listOf("rr", "bp"))
         )
         val typeKey = when (vitalType) {

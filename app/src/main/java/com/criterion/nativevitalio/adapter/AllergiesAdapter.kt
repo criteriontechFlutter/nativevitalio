@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.model.AllergyHistoryItem
-import com.critetiontech.ctvitalio.databinding.ItemAllergyCardBinding
+import com.criterion.nativevitalio.databinding.ItemAllergyCardBinding
 
 
 class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHolder>(

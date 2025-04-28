@@ -122,6 +122,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="devicesConnectivity">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="104" />
+                            <option name="y" value="941" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="dietChecklist">
                     <value>
                       <LayoutPositions>
@@ -146,6 +158,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_drawer4_to_allergies3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_drawer4_to_connectSmartWatchFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

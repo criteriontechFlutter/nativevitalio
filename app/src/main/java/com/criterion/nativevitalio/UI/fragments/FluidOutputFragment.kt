@@ -17,9 +17,9 @@ import com.criterion.nativevitalio.adapter.FluidOutputHistoryAdapter
 import com.criterion.nativevitalio.adapter.FluidOutputRangeAdapter
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentFluidOutputBinding
-import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.FragmentFluidOutputBinding
+import com.criterion.nativevitalio.viewmodel.FluidIntakeOuputViewModel
 
 
 class FluidOutputFragment : Fragment() {

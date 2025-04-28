@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.fragments;
+package com.criterion.nativevitalio.Omron.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.Omron.adapter.SleepDataListAdapter;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
+import com.criterion.nativevitalio.Omron.adapter.SleepDataListAdapter;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.R;
 
 /**
  * Created by Omron HealthCare Inc

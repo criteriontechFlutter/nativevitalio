@@ -11,7 +11,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.ResponseBody

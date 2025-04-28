@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.criterion.nativevitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
@@ -10,12 +10,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.ProblemWithIcon
-import com.critetiontech.ctvitalio.model.SymptomDetail
-import com.critetiontech.ctvitalio.model.SymptomResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.model.ProblemWithIcon
+import com.criterion.nativevitalio.model.SymptomDetail
+import com.criterion.nativevitalio.model.SymptomResponse
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 

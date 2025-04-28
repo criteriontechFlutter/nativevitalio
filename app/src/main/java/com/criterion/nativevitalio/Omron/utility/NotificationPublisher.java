@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.utility;
+package com.criterion.nativevitalio.Omron.utility;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

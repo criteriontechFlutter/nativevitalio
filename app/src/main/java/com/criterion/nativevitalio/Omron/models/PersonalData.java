@@ -1,10 +1,10 @@
-package com.critetiontech.ctvitalio.Omron.models;
+package com.criterion.nativevitalio.Omron.models;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
+import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 public class PersonalData {

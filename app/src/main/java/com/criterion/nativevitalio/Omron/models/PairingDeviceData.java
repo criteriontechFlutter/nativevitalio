@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.Omron.models;
+package com.criterion.nativevitalio.Omron.models;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.critetiontech.ctvitalio.Omron.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.SharedManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Model.OmronPeripheral;

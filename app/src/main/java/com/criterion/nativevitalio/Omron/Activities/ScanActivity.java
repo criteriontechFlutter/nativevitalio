@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,14 +20,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
-import com.critetiontech.ctvitalio.Omron.adapter.ScannedDevicesAdapter;
-import com.critetiontech.ctvitalio.Omron.models.PairingDeviceData;
-import com.critetiontech.ctvitalio.Omron.utility.Callback;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.Omron.utility.dataListData;
-import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.criterion.nativevitalio.Omron.adapter.ScannedDevicesAdapter;
+import com.criterion.nativevitalio.Omron.models.PairingDeviceData;
+import com.criterion.nativevitalio.Omron.utility.Callback;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.Omron.utility.dataListData;
+import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.criterion.nativevitalio.R;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectListener;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;
@@ -488,7 +488,7 @@ public class ScanActivity extends BaseActivity {
             notificationsAvailable.add("android.intent.action.PHONE_STATE");
             notificationsAvailable.add("com.google.android.gm");
             notificationsAvailable.add("android.provider.Telephony.SMS_RECEIVED");
-            notificationsAvailable.add(" com.critetiontech.ctvitalio");
+            notificationsAvailable.add(" com.criterion.nativevitalio");
             HashMap<String, Object> notificationSettings = new HashMap<String, Object>();
             notificationSettings.put(OmronConstants.OMRONDeviceNotificationSettingsKey, notificationsAvailable);
 

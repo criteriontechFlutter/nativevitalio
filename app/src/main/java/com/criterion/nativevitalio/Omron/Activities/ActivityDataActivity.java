@@ -1,13 +1,13 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.critetiontech.ctvitalio.Omron.fragments.ActivityDataFragment;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.Omron.fragments.ActivityDataFragment;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.R;
 
 
 /**

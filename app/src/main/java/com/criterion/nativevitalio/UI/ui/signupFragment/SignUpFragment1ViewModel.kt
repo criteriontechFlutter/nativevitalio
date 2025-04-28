@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import androidx.lifecycle.ViewModel
 

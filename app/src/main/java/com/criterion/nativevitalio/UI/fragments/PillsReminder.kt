@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
 import PillReminderAdapter
 import android.app.AlertDialog
@@ -21,10 +21,10 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentPillsReminderBinding
-import com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView
-import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.FragmentPillsReminderBinding
+import com.criterion.nativevitalio.utils.SyncedHorizontalScrollView
+import com.criterion.nativevitalio.viewmodel.PillsReminderViewModal
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
