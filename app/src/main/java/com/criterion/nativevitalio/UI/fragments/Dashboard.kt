@@ -116,6 +116,9 @@ class Dashboard  : Fragment() {
             binding.vitalsSlider.adapter = adapter
             binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
 
+
+
+
             sliderRunnable = object : Runnable {
                 override fun run() {
                     if (adapter.count > 0) {

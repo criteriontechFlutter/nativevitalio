@@ -239,48 +239,53 @@ class FluidFragment : Fragment() {
             binding.fluidRecyclerView.adapter = adapter
         }
 
-        // Observe selection to refresh UI if needed
+        // Create adapter only ONCE
+        adapter = FluidOptionAdapter(viewModel.intakeList.value ?: emptyList(), null) {
+            viewModel.setSelectedFluid(it)
+        }
+        binding.fluidRecyclerView.adapter = adapter
+
+              // Then observe selectedFluid separately
         viewModel.selectedFluid.observe(viewLifecycleOwner) { selected ->
-            adapter = FluidOptionAdapter(viewModel.intakeList.value ?: emptyList(), selected?.foodID) {
-                 viewModel.setSelectedFluid(it)
-                if(selected?.foodName.equals("Milk")){
-                    binding.milkGlassView.visibility= VISIBLE
-                    binding.waterGlassView.visibility= GONE
-                    binding.juiceGlassView.visibility= GONE
-                    binding.cupglassView.visibility= GONE
-                    binding.noFluid.visibility= GONE
-                }else if(selected?.foodName.equals("water")){
-                    binding.milkGlassView.visibility= GONE
-                    binding.waterGlassView.visibility= VISIBLE
-                    binding.juiceGlassView.visibility= GONE
-                    binding.cupglassView.visibility= GONE
-                    binding.noFluid.visibility= GONE
-                }
-                else if(selected?.foodName?.contains("Green Tea") == true){
-                    binding.milkGlassView.visibility= GONE
-                    binding.waterGlassView.visibility= GONE
-                    binding.juiceGlassView.visibility= GONE
-                    binding.cupglassView.visibility= VISIBLE
-                    binding.noFluid.visibility= GONE
-                }
-                else if(selected?.foodName.equals("Coffee")){
-                    binding.milkGlassView.visibility= GONE
-                    binding.waterGlassView.visibility= GONE
-                    binding.juiceGlassView.visibility= GONE
-                    binding.cupglassView.visibility= VISIBLE
-                    binding.noFluid.visibility= GONE
-                }
-                else if(selected?.foodName.equals("Fruit Juice")){
-                    binding.milkGlassView.visibility= GONE
-                    binding.waterGlassView.visibility= GONE
-                    binding.juiceGlassView.visibility= VISIBLE
-                    binding.cupglassView.visibility= GONE
-                    binding.noFluid.visibility= GONE
-                }
+            adapter.updateSelected(selected?.foodID)  // you need to add this in adapter
 
-
+            when {
+                selected?.foodName.equals("Milk", true) -> {
+                    binding.milkGlassView.visibility = VISIBLE
+                    binding.waterGlassView.visibility = GONE
+                    binding.juiceGlassView.visibility = GONE
+                    binding.cupglassView.visibility = GONE
+                    binding.noFluid.visibility = GONE
+                }
+                selected?.foodName.equals("Water", true) -> {
+                    binding.milkGlassView.visibility = GONE
+                    binding.waterGlassView.visibility = VISIBLE
+                    binding.juiceGlassView.visibility = GONE
+                    binding.cupglassView.visibility = GONE
+                    binding.noFluid.visibility = GONE
+                }
+                selected?.foodName?.contains("Green Tea", true) == true || selected?.foodName.equals("Coffee", true) -> {
+                    binding.milkGlassView.visibility = GONE
+                    binding.waterGlassView.visibility = GONE
+                    binding.juiceGlassView.visibility = GONE
+                    binding.cupglassView.visibility = VISIBLE
+                    binding.noFluid.visibility = GONE
+                }
+                selected?.foodName.equals("Fruit Juice", true) -> {
+                    binding.milkGlassView.visibility = GONE
+                    binding.waterGlassView.visibility = GONE
+                    binding.juiceGlassView.visibility = VISIBLE
+                    binding.cupglassView.visibility = GONE
+                    binding.noFluid.visibility = GONE
+                }
+                else -> {
+                    binding.milkGlassView.visibility = GONE
+                    binding.waterGlassView.visibility = GONE
+                    binding.juiceGlassView.visibility = GONE
+                    binding.cupglassView.visibility = GONE
+                    binding.noFluid.visibility = VISIBLE
+                }
             }
-            binding.fluidRecyclerView.adapter = adapter
         }
 
 

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_dashboard_to_uploadReportHistory2"
             app:destination="@id/uploadReportHistory" />
+        <action
+            android:id="@+id/action_dashboard_to_voiceFragment"
+            app:destination="@id/voiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -177,5 +180,9 @@
         android:id="@+id/devicesConnectivity"
         android:name="com.criterion.nativevitalio.UI.fragments.DevicesConnectivity"
         android:label="DevicesConnectivity" />
+    <fragment
+        android:id="@+id/voiceFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.VoiceFragment"
+        android:label="VoiceFragment" />
 
 </navigation>
