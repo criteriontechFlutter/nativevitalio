@@ -108,17 +108,18 @@
 
             android:id="@+id/voiceBtn"
 
-            android:layout_width="40dp"
+            android:layout_width="30dp"
 
-            android:layout_height="40dp"
+            android:padding="@dimen/_10sdp"
+            android:layout_height="30dp"
 
-            android:src="@drawable/baseline_mic_24"
+            android:background="@drawable/sent"
 
-            android:background="@android:color/transparent"
+
 
             android:contentDescription="Voice"
 
-            android:tint="#888" />
+            app:tint="#888" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

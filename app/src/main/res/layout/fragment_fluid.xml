@@ -213,6 +213,7 @@
                 <ImageView
                     android:layout_width="300dp"
                     android:layout_height="250dp"
+                    android:importantForAccessibility="no"
                     android:visibility="visible"
                     android:background="@drawable/ic_no_fluid"
                     android:id="@+id/noFluid"

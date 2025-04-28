@@ -3,15 +3,19 @@ package com.critetiontech.ctvitalio.UI
 import Patient
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
@@ -38,6 +42,8 @@ class Login : AppCompatActivity() {
         viewModel.loading.observe(this) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
+
+
 
         binding.sendOtpBtn.isEnabled = false
         // Enable button only when text is valid
@@ -132,6 +138,15 @@ class Login : AppCompatActivity() {
     override fun onStart() {
 
         super.onStart()
+
+
+        val bottomCard = findViewById<CardView>(R.id.bottomCard)
+
+        val animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            bottomCard.startAnimation(animation)
+        }, 200)
     }
 
     override fun onResume() {

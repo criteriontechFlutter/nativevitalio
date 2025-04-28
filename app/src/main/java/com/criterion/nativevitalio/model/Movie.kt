@@ -89,11 +89,6 @@ data class FluidSummaryItem(
 )
 
 
-data class ChatMessage(
-    val message: String,
-    val time: String,
-    val isUser: Boolean
-)
 
 
 
@@ -183,6 +178,34 @@ data class WatchModel(
     val watch: Int,
 
     )
+
+
+
+data class ChatResponse(
+    val status: Int,
+    val message: String,
+     val responseValue: MutableList<ChatMessage>?
+)
+
+data class ChatMessage(
+    val id: Int,
+    val groupId: Int,
+    val sendFrom: Int,
+    val sendTo: Int,
+    val message: String,
+    val fileUrl: String,
+    val fileName: String,
+    val isOnline: Int,
+    val fileLength: String,
+    val messageDay: String,
+    val chatTime: String,
+    val chatDate: String,
+    val sendFromName: String?,  // Nullable
+    val sendToName: String?,    // Nullable
+    val isPatient: Boolean,
+    val messageDateTime: String
+)
+
 
 
 

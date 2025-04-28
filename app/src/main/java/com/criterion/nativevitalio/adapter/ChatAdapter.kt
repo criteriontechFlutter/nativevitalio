@@ -24,11 +24,11 @@ class ChatAdapter(private val messages: List<ChatMessage>) :
         val chat = messages[position]
         with(holder.binding) {
             messageText.text = chat.message
-            messageTime.text = chat.time
+            messageTime.text = chat.chatTime
 
             val params = bubbleLayout.layoutParams as LinearLayout.LayoutParams
 
-            if (chat.isUser) {
+            if (chat.isPatient) {
                 bubbleLayout.setBackgroundResource(R.drawable.bubble_right)
                 params.gravity = Gravity.END
                 messageText.setTextColor(Color.BLACK)
