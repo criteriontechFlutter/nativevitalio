@@ -40,6 +40,8 @@ class ApiEndPoint {
     val savePatientIntake="api/FoodIntake/InsertFoodIntake"
     val getFluidOutputDaily="api/output/GetPatientOutputList"
     val insertFoodIntake="api/FoodIntake/InsertFoodIntake"
+    val sentMessageChat="SaveUserChat"
+    val getUserChat="GetUserChat"
 
 
 

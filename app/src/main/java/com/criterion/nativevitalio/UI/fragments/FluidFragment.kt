@@ -245,7 +245,7 @@ class FluidFragment : Fragment() {
         }
         binding.fluidRecyclerView.adapter = adapter
 
-// Then observe selectedFluid separately
+              // Then observe selectedFluid separately
         viewModel.selectedFluid.observe(viewLifecycleOwner) { selected ->
             adapter.updateSelected(selected?.foodID)  // you need to add this in adapter
 
