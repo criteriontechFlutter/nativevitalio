@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.BloodPressureLogItemBinding
-import com.critetiontech.ctvitalio.model.BloodPressureReading
+import com.criterion.nativevitalio.databinding.BloodPressureLogItemBinding
+import com.criterion.nativevitalio.model.BloodPressureReading
 
 class BPReadingAdapter(
     private val readings: List<BloodPressureReading>

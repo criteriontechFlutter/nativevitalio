@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:text="mm/Hg"
             android:textColor="#9BA1A7"
-            android:textSize="14sp"
+            android:textSize="8sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/vitalValue"
             app:layout_constraintStart_toEndOf="@id/vitalValue"

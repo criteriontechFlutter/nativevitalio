@@ -150,12 +150,12 @@
         <EditText
             android:id="@+id/sysInput"
             style="@style/StyledInput"
-            android:hint="Enter SYS (mmHg)" />
+            android:hint="Enter SYS (mm/Hg)" />
 
         <EditText
             android:id="@+id/diaInput"
             style="@style/StyledInput"
-            android:hint="Enter DIA (mmHg)" />
+            android:hint="Enter DIA (mm/Hg)" />
     </LinearLayout>
 
     <!-- RR Layout -->

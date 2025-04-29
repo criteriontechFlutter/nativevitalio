@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio
+package com.criterion.nativevitalio
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import Patient
 import android.content.res.ColorStateList
@@ -8,6 +8,7 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
@@ -17,12 +18,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ActivityLoginBinding
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
-import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
+import com.criterion.nativevitalio.viewmodel.LoginViewModel
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -65,7 +67,11 @@ class Login : AppCompatActivity() {
 
         // ✅ Observe once — not on every button click
         observeViewModel()
-
+        binding.inputField.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                scrollToView(binding.mainScrollView, binding.inputField)
+            }
+        }
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
             val phoneOrUHID = binding.inputField.text.toString().trim()
@@ -158,6 +164,10 @@ class Login : AppCompatActivity() {
 
         super.onRestart()
     }
-
+    private fun scrollToView(scrollView: NestedScrollView, view: View) {
+        scrollView.post {
+            scrollView.smoothScrollTo(0, view.top)
+        }
+    }
 }
 

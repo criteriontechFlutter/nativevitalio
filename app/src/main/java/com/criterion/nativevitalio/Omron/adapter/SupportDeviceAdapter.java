@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.adapter;
+package com.criterion.nativevitalio.Omron.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.R;
 
 
 import java.util.List;

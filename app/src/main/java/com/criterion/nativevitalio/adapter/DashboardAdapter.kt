@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import Vital
 import android.content.Context
@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.PagerAdapter
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -62,7 +62,7 @@ class DashboardAdapter(
 
         // ✅ Show values or add button
         if (vital.vitalName.equals("Blood Pressure", true)) {
-            if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mmHg", true)) {
+            if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mm/Hg", true)) {
                 valueView.visibility = View.GONE
                 unitView.visibility = View.GONE
                 addVitalButton.visibility = View.VISIBLE

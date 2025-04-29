@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -16,11 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.PermissionChecker;
 
-
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.Omron.utility.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.criterion.nativevitalio.R;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.intuit.sdp.BuildConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerRecordListener;

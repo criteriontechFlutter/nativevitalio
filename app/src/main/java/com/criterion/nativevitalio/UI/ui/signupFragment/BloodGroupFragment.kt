@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentBloodGroupBinding
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
 
 class BloodGroupFragment : Fragment() {
     private lateinit var selectedButton: Button

@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.adapter.WatchAdapter
 import com.criterion.nativevitalio.viewmodel.ConnectSmartWatchViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentConnectSmartWatchBinding
-import com.critetiontech.ctvitalio.model.WatchModel
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.FragmentConnectSmartWatchBinding
+import com.criterion.nativevitalio.model.WatchModel
 import java.util.Random
 
 

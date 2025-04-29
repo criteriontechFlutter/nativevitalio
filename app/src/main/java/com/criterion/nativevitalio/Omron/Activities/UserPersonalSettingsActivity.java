@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -21,7 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.R;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 import java.math.BigDecimal;

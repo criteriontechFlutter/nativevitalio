@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.databinding.FragmentVoiceBinding
+import com.criterion.nativevitalio.databinding.FragmentVoiceBinding
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response

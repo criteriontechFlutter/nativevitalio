@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
 import FluidAmountBottomSheet
 import PrefsManager
@@ -25,11 +25,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.FluidOptionAdapter
-import com.critetiontech.ctvitalio.adapter.GlassSizeAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentFluidBinding
-import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.FluidOptionAdapter
+import com.criterion.nativevitalio.adapter.GlassSizeAdapter
+import com.criterion.nativevitalio.databinding.FragmentFluidBinding
+import com.criterion.nativevitalio.viewmodel.FluidIntakeOuputViewModel
 
 
 class FluidFragment : Fragment() {

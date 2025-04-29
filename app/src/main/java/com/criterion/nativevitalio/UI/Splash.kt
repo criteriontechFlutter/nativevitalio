@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import PrefsManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.critetiontech.ctvitalio.utils.FCMHelper
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.criterion.nativevitalio.utils.FCMHelper
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.firebase.FirebaseApp
 
 class Splash : AppCompatActivity() {

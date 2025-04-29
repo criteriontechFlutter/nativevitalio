@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.model
+package com.criterion.nativevitalio.model
 
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName

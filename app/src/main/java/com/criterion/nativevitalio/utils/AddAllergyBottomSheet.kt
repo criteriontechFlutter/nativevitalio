@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.criterion.nativevitalio.model.AllergyTypeItem
 import com.criterion.nativevitalio.viewmodel.AllergiesViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.BottomsheetAddAllergyBinding
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.BottomsheetAddAllergyBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

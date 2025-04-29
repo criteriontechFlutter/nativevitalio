@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.UI.ui.signupfragment1
+package com.criterion.nativevitalio.UI.ui.signupfragment1
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

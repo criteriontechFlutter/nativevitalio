@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:874216638219:android:bc015933702a02d5fc040e",
         "android_client_info": {
-          "package_name": "com.critetiontech.ctvitalio"
+          "package_name": "com.criterion.nativevitalio"
         }
       },
       "oauth_client": [
@@ -55,7 +55,7 @@
           "client_id": "874216638219-bldfsnqfso73i9v33c2d2irtvncmjkma.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.critetiontech.ctvitalio",
+            "package_name": "com.criterion.nativevitalio",
             "certificate_hash": "bd0da3ec1af17049798869163c243ebee107f8d3"
           }
         },

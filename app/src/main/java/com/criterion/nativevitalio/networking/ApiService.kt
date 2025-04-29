@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.networking
+package com.criterion.nativevitalio.networking
 
 import PrefsManager
 import okhttp3.MultipartBody
