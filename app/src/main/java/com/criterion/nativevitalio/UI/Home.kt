@@ -42,7 +42,7 @@ class Home :  AppCompatActivity() {
         if (currentDestination == R.id.dashboard) {
             val currentTime = System.currentTimeMillis()
             if (currentTime - lastBackPressTime < 2000) {
-                backPressSnackbar?.dismiss() // Hide any snackbar if already showing
+                backPressSnackbar?.dismiss() // Hide any snack bar if already showing
                 finishAffinity() // Exit app
             } else {
                 lastBackPressTime = currentTime
