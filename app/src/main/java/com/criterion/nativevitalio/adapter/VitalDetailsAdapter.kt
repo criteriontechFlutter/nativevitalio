@@ -32,52 +32,103 @@ class VitalDetailsAdapter(
         NORMAL, BORDERLINE, CRITICAL
     }
 
+//    fun submitVitals(list: List<Vital>) {
+//        groupedVitals.clear()
+//
+//        val sys = list.find { it.vitalName == "BP_Sys" }
+//        val dias = list.find { it.vitalName == "BP_Dias" }
+//        if (sys != null && dias != null) {
+//            groupedVitals.add(
+//                Triple(
+//                    "Blood Pressure",
+//                    "${sys.vitalValue.toInt()}/${dias.vitalValue.toInt()} ${sys.unit}",
+//                    sys.vitalDateTime.toString()
+//                )
+//            )
+//        }
+//
+//        list.forEach { vital ->
+//            val title = when (vital.vitalName) {
+//                "HeartRate" -> "Heart Rate"
+//                "Spo2" -> "Blood Oxygen (SpO2)"
+//                "Temperature" -> "Body Temperature"
+//                "RespRate" -> "Respiratory Rate"
+//                "RBS" -> "RBS"
+//                "Pulse" -> "Pulse Rate"
+//                "Weight" -> "Body Weight"
+//                else -> null
+//            }
+//
+//            title?.let { t ->
+//                val valueText = when (vital.vitalName) {
+//                    "HeartRate" -> "${vital.vitalValue.toInt()} BPM"
+//                    "Spo2" -> "${vital.vitalValue.toInt()}%"
+//                    "Temperature" -> "${vital.vitalValue} °F"
+//                    "RespRate" -> "${vital.vitalValue.toInt()} /min"
+//                    "RBS" -> "${vital.vitalValue.toInt()} mg/dL"
+//                    "Pulse" -> "${vital.vitalValue.toInt()} /min"
+//                    "Weight" -> "${vital.vitalValue} kg"
+//                    else -> ""
+//                }
+//
+//                groupedVitals.add(Triple(t, valueText, vital.vitalDateTime.toString()))
+//            }
+//        }
+//
+//        notifyDataSetChanged()
+//    }
+
     fun submitVitals(list: List<Vital>) {
         groupedVitals.clear()
 
-        val sys = list.find { it.vitalName == "BP_Sys" }
-        val dias = list.find { it.vitalName == "BP_Dias" }
+        // Prepare a map from API list
+        val vitalMap = list.associateBy { it.vitalName }
+
+        // 1. Blood Pressure (Sys/Dias) check
+        val sys = vitalMap["BP_Sys"]
+        val dias = vitalMap["BP_Dias"]
         if (sys != null && dias != null) {
             groupedVitals.add(
                 Triple(
                     "Blood Pressure",
                     "${sys.vitalValue.toInt()}/${dias.vitalValue.toInt()} ${sys.unit}",
-                    sys.vitalDateTime.toString()
+                    sys.vitalDateTime ?: "-"
                 )
             )
+        } else {
+            groupedVitals.add(Triple("Blood Pressure", "--/-- mm/Hg", "-"))
         }
 
-        list.forEach { vital ->
-            val title = when (vital.vitalName) {
-                "HeartRate" -> "Heart Rate"
-                "Spo2" -> "Blood Oxygen (SpO2)"
-                "Temperature" -> "Body Temperature"
-                "RespRate" -> "Respiratory Rate"
-                "RBS" -> "RBS"
-                "Pulse" -> "Pulse Rate"
-                "Weight" -> "Body Weight"
-                else -> null
+        // 2. Other vitals
+        val expectedVitals = listOf(
+            "HeartRate" to "Heart Rate",
+            "Spo2" to "Blood Oxygen (spo2)",
+            "Temperature" to "Body Temperature",
+            "RespRate" to "Respiratory Rate",
+            "RBS" to "RBS",
+            "Pulse" to "Pulse Rate",
+            "Weight" to "Body Weight"
+        )
+
+        for ((vitalName, displayTitle) in expectedVitals) {
+            val vital = vitalMap[vitalName]
+            val valueText = when (vitalName) {
+                "HeartRate" -> vital?.let { "${it.vitalValue.toInt()} BPM" } ?: "-- BPM"
+                "Spo2" -> vital?.let { "${it.vitalValue.toInt()}%" } ?: "--%"
+                "Temperature" -> vital?.let { "${it.vitalValue} °F" } ?: "-- °F"
+                "RespRate" -> vital?.let { "${it.vitalValue.toInt()} /min" } ?: "-- min"
+                "RBS" -> vital?.let { "${it.vitalValue.toInt()} mg/dL" } ?: "-- mg/dL"
+                "Pulse" -> vital?.let { "${it.vitalValue.toInt()} /min" } ?: "-- /min"
+                "Weight" -> vital?.let { "${it.vitalValue} kg" } ?: "-- kg"
+                else -> "--"
             }
 
-            title?.let { t ->
-                val valueText = when (vital.vitalName) {
-                    "HeartRate" -> "${vital.vitalValue.toInt()} BPM"
-                    "Spo2" -> "${vital.vitalValue.toInt()}%"
-                    "Temperature" -> "${vital.vitalValue} °F"
-                    "RespRate" -> "${vital.vitalValue.toInt()} /min"
-                    "RBS" -> "${vital.vitalValue.toInt()} mg/dL"
-                    "Pulse" -> "${vital.vitalValue.toInt()} /min"
-                    "Weight" -> "${vital.vitalValue} kg"
-                    else -> ""
-                }
-
-                groupedVitals.add(Triple(t, valueText, vital.vitalDateTime.toString()))
-            }
+            val dateTime = vital?.vitalDateTime ?: "-"
+            groupedVitals.add(Triple(displayTitle, valueText, dateTime))
         }
 
         notifyDataSetChanged()
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VitalViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.vital_item, parent, false)
         return VitalViewHolder(view)
@@ -88,33 +139,70 @@ class VitalDetailsAdapter(
         val (title, valueText, dateTime) = groupedVitals[position]
 
         holder.vitalTitle.text = title
-        holder.vitalValue.text = valueText
-        holder.vitalTime.text = getTimeAgo(dateTime)
 
-        val status = getVitalRangeStatus(title, valueText)
+        if (dateTime == "-" || valueText.contains("--")) {
+            holder.vitalTime.text = "-"
+            holder.vitalValue.setTextColor(Color.GRAY)
+            holder.vitalValue.text = valueText  // No Spannable if missing
+        } else {
+            holder.vitalTime.text = getTimeAgo(dateTime)
 
-        holder.vitalValue.setTextColor(
-            when (status) {
-                RangeStatus.NORMAL -> colorNormal
-                RangeStatus.BORDERLINE -> colorBorderline
-                RangeStatus.CRITICAL -> colorCritical
+            // Find number part and unit part separately
+            val regex = Regex("^([\\d\\.\\/]+)\\s*(.*)$")
+            val matchResult = regex.find(valueText)
+
+            if (matchResult != null) {
+                val (numberPart, unitPart) = matchResult.destructured
+
+                val fullText = "$numberPart $unitPart"
+                val spannable = android.text.SpannableString(fullText)
+
+                val status = getVitalRangeStatus(title, valueText)
+                val color = when (status) {
+                    RangeStatus.NORMAL -> colorNormal
+                    RangeStatus.BORDERLINE -> colorBorderline
+                    RangeStatus.CRITICAL -> colorCritical
+                }
+
+                // 🎯 Color and Bold for number part
+                spannable.setSpan(
+                    android.text.style.ForegroundColorSpan(color),
+                    0,
+                    numberPart.length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                spannable.setSpan(
+                    android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    0,
+                    numberPart.length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                // 🎯 Make unit part smaller
+                spannable.setSpan(
+                    android.text.style.RelativeSizeSpan(0.7f),  // 70% size
+                    numberPart.length + 1,  // +1 for space
+                    fullText.length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                holder.vitalValue.text = spannable
+            } else {
+                holder.vitalValue.text = valueText
             }
-        )
+        }
 
         holder.vitalText.setOnClickListener {
             onVitalButtonClick(title)
         }
+
         holder.vitalLayout.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("vitalType", title)
                 putString("itemData", groupedVitals[position].toString())
             }
-            navController.navigate(R.id.action_vitalDetail_to_vitalHistoryFragment,bundle)
+            navController.navigate(R.id.action_vitalDetail_to_vitalHistoryFragment, bundle)
         }
-
-//        holder.warningIcon.visibility =
-//            if (status == RangeStatus.BORDERLINE || status == RangeStatus.CRITICAL) View.VISIBLE
-//            else View.GONE
     }
 
     override fun getItemCount(): Int = groupedVitals.size

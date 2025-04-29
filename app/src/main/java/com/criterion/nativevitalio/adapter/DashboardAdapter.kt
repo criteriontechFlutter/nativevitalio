@@ -62,7 +62,7 @@ class DashboardAdapter(
 
         // ✅ Show values or add button
         if (vital.vitalName.equals("Blood Pressure", true)) {
-            if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mmHg", true)) {
+            if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mm/Hg", true)) {
                 valueView.visibility = View.GONE
                 unitView.visibility = View.GONE
                 addVitalButton.visibility = View.VISIBLE

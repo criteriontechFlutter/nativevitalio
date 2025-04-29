@@ -9,14 +9,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.utils.ToastUtils
-import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.criterion.nativevitalio.UI.Login
 import com.criterion.nativevitalio.UI.otp
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -148,6 +147,14 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
                     _finishEvent.value = true
                 } else {
+
+                    PrefsManager().clearPatient()
+                    val intent = Intent(MyApplication.appContext, Login::class.java)
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+                    MyApplication.appContext.startActivity(intent)
+
+
+
                     _loading.value = false
                     val errorMsg = parseErrorMessage(response.errorBody())
                     ToastUtils.showFailure(MyApplication.appContext, errorMsg)

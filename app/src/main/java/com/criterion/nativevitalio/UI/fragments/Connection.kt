@@ -100,7 +100,7 @@ class Connection: Fragment() {
         val typeKey = when (vitalType) {
             "Blood Pressure" -> "bp"
             "Heart Rate" -> "hr"
-            "Blood Oxygen (SpO2)" -> "spo2"
+            "Blood Oxygen (spo2)" -> "spo2"
             "Body Temperature" -> "temp"
             "Respiratory Rate" -> "rr"
             "Pulse" -> "/min"
@@ -149,7 +149,7 @@ class Connection: Fragment() {
                 layoutBP.visibility = View.VISIBLE
             }
             "Respiratory Rate" -> rrInput.visibility = View.VISIBLE
-            "Blood Oxygen (SpO2)" -> spo2Input.visibility = View.VISIBLE
+            "Blood Oxygen (spo2)" -> spo2Input.visibility = View.VISIBLE
             "Heart Rate" -> heartRateInput.visibility = View.VISIBLE
             "Body Temperature" -> tempInput.visibility = View.VISIBLE
             "RBS" -> rbsInput.visibility = View.VISIBLE

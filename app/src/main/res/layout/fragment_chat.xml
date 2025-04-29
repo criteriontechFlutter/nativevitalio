@@ -110,7 +110,7 @@
 
             android:layout_width="30dp"
 
-            android:padding="@dimen/_10sdp"
+
             android:layout_height="30dp"
 
             android:background="@drawable/sent"

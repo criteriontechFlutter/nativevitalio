@@ -118,7 +118,8 @@ class ReportFeildsViewModel  : ViewModel(){
                 "uhid" to PrefsManager().getPatient()?.uhID.toString(),
                 "investigationDetailsJson" to Gson().toJson(tempPatientData),
                 "clientId" to PrefsManager().getPatient()?.clientId.toString(),
-                "investigationResultJson" to Gson().toJson(tempReportData)
+                "investigationResultJson" to Gson().toJson(tempReportData),
+                "userId" to PrefsManager().getPatient()?.userId.toString(),
             )
 
             val url = RetrofitInstance.DEFAULT_BASE_URL_5090 +  ApiEndPoint().insertResult
