@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ConfirmationBottomSheet(

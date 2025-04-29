@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Database;
+package com.criterion.nativevitalio.Omron.Database;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

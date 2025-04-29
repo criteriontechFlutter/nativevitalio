@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.Activities;
+package com.criterion.nativevitalio.Omron.Activities;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -6,10 +6,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.critetiontech.ctvitalio.Omron.adapter.SupportDeviceAdapter;
-import com.critetiontech.ctvitalio.Omron.utility.Constants;
-import com.critetiontech.ctvitalio.Omron.utility.dataListData;
-import com.critetiontech.ctvitalio.R;
+import com.criterion.nativevitalio.Omron.adapter.SupportDeviceAdapter;
+import com.criterion.nativevitalio.Omron.utility.Constants;
+import com.criterion.nativevitalio.Omron.utility.dataListData;
+import com.criterion.nativevitalio.R;
 
 import java.util.List;
 import java.util.Map;

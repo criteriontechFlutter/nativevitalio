@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.criterion.nativevitalio.viewmodel
 
 import DateUtils
 import PrefsManager
@@ -12,18 +12,18 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.utils.ToastUtils
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
-import com.critetiontech.ctvitalio.model.FluidOutput
-import com.critetiontech.ctvitalio.model.FluidOutputResponse
-import com.critetiontech.ctvitalio.model.FluidOutputSummary
-import com.critetiontech.ctvitalio.model.FluidOutputSummaryResponse
-import com.critetiontech.ctvitalio.model.FluidSummaryItem
-import com.critetiontech.ctvitalio.model.FluidSummaryResponse
-import com.critetiontech.ctvitalio.model.FluidType
-import com.critetiontech.ctvitalio.model.GlassSize
-import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
-import com.critetiontech.ctvitalio.model.ManualFoodItem
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.model.FluidOutput
+import com.criterion.nativevitalio.model.FluidOutputResponse
+import com.criterion.nativevitalio.model.FluidOutputSummary
+import com.criterion.nativevitalio.model.FluidOutputSummaryResponse
+import com.criterion.nativevitalio.model.FluidSummaryItem
+import com.criterion.nativevitalio.model.FluidSummaryResponse
+import com.criterion.nativevitalio.model.FluidType
+import com.criterion.nativevitalio.model.GlassSize
+import com.criterion.nativevitalio.model.ManualFoodAssignResponse
+import com.criterion.nativevitalio.model.ManualFoodItem
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch

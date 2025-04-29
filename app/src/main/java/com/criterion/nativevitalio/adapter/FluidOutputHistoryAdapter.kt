@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.FluidOutputItemLayoutBinding
-import com.critetiontech.ctvitalio.model.FluidOutput
+import com.criterion.nativevitalio.databinding.FluidOutputItemLayoutBinding
+import com.criterion.nativevitalio.model.FluidOutput
 
 class FluidOutputHistoryAdapter (
     private val items: List<FluidOutput>,

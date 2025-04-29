@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.criterion.nativevitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.VitalDevice
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.model.VitalDevice
 
-class ConnectionAdapter (private val devices: List<VitalDevice>) :
-    RecyclerView.Adapter<ConnectionAdapter.DeviceViewHolder>() {
+class ConnectionAdapter(
+    private val devices: List<VitalDevice>,
+    private val onDeviceClick: (VitalDevice) -> Unit   // <-- Add click callback
+) : RecyclerView.Adapter<ConnectionAdapter.DeviceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -26,6 +28,11 @@ class ConnectionAdapter (private val devices: List<VitalDevice>) :
         val context = holder.itemView.context
         val imageId = context.resources.getIdentifier(device.image, "drawable", context.packageName)
         holder.deviceImage.setImageResource(imageId)
+
+        // Handle click
+        holder.itemView.setOnClickListener {
+            onDeviceClick(device)   // <-- Trigger click with selected device
+        }
     }
 
     override fun getItemCount(): Int = devices.size

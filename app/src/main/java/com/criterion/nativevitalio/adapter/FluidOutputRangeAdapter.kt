@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.FluidOutputItemLayoutBinding
-import com.critetiontech.ctvitalio.model.FluidOutputSummary
+import com.criterion.nativevitalio.databinding.FluidOutputItemLayoutBinding
+import com.criterion.nativevitalio.model.FluidOutputSummary
 
 class FluidOutputRangeAdapter (
     private val items: List<FluidOutputSummary>,

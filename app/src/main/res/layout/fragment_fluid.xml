@@ -220,7 +220,7 @@
                     android:layout_gravity="center"/>
 
                 <!-- Glass animation/graphic -->
-                <com.critetiontech.ctvitalio.utils.CupGlassFilledView
+                <com.criterion.nativevitalio.utils.CupGlassFilledView
                     android:layout_width="140dp"
                     android:layout_height="250dp"
                     android:visibility="gone"
@@ -228,7 +228,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.GlassFillView
+                <com.criterion.nativevitalio.utils.GlassFillView
                     android:layout_width="140dp"
                     android:layout_height="250dp"
                     android:visibility="gone"
@@ -236,7 +236,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.JuiceView
+                <com.criterion.nativevitalio.utils.JuiceView
                     android:layout_width="140dp"
                     android:layout_height="250dp"
                     android:visibility="gone"
@@ -244,7 +244,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.MilkView
+                <com.criterion.nativevitalio.utils.MilkView
                     android:layout_width="140dp"
                     android:layout_height="250dp"
                     android:visibility="gone"
@@ -390,7 +390,7 @@
                             android:layout_marginEnd="8dp">
                         </LinearLayout>
 
-                        <com.critetiontech.ctvitalio.utils.OvalFillMeterView
+                        <com.criterion.nativevitalio.utils.OvalFillMeterView
                             android:id="@+id/ovalMeterView"
                             android:layout_width="160dp"
                             android:layout_height="300dp"

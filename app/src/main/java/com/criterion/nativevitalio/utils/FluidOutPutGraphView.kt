@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.critetiontech.ctvitalio.model.FluidOutput
+import com.criterion.nativevitalio.model.FluidOutput
 
 // FluidOutPutGraphView.kt
 // A custom view to render a scrollable line chart with ml values and time labels without any third-party dependencies

@@ -142,6 +142,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/heart_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -275,7 +276,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/blood_pressure_log_item" />
 
-                <com.critetiontech.ctvitalio.utils.FluidGraphView
+                <com.criterion.nativevitalio.utils.FluidGraphView
                     android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"

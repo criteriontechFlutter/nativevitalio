@@ -1,13 +1,13 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import NetworkUtils
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.critetiontech.ctvitalio.adapter.MovieAdapter
-import com.critetiontech.ctvitalio.databinding.ActivityMovieListBinding
-import com.critetiontech.ctvitalio.viewmodel.MovieViewModel
+import com.criterion.nativevitalio.adapter.MovieAdapter
+import com.criterion.nativevitalio.databinding.ActivityMovieListBinding
+import com.criterion.nativevitalio.viewmodel.MovieViewModel
 
 class MovieListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMovieListBinding

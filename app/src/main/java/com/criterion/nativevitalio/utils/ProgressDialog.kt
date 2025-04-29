@@ -2,7 +2,7 @@ import android.app.Dialog
 import android.content.Context
 import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
-import com.critetiontech.ctvitalio.R
+import com.criterion.nativevitalio.R
 
 class ProgressDialog private constructor(
     context: Context,

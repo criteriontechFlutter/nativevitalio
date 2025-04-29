@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
 import ChatAdapter
 import android.os.Bundle
@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.databinding.FragmentChatBinding
+import com.criterion.nativevitalio.databinding.FragmentChatBinding
 import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
 
 
@@ -50,12 +49,10 @@ class ChatFragment : Fragment() {
 
 
         binding.voiceBtn.setOnClickListener {
-            if(binding.messageBox.text.isEmpty()){
-                ToastUtils.showInfo(requireContext(),"Please type message")
-            }else{
+
                 viewModel.sentMessages(requireContext(),"",binding.messageBox.text.toString())
                 binding.messageBox.clearFocus()
-            }
+
 
 
         }

@@ -3,8 +3,8 @@ package com.criterion.nativevitalio.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemWatchBinding
-import com.critetiontech.ctvitalio.model.WatchModel
+import com.criterion.nativevitalio.databinding.ItemWatchBinding
+import com.criterion.nativevitalio.model.WatchModel
 
 class WatchAdapter(
     private val items: List<WatchModel>,

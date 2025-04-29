@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
 import Vital
@@ -28,13 +28,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.criterion.nativevitalio.utils.showRetrySnackbar
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.DashboardAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.WebSocketState
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.DashboardAdapter
+import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.viewmodel.DashboardViewModel
+import com.criterion.nativevitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request

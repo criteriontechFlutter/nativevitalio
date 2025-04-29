@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.criterion.nativevitalio.viewmodel
 
 import PillReminderModel
 import PillTime
@@ -16,12 +16,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.criterion.nativevitalio.utils.ConfirmationBottomSheet
 import com.criterion.nativevitalio.viewmodel.BaseViewModel
-import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.model.SymptomDetail
-import com.critetiontech.ctvitalio.model.SymptomResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.criterion.nativevitalio.model.DietItemModel
+import com.criterion.nativevitalio.model.SymptomDetail
+import com.criterion.nativevitalio.model.SymptomResponse
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -258,8 +258,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         )
 
         val data = mapOf(
-            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
-//            "text" to transcript,
+//            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
+            "text" to transcript,
             "userid" to patient.id.toString(),
             "uhid" to patient.uhID.toString(),
             "date" to currentDate,

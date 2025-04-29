@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.utility;
+package com.criterion.nativevitalio.Omron.utility;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -10,8 +10,8 @@ import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.criterion.nativevitalio.R;
+import com.criterion.nativevitalio.utils.MyApplication;
 
 /**
  * Created by Omron HealthCare Inc

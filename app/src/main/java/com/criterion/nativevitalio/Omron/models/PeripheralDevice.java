@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Omron.models;
+package com.criterion.nativevitalio.Omron.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

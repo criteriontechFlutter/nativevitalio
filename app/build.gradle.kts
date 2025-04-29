@@ -6,14 +6,14 @@ plugins {
 }
 
 android {
-    namespace = "com.critetiontech.ctvitalio"
+    namespace = "com.criterion.nativevitalio"
     compileSdk = 35
 
     sourceSets["main"].resources.srcDir("libs")
 
 
     defaultConfig {
-        applicationId = "com.critetiontech.ctvitalio"
+        applicationId = "com.criterion.nativevitalio"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

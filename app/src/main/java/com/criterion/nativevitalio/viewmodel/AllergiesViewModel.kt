@@ -10,8 +10,8 @@ import com.criterion.nativevitalio.model.AllergyApiResponse
 import com.criterion.nativevitalio.model.AllergyGroup
 import com.criterion.nativevitalio.model.AllergyHistoryItem
 import com.criterion.nativevitalio.model.AllergyTypeItem
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
