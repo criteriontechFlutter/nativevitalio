@@ -1,17 +1,19 @@
-package com.criterion.nativevitalio.UI
+package com.critetiontech.ctvitalio.UI
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.ActivityDashboardBinding
+import androidx.navigation.findNavController
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
+import com.google.android.material.snackbar.Snackbar
 
 class Home :  AppCompatActivity() {
     private lateinit var binding : ActivityDashboardBinding
-    private var lastBackPressTime = 0L
+    private var lastBackPressTime: Long = 0
+    private var backPressSnackbar:    Snackbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,13 +36,35 @@ class Home :  AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - lastBackPressTime < 2000) {
-            super.onBackPressed()
-            finishAffinity() // Closes all activities
+        val navController = findNavController(R.id.my_nav_host_fragment)
+        val currentDestination = navController.currentDestination?.id
+
+        if (currentDestination == R.id.dashboard) {
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastBackPressTime < 2000) {
+                backPressSnackbar?.dismiss() // Hide any snackbar if already showing
+                finishAffinity() // Exit app
+            } else {
+                lastBackPressTime = currentTime
+                showExitSnackbar()
+            }
         } else {
-            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
-            lastBackPressTime = currentTime
+            super.onBackPressed()
         }
+    }
+
+    private fun showExitSnackbar() {
+        backPressSnackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            "Press back again to exit",
+            Snackbar.LENGTH_SHORT
+        )
+        backPressSnackbar?.setBackgroundTint(getColor(R.color.primaryColor))
+        backPressSnackbar?.setTextColor(getColor(R.color.white))
+        backPressSnackbar?.setActionTextColor(getColor(R.color.white))
+        backPressSnackbar?.setAction("Exit") {
+            finishAffinity()
+        }
+        backPressSnackbar?.show()
     }
 }
