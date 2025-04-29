@@ -17,10 +17,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentDrawerBinding
+import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.viewmodel.DrawerViewModel
 import com.criterion.nativevitalio.viewmodel.LoginViewModel
 
 
@@ -29,6 +30,7 @@ class drawer : Fragment() {
 
     private lateinit var binding: FragmentDrawerBinding
     private lateinit var viewModel: LoginViewModel
+    private lateinit var drawerViewModel: DrawerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +45,7 @@ class drawer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        drawerViewModel = ViewModelProvider(this)[DrawerViewModel::class.java]
         binding.allergiesRow.root.setOnClickListener {
             findNavController().navigate(R.id.action_drawer4_to_allergies3)
 
@@ -58,6 +61,9 @@ class drawer : Fragment() {
 
         binding.editIcon.setOnClickListener {
             ImagePickerUtil.pickImage(requireContext(), this) { uri ->
+                if (uri != null) {
+                    drawerViewModel.updateUserData(requireContext(),uri.path.toString())
+                }
                 binding.userImage.setImageURI(uri)
             }
         }

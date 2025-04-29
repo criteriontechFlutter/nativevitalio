@@ -12,6 +12,7 @@ import com.criterion.nativevitalio.UI.Home
 import com.criterion.nativevitalio.UI.Login
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.networking.generateAuthHeaderMap
 import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.utils.ToastUtils
@@ -23,7 +24,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class EditProfileViewModel :ViewModel() {
+class DrawerViewModel : ViewModel() {
+
 
 
     val _loading = MutableLiveData<Boolean>()
@@ -33,14 +35,7 @@ class EditProfileViewModel :ViewModel() {
     fun updateUserData(
         requireContext: Context,
         filePath: String? = null,
-        name: String,
-        phone: String,
-        email: String,
-        dob: String,
-        address: String,
-        genderId: String,
-        height: String,
-        weight: String
+
     ) {
         _loading.value = true
         viewModelScope.launch {
@@ -53,13 +48,13 @@ class EditProfileViewModel :ViewModel() {
                 }
 
                 parts += partFromField("Pid", patient.pid)
-                parts += partFromField("PatientName", name)
+                parts += partFromField("PatientName", patient.patientName)
                 parts += partFromField("EmailID", patient.emailID)
-                parts += partFromField("GenderId", genderId)
+                parts += partFromField("GenderId", patient.genderId)
                 parts += partFromField("BloodGroupId", patient.bloodGroupId)
-                parts += partFromField("Height","%.2f".format(height.toDoubleOrNull() ?: 0.0))
-                parts += partFromField("Weight", "%.2f".format(weight.toDoubleOrNull() ?: 0.0))
-                parts += partFromField("Dob", dob)
+                parts += partFromField("Height",patient.height)
+                parts += partFromField("Weight", patient.weight)
+                parts += partFromField("Dob", patient.dob)
                 parts += partFromField("Zip",  patient.zip)
                 parts += partFromField("AgeUnitId", patient.ageUnitId)
                 parts += partFromField("Age", patient.age)
@@ -106,6 +101,7 @@ class EditProfileViewModel :ViewModel() {
                         includeAuthHeader=true)
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
+                        headers = generateAuthHeaderMap(true),
                         parts = parts
                     )
 
@@ -127,6 +123,7 @@ class EditProfileViewModel :ViewModel() {
             }
         }
     }
+
     private fun getPatientDetailsByUHID( ) {
         _loading.value = true
 

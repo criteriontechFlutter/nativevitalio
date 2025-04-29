@@ -81,6 +81,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
+
         <!-- + Add Vital Button -->
         <Button
             android:id="@+id/add_vital_button"

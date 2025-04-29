@@ -9,10 +9,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
-import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.ActivityOtpBinding
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.viewmodel.OtpViewModal
 
 class otp : AppCompatActivity() {
@@ -51,7 +51,7 @@ class otp : AppCompatActivity() {
             if (allFilled){
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                viewModel.getPatientDetailsByUHID(storedUHID,"deviceToken",otptext )
+                viewModel.getPatientDetailsByUHID(storedUHID,"deviceToken",otptext ,applicationContext)
 
             }
         }
