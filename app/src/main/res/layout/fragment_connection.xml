@@ -91,7 +91,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:text="Add Vital Manually"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/primaryBlue"
-        android:background="@drawable/rounded_corners" />
+        android:textColor="@color/primaryBlue"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/rounded_coner_gl_16" />
 </RelativeLayout>

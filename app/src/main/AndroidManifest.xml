@@ -53,16 +53,12 @@
         <activity
             android:name=".UI.Home"
             android:exported="false" />
+
         <activity
             android:name=".UI.Login"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
-
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="true" />
-        <activity
-            android:name=".UI.EditProfile"
-            android:exported="false" />
+
         <!-- android:name=".UI.MovieListActivity" -->
         <!-- android:exported="false" /> -->
         <activity

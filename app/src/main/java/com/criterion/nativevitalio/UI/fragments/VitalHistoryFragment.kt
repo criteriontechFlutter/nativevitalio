@@ -13,12 +13,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
-import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.BPReadingAdapter
 import com.criterion.nativevitalio.databinding.FragmentVitalHistoryBinding
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.viewmodel.VitalHistoryViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class VitalHistoryFragment : Fragment() {
@@ -110,6 +112,7 @@ if(vitalType=="Blood Pressure"){
                     R.id.btnDaily -> {
                         binding.btnGraphToggleLayout.visibility= View.VISIBLE
                         binding.tvSelectedDate.setText("Today")
+                        binding.heartImg.visibility= View.VISIBLE
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
 
 
@@ -117,7 +120,8 @@ if(vitalType=="Blood Pressure"){
                     R.id.btnWeekly -> {
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastWeekRange()
-                        binding.tvSelectedDate.setText("$from--$to")
+                        binding.tvSelectedDate.setText("${formatDateString(from)}--${formatDateString(to)}")
+                        binding.heartImg.visibility= View.GONE
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
 
 
@@ -126,7 +130,8 @@ if(vitalType=="Blood Pressure"){
 
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastMonthRange()
-                        binding.tvSelectedDate.setText("$from--$to")
+                        binding.heartImg.visibility= View.GONE
+                        binding.tvSelectedDate.setText("${formatDateString(from)}--${formatDateString(to)}")
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
                     }
                 }
@@ -135,6 +140,16 @@ if(vitalType=="Blood Pressure"){
 
     }
 
+    fun formatDateString(inputDate: String): String {
+        return try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+            val date = inputFormat.parse(inputDate)
+            outputFormat.format(date!!)
+        } catch (e: Exception) {
+            "-"
+        }
+    }
 
     private fun updateToggleStyles(checkedId: Int) {
         val buttons = listOf(binding.btnDaily, binding.btnWeekly,binding.btnMonthly)

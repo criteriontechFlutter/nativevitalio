@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.fragments.FluidFragment
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.UI.fragments.FluidFragment
 
 class MainActivity : AppCompatActivity() {
 
