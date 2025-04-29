@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.viewmodel.EditProfileViewModel
 import com.criterion.nativevitalio.databinding.FragmentEditProfileBinding
+import com.criterion.nativevitalio.viewmodel.EditProfileViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -88,7 +88,7 @@ class EditProfile : Fragment() {
             binding.lastNameField.setText(nameParts.getOrNull(1) ?: "")
 
             // Format date before showing
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             val displayFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Example: 20 May 2025
 
             val formattedDob = try {
@@ -101,10 +101,10 @@ class EditProfile : Fragment() {
 
             binding.dobField.setText(formattedDob)
 
-            val gender = patient.gender?.lowercase()
+            val gender = patient.genderId
             when (gender) {
-                "male" -> binding.radioMale.isChecked = true
-                "female" -> binding.radioFemale.isChecked = true
+                "1" -> binding.radioMale.isChecked = true
+                "2" -> binding.radioFemale.isChecked = true
             }
         }
     }

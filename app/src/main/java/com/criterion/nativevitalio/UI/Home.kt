@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.criterion.nativevitalio.UI
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.databinding.ActivityDashboardBinding
 import com.google.android.material.snackbar.Snackbar
 
 class Home :  AppCompatActivity() {

@@ -113,7 +113,8 @@ if(vitalType=="Blood Pressure"){
                         binding.btnGraphToggleLayout.visibility= View.VISIBLE
                         binding.tvSelectedDate.setText("Today")
                         binding.heartImg.visibility= View.VISIBLE
-                        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
+                        PrefsManager().getPatient()?.let {
+                            viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
 
 
                     }
