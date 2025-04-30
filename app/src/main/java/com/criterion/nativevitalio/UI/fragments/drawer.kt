@@ -1,7 +1,9 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
@@ -13,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,7 +26,6 @@ import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.viewmodel.DrawerViewModel
 import com.criterion.nativevitalio.viewmodel.LoginViewModel
-
 
 class drawer : Fragment() {
 
@@ -60,11 +62,19 @@ class drawer : Fragment() {
         }
 
         binding.editIcon.setOnClickListener {
+            val activity = context as? Activity
+            activity?.let {
+                ActivityCompat.requestPermissions(
+                    it,
+                    arrayOf(Manifest.permission.CAMERA),
+                    1001
+                )
+            }
             ImagePickerUtil.pickImage(requireContext(), this) { uri ->
-                if (uri != null) {
-                    drawerViewModel.updateUserData(requireContext(),uri.path.toString())
+                uri?.let {
+                    drawerViewModel.updateUserData(requireContext(), it) // PASS URI
+                    binding.userImage.setImageURI(it)
                 }
-                binding.userImage.setImageURI(uri)
             }
         }
 

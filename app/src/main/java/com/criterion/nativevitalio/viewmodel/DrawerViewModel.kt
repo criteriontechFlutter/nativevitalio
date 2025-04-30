@@ -4,6 +4,7 @@ import Patient
 import PrefsManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,6 @@ import com.criterion.nativevitalio.UI.Home
 import com.criterion.nativevitalio.UI.Login
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.networking.generateAuthHeaderMap
 import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.utils.ToastUtils
@@ -21,8 +21,9 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DrawerViewModel : ViewModel() {
 
@@ -31,31 +32,43 @@ class DrawerViewModel : ViewModel() {
     val _loading = MutableLiveData<Boolean>()
     val _updateSuccess = MutableLiveData<Boolean>()
     val _errorMessage = MutableLiveData<String>()
-
     fun updateUserData(
         requireContext: Context,
-        filePath: String? = null,
-
+        imageUri: Uri? = null,
     ) {
         _loading.value = true
+
+
         viewModelScope.launch {
             try {
                 val patient = PrefsManager().getPatient() ?: return@launch
                 val parts = mutableListOf<MultipartBody.Part>()
+
                 fun partFromField(key: String, value: String): MultipartBody.Part {
                     Log.d("UpdateProfile", "Field: $key = $value")
                     return MultipartBody.Part.createFormData(key, value)
                 }
 
+                val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()) // ✅ This is the correct pattern
+                val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+                val convertedDob = try {
+                    val parsedDate = inputFormat.parse( patient.dob)
+                    outputFormat.format(parsedDate!!)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    patient.dob // fallback
+                }
+                // 🔹 Add patient fields
                 parts += partFromField("Pid", patient.pid)
                 parts += partFromField("PatientName", patient.patientName)
                 parts += partFromField("EmailID", patient.emailID)
                 parts += partFromField("GenderId", patient.genderId)
                 parts += partFromField("BloodGroupId", patient.bloodGroupId)
-                parts += partFromField("Height",patient.height)
+                parts += partFromField("Height", patient.height)
                 parts += partFromField("Weight", patient.weight)
-                parts += partFromField("Dob", patient.dob)
-                parts += partFromField("Zip",  patient.zip)
+                parts += partFromField("Dob", convertedDob)
+                parts += partFromField("Zip", patient.zip)
                 parts += partFromField("AgeUnitId", patient.ageUnitId)
                 parts += partFromField("Age", patient.age)
                 parts += partFromField("Address", patient.address)
@@ -66,22 +79,29 @@ class DrawerViewModel : ViewModel() {
                 parts += partFromField("UserId", patient.userId)
                 parts += partFromField("ChoronicDiseasesJson", "")
                 parts += partFromField("FamilyDiseaseJson", "")
-                // Add all text fields
 
-//                parts += partFromField("ProfileURL", patient.profileUrl.replace("https://api.medvantage.tech:7082/", ""))
-
-                // Add file if present
-                filePath?.takeIf { it.isNotEmpty() }?.let {
-                    val file = File(it)
-                    val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    val filePart = MultipartBody.Part.createFormData("FormFile", file.name, requestFile)
-                    parts += filePart
-                    Log.d("UpdateProfile", "File attached: ${file.name}")
+                // 🔹 Attach image if provided (Uri-safe)
+                imageUri?.let { uri ->
+                    try {
+                        requireContext.contentResolver.openInputStream(uri)?.use { inputStream ->
+                            val bytes = inputStream.readBytes()
+                            val fileName = "profile_${System.currentTimeMillis()}.jpg"
+                            val requestFile = bytes.toRequestBody("image/*".toMediaTypeOrNull())
+                            val filePart = MultipartBody.Part.createFormData("FormFile", fileName, requestFile)
+                            parts += filePart
+                            Log.d("UpdateProfile", "Image attached: $fileName")
+                        }
+                    } catch (e: Exception) {
+                        Log.e("UpdateProfile", "Image read failed: ${e.message}", e)
+                    }
                 }
 
-                // Print final parts for debug
+                // 🔹 Log final parts (debug)
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    val dispositionHeader = part.headers?.get("Content-Disposition")
+                    val nameRegex = Regex("name=\"(.*?)\"")
+                    val fieldName = nameRegex.find(dispositionHeader ?: "")?.groupValues?.getOrNull(1) ?: "unknown"
+
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -89,25 +109,20 @@ class DrawerViewModel : ViewModel() {
                     } catch (e: Exception) {
                         "Binary or file content"
                     }
-                    val dispositionHeader = part.headers?.get("Content-Disposition")
-                    val nameRegex = Regex("name=\"(.*?)\"")
-                    val fieldName = nameRegex.find(dispositionHeader ?: "")?.groupValues?.getOrNull(1) ?: "unknown"
 
                     Log.d("UpdateProfile", "Field: $fieldName = $bodyString")
                 }
-                // API Call
+
+                // 🔹 Make API call
                 val response = RetrofitInstance
-                    .createApiService(
-                        includeAuthHeader=true)
+                    .createApiService(includeAuthHeader = true)
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
-                        headers = generateAuthHeaderMap(true),
                         parts = parts
                     )
 
                 if (response.isSuccessful) {
-                    ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
-
+                    ToastUtils.showSuccessPopup(requireContext, "Profile updated successfully!")
                     _updateSuccess.postValue(true)
                     getPatientDetailsByUHID()
                 } else {
@@ -123,6 +138,97 @@ class DrawerViewModel : ViewModel() {
             }
         }
     }
+//    fun updateUserData(
+//        requireContext: Context,
+//        filePath: String? = null,
+//
+//    ) {
+//        _loading.value = true
+//        viewModelScope.launch {
+//            try {
+//                val patient = PrefsManager().getPatient() ?: return@launch
+//                val parts = mutableListOf<MultipartBody.Part>()
+//                fun partFromField(key: String, value: String): MultipartBody.Part {
+//                    Log.d("UpdateProfile", "Field: $key = $value")
+//                    return MultipartBody.Part.createFormData(key, value)
+//                }
+//
+//                parts += partFromField("Pid", patient.pid)
+//                parts += partFromField("PatientName", patient.patientName)
+//                parts += partFromField("EmailID", patient.emailID)
+//                parts += partFromField("GenderId", patient.genderId)
+//                parts += partFromField("BloodGroupId", patient.bloodGroupId)
+//                parts += partFromField("Height",patient.height)
+//                parts += partFromField("Weight", patient.weight)
+//                parts += partFromField("Dob", patient.dob)
+//                parts += partFromField("Zip",  patient.zip)
+//                parts += partFromField("AgeUnitId", patient.ageUnitId)
+//                parts += partFromField("Age", patient.age)
+//                parts += partFromField("Address", patient.address)
+//                parts += partFromField("MobileNo", patient.mobileNo)
+//                parts += partFromField("CountryId", patient.countryId)
+//                parts += partFromField("StateId", patient.stateId)
+//                parts += partFromField("CityId", patient.cityId)
+//                parts += partFromField("UserId", patient.userId)
+//                parts += partFromField("ChoronicDiseasesJson", "")
+//                parts += partFromField("FamilyDiseaseJson", "")
+//                // Add all text fields
+//
+////                parts += partFromField("ProfileURL", patient.profileUrl.replace("https://api.medvantage.tech:7082/", ""))
+//
+//                // Add file if present
+//                filePath?.takeIf { it.isNotEmpty() }?.let {
+//                    val file = File(it)
+//                    val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+//                    val filePart = MultipartBody.Part.createFormData("FormFile", file.name, requestFile)
+//                    parts += filePart
+//                    Log.d("UpdateProfile", "File attached: ${file.name}")
+//                }
+//
+//                // Print final parts for debug
+//                parts.forEach { part ->
+//                    val headers = part.headers?.toString() ?: "No Headers"
+//                    val bodyString = try {
+//                        val buffer = okio.Buffer()
+//                        part.body.writeTo(buffer)
+//                        buffer.readUtf8()
+//                    } catch (e: Exception) {
+//                        "Binary or file content"
+//                    }
+//                    val dispositionHeader = part.headers?.get("Content-Disposition")
+//                    val nameRegex = Regex("name=\"(.*?)\"")
+//                    val fieldName = nameRegex.find(dispositionHeader ?: "")?.groupValues?.getOrNull(1) ?: "unknown"
+//
+//                    Log.d("UpdateProfile", "Field: $fieldName = $bodyString")
+//                }
+//                // API Call
+//                val response = RetrofitInstance
+//                    .createApiService(
+//                        includeAuthHeader=true)
+//                    .dynamicMultipartPut(
+//                        url = ApiEndPoint().updatePatient,
+//                        headers = generateAuthHeaderMap(true),
+//                        parts = parts
+//                    )
+//
+//                if (response.isSuccessful) {
+//                    ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
+//
+//                    _updateSuccess.postValue(true)
+//                    getPatientDetailsByUHID()
+//                } else {
+//                    Log.e("UpdateProfile", "Update failed. Code: ${response.code()}")
+//                    _errorMessage.postValue("Error: ${response.code()}")
+//                }
+//
+//            } catch (e: Exception) {
+//                Log.e("UpdateProfile", "Exception: ${e.message}", e)
+//                _errorMessage.postValue(e.message ?: "Unknown error")
+//            } finally {
+//                _loading.postValue(false)
+//            }
+//        }
+//    }
 
     private fun getPatientDetailsByUHID( ) {
         _loading.value = true
