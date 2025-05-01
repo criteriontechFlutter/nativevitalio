@@ -8,16 +8,70 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/_12sdp">
 
+        <LinearLayout
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textAlignment="center"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_selected" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_selected" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_selected" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_unselected" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/progress_unselected" />
+        </LinearLayout>
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="And what is your Blood Group?"
-            android:textSize="18sp"
+            android:text="@string/and_what_is_your_blood_group"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -36,36 +90,81 @@
 
             <Button
                 android:id="@+id/btnAplus"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/whiteDull"
                 android:text="@string/a"
-                style="@style/BloodGroupButton"/>
+
+                android:textColor="@color/black"
+                android:background="@drawable/blood_group"/>
             <Button
                 android:id="@+id/btnAminus"
-                android:text="@string/a_minus"
-                style="@style/BloodGroupButton"/>
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/gen_bg"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/a_minus"/>
             <Button
                 android:id="@+id/btnBplus"
-                android:text="@string/b_positive"
-                style="@style/BloodGroupButton"/>
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/gen_bg"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="@string/b_positive"/>
             <Button
                 android:id="@+id/btnBminus"
-                android:text="@string/b_minus"
-                style="@style/BloodGroupButton"/>
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/gen_bg"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/b_minus"/>
             <Button
                 android:id="@+id/btnABplus"
-                android:text="@string/ab_positive"
-                style="@style/BloodGroupButton"/>
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/gen_bg"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="@string/ab_positive"/>
             <Button
                 android:id="@+id/btnABminus"
-                android:text="@string/ab_minus"
-                style="@style/BloodGroupButton"/>
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/gen_bg"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/ab_minus"/>
             <Button
                 android:id="@+id/btnOplus"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
                 android:text="@string/o_positive"
-                style="@style/BloodGroupButton"/>
+                android:background="@drawable/gen_bg"/>
             <Button
                 android:id="@+id/btnOminus"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/o_minus"
-                style="@style/BloodGroupButton"/>
+                android:background="@drawable/gen_bg"/>
 
         </com.google.android.material.circularreveal.CircularRevealGridLayout>
 

@@ -36,7 +36,7 @@ class Splash : AppCompatActivity() {
             if (!currentPatientUHID.isNullOrEmpty()) {
                 startActivity(Intent(this, Home::class.java))
             } else {
-                startActivity(Intent(this, Login::class.java))
+                startActivity(Intent(this, SignupActivity::class.java))
             }
 
         } catch (e: Exception) {

@@ -3,18 +3,19 @@ package com.criterion.nativevitalio.viewmodel
 import Patient
 import PrefsManager
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.UI.Home
 import com.criterion.nativevitalio.UI.Login
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.utils.ToastUtils
-import com.criterion.nativevitalio.UI.Home
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
-    fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String) {
+    fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String,context:Context) {
 
         _loading.value = true
         viewModelScope.launch {
@@ -50,7 +51,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 if (response.isSuccessful) {
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
-                    getPatientDetailsByUHID(uhid)
+                    getPatientDetailsByUHID(uhid,context)
 
                 } else {
                     _loading.value = false
@@ -66,7 +67,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
         }
     }
 
-    private fun getPatientDetailsByUHID(uhid: String) {
+    private fun getPatientDetailsByUHID(uhid: String,context: Context) {
         _loading.value = true
 
         viewModelScope.launch {
@@ -101,9 +102,9 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                     firstPatient?.let {
                         PrefsManager( ).savePatient(it)
                         Login.storedUHID=it
-                        val intent = Intent(MyApplication.appContext, Home::class.java)
+                        val intent = Intent(context, Home::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        MyApplication.appContext.startActivity(intent)
+                        context.startActivity(intent)
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}")
                     }
 

@@ -427,7 +427,7 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_mic"
             android:background="@drawable/fab_gradient_background"
-            app:backgroundTint="@null"
+            app:backgroundTint="@color/primaryBlue"
             app:tint="@android:color/white"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"/>

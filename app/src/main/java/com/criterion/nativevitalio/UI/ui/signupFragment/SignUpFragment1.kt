@@ -1,10 +1,10 @@
 package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.criterion.nativevitalio.databinding.FragmentSignUpFragment1Binding
 
 class SignUpFragment1 : Fragment() {

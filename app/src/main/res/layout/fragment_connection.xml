@@ -85,13 +85,27 @@
         android:layout_marginBottom="8dp" />
 
     <!-- Bottom Button -->
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btnAddVitalManually"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:text="Add Vital Manually"-->
+<!--        android:textColor="@color/primaryBlue"-->
+<!--        app:strokeWidth="2dp"-->
+<!--        app:strokeColor="@color/primaryBlue"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        android:background="@drawable/rounded_coner_gl_16" />-->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddVitalManually"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
         android:text="Add Vital Manually"
         android:textColor="@color/primaryBlue"
-        app:backgroundTint="@color/white"
-        android:background="@drawable/rounded_coner_gl_16" />
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/primaryBlue"
+        android:layout_alignParentBottom="true"
+        app:cornerRadius="16dp"
+        app:backgroundTint="@color/white" />
 </RelativeLayout>
