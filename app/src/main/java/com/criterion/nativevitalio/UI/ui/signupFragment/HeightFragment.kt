@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentHeightBinding
 
 class HeightFragment : Fragment() {
@@ -21,9 +23,9 @@ class HeightFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*binding.btnNext.setOnClickListener {
 
-
-        }*/
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(R.id.action_heightFragment_to_chronicConditionFragment)
+        }
     }
 }

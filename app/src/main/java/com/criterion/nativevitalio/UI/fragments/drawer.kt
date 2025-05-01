@@ -1,7 +1,9 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import PrefsManager
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
@@ -13,22 +15,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentDrawerBinding
+import com.criterion.nativevitalio.utils.ImagePickerUtil
 import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.viewmodel.DrawerViewModel
 import com.criterion.nativevitalio.viewmodel.LoginViewModel
-
 
 class drawer : Fragment() {
 
 
     private lateinit var binding: FragmentDrawerBinding
     private lateinit var viewModel: LoginViewModel
+    private lateinit var drawerViewModel: DrawerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +47,7 @@ class drawer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        drawerViewModel = ViewModelProvider(this)[DrawerViewModel::class.java]
         binding.allergiesRow.root.setOnClickListener {
             findNavController().navigate(R.id.action_drawer4_to_allergies3)
 
@@ -57,8 +62,19 @@ class drawer : Fragment() {
         }
 
         binding.editIcon.setOnClickListener {
+            val activity = context as? Activity
+            activity?.let {
+                ActivityCompat.requestPermissions(
+                    it,
+                    arrayOf(Manifest.permission.CAMERA),
+                    1001
+                )
+            }
             ImagePickerUtil.pickImage(requireContext(), this) { uri ->
-                binding.userImage.setImageURI(uri)
+                uri?.let {
+                    drawerViewModel.updateUserData(requireContext(), it) // PASS URI
+                    binding.userImage.setImageURI(it)
+                }
             }
         }
 

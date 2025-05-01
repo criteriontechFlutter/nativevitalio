@@ -4,10 +4,9 @@
 
     <corners android:radius="12dp"/>
 
-    <solid android:color="@color/darkblue"/>
+    <solid android:color="@color/whiteDull"/>
 
-    <stroke android:width="1dp" android:color="@color/darkblue"
-        android:dashWidth="@dimen/_11ssp"/>
+<!--    <stroke android:width="1dp" android:color="@color/whiteDull"/>-->
 
     <padding
         android:left="12dp"
