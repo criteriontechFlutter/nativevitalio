@@ -16,12 +16,12 @@
             android:gravity="center"
             android:padding="5dp">
 
-            <!-- Optional: Add an ImageView if your symptoms have icons -->
-            <!-- <ImageView
+             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_symptom_placeholder"
-                android:layout_gravity="center" /> -->
+                 android:foregroundTint="@color/gray"
+                 android:id="@+id/problemICon"
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/symptom_text"

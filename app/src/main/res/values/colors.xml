@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Primary Colors -->
-    <color name="primaryColor">#001767</color>
+    <color name="primaryColor">#007AFF</color>
     <color name="primaryBlue">#1564ED</color>
     <color name="primaryBlue2">#0C73BB</color>
     <color name="primaryBlueLight">#F5F8FC</color>
@@ -21,6 +21,8 @@
     <color name="charcoalGray">#202529</color>
     <color name="darkblue">#1153C9</color>
     <color name="textGrey2">#5F6471</color>
+    <color name="symptomsButton">#E2E7F0</color>
+    <color name="symptomsButtonNo">#E4EEFF</color>
 
     <!-- Background Colors -->
     <color name="greyBG">#EDF1F6</color>
@@ -74,7 +76,8 @@
     <color name="start_blue_dark">#006ad1</color>
     <color name="omron_blue">#0072BB</color>
     <color name="button_grey">#808080</color>
-    <color name="black">#000</color>
+    <color name="black">#546788</color>
+    <color name="darkBackGround">#141415</color>
 
     <color name="blue">#1E6CFF</color>
     <color name="gray">#888888</color>

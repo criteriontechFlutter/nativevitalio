@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="@dimen/_250sdp"
+    android:layout_height="250dp"
+    android:padding="24dp"
+    android:background="@drawable/rounded_corners"
+    android:elevation="6dp">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/ic_success"
+        />
+
+    <TextView
+        android:id="@+id/tvPopupMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result Uploaded Successfully!"
+        android:textColor="#000"
+        android:textStyle="normal"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"/>
+</LinearLayout>

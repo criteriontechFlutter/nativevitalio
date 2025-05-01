@@ -1,19 +1,19 @@
 package com.criterion.nativevitalio.viewmodel
 
 import PrefsManager
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.Utils.ApiEndPoint
-import com.criterion.nativevitalio.model.ProblemWithIcon
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.criterion.nativevitalio.model.SymptomDetail
 import com.criterion.nativevitalio.model.SymptomResponse
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
-class SymptomsHistoryViewModel : ViewModel() {
+class SymptomsHistoryViewModel (application: Application) : BaseViewModel(application) {
 
     private val _symptomList = MutableLiveData<List<SymptomDetail>>()
     val symptomList: LiveData<List<SymptomDetail>> get() = _symptomList
@@ -29,7 +29,7 @@ class SymptomsHistoryViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhid.toString(),
+                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 

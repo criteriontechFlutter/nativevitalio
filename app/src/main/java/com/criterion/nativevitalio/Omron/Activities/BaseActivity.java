@@ -7,9 +7,10 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.criterion.nativevitalio.Utils.MyApplication;
-import  com.criterion.nativevitalio.Omron.models.PersonalData;
+import com.criterion.nativevitalio.Omron.models.PersonalData;
 import com.criterion.nativevitalio.Omron.utility.sampleLog;
+import com.criterion.nativevitalio.utils.MyApplication;
+;
 
 import java.text.DateFormat;
 import java.text.ParseException;

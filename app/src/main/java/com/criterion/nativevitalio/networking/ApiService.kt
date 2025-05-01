@@ -1,15 +1,18 @@
 package com.criterion.nativevitalio.networking
 
 import PrefsManager
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.HeaderMap
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.QueryMap
 import retrofit2.http.Url
-import retrofit2.Response
-import okhttp3.ResponseBody
-import retrofit2.http.Body
 
 fun generateAuthHeaderMap(
     token: Boolean,
@@ -56,4 +59,24 @@ interface ApiService {
         @QueryMap(encoded = true) params: Map<String, @JvmSuppressWildcards Any>
     ): Response<ResponseBody>
     // Add similar annotations for PUT, DELETE, etc.
+
+
+
+
+    @Multipart
+    @POST
+    suspend fun dynamicMultipartPost(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @Part parts: List<MultipartBody.Part>
+    ): Response<ResponseBody>
+
+
+    @Multipart
+    @PUT
+    suspend fun dynamicMultipartPut(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @Part parts: List<MultipartBody.Part>
+    ): Response<ResponseBody>
 }

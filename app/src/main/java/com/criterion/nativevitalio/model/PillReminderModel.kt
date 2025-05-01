@@ -36,10 +36,12 @@ fun parsePillReminderList(rawList: List<Map<String, Any>>): List<PillReminderMod
     }
 }
 data class PillTime(
-    val time: String,
-    val durationType: String,
+    var time: String,
     var icon: String,
-    val intakeTime: String
+    val durationType: String,
+    val intakeTime: String,
+    val instruction: String?="",
+    val dose: String?=""
 )
 
 data class PillReminderModel(

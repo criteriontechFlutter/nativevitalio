@@ -19,13 +19,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
 import com.criterion.nativevitalio.Omron.models.PairingDeviceData;
 import com.criterion.nativevitalio.Omron.utility.Constants;
 import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
 import com.criterion.nativevitalio.Omron.utility.sampleLog;
 import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.Utils.MyApplication;
+import com.criterion.nativevitalio.utils.MyApplication;
 import com.intuit.sdp.BuildConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;

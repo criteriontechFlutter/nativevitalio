@@ -9,10 +9,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
+import com.criterion.nativevitalio.Omron.utility.sampleLog;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.Omron.utility.sampleLog;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -22,22 +22,13 @@ import com.criterion.nativevitalio.Omron.adapter.ReminderListAdapter;
 import com.criterion.nativevitalio.Omron.models.PeripheralDevice;
 import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
 import com.criterion.nativevitalio.Omron.utility.sampleLog;
-
 import com.criterion.nativevitalio.R;
-import com.criterion.nativevitalio.Utils.MyApplication;
-import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
-import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerUpdateListener;
-import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
-import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Model.OmronErrorInfo;
-import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Model.OmronPeripheral;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 /**
  * Created by Omron HealthCare Inc

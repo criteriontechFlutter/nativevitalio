@@ -1,0 +1,96 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginHorizontal="0dp"
+    android:id="@+id/vitalsLayout"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    android:backgroundTint="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:padding="16dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/vitalTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Blood Pressure"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addVitalText"
+            app:layout_constraintHorizontal_bias="0"/>
+
+        <!-- Add Vital (top-right) -->
+        <TextView
+            android:id="@+id/addVitalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Vital"
+            android:textColor="#7B8AA0"
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Vital Value -->
+        <TextView
+            android:id="@+id/vitalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="120/80"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/vitalTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Unit -->
+        <TextView
+            android:id="@+id/vitalUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mm/Hg"
+            android:textColor="#9BA1A7"
+            android:textSize="8sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/vitalValue"
+            app:layout_constraintStart_toEndOf="@id/vitalValue"
+            android:layout_marginStart="6dp"/>
+
+        <!-- Warning Icon -->
+        <ImageView
+            android:id="@+id/warningIcon"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_personal_info"
+            android:visibility="gone"
+            android:contentDescription="Warning"
+            app:layout_constraintBottom_toBottomOf="@id/vitalValue"
+            app:layout_constraintStart_toEndOf="@id/vitalUnit"
+            android:layout_marginStart="6dp"/>
+
+        <!-- Time -->
+        <TextView
+            android:id="@+id/vitalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 hr ago"
+            android:textSize="12sp"
+            android:textColor="#5D8FD3"
+            app:layout_constraintTop_toBottomOf="@id/vitalValue"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="6dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

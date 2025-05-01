@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.criterion.nativevitalio.Omron.Database.OmronDBConstans;
 import com.criterion.nativevitalio.R;
 

@@ -1,6 +1,8 @@
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.google.gms) // This is critical!
 }
 
 android {
@@ -74,6 +76,8 @@ dependencies {
     //Dimen
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)
+    implementation("com.google.firebase:firebase-messaging:24.1.1")
+    implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
     //otp view
 //    implementation (libs.otpview)
 
@@ -83,6 +87,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     // retrofit
     implementation(libs.retrofit)
+    implementation(libs.lottie.v601)
+
     implementation(libs.converter.gson)
     implementation (libs.lottie)
     implementation (libs.androidx.navigation.fragment.ktx)

@@ -1,0 +1,130 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:id="@+id/bottomSheetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_bottomsheet_rounded">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/bottomSheetTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Allergy"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Substance Type -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Substance Type"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerSubstanceType"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Substance -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Substance"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/inputSubstance"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Enter"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#999999"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Reaction -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reaction/ Allergy"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/inputReaction"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Select"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#999999"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Severity Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How severe was the reaction?"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/btnMild"
+                style="@style/SeverityButton"
+                android:text="Mild" />
+
+            <Button
+                android:id="@+id/btnModerate"
+                style="@style/SeverityButton"
+                android:text="Moderate"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnSevere"
+                style="@style/SeverityButton"
+                android:text="Severe" />
+        </LinearLayout>
+
+        <!-- Add Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddAllergy"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Add Allergy"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+           android:backgroundTint="@color/primaryBlue"
+            />
+    </LinearLayout>
+</ScrollView>

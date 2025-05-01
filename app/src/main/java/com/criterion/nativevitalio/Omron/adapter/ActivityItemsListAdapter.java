@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.criterion.nativevitalio.Omron.Activities.ActivityDataActivity;
 import com.criterion.nativevitalio.Omron.models.ActivityDataItem;
+import com.criterion.nativevitalio.Omron.utility.Constants;
 import com.criterion.nativevitalio.R;
 
-import  com.criterion.nativevitalio.Omron.utility.Constants;
 
 import java.util.List;
 

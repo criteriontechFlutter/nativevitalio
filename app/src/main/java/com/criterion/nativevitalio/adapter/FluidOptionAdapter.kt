@@ -10,7 +10,7 @@ import com.criterion.nativevitalio.model.ManualFoodItem
 
 class FluidOptionAdapter(
     private val items: List<ManualFoodItem>,
-    private val selectedItemId: Int?,
+    private var selectedItemId: Int?,
     private val onSelect: (ManualFoodItem) -> Unit
 ) : RecyclerView.Adapter<FluidOptionAdapter.ViewHolder>() {
 
@@ -52,13 +52,19 @@ class FluidOptionAdapter(
 
     override fun getItemCount() = items.size
 
+
+    fun updateSelected(selectedId: Int?) {
+        this.selectedItemId = selectedId
+        notifyDataSetChanged()
+    }
+
     private fun getIconForFood(name: String): Int {
         return when (name.trim().lowercase()) {
             "water" -> R.drawable.ic_water
-            "milk" -> R.drawable.ic_water
-            "tea" -> R.drawable.ic_water
-            "coffee" -> R.drawable.ic_water
-            "juice", "fruit juice" -> R.drawable.ic_juice
+            "milk" -> R.drawable.ic_milk
+            "tea" -> R.drawable.ic_tea
+            "coffee" -> R.drawable.ic_coffee
+            "juice", "fruit juice" -> R.drawable.ic_fruite_juice
             "beverage" -> R.drawable.ic_water
             else -> R.drawable.ic_water
         }

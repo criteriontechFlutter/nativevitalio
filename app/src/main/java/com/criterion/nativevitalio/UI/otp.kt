@@ -5,21 +5,14 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.fragments.Dashboard
-import com.criterion.nativevitalio.databinding.ActivityLoginBinding
 import com.criterion.nativevitalio.databinding.ActivityOtpBinding
-import com.criterion.nativevitalio.viewmodel.LoginViewModel
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.viewmodel.OtpViewModal
 
 class otp : AppCompatActivity() {
@@ -27,6 +20,7 @@ class otp : AppCompatActivity() {
     private lateinit var binding : ActivityOtpBinding
     private lateinit var viewModel: OtpViewModal
     lateinit var storedUHID: String
+    lateinit var mobileNo: String
     lateinit var otptext: String
     var allFilled: Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,16 +39,29 @@ class otp : AppCompatActivity() {
 
 
         viewModel = ViewModelProvider(this)[OtpViewModal::class.java]
+
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
         storedUHID = intent.getStringExtra("UHID").toString()
+        mobileNo = intent.getStringExtra("mobileNo").toString()
         setupOtpInputs(storedUHID)
 
         binding.verify.setOnClickListener {
             if (allFilled){
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                viewModel.getPatientDetailsByUHID(storedUHID,"deviceToken",otptext )
+                viewModel.getPatientDetailsByUHID(storedUHID,"deviceToken",otptext ,applicationContext)
 
             }
         }
+
+        binding.legalLinks.setOnClickListener {
+            viewModel.sentLogInOTPForSHFCApp(storedUHID)
+        }
+
+
+        binding.loginSubtitle.text= "Verification code sent to your Mobile $mobileNo"
 
     }
 
@@ -93,5 +100,12 @@ class otp : AppCompatActivity() {
             })
         }
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
 
 }
