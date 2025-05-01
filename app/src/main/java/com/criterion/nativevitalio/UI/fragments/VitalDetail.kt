@@ -1,44 +1,71 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.VitalDetailsAdapter
+import com.criterion.nativevitalio.databinding.FragmentVitalDetailBinding
+import com.criterion.nativevitalio.viewmodel.VitalDetailsViewModel
 
-class VitalDetail : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class VitalDetail  : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-    }
+    private lateinit var binding: FragmentVitalDetailBinding
+    private lateinit var viewModel: VitalDetailsViewModel
+    private lateinit var adapter: VitalDetailsAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vital_detail, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentVitalDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment VitalDetail.
-         */
-        // TODO: Rename and change types and number of parameters
+        viewModel = ViewModelProvider(this)[VitalDetailsViewModel::class.java]
+        adapter = VitalDetailsAdapter( { vitalType ->
+            val bundle = Bundle().apply {
+                putString("vitalType", vitalType)
+            }
+            findNavController().navigate(R.id.action_vitalDetail_to_connection, bundle)
+        },findNavController())
+        val recyclerView = view.findViewById<RecyclerView>(R.id.vitalsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
+
+        binding.backButton.setOnClickListener(){
+            findNavController().popBackStack()
+        }
 
 
+        viewModel.getVitals()
+
+        viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
+            adapter.submitVitals(vitals)
+        }
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            view.findViewById<ProgressBar>(R.id.progressBar).visibility =
+                if (it) View.VISIBLE else View.GONE
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            it?.let {
+                msg -> Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show() }
+        }
     }
 }

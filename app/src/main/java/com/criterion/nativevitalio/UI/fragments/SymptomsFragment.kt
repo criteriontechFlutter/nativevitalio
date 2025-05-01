@@ -3,25 +3,23 @@ package com.criterion.nativevitalio.UI.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.SymptomAdapter
 import com.criterion.nativevitalio.databinding.FragmentSymtomsBinding
 import com.criterion.nativevitalio.interfaces.AdapterInterface
 import com.criterion.nativevitalio.model.ProblemWithIcon
 import com.criterion.nativevitalio.viewmodel.SymptomsViewModel
-import com.criterion.nativevitalio.databinding.SymptomChipBinding
+
 class SymptomsFragment : Fragment() {
 
     private lateinit var binding: FragmentSymtomsBinding
@@ -48,14 +46,16 @@ class SymptomsFragment : Fragment() {
         viewModel.getAllSuggestedProblem()
         viewModel.getSymptoms()
 
-
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
         binding.saveSymptomsBtn.setOnClickListener(){
-            viewModel.insertSymptoms();
+            viewModel.insertSymptoms(findNavController(),requireContext());
         }
 
         binding.backButton.setOnClickListener(){
 
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().popBackStack()
         }
 
         binding.historyButton.setOnClickListener {
@@ -64,7 +64,18 @@ class SymptomsFragment : Fragment() {
         }
 
         binding.saveSymptomsBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
+            val selected = viewModel.selectedSymptoms.value.orEmpty()
+            val searched = viewModel.searchSelectedSymptomList.value.orEmpty()
+
+            if (selected.isEmpty() && searched.isEmpty()) {
+                findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
+            } else {
+                viewModel.insertSymptoms(findNavController(), requireContext())
+
+                // OR: If you want to navigate immediately (not recommended if insert fails)
+                // findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
+            }
+//            findNavController().navigate(R.id.action_symptomsFragment_to_symptomTrackerFragments)
 
         }
     }

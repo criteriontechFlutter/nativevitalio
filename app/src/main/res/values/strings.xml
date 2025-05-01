@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">nativevitalio</string>
+    <string name="app_name">Vitalio</string>
     <string name="vitals">Vitals</string>
     <string name="primary_actions">Primary Actions</string>
     <string name="other">Other</string>
@@ -56,7 +56,7 @@
     <string name="save_and_update_symptoms">Save and Update Symptoms</string>
 
     <string name="symptom_history">Symptoms History</string>
-    <string name="daily">Daily</string>
+    <string name="daily"> Daily</string>
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
 
@@ -90,6 +90,7 @@
     <string name="pair_amp_transfer">
 <![CDATA[ Pair & Transfer ]]>
 </string>
+    <string name="connection">Connection</string>
     <string name="DevicePairing">Device Pairing</string>
     <string name="ConnectingDevice">Connecting to device</string>
     <string name="scan">Scan</string>
@@ -241,5 +242,7 @@
     <string name="fluid_data_input">Fluid Data Input</string>
     <string name="remaining">Remaining:</string>
     <string name="add_intake">Add Intake</string>
+    <string name="fluid_intake">Fluid Intake</string>
+    <string name="diet_checklist">Diet Checklist</string>
 
 </resources>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/primaryBlueLight">
 
     <!-- Header -->
     <LinearLayout
@@ -19,17 +19,18 @@
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/arrow_left" />
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Symptom History"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
+            android:textSize="20sp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:textStyle="normal"
+            android:gravity="start"
             android:layout_weight="1" />
 
         <!--        <ImageView-->
@@ -50,26 +51,41 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_daily"
-            android:text="Daily"
-            android:checkable="true"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
-            android:layout_height="74dp"
+            android:layout_height="60dp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:checkable="true"
+            android:text="@string/daily"
+            android:textColor="@android:color/white"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@color/primaryBlue"
             />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_weekly"
-            android:text="Weekly"
-            android:checkable="true"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="74dp"
-            android:checked="true" />
+            android:layout_height="60dp"
+            android:text="@string/weekly"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/gray"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@android:color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_monthly"
-            android:text="Monthly"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="74dp"
-            android:checkable="true" />
+            android:layout_height="60dp"
+            android:text="@string/monthly"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/gray"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@android:color/white"  />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <!-- Date Navigation -->
@@ -85,9 +101,10 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/backdate"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/arrow_left" />
+            android:src="@drawable/left_custom" />
 
         <TextView
             android:id="@+id/dateRange"
@@ -95,12 +112,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="26 Aug 2024 - 01 Sep 2024"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
         <ImageView
+            android:id="@+id/forwarddate"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/arrow_right" />
+            android:src="@drawable/right_custom" />
     </LinearLayout>
 
     <!-- Timeline RecyclerView -->

@@ -1,39 +1,36 @@
 package com.criterion.nativevitalio.UI
 
-import ProgressDialog
-import android.content.Intent
+import Patient
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.Utils.CustomRoundedButton
-import com.criterion.nativevitalio.Utils.MyApplication
 import com.criterion.nativevitalio.databinding.ActivityLoginBinding
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.viewmodel.LoginViewModel
 
 class Login : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
-
     companion object {
-        lateinit var storedUHID: String
+        lateinit var storedUHID: Patient
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,21 +38,23 @@ class Login : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-
         // Disable button initially
-        binding.sendOtpBtn.isEnabled = false
 
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
+
+
+
+        binding.sendOtpBtn.isEnabled = false
         // Enable button only when text is valid
         binding.inputField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 val isValid = input.length >= 8
-
                 binding.sendOtpBtn.isEnabled = isValid
                 binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(this@Login,
@@ -64,9 +63,15 @@ class Login : AppCompatActivity() {
             }
         })
 
+
+
         // ✅ Observe once — not on every button click
         observeViewModel()
-
+        binding.inputField.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                scrollToView(binding.mainScrollView, binding.inputField)
+            }
+        }
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
             val phoneOrUHID = binding.inputField.text.toString().trim()
@@ -124,26 +129,45 @@ class Login : AppCompatActivity() {
 
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
 
     override fun onPause() {
-        Log.d("TAG111111", "onPause: ")
+
         super.onPause()
     }
 
     override fun onStart() {
-        Log.d("TAG111111", "onStart: ")
+
         super.onStart()
+
+
+        val bottomCard = findViewById<CardView>(R.id.bottomCard)
+
+        val animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            bottomCard.startAnimation(animation)
+        }, 200)
     }
 
     override fun onResume() {
-        Log.d("TAG111111", "onResume: ")
+
         super.onResume()
     }
 
     override fun onRestart() {
-        Log.d("TAG111111", "onRestart: ")
+
         super.onRestart()
     }
-
+    private fun scrollToView(scrollView: NestedScrollView, view: View) {
+        scrollView.post {
+            scrollView.smoothScrollTo(0, view.top)
+        }
+    }
 }
 

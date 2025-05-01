@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:backgroundTint="@color/primaryBlueLight"
     android:padding="16dp">
 
     <!-- Header Row with Back Button and Title -->
@@ -15,12 +16,11 @@
         <!-- Back Button -->
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/arrow_left"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back"
             android:contentDescription="@string/back_button"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="?attr/colorOnSurface" />
+           />
 
         <!-- Title -->
         <TextView
@@ -28,40 +28,47 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="20sp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:textStyle="normal"
             android:text="@string/pills_checklist"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_marginStart="8dp" />
 
         <!-- Medicine Box Chip -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center_vertical">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/medicine_box"
-                style="@style/smallPCN"
-                android:layout_marginStart="8dp" />
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/reminders"
-                android:contentDescription="@string/other"
-                app:tint="?attr/colorPrimary" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/medicine_box"-->
+<!--                style="@style/smallPCN"-->
+<!--                android:layout_marginStart="8dp" />-->
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/reminders"-->
+<!--                android:contentDescription="@string/other"-->
+<!--                app:tint="?attr/colorPrimary" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
     </LinearLayout>
 
     <!-- Date Row -->
     <LinearLayout
+        android:id="@+id/datePickerField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp">
 
         <!-- Calendar Icon -->
         <ImageView
@@ -72,14 +79,15 @@
             android:contentDescription="@string/other"
             app:tint="?attr/colorPrimary" />
 
-        <!-- Date -->
+        <!-- Date Text -->
         <TextView
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23 jul 2024"
+            android:text="Select Date"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="12dp"
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 
     <!-- Section Header -->
@@ -115,7 +123,7 @@
     </LinearLayout>
 
     <!-- Header Row Scroll -->
-    <com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView
+    <com.criterion.nativevitalio.utils.SyncedHorizontalScrollView
         android:id="@+id/headerScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" />
-    </com.criterion.nativevitalio.UI.customviews.SyncedHorizontalScrollView>
+    </com.criterion.nativevitalio.utils.SyncedHorizontalScrollView>
 
     <!-- Data Rows -->
     <androidx.recyclerview.widget.RecyclerView
@@ -136,4 +144,18 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="8dp" />
+
+    <ScrollView
+        android:id="@+id/timelineScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/timelineContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </LinearLayout>

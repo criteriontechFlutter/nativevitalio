@@ -35,7 +35,7 @@ class GlassSizeAdapter(
                 if (item.isSelected) R.color.white else R.color.gray
             ))
             container.setBackgroundResource(
-                if (item.isSelected) R.drawable.bg_glass_selected else R.drawable.bg_glass_unselected
+                if (item.isSelected || position==0) R.drawable.bg_glass_selected else R.drawable.bg_glass_unselected
             )
 
             container.setOnClickListener {

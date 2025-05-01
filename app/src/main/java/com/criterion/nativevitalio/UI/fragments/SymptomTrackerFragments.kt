@@ -1,21 +1,21 @@
 package com.criterion.nativevitalio.UI.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.SymptomsTrackerAdapter
 import com.criterion.nativevitalio.databinding.FragmentSymptomTrackerFragmentsBinding
 import com.criterion.nativevitalio.model.SymptomDetail
 import com.criterion.nativevitalio.viewmodel.SymptomsTrackerViewModel
 
 class SymptomTrackerFragments : Fragment() {
+
 
     private lateinit var binding: FragmentSymptomTrackerFragmentsBinding
     private val viewModel: SymptomsTrackerViewModel by viewModels()
@@ -36,12 +36,22 @@ class SymptomTrackerFragments : Fragment() {
 
         observeViewModel()
         viewModel.getSymptoms()
+
+        // ⏬ Update button action
+        binding.btnUpdate.setOnClickListener {
+            val selected = symptomList.filter { it.selection == 1 }
+            viewModel.insertSymptoms(findNavController(),requireContext(),selected)
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun observeViewModel() {
-        viewModel.symptomList.observe(viewLifecycleOwner) { list ->
+        viewModel.symptomList.observe(viewLifecycleOwner) {
             symptomList.clear()
-            symptomList.addAll(list)
+            symptomList.addAll(it)
             currentIndex = 0
             showCurrentSymptom()
         }
@@ -59,6 +69,7 @@ class SymptomTrackerFragments : Fragment() {
                 symptom = symptom,
                 currentIndex = currentIndex,
                 totalCount = symptomList.size,
+                isLastItem = currentIndex == symptomList.size - 1,
                 onYesClicked = {
                     symptom.selection = 1
                     goToNext()
@@ -72,10 +83,20 @@ class SymptomTrackerFragments : Fragment() {
                         currentIndex--
                         showCurrentSymptom()
                     }
-                }
+                },
+
             )
 
             binding.recyclerViewSymptoms.adapter = adapter
+
+            // 🔘 Show Update button only on last step
+            if (currentIndex == symptomList.size - 1) {
+                binding.btnUpdate.visibility = View.VISIBLE
+            } else {
+                binding.btnUpdate.visibility = View.GONE
+                binding.backButton.visibility = View.VISIBLE
+            }
+
         } else {
             showSummary()
         }
@@ -88,7 +109,6 @@ class SymptomTrackerFragments : Fragment() {
 
     private fun showSummary() {
         val selected = symptomList.filter { it.selection == 1 }
-//        Toast.makeText(requireContext(), "Selected: ${selected.joinToString { it.details }}", Toast.LENGTH_LONG).show()
-        // Or: navigate to result screen or submit to server
+      //  Toast.makeText(requireContext(), "Selected: ${selected.size}", Toast.LENGTH_SHORT).show()
     }
 }

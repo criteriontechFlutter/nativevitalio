@@ -3,25 +3,24 @@ package com.criterion.nativevitalio.viewmodel
 import PillReminderModel
 import PillTime
 import PrefsManager
+import android.app.Application
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.Utils.ApiEndPoint
+import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
-import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
 
-class PillsReminderViewModal : ViewModel() {
+class PillsReminderViewModal (application: Application) : BaseViewModel(application) {
 
     private val _pillList = MutableLiveData<List<PillReminderModel>>()
     val pillList: LiveData<List<PillReminderModel>> get() = _pillList
@@ -38,7 +37,7 @@ class PillsReminderViewModal : ViewModel() {
 
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhid.toString()
+                    "UhID" to PrefsManager().getPatient()?.uhID.toString()
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -51,14 +50,14 @@ class PillsReminderViewModal : ViewModel() {
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     val list = parseMedicationNameAndDateList(json)
-                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
-                        Date()
-                    )
-
-// Filter the list to only include today's medications
-                    val todaysMedications = list.filter { it.date == currentDate }
-                    _pillList.postValue(todaysMedications)
-                    Log.d("RESPONSE", "responseValue: $todaysMedications")
+//                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+//                        Date()
+//                    )
+//
+//// Filter the list to only include today's medications
+//                    val todaysMedications = list.filter { it.date == currentDate }
+                    _pillList.postValue(list)
+                    Log.d("RESPONSE", "responseValue: $_pillList")
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
@@ -81,6 +80,7 @@ class PillsReminderViewModal : ViewModel() {
 
         for (i in 0 until medArray.length()) {
             val obj = medArray.getJSONObject(i)
+
             val jsonTime = JSONArray(obj.getString("jsonTime"))
 
             val times = mutableListOf<PillTime>()
@@ -140,9 +140,11 @@ class PillsReminderViewModal : ViewModel() {
                 val convertedTime = convertTo24Hour(compareTime)
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhid.toString(),
+                    "UhID" to PrefsManager().getPatient()?.uhID.toString(),
                     "pmID"  to  pmID,
                     "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
+
+
 
                     "prescriptionID" to prescriptionID,
                     "userID"  to PrefsManager().getPatient()?.id.toString(),

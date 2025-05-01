@@ -1,24 +1,32 @@
 package com.criterion.nativevitalio.UI
 
 import PrefsManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.fragments.Dashboard
-import com.criterion.nativevitalio.Utils.MyApplication
-import java.util.prefs.Preferences
+import com.criterion.nativevitalio.utils.FCMHelper
+import com.criterion.nativevitalio.utils.MyApplication
+import com.google.firebase.FirebaseApp
+
 class Splash : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         try {
+
+            FirebaseApp.initializeApp(MyApplication.appContext)
+            FCMHelper.initializeFCM(
+                onTokenReceived = { token ->
+                    // You can send this token to your backend
+                    Log.d("MainActivity", "Device token: $token")
+                },
+                onError = { error ->
+                    Log.e("MainActivity", "Error getting token: ${error.message}")
+                }
+            )
+
             // Check if user data is saved locally using PrefsManager
             val currentPatientUHID = PrefsManager().currentPatientUHID
 

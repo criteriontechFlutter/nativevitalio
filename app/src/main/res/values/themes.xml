@@ -4,9 +4,18 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="bottomNavigationStyle">@style/NoRoundedNav</item>
+
     </style>
 
-    <style name="Theme.Nativevitalio" parent="Base.Theme.Nativevitalio" />
+    <style name="Theme.Nativevitalio" parent="Base.Theme.Nativevitalio">
+
+    <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:colorBackground">@color/primaryBlue</item>
+        <item name="android:colorPrimary">@color/primaryBlue</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="fontFamily">@font/lato_regular</item>
+    </style>
     <style name="NoRoundedNav" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemShapeAppearanceOverlay">@style/NoItemShape</item>
     </style>
@@ -26,5 +35,7 @@
     <style name="ProgressBarTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/white</item>
         <item name="android:colorBackground">@color/primaryBlue</item>
+        <item name="android:colorPrimary">@color/primaryBlue</item>
+
     </style>
 </resources>

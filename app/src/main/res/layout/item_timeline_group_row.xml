@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:gravity="top">
+
+    <!-- Time -->
+    <TextView
+        android:id="@+id/tvTimeLabel"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="08:00 AM"
+        android:textStyle="bold"
+        android:textColor="#2C2C54"
+        android:paddingTop="8dp"
+        android:textSize="12sp" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#CCC"
+        android:layout_marginHorizontal="4dp" />
+
+    <!-- Medicine Card Container -->
+    <LinearLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" />
+</LinearLayout>

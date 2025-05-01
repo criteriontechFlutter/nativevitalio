@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@color/primaryBlueLight"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Back & Title -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:textStyle="normal"
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <!-- First Name -->
+        <TextView
+            android:layout_marginTop="24dp"
+            android:text="First Name"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/firstNameField"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Enter First Name"
+            android:paddingHorizontal="16dp"
+            android:text="Abhay"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+        <!-- Last Name -->
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="Last Name"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/lastNameField"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Enter Last Name"
+            android:paddingHorizontal="16dp"
+            android:text="Sharma"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+        <!-- DOB -->
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="DOB"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext"
+            android:paddingHorizontal="16dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/dobField"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="01.05.1998"
+                android:text="01.05.1998"
+                android:inputType="none"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/calendarIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_calendar"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- Gender -->
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="Gender"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:id="@+id/genderGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:buttonTint="@color/primaryBlue"
+                android:textColor="#000"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Female"
+                android:buttonTint="@color/primaryBlue"
+                android:textColor="#000" />
+        </RadioGroup>
+        <Button
+            android:id="@+id/updateProfileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/primaryBlue"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+</ScrollView>

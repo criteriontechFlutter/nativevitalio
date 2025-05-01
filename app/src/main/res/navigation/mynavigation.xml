@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mynavigation"
@@ -22,6 +22,27 @@
         <action
             android:id="@+id/action_dashboard_to_fluidFragment"
             app:destination="@id/fluidFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_vitalDetail"
+            app:destination="@id/vitalDetail" />
+        <action
+            android:id="@+id/action_dashboard_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_connection"
+            app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_dashboard_to_dietChecklist"
+            app:destination="@id/dietChecklist" />
+          <action
+            android:id="@+id/action_dashboard_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_uploadReportHistory2"
+            app:destination="@id/uploadReportHistory" />
+        <action
+            android:id="@+id/action_dashboard_to_voiceFragment"
+            app:destination="@id/voiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -37,6 +58,15 @@
         <action
             android:id="@+id/action_drawer4_to_settingsFragmentVitalio"
             app:destination="@id/settingsFragmentVitalio" />
+        <action
+            android:id="@+id/action_drawer4_to_editProfile3"
+            app:destination="@id/editProfile3" />
+        <action
+            android:id="@+id/action_drawer4_to_connectSmartWatchFragment"
+            app:destination="@id/connectSmartWatchFragment" />
+        <action
+            android:id="@+id/action_drawer4_to_signUpFragment2"
+            app:destination="@id/signUpFragment2" />
     </fragment>
     <fragment
         android:id="@+id/pillsReminder"
@@ -70,6 +100,9 @@
         <action
             android:id="@+id/action_fluidFragment_to_fluidInputHistoryFragment"
             app:destination="@id/fluidInputHistoryFragment" />
+        <action
+            android:id="@+id/action_fluidFragment_to_fluidOutputFragment"
+            app:destination="@id/fluidOutputFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragmentVitalio"
@@ -79,5 +112,88 @@
         android:id="@+id/fluidInputHistoryFragment"
         android:name="com.criterion.nativevitalio.UI.fragments.FluidInputHistoryFragment"
         android:label="FluidInputHistoryFragment" />
+    <fragment
+        android:id="@+id/vitalDetail"
+        android:name="com.criterion.nativevitalio.UI.fragments.VitalDetail"
+        android:label="VitalDetail" >
+        <action
+            android:id="@+id/action_vitalDetail_to_connection"
+            app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_vitalDetail_to_vitalHistoryFragment"
+            app:destination="@id/vitalHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/connection"
+        android:name="com.criterion.nativevitalio.UI.fragments.Connection"
+        android:label="Connection" >
+        <action
+            android:id="@+id/action_connection_to_devicesConnectivity"
+            app:destination="@id/devicesConnectivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.ChatFragment"
+        android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/dietChecklist"
+        android:name="com.criterion.nativevitalio.UI.fragments.DietChecklist"
+        android:label="DietChecklist" />
+    <fragment
+        android:id="@+id/vitalHistoryFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.VitalHistoryFragment"
+        android:label="VitalHistoryFragment" />
+    <fragment
+        android:id="@+id/uploadReport"
+        android:name="com.criterion.nativevitalio.UI.fragments.UploadReport"
+        android:label="UploadReport" >
+        <action
+            android:id="@+id/action_uploadReport_to_reportFieldsFragment"
+            app:destination="@id/reportFieldsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportFieldsFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.ReportFieldsFragment"
+        android:label="ReportFieldsFragment" />
+    <fragment
+        android:id="@+id/fluidOutputFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.FluidOutputFragment"
+        android:label="FluidOutputFragment" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.NotificationFragment"
+        android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/uploadReportHistory"
+        android:name="com.criterion.nativevitalio.UI.fragments.UploadReportHistory"
+        android:label="UploadReportHistory" >
+        <action
+            android:id="@+id/action_uploadReportHistory_to_uploadReport3"
+            app:destination="@id/uploadReport" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfile3"
+        android:name="com.criterion.nativevitalio.UI.fragments.EditProfile"
+        android:label="EditProfile" />
+    <fragment
+        android:id="@+id/connectSmartWatchFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.ConnectSmartWatchFragment"
+        android:label="ConnectSmartWatchFragment" />
+    <fragment
+        android:id="@+id/devicesConnectivity"
+        android:name="com.criterion.nativevitalio.UI.fragments.DevicesConnectivity"
+        android:label="DevicesConnectivity" />
+    <fragment
+        android:id="@+id/voiceFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.VoiceFragment"
+        android:label="VoiceFragment" />
+    <fragment
+        android:id="@+id/signUpFragment2"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment2"
+        android:label="SignUpFragment2" />
+    <fragment
+        android:id="@+id/signupSelectGenderFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
+        android:label="SignupSelectGenderFragment" />
 
 </navigation>

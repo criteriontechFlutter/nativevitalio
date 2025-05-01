@@ -60,7 +60,7 @@
                 android:layout_margin="10dp"
                 android:backgroundTint="@android:color/transparent"
                 app:singleSelection="true"
-                app:checkedButton="@id/btnIntake">
+                app:checkedButton="@id/btnDaily">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDaily"
@@ -145,6 +145,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/progressBarLayout"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -248,6 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:id="@+id/btnGraphToggleLayout"
                         android:layout_alignParentEnd="true">
 
                         <ImageView
@@ -262,30 +264,33 @@
                         <ImageView
                             android:id="@+id/btnChart"
                             android:layout_width="32dp"
-
                             android:layout_height="32dp"
+                            android:contentDescription="@string/todo"
                             android:src="@drawable/ic_graph"
                             android:padding="7dp"
-                            android:background="@drawable/selector_button_bg"/>
+                            android:background="@drawable/selector_button_bg"
+                            app:tint="@color/gray" />
                     </LinearLayout>
                 </RelativeLayout>
 
                 <!-- RecyclerView for Fluid Logs -->
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewFluidLogs"
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/fluid_history_item_layout"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/fluid_history_item_layout" />
 
-
-                <com.criterion.nativevitalio.Utils.FluidChartView
-                    android:id="@+id/fluidChartContent"
+                <com.criterion.nativevitalio.utils.FluidGraphView
+                    android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:visibility="gone"
                     android:layout_margin="16dp"
 
                     />
