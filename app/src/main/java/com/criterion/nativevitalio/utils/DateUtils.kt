@@ -1,4 +1,15 @@
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.NumberPicker
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.BottomSheetListAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -134,6 +145,85 @@ object DateUtils {
             it.lowercase().replaceFirstChar(Char::uppercaseChar)
         }
     }
+
+
+    fun showListBottomSheet(context: Context, title: String, list: List<String>, onSelected: (String) -> Unit) {
+        val dialog = BottomSheetDialog(context)
+        val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_list, null)
+        dialog.setContentView(view)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = BottomSheetListAdapter(list) {
+            onSelected(it)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
+
+    fun showHeightPicker(context: Context, onSelected: (String) -> Unit) {
+        val dialog = BottomSheetDialog(context)
+        val view = LayoutInflater.from(context).inflate(R.layout.height_picker_bottom_sheet, null)
+        dialog.setContentView(view)
+
+        val npFeet = view.findViewById<NumberPicker>(R.id.npFeet)
+        val npInch = view.findViewById<NumberPicker>(R.id.npInch)
+        val npCm = view.findViewById<NumberPicker>(R.id.npCm)
+        val npUnit = view.findViewById<NumberPicker>(R.id.npUnit)
+        val imperialContainer = view.findViewById<LinearLayout>(R.id.containerImperial)
+        val btnDone = view.findViewById<Button>(R.id.btnDone)
+
+        val unitList = arrayOf("ft", "in", "cm")
+
+        npFeet.minValue = 3
+        npFeet.maxValue = 8
+        npFeet.value = 5
+
+        npInch.minValue = 0
+        npInch.maxValue = 11
+        npInch.value = 7
+
+        npCm.minValue = 30
+        npCm.maxValue = 250
+        npCm.value = 170
+
+        npUnit.minValue = 0
+        npUnit.maxValue = unitList.size - 1
+        npUnit.displayedValues = unitList
+        npUnit.value = 0 // ft default
+
+        npUnit.setOnValueChangedListener { _, _, newVal ->
+            when (unitList[newVal]) {
+                "cm" -> {
+                    npCm.visibility = View.VISIBLE
+                    imperialContainer.visibility = View.GONE
+                }
+                else -> {
+                    npCm.visibility = View.GONE
+                    imperialContainer.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        btnDone.setOnClickListener {
+            val unit = unitList[npUnit.value]
+            val result = when (unit) {
+                "cm" -> "${npCm.value} cm"
+                "in" -> "${(npFeet.value * 12) + npInch.value} in"
+                else -> "${npFeet.value}' ${npInch.value}\" ft"
+            }
+
+            onSelected(result)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
 
 
 

@@ -50,8 +50,8 @@
         android:label="Select Blood Group"
         tools:layout="@layout/fragment_blood_group" >
         <action
-            android:id="@+id/action_bloodGroupFragment_to_weightFragment"
-            app:destination="@id/weightFragment" />
+            android:id="@+id/action_bloodGroupFragment_to_adressFragment"
+            app:destination="@id/adressFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
@@ -76,4 +76,12 @@
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.ChronicConditionFragment"
         android:label="fragment_chronic_condition"
         tools:layout="@layout/fragment_chronic_condition" />
+    <fragment
+        android:id="@+id/adressFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.AdressFragment"
+        android:label="AdressFragment" >
+        <action
+            android:id="@+id/action_adressFragment_to_weightFragment"
+            app:destination="@id/weightFragment" />
+    </fragment>
 </navigation>

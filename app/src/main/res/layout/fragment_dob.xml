@@ -1,104 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.ui.signupFragment.DobFragment">
+    android:padding="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:background="#FFFFFF"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:textAlignment="center"
-            app:flow_horizontalAlign="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:gravity="start"
+            android:orientation="vertical">
 
-            <View
-                android:id="@+id/view1"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/progress_selected" />
+            <!-- Illustration -->
+            <ImageView
+                android:id="@+id/ivIllustration"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/genderpage"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"/>
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/progress_selected" />
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your date of birth?"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#1153C9"
+                android:layout_marginTop="16dp"/>
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/progress_unselected" />
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your date of birth ensures personalized health insights."
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:textAlignment="textStart"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"/>
 
-            <View
-                android:id="@+id/view4"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/progress_unselected" />
 
-            <View
-                android:id="@+id/view5"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/progress_unselected" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <DatePicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
+                    android:splitMotionEvents="true"
+                    android:fadingEdge="vertical"
+                    android:spinnersShown="true" />
+            </LinearLayout>
+
+            <!-- Next Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="50dp"
+                app:tint="@color/primaryBlue"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_corners"
+                android:text="Next"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/and_what_is_your_date_of_birth"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:datePickerMode="spinner"
-            android:layout_marginTop="@dimen/_50sdp"
-            app:layout_constraintTop_toBottomOf="@id/tvQuestion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/primaryBlue"
-            android:text="Next"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

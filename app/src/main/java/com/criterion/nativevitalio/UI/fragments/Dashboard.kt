@@ -27,12 +27,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.utils.showRetrySnackbar
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.DashboardAdapter
 import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.utils.showRetrySnackbar
 import com.criterion.nativevitalio.viewmodel.DashboardViewModel
 import com.criterion.nativevitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
@@ -181,6 +181,7 @@ class Dashboard  : Fragment() {
 
         binding.notificationIconWrapper.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
+           // findNavController().navigate(R.id.action_dashboard_to_nameFragment)
         }
 
         binding.uploadReport.setOnClickListener {

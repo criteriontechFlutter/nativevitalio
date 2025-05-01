@@ -1,21 +1,22 @@
 package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.BloodGroupAdapter
 import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
+import com.criterion.nativevitalio.utils.ToastUtils
 
 class BloodGroupFragment : Fragment() {
 //    private lateinit var selectedButton: Button
     private lateinit var binding : FragmentBloodGroupBinding
     private lateinit var selectedBloodGroup : String
-
+    val bloodGroups = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,156 +40,19 @@ class BloodGroupFragment : Fragment() {
             }
         }*/
 
-        binding.btnAplus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.white))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-            selectedBloodGroup="A"
-        })
-        binding.btnAminus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.white))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-        })
-        binding.btnBplus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.white))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-        })
-        binding.btnBminus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.white))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-        })
+        val adapter = BloodGroupAdapter(bloodGroups) { selected ->
 
-        binding.btnABplus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.white))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-        })
-        binding.btnABminus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.white))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-        })
-        binding.btnOplus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.white))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.black))
-        })
-        binding.btnOminus.setOnClickListener({
-            binding.btnAplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnAminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnBminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnABminus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOplus.setBackgroundResource(R.drawable.blood_group)
-            binding.btnOminus.setBackgroundResource(R.drawable.blood_selected)
-            binding.btnAplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnAminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnBminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnABminus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOplus.setTextColor(resources.getColor(R.color.black))
-            binding.btnOminus.setTextColor(resources.getColor(R.color.white))
-        })
+            ToastUtils.showSuccessPopup(requireContext(),"Selected: $selected")
+        }
+
+        binding.rvBloodGroups.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding.rvBloodGroups.adapter = adapter
+
+
 
         binding.btnNext.setOnClickListener {
 //            val selectedBloodGroup = selectedButton.text.toString()
-            findNavController().navigate(R.id.action_bloodGroupFragment_to_weightFragment);
+            findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment);
         }
     }
 }
