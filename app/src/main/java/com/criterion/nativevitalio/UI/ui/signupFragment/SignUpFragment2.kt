@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentSignUp2Binding
 
 class SignUpFragment2 : Fragment() {
@@ -21,8 +23,9 @@ class SignUpFragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.nextButton.setOnClickListener {
+        binding.btnNext.setOnClickListener {
 
+            findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
 
         }
 
