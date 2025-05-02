@@ -125,7 +125,6 @@ if(vitalType=="Blood Pressure"){
                         binding.heartImg.visibility= View.GONE
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
 
-
                     }
                     R.id.btnMonthly -> {
 
@@ -141,7 +140,7 @@ if(vitalType=="Blood Pressure"){
 
     }
 
-    fun formatDateString(inputDate: String): String {
+    private fun formatDateString(inputDate: String): String {
         return try {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())

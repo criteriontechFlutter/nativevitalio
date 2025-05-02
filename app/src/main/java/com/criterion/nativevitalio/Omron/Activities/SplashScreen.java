@@ -10,6 +10,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
 import com.criterion.nativevitalio.Omron.utility.sampleLog;
 import com.criterion.nativevitalio.R;
@@ -20,7 +22,7 @@ import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.Om
 /**
  * Created by Omron HealthCare Inc
  */
-public class SplashScreen extends BaseActivity {
+public class SplashScreen extends AppCompatActivity {
     private final static String TAG = "SplashScreen";
     private Context mContext;
     private PreferencesManager preferencesManager = null;

@@ -229,9 +229,10 @@
                     />
 
                 <com.criterion.nativevitalio.utils.GlassFillView
-                    android:layout_width="140dp"
-                    android:layout_height="250dp"
+                    android:layout_width="250dp"
+                    android:layout_height="300dp"
                     android:visibility="gone"
+                    android:padding="@dimen/_10sdp"
                     android:id="@+id/waterGlassView"
                     android:layout_gravity="center"
                     />

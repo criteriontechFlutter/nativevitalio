@@ -21,7 +21,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Only needed for Android 12 and above -->
     <uses-permission
         android:name="android.permission.BLUETOOTH_SCAN"
-        android:usesPermissionFlags="neverForLocation" />
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <application
@@ -73,7 +74,8 @@
             android:name=".Omron.Activities.SupportDeviceListActivity"
             android:exported="false"
             android:label="@string/title_activity_support_device_list"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Omron.Activities.WheezeMainActivity"
             android:exported="false"
