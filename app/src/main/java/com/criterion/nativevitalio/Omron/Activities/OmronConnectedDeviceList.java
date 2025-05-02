@@ -69,7 +69,6 @@ public class OmronConnectedDeviceList extends BaseActivity {
     private ImageView mImageViewMenu;
     private ImageView mImageViewInfo;
     private Button mAddButton;
-    private ConnectedDeviceAdapter mConnectedDeviceAdapter;
     private Context mContext;
     private static List<Map<String, String>> fullDeviceList;
     private static List<Map<String, String>> soundDeviceList;
@@ -279,7 +278,7 @@ public class OmronConnectedDeviceList extends BaseActivity {
     }
 
     private void refreshDeviceList() {
-        mConnectedDeviceAdapter = new ConnectedDeviceAdapter(mContext, pairingDeviceData.getPairingDeviceList());
+        ConnectedDeviceAdapter mConnectedDeviceAdapter = new ConnectedDeviceAdapter(mContext, pairingDeviceData.getPairingDeviceList());
         mListView.setAdapter(mConnectedDeviceAdapter);
         mConnectedDeviceAdapter.notifyDataSetChanged();
     }
