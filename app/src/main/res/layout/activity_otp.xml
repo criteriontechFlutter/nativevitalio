@@ -35,7 +35,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Our Smart App!"
+                android:text="Empower Your Health with
+Our Smart App!"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/langText"
                 app:layout_constraintStart_toEndOf="@id/info"
@@ -248,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
-                    android:text="Didn't reveive the Code?"
+                    android:text="Didn’t receive the Code?"
                     android:textColor="#808080"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
