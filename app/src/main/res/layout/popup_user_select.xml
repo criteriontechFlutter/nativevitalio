@@ -23,7 +23,7 @@
             android:layout_margin="4dp"
             android:actionLayout="@layout/custom_radio_button"
             android:padding="8dp"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:checked="true"
             app:showAsAction="never" />
 
@@ -36,7 +36,7 @@
             android:layout_margin="4dp"
             android:actionLayout="@layout/custom_radio_button"
             android:padding="8dp"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:checked="false"
             app:showAsAction="never" />
 
@@ -49,7 +49,7 @@
             android:layout_margin="4dp"
             android:actionLayout="@layout/custom_radio_button"
             android:padding="8dp"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:checked="false"
             android:visibility="gone"
             app:showAsAction="never" />
@@ -63,7 +63,7 @@
             android:layout_margin="4dp"
             android:actionLayout="@layout/custom_radio_button"
             android:padding="8dp"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:checked="false"
             android:visibility="gone"
             app:showAsAction="never" />

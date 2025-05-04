@@ -10,7 +10,7 @@
         <item name="android:layout_marginBottom">@dimen/_8sdp</item>
         <item name="android:layout_marginStart">@dimen/_8sdp</item>
         <item name="android:layout_marginEnd">@dimen/_8sdp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/revBackgroundColor</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/_5sdp</item>
     </style>
@@ -45,8 +45,8 @@
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:foregroundTint">#999999</item>
+        <item name="android:textColor">@color/revBackgroundColor</item>
+        <item name="android:foregroundTint">@color/loginHintTextColor</item>
         <item name="android:inputType">number</item>
         <item name="android:layout_marginBottom">12dp</item>
     </style>
@@ -72,11 +72,11 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:statusBarColor">@android:color/black</item>
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/revBackgroundColor</item>
+        <item name="colorPrimary">@color/revBackgroundColor</item>
+        <item name="colorPrimaryDark">@color/revBackgroundColor</item>
+        <item name="colorAccent">@color/backgroundColor</item>
     </style>
 
 
@@ -102,8 +102,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:backgroundTint">#F0F0F0</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:backgroundTint">@color/backgroundColor1</item>
+        <item name="android:textColor">@color/revBackgroundColor</item>
     </style>
 
     <style name="SeverityButton.Selected">
@@ -130,7 +130,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#111111</item>
+        <item name="android:textColor">@color/revBackgroundColor</item>
         <item name="android:layout_marginTop">8dp</item>
     </style>
 

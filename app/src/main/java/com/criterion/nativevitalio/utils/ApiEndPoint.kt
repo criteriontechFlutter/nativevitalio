@@ -12,8 +12,8 @@ class ApiEndPoint {
 
 
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
-    val sentLogInOTPForVitalioApp="api/LogInForVitalioApp/SentLogInOTPForVitalioApp"
-    val verifyLogInOTPForVitalioApp= "api/LogInForVitalioApp/VerifyLogInOTPForVitalioApp"
+    val sentLogInOTPForVitalioApp="api/LogInForSHFCApp/SentLogInOTPForSHFCApp"
+    val verifyLogInOTPForVitalioApp= "api/LogInForSHFCApp/VerifyLogInOTPForSHFCApp"
     val logoutFromApp= "api/LogInForVitalioApp/LogOutOTPForVitalioApp"
 
 

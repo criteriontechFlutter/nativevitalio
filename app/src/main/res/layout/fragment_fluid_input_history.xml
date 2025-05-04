@@ -8,7 +8,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F9FAFB"
+        android:background="@color/backgroundColor1"
         android:padding="5sp">
 
         <LinearLayout
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:paddingHorizontal="10dp"
-                android:background="#F9FBFF">
+                android:background="@color/backgroundColor1">
 
                 <!-- Back Icon -->
                 <ImageView
@@ -43,7 +43,7 @@
                     android:text="Fluid Input History"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/dashboardIconColor1"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -125,6 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Today"
+                    android:textColor="@color/textColor"
                     android:paddingStart="@dimen/_35sdp"
                     android:paddingEnd="@dimen/_35sdp"
                     android:textStyle="bold"
@@ -161,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Recommended Fluid: "
-                        android:textColor="#607D8B"
+                        android:textColor="@color/dashboardIconColor1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -172,7 +173,7 @@
                         android:layout_height="0dp"
                         android:layout_marginEnd="10dp"
                         android:text="Intake: "
-                        android:textColor="#607D8B"
+                        android:textColor="@color/dashboardIconColor1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -200,7 +201,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:text="@string/remaining"
-                        android:textColor="#607D8B"
+                        android:textColor="@color/dashboardIconColor1"
                         app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/legendLayout"
@@ -242,6 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fluid Intake Log"
+                        android:textColor="@color/textColor"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
 

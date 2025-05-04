@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="#F9FAFB"
+        android:background="@color/backgroundColor"
         android:padding="5dp">
 
 
@@ -96,7 +96,7 @@
                     android:textSize="18sp"
                     android:id="@+id/userName"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="#000000"
+                    android:textColor="@color/textColor"
                     android:textStyle="bold"
                     android:layout_marginBottom="4dp" />
 

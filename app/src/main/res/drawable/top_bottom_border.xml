@@ -3,7 +3,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/light_grey" />
+            <solid android:color="@color/loginTextColor1" />
         </shape>
     </item>
     <item
@@ -12,7 +12,7 @@
         android:right="0dp"
         android:top="1dp">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/white" />
+            <solid android:color="@color/backgroundColor" />
         </shape>
 
     </item>

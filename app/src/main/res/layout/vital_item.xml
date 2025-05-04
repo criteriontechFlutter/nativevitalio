@@ -7,12 +7,12 @@
     android:id="@+id/vitalsLayout"
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
-    android:backgroundTint="@color/white">
+    android:backgroundTint="@color/drawableStrokeColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/drawableStrokeColor"
         android:padding="16dp">
 
         <!-- Title -->
@@ -23,7 +23,7 @@
             android:text="Blood Pressure"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/addVitalText"
@@ -50,7 +50,7 @@
             android:text="120/80"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@color/revBackgroundColor"
             app:layout_constraintTop_toBottomOf="@id/vitalTitle"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"/>

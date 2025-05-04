@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
@@ -44,7 +45,6 @@ class Login : AppCompatActivity() {
         viewModel.loading.observe(this) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
-
 
 
         binding.sendOtpBtn.isEnabled = false

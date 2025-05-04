@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/primaryBlueLight"
+    android:background="@color/backgroundColor"
     android:padding="16dp">
 
     <!-- Header Row with Back Button and Title -->
@@ -30,6 +30,7 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:paddingLeft="@dimen/_10sdp"
+            android:textColor="@color/textColor"
             android:textStyle="normal"
             android:text="@string/pills_checklist"
             android:layout_marginStart="8dp" />
@@ -102,6 +103,7 @@
             android:id="@+id/sectionTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
             android:text="@string/pills_for_the_day"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textStyle="bold" />

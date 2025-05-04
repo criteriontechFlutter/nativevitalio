@@ -2,11 +2,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <solid android:color="#FFFFFF" />
+    <solid android:color="@color/backgroundColor" />
 
     <stroke
         android:width="2dp"
-        android:color="#E5E7EB" /> <!-- Optional light gray border -->
+        android:color="@color/loginTextColor3" /> <!-- Optional light gray border -->
 
     <size
         android:width="80dp"

@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
         android:padding="16dp">
 
         <!-- Back Button -->
@@ -28,6 +29,7 @@
             android:text="@string/symptoms_tracker"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/revBackgroundColor"
             app:layout_constraintBottom_toBottomOf="@id/backButton"
             app:layout_constraintStart_toEndOf="@id/backButton"
             app:layout_constraintTop_toTopOf="@id/backButton" />
@@ -69,7 +71,8 @@
             android:layout_marginBottom="8dp"
             android:visibility="visible"
             app:backgroundTint="@color/primaryColor"
-            app:tint="@color/primaryColor" app:layout_constraintHeight_percent="0.10"
+            app:tint="@color/primaryColor"
+            app:layout_constraintHeight_percent="0.10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

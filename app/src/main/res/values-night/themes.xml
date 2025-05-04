@@ -8,6 +8,7 @@
 
     <style name="Theme.Nativevitalio" parent="Base.Theme.Nativevitalio" >
 
+        <item name="android:statusBarColor">@android:color/black</item>
         <item name="colorAccent">@color/darkBackGround</item>
         <item name="android:colorBackground">@color/darkBackGround</item>
         <item name="android:colorPrimary">@color/darkBackGround</item>
@@ -31,7 +32,7 @@
     </style>
 
 
-    <style name="ProgressBarTheme" parent="ThemeOverlay.AppCompat.Light">
+    <style name="ProgressBarTheme" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorAccent">@color/black</item>
         <item name="android:colorBackground">@color/black</item>
         <item name="android:colorPrimary">@color/black</item>

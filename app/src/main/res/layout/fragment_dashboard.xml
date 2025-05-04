@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UI.fragments.Dashboard">
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+
+        android:background="@color/backgroundColor">
 
         <!-- Profile Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Good Morning,"
-
+                    android:textColor="@color/textColor"
                     android:textSize="13sp" />
 
                 <TextView
@@ -58,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Abhay Sharma"
+                    android:textColor="@color/textColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -195,6 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5sp"
                         android:gravity="center"
+                        android:textColor="@color/textColor"
                         android:text="Vitals\nDetails"
                         android:textFontWeight="500"
                         android:textSize="13dp" />
@@ -227,6 +229,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5sp"
                         android:gravity="center"
+                        android:textColor="@color/textColor"
                         android:text="Fluid Intake\n/Output"
                         android:textFontWeight="500"
                         android:textSize="13dp" />
@@ -258,6 +261,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5sp"
                         android:gravity="center"
+                        android:textColor="@color/textColor"
                         android:text="Symptom\nTracker"
                         android:textFontWeight="500"
                         android:textSize="13dp" />
@@ -288,7 +292,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-
+                        android:textColor="@color/textColor"
                         android:text="Pills\nReminder"
                         android:textFontWeight="500"
                         android:textSize="13dp" />
@@ -319,7 +323,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-
+                        android:textColor="@color/textColor"
                         android:text="Diet\nChecklist"
                         android:textFontWeight="500"
                         android:textSize="13dp" />
@@ -408,7 +412,7 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/backgroundColor"
             android:elevation="5dp"
             app:itemBackground="@android:color/transparent"
             app:itemIconSize="24dp"

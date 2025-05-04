@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Reminder"
-            android:textColor="@android:color/black"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="22sp" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Repeat"
-            android:textColor="@android:color/black"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="14sp" />
     </LinearLayout>
 

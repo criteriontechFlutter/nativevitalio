@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="info1"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:gravity="center" />
                     <TextView
                         android:id="@+id/device_info_text2"
@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="info2"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:gravity="center" />
 
                 </LinearLayout>

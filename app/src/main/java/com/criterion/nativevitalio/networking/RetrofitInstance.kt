@@ -10,16 +10,16 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
 
-//    private const val DEFAULT_BASE_URL = "https://api.medvantage.tech:7082/"
-//    private const val DEFAULT_BASE_URL_7096 = "https://api.medvantage.tech:7096/"
-//    private const val DEFAULT_BASE_URL_7082 = "https://api.medvantage.tech:7082/"
+    const val DEFAULT_BASE_URL = "https://api.medvantage.tech:7082/"
+    const val DEFAULT_BASE_URL_7096 = "https://api.medvantage.tech:7096/"
+    const val DEFAULT_BASE_URL_7082 = "https://api.medvantage.tech:7082/"
 //    private const val DEFAULT_BASE_URL = "http://52.172.134.222:205/api/v1.0/"
 
 
    //Vitalio Development Server
-      const val DEFAULT_BASE_URL = "http://172.16.61.31:5082/"
-      const val DEFAULT_BASE_URL_7096 = "http://172.16.61.31:5096/"
-      const val DEFAULT_BASE_URL_7082 = "http://172.16.61.31:5082/"
+//      const val DEFAULT_BASE_URL = "http://172.16.61.31:5082/"
+//      const val DEFAULT_BASE_URL_7096 = "http://172.16.61.31:5096/"
+//      const val DEFAULT_BASE_URL_7082 = "http://172.16.61.31:5082/"
     const val DEFAULT_BASE_URL_5090 = "http://172.16.61.31:5090/"
     const val DEFAULT_BASE_URL_5100 = "http://172.16.61.31:5100/"
     const val  shopright = "http://food.shopright.ai:3478/api/"

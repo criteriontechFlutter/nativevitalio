@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Headache"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="16sp" />
 
         <LinearLayout

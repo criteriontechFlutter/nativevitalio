@@ -6,7 +6,7 @@
     android:layout_margin="8dp"
 
     app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/primaryBlueLight"
+    app:cardBackgroundColor="@color/dashboardIconColor3"
     app:cardCornerRadius="16dp"
     >
 
@@ -33,6 +33,7 @@
             android:text="Heart Rate"
             android:textStyle="bold"
             android:textSize="16sp"
+            android:textColor="@color/textColor"
             app:layout_constraintStart_toEndOf="@id/vital_icon"
             app:layout_constraintTop_toTopOf="@id/vital_icon"
             app:layout_constraintEnd_toStartOf="@id/right_section"
@@ -45,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="1hr ago"
-            android:textColor="#888"
+            android:textColor="@color/loginHintTextColor"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/vital_title"
             app:layout_constraintStart_toStartOf="@id/vital_title"
@@ -68,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="60"
+                android:textColor="@color/textColor"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -77,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="BPM"
                 android:layout_marginStart="4dp"
-                android:textColor="#999"
+                android:textColor="@color/loginHintTextColor"
                 android:textSize="14sp" />
         </LinearLayout>
 

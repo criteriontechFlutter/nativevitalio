@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@color/primaryBlueLight">
+        android:background="@color/dashboardIconColor3">
 
         <!-- Top Bar -->
         <LinearLayout
@@ -37,7 +37,7 @@
                 android:textSize="18sp"
                 android:textStyle="normal"
                 android:layout_marginStart="12dp"
-                android:textColor="#000000" />
+                android:textColor="@color/revBackgroundColor"/>
 
 
             <LinearLayout
@@ -47,7 +47,7 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="12dp"
                 android:background="@drawable/rounded_button_bg"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/backgroundColor"
                 android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="101dp"
             android:visibility="gone"
-            android:background="#F2F2F2"
+            android:background="@color/dashboardIconBg"
             android:overScrollMode="never"
             android:clipToPadding="false"
             android:layout_marginTop="4dp"
@@ -102,13 +102,13 @@
             android:padding="8dp"
             app:flexWrap="wrap"
             app:justifyContent="flex_start"
-            android:background="@android:color/white" />
+            android:background="@color/backgroundColor" />
         <!-- Info Text -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/highligh_any_other"
-            android:textColor="#666666"
+            android:textColor="@color/symptomTextColor"
             android:textSize="14sp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp" />
@@ -161,6 +161,6 @@
             android:layout_marginTop="16dp"
             android:text="@string/save_and_update_symptoms"
             android:backgroundTint="#1976D2"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

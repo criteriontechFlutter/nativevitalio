@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/textColor"
                 android:text="@string/time_format" />
 
             <Switch

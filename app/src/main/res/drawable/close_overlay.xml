@@ -7,17 +7,17 @@
       android:strokeWidth="1"
       android:pathData="M16,0.654L16,0.654A15.5,15.5 0,0 1,31.5 16.154L31.5,16.154A15.5,15.5 0,0 1,16 31.654L16,31.654A15.5,15.5 0,0 1,0.5 16.154L0.5,16.154A15.5,15.5 0,0 1,16 0.654z"
       android:fillColor="#00000000"
-      android:strokeColor="#EDF1F6"/>
+      android:strokeColor="@color/edtExtBgColor"/>
   <path
       android:pathData="M20,20.154L16,16.154L20,12.154"
       android:strokeWidth="1.5"
       android:fillColor="#00000000"
-      android:strokeColor="#202529"
+      android:strokeColor="@color/loginTextColor3"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M12,20.154L16,16.154L12,12.154"
       android:strokeWidth="1.5"
       android:fillColor="#00000000"
-      android:strokeColor="#202529"
+      android:strokeColor="@color/loginTextColor3"
       android:strokeLineCap="round"/>
 </vector>

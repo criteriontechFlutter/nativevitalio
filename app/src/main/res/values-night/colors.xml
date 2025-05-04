@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Text Color-->
+    <color name="textColor">@color/white</color>
+    <color name="revBackgroundColor">@color/white</color>
+    <color name="backgroundColor">#000000</color>
+    <color name="backgroundColor1">#000000</color>
+    <color name="loginTextColor1">@color/white</color>
+    <color name="loginTextColor2">@color/white</color>
+    <color name="loginTextColor3">@color/white</color>
+    <color name="loginHintTextColor">@color/white</color>
+    <color name="dashboardIconColor1">@color/white</color>
+    <color name="dashboardIconColor2">@color/primaryBlueLight</color>
+    <color name="dashboardIconColor3">@color/blackText</color>
+    <color name="dashboardIconColor4">@color/blackText</color>
+    <color name="dashboardIconBg">@color/bgDark2</color>
+    <color name="drawableStrokeColor">@color/blackText</color>
+    <color name="blackTextColor">@color/primaryBlueLight</color>
+    <color name="symptomTextColor">@color/primaryBlueLight</color>
+    <color name="edtExtBgColor">#000000</color>
+    <color name="vitalHistoryBgColor">@color/blackText</color>
+    <color name="bgInputFieldColor">@color/blackText</color>
+</resources>
