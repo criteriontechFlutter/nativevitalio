@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_drawer4_to_signUpFragment2"
             app:destination="@id/signUpFragment2" />
+        <action
+            android:id="@+id/action_drawer4_to_emergencyContactFragment"
+            app:destination="@id/emergencyContactFragment" />
     </fragment>
     <fragment
         android:id="@+id/pillsReminder"
@@ -195,5 +198,9 @@
         android:id="@+id/signupSelectGenderFragment"
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
         android:label="SignupSelectGenderFragment" />
+    <fragment
+        android:id="@+id/emergencyContactFragment"
+        android:name="com.criterion.nativevitalio.UI.fragments.EmergencyContactFragment"
+        android:label="EmergencyContactFragment" />
 
 </navigation>

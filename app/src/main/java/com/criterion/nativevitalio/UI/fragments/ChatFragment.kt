@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.databinding.FragmentChatBinding
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
 
 
@@ -35,6 +37,9 @@ class ChatFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ChatViewModel::class.java]
 
         viewModel.getMessages()
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         // Observe chat messages
         activity?.let {

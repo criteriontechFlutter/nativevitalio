@@ -2,15 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_loader_dialog"
     android:padding="20dp"
     android:gravity="center">
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
+      app:lottie_rawRes="@raw/loading_animation"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         android:indeterminate="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
