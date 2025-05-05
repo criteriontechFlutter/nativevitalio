@@ -7,7 +7,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.ApiEndPoint
 import com.google.gson.Gson
@@ -44,7 +43,7 @@ class VitalDetailsViewModel(application: Application) : BaseViewModel(applicatio
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
-                    _vitalList.value = parsed.responseValue
+                    _vitalList.value = parsed.responseValue.lastVital
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }

@@ -10,8 +10,22 @@ class Vital {
     var rowId = 0
 }
 
-class VitalsResponse {
-    var status = 0
-    var message: String? = null
-    var responseValue: List<Vital>? = null
-}
+data class VitalsResponse(
+    val status: Int,
+    val message: String? = null,
+    val responseValue: VitalResponseValue
+)
+
+
+data class VitalResponseValue(
+    val lastVital: List<Vital>,
+    val allVitalAvg: List<AllVitalAvg>
+)
+
+
+data class AllVitalAvg(
+    val vmId: Int,
+    val pmId: Int,
+    val avgVmValue: Double
+)
+
