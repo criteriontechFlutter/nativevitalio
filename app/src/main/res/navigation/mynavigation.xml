@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_dashboard_to_voiceFragment"
             app:destination="@id/voiceFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_intakePills"
+            app:destination="@id/intakePills" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -195,5 +198,9 @@
         android:id="@+id/signupSelectGenderFragment"
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
         android:label="SignupSelectGenderFragment" />
+    <fragment
+        android:id="@+id/intakePills"
+        android:name="com.criterion.nativevitalio.UI.fragments.IntakePills"
+        android:label="IntakePills" />
 
 </navigation>

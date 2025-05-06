@@ -1,4 +1,5 @@
 import org.json.JSONArray
+import java.io.Serializable
 
 
 fun parsePillReminderList(rawList: List<Map<String, Any>>): List<PillReminderModel> {
@@ -40,10 +41,9 @@ data class PillTime(
     var icon: String,
     val durationType: String,
     val intakeTime: String,
-    val instruction: String?="",
-    val dose: String?=""
-)
-
+    val instruction: String? = "",
+    val dose: String? = ""
+) : Serializable
 data class PillReminderModel(
     val prescriptionRowID: Int,
     val pmId: Int,
@@ -57,4 +57,4 @@ data class PillReminderModel(
     val drugId: Int,
     val jsonTime: List<PillTime>,
     val translation: String
-)
+) : Serializable
