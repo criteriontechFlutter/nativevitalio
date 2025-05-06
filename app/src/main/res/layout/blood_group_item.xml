@@ -1,0 +1,38 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="item"
+            type="String"/>
+        <variable
+            name="isSelected"
+            type="Boolean"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/blood_item_selector"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvBlood"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|center_vertical|center_horizontal"
+            android:text="@{item}"
+            android:textColor="@{isSelected ? @color/white : @color/black}"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivCheck"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/check"
+            android:layout_gravity="top|end"
+            android:layout_margin="6dp"
+            android:visibility="@{isSelected ? View.VISIBLE : View.GONE}" />
+    </FrameLayout>
+</layout>

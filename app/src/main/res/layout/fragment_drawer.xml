@@ -161,10 +161,10 @@
                     />
 
 
-<!--                <include layout="@layout/item_profile_row"-->
-<!--                    android:visibility="gone"-->
-<!--                    android:id="@+id/emergencyContactRow"-->
-<!--                    />-->
+                <include layout="@layout/item_profile_row"
+                    android:visibility="gone"
+                    android:id="@+id/emergencyContactRow"
+                    />
 
 <!--                <include layout="@layout/item_profile_row"-->
 <!--                    android:visibility="gone"-->

@@ -1,86 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.ui.signupFragment.BloodGroupFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="String"/>
+        <variable
+            name="isSelected"
+            type="Boolean"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="And what is your Blood Group?"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.google.android.material.circularreveal.CircularRevealGridLayout
-            android:id="@+id/gridBloodGroups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="4"
-            android:layout_marginVertical="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            app:layout_constraintTop_toBottomOf="@id/tvQuestion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingTop="@dimen/_20sdp">
-
-            <Button
-                android:id="@+id/btnAplus"
-                android:text="@string/a"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnAminus"
-                android:text="@string/a_minus"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnBplus"
-                android:text="@string/b_positive"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnBminus"
-                android:text="@string/b_minus"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnABplus"
-                android:text="@string/ab_positive"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnABminus"
-                android:text="@string/ab_minus"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnOplus"
-                android:text="@string/o_positive"
-                style="@style/BloodGroupButton"/>
-            <Button
-                android:id="@+id/btnOminus"
-                android:text="@string/o_minus"
-                style="@style/BloodGroupButton"/>
-
-        </com.google.android.material.circularreveal.CircularRevealGridLayout>
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/primaryBlue"
-            android:text="@string/next"
-            android:textColor="@android:color/white"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:padding="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <!-- Illustration -->
+                <ImageView
+                    android:id="@+id/ivIllustration"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/genderpage"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/tvWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="And what is your Blood Group?"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#1153C9"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your blood group helps ensure accurate and personalized care."
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    android:textAlignment="textStart"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBloodGroups"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:overScrollMode="never"
+                    android:clipToPadding="false"
+                    android:padding="8dp"/>
+
+                <!-- Next Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="50dp"
+                    app:tint="@color/primaryBlue"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_corners"
+                    android:text="Next"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+        </ScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 
 
-</FrameLayout>

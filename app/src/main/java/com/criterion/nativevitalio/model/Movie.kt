@@ -207,6 +207,27 @@ data class ChatMessage(
 )
 
 
+class EmergencyContactResponse {
+    var status = 0
+    var message: String? = null
+    var responseValue: List<EmergencyContact>? = null
+}
+
+
+
+data class EmergencyContact(
+    val id: Int,
+    val relationship: String,
+    val contactName: String,
+    val contactNumber: String,
+    val userId: Int,
+    val clientId: Int,
+    val genderId: Int
+)
+
+
+
+
 
 
 

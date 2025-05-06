@@ -53,6 +53,10 @@ class drawer : Fragment() {
 
         }
 
+        binding.emergencyContactRow.root.setOnClickListener {
+findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
+        }
+
         activity?.let {
             viewModel.finishEvent.observe(it) { shouldFinish ->
                 if (shouldFinish) {
@@ -189,8 +193,8 @@ class drawer : Fragment() {
         binding.connectSmartWatchRow.title.text = getString(R.string.connect_smart_watch)
         binding.connectSmartWatchRow.icon.setImageResource(R.drawable.ic_smartwatch)
 
-//        binding.emergencyContactRow.title.text = getString(R.string.emergency_contacts)
-//        binding.emergencyContactRow.icon.setImageResource(R.drawable.ic_emergency_contact)
+        binding.emergencyContactRow.title.text = getString(R.string.emergency_contacts)
+        binding.emergencyContactRow.icon.setImageResource(R.drawable.ic_emergency_contact)
 //
 //        binding.familyHealthHistoryRow.title.text = getString(R.string.family_health_history)
 //        binding.familyHealthHistoryRow.icon.setImageResource(R.drawable.ic_health_history)

@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.Omron.Activities.ScanActivity
+import com.criterion.nativevitalio.Omron.Activities.OmronConnectedDeviceList
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.ConnectionAdapter
 import com.criterion.nativevitalio.databinding.FragmentConnectionBinding
@@ -25,6 +25,7 @@ import com.criterion.nativevitalio.model.VitalDevice
 import com.criterion.nativevitalio.model.VitalPosition
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
+import com.criterion.nativevitalio.utils.MyApplication
 import com.criterion.nativevitalio.viewmodel.ConnectionViewModel
 
 class Connection: Fragment() {
@@ -68,7 +69,7 @@ class Connection: Fragment() {
         }
 
         binding.deviceContainer.setOnClickListener(){
-            val intent = Intent(requireContext(), ScanActivity::class.java)
+            val intent = Intent(MyApplication.appContext, OmronConnectedDeviceList::class.java)
             startActivity(intent)
 
 
