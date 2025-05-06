@@ -7,47 +7,52 @@
     android:padding="12dp"
     android:background="@drawable/rounded_corners"
     android:layout_margin="8dp"
-    android:elevation="2dp">
+    android:foregroundTint="@color/primaryBlueLight"
+    android:backgroundTint="@color/primaryBlueLight"
+   >
 
     <!-- Capsule Icon -->
     <ImageView
         android:id="@+id/iconPill"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/doctors"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
         android:contentDescription="pill icon"
+        android:src="@drawable/pill"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Quantity Badge -->
+
+    <!-- Medicine Name -->
+
     <TextView
         android:id="@+id/quantityBadge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 capsule"
-        android:textSize="10sp"
-        android:textColor="@color/black"
-        android:background="@drawable/baseline_more_vert_24"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/rounded_corners"
         android:paddingHorizontal="6dp"
         android:paddingVertical="2dp"
-        android:layout_marginStart="4dp"
+        android:foregroundTint="@color/white"
+        android:text="1 capsule"
+        android:textColor="@color/black"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@id/iconPill"
-        app:layout_constraintStart_toEndOf="@id/iconPill"/>
+        app:layout_constraintStart_toEndOf="@id/iconPill"
+        app:layout_constraintTop_toTopOf="@+id/iconPill" />
 
-    <!-- Medicine Name -->
     <TextView
         android:id="@+id/medName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Pan D"
+        android:textColor="@color/bgDark"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/iconPill"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/checkbox"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/quantityBadge"
+        app:layout_constraintTop_toBottomOf="@id/iconPill" />
 
     <!-- Instruction -->
     <TextView
@@ -55,19 +60,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Take on an empty stomach"
+        android:textColor="@color/darkGreyText"
         android:textSize="12sp"
-        android:textColor="@color/purple_200"
-        app:layout_constraintTop_toBottomOf="@id/medName"
+        app:layout_constraintEnd_toEndOf="@id/medName"
         app:layout_constraintStart_toStartOf="@id/medName"
-        app:layout_constraintEnd_toEndOf="@id/medName"/>
+        app:layout_constraintTop_toBottomOf="@id/medName" />
 
     <!-- Checkbox -->
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/medInstruction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Menu Icon -->
 <!--    <ImageView-->
