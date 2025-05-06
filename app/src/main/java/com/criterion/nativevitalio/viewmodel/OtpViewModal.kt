@@ -72,10 +72,17 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
         viewModelScope.launch {
             try {
+                var mo = ""
+                var uhidVal = ""
 
+                if (uhid.toLowerCase().contains("uhid")) {
+                    uhidVal = uhid
+                } else {
+                    mo = uhid
+                }
                 val queryParams = mapOf(
-                    "mobileNo" to "",
-                    "uhid" to uhid,
+                    "mobileNo" to mo,
+                    "uhid" to uhidVal,
                     "ClientId" to 194
                 )
 
