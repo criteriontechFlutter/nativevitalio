@@ -34,10 +34,19 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
     fun getPatientDetailsByUHID(uhid: String) {
         _loading.value = true
         viewModelScope.launch {
+            var mo = ""
+            var uhidVal = ""
+
+            if (uhid.toLowerCase().contains("uhid")) {
+                uhidVal = uhid
+            } else {
+                mo = uhid
+            }
+
             try {
                 val queryParams = mapOf(
-                    "mobileNo" to "",
-                    "uhid" to uhid,
+                    "mobileNo" to mo,
+                    "uhid" to uhidVal,
                     "ClientId" to 194
                 )
 

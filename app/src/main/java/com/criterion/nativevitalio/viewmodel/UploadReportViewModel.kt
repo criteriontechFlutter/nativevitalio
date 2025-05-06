@@ -88,6 +88,12 @@ class UploadReportViewModel : ViewModel() {
                             "P_NameC" to patient.optString("patient_name"),
                             "genderC" to patient.optString("sex"),
                             "ageC" to patient.optString("age"),
+                            "labNameC" to patient.optString("lab_name"),
+                            "collectionDateC" to patient.optString("collection_date"),
+                            "reportedDateC" to patient.optString("reported_date"),
+                            "lab_name" to patient.optString("lab_name"),
+                            "collection_date" to patient.optString("collection_date"),
+                            "reported_date" to patient.optString("reported_date"),
                             "summaryC" to item.optString("summary"),
                             "statusC" to item.optString("status"),
                             "recommended_specialtyC" to item.optString("recommended_specialty")
