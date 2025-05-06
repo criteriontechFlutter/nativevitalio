@@ -80,7 +80,7 @@ dependencies {
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
     //otp view
 //    implementation (libs.otpview)
-
+    implementation ("com.google.code.gson:gson:2.10.1")
     implementation (libs.android.gif.drawable)
 
     androidTestImplementation(libs.androidx.junit)
