@@ -1,10 +1,12 @@
 package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentSignupSelectGenderBinding
 
@@ -23,20 +25,42 @@ class SignupSelectGenderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnMale.setOnClickListener {
-            selectedGender = "Male"
-            binding.btnMale.setBackgroundResource(R.drawable.gen_selected_bg)
-            binding.btnFemale.setBackgroundResource(R.drawable.gen_bg)
-            binding.btnNext.isEnabled = true
-        }
-        binding.btnFemale.setOnClickListener {
-            selectedGender = "Female"
-            binding.btnMale.setBackgroundResource(R.drawable.gen_bg)
-            binding.btnFemale.setBackgroundResource(R.drawable.gen_selected_bg)
-            binding.btnNext.isEnabled = true
-        }
-        binding.btnNext.setOnClickListener {
 
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(R.id.action_genderFragment_to_dobFragment);
+        }
+
+
+
+        fun setupGenderSelection(binding: FragmentSignupSelectGenderBinding) {
+            val options = mapOf(
+                binding.layoutMale to "Male",
+                binding.layoutFemale to "Female",
+                binding.layoutOther to "Other"
+            )
+
+            fun updateSelection(selected: View) {
+                options.keys.forEach {
+                    it.setBackgroundResource(
+                        if (it == selected) R.drawable.gender_card_selected else R.drawable.gender_card_selected
+                    )
+                }
+                selectedGender = options[selected]
+                binding.btnNext.isEnabled = true
+                binding.btnNext.setBackgroundResource(R.drawable.rounded_corners)
+            }
+
+            options.keys.forEach { view ->
+                view.setOnClickListener { updateSelection(view) }
+            }
+
+            binding.btnNext.setOnClickListener {
+                Toast.makeText(requireContext(), "Selected: $selectedGender", Toast.LENGTH_SHORT)
+                    .show()
+                // Navigate to next page
+            }
         }
     }
+
+
 }

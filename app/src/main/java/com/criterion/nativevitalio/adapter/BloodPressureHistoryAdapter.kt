@@ -30,7 +30,7 @@ class BPReadingAdapter(
             holder.binding.bpValue.setTextColor(
                 when {
                     item.sys < 90 || item.dia < 60 -> Color.RED
-                    item.sys > 140 || item.dia > 90 -> Color.YELLOW
+                    item.sys > 140 || item.dia > 90 -> Color.parseColor("#FFA500")
                     else -> Color.parseColor("#2D5BE3")
                 }
             )

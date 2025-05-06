@@ -2,9 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/uhidFragment">
+    app:startDestination="@id/nameFragment">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/uhidFragment"
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment1"
         android:label="Enter UHID"
@@ -12,32 +12,76 @@
         <action
             android:id="@+id/action_uhidFragment_to_otpFragment"
             app:destination="@id/otpFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/otpFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.OtpVerificationFragment"
-        android:label="Verify OTP"
-        tools:layout="@layout/fragment_otp_verification" />
-    <action
-        android:id="@+id/action_otpFragment_to_nameFragment"
-        app:destination="@id/nameFragment" />
-
+    </fragment>-->
     <fragment
         android:id="@+id/nameFragment"
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment2"
-        android:label="Verify OTP"
-        tools:layout="@layout/fragment_sign_up2" />
-    <action
-        android:id="@+id/action_nameFragment_to_genderFragment"
-        app:destination="@id/genderFragment" />
+        android:label="Enter Name"
+        tools:layout="@layout/fragment_sign_up2" >
+        <action
+            android:id="@+id/action_nameFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/genderFragment"
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
-        android:label="Verify OTP"
-        tools:layout="@layout/fragment_signup_select_gender" />
-<!--    <action-->
-<!--        android:id="@+id/action_nameFragment_to_fragment_sign_up2"-->
-<!--        app:destination="@id/otpFragment" />-->
+        android:label="Select Gender"
+        tools:layout="@layout/fragment_signup_select_gender" >
+        <action
+            android:id="@+id/action_genderFragment_to_dobFragment"
+            app:destination="@id/dobFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dobFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.DobFragment"
+        android:label="Enter DOB"
+        tools:layout="@layout/fragment_dob" >
+        <action
+            android:id="@+id/action_dobFragment_to_bloodGroupFragment"
+            app:destination="@id/bloodGroupFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_dobFragment_to_nameFragment"
+        app:destination="@id/nameFragment" />
+    <fragment
+        android:id="@+id/bloodGroupFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.BloodGroupFragment"
+        android:label="Select Blood Group"
+        tools:layout="@layout/fragment_blood_group" >
+        <action
+            android:id="@+id/action_bloodGroupFragment_to_adressFragment"
+            app:destination="@id/adressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weightFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.WeightFragment"
+        android:label="Enter Weight"
+        tools:layout="@layout/fragment_weight" >
+        <action
+            android:id="@+id/action_weightFragment_to_heightFragment"
+            app:destination="@id/heightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/heightFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.HeightFragment"
+        android:label="fragment_height"
+        tools:layout="@layout/fragment_height" >
+        <action
+            android:id="@+id/action_heightFragment_to_chronicConditionFragment"
+            app:destination="@id/chronicConditionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chronicConditionFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.ChronicConditionFragment"
+        android:label="fragment_chronic_condition"
+        tools:layout="@layout/fragment_chronic_condition" />
+    <fragment
+        android:id="@+id/adressFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.AdressFragment"
+        android:label="AdressFragment" >
+        <action
+            android:id="@+id/action_adressFragment_to_weightFragment"
+            app:destination="@id/weightFragment" />
+    </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.criterion.nativevitalio.UI
 
 import Patient
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -13,7 +14,6 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -35,7 +35,7 @@ class Login : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
@@ -67,7 +67,7 @@ class Login : AppCompatActivity() {
 
         // ✅ Observe once — not on every button click
         observeViewModel()
-        binding.inputField.setOnFocusChangeListener { v, hasFocus ->
+        binding.inputField.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 scrollToView(binding.mainScrollView, binding.inputField)
             }
@@ -75,13 +75,15 @@ class Login : AppCompatActivity() {
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
             val phoneOrUHID = binding.inputField.text.toString().trim()
-
-//            binding.sendOtpBtn.isEnabled = false
-//            binding. progressBar.visibility = View.VISIBLE
-
             viewModel.getPatientDetailsByUHID(phoneOrUHID)
 //            binding.sendOtpBtn.isEnabled  = true
 //            binding. progressBar.visibility  = View.GONE
+        }
+
+
+        binding.privacyPolicy.setOnClickListener {
+            val intent = Intent(applicationContext, SignupActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -111,7 +113,6 @@ class Login : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
-
         dialogView.findViewById<TextView>(R.id.title)?.text = title
         dialogView.findViewById<Button>(R.id.btnLogoutAll)?.setOnClickListener {
             dialog.dismiss()
@@ -121,7 +122,6 @@ class Login : AppCompatActivity() {
         dialogView.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
 
 
@@ -137,31 +137,23 @@ class Login : AppCompatActivity() {
 
 
     override fun onPause() {
-
         super.onPause()
     }
 
     override fun onStart() {
-
         super.onStart()
-
-
         val bottomCard = findViewById<CardView>(R.id.bottomCard)
-
         val animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
-
         Handler(Looper.getMainLooper()).postDelayed({
             bottomCard.startAnimation(animation)
         }, 200)
     }
 
     override fun onResume() {
-
         super.onResume()
     }
 
     override fun onRestart() {
-
         super.onRestart()
     }
     private fun scrollToView(scrollView: NestedScrollView, view: View) {

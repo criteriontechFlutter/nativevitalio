@@ -1,19 +1,22 @@
 package com.criterion.nativevitalio.UI.ui.signupFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.BloodGroupAdapter
 import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
+import com.criterion.nativevitalio.utils.ToastUtils
 
 class BloodGroupFragment : Fragment() {
-    private lateinit var selectedButton: Button
+//    private lateinit var selectedButton: Button
     private lateinit var binding : FragmentBloodGroupBinding
-
+    private lateinit var selectedBloodGroup : String
+    val bloodGroups = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,29 +28,31 @@ class BloodGroupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val buttons = listOf(
-            binding.btnAplus,
-            binding.btnAminus,
-            binding.btnBplus,
-            binding.btnBminus,
-            binding.btnOplus,
-            binding.btnOminus,
-            binding.btnABplus,
-            binding.btnABminus,
-        )
 
-        buttons.forEach { button ->
+        /*buttons.forEach { button ->
             button.setOnClickListener {
-                context?.let { it1 -> ContextCompat.getColor(it1, R.color.greyText2) }
-                    ?.let { it2 -> selectedButton.setBackgroundColor(it2) }
                 selectedButton = button
-                context?.let { it1 -> ContextCompat.getColor(it1, R.color.primaryBlue) }
-                    ?.let { it2 -> button.setBackgroundColor(it2) }
+                context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.gen_selected_bg) }
+                    ?.let { it2 -> selectedButton.setBackgroundDrawable(it2) }
+                context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.gen_selected_bg) }
+                    ?.let { it2 -> selectedButton.setBackgroundDrawable(it2) }
                 binding.btnNext.isEnabled = true
             }
+        }*/
+
+        val adapter = BloodGroupAdapter(bloodGroups) { selected ->
+
+            ToastUtils.showSuccessPopup(requireContext(),"Selected: $selected")
         }
+
+        binding.rvBloodGroups.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding.rvBloodGroups.adapter = adapter
+
+
+
         binding.btnNext.setOnClickListener {
-            val selectedBloodGroup = selectedButton.text.toString()
+//            val selectedBloodGroup = selectedButton.text.toString()
+            findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment);
         }
     }
 }

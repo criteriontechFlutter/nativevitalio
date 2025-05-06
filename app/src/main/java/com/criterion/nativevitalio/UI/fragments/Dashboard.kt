@@ -214,6 +214,7 @@ class Dashboard  : Fragment() {
 
         binding.notificationIconWrapper.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
+           // findNavController().navigate(R.id.action_dashboard_to_nameFragment)
         }
 
         binding.uploadReport.setOnClickListener {

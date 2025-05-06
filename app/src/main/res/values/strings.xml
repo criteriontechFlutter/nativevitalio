@@ -40,6 +40,13 @@
     <string name="ab_minus">AB-</string>
     <string name="o_positive">O+</string>
     <string name="o_minus">O-</string>
+    <string name="enter_your_first_name">Enter your first name</string>
+    <string name="what_s_your_name">What\'s your name?</string>
+    <string name="please_enter_your_name_n_enter_the_your_full_legal_name_as_it_appears_on_official_documents">Please enter your name/n Enter the your full legal name as it appears on official documents.</string>
+    <string name="enter_current_weight">Enter current weight</string>
+    <string name="and_what_is_your_date_of_birth">And what is your date of birth?</string>
+    <string name="and_what_is_your_blood_group">And what is your Blood Group?</string>
+    <string name="and_what_is_your_height">And what is your height?</string>
 
 
     <string name="symptoms_tracker">Symptom Tracker</string>
@@ -237,5 +244,6 @@
     <string name="add_intake">Add Intake</string>
     <string name="fluid_intake">Fluid Intake</string>
     <string name="diet_checklist">Diet Checklist</string>
+    <string name="back">Back</string>
 
 </resources>
