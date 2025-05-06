@@ -10,20 +10,23 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.viewmodel.BaseViewModel
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.ApiEndPoint
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 class PillsReminderViewModal (application: Application) : BaseViewModel(application) {
 
     private val _pillList = MutableLiveData<List<PillReminderModel>>()
     val pillList: LiveData<List<PillReminderModel>> get() = _pillList
+    private val _currentDatePillList = MutableLiveData<List<PillReminderModel>>()
+    val currentDatePillList: LiveData<List<PillReminderModel>> get() = _currentDatePillList
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
@@ -50,14 +53,15 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     val list = parseMedicationNameAndDateList(json)
-//                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
-//                        Date()
-//                    )
-//
-//// Filter the list to only include today's medications
-//                    val todaysMedications = list.filter { it.date == currentDate }
+                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+                        Date()
+                    )
+
+// Filter the list to only include today's medications
+                    val todaysMedications = list.filter { it.date == currentDate }
+                    _currentDatePillList.postValue(todaysMedications)
                     _pillList.postValue(list)
-                    Log.d("RESPONSE", "responseValue: $_pillList")
+                    Log.d("RESPONSE", "responseValue: $todaysMedications")
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
