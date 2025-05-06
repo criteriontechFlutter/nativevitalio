@@ -26,14 +26,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.utils.showRetrySnackbar
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.DashboardAdapter
+import com.criterion.nativevitalio.adapter.ToTakeAdapter
 import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.utils.showRetrySnackbar
 import com.criterion.nativevitalio.viewmodel.DashboardViewModel
+import com.criterion.nativevitalio.viewmodel.PillsReminderViewModal
 import com.criterion.nativevitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
@@ -46,7 +49,9 @@ import okio.ByteString.Companion.toByteString
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var viewModel: DashboardViewModel
+    private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
+    private lateinit var toTakeAdapter: ToTakeAdapter
     private var voiceDialog: Dialog? = null
     private var snackbar: Snackbar? = null
     private var currentPage = 0
@@ -73,7 +78,9 @@ class Dashboard  : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
 
+        pillsViewModel.getAllPatientMedication()
 
 
         viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
@@ -87,6 +94,27 @@ class Dashboard  : Fragment() {
             }
         }
 
+
+        toTakeAdapter = ToTakeAdapter(
+            mutableListOf(),
+//            onCheckChanged = { pill, isChecked ->
+//                Toast.makeText(requireContext(), "${pill.drugName} marked: $isChecked", Toast.LENGTH_SHORT).show()
+//            },
+            onItemClick = { pill ->
+                val bundle = Bundle().apply {
+                    putSerializable("PILL_DATA", pill)
+                }
+                findNavController().navigate(R.id.action_dashboard_to_intakePills, bundle)
+
+            }
+        )
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = toTakeAdapter
+
+        pillsViewModel.currentDatePillList.observe(viewLifecycleOwner) { pills ->
+            toTakeAdapter.updateList(pills)
+        }
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
@@ -159,8 +187,13 @@ class Dashboard  : Fragment() {
 
         }
 
+
         binding.fluidlayout.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
+        }
+
+        binding.fluidlayout.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_intakePills)
         }
 
         binding.pillsReminder.setOnClickListener {

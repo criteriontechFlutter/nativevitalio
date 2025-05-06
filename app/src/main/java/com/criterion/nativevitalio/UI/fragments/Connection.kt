@@ -180,19 +180,20 @@ class Connection: Fragment() {
 //                "Pulse" -> pulseInput.text.isNotBlank()
 //                else -> false
 //            }
-
+            Toast.makeText(requireContext(), vitalType, Toast.LENGTH_SHORT).show()
             val isValid = when (vitalType) {
                 "Blood Pressure" -> {
                     validateField(sysInput, "Systolic", 60.0, 250.0) &&
                             validateField(diaInput, "Diastolic", 40.0, 150.0)
                 }
                 "Respiratory Rate" -> validateField(rrInput, "Respiratory Rate", 5.0, 50.0)
-                "Blood Oxygen (SpO2)" -> validateField(spo2Input, "SpO2", 50.0, 100.0)
+                "Blood Oxygen (spo2)" -> validateField(spo2Input, "SpO2", 50.0, 100.0)
                 "Heart Rate" -> validateField(heartRateInput, "Heart Rate", 30.0, 200.0)
                 "Body Temperature" -> validateField(tempInput, "Temperature", 30.0, 45.0)
                 "RBS" -> validateField(rbsInput, "RBS", 40.0, 600.0)
                 "Body Weight" -> validateField(weightInput, "Weight", 1.0, 300.0)
                 "Pulse" -> validateField(pulseInput, "Pulse", 30.0, 200.0)
+                "Pulse Rate" -> validateField(pulseInput, "Pulse", 30.0, 200.0)
                 else -> false
             }
             if (!isValid) {
@@ -203,15 +204,16 @@ class Connection: Fragment() {
             dialog.dismiss()
             showPositionDialog(positions) { positionId, remark ->
 //                selectedPositionText.text = "Position: $remark"
-
+                Toast.makeText(requireContext(), vitalType, Toast.LENGTH_SHORT).show()
                 when (vitalType) {
                     "Blood Pressure" -> viewModel.insertPatientVital(findNavController(),requireContext(),sysInput.text.toString(), diaInput.text.toString(), positionId.toString())
                     "Respiratory Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),rr = rrInput.text.toString(), positionId = positionId.toString())
-                    "Blood Oxygen (SpO2)" -> viewModel.insertPatientVital(findNavController(),requireContext(),spo2 = spo2Input.text.toString(), positionId = positionId.toString())
+                    "Blood Oxygen (spo2)" -> viewModel.insertPatientVital(findNavController(),requireContext(),spo2 = spo2Input.text.toString(), positionId = positionId.toString())
                     "Heart Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),hr = heartRateInput.text.toString(), positionId = positionId.toString())
                     "Body Temperature" -> viewModel.insertPatientVital(findNavController(),requireContext(),tmp = tempInput.text.toString(), positionId = positionId.toString())
                     "RBS" -> viewModel.insertPatientVital(findNavController(),requireContext(),rbs = rbsInput.text.toString(), positionId = positionId.toString())
-                    "Pulse" -> viewModel.insertPatientVital(findNavController(),requireContext(),weight = pulseInput.text.toString(), positionId = positionId.toString())
+                    "Pulse" -> viewModel.insertPatientVital(findNavController(),requireContext(),pr = pulseInput.text.toString(), positionId = positionId.toString())
+                    "Pulse Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),pr = pulseInput.text.toString(), positionId = positionId.toString())
                     "Body Weight" -> viewModel.insertPatientVital(findNavController(),requireContext(),weight = weightInput.text.toString(), positionId = positionId.toString())
                 }
 
