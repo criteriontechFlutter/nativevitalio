@@ -5,11 +5,11 @@
 
 
 
-<!--    <androidx.core.widget.NestedScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="#F9FAFB"-->
-<!--        android:padding="5sp">-->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F9FAFB"
+        android:padding="5sp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -230,7 +230,7 @@
 
                 <com.criterion.nativevitalio.utils.GlassFillView
                     android:layout_width="250dp"
-                    android:layout_height="300dp"
+                    android:layout_height="250dp"
                     android:visibility="gone"
                     android:padding="@dimen/_10sdp"
                     android:id="@+id/waterGlassView"
@@ -503,5 +503,5 @@
                 android:textColor="#fff" />
 
         </LinearLayout>
-<!--    </androidx.core.widget.NestedScrollView>-->
+    </androidx.core.widget.NestedScrollView>
 </layout>

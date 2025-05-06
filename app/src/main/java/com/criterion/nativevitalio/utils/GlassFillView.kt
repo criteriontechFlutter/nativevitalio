@@ -27,7 +27,7 @@ class GlassFillView @JvmOverloads constructor(
     private val outlinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 4f
-        color = Color.parseColor("#D1D5DB") // Light gray border
+        color = Color.parseColor("#D1D5DB")
     }
 
     fun setGlassSize(size: Int) {
@@ -43,17 +43,15 @@ class GlassFillView @JvmOverloads constructor(
     fun getCurrentMl(): Int = (fillPercent * glassSize).toInt()
 
     private fun getGradientPaint(): Paint {
-        val gradientPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        return Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
+            shader = LinearGradient(
+                0f, height * (1f - fillPercent), 0f, height.toFloat(),
+                Color.parseColor("#E0F2FE"),
+                Color.parseColor("#BFDBFE"),
+                Shader.TileMode.CLAMP
+            )
         }
-        val shader = LinearGradient(
-            0f, height * (1f - fillPercent), 0f, height.toFloat(),
-            Color.parseColor("#E0F2FE"),  // light top
-            Color.parseColor("#BFDBFE"),  // deeper blue bottom
-            Shader.TileMode.CLAMP
-        )
-        gradientPaint.shader = shader
-        return gradientPaint
     }
 
     @SuppressLint("DrawAllocation")
@@ -62,25 +60,23 @@ class GlassFillView @JvmOverloads constructor(
 
         val w = width.toFloat()
         val h = height.toFloat()
-        val labelPadding = 100f  // space on left for ml scale
-        val glassPadding = 40f   // space between scale and glass
+        val padding = 40f
         val cornerRadius = 40f
 
-        // Glass dimensions
-        val glassLeft = labelPadding + glassPadding
-        val glassRight = w - glassPadding
-        val glassRect = RectF(glassLeft, 0f, glassRight, h)
+        val left = padding
+        val right = w - padding
+        val glassRect = RectF(left, 0f, right, h)
 
-        // Draw glass outline
+        // Draw outline
         canvas.drawRoundRect(glassRect, cornerRadius, cornerRadius, outlinePaint)
 
-        // Fill water
+        // Fill level
         val fillTop = h * (1f - fillPercent)
-        val fillRect = RectF(glassLeft, fillTop, glassRight, h)
+        val fillRect = RectF(left, fillTop, right, h)
         canvas.drawRect(fillRect, getGradientPaint())
 
-        // Center percentage text
-        val centerX = (glassLeft + glassRight) / 2f
+        // Center text
+        val centerX = (left + right) / 2f
         val centerY = h / 2f
 
         val percentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -97,22 +93,7 @@ class GlassFillView @JvmOverloads constructor(
 
         canvas.drawText("${(fillPercent * 100).toInt()}%", centerX, centerY - 20f, percentPaint)
         canvas.drawText("${getCurrentMl()} ml of $glassSize ml", centerX, centerY + 40f, mlPaint)
-
-        // Draw ml scale labels
-        val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            textSize = 30f
-            textAlign = Paint.Align.RIGHT
-        }
-
-        for (i in 0..glassSize step 50) {
-            val y = h - (i / glassSize.toFloat() * h)
-            val labelColor = if (i > getCurrentMl()) "#9CA3AF" else "#3B82F6" // gray above, blue below
-            labelPaint.color = Color.parseColor(labelColor)
-            canvas.drawText("${i} ml", labelPadding, y + 10f, labelPaint)
-        }
     }
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -126,18 +107,16 @@ class GlassFillView @JvmOverloads constructor(
     }
 
     private fun animateFillTo(targetPercent: Float) {
-        val animator = ValueAnimator.ofFloat(fillPercent, targetPercent).apply {
+        ValueAnimator.ofFloat(fillPercent, targetPercent).apply {
             duration = 50
             interpolator = DecelerateInterpolator()
-            addUpdateListener { animation ->
-                fillPercent = animation.animatedValue as Float
+            addUpdateListener {
+                fillPercent = it.animatedValue as Float
                 val percentInt = (fillPercent * 100).toInt()
                 val ml = ((percentInt / 100f) * glassSize).toInt()
                 onValueChange?.invoke(percentInt, ml)
                 invalidate()
             }
-        }
-        animator.start()
+        }.start()
     }
-
 }
