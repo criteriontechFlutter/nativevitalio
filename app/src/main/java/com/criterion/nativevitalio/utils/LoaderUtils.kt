@@ -2,7 +2,6 @@ package com.criterion.nativevitalio.utils
 
 import android.app.Activity
 import android.app.Dialog
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.criterion.nativevitalio.R
 
@@ -16,7 +15,7 @@ object LoaderUtils {
             setCancelable(false)
             window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-            findViewById<TextView>(R.id.loadingText)?.text = message
+          //  findViewById<TextView>(R.id.loadingText)?.text = message
             show()
         }
     }
@@ -32,8 +31,7 @@ object LoaderUtils {
             setContentView(R.layout.dialog_loader)
             setCancelable(false)
             window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-            findViewById<TextView>(R.id.loadingText)?.text = message
+          //  findViewById<TextView>(R.id.loadingText)?.text = message
             show()
         }
     }
