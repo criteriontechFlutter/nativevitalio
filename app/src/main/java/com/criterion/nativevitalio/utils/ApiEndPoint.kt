@@ -6,6 +6,14 @@ class ApiEndPoint {
 
     val updatePatient="api/PatientRegistration/UpdatePatientProfile"
 
+
+
+
+    val getStateMasterByCountryId="api/StateMaster/GetStateMasterByCountryId"
+    val getCityMasterByStateId="api/CityMaster/GetCityMasterByStateId"
+    val patientSignUp="api/PatientRegistration/PatientSignUp"
+
+
     val patientAllergies="api/PatientIPDPrescription/PatientAllergies"
     val getHistorySubCategoryMasterById="api/HistorySubCategory/GetHistorySubCategoryMasterById"
     val savePatientAllergies="api/PatientIPDPrescription/SavePatientAllergies"
@@ -57,5 +65,10 @@ class ApiEndPoint {
 
 
     val getPatientMediaData="api/PatientMediaData/GetPatientMediaData"
+
+
+
+
+
 
 }

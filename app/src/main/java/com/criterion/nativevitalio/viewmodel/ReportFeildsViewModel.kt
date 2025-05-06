@@ -74,38 +74,47 @@ class ReportFeildsViewModel  : ViewModel(){
 
 
 
+    fun Map<*, *>.getIfExists(key: String): String {
+        return if (this.containsKey(key)) this[key]?.toString() ?: "" else ""
+    }
 
     suspend fun insertInvestigation(
         context: Context,
         dateTime:String,
         reportData: List<Map<String, Any>>,
+        patientDetails:  Map<*, *>
     ): Boolean = withContext(Dispatchers.IO) {
         val tempPatientData = mutableListOf<Map<String, String>>()
         val tempReportData = mutableListOf<Map<String, String>>()
 
+        // ✅ Extension for safe value extraction
+        fun Map<*, *>.getIfExists(key: String): String {
+            return if (this.containsKey(key)) this[key]?.toString() ?: "" else ""
+        }
+
         try {
-            reportData.forEach { report ->
-                val labName = report["lab_name"].toString()
-                val collectionDate = report["collection_date"].toString()
+            val collectionDate = patientDetails.getIfExists("collection_date")
 
-                tempPatientData.add(
-                    mapOf(
-                        "itemName" to (report["itemName"]?.toString() ?: ""),
-                        "itemId" to (report["itemId"]?.toString() ?: ""),
-                        "labName" to (report["lab_name"]?.toString() ?: ""),
-                        "receiptNo" to (report["receiptNo"]?.toString() ?: ""),
-                        "resultDateTime" to (dateTime ?: "")
-                    )
+            tempPatientData.add(
+                mapOf(
+                    "itemName" to patientDetails.getIfExists("itemName"),
+                    "itemId" to patientDetails.getIfExists("itemId"),
+                    "labName" to patientDetails.getIfExists("lab_name"),
+                    "receiptNo" to patientDetails.getIfExists("receiptNo"),
+                    "resultDateTime" to (dateTime)
                 )
+            )
 
+            reportData.forEach { report ->
                 val reportList = report["report"] as? List<Map<String, Any>> ?: emptyList()
+
                 reportList.forEach { item ->
                     tempReportData.add(
                         mapOf(
                             "subTestId" to (item["id"]?.toString() ?: ""),
                             "subTestName" to (item["test_name"]?.toString() ?: ""),
                             "range" to (item["normal_values"]?.toString() ?: ""),
-                            "resultDateTime" to (report["collection_date"]?.toString() ?: ""),
+                            "resultDateTime" to collectionDate,
                             "result" to (item["result"]?.toString() ?: ""),
                             "unit" to (item["unit"]?.toString() ?: ""),
                             "isNormal" to "1"
@@ -113,6 +122,7 @@ class ReportFeildsViewModel  : ViewModel(){
                     )
                 }
             }
+
 
             val body = mapOf(
                 "uhid" to PrefsManager().getPatient()?.uhID.toString(),

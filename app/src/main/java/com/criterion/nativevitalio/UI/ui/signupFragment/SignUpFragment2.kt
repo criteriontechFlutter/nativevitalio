@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentSignUp2Binding
 
 class SignUpFragment2 : Fragment() {
     private lateinit var binding : FragmentSignUp2Binding
+    private lateinit var progressViewModel: ProgressViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +25,12 @@ class SignUpFragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnNext.setOnClickListener {
 
+
+
+        progressViewModel = ViewModelProvider(this)[ProgressViewModel::class.java]
+        binding.btnNext.setOnClickListener {
+            progressViewModel.updateProgress(1)
             findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
 
         }

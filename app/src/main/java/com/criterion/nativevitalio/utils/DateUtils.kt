@@ -8,7 +8,7 @@ import android.widget.NumberPicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.BottomSheetListAdapter
+import com.criterion.nativevitalio.adapter.BottomSheetMapAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -147,21 +147,41 @@ object DateUtils {
     }
 
 
-    fun showListBottomSheet(context: Context, title: String, list: List<String>, onSelected: (String) -> Unit) {
+//    fun showListBottomSheet(context: Context, title: String, list:  List<Map<String, Any>>, onSelected: (String) -> Unit) {
+//        val dialog = BottomSheetDialog(context)
+//        val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_list, null)
+//        dialog.setContentView(view)
+//
+//        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+//        recyclerView.layoutManager = LinearLayoutManager(context)
+//        recyclerView.adapter = BottomSheetMapAdapter(list) {
+//            onSelected(it)
+//            dialog.dismiss()
+//        }
+//
+//        dialog.show()
+//    }
+
+    fun showListBottomSheet(
+        context: Context,
+        title: String,
+        list: List<Map<String, Any>>,
+        displayKey: String,
+        onSelected: (Map<String, Any>) -> Unit
+    ) {
         val dialog = BottomSheetDialog(context)
         val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_list, null)
         dialog.setContentView(view)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = BottomSheetListAdapter(list) {
+        recyclerView.adapter = BottomSheetMapAdapter(list, displayKey) {
             onSelected(it)
             dialog.dismiss()
         }
 
         dialog.show()
     }
-
 
 
     fun showHeightPicker(context: Context, onSelected: (String) -> Unit) {
