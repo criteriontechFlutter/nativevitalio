@@ -109,6 +109,9 @@
         <action
             android:id="@+id/action_fluidFragment_to_fluidOutputFragment"
             app:destination="@id/fluidOutputFragment" />
+        <action
+            android:id="@+id/action_fluidFragment_to_waterLayout"
+            app:destination="@id/waterLayout" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragmentVitalio"
@@ -209,5 +212,10 @@
         android:id="@+id/intakePills"
         android:name="com.criterion.nativevitalio.UI.fragments.IntakePills"
         android:label="IntakePills" />
+    <fragment
+        android:id="@+id/waterLayout"
+        android:name="com.criterion.nativevitalio.UI.fragments.WaterLayout"
+        android:label="fragment_water_layout"
+        tools:layout="@layout/fragment_water_layout" />
 
 </navigation>

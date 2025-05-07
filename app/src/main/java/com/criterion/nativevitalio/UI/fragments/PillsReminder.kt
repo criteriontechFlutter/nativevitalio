@@ -4,9 +4,12 @@ import PillReminderAdapter
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -18,6 +21,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +30,8 @@ import com.criterion.nativevitalio.databinding.FragmentPillsReminderBinding
 import com.criterion.nativevitalio.utils.SyncedHorizontalScrollView
 import com.criterion.nativevitalio.viewmodel.PillsReminderViewModal
 import java.text.SimpleDateFormat
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -67,7 +73,7 @@ class PillsReminder : Fragment() {
                 binding.headerScrollView.visibility = View.GONE
                 binding.recyclerView.visibility = View.GONE
                 binding.timelineScrollView.visibility = View.VISIBLE
-                binding.seeTimeline.text = "See Table View"
+                binding.seeTimeline.text = "See Checklist"
                 showTimelineChecklist()
             } else {
                 binding.headerScrollView.visibility = View.VISIBLE
@@ -169,7 +175,7 @@ class PillsReminder : Fragment() {
             text = "MEDICINE"
             textSize = 14f
             setTypeface(null, Typeface.BOLD)
-            gravity = Gravity.CENTER
+            gravity = Gravity.START
             setTextColor(Color.BLACK)
         }
 
@@ -211,39 +217,73 @@ class PillsReminder : Fragment() {
             pill.jsonTime.map { timeObj -> Triple(timeObj.time, pill, timeObj) }
         }.groupBy { it.first }.toSortedMap()
 
+        val now = LocalTime.now()
+
+        val pastelColors = listOf(
+            "#E0F7FA", "#F3E5F5", "#E1F5FE", "#FFEBEE",
+            "#FFFDE7", "#F9FBE7", "#E8F5E9", "#ECEFF1"
+        )
+
         grouped.forEach { (time, items) ->
             val rowView = LayoutInflater.from(requireContext()).inflate(R.layout.item_time_pill_row, binding.timelineContainer, false)
-            rowView.findViewById<TextView>(R.id.tvTime).text = time
+            val tvTime = rowView.findViewById<TextView>(R.id.tvTime)
             val cardContainer = rowView.findViewById<LinearLayout>(R.id.medicineContainer)
+
+            // Highlight upcoming/current time
+            val itemTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("hh:mm a"))
+            if (!itemTime.isBefore(now)) {
+                tvTime.setBackgroundResource(R.drawable.bg_time_highlight)
+                tvTime.setTextColor(Color.WHITE)
+            }
+
+            tvTime.text = time
 
             items.forEach { (_, pill, timeObj) ->
                 val card = LayoutInflater.from(requireContext()).inflate(R.layout.item_medicine_card, cardContainer, false)
 
                 card.findViewById<TextView>(R.id.tvDrugName).text = pill.drugName
                 card.findViewById<TextView>(R.id.tvInstruction).text = timeObj.instruction ?: "after meal"
-                card.findViewById<TextView>(R.id.tvDose).text = "1 unit"
-                card.findViewById<ImageView>(R.id.imgIcon).setImageResource(R.drawable.pills)
+                card.findViewById<TextView>(R.id.tvDose).text = "${timeObj.dose ?: 1} ${timeObj.instruction ?: "unit"}"
+
+                // Set random pastel background
+                val color = Color.parseColor(pastelColors.random())
+                card.backgroundTintList = ColorStateList.valueOf(color)
+
+                val imgIcon = card.findViewById<ImageView>(R.id.imgIcon)
+                val iconValue = "pill"
+                val iconRes = when {
+                    iconValue.contains("syrup") -> R.drawable.pill
+                    iconValue.contains("capsule") -> R.drawable.pill
+                    else -> R.drawable.pill
+                }
+                imgIcon.setImageResource(iconRes)
 
                 val actionIcon = card.findViewById<ImageView>(R.id.imgAction)
-                val iconValue = timeObj.icon?.lowercase()
+                val isTaken = timeObj.icon?.lowercase() in listOf("taken", "check", "late")
 
-                if (iconValue == "taken" || iconValue == "check" || iconValue == "late") {
-                    actionIcon.setImageResource(R.drawable.ic_checkbox_checked)
+
+                val cardColor = (card.backgroundTintList as? ColorDrawable)?.color ?: Color.WHITE
+                val darkerColor = ColorUtils.blendARGB(cardColor, Color.BLACK, 0.2f)
+
+                actionIcon.setImageResource(R.drawable.ic_checkbox_square)
+
+                if (isTaken) {
+                    actionIcon.setImageResource(R.drawable.checkbox)
+
+                    actionIcon.setColorFilter(darkerColor, PorterDuff.Mode.SRC_IN)
                     actionIcon.isEnabled = false
                 } else {
-                    actionIcon.setImageResource(R.drawable.ic_checkbox_square)
-
+                    actionIcon.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
                     actionIcon.setOnClickListener {
-                        val now = Calendar.getInstance()
+                        val cal = Calendar.getInstance()
                         TimePickerDialog(
                             requireContext(),
                             { _, hourOfDay, minute ->
-                                val cal = Calendar.getInstance().apply {
-                                    set(Calendar.HOUR_OF_DAY, hourOfDay)
-                                    set(Calendar.MINUTE, minute)
-                                }
-
-                                val selectedTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(cal.time)
+                                val selectedTime = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                                    .format(Calendar.getInstance().apply {
+                                        set(Calendar.HOUR_OF_DAY, hourOfDay)
+                                        set(Calendar.MINUTE, minute)
+                                    }.time)
 
                                 AlertDialog.Builder(requireContext())
                                     .setTitle("Confirm Intake")
@@ -260,14 +300,23 @@ class PillsReminder : Fragment() {
                                     .setNegativeButton("Cancel", null)
                                     .show()
                             },
-                            now.get(Calendar.HOUR_OF_DAY),
-                            now.get(Calendar.MINUTE),
+                            cal.get(Calendar.HOUR_OF_DAY),
+                            cal.get(Calendar.MINUTE),
                             false
                         ).show()
                     }
                 }
+
+//                actionIcon.setImageResource(
+//                    if (isTaken) R.drawable.ic_checkbox_checked else R.drawable.ic_checkbox_square
+//                )
+//                actionIcon.isEnabled = !isTaken
+
+
+
                 cardContainer.addView(card)
             }
+
             binding.timelineContainer.addView(rowView)
         }
     }

@@ -23,12 +23,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
-import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.FluidOptionAdapter
 import com.criterion.nativevitalio.adapter.GlassSizeAdapter
 import com.criterion.nativevitalio.databinding.FragmentFluidBinding
+import com.criterion.nativevitalio.utils.CoffeVIew
+import com.criterion.nativevitalio.utils.GlassView
+import com.criterion.nativevitalio.utils.GreenTea
+import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
+import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
+import com.criterion.nativevitalio.utils.MilkView
 import com.criterion.nativevitalio.viewmodel.FluidIntakeOuputViewModel
 
 
@@ -71,6 +75,7 @@ class FluidFragment : Fragment() {
 
         binding.backIcon.setOnClickListener {
             findNavController().popBackStack()
+           // findNavController().navigate(R.id.action_fluidFragment_to_waterLayout)
         }
 
 //        populateScale()
@@ -141,29 +146,55 @@ class FluidFragment : Fragment() {
 
         // viewModel.selectedVolume.value?.let { binding.glassView.setGlassSize(it) } // Set max to 500ml
 
-        binding.waterGlassView.setOnFillChangedListener { percent, ml ->
-            Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
-            viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
-
+        binding.waterGlassView.post {
+            binding.waterGlassView.setVolumeRange(0,150)
+            binding.waterGlassView.setFillGradient(Color.parseColor("#98BEFF"),Color.parseColor("#93BBFF"),
+                Color.parseColor("#8CB7FF"),Color.parseColor("#7AADFF"))
         }
 
-        binding.milkGlassView.setOnFillChangedListener { percent, ml ->
+        binding.waterGlassView.setOnVolumeChangeListener(object : GlassView.OnVolumeChangeListener {
+            override fun onVolumeChanged(filledMl: Int, progress: Float) {
+                Log.d("TAG", "onVolumeChanged: $filledMl")
+                viewModel.setSelectedFluidIntakeVolume(filledMl.toDouble())
+            }
+        })
 
-            Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
-            viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
-        }
 
-        binding.cupglassView.setOnFillChangedListener { percent, ml ->
 
-            Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
-            viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
-        }
+
+
+        binding.milkGlassView.setOnVolumeChangeListener(object : MilkView.OnVolumeChangeListener {
+            override fun onVolumeChanged(filledMl: Int, progress: Float) {
+                Log.d("TAG", "onVolumeChanged: $filledMl")
+                viewModel.setSelectedFluidIntakeVolume(filledMl.toDouble())
+            }
+        })
+
+
+
+
+
+
+        binding.cupglassView.setOnVolumeChangeListener(object : GreenTea.OnVolumeChangeListener {
+            override fun onVolumeChanged(filledMl: Int, progress: Float) {
+                Log.d("TAG", "onVolumeChanged: $filledMl")
+                viewModel.setSelectedFluidIntakeVolume(filledMl.toDouble())
+            }
+        })
+
 
         binding.juiceGlassView.setOnFillChangedListener { percent, ml ->
 
             Log.d("TAG", "onViewCreated: "+percent.toString()+"Mlll"+ml.toString())
             viewModel.setSelectedFluidIntakeVolume(ml.toDouble())
         }
+
+        binding.coffeView.setOnVolumeChangeListener(object : CoffeVIew.OnVolumeChangeListener {
+            override fun onVolumeChanged(filledMl: Int, progress: Float) {
+                Log.d("TAG", "onVolumeChanged: $filledMl")
+                viewModel.setSelectedFluidIntakeVolume(filledMl.toDouble())
+            }
+        })
 
 
 
@@ -255,26 +286,40 @@ class FluidFragment : Fragment() {
                     binding.waterGlassView.visibility = GONE
                     binding.juiceGlassView.visibility = GONE
                     binding.cupglassView.visibility = GONE
+                    binding.coffeView.visibility = GONE
                     binding.noFluid.visibility = GONE
                 }
                 selected?.foodName.equals("Water", true) -> {
-                    binding.milkGlassView.visibility = GONE
-                    binding.waterGlassView.visibility = VISIBLE
+                    binding.milkGlassView.visibility = VISIBLE
+                    binding.waterGlassView.visibility = GONE
+                    binding.coffeView.visibility = GONE
                     binding.juiceGlassView.visibility = GONE
                     binding.cupglassView.visibility = GONE
                     binding.noFluid.visibility = GONE
                 }
-                selected?.foodName?.contains("Green Tea", true) == true || selected?.foodName.equals("Coffee", true) -> {
+                selected?.foodName?.contains("Green Tea", true) == true  -> {
                     binding.milkGlassView.visibility = GONE
                     binding.waterGlassView.visibility = GONE
                     binding.juiceGlassView.visibility = GONE
                     binding.cupglassView.visibility = VISIBLE
+                    binding.coffeView.visibility = GONE
+                    binding.noFluid.visibility = GONE
+                }
+
+
+               selected?.foodName.equals("Coffee", true) -> {
+                    binding.milkGlassView.visibility = GONE
+                    binding.waterGlassView.visibility = GONE
+                    binding.juiceGlassView.visibility = GONE
+                    binding.cupglassView.visibility = GONE
+                    binding.coffeView.visibility = VISIBLE
                     binding.noFluid.visibility = GONE
                 }
                 selected?.foodName.equals("Fruit Juice", true) -> {
                     binding.milkGlassView.visibility = GONE
-                    binding.waterGlassView.visibility = GONE
-                    binding.juiceGlassView.visibility = VISIBLE
+                    binding.juiceGlassView.visibility = GONE
+                    binding.waterGlassView.visibility = VISIBLE
+                    binding.coffeView.visibility = GONE
                     binding.cupglassView.visibility = GONE
                     binding.noFluid.visibility = GONE
                 }
@@ -282,6 +327,7 @@ class FluidFragment : Fragment() {
                     binding.milkGlassView.visibility = GONE
                     binding.waterGlassView.visibility = GONE
                     binding.juiceGlassView.visibility = GONE
+                    binding.coffeView.visibility = GONE
                     binding.cupglassView.visibility = GONE
                     binding.noFluid.visibility = VISIBLE
                 }
@@ -390,10 +436,11 @@ class FluidFragment : Fragment() {
         viewModel.glassSizeList.observe(viewLifecycleOwner) { sizes ->
             adapterGlassSize = GlassSizeAdapter(sizes) { selected ->
                 viewModel.setSelectedGlassSize(selected.volume)
-                binding.waterGlassView.setGlassSize(selected.volume)
-                binding.cupglassView.setGlassSize(selected.volume)
-                binding.milkGlassView.setGlassSize(selected.volume)
+                binding.waterGlassView.setVolumeRange(0,selected.volume)
+                binding.cupglassView.setVolumeRange(0,selected.volume)
+                binding.milkGlassView.setVolumeRange(0,selected.volume)
                 binding.juiceGlassView.setGlassSize(selected.volume)
+                binding.coffeView.setVolumeRange(0,selected.volume)
                 if(selected.volume==0 && selected.isSelected){
                     FluidAmountBottomSheet { selectedAmount ->
                         viewModel.setSelectedGlassSize(selectedAmount)
@@ -412,55 +459,6 @@ class FluidFragment : Fragment() {
 
 
 
-//    private fun populateScale() {
-//        val step = 100
-//        for (i in 1000 downTo 0 step step) {
-//            val label = TextView(activity).apply {
-//                text = "$i ml"
-//                setTextColor(Color.GRAY)
-//                textSize = 12f
-//                layoutParams = LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    0,
-//                    1f
-//                )
-//            }
-//           labelViews.add(label)
-//            binding.scaleLabels.addView(label)
-//        }
-//    }
-//
-//    private fun setupSeekBar() {
-//        binding.fluidSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//                viewModel.setSelectedOutputProgress(progress)
-//                binding.fluidLevelLabel.text = "$progress ml"
-//
-//                // Position label vertically
-//                val seekBarHeight =   binding.fluidSeekBar.height
-//                val percent = progress.toFloat() /   binding.fluidSeekBar.max
-//                val yPos =   binding.fluidSeekBar.top + seekBarHeight * (1 - percent)
-//                binding.fluidLevelLabel.y = yPos -   binding.fluidLevelLabel.height / 2
-//
-//                // Animate fill view height
-//                val fillHeight = (seekBarHeight * percent).toInt()
-//                val params =   binding.fillView.layoutParams
-//                params.height = fillHeight
-//                binding.fillView.layoutParams = params
-//
-//                // Color scale labels
-//                for ((index, label) in labelViews.withIndex()) {
-//                    val labelValue = 1000 - index * 100
-//                    label.setTextColor(
-//                        if (progress >= labelValue) Color.parseColor("#FF6F00") else Color.GRAY
-//                    )
-//                }
-//            }
-//
-//            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-//            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-//        })
-//    }
 
     private fun updateToggleStyles(checkedId: Int) {
         val buttons = listOf(binding.btnIntake, binding.btnOutput)
