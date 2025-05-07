@@ -5,17 +5,15 @@
 
 
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F9FAFB"
-        android:padding="5sp">
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:padding="5sp">-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:backgroundTint="@color/primaryBlueLight"
             android:gravity="center_horizontal">
 
             <!-- Header -->
@@ -23,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:paddingHorizontal="10dp"
-                android:background="@color/primaryBlueLight">
+              >
 
                 <!-- Back Icon -->
                 <ImageView
@@ -211,8 +209,8 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="250dp"
+                    android:layout_width="230dp"
+                    android:layout_height="200dp"
                     android:importantForAccessibility="no"
                     android:visibility="visible"
                     android:background="@drawable/ic_no_fluid"
@@ -220,17 +218,26 @@
                     android:layout_gravity="center"/>
 
                 <!-- Glass animation/graphic -->
-                <com.criterion.nativevitalio.utils.CupGlassFilledView
-                    android:layout_width="140dp"
-                    android:layout_height="250dp"
+                <com.criterion.nativevitalio.utils.GreenTea
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
                     android:visibility="gone"
                     android:id="@+id/cupglassView"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     />
 
-                <com.criterion.nativevitalio.utils.GlassFillView
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+
+                <com.criterion.nativevitalio.utils.CoffeVIew
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:visibility="gone"
+                    android:id="@+id/coffeView"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <com.criterion.nativevitalio.utils.GlassView
+                    android:layout_width="150dp"
+                    android:layout_height="230dp"
                     android:visibility="gone"
                     android:padding="@dimen/_10sdp"
                     android:id="@+id/waterGlassView"
@@ -239,7 +246,7 @@
 
                 <com.criterion.nativevitalio.utils.JuiceView
                     android:layout_width="140dp"
-                    android:layout_height="250dp"
+                    android:layout_height="230dp"
                     android:visibility="gone"
                     android:id="@+id/juiceGlassView"
                     android:layout_gravity="center"
@@ -247,7 +254,7 @@
 
                 <com.criterion.nativevitalio.utils.MilkView
                     android:layout_width="140dp"
-                    android:layout_height="250dp"
+                    android:layout_height="230dp"
                     android:visibility="gone"
                     android:id="@+id/milkGlassView"
                     android:layout_gravity="center"
@@ -503,5 +510,5 @@
                 android:textColor="#fff" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+<!--    </androidx.core.widget.NestedScrollView>-->
 </layout>
