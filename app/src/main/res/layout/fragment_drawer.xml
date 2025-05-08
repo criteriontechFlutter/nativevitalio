@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="#F9FAFB"
+        android:background="@color/backgroundColor"
         android:padding="5dp">
 
 
@@ -55,6 +55,7 @@
                         android:padding="@dimen/_8sdp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/three_dots"
+                        android:tint="@color/textColor"
                         android:layout_gravity="end|center_vertical" />
                 </LinearLayout>
 
@@ -96,7 +97,7 @@
                     android:textSize="18sp"
                     android:id="@+id/userName"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="#000000"
+                    android:textColor="@color/textColor"
                     android:textStyle="bold"
                     android:layout_marginBottom="4dp" />
 
@@ -106,7 +107,7 @@
                     android:text="+91 9876543210"
                     android:textSize="14sp"
                     android:id="@+id/userUhid"
-                    android:textColor="#7B8794"
+                    android:textColor="@color/textColor"
                     android:layout_marginBottom="12dp" />
 
                 <Button
@@ -115,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text="Edit Profile"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/textColor"
                     android:backgroundTint="#356DF3" />
             </LinearLayout>
 
@@ -124,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:textColor="@color/textColor"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/section_bg"
                 >
@@ -134,6 +136,7 @@
 <!--                    android:id="@+id/personalInfoRow" />-->
 
                 <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/allergiesRow"
                     />
             </LinearLayout>
@@ -153,16 +156,19 @@
 <!--                    android:id="@+id/myObserverRow" />-->
 
                 <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/sharedAccountRow"
                     />
 
                 <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/connectSmartWatchRow"
                     />
 
 
                 <include layout="@layout/item_profile_row"
                     android:visibility="gone"
+                    android:textColor="@color/textColor"
                     android:id="@+id/emergencyContactRow"
                     />
 
@@ -187,18 +193,22 @@
 
                 <include
                     layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/languageRow" />
 
                 <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/darkModeRow"
                     />
 
                 <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/FAQsRow"
                     />
 
 
                 <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
                     android:id="@+id/feedbackRow"
                     />
 

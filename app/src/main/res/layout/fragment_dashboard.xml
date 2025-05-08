@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"        android:fitsSystemWindows="true"
-        android:background="@color/white">
+        android:background="@color/backgroundColor">
 
         <!-- Profile Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Good Morning,"
-
+                    android:textColor="@color/textColor"
                     android:textSize="13sp" />
 
                 <TextView
@@ -62,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Abhay Sharma"
+                    android:textColor="@color/textColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>

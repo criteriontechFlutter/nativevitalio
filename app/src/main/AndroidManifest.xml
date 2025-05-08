@@ -135,7 +135,7 @@
 
         <provider
             android:name=".Omron.Database.OmronDBProvider"
-            android:authorities="com.criterion.nativevitalio.Database.OmronDBProvider"
+            android:authorities="com.critetiontech.ctvitalio.Database.OmronDBProvider"
             android:exported="false" />
 
         <activity

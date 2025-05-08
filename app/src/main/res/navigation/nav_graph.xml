@@ -6,7 +6,7 @@
 
     <!--<fragment
         android:id="@+id/uhidFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment1"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment1"
         android:label="Enter UHID"
         tools:layout="@layout/fragment_sign_up_fragment1">
         <action
@@ -15,7 +15,7 @@
     </fragment>-->
     <fragment
         android:id="@+id/nameFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignUpFragment2"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment2"
         android:label="Enter Name"
         tools:layout="@layout/fragment_sign_up2" >
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
         android:label="Select Gender"
         tools:layout="@layout/fragment_signup_select_gender" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/dobFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.DobFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.DobFragment"
         android:label="Enter DOB"
         tools:layout="@layout/fragment_dob" >
         <action
@@ -46,7 +46,7 @@
         app:destination="@id/nameFragment" />
     <fragment
         android:id="@+id/bloodGroupFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.BloodGroupFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.BloodGroupFragment"
         android:label="Select Blood Group"
         tools:layout="@layout/fragment_blood_group" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.WeightFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.WeightFragment"
         android:label="Enter Weight"
         tools:layout="@layout/fragment_weight" >
         <action
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/heightFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.HeightFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.HeightFragment"
         android:label="fragment_height"
         tools:layout="@layout/fragment_height" >
         <action
@@ -73,12 +73,12 @@
     </fragment>
     <fragment
         android:id="@+id/chronicConditionFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.ChronicConditionFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.ChronicConditionFragment"
         android:label="fragment_chronic_condition"
         tools:layout="@layout/fragment_chronic_condition" />
     <fragment
         android:id="@+id/adressFragment"
-        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.AdressFragment"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AdressFragment"
         android:label="AdressFragment" >
         <action
             android:id="@+id/action_adressFragment_to_weightFragment"
