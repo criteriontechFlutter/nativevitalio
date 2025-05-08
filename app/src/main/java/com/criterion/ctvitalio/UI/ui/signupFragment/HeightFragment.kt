@@ -29,13 +29,16 @@ class HeightFragment : Fragment() {
             findNavController().navigate(R.id.action_heightFragment_to_chronicConditionFragment)
         }
 
-
+        binding.etHeight.apply {
+            isFocusable = false
+            isClickable = true
+        }
 
         binding.etHeight.setOnClickListener {
+            // Just open height picker
             showHeightPicker(requireContext()) { selectedHeight ->
                 binding.etHeight.setText(selectedHeight)
             }
         }
-
     }
 }
