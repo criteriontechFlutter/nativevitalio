@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chipLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selected_chip_bg"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_margin="8dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/chipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chip Item"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageView
+        android:id="@+id/chipRemove"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/close_overlay"
+        app:tint="@android:color/white" />
+</LinearLayout>

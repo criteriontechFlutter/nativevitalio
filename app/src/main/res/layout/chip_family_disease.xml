@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:layout_marginHorizontal="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardBackgroundColor="#F7FAFC"
+    card_view:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Remove Button -->
+        <ImageView
+            android:id="@+id/btnRemove"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/close_overlay"
+            android:contentDescription="Remove"
+            android:padding="2dp"
+            card_view:tint="@android:color/black" />
+
+        <!-- Relation Label -->
+        <TextView
+            android:id="@+id/relationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relation"
+            android:textColor="#555555"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/btnRemove"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Disease Names -->
+        <TextView
+            android:id="@+id/diseasesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relationText"
+            android:layout_alignStart="@id/relationText"
+            android:layout_marginTop="4dp"
+            android:text="Hypertension, Diabetes"
+            android:textColor="#1D4ED8"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

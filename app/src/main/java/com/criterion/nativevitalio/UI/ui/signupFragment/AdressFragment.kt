@@ -3,7 +3,6 @@ package com.criterion.nativevitalio.UI.ui.signupFragment
 import DateUtils.showListBottomSheet
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.databinding.FragmentAdressBinding
-import com.criterion.nativevitalio.model.CountryModel
+import com.criterion.nativevitalio.model.CityModel
 import com.criterion.nativevitalio.model.StateModel
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
 import com.google.gson.Gson
@@ -24,14 +23,16 @@ class AdressFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
     private lateinit var binding: FragmentAdressBinding
-    private lateinit var addressData: List<Map<String, Any>>
     private lateinit var viewModel: RegistrationViewModel
-    private var selectedCountry: CountryModel? = null
+    private var selectedCountryId: String? = null
     private var selectedState: StateModel? = null
+    private lateinit var addressData: List<Map<String, Any>>
+    private var stateListCache: List<StateModel> = emptyList()
+    private var cityListCache: List<CityModel> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentAdressBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,76 +40,151 @@ class AdressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this)[RegistrationViewModel::class.java]
-        // Load JSON data
+        viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
 
         addressData = loadAddressData(requireContext())
+
+        // Observe latest data
+        viewModel.updateStateList.observe(viewLifecycleOwner) { stateList ->
+            stateListCache = stateList
+        }
+
+        viewModel.updateCityList.observe(viewLifecycleOwner) { cityList ->
+            cityListCache = cityList
+        }
+
+        // Restore previous values from ViewModel
+        binding.etCountry.setText(viewModel.selectedCountryName.value ?: "")
+        binding.etState.setText(viewModel.selectedStateName.value ?: "")
+        binding.etCity.setText(viewModel.selectedCityName.value ?: "")
+        binding.etPinCode.setText(viewModel.pinCode.value ?: "")
+        binding.etStreet.setText(viewModel.streetAddress.value ?: "")
+
+        viewModel.selectedCountryId.value?.let {
+            viewModel.getStateMasterByCountryId(it )
+        }
+        viewModel.selectedStateId.value?.let {
+            viewModel.getCityMasterByStateId(it )
+        }
+
+        // COUNTRY SELECTION
         binding.etCountry.setOnClickListener {
-            val countryList = addressData
-//            showListBottomSheet(requireContext(), "Select Country", countryList) { selectedIdString ->
-//                Log.e("InsertInvestigation", selectedIdString)
-//                val selectedId = selectedIdString.toIntOrNull()
-//
-//                val selectedCountryObj = addressData.find { it.id == selectedId }
-//
-//                if (selectedCountryObj != null) {
-//                    binding.etCountry.setText(selectedCountryObj.countryName)
-//                    binding.etState.setText("")
-//                    binding.etCity.setText("")
-//                    selectedCountry = selectedCountryObj
-//
-//                    // Call API if needed
-//                    // viewModel.getStateMasterByCountryId(selectedCountryObj.id.toString())
-//                } else {
-//                    Toast.makeText(requireContext(), "Country not found for ID: $selectedIdString", Toast.LENGTH_SHORT).show()
-//                }
-//            }
             showListBottomSheet(
                 context = requireContext(),
                 title = "Select Country",
-                list = countryList, // List<Map<String, Any>>
+                list = addressData,
                 displayKey = "countryName"
             ) { selectedMap ->
-                Log.d("UploadSuccess", "Response JSON: $selectedMap")
-                val name = selectedMap["countryName"]?.toString()
-                val id = selectedMap["id"]?.toString()
-                binding.etCountry.setText(name)
-                viewModel.getStateMasterByCountryId(id.toString().split(".")[0])
-                viewModel.getCityMasterByStateId("10")
+                val countryName = selectedMap["countryName"]?.toString()
+                val countryId = selectedMap["id"]?.toString()
+
+                selectedCountryId = countryId
+                binding.etCountry.setText(countryName)
+                binding.etState.setText("")
+                binding.etCity.setText("")
+                selectedState = null
+                stateListCache = emptyList()
+                cityListCache = emptyList()
+
+                viewModel.selectedCountryId.value = countryId
+                viewModel.selectedCountryName.value = countryName
+
+                countryId?.let { viewModel.getStateMasterByCountryId(it) }
             }
         }
 
+        // STATE SELECTION
         binding.etState.setOnClickListener {
-//            val stateList = selectedCountry?.states?.map { it.name } ?: emptyList()
-//            showListBottomSheet(requireContext(), "Select State", stateList) { selected ->
-//                binding.etState.setText(selected)
-//                binding.etCity.setText("")
-//                selectedState = selectedCountry?.states?.find { it.name == selected }
-//            }
-            viewModel.getCityMasterByStateId("10")
+            if (selectedCountryId == null && viewModel.selectedCountryId.value.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Please select a country first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (stateListCache.isEmpty()) {
+                val countryIdToFetch = selectedCountryId ?: viewModel.selectedCountryId.value!!
+                viewModel.getStateMasterByCountryId(countryIdToFetch)
+                Toast.makeText(requireContext(), "Loading states...", Toast.LENGTH_SHORT).show()
+            } else {
+                val stateMappedList = stateListCache.map {
+                    mapOf<String, Any>("id" to it.id, "name" to it.stateName)
+                }
+
+                showListBottomSheet(
+                    context = requireContext(),
+                    title = "Select State",
+                    list = stateMappedList,
+                    displayKey = "name"
+                ) { selectedMap ->
+                    val stateName = selectedMap["name"]?.toString()
+                    val stateId = selectedMap["id"]?.toString()
+
+                    binding.etState.setText(stateName)
+                    binding.etCity.setText("")
+                    selectedState = stateListCache.find { it.id.toString() == stateId }
+
+                    cityListCache = emptyList()
+
+                    viewModel.selectedStateId.value = stateId
+                    viewModel.selectedStateName.value = stateName
+
+                    stateId?.let { viewModel.getCityMasterByStateId(it) }
+                }
+            }
         }
 
+        // CITY SELECTION
         binding.etCity.setOnClickListener {
-            val cityList = selectedState?.cities ?: emptyList()
-//            showListBottomSheet(requireContext(), "Select City", cityList) {
-//                binding.etCity.setText(it)
-//            }
+            if (selectedState == null && viewModel.selectedStateId.value.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Please select a state first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (cityListCache.isEmpty()) {
+                val stateIdToFetch = selectedState?.id?.toString() ?: viewModel.selectedStateId.value!!
+                viewModel.getCityMasterByStateId(stateIdToFetch)
+                Toast.makeText(requireContext(), "Loading cities...", Toast.LENGTH_SHORT).show()
+            } else {
+                val cityMappedList: List<Map<String, Any>> = cityListCache.map {
+                    mapOf<String, Any>(
+                        "id" to it.id,
+                        "name" to it.name
+                    )
+                }
+
+                showListBottomSheet(
+                    context = requireContext(),
+                    title = "Select City",
+                    list = cityMappedList,
+                    displayKey = "name"
+                ) { selectedMap ->
+                    val cityName = selectedMap["name"]?.toString()
+                    val cityId = selectedMap["id"]?.toString()
+                    binding.etCity.setText(cityName)
+
+                    viewModel.selectedCityId.value = cityId
+                    viewModel.selectedCityName.value = cityName
+                }
+            }
         }
 
+        // NEXT BUTTON
         binding.btnNext.setOnClickListener {
             if (binding.etCountry.text.isNullOrEmpty() ||
                 binding.etState.text.isNullOrEmpty() ||
-                binding.etCity.text.isNullOrEmpty()
+                binding.etCity.text.isNullOrEmpty() ||
+                binding.etPinCode.text.isNullOrEmpty() ||
+                binding.etStreet.text.isNullOrEmpty()
             ) {
                 Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            } else {
+                viewModel.pinCode.value = binding.etPinCode.text.toString()
+                viewModel.streetAddress.value = binding.etStreet.text.toString()
+                findNavController().navigate(R.id.action_adressFragment_to_weightFragment)
             }
-            findNavController().navigate(R.id.action_adressFragment_to_weightFragment)
         }
     }
 
-    fun loadAddressData(context: Context): List<Map<String, Any>> {
+    private fun loadAddressData(context: Context): List<Map<String, Any>> {
         val json = context.assets.open("country_json.json").bufferedReader().use { it.readText() }
         val type = object : TypeToken<List<Map<String, Any>>>() {}.type
         return Gson().fromJson(json, type)

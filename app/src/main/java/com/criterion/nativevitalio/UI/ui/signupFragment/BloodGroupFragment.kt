@@ -4,55 +4,58 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.BloodGroupAdapter
 import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
-import com.criterion.nativevitalio.utils.ToastUtils
+import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
 
 class BloodGroupFragment : Fragment() {
-//    private lateinit var selectedButton: Button
-    private lateinit var binding : FragmentBloodGroupBinding
-    private lateinit var selectedBloodGroup : String
-    val bloodGroups = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
+
+    private lateinit var binding: FragmentBloodGroupBinding
+    private var selectedBloodGroup: String? = null
+    private val bloodGroups = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
+    private lateinit var progressViewModel: ProgressViewModel
+    private lateinit var viewModel: RegistrationViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBloodGroupBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*buttons.forEach { button ->
-            button.setOnClickListener {
-                selectedButton = button
-                context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.gen_selected_bg) }
-                    ?.let { it2 -> selectedButton.setBackgroundDrawable(it2) }
-                context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.gen_selected_bg) }
-                    ?.let { it2 -> selectedButton.setBackgroundDrawable(it2) }
-                binding.btnNext.isEnabled = true
-            }
-        }*/
-
-        val adapter = BloodGroupAdapter(bloodGroups) { selected ->
-
-            ToastUtils.showSuccessPopup(requireContext(),"Selected: $selected")
+        viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+        selectedBloodGroup = viewModel.bg.value
+        val adapter = BloodGroupAdapter(
+            bloodGroups,
+            selected = viewModel.bg.value         // restore selection from ViewModel
+        ) { selected ->
+            selectedBloodGroup = selected
+            viewModel.bg.value = selected
         }
+
 
         binding.rvBloodGroups.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.rvBloodGroups.adapter = adapter
 
-
-
         binding.btnNext.setOnClickListener {
-//            val selectedBloodGroup = selectedButton.text.toString()
-            findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment);
+            if (!selectedBloodGroup.isNullOrEmpty()) {
+                viewModel.bg.value = selectedBloodGroup
+                progressViewModel.updateProgress(4)
+                findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment)
+            } else {
+                Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
