@@ -1,7 +1,5 @@
 package com.criterion.nativevitalio.utils
 
-
-
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -17,7 +15,8 @@ import android.view.MotionEvent
 import android.view.View
 import com.criterion.nativevitalio.R
 
-class MilkView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+
+class GreenTea(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private var volumeChangeListener: OnVolumeChangeListener? = null
     private var progress = 0f
@@ -27,15 +26,15 @@ class MilkView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var glassBitmap: Bitmap? = null
     private var glassMaskBitmap: Bitmap? = null
 
-    private var fillColor = Color.parseColor("#fffaf6")
+    private var fillColor = Color.parseColor("#6F4E37")
     private var fillGradient: LinearGradient? = null
 
     private var minMl = 0
     private var maxMl = 500
 
     init {
-        glassBitmap = BitmapFactory.decodeResource(resources, R.drawable.milk_shape)
-        glassMaskBitmap = BitmapFactory.decodeResource(resources, R.drawable.milk_mask)
+        glassBitmap = BitmapFactory.decodeResource(resources, R.drawable.greenteashape)
+        glassMaskBitmap = BitmapFactory.decodeResource(resources, R.drawable.greenteamask)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -81,7 +80,7 @@ class MilkView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
         // Determine text color: white if within fill, else dark
         val isInFill = centerY >= fillTop
-        val textColor = if (isInFill) Color.BLACK else Color.parseColor("#334155")
+        val textColor = if (isInFill) Color.WHITE else Color.parseColor("#334155")
 
         val percentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = textColor

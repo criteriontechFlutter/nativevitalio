@@ -101,6 +101,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_intakePills">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_notificationFragment">
                               <value>
                                 <LayoutPositions />
@@ -182,6 +187,11 @@
                               </value>
                             </entry>
                             <entry key="action_drawer4_to_editProfile3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_drawer4_to_emergencyContactFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -496,6 +506,18 @@
                           <Point>
                             <option name="x" value="527" />
                             <option name="y" value="-175" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="waterLayout">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="493" />
+                            <option name="y" value="-657" />
                           </Point>
                         </option>
                       </LayoutPositions>

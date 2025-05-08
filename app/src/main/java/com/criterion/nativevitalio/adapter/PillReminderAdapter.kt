@@ -13,7 +13,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -137,8 +136,8 @@ class PillReminderAdapter(
         val context = MyApplication.appContext
         return ImageView(context).apply {
             layoutParams = LinearLayout.LayoutParams(
-                16.dpToPx(context),
-                16.dpToPx(context)
+                20.dpToPx(context),
+                20.dpToPx(context)
             )
             setImageDrawable(getTintedIcon(iconState))
         }
@@ -147,18 +146,18 @@ class PillReminderAdapter(
     private fun getTintedIcon(icon: String?): Drawable? {
         val context = MyApplication.appContext
         val (iconRes, colorRes) = when (icon?.lowercase()) {
-            "taken" -> Pair(MaterialR.drawable.ic_mtrl_checked_circle, R.color.primaryBlue)
+            "taken" -> Pair(R.drawable.pills_check, R.color.primaryBlue)
             "missed" -> Pair(MaterialR.drawable.mtrl_ic_error, R.color.black)
-            "upcoming" -> Pair(MaterialR.drawable.ic_clock_black_24dp, R.color.darkYellow)
-            "late" -> Pair(MaterialR.drawable.ic_mtrl_checked_circle, R.color.primaryBlue)
-            "check" -> Pair(MaterialR.drawable.ic_mtrl_checked_circle, R.color.primaryBlue)
+            "upcoming" -> Pair(R.drawable.late_dose, R.color.darkYellow)
+            "late" -> Pair(R.drawable.pills_check, R.color.primaryBlue)
+            "check" -> Pair(R.drawable.pills_check, R.color.primaryBlue)
             "exclamation" -> Pair(MaterialR.drawable.mtrl_ic_error, R.color.red)
-            else -> Pair(MaterialR.drawable.abc_list_pressed_holo_dark, R.color.white)
+            else -> Pair(R.drawable.no_dose, R.color.white)
         }
 
         return AppCompatResources.getDrawable(context, iconRes)?.apply {
             mutate()
-            setTint(ContextCompat.getColor(context, colorRes))
+            //setTint(ContextCompat.getColor(context, R.color.TRANSPARENT))
         }
     }
 

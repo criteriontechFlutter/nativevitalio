@@ -14,10 +14,12 @@
         android:layout_height="wrap_content"
         android:text="08:00 AM"
         android:textStyle="bold"
-        android:textColor="#3F51B5"
+        android:padding="@dimen/_5sdp"
+        android:background="@drawable/rounded_corners"
+android:gravity="center_horizontal|center_vertical"
+        android:textColor="@color/greyText"
         android:textSize="13sp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp" />
+       />
 
     <!-- Container for pill cards (right side) -->
     <LinearLayout
