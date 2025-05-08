@@ -75,7 +75,11 @@
         android:id="@+id/chronicConditionFragment"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.ChronicConditionFragment"
         android:label="fragment_chronic_condition"
-        tools:layout="@layout/fragment_chronic_condition" />
+        tools:layout="@layout/fragment_chronic_condition" >
+        <action
+            android:id="@+id/action_chronicConditionFragment_to_otherChronicDisease"
+            app:destination="@id/otherChronicDisease" />
+    </fragment>
     <fragment
         android:id="@+id/adressFragment"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AdressFragment"
@@ -83,5 +87,57 @@
         <action
             android:id="@+id/action_adressFragment_to_weightFragment"
             app:destination="@id/weightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otherChronicDisease"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.OtherChronicDisease"
+        android:label="OtherChronicDisease" >
+        <action
+            android:id="@+id/action_otherChronicDisease_to_familyDiseaseFragment"
+            app:destination="@id/familyDiseaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/familyDiseaseFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.FamilyDiseaseFragment"
+        android:label="fragment_family_disease"
+        tools:layout="@layout/fragment_family_disease" >
+        <action
+            android:id="@+id/action_familyDiseaseFragment_to_createAccount2"
+            app:destination="@id/createAccount2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccount2"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.CreateAccount"
+        android:label="CreateAccount" >
+        <action
+            android:id="@+id/action_createAccount2_to_nameFragment"
+            app:destination="@id/nameFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_genderFragment"
+            app:destination="@id/genderFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_dobFragment"
+            app:destination="@id/dobFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_bloodGroupFragment"
+            app:destination="@id/bloodGroupFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_weightFragment"
+            app:destination="@id/weightFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_heightFragment"
+            app:destination="@id/heightFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_chronicConditionFragment"
+            app:destination="@id/chronicConditionFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_otherChronicDisease"
+            app:destination="@id/otherChronicDisease" />
+        <action
+            android:id="@+id/action_createAccount2_to_familyDiseaseFragment"
+            app:destination="@id/familyDiseaseFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_adressFragment"
+            app:destination="@id/adressFragment" />
     </fragment>
 </navigation>
