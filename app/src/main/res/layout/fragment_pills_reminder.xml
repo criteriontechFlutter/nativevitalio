@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/primaryBlueLight"
+    android:background="@color/backgroundColor"
     android:padding="16dp">
 
     <!-- Header Row with Back Button and Title -->
@@ -125,7 +125,7 @@
     </LinearLayout>
 
     <!-- Header Row Scroll -->
-    <com.criterion.nativevitalio.utils.SyncedHorizontalScrollView
+    <com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView
         android:id="@+id/headerScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" />
-    </com.criterion.nativevitalio.utils.SyncedHorizontalScrollView>
+    </com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView>
 
     <!-- Data Rows -->
     <androidx.recyclerview.widget.RecyclerView

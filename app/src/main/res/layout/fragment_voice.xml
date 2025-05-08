@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <com.criterion.nativevitalio.utils.AudioWaveView
+    <com.critetiontech.ctvitalio.utils.AudioWaveView
         android:id="@+id/audioWaveView"
         android:layout_width="match_parent"
         android:layout_height="80dp" />

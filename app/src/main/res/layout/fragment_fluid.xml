@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/backgroundColor"
             android:gravity="center_horizontal">
 
             <!-- Header -->
@@ -218,7 +219,7 @@
                     android:layout_gravity="center"/>
 
                 <!-- Glass animation/graphic -->
-                <com.criterion.nativevitalio.utils.GreenTea
+                <com.critetiontech.ctvitalio.utils.GreenTea
                     android:layout_width="230dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -227,7 +228,7 @@
                     />
 
 
-                <com.criterion.nativevitalio.utils.CoffeVIew
+                <com.critetiontech.ctvitalio.utils.CoffeVIew
                     android:layout_width="230dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -235,7 +236,7 @@
                     android:layout_gravity="center_horizontal"
                     />
 
-                <com.criterion.nativevitalio.utils.GlassView
+                <com.critetiontech.ctvitalio.utils.GlassView
                     android:layout_width="150dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -244,7 +245,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.criterion.nativevitalio.utils.JuiceView
+                <com.critetiontech.ctvitalio.utils.JuiceView
                     android:layout_width="140dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -252,7 +253,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.criterion.nativevitalio.utils.MilkView
+                <com.critetiontech.ctvitalio.utils.MilkView
                     android:layout_width="140dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -398,7 +399,7 @@
                             android:layout_marginEnd="8dp">
                         </LinearLayout>
 
-                        <com.criterion.nativevitalio.utils.OvalFillMeterView
+                        <com.critetiontech.ctvitalio.utils.OvalFillMeterView
                             android:id="@+id/ovalMeterView"
                             android:layout_width="160dp"
                             android:layout_height="300dp"

@@ -8,7 +8,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F9FAFB"
+        android:background="@color/backgroundColor"
         android:padding="5sp">
 
         <LinearLayout
@@ -214,7 +214,7 @@
                     android:visibility="gone"
                     android:fillViewport="true"
                     android:scrollbars="none">
-                <com.criterion.nativevitalio.utils.FluidOutPutGraphView
+                <com.critetiontech.ctvitalio.utils.FluidOutPutGraphView
                     android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"

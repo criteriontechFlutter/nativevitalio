@@ -82,4 +82,25 @@
     <color name="blue">#1E6CFF</color>
     <color name="gray">#888888</color>
 
+    <!--Text Color-->
+    <color name="textColor">@color/blackText</color>
+    <color name="revBackgroundColor">#000000</color>
+    <color name="backgroundColor">@color/white</color>
+    <color name="backgroundColor1">#F4F6F9</color>
+    <color name="loginTextColor1">@color/button_grey</color>
+    <color name="loginTextColor2">@color/primaryBlue</color>
+    <color name="loginTextColor3">@color/blackText</color>
+    <color name="loginHintTextColor">#BABFC9</color>
+    <color name="dashboardIconColor1">#1C2026</color>
+    <color name="dashboardIconColor2">@color/blackText</color>
+    <color name="dashboardIconColor3">@color/primaryBlueLight</color>
+    <color name="dashboardIconColor4">@color/symptomsButton</color>
+    <color name="dashboardIconBg">@color/primaryBlueLight</color>
+    <color name="drawableStrokeColor">#C4C4C4</color>
+    <color name="blackTextColor">@color/black</color>
+    <color name="symptomTextColor">#666666</color>
+    <color name="edtExtBgColor">@color/edt_bg</color>
+    <color name="vitalHistoryBgColor">#F9FBFF</color>
+    <color name="bgInputFieldColor">#F5F5F5</color>
+
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.fragments.WaterLayout">
 
-    <com.criterion.nativevitalio.utils.GlassView
+    <com.critetiontech.ctvitalio.utils.GlassView
         android:id="@+id/waterGlassView"
         android:layout_width="150dp"
         android:layout_height="250dp"

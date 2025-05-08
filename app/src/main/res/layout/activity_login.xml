@@ -106,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Access your health records and services"
-                        android:textColor="@color/greyText"
+                        android:textColor="@color/loginHintTextColor"
                         android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/loginTitle" />
@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Enter UHID/Mobile No."
-                        android:textColor="@color/blackText"
+                        android:textColor="@color/loginTextColor3"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/loginSubtitle" />
@@ -131,13 +131,14 @@
                         android:hint="Enter UHID/Mobile No."
                         android:padding="12dp"
                         android:maxLines="1"
+                        android:textColorHint="@color/loginHintTextColor"
                         android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/inputLabel" />
 
                     <!-- Send OTP Button -->
-                    <com.criterion.nativevitalio.utils.CustomRoundedButton
+                    <com.critetiontech.ctvitalio.utils.CustomRoundedButton
                         android:id="@+id/sendOtpBtn"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
@@ -155,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="By signing in you agree to our "
-                        android:textColor="#808080"
+                        android:textColor="@color/loginTextColor1"
                         android:textSize="12sp"
                         android:gravity="center"
                         android:layout_marginTop="16dp"
@@ -179,7 +180,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Terms &amp; Conditions"
-                            android:textColor="@color/primaryBlue"
+                            android:textColor="@color/loginTextColor2"
                             android:textSize="12sp" />
 
                     <TextView
@@ -194,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Privacy Policy"
-                        android:textColor="@color/primaryBlue"
+                        android:textColor="@color/loginTextColor1"
                         android:textSize="12sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

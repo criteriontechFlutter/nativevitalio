@@ -6,7 +6,7 @@
     android:layout_margin="8dp"
 
     app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/primaryBlueLight"
+    app:cardBackgroundColor="@color/dashboardIconBg"
     app:cardCornerRadius="16dp"
     >
 
