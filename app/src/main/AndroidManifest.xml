@@ -52,6 +52,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".UI.Home"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".UI.Login"

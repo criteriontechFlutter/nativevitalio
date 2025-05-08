@@ -45,7 +45,7 @@ class IntakePills : Fragment() {
 
         viewModel = ViewModelProvider(this)[IntakePillsViewModel::class.java]
         val timeObj: PillTime? = pill?.jsonTime?.firstOrNull()
-        binding.imgCheck.setOnClickListener {
+        binding.checkCircle.setOnClickListener {
             timeObj?.let {
                 viewModel.insertPatientMedication(
                     pmID = pill?.pmId.toString()  ,

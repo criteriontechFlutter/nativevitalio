@@ -76,10 +76,11 @@ class EditProfileViewModel :ViewModel() {
 //                parts += partFromField("ProfileURL", patient.profileUrl.replace("https://api.medvantage.tech:7082/", ""))
 
                 // Add file if present
-                filePath?.takeIf { it.isNotEmpty() }?.let {
+                filePath?.takeIf { it.isEmpty() }?.let {
                     val file = File(it)
                     val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    val filePart = MultipartBody.Part.createFormData("FormFile", file.name, requestFile)
+                    val filePart = MultipartBody.Part.createFormData("FormFile",
+                        PrefsManager().getPatient()?.profileUrl, requestFile)
                     parts += filePart
                     Log.d("UpdateProfile", "File attached: ${file.name}")
                 }

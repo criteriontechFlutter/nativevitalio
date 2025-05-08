@@ -75,7 +75,7 @@
             android:id="@+id/calendarIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/reminders"
+            android:src="@drawable/calendar3"
             android:contentDescription="@string/other"
             app:tint="?attr/colorPrimary" />
 
@@ -95,12 +95,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="24dp">
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5sp">
 
         <!-- Section Title -->
         <TextView
             android:id="@+id/sectionTitle"
             android:layout_width="wrap_content"
+            android:textSize="20dp"
             android:layout_height="wrap_content"
             android:text="@string/pills_for_the_day"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -128,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="12dp">
 
         <LinearLayout
             android:id="@+id/dynamicHeaderLayout"

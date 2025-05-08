@@ -4,8 +4,10 @@ import DateUtils
 import PrefsManager
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -71,7 +73,7 @@ class FluidInputHistoryFragment : Fragment() {
 
         binding.btnList.setOnClickListener {
             binding.recyclerViewFluidLogs.visibility = VISIBLE
-            binding.fluidGraph.visibility=GONE
+            binding.fluidGraph.visibility = GONE
 
             binding.btnChart.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.gray),
@@ -85,7 +87,7 @@ class FluidInputHistoryFragment : Fragment() {
 
         binding.btnChart.setOnClickListener {
             binding.recyclerViewFluidLogs.visibility = GONE
-            binding.fluidGraph.visibility=VISIBLE
+            binding.fluidGraph.visibility = VISIBLE
             binding.btnChart.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.primaryBlue),
                 PorterDuff.Mode.SRC_IN
@@ -102,8 +104,8 @@ class FluidInputHistoryFragment : Fragment() {
                 updateToggleStyles(checkedId)
                 when (checkedId) {
                     R.id.btnDaily -> {
-                        binding.progressBarLayout.visibility= VISIBLE
-                        binding.btnGraphToggleLayout.visibility= VISIBLE
+                        binding.progressBarLayout.visibility = VISIBLE
+                        binding.btnGraphToggleLayout.visibility = VISIBLE
                         binding.tvSelectedDate.setText("Today")
                         viewModel.intakeList.observe(viewLifecycleOwner) { list ->
                             fluidIntakeAdapter = FluidIntakeLogAdapter(list)
@@ -111,28 +113,38 @@ class FluidInputHistoryFragment : Fragment() {
                         }
 
                     }
+
                     R.id.btnWeekly -> {
-                        binding.progressBarLayout.visibility=GONE
-                        binding.btnGraphToggleLayout.visibility=GONE
+                        binding.progressBarLayout.visibility = GONE
+                        binding.btnGraphToggleLayout.visibility = GONE
                         val (from, to) = DateUtils.getLastWeekRange()
                         binding.tvSelectedDate.setText("$from--$to")
-                        viewModel.fetchManualFluidIntakeByRange(PrefsManager().getPatient()!!.uhID,from,to)
+                        viewModel.fetchManualFluidIntakeByRange(
+                            PrefsManager().getPatient()!!.uhID,
+                            from,
+                            to
+                        )
                         viewModel.intakeListRangeWise.observe(viewLifecycleOwner) { list ->
-                            Log.d("TAG", "onViewCreated: "+list.size.toString())
+                            Log.d("TAG", "onViewCreated: " + list.size.toString())
                             fluidIntakeAdapterRange = FluidIntakeRangeAdapter(list)
                             binding.recyclerViewFluidLogs.adapter = fluidIntakeAdapterRange
                             fluidIntakeAdapterRange.notifyDataSetChanged()
                         }
                         Log.d("Toggle", "Weekly: From $from to $to")
                     }
+
                     R.id.btnMonthly -> {
-                        binding.progressBarLayout.visibility=GONE
-                        binding.btnGraphToggleLayout.visibility=GONE
+                        binding.progressBarLayout.visibility = GONE
+                        binding.btnGraphToggleLayout.visibility = GONE
                         val (from, to) = DateUtils.getLastMonthRange()
                         binding.tvSelectedDate.setText("$from--$to")
-                        viewModel.fetchManualFluidIntakeByRange(PrefsManager().getPatient()!!.uhID,from,to)
+                        viewModel.fetchManualFluidIntakeByRange(
+                            PrefsManager().getPatient()!!.uhID,
+                            from,
+                            to
+                        )
                         viewModel.intakeListRangeWise.observe(viewLifecycleOwner) { list ->
-                            Log.d("TAG", "onViewCreated: "+list.size.toString())
+                            Log.d("TAG", "onViewCreated: " + list.size.toString())
                             fluidIntakeAdapterRange = FluidIntakeRangeAdapter(list)
                             binding.recyclerViewFluidLogs.adapter = fluidIntakeAdapterRange
                             fluidIntakeAdapterRange.notifyDataSetChanged()
@@ -178,18 +190,23 @@ class FluidInputHistoryFragment : Fragment() {
             list.forEach {
                 val itemLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.HORIZONTAL
+                    gravity = Gravity.CENTER_VERTICAL
                     setPadding(0, 0, 32, 0)
                 }
-
                 val colorDot = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(20, 20).apply { rightMargin = 8 }
-                    setBackgroundColor(it.color)
+
+                    // Create circular shape with color
+                    background = GradientDrawable().apply {
+                        shape = GradientDrawable.OVAL
+                        setColor(it.color) // Set your dynamic color
+                    }
                 }
 
                 val label = TextView(requireContext()).apply {
                     text = it.name
                     setTextColor(Color.DKGRAY)
-                    textSize = 14f
+                    textSize = 10f
                 }
 
                 itemLayout.addView(colorDot)
@@ -197,11 +214,11 @@ class FluidInputHistoryFragment : Fragment() {
                 binding.legendLayout.addView(itemLayout)
             }
 
-        }}
+
+        }
 
 
-
-
+    }
 
 
 
