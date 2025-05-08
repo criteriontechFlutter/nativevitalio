@@ -12,6 +12,7 @@ class ApiEndPoint {
     val getStateMasterByCountryId="api/StateMaster/GetStateMasterByCountryId"
     val getCityMasterByStateId="api/CityMaster/GetCityMasterByStateId"
     val patientSignUp="api/PatientRegistration/PatientSignUp"
+    val getProblemList="api/KnowMedApis/GetProblemList"
 
 
     val patientAllergies="api/PatientIPDPrescription/PatientAllergies"

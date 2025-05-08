@@ -21,6 +21,7 @@ object RetrofitInstance {
       const val DEFAULT_BASE_URL_7096 = "http://172.16.61.31:5096/"
       const val DEFAULT_BASE_URL_7082 = "http://172.16.61.31:5082/"
     const val DEFAULT_BASE_URL_7083 = "http://172.16.61.31:5083/"
+    const val DEFAULT_BASE_URL_5119 = "http://172.16.61.31:5119/"
     const val DEFAULT_BASE_URL_5090 = "http://172.16.61.31:5090/"
     const val DEFAULT_BASE_URL_5100 = "http://172.16.61.31:5100/"
     const val  shopright = "http://food.shopright.ai:3478/api/"
@@ -141,6 +142,23 @@ object RetrofitInstance {
         additionalHeaders: Map<String, String> = emptyMap()
     ): ApiService {
         val baseUrlToUse = overrideBaseUrl ?: DEFAULT_BASE_URL_7083
+        val headers = generateAuthHeaderMap(includeAuthHeader,additionalHeaders)
+
+        val clientWithHeaders = baseOkHttpClient.newBuilder()
+            .addInterceptor(createAuthInterceptor(headers))
+            .build()
+
+        return getRetrofitInstance(baseUrlToUse).newBuilder()
+            .client(clientWithHeaders)
+            .build()
+            .create(ApiService::class.java)
+    }
+    fun createApiService5119(
+        overrideBaseUrl: String? = null, // Optional parameter
+        includeAuthHeader: Boolean = false,
+        additionalHeaders: Map<String, String> = emptyMap()
+    ): ApiService {
+        val baseUrlToUse = overrideBaseUrl ?: DEFAULT_BASE_URL_5119
         val headers = generateAuthHeaderMap(includeAuthHeader,additionalHeaders)
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()

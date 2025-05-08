@@ -1,42 +1,51 @@
 package com.criterion.nativevitalio.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.databinding.BloodGroupItemBinding
+import com.criterion.nativevitalio.R
 
 class BloodGroupAdapter(
     private val items: List<String>,
-    private val onSelected: (String) -> Unit
-) : RecyclerView.Adapter<BloodGroupAdapter.BloodViewHolder>() {
+    private var selected: String?,
+    private val onItemClick: (String) -> Unit
+) : RecyclerView.Adapter<BloodGroupAdapter.ViewHolder>() {
 
-    private var selectedPos = RecyclerView.NO_POSITION
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.blood_group_item, parent, false)
+        return ViewHolder(view)
+    }
 
-    inner class BloodViewHolder(val binding: BloodGroupItemBinding)
-        : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String, isSelected: Boolean) {
-            binding.item = item
-            binding.isSelected = isSelected
-            binding.root.isSelected = isSelected
-            binding.root.setOnClickListener {
-                val previous = selectedPos
-                selectedPos = position
-                notifyItemChanged(previous)
-                notifyItemChanged(selectedPos)
-                onSelected(item)
-            }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val group = items[position]
+        holder.bind(group, group == selected)
+        holder.itemView.setOnClickListener {
+            selected = group
+            notifyDataSetChanged()
+            onItemClick(group)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BloodViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = BloodGroupItemBinding.inflate(inflater, parent, false)
-        return BloodViewHolder(binding)
-    }
+    override fun getItemCount() = items.size
 
-    override fun getItemCount(): Int = items.size
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val textView: TextView = view.findViewById(R.id.tvBlood)
 
-    override fun onBindViewHolder(holder: BloodViewHolder, position: Int) {
-        holder.bind(items[position], position == selectedPos)
+        fun bind(group: String, isSelected: Boolean) {
+            textView.text = group
+            textView.setTextColor(
+                itemView.context.getColor(
+                    if (isSelected) R.color.white else R.color.black
+                )
+            )
+            textView.setBackgroundResource(
+                if (isSelected) R.drawable.progress_selected else R.drawable.progress_unselected
+            )
+            itemView.findViewById<View>(R.id.ivCheck)?.visibility =
+                if (isSelected) View.VISIBLE else View.GONE
+        }
     }
 }

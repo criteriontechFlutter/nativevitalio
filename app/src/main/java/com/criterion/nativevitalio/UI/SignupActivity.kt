@@ -3,7 +3,6 @@ package com.criterion.nativevitalio.UI
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -35,8 +34,8 @@ class SignupActivity : AppCompatActivity() {
         progressViewModel = ViewModelProvider(this)[ProgressViewModel::class.java]
 
         // Observe LiveData
-        progressViewModel.progress.observe(this, Observer { step ->
-            Log.d("UploadSuccess", "Response JSON: $step")
+        progressViewModel.progress.observe(this, { step ->
+            Log.d("UploadSuccess", "updateProgress: $step")
             updateProgress(step)
         })
     }

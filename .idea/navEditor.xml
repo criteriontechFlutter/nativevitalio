@@ -525,6 +525,15 @@
                             <option name="y" value="-204" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adressFragment_to_weightFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -537,6 +546,15 @@
                             <option name="y" value="-195" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_bloodGroupFragment_to_adressFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -547,6 +565,27 @@
                           <Point>
                             <option name="x" value="247" />
                             <option name="y" value="148" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_chronicConditionFragment_to_otherChronicDisease">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="createAccount2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="996" />
+                            <option name="y" value="133" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -569,6 +608,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="familyDiseaseFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="765" />
+                            <option name="y" value="158" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -627,6 +678,27 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_nameFragment_to_genderFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="otherChronicDisease">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="499" />
+                            <option name="y" value="159" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_otherChronicDisease_to_familyDiseaseFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

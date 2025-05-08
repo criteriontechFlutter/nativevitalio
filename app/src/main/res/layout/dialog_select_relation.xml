@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_coner_gl_16"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Relation"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Who in your family has been diagnosed with this disease?"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+    <CheckBox android:id="@+id/checkboxMother" android:text="Mother" style="@style/CheckBoxFamily"/>
+    <CheckBox android:id="@+id/checkboxFather" android:text="Father" style="@style/CheckBoxFamily"/>
+    <CheckBox android:id="@+id/checkboxBrother" android:text="Brother" style="@style/CheckBoxFamily"/>
+    <CheckBox android:id="@+id/checkboxSister" android:text="Sister" style="@style/CheckBoxFamily"/>
+    <CheckBox android:id="@+id/checkboxGrandParent" android:text="Grand Parent" style="@style/CheckBoxFamily"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="Submit"
+        android:backgroundTint="@color/white"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
