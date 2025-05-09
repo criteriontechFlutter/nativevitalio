@@ -9,8 +9,8 @@
 
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.critetiontech.ctvitalio"
-            android:targetClass="com.critetiontech.ctvitalio.UI.fragments.FluidOutputFragment">
+            android:targetPackage="com.criterion.nativevitalio"
+            android:targetClass="com.criterion.nativevitalio.UI.fragments.FluidOutputFragment">
             <extra android:name="navigate_to" android:value="voice_socket" />
         </intent>
     </shortcut>

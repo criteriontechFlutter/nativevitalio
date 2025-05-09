@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/backgroundColor"
             android:gravity="center_horizontal">
@@ -21,6 +21,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:background="@color/backgroundColor"
                 android:paddingHorizontal="10dp"
               >
 
@@ -43,7 +44,7 @@
                     android:text="@string/fluid_data_input"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/textColor"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -88,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_margin="10dp"
+                android:background="@color/dashboardIconBg"
                 android:backgroundTint="@android:color/transparent"
                 app:singleSelection="true"
                 app:checkedButton="@id/btnIntake">
@@ -144,7 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Recommended Fluid: "
-                            android:textColor="#607D8B"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -155,7 +157,7 @@
                             android:layout_height="0dp"
                             android:layout_marginEnd="10dp"
                             android:text="Intake: "
-                            android:textColor="#607D8B"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -185,7 +187,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/remaining"
-                            android:textColor="#607D8B"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/legendLayout" />
@@ -219,7 +221,7 @@
                     android:layout_gravity="center"/>
 
                 <!-- Glass animation/graphic -->
-                <com.critetiontech.ctvitalio.utils.GreenTea
+                <com.criterion.nativevitalio.utils.GreenTea
                     android:layout_width="230dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -228,7 +230,7 @@
                     />
 
 
-                <com.critetiontech.ctvitalio.utils.CoffeVIew
+                <com.criterion.nativevitalio.utils.CoffeVIew
                     android:layout_width="230dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -236,7 +238,7 @@
                     android:layout_gravity="center_horizontal"
                     />
 
-                <com.critetiontech.ctvitalio.utils.GlassView
+                <com.criterion.nativevitalio.utils.GlassView
                     android:layout_width="150dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -245,7 +247,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.JuiceView
+                <com.criterion.nativevitalio.utils.JuiceView
                     android:layout_width="140dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -253,7 +255,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.MilkView
+                <com.criterion.nativevitalio.utils.MilkView
                     android:layout_width="140dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -300,11 +302,11 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:visibility="gone"
                 android:id="@+id/outPutLayout"
-                android:background="#F9FBFF">
+                android:background="@color/backgroundColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -387,7 +389,7 @@
                         android:layout_height="match_parent"
                         android:padding="24dp"
                         android:gravity="center_horizontal"
-                        android:background="@color/white">
+                        android:background="@color/backgroundColor">
 
                         <LinearLayout
                             android:id="@+id/scaleLayout"
@@ -399,7 +401,7 @@
                             android:layout_marginEnd="8dp">
                         </LinearLayout>
 
-                        <com.critetiontech.ctvitalio.utils.OvalFillMeterView
+                        <com.criterion.nativevitalio.utils.OvalFillMeterView
                             android:id="@+id/ovalMeterView"
                             android:layout_width="160dp"
                             android:layout_height="300dp"
@@ -484,12 +486,12 @@
                         android:orientation="horizontal">
 
                         <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Light\nYellow" android:textSize="10sp"
-                            android:layout_height="wrap_content" />
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>
+                            android:layout_height="wrap_content"  android:textColor="@color/textColor"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>
                     </LinearLayout>
 
                 </LinearLayout>

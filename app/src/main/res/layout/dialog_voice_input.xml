@@ -5,32 +5,33 @@
     android:layout_height="match_parent"
     android:background="@drawable/voice_bg_gradient"
     android:padding="16dp">
+
     <TextView
         android:id="@+id/websocket_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:text="Connecting..."
         android:textColor="@android:color/holo_orange_light"
-        android:textSize="14sp"
-        android:layout_gravity="center_horizontal"
-        />
+        android:textSize="34sp" />
     <!-- Title -->
+
+    <!-- Hint -->
+
+    <!-- Floating Mic Icon in Dashboard FAB position -->
+
     <TextView
         android:id="@+id/voice_transcript"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/voice_hint"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="315dp"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:text=""
         android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:maxLines="3"
-        android:ellipsize="end" />
-
-    <!-- Hint -->
-
-    <!-- Floating Mic Icon in Dashboard FAB position -->
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/voice_hint"

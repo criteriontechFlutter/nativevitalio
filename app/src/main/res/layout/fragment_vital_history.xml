@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:paddingHorizontal="10dp"
-                android:background="#F9FBFF">
+                android:background="@color/backgroundColor">
 
                 <!-- Back Icon -->
                 <ImageView
@@ -43,7 +43,7 @@
                     android:text="Vital History"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/textColor"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:background="@color/dashboardIconBg"
                 android:layout_margin="10dp"
                 android:backgroundTint="@android:color/transparent"
                 app:singleSelection="true"
@@ -146,7 +147,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#F7F9FB">
+                android:layout_margin="16dp"
+                android:background="@color/backgroundColor">
 
                 <!-- Heart Shape Background -->
                 <ImageView
@@ -219,7 +221,7 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:background="@drawable/bg_card_selected"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/dashboardIconBg"
                 android:layout_margin="16dp">
 
                 <!-- Header Row -->
@@ -276,7 +278,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/blood_pressure_log_item" />
 
-                <com.critetiontech.ctvitalio.utils.FluidGraphView
+                <com.criterion.nativevitalio.utils.FluidGraphView
                     android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
