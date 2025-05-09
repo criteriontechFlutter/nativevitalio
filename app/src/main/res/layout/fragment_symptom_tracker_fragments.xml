@@ -61,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Fixed Update Button -->
-        <com.critetiontech.ctvitalio.utils.CustomRoundedButton
+        <com.criterion.nativevitalio.utils.CustomRoundedButton
             android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
