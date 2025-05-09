@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/primaryBlueLight"
+    android:background="@color/dashboardIconBg"
     android:padding="16dp">
 
     <!-- Back Button -->
@@ -25,7 +25,7 @@
         android:text="Connect Watch"
         android:textSize="18sp"
         android:textStyle="normal"
-        android:textColor="#000000"
+        android:textColor="@color/revBackgroundColor"
         app:layout_constraintTop_toTopOf="@id/btnBack"
         app:layout_constraintStart_toEndOf="@id/btnBack"
         android:layout_marginStart="8dp" />

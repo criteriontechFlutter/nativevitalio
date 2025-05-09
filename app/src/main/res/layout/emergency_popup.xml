@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Helpline No. 1800 024 2424"
             android:textSize="14sp"
-            android:textColor="#000000" />
+            android:textColor="@color/revBackgroundColor" />
     </LinearLayout>
 
     <!-- Helpline Option 2 -->
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="Helpline No. 1800 024 2424"
             android:textSize="14sp"
-            android:textColor="#000000" />
+            android:textColor="@color/revBackgroundColor" />
     </LinearLayout>
 
     <!-- Call Now Button -->

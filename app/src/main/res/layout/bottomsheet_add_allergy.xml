@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Substance Type"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"/>
 
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Substance"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"/>
 
@@ -57,8 +57,8 @@
             android:hint="Enter"
             android:background="@drawable/bg_edittext"
             android:padding="12dp"
-            android:textColor="#000"
-            android:textColorHint="#999999"
+            android:textColor="@color/revBackgroundColor"
+            android:textColorHint="@color/loginHintTextColor"
             android:layout_marginBottom="16dp" />
 
         <!-- Reaction -->
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Reaction/ Allergy"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"/>
 
@@ -77,8 +77,8 @@
             android:hint="Select"
             android:background="@drawable/bg_edittext"
             android:padding="12dp"
-            android:textColor="#000"
-            android:textColorHint="#999999"
+            android:textColor="@color/revBackgroundColor"
+            android:textColorHint="@color/loginHintTextColor"
             android:layout_marginBottom="16dp" />
 
         <!-- Severity Selection -->
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="How severe was the reaction?"
-            android:textColor="#000000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="14sp"
             android:layout_marginBottom="8dp" />
 

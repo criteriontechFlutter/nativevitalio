@@ -6,6 +6,7 @@
     <color name="revBackgroundColor">@color/white</color>
     <color name="backgroundColor">#000000</color>
     <color name="backgroundColor1">#000000</color>
+    <color name="backgroundColorToast">@color/primaryBlueLight</color>
     <color name="loginTextColor1">@color/white</color>
     <color name="loginTextColor2">@color/white</color>
     <color name="loginTextColor3">@color/white</color>
@@ -21,4 +22,7 @@
     <color name="edtExtBgColor">#000000</color>
     <color name="vitalHistoryBgColor">@color/blackText</color>
     <color name="bgInputFieldColor">@color/blackText</color>
+    <color name="light_greyColor">@color/primaryBlueLight</color>
+    <color name="editTextBgColor">#F8FAFC</color>
+    <color name="editTextStrokeColor">#E0E0E0</color>
 </resources>

@@ -52,7 +52,7 @@
                 android:padding="5dp"
                 android:text="Temperature"
                 android:textAlignment="center"
-                android:textColor="#ffffff"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <!--timestamp-->
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:text="@string/time_stamp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/loginTextColor3" />
 
                 <TextView
                     android:id="@+id/tv_timestamp_value"
@@ -81,7 +81,7 @@
                     android:layout_weight=".5"
                     android:gravity="center"
                     android:text="@string/hyphen"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/loginTextColor3" />
             </LinearLayout>
 
             <!--Temperature -->
@@ -101,7 +101,7 @@
                     android:layout_weight=".5"
                     android:text="Temperature"
 
-                    android:textColor="@color/black" />
+                    android:textColor="@color/loginTextColor3" />
 
                 <TextView
                     android:id="@+id/tv_temperature_value"
@@ -110,7 +110,7 @@
                     android:layout_weight=".5"
                     android:gravity="center"
                     android:text="@string/hyphen"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/loginTextColor3" />
             </LinearLayout>
 
             <!-- Signal -->
@@ -130,7 +130,7 @@
                     android:layout_weight=".5"
                     android:text="@string/audio_signal_level"
 
-                    android:textColor="@color/black" />
+                    android:textColor="@color/loginTextColor3" />
 
                 <TextView
                     android:id="@+id/tv_signalLevel_value"
@@ -139,7 +139,7 @@
                     android:layout_weight=".5"
                     android:gravity="center"
                     android:text="@string/hyphen"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/loginTextColor3" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -162,7 +162,7 @@
                 android:padding="5dp"
                 android:text=""
                 android:textAlignment="center"
-                android:textColor="#000000"
+                android:textColor="@color/revBackgroundColor"
                 android:textSize="16sp" />
 
     </RelativeLayout>

@@ -87,6 +87,7 @@
     <color name="revBackgroundColor">#000000</color>
     <color name="backgroundColor">@color/white</color>
     <color name="backgroundColor1">#F4F6F9</color>
+    <color name="backgroundColorToast">#333333</color>
     <color name="loginTextColor1">@color/button_grey</color>
     <color name="loginTextColor2">@color/primaryBlue</color>
     <color name="loginTextColor3">@color/blackText</color>
@@ -102,5 +103,8 @@
     <color name="edtExtBgColor">@color/edt_bg</color>
     <color name="vitalHistoryBgColor">#F9FBFF</color>
     <color name="bgInputFieldColor">#F5F5F5</color>
+    <color name="light_greyColor">@color/light_grey</color>
+    <color name="editTextBgColor">#F8FAFC</color>
+    <color name="editTextStrokeColor">#E0E0E0</color>
 
 </resources>
