@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:padding="16dp">
 
     <com.criterion.nativevitalio.utils.AudioWaveView
@@ -17,5 +18,5 @@
         android:text="Waiting for response..."
         android:textSize="16sp"
         android:layout_marginTop="24dp"
-        android:textColor="#000" />
+        android:textColor="@color/revBackgroundColor" />
 </LinearLayout>

@@ -18,5 +18,5 @@
         android:layout_weight="1"
         android:text="Fever"
         android:textSize="15sp"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/revBackgroundColor" />
 </LinearLayout>

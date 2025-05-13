@@ -14,6 +14,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingHorizontal="12dp"
+            android:backgroundTint="@color/backgroundColor"
             android:background="?attr/selectableItemBackground">
 
             <ImageView
@@ -31,7 +32,6 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Title"
-
                 android:textSize="13dp"
                 android:textColor="@color/textColor" />
 

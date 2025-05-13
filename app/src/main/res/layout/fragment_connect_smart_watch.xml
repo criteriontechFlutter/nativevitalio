@@ -39,7 +39,7 @@
         android:padding="6dp"
         android:gravity="center"
         android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/backgroundColor"
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -32,14 +32,14 @@
                 android:text="Edit Profile"
                 android:textStyle="normal"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/revBackgroundColor" />
         </LinearLayout>
 
         <!-- First Name -->
         <TextView
             android:layout_marginTop="24dp"
             android:text="First Name"
-            android:textColor="@color/gray"
+            android:textColor="@color/blackTextColor1"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -52,14 +52,14 @@
             android:hint="Enter First Name"
             android:paddingHorizontal="16dp"
             android:text="Abhay"
-            android:textColor="#000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="15sp"/>
 
         <!-- Last Name -->
         <TextView
             android:layout_marginTop="16dp"
             android:text="Last Name"
-            android:textColor="@color/gray"
+            android:textColor="@color/blackTextColor1"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -72,14 +72,14 @@
             android:hint="Enter Last Name"
             android:paddingHorizontal="16dp"
             android:text="Sharma"
-            android:textColor="#000"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="15sp"/>
 
         <!-- DOB -->
         <TextView
             android:layout_marginTop="16dp"
             android:text="DOB"
-            android:textColor="@color/gray"
+            android:textColor="@color/blackTextColor1"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -101,7 +101,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:gravity="center_vertical"
-                android:textColor="#000"
+                android:textColor="@color/revBackgroundColor"
                 android:textSize="15sp" />
 
             <ImageView
@@ -117,7 +117,7 @@
         <TextView
             android:layout_marginTop="16dp"
             android:text="Gender"
-            android:textColor="@color/gray"
+            android:textColor="@color/blackTextColor1"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:text="Male"
                 android:buttonTint="@color/primaryBlue"
-                android:textColor="#000"
+                android:textColor="@color/revBackgroundColor"
                 android:checked="true" />
 
             <RadioButton
@@ -145,7 +145,7 @@
                 android:layout_marginStart="24dp"
                 android:text="Female"
                 android:buttonTint="@color/primaryBlue"
-                android:textColor="#000" />
+                android:textColor="@color/revBackgroundColor" />
         </RadioGroup>
         <Button
             android:id="@+id/updateProfileButton"

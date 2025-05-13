@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button_bg"
         android:text="Mid Morning"
-        android:textColor="@android:color/white"
+        android:textColor="@color/backgroundColor"
         android:textSize="14sp"
         android:textStyle="bold"
         android:paddingHorizontal="12dp"

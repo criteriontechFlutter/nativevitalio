@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".45"
         android:text="@string/time_stamp"
-        android:textColor="@color/black" />
+        android:textColor="@color/blackTextColor" />
 
     <TextView
         android:id="@+id/setValue"
@@ -25,5 +25,5 @@
         android:layout_weight=".55"
         android:gravity="center"
         android:text="@string/hyphen"
-        android:textColor="@color/black" />
+        android:textColor="@color/blackTextColor" />
 </LinearLayout>

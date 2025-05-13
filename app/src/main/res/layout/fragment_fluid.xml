@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgroundColor"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -15,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:backgroundTint="@color/primaryBlueLight"
+            android:backgroundTint="@color/backgroundColor"
             android:gravity="center_horizontal">
 
             <!-- Header -->
@@ -23,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:paddingHorizontal="10dp"
-                android:background="@color/primaryBlueLight">
+                android:background="@color/dashboardIconColor3">
 
                 <!-- Back Icon -->
                 <ImageView
@@ -44,7 +45,7 @@
                     android:text="@string/fluid_data_input"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/blackTextColor2"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +60,7 @@
                     android:orientation="horizontal"
                     android:paddingHorizontal="12dp"
                     android:background="@drawable/rounded_button_bg"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/backgroundColor"
                     android:gravity="center"
                     android:clickable="true"
                     android:focusable="true"
@@ -125,6 +126,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/fluidIntakeLayout"
                 android:visibility="visible"
+                android:background="@color/backgroundColor"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
@@ -171,7 +173,7 @@
                         android:background="@drawable/rounded_corners"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        android:backgroundTint="#E0E0E0"
+                        android:backgroundTint="@color/editTextStrokeColor"
                         android:weightSum="1"/>
 
                     <!-- Bottom Info Row -->
@@ -296,12 +298,13 @@
                 android:padding="16dp"
                 android:visibility="gone"
                 android:id="@+id/outPutLayout"
-                android:background="#F9FBFF">
+                android:background="@color/vitalHistoryBgColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:background="@color/backgroundColor"
                     android:gravity="center_horizontal">
 
                     <!-- Top counts -->
@@ -335,7 +338,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="8 times"
-                                android:textColor="#000"
+                                android:textColor="@color/revBackgroundColor"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -366,7 +369,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="1450 ml"
-                                android:textColor="#000"
+                                android:textColor="@color/revBackgroundColor"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -379,7 +382,7 @@
                         android:layout_height="match_parent"
                         android:padding="24dp"
                         android:gravity="center_horizontal"
-                        android:background="@color/white">
+                        android:background="@color/backgroundColor">
 
                         <LinearLayout
                             android:id="@+id/scaleLayout"
@@ -423,7 +426,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0.0"
-                                android:textColor="@color/white"
+                                android:textColor="@color/backgroundColor"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>

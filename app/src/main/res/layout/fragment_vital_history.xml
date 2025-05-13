@@ -8,7 +8,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F9FAFB"
+        android:background="@color/backgroundColor2"
         android:padding="5sp">
 
         <LinearLayout
@@ -43,7 +43,7 @@
                     android:text="Vital History"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/blackTextColor2"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#F7F9FB">
+                android:background="@color/backgroundColor3">
 
                 <!-- Heart Shape Background -->
                 <ImageView
@@ -182,7 +182,7 @@
                     android:layout_marginEnd="0dp"
                     android:gravity="center"
                     android:text="NORMAL"
-                    android:textColor="#5D6470"
+                    android:textColor="@color/blackTextColor4"
                     android:textSize="16sp" />
 
                 <!-- Pulse Icon (Your Uploaded One) -->

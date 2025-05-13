@@ -30,18 +30,21 @@
                 android:id="@+id/radioLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
                 android:text="Light" />
 
             <RadioButton
                 android:id="@+id/radioDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
                 android:text="Dark" />
 
             <RadioButton
                 android:id="@+id/radioSystem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
                 android:text="System Default" />
         </RadioGroup>
     </LinearLayout>

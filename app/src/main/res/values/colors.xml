@@ -87,6 +87,9 @@
     <color name="revBackgroundColor">#000000</color>
     <color name="backgroundColor">@color/white</color>
     <color name="backgroundColor1">#F4F6F9</color>
+    <color name="backgroundColor2">#F9FAFB</color>
+    <color name="backgroundColor3">@color/greyBG2</color>
+    <color name="backgroundColor4">#f0f4f7</color>
     <color name="backgroundColorToast">#333333</color>
     <color name="loginTextColor1">@color/button_grey</color>
     <color name="loginTextColor2">@color/primaryBlue</color>
@@ -99,6 +102,11 @@
     <color name="dashboardIconBg">@color/primaryBlueLight</color>
     <color name="drawableStrokeColor">#C4C4C4</color>
     <color name="blackTextColor">@color/black</color>
+    <color name="blackTextColor1">@color/gray</color>
+    <color name="blackTextColor2">#1B1C1F</color>
+    <color name="blackTextColor3">#607D8B</color>
+    <color name="blackTextColor4">#5D6470</color>
+    <color name="blackTextColor5">#444444</color>
     <color name="symptomTextColor">#666666</color>
     <color name="edtExtBgColor">@color/edt_bg</color>
     <color name="vitalHistoryBgColor">#F9FBFF</color>
@@ -106,5 +114,9 @@
     <color name="light_greyColor">@color/light_grey</color>
     <color name="editTextBgColor">#F8FAFC</color>
     <color name="editTextStrokeColor">#E0E0E0</color>
+    <color name="chatBgColor">#F7F8FA</color>
+    <color name="chatTextColor">#A7A7A7</color>
+    <color name="fluidBgColor1">#F5F7FA</color>
+    <color name="popupBgColor">#F1F4F9</color>
 
 </resources>

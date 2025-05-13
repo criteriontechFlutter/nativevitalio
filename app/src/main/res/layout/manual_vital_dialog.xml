@@ -136,7 +136,7 @@
         android:text="Enter Vital"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:textColor="@color/textColor"
+        android:textColor="@color/revBackgroundColor"
         android:layout_marginBottom="16dp" />
 
     <!-- BP Layout -->
@@ -150,11 +150,13 @@
         <EditText
             android:id="@+id/sysInput"
             style="@style/StyledInput"
+            android:textColorHint="@color/loginHintTextColor"
             android:hint="Enter SYS (mm/Hg)" />
 
         <EditText
             android:id="@+id/diaInput"
             style="@style/StyledInput"
+            android:textColorHint="@color/loginHintTextColor"
             android:hint="Enter DIA (mm/Hg)" />
     </LinearLayout>
 
@@ -163,6 +165,7 @@
         android:id="@+id/rrInput"
         style="@style/StyledInput"
         android:hint="Enter Respiratory Rate"
+        android:textColorHint="@color/loginHintTextColor"
         android:visibility="gone" />
 
     <!-- SpO2 -->
@@ -170,12 +173,14 @@
         android:id="@+id/spo2Input"
         style="@style/StyledInput"
         android:hint="Enter SpO2 (%)"
+        android:textColorHint="@color/loginHintTextColor"
         android:visibility="gone" />
 
     <!-- Heart Rate -->
     <EditText
         android:id="@+id/heartRateInput"
         style="@style/StyledInput"
+        android:textColorHint="@color/loginHintTextColor"
         android:hint="Enter Heart Rate"
         android:visibility="gone" />
 
@@ -184,6 +189,7 @@
         android:id="@+id/tempInput"
         style="@style/StyledInput"
         android:hint="Enter Temperature (°F)"
+        android:textColorHint="@color/loginHintTextColor"
         android:inputType="numberDecimal"
         android:visibility="gone" />
 
@@ -192,6 +198,7 @@
         android:id="@+id/rbsInput"
         style="@style/StyledInput"
         android:hint="Enter RBS (mg/dL)"
+        android:textColorHint="@color/loginHintTextColor"
         android:visibility="gone" />
 
     <!-- Pulse -->
@@ -199,6 +206,7 @@
         android:id="@+id/pulseInput"
         style="@style/StyledInput"
         android:hint="Enter Pulse (/min)"
+        android:textColorHint="@color/loginHintTextColor"
         android:visibility="gone" />
 
     <!-- Weight -->
@@ -207,6 +215,7 @@
         style="@style/StyledInput"
         android:hint="Enter Weight (kg)"
         android:inputType="numberDecimal"
+        android:textColorHint="@color/loginHintTextColor"
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton

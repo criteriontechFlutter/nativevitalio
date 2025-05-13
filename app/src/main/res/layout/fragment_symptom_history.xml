@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryBlueLight">
+    android:background="@color/dashboardIconColor3">
 
     <!-- Header -->
     <LinearLayout
@@ -29,6 +29,7 @@
             android:text="Symptom History"
             android:textSize="20sp"
             android:paddingLeft="@dimen/_10sdp"
+            android:textColor="@color/revBackgroundColor"
             android:textStyle="normal"
             android:gravity="start"
             android:layout_weight="1" />
@@ -111,6 +112,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
             android:text="26 Aug 2024 - 01 Sep 2024"
             android:textStyle="normal" />
 

@@ -3,7 +3,7 @@
     android:id="@+id/linearLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Model name"
-            android:textColor="@android:color/black"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="14sp" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="3dp"
             android:text="Model name"
-            android:textColor="@android:color/black"
+            android:textColor="@color/revBackgroundColor"
             android:textSize="12sp" />
 
     </LinearLayout>

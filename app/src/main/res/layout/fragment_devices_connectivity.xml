@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:background="#F9FBFF">
+        android:background="@color/vitalHistoryBgColor">
 
         <!-- Back Icon -->
         <ImageView
@@ -35,7 +35,7 @@
             android:text="Device Connectivity"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#1B1C1F" />
+            android:textColor="@color/blackTextColor2" />
     </LinearLayout>
 
     <!-- Body continues -->
@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Device Name:"
+        android:textColor="@color/textColor"
         android:textSize="16sp"
         android:layout_marginTop="24dp"/>
 
@@ -52,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status: Not Connected"
+        android:textColor="@color/textColor"
         android:textSize="16sp"
         android:layout_marginTop="24dp" />
 

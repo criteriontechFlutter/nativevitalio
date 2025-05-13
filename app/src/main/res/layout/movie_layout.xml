@@ -20,6 +20,7 @@
         android:layout_width="126dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@color/textColor"
         android:text="TextView" />
 
 </LinearLayout>
