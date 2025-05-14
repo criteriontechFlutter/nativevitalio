@@ -13,7 +13,8 @@
             android:layout_height="48dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@color/dashboardIconBg"
+            android:backgroundTint="@color/dashboardIconBg"
+            android:background="@drawable/rounded_corners"
             android:paddingHorizontal="12dp"
           >
 

@@ -91,7 +91,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                 val response = RetrofitInstance
                     .createApiService7082()
                     .dynamicRawPost(
-                        url = ApiEndPoint().getEmergencyContact,
+                        url = ApiEndPoint().saveEmergencyContact,
                         body = requestBody
                     )
 
