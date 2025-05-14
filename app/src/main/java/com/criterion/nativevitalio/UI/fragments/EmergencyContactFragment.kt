@@ -58,12 +58,16 @@ class EmergencyContactFragment : Fragment() {
 
 
     private fun setupRecyclerView() {
-        adapter = EmergencyContactAdapter(emptyList()) { contact ->
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.contactNumber}"))
-            startActivity(intent)
+        viewModel.emergencyContactList.observe(viewLifecycleOwner) { isLoading ->
+            adapter = EmergencyContactAdapter(isLoading) { contact ->
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.contactNumber}"))
+                startActivity(intent)
+            }
+            binding.scrollView.layoutManager = LinearLayoutManager(requireContext())
+            binding.scrollView.adapter = adapter
         }
-        binding.scrollView.layoutManager = LinearLayoutManager(requireContext())
-        binding.scrollView.adapter = adapter
+
+
     }
 
     private fun observeViewModel() {
