@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import DateUtils.toCamelCase
 import android.graphics.Color
@@ -8,8 +8,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.model.AllergyHistoryItem
-import com.criterion.nativevitalio.databinding.ItemAllergyCardBinding
+import com.critetiontech.ctvitalio.model.AllergyHistoryItem
+import com.critetiontech.ctvitalio.databinding.ItemAllergyCardBinding
 
 
 class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHolder>(

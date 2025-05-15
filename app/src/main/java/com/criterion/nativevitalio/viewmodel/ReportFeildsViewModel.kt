@@ -1,12 +1,12 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,7 +30,7 @@ class ReportFeildsViewModel  : ViewModel(){
         imagePath: String
     ): String? = withContext(Dispatchers.IO) {
 
-        val url = com.criterion.nativevitalio.networking.RetrofitInstance.DEFAULT_BASE_URL+ ApiEndPoint().insertPatientMediaData +
+        val url = com.critetiontech.ctvitalio.networking.RetrofitInstance.DEFAULT_BASE_URL+ ApiEndPoint().insertPatientMediaData +
                 "?uhId=${PrefsManager().getPatient()?.uhID.toString()}&subCategory=${Uri.encode(testName)}&remark=${Uri.encode(category)}" +
                 "&category=${Uri.encode(category)}&dateTime=${Uri.encode(dateTime)}&userId=0"
         Log.e("UploadError", "url: ${url}")

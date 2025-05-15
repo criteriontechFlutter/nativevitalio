@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.net.Uri
@@ -6,12 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.model.AllergyApiResponse
-import com.criterion.nativevitalio.model.AllergyGroup
-import com.criterion.nativevitalio.model.AllergyHistoryItem
-import com.criterion.nativevitalio.model.AllergyTypeItem
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.model.AllergyApiResponse
+import com.critetiontech.ctvitalio.model.AllergyGroup
+import com.critetiontech.ctvitalio.model.AllergyHistoryItem
+import com.critetiontech.ctvitalio.model.AllergyTypeItem
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope

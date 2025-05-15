@@ -1,9 +1,9 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 import android.app.Activity
 import android.app.Dialog
 import androidx.fragment.app.Fragment
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.R
 
 object LoaderUtils {
     private var dialog: Dialog? = null

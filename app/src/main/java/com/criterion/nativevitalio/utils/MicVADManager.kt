@@ -1,4 +1,4 @@
-//package com.criterion.nativevitalio.utils
+//package com.critetiontech.ctvitalio.utils
 //
 //import PrefsManager
 //import android.Manifest
@@ -8,8 +8,8 @@
 //import android.media.MediaRecorder
 //import android.util.Log
 //import androidx.core.app.ActivityCompat
-//import com.criterion.nativevitalio.networking.RetrofitInstance
-//import com.criterion.nativevitalio.utils.MyApplication
+//import com.critetiontech.ctvitalio.networking.RetrofitInstance
+//import com.critetiontech.ctvitalio.utils.MyApplication
 //import okhttp3.OkHttpClient
 //import okhttp3.Request
 //import okhttp3.Response

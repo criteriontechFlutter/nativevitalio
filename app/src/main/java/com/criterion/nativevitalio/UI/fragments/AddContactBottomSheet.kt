@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.R
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
-import com.criterion.nativevitalio.databinding.BottomSheetAddEmergencyContactBinding
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.utils.ToastUtils
-import com.criterion.nativevitalio.viewmodel.EmergencyContactViewModel
+import com.critetiontech.ctvitalio.databinding.BottomSheetAddEmergencyContactBinding
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.critetiontech.ctvitalio.viewmodel.EmergencyContactViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddContactBottomSheet : BottomSheetDialogFragment() {

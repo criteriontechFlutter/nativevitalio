@@ -16,9 +16,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.utils.SyncedHorizontalScrollView
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.SyncedHorizontalScrollView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

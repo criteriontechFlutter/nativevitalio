@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.UploadHistoryAdapter
-import com.criterion.nativevitalio.databinding.FragmentUploadReportHistoryBinding
-import com.criterion.nativevitalio.viewmodel.UploadReportHistoryViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.UploadHistoryAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
+import com.critetiontech.ctvitalio.viewmodel.UploadReportHistoryViewModel
 
 class UploadReportHistory : Fragment() {
 

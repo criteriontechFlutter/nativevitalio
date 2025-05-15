@@ -1,10 +1,10 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.databinding.ItemWatchBinding
-import com.criterion.nativevitalio.model.WatchModel
+import com.critetiontech.ctvitalio.databinding.ItemWatchBinding
+import com.critetiontech.ctvitalio.model.WatchModel
 
 class WatchAdapter(
     private val items: List<WatchModel>,

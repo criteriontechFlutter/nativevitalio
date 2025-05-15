@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.model
+package com.critetiontech.ctvitalio.model
 data class SymptomResponse(
     val status: Int,
     val message: String,

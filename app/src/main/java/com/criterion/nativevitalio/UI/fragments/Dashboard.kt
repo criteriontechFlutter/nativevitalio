@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import Vital
@@ -29,16 +29,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.DashboardAdapter
-import com.criterion.nativevitalio.adapter.ToTakeAdapter
-import com.criterion.nativevitalio.databinding.FragmentDashboardBinding
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.utils.showRetrySnackbar
-import com.criterion.nativevitalio.viewmodel.DashboardViewModel
-import com.criterion.nativevitalio.viewmodel.PillsReminderViewModal
-import com.criterion.nativevitalio.viewmodel.WebSocketState
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.showRetrySnackbar
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.critetiontech.ctvitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -252,7 +252,7 @@ class Dashboard  : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_chat -> {
-                    findNavController().navigate(R.id.action_dashboard_to_chatFragment)
+                    findNavController().navigate(R.id.action_dashboard_to_chatbotFragment)
                     true
                 }
                 R.id.nav_home -> {

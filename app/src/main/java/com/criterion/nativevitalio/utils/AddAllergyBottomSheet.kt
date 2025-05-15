@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.criterion.nativevitalio.model.AllergyTypeItem
-import com.criterion.nativevitalio.viewmodel.AllergiesViewModel
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.BottomsheetAddAllergyBinding
+import com.critetiontech.ctvitalio.model.AllergyTypeItem
+import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.BottomsheetAddAllergyBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

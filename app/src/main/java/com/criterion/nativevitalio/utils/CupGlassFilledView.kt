@@ -1,6 +1,6 @@
 
 
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
