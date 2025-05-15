@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.model
+package com.critetiontech.ctvitalio.model
 
 data class Problem(
     val id: Int,

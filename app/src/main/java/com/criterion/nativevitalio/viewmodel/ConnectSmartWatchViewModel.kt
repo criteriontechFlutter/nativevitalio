@@ -1,10 +1,10 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.model.WatchModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.model.WatchModel
 
 class ConnectSmartWatchViewModel (application: Application) : BaseViewModel(application){
 

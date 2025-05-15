@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.Manifest
@@ -20,12 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentDrawerBinding
-import com.criterion.nativevitalio.utils.ImagePickerUtil
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.viewmodel.DrawerViewModel
-import com.criterion.nativevitalio.viewmodel.LoginViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
+import com.critetiontech.ctvitalio.utils.ImagePickerUtil
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.viewmodel.DrawerViewModel
+import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 
 class drawer : Fragment() {
 
@@ -102,7 +102,7 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
         binding.userUhid.text = PrefsManager().getPatient()!!.uhID
         Glide.with(MyApplication.appContext) // or `this` if inside Activity
             .load(PrefsManager().getPatient()!!.profileUrl) // or R.drawable.image
-            .placeholder(com.criterion.nativevitalio.R.drawable.baseline_person_24)
+            .placeholder(com.critetiontech.ctvitalio.R.drawable.baseline_person_24)
             .circleCrop() // optional: makes it circular
             .into(binding.userImage)
 

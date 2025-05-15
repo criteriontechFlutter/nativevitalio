@@ -1,10 +1,10 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.R
 import com.google.android.material.button.MaterialButton
 
 

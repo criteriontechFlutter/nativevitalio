@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 
 import android.Manifest
@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.criterion.nativevitalio.databinding.FragmentDevicesConnectivityBinding
+import com.critetiontech.ctvitalio.databinding.FragmentDevicesConnectivityBinding
 
 class DevicesConnectivity : Fragment() {
     private var passedDeviceName: String? = null

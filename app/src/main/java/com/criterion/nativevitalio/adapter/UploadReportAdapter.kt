@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
-import com.criterion.nativevitalio.model.UploadReportItem
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.model.UploadReportItem
+import com.critetiontech.ctvitalio.R
 
 class UploadReportAdapter(
     private val context: Context,

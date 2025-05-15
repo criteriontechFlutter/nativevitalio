@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import FluidAmountBottomSheet
 import PrefsManager
@@ -23,17 +23,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.FluidOptionAdapter
-import com.criterion.nativevitalio.adapter.GlassSizeAdapter
-import com.criterion.nativevitalio.databinding.FragmentFluidBinding
-import com.criterion.nativevitalio.utils.CoffeVIew
-import com.criterion.nativevitalio.utils.GlassView
-import com.criterion.nativevitalio.utils.GreenTea
-import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
-import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.criterion.nativevitalio.utils.MilkView
-import com.criterion.nativevitalio.viewmodel.FluidIntakeOuputViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.FluidOptionAdapter
+import com.critetiontech.ctvitalio.adapter.GlassSizeAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentFluidBinding
+import com.critetiontech.ctvitalio.utils.CoffeVIew
+import com.critetiontech.ctvitalio.utils.GlassView
+import com.critetiontech.ctvitalio.utils.GreenTea
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.ctvitalio.utils.MilkView
+import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
 
 
 class FluidFragment : Fragment() {

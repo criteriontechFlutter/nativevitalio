@@ -1,5 +1,9 @@
-package com.criterion.nativevitalio
+package com.critetiontech.ctvitalio
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,5 +19,27 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
+        createNotificationChannel()
+
+        if (intent.getBooleanExtra("from_notification", false)) {
+            // Navigate to a specific fragment or screen
+        }
     }
+
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "channel_id",
+                "HealthBot Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Channel for chatbot and health alerts"
+            }
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
+
 }

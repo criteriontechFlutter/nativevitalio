@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.networking
+package com.critetiontech.ctvitalio.networking
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

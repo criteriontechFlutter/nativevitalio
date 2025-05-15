@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI
+package com.critetiontech.ctvitalio.UI
 
 import android.os.Bundle
 import android.util.Log
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.UI.ui.signupFragment.ProgressViewModel
-import com.criterion.nativevitalio.databinding.ActivitySignupBinding
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
+import com.critetiontech.ctvitalio.databinding.ActivitySignupBinding
 
 class SignupActivity : AppCompatActivity() {
 

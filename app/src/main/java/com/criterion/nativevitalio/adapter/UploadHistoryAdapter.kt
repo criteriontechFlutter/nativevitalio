@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.criterion.nativevitalio.model.UploadedReportItem
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.model.UploadedReportItem
+import com.critetiontech.ctvitalio.R
 
 
 class UploadHistoryAdapter(

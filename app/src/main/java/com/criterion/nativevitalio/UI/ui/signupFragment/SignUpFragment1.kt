@@ -1,11 +1,11 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.criterion.nativevitalio.databinding.FragmentSignUpFragment1Binding
+import com.critetiontech.ctvitalio.databinding.FragmentSignUpFragment1Binding
 
 class SignUpFragment1 : Fragment() {
     private lateinit var binding : FragmentSignUpFragment1Binding

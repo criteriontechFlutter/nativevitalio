@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.BloodGroupAdapter
-import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
-import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.BloodGroupAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentBloodGroupBinding
+import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 
 class BloodGroupFragment : Fragment() {
 
