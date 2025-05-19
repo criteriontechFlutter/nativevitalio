@@ -31,9 +31,8 @@ class ChronicConditionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
-//        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
@@ -50,13 +49,15 @@ class ChronicConditionFragment : Fragment() {
 
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
             val selectedName = parent.getItemAtPosition(position).toString()
+            val selectedProblem = viewModel.problemList.value?.find { it.problemName == selectedName }
 
-            binding.chronicDis.removeTextChangedListener(textWatcher)
-            binding.chronicDis.setText("", false)
-            binding.chronicDis.addTextChangedListener(textWatcher)
-
-            viewModel.addSelectedDisease(selectedName)
-            binding.chronicDis.dismissDropDown()
+            if (selectedProblem != null) {
+                viewModel.addSelectedDisease(selectedProblem, requireContext())
+                binding.chronicDis.removeTextChangedListener(textWatcher)
+                binding.chronicDis.setText("", false)
+                binding.chronicDis.addTextChangedListener(textWatcher)
+                binding.chronicDis.dismissDropDown()
+            }
         }
 
         viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
@@ -69,29 +70,31 @@ class ChronicConditionFragment : Fragment() {
 
         viewModel.selectedDiseaseList.observe(viewLifecycleOwner) { list ->
             binding.selectedListContainer.removeAllViews()
-            list.toSet().forEach { diseaseName -> // ✅ Prevent duplicate chips
-                addRemovableChip(diseaseName)
+            list.distinctBy { it["detailID"] }.forEach { disease ->
+                addRemovableChip(disease)
             }
         }
 
         binding.btnNext.setOnClickListener {
-            viewModel.chronicDisease.value =
-                viewModel.selectedDiseaseList.value?.joinToString(", ") ?: ""
+            val summary = viewModel.selectedDiseaseList.value
+                ?.joinToString(", ") { it["details"] ?: "" } ?: ""
+
+            viewModel.chronicDisease.value = summary
             findNavController().navigate(R.id.action_chronicConditionFragment_to_otherChronicDisease)
         }
     }
 
-    private fun addRemovableChip(text: String) {
+    private fun addRemovableChip(disease: Map<String, String>) {
         val inflater = LayoutInflater.from(requireContext())
         val chipView = inflater.inflate(R.layout.chip_removable, binding.selectedListContainer, false)
 
         val chipText = chipView.findViewById<TextView>(R.id.chipText)
         val chipRemove = chipView.findViewById<ImageView>(R.id.chipRemove)
 
-        chipText.text = text
+        chipText.text = disease["details"] ?: ""
 
         chipRemove.setOnClickListener {
-            viewModel.removeSelectedDisease(text)
+            viewModel.removeSelectedDisease(disease["detailID"].orEmpty())
         }
 
         binding.selectedListContainer.addView(chipView)
