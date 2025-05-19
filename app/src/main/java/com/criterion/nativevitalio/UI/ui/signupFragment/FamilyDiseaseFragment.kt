@@ -34,7 +34,6 @@ class FamilyDiseaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
 
         val textWatcher = object : TextWatcher {
@@ -54,7 +53,11 @@ class FamilyDiseaseFragment : Fragment() {
         viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
             if (!problemList.isNullOrEmpty()) {
                 latestSuggestions = problemList.map { it.problemName }
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, latestSuggestions)
+                val adapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    latestSuggestions
+                )
                 binding.chronicDis.setAdapter(adapter)
             }
         }
@@ -125,7 +128,8 @@ class FamilyDiseaseFragment : Fragment() {
                 val anyChecked = checkBoxes.any { it.isChecked }
                 btnSubmit.isEnabled = anyChecked
                 btnSubmit.setBackgroundResource(
-                    if (anyChecked) R.drawable.progress_unselected else R.drawable.progress_selected
+                    if (anyChecked) R.drawable.progress_selected
+                    else R.drawable.progress_unselected
                 )
             }
         }

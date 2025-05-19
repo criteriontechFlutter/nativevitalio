@@ -139,5 +139,20 @@
         <action
             android:id="@+id/action_createAccount2_to_adressFragment"
             app:destination="@id/adressFragment" />
+        <action
+            android:id="@+id/action_createAccount2_to_accountSuccess"
+            app:destination="@id/accountSuccess" />
     </fragment>
+    <fragment
+        android:id="@+id/accountSuccess"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.AccountSuccess"
+        android:label="AccountSuccess" >
+        <action
+            android:id="@+id/action_accountSuccess_to_setPreferences"
+            app:destination="@id/setPreferences" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPreferences"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SetPreferences"
+        android:label="SetPreferences" />
 </navigation>

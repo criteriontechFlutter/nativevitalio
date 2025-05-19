@@ -12,24 +12,27 @@ import com.criterion.nativevitalio.databinding.FragmentSignUp2Binding
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
 
 class SignUpFragment2 : Fragment() {
-    private lateinit var binding : FragmentSignUp2Binding
+    private lateinit var binding: FragmentSignUp2Binding
     private lateinit var progressViewModel: ProgressViewModel
     private lateinit var viewModel: RegistrationViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSignUp2Binding.inflate(inflater, container, false)
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+
+        // ✅ Restore existing values if already entered
+        binding.etFirstName.setText(viewModel.firstName.value ?: "")
+        binding.etLastName.setText(viewModel.lastName.value ?: "")
 
         binding.btnNext.setOnClickListener {
             val first = binding.etFirstName.text.toString().trim()
@@ -39,16 +42,15 @@ class SignUpFragment2 : Fragment() {
                 binding.etFirstName.error = "First name is required"
                 return@setOnClickListener
             }
-//
-//            if (last.isEmpty()) {
-//                binding.etLastName.error = "Last name is required"
-//                return@setOnClickListener
-//            }
 
+            // ✅ Save values in ViewModel
             viewModel.firstName.value = first
             viewModel.lastName.value = last
+
+            // ✅ Update progress
             progressViewModel.updateProgress(1)
 
+            // ✅ Navigate to next fragment
             findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
         }
     }

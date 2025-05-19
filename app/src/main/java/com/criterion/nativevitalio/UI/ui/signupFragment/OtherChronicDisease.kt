@@ -61,26 +61,34 @@ class OtherChronicDisease : Fragment() {
             }
         }
 
-        viewModel.otherChronicDiseaseList.observe(viewLifecycleOwner) { list ->
+        viewModel.selectedOtherChronicDiseaseList.observe(viewLifecycleOwner) { list ->
             binding.selectedListContainer.removeAllViews()
-            list.toSet().forEach { diseaseName ->
-                addRemovableChip(diseaseName)
+            list.forEach { entry ->
+                entry["details"]?.let { diseaseName ->
+                    addRemovableChip(diseaseName)
+                }
             }
         }
 
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
             val selectedName = parent.getItemAtPosition(position).toString()
-            binding.chronicDis.removeTextChangedListener(textWatcher)
-            binding.chronicDis.setText("", false)
-            binding.chronicDis.addTextChangedListener(textWatcher)
+            val selectedProblem = viewModel.problemList.value?.find { it.problemName == selectedName }
 
-            viewModel.addOtherChronicDisease(selectedName)
-            binding.chronicDis.dismissDropDown()
+            if (selectedProblem != null) {
+                binding.chronicDis.removeTextChangedListener(textWatcher)
+                binding.chronicDis.setText("", false)
+                binding.chronicDis.addTextChangedListener(textWatcher)
+
+                viewModel.addOtherChronicDisease(selectedProblem, requireContext())
+                binding.chronicDis.dismissDropDown()
+            }
         }
 
         binding.btnNext.setOnClickListener {
             viewModel.otherChronicDiseases.value =
-                viewModel.otherChronicDiseaseList.value?.joinToString(", ") ?: ""
+                viewModel.selectedOtherChronicDiseaseList.value?.joinToString(", ") {
+                    it["details"] ?: ""
+                } ?: ""
             findNavController().navigate(R.id.action_otherChronicDisease_to_familyDiseaseFragment)
         }
     }
@@ -95,7 +103,7 @@ class OtherChronicDisease : Fragment() {
         chipText.text = text
 
         chipRemove.setOnClickListener {
-            viewModel.removeOtherChronicDisease(text)
+            viewModel.removeOtherChronicDiseaseByName(text)
         }
 
         binding.selectedListContainer.addView(chipView)

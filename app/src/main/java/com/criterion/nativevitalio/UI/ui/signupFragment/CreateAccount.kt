@@ -45,7 +45,9 @@ class CreateAccount : Fragment() {
         addSummaryItem("Name", getFullName())
         addSummaryItem("Gender", viewModel.gender.value ?: "")
         addSummaryItem("Date of Birth", "")
-        addSummaryItem("Blood Group", viewModel.bg.value ?: "")
+        addSummaryItem("Weight", "")
+        addSummaryItem("Height", "")
+        addSummaryItem("Blood Group", viewModel.bgId.value ?: "")
         addSummaryItem("Address", "")
         addSummaryItem("Chronic Disease", viewModel.chronicDisease.value ?: "")
         addSummaryItem("Other Chronic Diseases", viewModel.otherChronicDiseases.value ?: "")
@@ -79,6 +81,14 @@ class CreateAccount : Fragment() {
             addSummaryItem("Family History", it)
         }
 
+        viewModel.wt.observe(viewLifecycleOwner) {
+            addSummaryItem("Weight", it+" kg")
+        }
+
+        viewModel.ht.observe(viewLifecycleOwner) {
+            addSummaryItem("Height", it)
+        }
+
         viewModel.selectedCountryName.observe(viewLifecycleOwner) { updateAddressSummary() }
         viewModel.selectedStateName.observe(viewLifecycleOwner) { updateAddressSummary() }
         viewModel.selectedCityName.observe(viewLifecycleOwner) { updateAddressSummary() }
@@ -108,6 +118,11 @@ class CreateAccount : Fragment() {
         // Trigger DOB display if already filled
         viewModel.dob.value?.let {
             viewModel.dob.postValue(it)
+        }
+
+        binding.btnNext.setOnClickListener(){
+            viewModel.patientSignUp("9651965196")
+            findNavController().navigate(R.id.accountSuccess)
         }
     }
     private fun getFullName(): String {
@@ -153,6 +168,8 @@ class CreateAccount : Fragment() {
                     "Chronic Disease" -> findNavController().navigate(R.id.action_createAccount2_to_chronicConditionFragment)
                     "Other Chronic Diseases" -> findNavController().navigate(R.id.action_createAccount2_to_otherChronicDisease)
                     "Family History" -> findNavController().navigate(R.id.action_createAccount2_to_familyDiseaseFragment)
+                    "Weight" -> findNavController().navigate(R.id.action_createAccount2_to_weightFragment)
+                    "Height" -> findNavController().navigate(R.id.action_createAccount2_to_heightFragment)
                     else -> Toast.makeText(requireContext(), "No edit path for $label", Toast.LENGTH_SHORT).show()
                 }
             }
