@@ -10,10 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.adapter.UploadHistoryAdapter
-import com.criterion.nativevitalio.viewmodel.UploadReportHistoryViewModel
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.adapter.UploadHistoryAdapter
 import com.criterion.nativevitalio.databinding.FragmentUploadReportHistoryBinding
+import com.criterion.nativevitalio.viewmodel.UploadReportHistoryViewModel
 
 class UploadReportHistory : Fragment() {
 
@@ -39,6 +39,10 @@ class UploadReportHistory : Fragment() {
         viewModel.reportList.observe(viewLifecycleOwner, Observer { reports ->
             adapter = UploadHistoryAdapter(reports)
             binding.recyclerViewReports.adapter = adapter
+            binding.subtitleRadiology.text=reports.size.toString()
+            binding.subtitleImaging.text=reports.size.toString()
+            binding.subtitleLab.text=reports.size.toString()
+
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner) {
@@ -55,6 +59,7 @@ class UploadReportHistory : Fragment() {
         binding.tabRadiology.setOnClickListener { selectTab("Radiology") }
         binding.tabImaging.setOnClickListener { selectTab("Imaging") }
         binding.tabLab.setOnClickListener { selectTab("Lab") }
+
 
         // Default selection
         selectTab("Radiology")

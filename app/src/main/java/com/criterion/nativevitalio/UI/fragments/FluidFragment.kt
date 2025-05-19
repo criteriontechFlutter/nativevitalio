@@ -148,8 +148,8 @@ class FluidFragment : Fragment() {
 
         binding.waterGlassView.post {
             binding.waterGlassView.setVolumeRange(0,150)
-            binding.waterGlassView.setFillGradient(Color.parseColor("#98BEFF"),Color.parseColor("#93BBFF"),
-                Color.parseColor("#8CB7FF"),Color.parseColor("#7AADFF"))
+            binding.waterGlassView.setFillGradient(Color.parseColor("#FFA500"),Color.parseColor("#FFC659"),
+                Color.parseColor("#FFC659"),Color.parseColor("#FFA500"))
         }
 
         binding.waterGlassView.setOnVolumeChangeListener(object : GlassView.OnVolumeChangeListener {
@@ -173,7 +173,11 @@ class FluidFragment : Fragment() {
 
 
 
-
+        binding.cupglassView.post {
+            binding.cupglassView.setVolumeRange(0,150)
+            binding.cupglassView.setFillGradient(Color.parseColor("#a1b88b"),Color.parseColor("#89ab82"),
+                Color.parseColor("#6ba36c"),Color.parseColor("#a1b88b"))
+        }
 
         binding.cupglassView.setOnVolumeChangeListener(object : GreenTea.OnVolumeChangeListener {
             override fun onVolumeChanged(filledMl: Int, progress: Float) {
@@ -290,6 +294,10 @@ class FluidFragment : Fragment() {
                     binding.noFluid.visibility = GONE
                 }
                 selected?.foodName.equals("Water", true) -> {
+
+                        binding.milkGlassView.setFillGradient(Color.parseColor("#0f5e9c"),Color.parseColor("#2389da"),
+                            Color.parseColor("#1ca3ec"),Color.parseColor("#5abcd8"))
+
                     binding.milkGlassView.visibility = VISIBLE
                     binding.waterGlassView.visibility = GONE
                     binding.coffeView.visibility = GONE

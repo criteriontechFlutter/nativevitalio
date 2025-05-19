@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.criterion.nativevitalio.R
 import java.time.LocalDateTime
@@ -37,7 +38,7 @@ class DashboardAdapter(
 
         val zoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out)
         valueView.startAnimation(zoomOut)
-
+        view.findViewById<ConstraintLayout>(R.id.vitalCard).startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
         // ✅ Map proper title
         val title = when (vital.vitalName) {
             "HeartRate" -> "Heart Rate"

@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -68,6 +69,7 @@ class Dashboard  : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -94,7 +96,15 @@ class Dashboard  : Fragment() {
             }
         }
 
+        loadanimation()
 
+        binding.fabAdd.animate()
+            .scaleX(1.1f)
+            .scaleY(1.1f)
+            .setDuration(300)
+            .withEndAction {
+                binding.fabAdd.animate().scaleX(1f).scaleY(1f).duration = 300
+            }.start()
         toTakeAdapter = ToTakeAdapter(
             mutableListOf(),
 //            onCheckChanged = { pill, isChecked ->
@@ -259,7 +269,7 @@ class Dashboard  : Fragment() {
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {
                 WebSocketState.CONNECTING -> "Connecting..."
-                WebSocketState.CONNECTED -> "Connected"
+                WebSocketState.CONNECTED -> "Please speak"
                 WebSocketState.DISCONNECTED -> "Disconnected"
                 WebSocketState.ERROR -> "Connection Error"
             }
@@ -290,6 +300,16 @@ class Dashboard  : Fragment() {
 
     private fun hideVoiceOverlay() {
         voiceDialog?.dismiss()
+    }
+
+   fun  loadanimation(){
+        binding.vitalDetails.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        binding.pillsReminder.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        binding.profileImage.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        binding.fluidlayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        binding.dietChecklist.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        binding.uploadReport.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        binding.symptomsTracker.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
     }
 
     private fun connectWebSocket() {

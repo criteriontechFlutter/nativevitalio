@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.databinding.FragmentChatBinding
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
+import com.criterion.nativevitalio.viewmodel.ChatViewModel
 
 
 class ChatFragment : Fragment() {

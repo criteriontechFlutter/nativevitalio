@@ -5,9 +5,11 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
@@ -24,6 +26,7 @@ class ToTakeAdapter(
         val quantity: TextView = itemView.findViewById(R.id.quantityBadge)
         val instruction: TextView = itemView.findViewById(R.id.medInstruction)
         val checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
+        val medicineLayout: ConstraintLayout = itemView.findViewById(R.id.medicineLayout)
 //        val menuIcon: ImageView = itemView.findViewById(R.id.menuIcon)
     }
 
@@ -38,7 +41,7 @@ class ToTakeAdapter(
         holder.medName.text = item.drugName
         holder.quantity.text = "${item.jsonTime.size} ${item.dosageForm.lowercase()}"
         holder.instruction.text = item.remark.ifBlank { "No instruction" }
-
+          holder.medicineLayout  .startAnimation(AnimationUtils.loadAnimation(MyApplication.appContext, R.anim.fade_in))
         holder.checkBox.setOnCheckedChangeListener(null)
 //        holder.checkBox.isChecked = false
 

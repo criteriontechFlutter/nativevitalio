@@ -26,7 +26,7 @@ class GlassView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var glassBitmap: Bitmap? = null
     private var glassMaskBitmap: Bitmap? = null
 
-    private var fillColor = Color.BLUE
+    private var fillColor = Color.parseColor("#FFA500")
     private var fillGradient: LinearGradient? = null
 
     private var minMl = 0
