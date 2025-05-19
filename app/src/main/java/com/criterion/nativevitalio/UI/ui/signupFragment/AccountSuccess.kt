@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentAccountSuccessBinding
+import com.critetiontech.ctvitalio.R
+
+
+import com.critetiontech.ctvitalio.databinding.FragmentAccountSuccessBinding
 
 
 class AccountSuccess : Fragment() {
