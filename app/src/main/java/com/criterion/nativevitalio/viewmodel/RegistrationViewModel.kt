@@ -1,25 +1,42 @@
 package com.criterion.nativevitalio.viewmodel
 
+import Patient
+import PrefsManager
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.criterion.nativevitalio.UI.Home
+import com.criterion.nativevitalio.UI.Login
+import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.model.CityModel
+import com.criterion.nativevitalio.model.FrequencyModel
 import com.criterion.nativevitalio.model.Problem
 import com.criterion.nativevitalio.model.StateModel
+import com.criterion.nativevitalio.model.VitalReminder
 import com.criterion.nativevitalio.networking.RetrofitInstance
 import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RegistrationViewModel  : ViewModel(){
     val firstName = MutableLiveData<String>()
     val lastName = MutableLiveData<String>()
     val gender = MutableLiveData<String>()
+    val genderId = MutableLiveData<String>()
     val dob = MutableLiveData<String>()
-    val bg = MutableLiveData<String>()
+    val bg  = MutableLiveData<String>()
+    val bgId = MutableLiveData<String>()
     val selectedCountryId = MutableLiveData<String>()
     val selectedCountryName = MutableLiveData<String>()
 
@@ -31,6 +48,7 @@ class RegistrationViewModel  : ViewModel(){
     val pinCode = MutableLiveData<String>()
     val streetAddress = MutableLiveData<String>()
     val wt = MutableLiveData<String>()
+    val ht = MutableLiveData<String>()
 
 
     val chronicDisease = MutableLiveData<String>()
@@ -139,21 +157,82 @@ class RegistrationViewModel  : ViewModel(){
     }
 
 
-    fun patientSignUp(
-        nameV: String,
-        bloodGroupIdV: String,
-        genderIdV: String,
-        heightV: String,
-        weightV: String,
-        zipV: String,
-        addressV: String,
-        countryCallingCodeV: String,
-        mobileNoV: String,
-        countryIdV: String,
-        stateIdV: String,
-        cityIdV: String,
-        age: String){
+
+
+
+
+
+    // VITAL SET PREFERENCES
+    val setVitalList = MutableLiveData<MutableList<VitalReminder>>().apply {
+        value = mutableListOf(
+            VitalReminder(1, 4, "Blood Pressure", 0, "ONCE A DAY (24 HOURLY)", false),
+            VitalReminder(1, 74, "Heart Rate", 0, "ONCE A DAY (24 HOURLY)", false),
+            VitalReminder(1, 56, "Blood Oxygen (spo2)", 0, "ONCE A DAY (24 HOURLY)", false),
+            VitalReminder(1, 7, "Respiratory Rate", 0, "ONCE A DAY (24 HOURLY)", false),
+            VitalReminder(1, 3, "Pulse Rate", 0, "ONCE A DAY (24 HOURLY)", false),
+            VitalReminder(1, 10, "RBS", 0, "ONCE A DAY (24 HOURLY)", false)
+        )
+    }
+
+    fun updateVitalFrequency(index: Int, frequency: String) {
+        val list = setVitalList.value ?: return
+        list[index].frequencyType = frequency
+        list[index].isCheck = true
+        setVitalList.value = list
+    }
+
+    private val _frequencyDataList = MutableLiveData<List<FrequencyModel>>()
+    val frequencyDataList: LiveData<List<FrequencyModel>> get() = _frequencyDataList
+
+    fun getFrequencyList() {
         _loading.value = true
+
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                    "userId" to PrefsManager().getPatient()?.userId.toString(),
+                    "alphabet" to ""
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7082()
+                    .dynamicGet(
+                        url = ApiEndPoint().getFrequencyList,
+                        params = queryParams
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    val body = response.body()?.string() ?: return@launch
+                    val json = JSONObject(body)
+
+                    if (json.optInt("status") == 1) {
+                        val responseValue = json.getJSONArray("responseValue")
+                        val list = Gson().fromJson<List<FrequencyModel>>(
+                            responseValue.toString(),
+                            object : TypeToken<List<FrequencyModel>>() {}.type
+                        )
+                        _frequencyDataList.value = list
+                    } else {
+                        _errorMessage.value = json.optString("message", "No data found")
+                    }
+
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.localizedMessage ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+    fun patientSignUp(mobileNo:String
+         ){
+        _loading.value = true
+
 
         viewModelScope.launch {
             try {
@@ -163,38 +242,56 @@ class RegistrationViewModel  : ViewModel(){
                 val height = (if (feet.isEmpty()) 0.0 else feet.toInt() * 30.48) +
                         (if (inch.isEmpty()) 0.0 else inch.toInt() * 2.54)
 
+                    val summary = "${ streetAddress.value.orEmpty()}, " +
+                            "${ selectedCityName.value.orEmpty()}, " +
+                            "${ selectedStateName.value.orEmpty()}, " +
+                            "${ selectedCountryName.value.orEmpty()} - " +
+                            "${ pinCode.value.orEmpty()}"
                 val queryParams = mapOf(
-                    "patientName" to nameV,
-                    "genderId" to genderIdV,
-                    "bloodGroupId" to bloodGroupIdV,
+                    "patientName" to "${firstName.value.orEmpty()} ${lastName.value.orEmpty()}",
+                    "genderId" to genderId.value?.split(".")?.firstOrNull().orEmpty(),
+                    "bloodGroupId" to bgId.value?.split(".")?.firstOrNull().orEmpty(),
                     "height" to height,
-                    "weight" to weightV,
-                    "zip" to zipV,
-                    "address" to addressV,
-                    "countryCallingCode" to countryCallingCodeV,
-                    "mobileNo" to mobileNoV,
-                    "countryId" to countryIdV,
-                    "stateId" to stateIdV,
-                    "cityId" to cityIdV,
-                    "dob" to age.toString(),
-//                    "choronicDiseasesJson" to Gson().toJson(getSelectedProblemList),
-//                    "familyDiseaseJson" to Gson().toJson(getSelectedFamilyProblemList),
-                    // "reminderJson" to Gson().toJson(temp),
+                    "weight" to wt.value.orEmpty(),
+                    "zip" to "",
+                    "address" to summary,
+                    "countryCallingCode" to "+91",
+                    "mobileNo" to mobileNo,
+                    "countryId" to selectedCountryId.value?.split(".")?.firstOrNull().orEmpty(),
+                    "stateId" to selectedStateId.value?.split(".")?.firstOrNull().orEmpty(),
+                    "cityId" to selectedCityId.value?.split(".")?.firstOrNull().orEmpty(),
+                    "dob" to formatDob(dob.value.orEmpty()),
+                    "choronicDiseasesJson" to Gson().toJson(selectedOtherChronicDiseaseList.value ?: emptyList<Map<String, String>>()),
+                    "familyDiseaseJson" to Gson().toJson(familyDiseaseMap.value ?: emptyMap<String, List<String>>()),
                     "clientId" to "194",
                     "isExternal" to "1"
                 )
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService7083( )
-                    .dynamicGet(
+                    .createApiService7082( )
+                    .dynamicRawPost(
                         url = ApiEndPoint().patientSignUp,
-                        params = queryParams
+                        body = queryParams
                     )
                 _loading.value = false
                 if (response.isSuccessful) {
+                    val responseString = response.body()?.string() ?: return@launch
+                    val json = JSONObject(responseString)
 
-
+                    if (json.optInt("status") == 1) {
+                        val uhid = json.getJSONArray("responseValue")
+                            .getJSONObject(0)
+                            .getString("uhid")
+                        getPatientDetailsByUHID(uhid=uhid.toString(),
+                            context= MyApplication.appContext)
+                        // Save UHID (example: in SharedPreferences or LiveData)
+                        println("UHID = $uhid")
+                        // PrefsManager().saveUHID(uhid) // Optional
+                    } else {
+                        _errorMessage.value = json.optString("message", "Signup failed.")
+                    }
+//
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
@@ -207,57 +304,224 @@ class RegistrationViewModel  : ViewModel(){
             }
         }
     }
-    private val _problemList = MutableLiveData<List<Problem>>()
-    val problemList: LiveData<List<Problem>> = _problemList
-    private val _selectedDiseaseList = MutableLiveData<MutableList<String>>(mutableListOf())
-    val selectedDiseaseList: LiveData<MutableList<String>> get() = _selectedDiseaseList
+    private fun getPatientDetailsByUHID(uhid: String,context: Context) {
+        _loading.value = true
 
-    // Function to add a disease (if not already added)
-    fun addSelectedDisease(disease: String) {
-        if (!_selectedDiseaseList.value!!.contains(disease)) {
-            _selectedDiseaseList.value = _selectedDiseaseList.value!!.apply {
-                add(disease)
+        viewModelScope.launch {
+            try {
+                var mo = ""
+                var uhidVal = ""
+
+                if (uhid.toLowerCase().contains("uhid")) {
+                    uhidVal = uhid
+                } else {
+                    mo = uhid
+                }
+                val queryParams = mapOf(
+                    "mobileNo" to mo,
+                    "uhid" to uhidVal,
+                    "ClientId" to 194
+                )
+
+                // This response is of type Response<ResponseBody>
+                val response = RetrofitInstance
+                    .createApiService( )
+                    .dynamicGet(
+                        url = ApiEndPoint().getPatientDetailsByMobileNo,
+                        params = queryParams
+                    )
+
+                if (response.isSuccessful) {
+
+                    _loading.value = false
+
+                    val responseBodyString = response.body()?.string()
+
+                    val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
+                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
+                    Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
+                    val firstPatient = parsed.responseValue.firstOrNull()
+
+
+                    firstPatient?.let {
+                        PrefsManager( ).savePatient(it)
+                        Login.storedUHID=it
+                        val intent = Intent(context, Home::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(intent)
+                        Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}")
+                    }
+
+
+                } else {
+
+                    _loading.value = false
+
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
             }
         }
     }
 
-    // Optional: remove a disease
-    fun removeSelectedDisease(disease: String) {
-        _selectedDiseaseList.value = _selectedDiseaseList.value!!.apply {
-            remove(disease)
+
+    fun patientParameterSettingInsert(
+        fluidQty: String,
+        fluidQtyUnit: String
+    ) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+
+                // Convert fluid quantity to mL if needed
+                val fluidQtyData = if (fluidQtyUnit == "litre") {
+                    fluidQty
+                } else {
+                    (fluidQty.toDouble() * 1000).toInt().toString()
+                }
+
+                // Prepare vital parameter JSON
+                val temp = mutableListOf<Map<String, Any>>()
+
+
+
+                // Add fluid limit
+                temp.add(
+                    mapOf(
+                        "parameterId" to "2",
+                        "parameterTypeId" to "1",
+                        "name" to "Fluid Limit",
+                        "quantity" to fluidQtyData,
+                        "frequencyType" to "Daily",
+                        "isCheck" to false,
+                        "uhid" to "0"
+                    )
+                )
+
+                val body = mapOf(
+                    "parameterJson" to Gson().toJson(temp),
+                    "clientId" to "194",
+                    "pid" to "pid",
+                    "userId" to 0
+                )
+
+                val response = RetrofitInstance
+                    .createApiService7082()
+                    .dynamicRawPost(
+                        url = "api/PatientParameterSetting/Insert",
+                        body = body
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()?.string()
+                    val json = JSONObject(responseBody ?: "")
+                    if (json.optInt("status") == 1) {
+                        // Success case
+                        println("Success: $json")
+                    } else {
+                        _errorMessage.value = json.optString("message", "Insert failed")
+                    }
+                } else {
+                    _errorMessage.value = "API Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
         }
+    }
+    private fun formatDob(input: String): String {
+        return try {
+            val inputFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val outputFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val date = inputFormatter.parse(input)
+            outputFormatter.format(date!!)
+        } catch (e: Exception) {
+            input // fallback to original if parsing fails
+        }
+    }
+    private val _problemList = MutableLiveData<List<Problem>>()
+    val problemList: LiveData<List<Problem>> = _problemList
+
+    private val _selectedDiseaseList = MutableLiveData<MutableList<Map<String, String>>>(mutableListOf())
+    val selectedDiseaseList: LiveData<MutableList<Map<String, String>>> get() = _selectedDiseaseList
+
+    fun addSelectedDisease(problem: Problem, context: Context) {
+        val currentList = _selectedDiseaseList.value ?: mutableListOf()
+        val detailID = problem.id.toString()
+
+        if (currentList.any { it["detailID"] == detailID }) {
+            Toast.makeText(context, "Already added", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val newEntry = mapOf(
+            "detailID" to detailID,
+            "detailsDate" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date()),
+            "details" to problem.problemName,
+            "isFromPatient" to "1"
+        )
+
+        currentList.add(newEntry)
+        _selectedDiseaseList.value = currentList
+    }
+
+    fun removeSelectedDisease(detailID: String) {
+        val currentList = _selectedDiseaseList.value ?: mutableListOf()
+        currentList.removeAll { it["detailID"] == detailID }
+        _selectedDiseaseList.value = currentList
     }
 
     // Optional: clear all selections
-    fun clearSelectedDiseases() {
-        _selectedDiseaseList.value = mutableListOf()
-    }
-    private val _otherChronicDiseaseList = MutableLiveData<MutableList<String>>(mutableListOf())
-    val otherChronicDiseaseList: LiveData<MutableList<String>> get() = _otherChronicDiseaseList
 
-    fun addOtherChronicDisease(disease: String) {
-        if (!_otherChronicDiseaseList.value!!.contains(disease)) {
-            _otherChronicDiseaseList.value = _otherChronicDiseaseList.value!!.apply { add(disease) }
+    private val _selectedOtherChronicDiseaseList = MutableLiveData<MutableList<Map<String, String>>>(mutableListOf())
+    val selectedOtherChronicDiseaseList: LiveData<MutableList<Map<String, String>>> get() = _selectedOtherChronicDiseaseList
+
+    fun addOtherChronicDisease(problem: Problem, context: Context) {
+        val currentList = _selectedOtherChronicDiseaseList.value ?: mutableListOf()
+        val detailID = problem.id.toString()
+
+        if (currentList.any { it["detailID"] == detailID }) {
+            Toast.makeText(context, "Already added", Toast.LENGTH_SHORT).show()
+            return
         }
+
+        val newEntry = mapOf(
+            "detailID" to detailID,
+            "detailsDate" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date()),
+            "details" to problem.problemName,
+            "isFromPatient" to "1"
+        )
+
+        currentList.add(newEntry)
+        _selectedOtherChronicDiseaseList.value = currentList
     }
 
-    fun removeOtherChronicDisease(disease: String) {
-        _otherChronicDiseaseList.value = _otherChronicDiseaseList.value!!.apply { remove(disease) }
+    fun removeOtherChronicDiseaseByName(name: String) {
+        _selectedOtherChronicDiseaseList.value = _selectedOtherChronicDiseaseList.value?.filterNot {
+            it["details"] == name
+        }?.toMutableList()
     }
 
-    fun clearOtherChronicDiseases() {
-        _otherChronicDiseaseList.value = mutableListOf()
-    }
 
 
 
     // Family Disease List
-    private val _familyDiseaseList = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _familyDiseaseMap = MutableLiveData<MutableMap<String, MutableList<String>>>(mutableMapOf())
     val familyDiseaseMap: LiveData<MutableMap<String, MutableList<String>>> get() = _familyDiseaseMap
 
+    // Unified Setter/Updater
     fun addDiseaseForRelation(relation: String, disease: String) {
         val currentMap = _familyDiseaseMap.value ?: mutableMapOf()
+
         val currentList = currentMap[relation] ?: mutableListOf()
         if (!currentList.contains(disease)) {
             currentList.add(disease)
@@ -266,11 +530,14 @@ class RegistrationViewModel  : ViewModel(){
         }
     }
 
+    // Remove full relation
     fun removeFamilyRelation(relation: String) {
         val currentMap = _familyDiseaseMap.value ?: return
         currentMap.remove(relation)
         _familyDiseaseMap.value = currentMap.toMutableMap()
     }
+
+    // Remove specific disease from a relation
     fun removeDiseaseFromRelation(relation: String, disease: String) {
         val map = _familyDiseaseMap.value ?: return
         val updatedList = map[relation]?.toMutableList() ?: return

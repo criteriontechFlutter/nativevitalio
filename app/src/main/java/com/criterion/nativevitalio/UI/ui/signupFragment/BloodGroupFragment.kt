@@ -12,13 +12,26 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.BloodGroupAdapter
 import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
+import com.criterion.nativevitalio.model.BloodGroup
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
 
 class BloodGroupFragment : Fragment() {
 
+
     private lateinit var binding: FragmentBloodGroupBinding
-    private var selectedBloodGroup: String? = null
-    private val bloodGroups = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
+    private var selectedBloodGroup: BloodGroup? = null
+
+    private val bloodGroups = listOf(
+        BloodGroup(1, "A+", 1, 1, "2023-05-02T11:22:58"),
+        BloodGroup(2, "A-", 1, 1, "2023-05-30T12:52:37"),
+        BloodGroup(3, "B+", 1, 1, "2023-05-30T12:52:56"),
+        BloodGroup(4, "B-", 1, 1, "2023-05-31T13:59:25"),
+        BloodGroup(6, "O+", 1, 1, "2023-09-05T12:23:47"),
+        BloodGroup(7, "O-", 1, 1, "2023-09-05T12:23:56"),
+        BloodGroup(8, "AB+", 1, 1, "2023-09-05T12:24:06"),
+        BloodGroup(9, "AB-", 1, 1, "2023-09-05T12:24:11")
+    )
+
     private lateinit var progressViewModel: ProgressViewModel
     private lateinit var viewModel: RegistrationViewModel
 
@@ -35,22 +48,23 @@ class BloodGroupFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-        selectedBloodGroup = viewModel.bg.value
+
+        val preSelectedGroup = bloodGroups.find { it.groupName == viewModel.bg.value }
+
         val adapter = BloodGroupAdapter(
             bloodGroups,
-            selected = viewModel.bg.value         // restore selection from ViewModel
+            selected = preSelectedGroup
         ) { selected ->
             selectedBloodGroup = selected
-            viewModel.bg.value = selected
+            viewModel.bg.value = selected.groupName.toString()
+            viewModel.bgId.value = selected.id.toString()
         }
-
 
         binding.rvBloodGroups.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.rvBloodGroups.adapter = adapter
 
         binding.btnNext.setOnClickListener {
-            if (!selectedBloodGroup.isNullOrEmpty()) {
-                viewModel.bg.value = selectedBloodGroup
+            if (selectedBloodGroup != null) {
                 progressViewModel.updateProgress(4)
                 findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment)
             } else {

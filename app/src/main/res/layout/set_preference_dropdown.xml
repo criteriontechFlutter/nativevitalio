@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corners"
+    android:padding="12dp"
+    android:layout_marginBottom="12dp">
+
+    <TextView
+        android:id="@+id/labelVital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vital Name"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/dropdownVital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select frequency"
+        android:textColorHint="#888"
+        android:textSize="13sp"
+        android:textColor="#555"
+        android:drawableRight="@drawable/arrow_right"
+        android:paddingTop="4dp"
+        android:drawablePadding="4dp" />
+</LinearLayout>

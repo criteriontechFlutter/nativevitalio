@@ -13,6 +13,7 @@ import com.criterion.nativevitalio.databinding.FragmentSignupSelectGenderBinding
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
 
 class SignupSelectGenderFragment : Fragment() {
+
     private lateinit var binding: FragmentSignupSelectGenderBinding
     private var selectedGender: String? = null
 
@@ -35,7 +36,7 @@ class SignupSelectGenderFragment : Fragment() {
 
         setupGenderSelection()
 
-        // ✅ Restore selected gender if returning to this screen
+        // ✅ Restore previously selected gender
         selectedGender = viewModel.gender.value
         selectedGender?.let {
             when (it) {
@@ -54,23 +55,32 @@ class SignupSelectGenderFragment : Fragment() {
             }
 
             viewModel.gender.value = selectedGender
-            progressViewModel.updateProgress(2)
+            viewModel.genderId.value = when (selectedGender) {
+                "Male" -> "1"
+                "Female" -> "2"
+                "Other" -> "3"
+                else -> ""
+            }
 
+            progressViewModel.updateProgress(2)
             findNavController().navigate(R.id.action_genderFragment_to_dobFragment)
         }
     }
 
     private fun setupGenderSelection() {
-        val options = mapOf(
-            binding.layoutMale to "Male",
-            binding.layoutFemale to "Female",
-            binding.layoutOther to "Other"
+        val genderMap = mapOf(
+            binding.layoutMale to Pair("Male", "1"),
+            binding.layoutFemale to Pair("Female", "2"),
+            binding.layoutOther to Pair("Other", "3")
         )
 
-        options.keys.forEach { view ->
-            view.setOnClickListener {
-                highlightSelectedCard(view)
-                selectedGender = options[view]
+        genderMap.keys.forEach { layout ->
+            layout.setOnClickListener {
+                highlightSelectedCard(layout)
+                selectedGender = genderMap[layout]?.first
+                viewModel.gender.value = selectedGender
+                viewModel.genderId.value = genderMap[layout]?.second
+
                 binding.btnNext.isEnabled = true
                 binding.btnNext.setBackgroundResource(R.drawable.rounded_corners)
             }
@@ -82,9 +92,9 @@ class SignupSelectGenderFragment : Fragment() {
         allLayouts.forEach {
             it.setBackgroundResource(
                 if (it == selected)
-                    R.drawable.gender_card_unselected // selected background
+                    R.drawable.gender_card_unselected  // selected background
                 else
-                    R.drawable.gender_card_selected   // unselected background
+                    R.drawable.gender_card_selected    // unselected background
             )
         }
     }

@@ -14,6 +14,7 @@ class ApiEndPoint {
     val patientSignUp="api/PatientRegistration/PatientSignUp"
     val getProblemList="api/KnowMedApis/GetProblemList"
 
+    val getFrequencyList="api/KnowMedApis/GetFrequencyList"
 
     val patientAllergies="api/PatientIPDPrescription/PatientAllergies"
     val getHistorySubCategoryMasterById="api/HistorySubCategory/GetHistorySubCategoryMasterById"

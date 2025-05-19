@@ -58,7 +58,9 @@ class DobFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            viewModel.dob.value = "$day-$month-$year"
+            val dob = "$day-$month-$year" // ✅ stored in val
+            viewModel.dob.value = dob
+
             progressViewModel.updateProgress(3)
             findNavController().navigate(R.id.action_dobFragment_to_bloodGroupFragment)
         }
