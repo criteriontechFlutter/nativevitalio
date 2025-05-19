@@ -172,7 +172,6 @@ class AdressFragment : Fragment() {
             if (binding.etCountry.text.isNullOrEmpty() ||
                 binding.etState.text.isNullOrEmpty() ||
                 binding.etCity.text.isNullOrEmpty() ||
-                binding.etPinCode.text.isNullOrEmpty() ||
                 binding.etStreet.text.isNullOrEmpty()
             ) {
                 Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()

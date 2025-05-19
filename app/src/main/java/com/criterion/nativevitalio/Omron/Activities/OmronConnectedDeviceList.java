@@ -45,6 +45,7 @@ import com.criterion.nativevitalio.Omron.utility.PreferencesManager;
 import com.criterion.nativevitalio.Omron.utility.dataListData;
 import com.criterion.nativevitalio.Omron.utility.sampleLog;
 import com.criterion.nativevitalio.R;
+import com.criterion.nativevitalio.UI.Home;
 import com.criterion.nativevitalio.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.SharedManager;
@@ -66,7 +67,7 @@ public class OmronConnectedDeviceList extends BaseActivity {
     static final String TAG = "DeviceList";
 
     private ListView mListView;
-    private ImageView mImageViewMenu;
+    private ImageView mImageViewMenu,iv_back;
     private ImageView mImageViewInfo;
     private Button mAddButton;
     private Context mContext;
@@ -137,6 +138,7 @@ public class OmronConnectedDeviceList extends BaseActivity {
         mListView = findViewById(R.id.lv_devicelist);
         mImageViewMenu = findViewById(R.id.iv_menu);
         mAddButton = findViewById(R.id.btn_add);
+        iv_back=findViewById(R.id.iv_back);
     }
     private void initClickListeners() {
 
@@ -144,6 +146,15 @@ public class OmronConnectedDeviceList extends BaseActivity {
             @Override
             public void onClick(View view) {
                 showLibraryKeyDialog(false);
+            }
+        });
+
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), Home.class);
+                 startActivity(intent);
             }
         });
 

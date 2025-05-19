@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.criterion.nativevitalio.R
+import com.criterion.nativevitalio.utils.MyApplication
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -203,6 +205,7 @@ class VitalDetailsAdapter(
             }
             navController.navigate(R.id.action_vitalDetail_to_vitalHistoryFragment, bundle)
         }
+       holder.vitalLayout.startAnimation(AnimationUtils.loadAnimation(MyApplication.appContext, R.anim.fade_in))
     }
 
     override fun getItemCount(): Int = groupedVitals.size

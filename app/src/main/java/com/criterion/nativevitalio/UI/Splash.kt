@@ -5,15 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.criterion.nativevitalio.databinding.ActivitySplashBinding
 import com.criterion.nativevitalio.utils.FCMHelper
 import com.criterion.nativevitalio.utils.MyApplication
 import com.google.firebase.FirebaseApp
 
 class Splash : AppCompatActivity() {
+    private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         try {
 
             FirebaseApp.initializeApp(MyApplication.appContext)

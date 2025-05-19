@@ -12,14 +12,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="@color/backgroundColor"
             android:gravity="center_horizontal">
 
             <!-- Header -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:background="@color/backgroundColor"
                 android:paddingHorizontal="10dp"
               >
 
@@ -42,7 +44,7 @@
                     android:text="@string/fluid_data_input"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/textColor"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -87,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_margin="10dp"
+                android:background="@color/dashboardIconBg"
                 android:backgroundTint="@android:color/transparent"
                 app:singleSelection="true"
                 app:checkedButton="@id/btnIntake">
@@ -143,7 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Recommended Fluid: "
-                            android:textColor="#607D8B"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -154,7 +157,7 @@
                             android:layout_height="0dp"
                             android:layout_marginEnd="10dp"
                             android:text="Intake: "
-                            android:textColor="#607D8B"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -184,7 +187,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/remaining"
-                            android:textColor="#607D8B"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/legendLayout" />
@@ -299,11 +302,11 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:visibility="gone"
                 android:id="@+id/outPutLayout"
-                android:background="#F9FBFF">
+                android:background="@color/backgroundColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -386,7 +389,7 @@
                         android:layout_height="match_parent"
                         android:padding="24dp"
                         android:gravity="center_horizontal"
-                        android:background="@color/white">
+                        android:background="@color/backgroundColor">
 
                         <LinearLayout
                             android:id="@+id/scaleLayout"
@@ -483,12 +486,12 @@
                         android:orientation="horizontal">
 
                         <TextView android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="Light\nYellow" android:textSize="10sp"
-                            android:layout_height="wrap_content" />
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>
-                        <TextView android:layout_width="0dp"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>
+                            android:layout_height="wrap_content"  android:textColor="@color/textColor"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Yellow" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Dark\nYellow" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Amber" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Brown" android:textSize="10sp"/>
+                        <TextView android:layout_width="0dp" android:textColor="@color/textColor"  android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="Red" android:textSize="10sp"/>
                     </LinearLayout>
 
                 </LinearLayout>
