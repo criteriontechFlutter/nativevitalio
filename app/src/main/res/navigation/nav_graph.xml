@@ -154,5 +154,29 @@
     <fragment
         android:id="@+id/setPreferences"
         android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SetPreferences"
-        android:label="SetPreferences" />
+        android:label="SetPreferences" >
+        <action
+            android:id="@+id/action_setPreferences_to_setPreferenseFluidItake"
+            app:destination="@id/setPreferenseFluidItake" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPreferenseFluidItake"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.SetPreferenseFluidItake"
+        android:label="SetPreferenseFluidItake" >
+        <action
+            android:id="@+id/action_setPreferenseFluidItake_to_completionScreen"
+            app:destination="@id/completionScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/completionScreen"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.CompletionScreen"
+        android:label="CompletionScreen" >
+        <action
+            android:id="@+id/action_completionScreen_to_completionDashboardReady"
+            app:destination="@id/completionDashboardReady" />
+    </fragment>
+    <fragment
+        android:id="@+id/completionDashboardReady"
+        android:name="com.criterion.nativevitalio.UI.ui.signupFragment.CompletionDashboardReady"
+        android:label="CompletionDashboardReady" />
 </navigation>

@@ -1,7 +1,6 @@
 package com.criterion.nativevitalio.UI
 
 import Patient
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -25,10 +24,12 @@ import com.criterion.nativevitalio.databinding.ActivityLoginBinding
 import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
 import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
 import com.criterion.nativevitalio.viewmodel.LoginViewModel
+import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
+    private lateinit var regestrationViewModel: RegistrationViewModel
     companion object {
         lateinit var storedUHID: Patient
 
@@ -39,6 +40,7 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        regestrationViewModel = ViewModelProvider(this)[RegistrationViewModel::class.java]
         // Disable button initially
 
         viewModel.loading.observe(this) { isLoading ->
@@ -75,16 +77,22 @@ class Login : AppCompatActivity() {
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
             val phoneOrUHID = binding.inputField.text.toString().trim()
+            if (phoneOrUHID.lowercase().contains("uhid")) {
+                // Handle UHID case here
+            } else {
+                regestrationViewModel.mobileNo.value = phoneOrUHID
+                // Proceed to send OTP or next step
+            }
             viewModel.getPatientDetailsByUHID(phoneOrUHID)
 //            binding.sendOtpBtn.isEnabled  = true
 //            binding. progressBar.visibility  = View.GONE
         }
 
 
-        binding.privacyPolicy.setOnClickListener {
-            val intent = Intent(applicationContext, SignupActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.privacyPolicy.setOnClickListener {
+//            val intent = Intent(applicationContext, SignupActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun observeViewModel() {
@@ -117,7 +125,7 @@ class Login : AppCompatActivity() {
         dialogView.findViewById<Button>(R.id.btnLogoutAll)?.setOnClickListener {
             dialog.dismiss()
             // Handle logout from all devices
-            viewModel.sentLogInOTPForSHFCApp(storedUHID, "1")
+            viewModel.sentLogInOTPForSHFCApp(storedUHID.uhID.toString(), "1")
         }
         dialogView.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
             dialog.dismiss()

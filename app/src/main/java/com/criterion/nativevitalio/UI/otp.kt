@@ -20,6 +20,7 @@ class otp : AppCompatActivity() {
     private lateinit var viewModel: OtpViewModal
     lateinit var storedUHID: String
     lateinit var mobileNo: String
+    lateinit var isRegistered: String
     lateinit var otptext: String
     var allFilled: Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,13 +45,15 @@ class otp : AppCompatActivity() {
         }
         storedUHID = intent.getStringExtra("UHID").toString()
         mobileNo = intent.getStringExtra("mobileNo").toString()
+        isRegistered = intent.getStringExtra("isRegistered").toString()
         setupOtpInputs(storedUHID)
 
         binding.verify.setOnClickListener {
             if (allFilled){
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                viewModel.getPatientDetailsByUHID(storedUHID,"deviceToken",otptext ,applicationContext)
+                viewModel.getPatientDetailsByUHID(uhid=storedUHID,
+                    deviceToken="deviceToken",isRegistered=isRegistered ,otp=otptext ,context=applicationContext)
 
             }
         }
