@@ -3,14 +3,12 @@ package com.criterion.nativevitalio.viewmodel
 import Patient
 import PrefsManager
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.UI.Home
 import com.criterion.nativevitalio.UI.Login
 import com.criterion.nativevitalio.model.BaseResponse
 import com.criterion.nativevitalio.model.CityModel
@@ -28,6 +26,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 
 class RegistrationViewModel  : ViewModel(){
     val firstName = MutableLiveData<String>()
@@ -49,11 +48,13 @@ class RegistrationViewModel  : ViewModel(){
     val streetAddress = MutableLiveData<String>()
     val wt = MutableLiveData<String>()
     val ht = MutableLiveData<String>()
+    val htInCm = MutableLiveData<String>()
 
 
     val chronicDisease = MutableLiveData<String>()
     val otherChronicDiseases = MutableLiveData<String>()
     val familyDiseases = MutableLiveData<String>()
+    val mobileNo = MutableLiveData<String>()
 
 
     private val _errorMessage = MutableLiveData<String>()
@@ -163,6 +164,17 @@ class RegistrationViewModel  : ViewModel(){
 
 
     // VITAL SET PREFERENCES
+//    val setVitalList = MutableLiveData<MutableList<VitalReminder>>().apply {
+//        value = mutableListOf(
+//            VitalReminder(1, 4, "Blood Pressure", 0, "ONCE A DAY (24 HOURLY)", false),
+//            VitalReminder(1, 74, "Heart Rate", 0, "ONCE A DAY (24 HOURLY)", false),
+//            VitalReminder(1, 56, "Blood Oxygen (spo2)", 0, "ONCE A DAY (24 HOURLY)", false),
+//            VitalReminder(1, 7, "Respiratory Rate", 0, "ONCE A DAY (24 HOURLY)", false),
+//            VitalReminder(1, 3, "Pulse Rate", 0, "ONCE A DAY (24 HOURLY)", false),
+//            VitalReminder(1, 10, "RBS", 0, "ONCE A DAY (24 HOURLY)", false)
+//        )
+//    }
+
     val setVitalList = MutableLiveData<MutableList<VitalReminder>>().apply {
         value = mutableListOf(
             VitalReminder(1, 4, "Blood Pressure", 0, "ONCE A DAY (24 HOURLY)", false),
@@ -173,7 +185,6 @@ class RegistrationViewModel  : ViewModel(){
             VitalReminder(1, 10, "RBS", 0, "ONCE A DAY (24 HOURLY)", false)
         )
     }
-
     fun updateVitalFrequency(index: Int, frequency: String) {
         val list = setVitalList.value ?: return
         list[index].frequencyType = frequency
@@ -229,18 +240,13 @@ class RegistrationViewModel  : ViewModel(){
             }
         }
     }
-    fun patientSignUp(mobileNo:String
+    fun patientSignUp(
          ){
         _loading.value = true
 
 
         viewModelScope.launch {
             try {
-                val feet = "5"
-                val inch = "8"
-
-                val height = (if (feet.isEmpty()) 0.0 else feet.toInt() * 30.48) +
-                        (if (inch.isEmpty()) 0.0 else inch.toInt() * 2.54)
 
                     val summary = "${ streetAddress.value.orEmpty()}, " +
                             "${ selectedCityName.value.orEmpty()}, " +
@@ -251,12 +257,12 @@ class RegistrationViewModel  : ViewModel(){
                     "patientName" to "${firstName.value.orEmpty()} ${lastName.value.orEmpty()}",
                     "genderId" to genderId.value?.split(".")?.firstOrNull().orEmpty(),
                     "bloodGroupId" to bgId.value?.split(".")?.firstOrNull().orEmpty(),
-                    "height" to height,
+                    "height" to htInCm.value.orEmpty(),
                     "weight" to wt.value.orEmpty(),
                     "zip" to "",
                     "address" to summary,
                     "countryCallingCode" to "+91",
-                    "mobileNo" to mobileNo,
+                    "mobileNo" to mobileNo.value.orEmpty(),
                     "countryId" to selectedCountryId.value?.split(".")?.firstOrNull().orEmpty(),
                     "stateId" to selectedStateId.value?.split(".")?.firstOrNull().orEmpty(),
                     "cityId" to selectedCityId.value?.split(".")?.firstOrNull().orEmpty(),
@@ -292,6 +298,7 @@ class RegistrationViewModel  : ViewModel(){
                         _errorMessage.value = json.optString("message", "Signup failed.")
                     }
 //
+//                    findNavController().navigate(R.id.accountSuccess)
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
@@ -346,9 +353,9 @@ class RegistrationViewModel  : ViewModel(){
                     firstPatient?.let {
                         PrefsManager( ).savePatient(it)
                         Login.storedUHID=it
-                        val intent = Intent(context, Home::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        context.startActivity(intent)
+//                        val intent = Intent(context, Home::class.java)
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        context.startActivity(intent)
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}")
                     }
 
@@ -367,35 +374,47 @@ class RegistrationViewModel  : ViewModel(){
             }
         }
     }
+    private val _fluidIntake = MutableLiveData<Pair<Float, String>>() // value + unit
+    val fluidIntake: LiveData<Pair<Float, String>> get() = _fluidIntake
 
+    fun setFluidIntake(amount: Float, unit: String) {
+        _fluidIntake.value = amount to unit
+    }
 
     fun patientParameterSettingInsert(
-        fluidQty: String,
-        fluidQtyUnit: String
+//        fluidQty: String,
+//        fluidQtyUnit: String
     ) {
         viewModelScope.launch {
             try {
                 _loading.value = true
 
                 // Convert fluid quantity to mL if needed
-                val fluidQtyData = if (fluidQtyUnit == "litre") {
-                    fluidQty
-                } else {
-                    (fluidQty.toDouble() * 1000).toInt().toString()
-                }
+//                val fluidQtyData = if (fluidIntake == "litre") {
+//                    fluidQty
+//                } else {
+//                    (fluidQty.toDouble() * 1000).toInt().toString()
+//                }
 
                 // Prepare vital parameter JSON
-                val temp = mutableListOf<Map<String, Any>>()
-
-
-
-                // Add fluid limit
+                val temp: MutableList<Map<String, Any>> = setVitalList.value?.map { vital ->
+                    mapOf(
+                        "parameterId" to vital.parameterId.toString(),
+                        "parameterTypeId" to vital.parameterTypeId.toString(),
+                        "name" to vital.name,
+                        "quantity" to vital.quantity.toString(),
+                        "frequencyType" to vital.frequencyType,
+                        "isCheck" to false,
+                        "uhid" to 0
+                    )
+                }?.toMutableList() ?: mutableListOf()
+// Now you can safely add
                 temp.add(
                     mapOf(
                         "parameterId" to "2",
                         "parameterTypeId" to "1",
                         "name" to "Fluid Limit",
-                        "quantity" to fluidQtyData,
+                        "quantity" to fluidIntake.value.toString().split(".")[0].toString(),
                         "frequencyType" to "Daily",
                         "isCheck" to false,
                         "uhid" to "0"
@@ -405,7 +424,7 @@ class RegistrationViewModel  : ViewModel(){
                 val body = mapOf(
                     "parameterJson" to Gson().toJson(temp),
                     "clientId" to "194",
-                    "pid" to "pid",
+                    "pid" to PrefsManager().getPatient()?.pid.toString(),
                     "userId" to 0
                 )
 

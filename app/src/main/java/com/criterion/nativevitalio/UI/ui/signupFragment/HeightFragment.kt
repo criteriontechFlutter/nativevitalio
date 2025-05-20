@@ -32,14 +32,8 @@ class HeightFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
-        // ✅ Restore previously saved height
+        // Restore previously saved height
         binding.etHeight.setText(viewModel.ht.value ?: "")
-
-        binding.btnNext.setOnClickListener {
-            viewModel.ht.value = binding.etHeight.text.toString()
-            progressViewModel.updateProgress(4)
-            findNavController().navigate(R.id.action_heightFragment_to_chronicConditionFragment)
-        }
 
         binding.etHeight.apply {
             isFocusable = false
@@ -48,8 +42,45 @@ class HeightFragment : Fragment() {
 
         binding.etHeight.setOnClickListener {
             showHeightPicker(requireContext()) { selectedHeight ->
-                binding.etHeight.setText(selectedHeight)
+                var heightInCm = 0.0
+                var displayText = selectedHeight // default
+
+                when {
+                    selectedHeight.contains("cm") -> {
+                        heightInCm = selectedHeight.filter { it.isDigit() || it == '.' }.toDoubleOrNull() ?: 0.0
+                        displayText = "$heightInCm cm"
+                    }
+                    selectedHeight.contains("in") && !selectedHeight.contains("'") -> {
+                        val inches = selectedHeight.filter { it.isDigit() || it == '.' }.toDoubleOrNull() ?: 0.0
+                        heightInCm = inches * 2.54
+                        displayText = "${inches.toInt()} in"
+                    }
+                    selectedHeight.contains("'") -> {
+                        val regex = Regex("""(\d+)' (\d+)\"""")
+                        val match = regex.find(selectedHeight)
+                        if (match != null) {
+                            val (feet, inches) = match.destructured
+                            heightInCm = feet.toInt() * 30.48 + inches.toInt() * 2.54
+                            displayText = "$feet' $inches\" ft"
+                        }
+                    }
+                }
+
+                // ✅ Show original value in EditText
+                binding.etHeight.setText(displayText)
+
+                // ✅ Store converted value (cm) for backend/API
+                viewModel.htInCm.value = String.format("%.1f", heightInCm)
+
+                // ✅ Store exact selected display (e.g., "5' 8\" ft" or "170 cm")
+                viewModel.ht.value = displayText
             }
+        }
+
+        binding.btnNext.setOnClickListener {
+
+            progressViewModel.updateProgress(4)
+            findNavController().navigate(R.id.action_heightFragment_to_chronicConditionFragment)
         }
     }
 }
