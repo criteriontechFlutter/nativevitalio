@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.Omron.adapter.EmergencyContactAdapter
-import com.criterion.nativevitalio.databinding.FragmentEmergencyContactBinding
-import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
-import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.criterion.nativevitalio.viewmodel.EmergencyContactViewModel
+import com.critetiontech.ctvitalio.adapter.omronAdapter.EmergencyContactAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentEmergencyContactBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.ctvitalio.viewmodel.EmergencyContactViewModel
 
 
 class EmergencyContactFragment : Fragment() {
@@ -58,12 +58,16 @@ class EmergencyContactFragment : Fragment() {
 
 
     private fun setupRecyclerView() {
-        adapter = EmergencyContactAdapter(emptyList()) { contact ->
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.contactNumber}"))
-            startActivity(intent)
+        viewModel.emergencyContactList.observe(viewLifecycleOwner) { isLoading ->
+            adapter = EmergencyContactAdapter(isLoading) { contact ->
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.contactNumber}"))
+                startActivity(intent)
+            }
+            binding.scrollView.layoutManager = LinearLayoutManager(requireContext())
+            binding.scrollView.adapter = adapter
         }
-        binding.scrollView.layoutManager = LinearLayoutManager(requireContext())
-        binding.scrollView.adapter = adapter
+
+
     }
 
     private fun observeViewModel() {

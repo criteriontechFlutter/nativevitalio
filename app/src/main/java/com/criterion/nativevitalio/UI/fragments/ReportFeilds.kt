@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentReportFeildsBinding
-import com.criterion.nativevitalio.viewmodel.ReportFeildsViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentReportFeildsBinding
+import com.critetiontech.ctvitalio.viewmodel.ReportFeildsViewModel
 import kotlinx.coroutines.launch
 
 class ReportFieldsFragment : Fragment() {

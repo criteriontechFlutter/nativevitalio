@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

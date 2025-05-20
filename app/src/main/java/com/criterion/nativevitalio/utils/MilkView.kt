@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.utils
+package com.critetiontech.ctvitalio.utils
 
 
 
@@ -15,7 +15,7 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.criterion.nativevitalio.R
+import com.critetiontech.ctvitalio.R
 
 class MilkView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 

@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.interfaces
+package com.critetiontech.ctvitalio.interfaces
 
 interface AdapterInterface<T> {
     fun onClick(position: Int, data: T)

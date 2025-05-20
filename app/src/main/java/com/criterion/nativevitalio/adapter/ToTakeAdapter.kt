@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import PillReminderModel
 import android.graphics.drawable.Drawable
@@ -12,8 +12,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.utils.MyApplication
 
 class ToTakeAdapter(
     private var items: MutableList<PillReminderModel>,
@@ -42,7 +42,7 @@ class ToTakeAdapter(
         holder.quantity.text = "${item.jsonTime.size} ${item.dosageForm.lowercase()}"
         holder.instruction.text = item.remark.ifBlank { "No instruction" }
           holder.medicineLayout  .startAnimation(AnimationUtils.loadAnimation(MyApplication.appContext, R.anim.fade_in))
-        holder.checkBox.setOnCheckedChangeListener(null)
+        //holder.checkBox.setOnCheckedChangeListener(null)
 //        holder.checkBox.isChecked = false
 
         // ✅ Set tinted icon for checkbox
@@ -69,11 +69,11 @@ class ToTakeAdapter(
     private fun getTintedIcon(icon: String?): Drawable? {
         val context = MyApplication.appContext
         val (iconRes, colorRes) = when (icon?.lowercase()) {
-            "taken" -> Pair(com.google.android.material.R.drawable.ic_mtrl_checked_circle, R.color.primaryBlue)
+            "taken" -> Pair(R.drawable.check, R.color.primaryBlue)
             "missed" -> Pair(com.google.android.material.R.drawable.mtrl_ic_error, R.color.black)
-            "upcoming" -> Pair(com.google.android.material.R.drawable.ic_clock_black_24dp, R.color.darkYellow)
-            "late" -> Pair(com.google.android.material.R.drawable.ic_mtrl_checked_circle, R.color.primaryBlue)
-            "check" -> Pair(com.google.android.material.R.drawable.ic_mtrl_checked_circle, R.color.primaryBlue)
+            "upcoming" -> Pair(R.drawable.check, R.color.darkYellow)
+            "late" -> Pair(R.drawable.check, R.color.primaryBlue)
+            "check" -> Pair(R.drawable.check, R.color.primaryBlue)
             "exclamation" -> Pair(com.google.android.material.R.drawable.mtrl_ic_error, R.color.red)
             else -> Pair(com.google.android.material.R.drawable.abc_list_pressed_holo_dark, R.color.white)
         }

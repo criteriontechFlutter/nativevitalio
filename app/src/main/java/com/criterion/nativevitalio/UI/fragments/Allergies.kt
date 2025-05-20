@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.adapter.AllergiesAdapter
-import com.criterion.nativevitalio.model.AllergyTypeItem
-import com.criterion.nativevitalio.utils.AddAllergyBottomSheet
-import com.criterion.nativevitalio.viewmodel.AllergiesViewModel
-import com.criterion.nativevitalio.databinding.FragmentAllergiesBinding
+import com.critetiontech.ctvitalio.adapter.AllergiesAdapter
+import com.critetiontech.ctvitalio.model.AllergyTypeItem
+import com.critetiontech.ctvitalio.utils.AddAllergyBottomSheet
+import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 
 
 class Allergies : Fragment() {

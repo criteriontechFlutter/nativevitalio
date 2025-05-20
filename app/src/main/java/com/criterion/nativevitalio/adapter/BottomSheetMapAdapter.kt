@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.View

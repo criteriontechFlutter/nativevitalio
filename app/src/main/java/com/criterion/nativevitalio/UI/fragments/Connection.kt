@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,16 +17,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.Omron.Activities.OmronConnectedDeviceList
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.ConnectionAdapter
-import com.criterion.nativevitalio.databinding.FragmentConnectionBinding
-import com.criterion.nativevitalio.model.VitalDevice
-import com.criterion.nativevitalio.model.VitalPosition
-import com.criterion.nativevitalio.utils.LoaderUtils.hideLoading
-import com.criterion.nativevitalio.utils.LoaderUtils.showLoading
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.viewmodel.ConnectionViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.OmronActivity.OmronConnectedDeviceList
+import com.critetiontech.ctvitalio.adapter.ConnectionAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentConnectionBinding
+import com.critetiontech.ctvitalio.model.VitalDevice
+import com.critetiontech.ctvitalio.model.VitalPosition
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.viewmodel.ConnectionViewModel
 
 class Connection: Fragment() {
 

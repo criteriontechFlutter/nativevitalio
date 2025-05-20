@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import DateUtils.showListBottomSheet
 import android.content.Context
@@ -10,11 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentAdressBinding
-import com.criterion.nativevitalio.model.CityModel
-import com.criterion.nativevitalio.model.StateModel
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentAdressBinding
+import com.critetiontech.ctvitalio.model.CityModel
+import com.critetiontech.ctvitalio.model.StateModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

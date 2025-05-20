@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.ItemGlassSizeBinding
-import com.criterion.nativevitalio.model.GlassSize
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.ItemGlassSizeBinding
+import com.critetiontech.ctvitalio.model.GlassSize
 
 class GlassSizeAdapter(
     private val items: List<GlassSize>,

@@ -7,8 +7,8 @@ import android.widget.LinearLayout
 import android.widget.NumberPicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.BottomSheetMapAdapter
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.BottomSheetMapAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar

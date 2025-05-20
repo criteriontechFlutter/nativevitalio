@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentHeightBinding
+
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentHeightBinding
 
 class HeightFragment : Fragment() {
 
