@@ -32,6 +32,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="chatbotFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1050" />
+                            <option name="y" value="348" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="connectSmartWatchFragment">
                     <value>
                       <LayoutPositions>
@@ -252,6 +264,11 @@
                               </value>
                             </entry>
                             <entry key="action_fluidFragment_to_fluidOutputFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_fluidFragment_to_waterLayout">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -585,8 +602,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-48" />
-                            <option name="y" value="-195" />
+                            <option name="x" value="801" />
+                            <option name="y" value="-563" />
                           </Point>
                         </option>
                         <option name="myPositions">

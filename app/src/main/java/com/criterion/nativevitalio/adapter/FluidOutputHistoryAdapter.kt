@@ -1,12 +1,12 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.databinding.FluidOutputItemLayoutBinding
-import com.criterion.nativevitalio.model.FluidOutput
+import com.critetiontech.ctvitalio.databinding.FluidOutputItemLayoutBinding
+import com.critetiontech.ctvitalio.model.FluidOutput
 
 class FluidOutputHistoryAdapter (
     private val items: List<FluidOutput>,

@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.ItemMessageBinding
-import com.criterion.nativevitalio.model.ChatMessage
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.ItemMessageBinding
+import com.critetiontech.ctvitalio.model.ChatMessage
 
 class ChatAdapter(private val messages: List<ChatMessage>) :
     RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {

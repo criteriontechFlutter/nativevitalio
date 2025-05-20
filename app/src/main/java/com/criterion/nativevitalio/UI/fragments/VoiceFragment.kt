@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.fragments
+package com.critetiontech.ctvitalio.UI.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.criterion.nativevitalio.databinding.FragmentVoiceBinding
+import com.critetiontech.ctvitalio.databinding.FragmentVoiceBinding
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response

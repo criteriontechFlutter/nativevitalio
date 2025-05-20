@@ -2,7 +2,7 @@
 import android.content.Context
 import android.util.Log
 import androidx.core.content.edit
-import com.criterion.nativevitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 
 // Data class for patient (include all fields from your JSON)

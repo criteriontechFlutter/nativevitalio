@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.viewmodel
+package com.critetiontech.ctvitalio.viewmodel
 
 import Patient
 import PrefsManager
@@ -9,13 +9,13 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.criterion.nativevitalio.UI.Home
-import com.criterion.nativevitalio.UI.Login
-import com.criterion.nativevitalio.model.BaseResponse
-import com.criterion.nativevitalio.networking.RetrofitInstance
-import com.criterion.nativevitalio.utils.ApiEndPoint
-import com.criterion.nativevitalio.utils.MyApplication
-import com.criterion.nativevitalio.utils.ToastUtils
+import com.critetiontech.ctvitalio.UI.Home
+import com.critetiontech.ctvitalio.UI.Login
+import com.critetiontech.ctvitalio.model.BaseResponse
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch

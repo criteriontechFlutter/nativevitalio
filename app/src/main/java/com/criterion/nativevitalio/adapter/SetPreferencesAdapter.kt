@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.model.VitalReminder
+import com.critetiontech.ctvitalio.R
 
 class SetPreferencesAdapter(
     private val vitalList: List<VitalReminder>,

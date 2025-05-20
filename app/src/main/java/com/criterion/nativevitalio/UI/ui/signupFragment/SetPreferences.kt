@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.SetPreferencesAdapter
-import com.criterion.nativevitalio.databinding.FragmentSetPreferencesBinding
 import com.criterion.nativevitalio.model.FrequencyModel
 import com.criterion.nativevitalio.model.VitalReminder
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentSetPreferencesBinding
 
 class SetPreferences : Fragment() {
 

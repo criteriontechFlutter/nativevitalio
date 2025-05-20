@@ -72,13 +72,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Omron.Activities.SupportDeviceListActivity"
+            android:name=".UI.OmronActivity.SupportDeviceListActivity"
             android:exported="false"
             android:label="@string/title_activity_support_device_list"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Omron.Activities.WheezeMainActivity"
+            android:name=".UI.OmronActivity.WheezeMainActivity"
             android:exported="false"
             android:screenOrientation="fullSensor" >
             <meta-data
@@ -86,7 +86,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Omron.Activities.WeightScaleDataListingActivity"
+            android:name=".UI.OmronActivity.WeightScaleDataListingActivity"
             android:exported="false"
             android:screenOrientation="portrait" >
             <meta-data
@@ -94,7 +94,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Omron.Activities.WheezeDataListingActivity"
+            android:name=".UI.OmronActivity.WheezeDataListingActivity"
             android:exported="false"
             android:screenOrientation="fullSensor" >
             <meta-data
@@ -102,69 +102,69 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Omron.Activities.UserPersonalSettingsActivity"
+            android:name=".UI.OmronActivity.UserPersonalSettingsActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".Omron.Activities.BloodPressureMainActivity"
+            android:name=".UI.OmronActivity.BloodPressureMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.OmronConnectedDeviceList"
+            android:name=".UI.OmronActivity.OmronConnectedDeviceList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.BloodPressureDataListingActivity"
+            android:name=".UI.OmronActivity.BloodPressureDataListingActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Omron.Activities.BaseActivity" />
+        <activity android:name=".UI.OmronActivity.BaseActivity" />
         <activity
-            android:name=".Omron.Activities.WeightScaleMainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Omron.Activities.TemperatureRecordingActivity"
+            android:name=".UI.OmronActivity.WeightScaleMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.PulseOxymeterMainActivity"
+            android:name=".UI.OmronActivity.TemperatureRecordingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.PulseOxymeterDataListingActivity"
+            android:name=".UI.OmronActivity.PulseOxymeterMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.OmronActivity.PulseOxymeterDataListingActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".Omron.Activities.ActivityMainActivity"
+            android:name=".UI.OmronActivity.ActivityMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.ScanActivity"
+            android:name=".UI.OmronActivity.ScanActivity"
             android:screenOrientation="portrait" />
 
         <provider
-            android:name=".Omron.Database.OmronDBProvider"
-            android:authorities="com.criterion.nativevitalio.Database.OmronDBProvider"
+            android:name=".Database.OmronDBProvider"
+            android:authorities="com.critetiontech.ctvitalio.Database.OmronDBProvider"
             android:exported="false" />
 
         <activity
-            android:name=".Omron.Activities.DataListingActivity"
+            android:name=".UI.OmronActivity.DataListingActivity"
             android:label="@string/title_activity_data_listing"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".Omron.Activities.ActivityDataActivity"
+            android:name=".UI.OmronActivity.ActivityDataActivity"
             android:label="@string/title_activity_data_listing"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.ReminderActivity"
+            android:name=".UI.OmronActivity.ReminderActivity"
             android:label="@string/title_activity_reminder"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.DataDeviceListingActivity"
+            android:name=".UI.OmronActivity.DataDeviceListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Omron.Activities.ActivityListingActivity"
+            android:name=".UI.OmronActivity.ActivityListingActivity"
             android:label="@string/title_activity_listing"
             android:screenOrientation="portrait" />
 
         <receiver
-            android:name=".Omron.utility.NotificationPublisher"
+            android:name=".utils.NotificationPublisher"
             android:exported="false" />
 
         <service
-            android:name=".utils.MyFirebaseMessagingService"
-            android:exported="false" >
+            android:name="com.criterion.nativevitalio.firebase.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
