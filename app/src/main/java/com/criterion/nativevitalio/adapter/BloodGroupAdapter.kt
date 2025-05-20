@@ -3,8 +3,8 @@ package com.criterion.nativevitalio.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.databinding.BloodGroupItemBinding
 import com.criterion.nativevitalio.model.BloodGroup
+import com.critetiontech.ctvitalio.databinding.BloodGroupItemBinding
 
 class BloodGroupAdapter(
     private val items: List<BloodGroup>,

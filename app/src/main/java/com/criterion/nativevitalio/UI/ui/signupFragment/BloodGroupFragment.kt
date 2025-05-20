@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.BloodGroupAdapter
-import com.criterion.nativevitalio.databinding.FragmentBloodGroupBinding
 import com.criterion.nativevitalio.model.BloodGroup
 import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
+import com.critetiontech.ctvitalio.databinding.FragmentBloodGroupBinding
 
 class BloodGroupFragment : Fragment() {
 

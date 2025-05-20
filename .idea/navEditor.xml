@@ -559,6 +559,15 @@
                             <option name="y" value="73" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_accountSuccess_to_setPreferences">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -593,8 +602,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-48" />
-                            <option name="y" value="-195" />
+                            <option name="x" value="801" />
+                            <option name="y" value="-563" />
                           </Point>
                         </option>
                         <option name="myPositions">
