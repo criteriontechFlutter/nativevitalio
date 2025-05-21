@@ -169,6 +169,7 @@ class AdressFragment : Fragment() {
 
         // NEXT BUTTON
         binding.btnNext.setOnClickListener {
+
             if (binding.etCountry.text.isNullOrEmpty() ||
                 binding.etState.text.isNullOrEmpty() ||
                 binding.etCity.text.isNullOrEmpty() ||

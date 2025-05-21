@@ -36,48 +36,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Progress Card -->
-        <LinearLayout
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@drawable/bg_rounded_card">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="81%"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/blue" />
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:progress="81"
-                android:progressTint="@color/blue"
-                android:backgroundTint="#E0E0E0"
-                android:layout_marginVertical="6dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="One Step Away"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="You're nearly done—just one final step!"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
 
         <!-- Image -->
         <ImageView

@@ -246,4 +246,9 @@
     <string name="diet_checklist">Diet Checklist</string>
     <string name="back">Back</string>
 
+
+    <string-array name="fluid_units">
+        <item>Litre</item>
+<!--        <item>Millilitre</item>-->
+    </string-array>
 </resources>

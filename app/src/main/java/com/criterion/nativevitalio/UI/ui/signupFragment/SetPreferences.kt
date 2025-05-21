@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.criterion.nativevitalio.R
 import com.criterion.nativevitalio.adapter.SetPreferencesAdapter
 import com.criterion.nativevitalio.model.FrequencyModel
 import com.criterion.nativevitalio.model.VitalReminder
@@ -48,9 +48,8 @@ class SetPreferences : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            val selected = viewModel.setVitalList.value?.filter { it.isCheck } ?: emptyList()
-            Toast.makeText(requireContext(), "${selected.size} reminders set", Toast.LENGTH_SHORT).show()
-            // Proceed with navigation or saving
+//            val selected = viewModel.setVitalList.value?.filter { it.isCheck } ?: emptyList()
+            findNavController().navigate(R.id.action_setPreferences_to_setPreferenseFluidItake)
         }
 
         binding.btnSkip.setOnClickListener {

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.criterion.nativevitalio.viewmodel
 
 import Patient
 import PrefsManager
@@ -9,13 +9,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.UI.Login
-import com.critetiontech.ctvitalio.UI.otp
-import com.critetiontech.ctvitalio.model.BaseResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.criterion.nativevitalio.UI.Login
+import com.criterion.nativevitalio.UI.otp
+import com.criterion.nativevitalio.model.BaseResponse
+import com.criterion.nativevitalio.model.OtpResponse
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ import okhttp3.ResponseBody
 
 class LoginViewModel (application: Application) : BaseViewModel(application){
 
+    val isRegistered = MutableLiveData<Int>()
     private val _finishEvent = MutableLiveData<Boolean>()
     val finishEvent: LiveData<Boolean> get() = _finishEvent
     private val _showDialog = MutableLiveData<String?>()
@@ -65,16 +67,28 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
+
+                    if (parsed.responseValue.isEmpty()) {
+                        sentLogInOTPForSHFCApp( mo.toString());
+                        }
+
                     val firstPatient = parsed.responseValue.firstOrNull()
                     firstPatient?.let {
                         Login.storedUHID = it
-                        sentLogInOTPForSHFCApp(it)
+                        sentLogInOTPForSHFCApp(uhid=it.uhID.toString(),mobileNo=it.mobileNo.toString())
                         Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}"
                         )
                     }
 
 
                 } else {
+                    if(mo.toString().length>9){
+                        sentLogInOTPForSHFCApp( mo.toString());
+
+                    }
+                    else{
+
+                    }
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
@@ -87,13 +101,13 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         }
     }
 
-    fun sentLogInOTPForSHFCApp(uhid: Patient, ifLoggedOutFromAllDevices: String = "0") {
+    fun sentLogInOTPForSHFCApp(uhid: String,mobileNo: String="", ifLoggedOutFromAllDevices: String = "0") {
         _loading.value = true
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
                     "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
-                    "UHID" to uhid.uhID
+                    "UHID" to uhid.toString()
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -107,12 +121,17 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                 if (response.isSuccessful) {
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
+                    val otpResponse = Gson().fromJson(responseBodyString, OtpResponse::class.java)
+                    isRegistered.value = otpResponse.isRegisterd
                     val intent = Intent(MyApplication.appContext, otp::class.java).apply {
-                        putExtra("UHID", uhid.uhID)
-                        putExtra("mobileNo", uhid.mobileNo)
+                        putExtra("UHID", uhid)
+                        putExtra("mobileNo", mobileNo)
+                        putExtra("isRegistered", otpResponse.isRegisterd.toString())
                     }
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     MyApplication.appContext.startActivity(intent)
+
+
 
                     Log.d("RESPONSE", "responseValue: $responseBodyString")
                 } else {

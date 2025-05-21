@@ -121,9 +121,13 @@ class CreateAccount : Fragment() {
         }
 
         binding.btnNext.setOnClickListener(){
-            viewModel.patientSignUp("9651965196")
+            viewModel.patientSignUp()
             findNavController().navigate(R.id.accountSuccess)
         }
+//        binding.s.setOnClickListener(){
+//        val intent = Intent(context, Home::class.java)
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        context.startActivity(intent)   }
     }
     private fun getFullName(): String {
         val firstName = viewModel.firstName.value ?: ""

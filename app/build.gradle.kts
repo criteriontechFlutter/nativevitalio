@@ -82,7 +82,7 @@ dependencies {
 //    implementation (libs.otpview)
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation (libs.android.gif.drawable)
-
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // retrofit

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.criterion.nativevitalio.viewmodel
 
 import Patient
 import PrefsManager
@@ -9,13 +9,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.UI.Home
-import com.critetiontech.ctvitalio.UI.Login
-import com.critetiontech.ctvitalio.model.BaseResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.criterion.nativevitalio.UI.Home
+import com.criterion.nativevitalio.UI.Login
+import com.criterion.nativevitalio.UI.SignupActivity
+import com.criterion.nativevitalio.model.BaseResponse
+import com.criterion.nativevitalio.networking.RetrofitInstance
+import com.criterion.nativevitalio.utils.ApiEndPoint
+import com.criterion.nativevitalio.utils.MyApplication
+import com.criterion.nativevitalio.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
-    fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String,context:Context) {
+    fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String,isRegistered: String="",context:Context) {
 
         _loading.value = true
         viewModelScope.launch {
@@ -51,7 +52,15 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 if (response.isSuccessful) {
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
+                    if(isRegistered.toString()=="0"){
+
+                        val intent = Intent(context, SignupActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(intent)
+                    }else{
+
                     getPatientDetailsByUHID(uhid,context)
+                    }
 
                 } else {
                     _loading.value = false
