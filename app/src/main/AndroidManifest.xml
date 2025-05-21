@@ -163,7 +163,7 @@
             android:exported="false" />
 
         <service
-            android:name="com.criterion.nativevitalio.firebase.MyFirebaseMessagingService"
+            android:name="com.critetiontech.ctvitalio.firebase.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -9,8 +9,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.Login
+import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint

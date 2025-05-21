@@ -1,9 +1,9 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.model.BloodGroup
+import com.critetiontech.ctvitalio.model.BloodGroup
 import com.critetiontech.ctvitalio.databinding.BloodGroupItemBinding
 
 class BloodGroupAdapter(

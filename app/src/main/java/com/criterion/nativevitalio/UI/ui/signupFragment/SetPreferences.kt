@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.adapter.SetPreferencesAdapter
-import com.criterion.nativevitalio.model.FrequencyModel
-import com.criterion.nativevitalio.model.VitalReminder
-import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.adapter.SetPreferencesAdapter
+import com.critetiontech.ctvitalio.model.FrequencyModel
+import com.critetiontech.ctvitalio.model.VitalReminder
+import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentSetPreferencesBinding
 
 class SetPreferences : Fragment() {

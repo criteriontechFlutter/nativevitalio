@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
-import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
 import com.critetiontech.ctvitalio.databinding.FragmentWeightBinding

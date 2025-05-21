@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.databinding.ActivitySplashBinding
 import com.critetiontech.ctvitalio.utils.FCMHelper
 import com.critetiontech.ctvitalio.utils.MyApplication
