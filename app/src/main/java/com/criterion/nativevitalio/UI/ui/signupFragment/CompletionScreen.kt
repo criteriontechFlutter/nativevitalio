@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentCompletionScreenBinding
-import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentCompletionScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-//
+
 class CompletionScreen : Fragment() {
 
 

@@ -8,11 +8,11 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.critetiontech.ctvitalio.viewmodel.OtpViewModal
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.ActivityOtpBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.OtpViewModal
 
 class otp : AppCompatActivity() {
 

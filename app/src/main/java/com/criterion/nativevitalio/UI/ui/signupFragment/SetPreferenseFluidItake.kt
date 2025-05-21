@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.UI.ui.signupFragment
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.criterion.nativevitalio.R
-import com.criterion.nativevitalio.databinding.FragmentSetPreferenseFluidItakeBinding
-import com.criterion.nativevitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.databinding.FragmentSetPreferenseFluidItakeBinding
 
 class SetPreferenseFluidItake : Fragment() {
 
@@ -41,9 +41,7 @@ class SetPreferenseFluidItake : Fragment() {
 
                     viewModel.patientParameterSettingInsert()
                     findNavController().navigate(R.id.action_setPreferenseFluidItake_to_completionScreen)
-                    // You can now navigate to the next screen or show confirmation
                 } catch (e: NumberFormatException) {
-                    // Handle invalid number input
                     binding.fluidIntakeInput.error = "Enter a valid number"
                 }
             } else {

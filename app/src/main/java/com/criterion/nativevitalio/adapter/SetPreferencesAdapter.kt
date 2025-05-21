@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.adapter
+package com.critetiontech.ctvitalio.adapter
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.criterion.nativevitalio.model.VitalReminder
+import com.critetiontech.ctvitalio.model.VitalReminder
 import com.critetiontech.ctvitalio.R
 
 class SetPreferencesAdapter(

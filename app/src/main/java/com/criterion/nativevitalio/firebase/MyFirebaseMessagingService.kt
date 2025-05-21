@@ -1,4 +1,4 @@
-package com.criterion.nativevitalio.firebase
+package com.critetiontech.ctvitalio.firebase
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager

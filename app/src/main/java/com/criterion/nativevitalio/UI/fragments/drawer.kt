@@ -20,12 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.ImagePickerUtil
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.DrawerViewModel
-import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 
 class drawer : Fragment() {
 
@@ -119,10 +119,7 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 true
             )
-
             popupWindow.elevation = 10f
-
-
 
             // Optional: handle logout click
             popupView.findViewById<View>(R.id.logoutText).setOnClickListener { view: View? ->
