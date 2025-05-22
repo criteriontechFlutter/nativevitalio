@@ -125,7 +125,8 @@ class Login : AppCompatActivity() {
         dialogView.findViewById<Button>(R.id.btnLogoutAll)?.setOnClickListener {
             dialog.dismiss()
             // Handle logout from all devices
-            viewModel.sentLogInOTPForSHFCApp(storedUHID.uhID.toString(), "1")
+            viewModel.sentLogInOTPForSHFCApp(uhid=storedUHID.uhID.toString(),
+                mobileNo=storedUHID.mobileNo.toString(),ifLoggedOutFromAllDevices="1")
         }
         dialogView.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
             dialog.dismiss()
