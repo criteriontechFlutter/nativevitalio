@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;

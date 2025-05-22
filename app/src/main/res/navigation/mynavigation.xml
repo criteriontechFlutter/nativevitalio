@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_dashboard_to_chatbotFragment"
             app:destination="@id/chatbotFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_chatBotPage"
+            app:destination="@id/chatBotPage" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -224,5 +227,9 @@
         android:id="@+id/chatbotFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.ChatbotFragment"
         android:label="ChatbotFragment" />
+    <fragment
+        android:id="@+id/chatBotPage"
+        android:name="com.critetiontech.ctvitalio.UI.CTChatBot.ChatBotPage"
+        android:label="ChatBotPage" />
 
 </navigation>

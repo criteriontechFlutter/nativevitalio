@@ -252,7 +252,7 @@ class Dashboard  : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_chat -> {
-                    findNavController().navigate(R.id.action_dashboard_to_chatbotFragment)
+                    findNavController().navigate(R.id.action_dashboard_to_chatBotPage)
                     true
                 }
                 R.id.nav_home -> {
