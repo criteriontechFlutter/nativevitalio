@@ -1,0 +1,21 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:alignmentMode="alignMargins"
+    android:useDefaultMargins="true"
+    android:padding="8dp"
+    android:gravity="start">
+
+    <Button
+        android:id="@+id/btnAddVital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Vital" />
+
+    <Button
+        android:id="@+id/btnHistoryVital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vital History" />
+</GridLayout>
