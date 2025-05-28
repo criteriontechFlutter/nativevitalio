@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:paddingHorizontal="10dp"
-                android:background="#F9FBFF">
+                android:background="@color/backgroundColor">
 
                 <!-- Back Icon -->
                 <ImageView
@@ -43,7 +43,7 @@
                     android:text="Fluid Output History"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:textColor="#1B1C1F"
+                    android:textColor="@color/textColor"
                     app:layout_constraintStart_toEndOf="@id/backIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -149,7 +149,7 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:background="@drawable/bg_card_selected"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/dashboardIconBg"
                 android:layout_margin="16dp">
 
                 <!-- Header Row -->
@@ -163,6 +163,7 @@
                         android:layout_height="wrap_content"
                         android:text="Fluid Intake Log"
                         android:textStyle="bold"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"/>
 
                     <LinearLayout

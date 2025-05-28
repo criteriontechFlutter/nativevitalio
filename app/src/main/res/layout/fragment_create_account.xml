@@ -18,6 +18,7 @@
         <LinearLayout
             android:id="@+id/summaryContainer"
             android:layout_width="match_parent"
+            android:backgroundTint="@color/dashboardIconBg"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="8dp"
