@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@color/backgroundColor"
     android:padding="16dp">
 
     <!-- 🔙 Back + Title Row -->
@@ -30,7 +30,7 @@
             android:textSize="18sp"
             android:textStyle="normal"
             android:layout_marginStart="12dp"
-            android:textColor="#000000" />
+            android:textColor="@color/textColor" />
     </LinearLayout>
 
     <!-- 📅 Date Picker Field -->
@@ -42,10 +42,11 @@
         android:padding="12dp"
         android:text="Select Date"
         android:textSize="14sp"
+        android:backgroundTint="@color/dashboardIconBg"
         android:drawableEnd="@drawable/ic_calendar"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:textColor="#000000"
+        android:textColor="@color/textColor"
         android:layout_marginBottom="12dp" />
 
     <!-- 📋 RecyclerView -->

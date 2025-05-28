@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:padding="24dp"
         android:gravity="center_horizontal"
-        android:background="@android:color/white">
+        android:background="@color/dashboardIconBg">
 
 
         <!-- Progress -->
