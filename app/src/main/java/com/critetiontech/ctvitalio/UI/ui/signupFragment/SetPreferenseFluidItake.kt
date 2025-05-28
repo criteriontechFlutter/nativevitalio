@@ -16,6 +16,8 @@ class SetPreferenseFluidItake : Fragment() {
 
     private lateinit var binding: FragmentSetPreferenseFluidItakeBinding
     private lateinit var viewModel: RegistrationViewModel
+    private lateinit var progressViewModel: ProgressViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +31,13 @@ class SetPreferenseFluidItake : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
         binding.btnNext.setOnClickListener {
             val fluidText = binding.fluidIntakeInput.text.toString()
             val unit = binding.unitSpinner.selectedItem.toString()
 
+            progressViewModel.updateProgress(13)
             if (fluidText.isNotEmpty()) {
                 try {
                     val amount = fluidText.toFloat()

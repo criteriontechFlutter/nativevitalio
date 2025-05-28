@@ -42,19 +42,14 @@
             android:textColor="#000000" />
 
         <!-- Add Allergies -->
-
-
-
         <LinearLayout
             android:id="@+id/addAllergiesBtn"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
             android:background="@drawable/rounded_button_bg"
             android:backgroundTint="@color/white"
             android:clickable="true"
             android:focusable="true"
-
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="12dp"
@@ -90,6 +85,21 @@
         app:layout_constraintTop_toBottomOf="@id/headerBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/deleteIcon" />
 
+    <ImageButton
+        android:id="@+id/deleteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete_allergies"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Delete"
+        android:visibility="gone"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_margin="16dp"
+    android:foregroundGravity="center"
+    app:tint="@color/red" />
 </androidx.constraintlayout.widget.ConstraintLayout>

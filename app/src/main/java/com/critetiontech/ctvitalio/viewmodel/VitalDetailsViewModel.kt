@@ -45,10 +45,12 @@ class VitalDetailsViewModel(application: Application) : BaseViewModel(applicatio
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
                 } else {
-                    _errorMessage.value = "Error: ${response.code()}"
+                    _vitalList.value = emptyList()
+//                    _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {
+                _vitalList.value = emptyList()
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()

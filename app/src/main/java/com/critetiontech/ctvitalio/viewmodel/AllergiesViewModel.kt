@@ -132,7 +132,46 @@ class AllergiesViewModel  :ViewModel(){
             }
         }
     }
+    fun deletePatientAllergies(
+        id:String
+    ) {
+        _loading.value = true
+        val user = PrefsManager().getPatient() ?: return
 
+
+        val params = mapOf(
+            "id" to id.toString(),
+            "clientID" to user.clientId,
+            "userId" to user.userId,
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicDelete(
+                        url = ApiEndPoint().deletePatientAllergies,
+                        params = params
+                    )
+
+
+                withContext(Dispatchers.Main) {
+
+                    if (response.isSuccessful) {
+                        getAllergies()
+                    } else {
+                        _loading.value = false
+
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.printStackTrace()
+
+                }
+            }
+        }
+    }
 
 
     fun savePatientAllergies(
@@ -185,6 +224,7 @@ class AllergiesViewModel  :ViewModel(){
 
                     if (response.isSuccessful) {
                         _loading.value = false
+                        getAllergies()
                         val data = response.body()?.string()
                         val jsonObject = JSONObject(data ?: "{}")
                         if (jsonObject.getInt("status") == 1) {

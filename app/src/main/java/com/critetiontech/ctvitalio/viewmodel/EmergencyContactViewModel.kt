@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -29,7 +30,41 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
 
 
 
+    fun deleteEmergency(id:String) {
+        _loading.value = true
+        viewModelScope.launch {
+            try {
 
+
+                val queryParams = mapOf(
+                    "id" to id,
+
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicDelete(
+                        url = ApiEndPoint().deleteEmergency,
+                        params = queryParams
+                    )
+
+
+
+                if (response.isSuccessful) {
+                    getEmergencyContacts()
+                } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
     fun getEmergencyContacts() {
         _loading.value = true
         viewModelScope.launch {
@@ -95,6 +130,8 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                         body = requestBody
                     )
 
+                Log.d("MainActivity", "Device token: ${response.isSuccessful}")
+                Log.d("MainActivity", "Device token: ${response.body()}")
 
                 if (response.isSuccessful) {
                     _loading.value = false

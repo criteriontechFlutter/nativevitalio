@@ -69,23 +69,26 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
-
+                    Log.d("RESPONSE", "phoneOrUHID2"+mo.toString())
                     if (parsed.responseValue.isEmpty()) {
-                        sentLogInOTPForSHFCApp( mo.toString());
+                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString());
                         }
-
-                    val firstPatient = parsed.responseValue.firstOrNull()
-                    firstPatient?.let {
-                        Login.storedUHID = it
-                        sentLogInOTPForSHFCApp(uhid=it.uhID.toString(),mobileNo=it.mobileNo.toString())
-                        Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}"
-                        )
+                    else{
+                        val firstPatient = parsed.responseValue.firstOrNull()
+                        firstPatient?.let {
+                            Login.storedUHID = it
+                            sentLogInOTPForSHFCApp(uhid=it.uhID.toString(),mobileNo=it.mobileNo.toString())
+                            Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}"
+                            )
+                        }
                     }
+
+
 
 
                 } else {
                     if(mo.toString().length>9){
-                        sentLogInOTPForSHFCApp( mo.toString());
+                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString());
 
                     }
                     else{
@@ -125,6 +128,8 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     val responseBodyString = response.body()?.string()
                     val otpResponse = Gson().fromJson(responseBodyString, OtpResponse::class.java)
                     isRegistered.value = otpResponse.isRegisterd
+
+                    Log.d("RESPONSE", "phoneOrUHID3"+mobileNo.toString())
                     val intent = Intent(MyApplication.appContext, otp::class.java).apply {
                         putExtra("UHID", uhid)
                         putExtra("mobileNo", mobileNo)

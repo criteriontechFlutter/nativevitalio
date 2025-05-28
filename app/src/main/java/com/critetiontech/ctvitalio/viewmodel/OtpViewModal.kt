@@ -30,7 +30,10 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
-    fun getPatientDetailsByUHID(uhid: String,deviceToken: String,otp:String,isRegistered: String="",context:Context) {
+    fun getPatientDetailsByUHID(uhid: String,
+                                deviceToken: String,otp:String,
+                                isRegistered: String="",context:Context,
+                                mNo:String) {
 
         _loading.value = true
         viewModelScope.launch {
@@ -55,13 +58,20 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
                     if(isRegistered.toString()=="0"){
+                        Log.d("RESPONSE", "phoneOrUHID5"+mNo.toString())
+                        val intent = Intent(MyApplication.appContext,  SignupActivity::class.java).apply {
+                            putExtra("UHID", uhid)
+                            putExtra("mobileNo", mNo)
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        MyApplication.appContext.startActivity(intent)
 
-                        val intent = Intent(context, SignupActivity::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        context.startActivity(intent)
+
+//                        val intent = Intent(context, SignupActivity::class.java)
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        context.startActivity(intent)
                     }else{
-
-                    getPatientDetailsByUHID(uhid,context)
+                    getPatientDetailsByUHIDs(uhid,context)
                     }
 
                 } else {
@@ -78,7 +88,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
         }
     }
 
-    private fun getPatientDetailsByUHID(uhid: String,context: Context) {
+    private fun getPatientDetailsByUHIDs(uhid: String,context: Context) {
         _loading.value = true
 
         viewModelScope.launch {
