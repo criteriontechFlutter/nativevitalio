@@ -32,7 +32,7 @@
                 android:text="Edit Profile"
                 android:textStyle="normal"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/textColor" />
         </LinearLayout>
 
         <!-- First Name -->
@@ -52,7 +52,7 @@
             android:hint="Enter First Name"
             android:paddingHorizontal="16dp"
             android:text="Abhay"
-            android:textColor="#000"
+            android:textColor="@color/textColor"
             android:textSize="15sp"/>
 
         <!-- Last Name -->
@@ -72,7 +72,7 @@
             android:hint="Enter Last Name"
             android:paddingHorizontal="16dp"
             android:text="Sharma"
-            android:textColor="#000"
+            android:textColor="@color/textColor"
             android:textSize="15sp"/>
 
         <!-- DOB -->
@@ -101,7 +101,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:gravity="center_vertical"
-                android:textColor="#000"
+                android:textColor="@color/textColor"
                 android:textSize="15sp" />
 
             <ImageView
@@ -109,6 +109,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_calendar"
+
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
@@ -135,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:text="Male"
                 android:buttonTint="@color/primaryBlue"
-                android:textColor="#000"
+                android:textColor="@color/textColor"
                 android:checked="true" />
 
             <RadioButton
@@ -145,7 +146,7 @@
                 android:layout_marginStart="24dp"
                 android:text="Female"
                 android:buttonTint="@color/primaryBlue"
-                android:textColor="#000" />
+                android:textColor="@color/textColor" />
         </RadioGroup>
         <Button
             android:id="@+id/updateProfileButton"

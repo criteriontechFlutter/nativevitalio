@@ -245,6 +245,9 @@
     <string name="fluid_intake">Fluid Intake</string>
     <string name="diet_checklist">Diet Checklist</string>
     <string name="back">Back</string>
+    <string name="vital_data">Vital Data</string>
+    <string name="transfer_data">Transfer Data</string>
+    <string name="data">Data</string>
 
 
     <string-array name="fluid_units">
