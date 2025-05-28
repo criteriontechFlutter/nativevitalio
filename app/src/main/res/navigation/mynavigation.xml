@@ -47,9 +47,6 @@
             android:id="@+id/action_dashboard_to_intakePills"
             app:destination="@id/intakePills" />
         <action
-            android:id="@+id/action_dashboard_to_chatbotFragment"
-            app:destination="@id/chatbotFragment" />
-        <action
             android:id="@+id/action_dashboard_to_chatBotPage"
             app:destination="@id/chatBotPage" />
     </fragment>
@@ -224,12 +221,45 @@
         android:label="fragment_water_layout"
         tools:layout="@layout/fragment_water_layout" />
     <fragment
-        android:id="@+id/chatbotFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ChatbotFragment"
-        android:label="ChatbotFragment" />
-    <fragment
         android:id="@+id/chatBotPage"
         android:name="com.critetiontech.ctvitalio.UI.CTChatBot.ChatBotPage"
-        android:label="ChatBotPage" />
+        android:label="ChatBotPage" >
+        <action
+            android:id="@+id/action_chatBotPage_to_vitalDetail"
+            app:destination="@id/vitalDetail" />
+        <action
+            android:id="@+id/action_chatBotPage_to_intakePills"
+            app:destination="@id/intakePills" />
+        <action
+            android:id="@+id/action_chatBotPage_to_uploadReportHistory"
+            app:destination="@id/uploadReportHistory" />
+        <action
+            android:id="@+id/action_chatBotPage_to_fluidFragment"
+            app:destination="@id/fluidFragment" />
+        <action
+            android:id="@+id/action_chatBotPage_to_fluidInputHistoryFragment"
+            app:destination="@id/fluidInputHistoryFragment" />
+        <action
+            android:id="@+id/action_chatBotPage_to_symptomHistory"
+            app:destination="@id/symptomHistory" />
+        <action
+            android:id="@+id/action_chatBotPage_to_symptomTrackerFragments"
+            app:destination="@id/symptomTrackerFragments" />
+        <action
+            android:id="@+id/action_chatBotPage_to_dietChecklist"
+            app:destination="@id/dietChecklist" />
+        <action
+            android:id="@+id/action_chatBotPage_to_uploadReport"
+            app:destination="@id/uploadReport" />
+        <action
+            android:id="@+id/action_chatBotPage_to_uploadReport2"
+            app:destination="@id/uploadReport" />
+        <action
+            android:id="@+id/action_chatBotPage_to_symptomsFragment"
+            app:destination="@id/symptomsFragment" />
+        <action
+            android:id="@+id/action_chatBotPage_to_pillsReminder"
+            app:destination="@id/pillsReminder" />
+    </fragment>
 
 </navigation>

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -80,9 +81,11 @@ class Login : AppCompatActivity() {
             if (phoneOrUHID.lowercase().contains("uhid")) {
                 // Handle UHID case here
             } else {
-                regestrationViewModel.mobileNo.value = phoneOrUHID
+
                 // Proceed to send OTP or next step
             }
+            Log.d("RESPONSE", "phoneOrUHID"+phoneOrUHID.toString())
+
             viewModel.getPatientDetailsByUHID(phoneOrUHID)
 //            binding.sendOtpBtn.isEnabled  = true
 //            binding. progressBar.visibility  = View.GONE

@@ -19,6 +19,7 @@ class ApiEndPoint {
     val patientAllergies="api/PatientIPDPrescription/PatientAllergies"
     val getHistorySubCategoryMasterById="api/HistorySubCategory/GetHistorySubCategoryMasterById"
     val savePatientAllergies="api/PatientIPDPrescription/SavePatientAllergies"
+    val deletePatientAllergies="api/PatientIPDPrescription/DeletePatientAllergies"
 
 
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
@@ -59,6 +60,7 @@ class ApiEndPoint {
     val insertPatientVital="api/PatientVital/InsertPatientVital"
     val getEmergencyContact="api/EmergencyContact/GetEmergencyContactByPid"
     val saveEmergencyContact="api/EmergencyContact/InsertEmergencyContact"
+    val deleteEmergency="api/EmergencyContact/RemoveEmergencyContact"
 
 
     val getFoodIntake="api/FoodIntake/GetFoodIntake"

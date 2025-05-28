@@ -30,21 +30,24 @@ class WeightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = listOf("Kg", "Gm")
+        // Set up the Spinner
+        val items = listOf("Kg" )  // Units list
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
         adapter.setDropDownViewResource(R.layout.spinner_item)
-        // binding.tvUnit.adapter = adapter // Uncomment if using spinner
+        binding.spinnerUnit.adapter = adapter  // Bind the adapter to the spinner
+
+        // Get the ViewModel instances
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-
-        // ✅ Restore previously entered weight
+        // Restore previously entered weight if any
         binding.etWeight.setText(viewModel.wt.value ?: "")
 
+        // Next button click listener
         binding.btnNext.setOnClickListener {
-            viewModel.wt.value = binding.etWeight.text.toString()
-            progressViewModel.updateProgress(4)
-            findNavController().navigate(R.id.action_weightFragment_to_heightFragment)
+            viewModel.wt.value = binding.etWeight.text.toString()  // Save weight to ViewModel
+            progressViewModel.updateProgress(6)  // Update progress
+            findNavController().navigate(R.id.action_weightFragment_to_heightFragment)  // Navigate to next fragment
         }
     }
 }

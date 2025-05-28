@@ -22,6 +22,7 @@ import com.critetiontech.ctvitalio.databinding.FragmentFamilyDiseaseBinding
 class FamilyDiseaseFragment : Fragment() {
     private lateinit var binding: FragmentFamilyDiseaseBinding
     private lateinit var viewModel: RegistrationViewModel
+    private lateinit var progressViewModel: ProgressViewModel
     private var latestSuggestions: List<String> = emptyList()
 
     override fun onCreateView(
@@ -35,6 +36,7 @@ class FamilyDiseaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -84,6 +86,7 @@ class FamilyDiseaseFragment : Fragment() {
                 "$relation: ${diseases.joinToString(", ")}"
             }
             viewModel.familyDiseases.value = joined
+            progressViewModel.updateProgress(10)
             findNavController().navigate(R.id.action_familyDiseaseFragment_to_createAccount2)
         }
     }

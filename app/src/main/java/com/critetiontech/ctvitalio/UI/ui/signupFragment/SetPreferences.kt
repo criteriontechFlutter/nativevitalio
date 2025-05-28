@@ -20,6 +20,7 @@ class SetPreferences : Fragment() {
 
     private lateinit var binding: FragmentSetPreferencesBinding
     private lateinit var viewModel: RegistrationViewModel
+    private lateinit var progressViewModel: ProgressViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +34,7 @@ class SetPreferences : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
         // Observe both lists independently and trigger rendering only when both are ready
         viewModel.setVitalList.observe(viewLifecycleOwner) {
@@ -53,6 +55,8 @@ class SetPreferences : Fragment() {
         }
 
         binding.btnSkip.setOnClickListener {
+            progressViewModel.updateProgress(12)
+
             findNavController().navigateUp()
         }
     }

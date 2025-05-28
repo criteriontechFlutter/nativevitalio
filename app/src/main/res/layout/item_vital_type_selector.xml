@@ -1,0 +1,57 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridVitalTypes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alignmentMode="alignMargins"
+    android:columnCount="2"
+    android:rowCount="3"
+    android:padding="16dp"
+    android:useDefaultMargins="true">
+
+    <Button
+        android:id="@+id/btnBp"
+        android:text="BP (Sys/Dia)"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="1" />
+
+    <Button
+        android:id="@+id/btnSpo2"
+        android:text="SPO2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="1" />
+
+    <Button
+        android:id="@+id/btnHr"
+        android:text="Heart Rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="1" />
+
+    <Button
+        android:id="@+id/btnPr"
+        android:text="Pulse Rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="1" />
+
+    <Button
+        android:id="@+id/btnRbs"
+        android:text="RBS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="2" />
+    <!-- Spans full row -->
+
+</GridLayout>

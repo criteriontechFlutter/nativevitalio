@@ -5,6 +5,7 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HeaderMap
 import retrofit2.http.Multipart
@@ -79,4 +80,13 @@ interface ApiService {
         @HeaderMap headers: Map<String, String> = emptyMap(),
         @Part parts: List<MultipartBody.Part>
     ): Response<ResponseBody>
+
+
+    @DELETE
+    suspend fun dynamicDelete(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @QueryMap(encoded = true) params: Map<String, @JvmSuppressWildcards Any> = emptyMap()
+    ): Response<ResponseBody>
+
 }

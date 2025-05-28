@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +47,8 @@ class otp : AppCompatActivity() {
         storedUHID = intent.getStringExtra("UHID").toString()
         mobileNo = intent.getStringExtra("mobileNo").toString()
         isRegistered = intent.getStringExtra("isRegistered").toString()
+
+        Log.d("RESPONSE", "phoneOrUHID4"+mobileNo.toString())
         setupOtpInputs(storedUHID)
 
         binding.verify.setOnClickListener {
@@ -53,7 +56,9 @@ class otp : AppCompatActivity() {
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 viewModel.getPatientDetailsByUHID(uhid=storedUHID,
-                    deviceToken="deviceToken",isRegistered=isRegistered ,otp=otptext ,context=applicationContext)
+                    deviceToken="deviceToken",isRegistered=isRegistered
+                    ,otp=otptext ,context=applicationContext,
+                    mNo = mobileNo.toString())
 
             }
         }

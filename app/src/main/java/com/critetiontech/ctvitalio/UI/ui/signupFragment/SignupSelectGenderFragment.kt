@@ -36,6 +36,7 @@ class SignupSelectGenderFragment : Fragment() {
 
         setupGenderSelection()
 
+        binding.tvDescription.text = "Hi ${viewModel.firstName.value?.replaceFirstChar { it.uppercaseChar() } ?: "Guest"}, let us know if you are male or female."
         // ✅ Restore previously selected gender
         selectedGender = viewModel.gender.value
         selectedGender?.let {

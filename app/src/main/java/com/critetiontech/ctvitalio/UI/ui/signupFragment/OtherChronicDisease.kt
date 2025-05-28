@@ -24,6 +24,7 @@ class OtherChronicDisease : Fragment() {
 
     private lateinit var binding: FragmentOtherChronicDiseaseBinding
     private lateinit var viewModel: RegistrationViewModel
+    private lateinit var progressViewModel: ProgressViewModel
     private var latestSuggestions: List<String> = emptyList()
 
     override fun onCreateView(
@@ -38,6 +39,7 @@ class OtherChronicDisease : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -89,6 +91,7 @@ class OtherChronicDisease : Fragment() {
                 viewModel.selectedOtherChronicDiseaseList.value?.joinToString(", ") {
                     it["details"] ?: ""
                 } ?: ""
+            progressViewModel.updateProgress(9)
             findNavController().navigate(R.id.action_otherChronicDisease_to_familyDiseaseFragment)
         }
     }

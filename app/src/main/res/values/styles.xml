@@ -142,4 +142,15 @@
         <item name="android:textColor">#000000</item>
     </style>
 
+
+
+
+
+    <style name="ChatGridButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">24dp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 </resources>
