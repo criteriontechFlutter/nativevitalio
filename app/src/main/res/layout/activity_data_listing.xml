@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Vital Data"
+            android:text="@string/vital_data"
             android:textColor="@color/omron_blue"
             android:textSize="18sp"
             android:textStyle="bold" />
