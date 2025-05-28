@@ -1,0 +1,11 @@
+<!-- res/drawable/tooltip_arrow.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <size android:width="20dp" android:height="10dp" />
+    <solid android:color="#2C365A" />
+    <rotate
+        android:fromDegrees="180"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+</shape>
+

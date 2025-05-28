@@ -19,9 +19,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
         createNotificationChannel()
-
         if (intent.getBooleanExtra("from_notification", false)) {
             // Navigate to a specific fragment or screen
         }
