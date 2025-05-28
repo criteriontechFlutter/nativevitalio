@@ -50,11 +50,12 @@ class BloodGroupFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
+        // Load the selected blood group from the ViewModel
         val preSelectedGroup = bloodGroups.find { it.groupName == viewModel.bg.value }
 
         val adapter = BloodGroupAdapter(
             bloodGroups,
-            selected = preSelectedGroup
+            selected = preSelectedGroup // Use pre-selected group from ViewModel
         ) { selected ->
             selectedBloodGroup = selected
             viewModel.bg.value = selected.groupName.toString()
@@ -72,5 +73,12 @@ class BloodGroupFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Restore the previously selected blood group when coming back to this fragment
+        val preSelectedGroup = bloodGroups.find { it.groupName == viewModel.bg.value }
+        selectedBloodGroup = preSelectedGroup
     }
 }

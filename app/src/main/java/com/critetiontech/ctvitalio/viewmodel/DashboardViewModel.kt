@@ -86,11 +86,13 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
                 } else {
-                    _loading.value = false
+                    _vitalList.value = emptyList()
+                        _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
+                _vitalList.value = emptyList()
                 _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"

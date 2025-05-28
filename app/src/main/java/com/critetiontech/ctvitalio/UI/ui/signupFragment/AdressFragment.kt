@@ -30,6 +30,7 @@ class AdressFragment : Fragment() {
     private var stateListCache: List<StateModel> = emptyList()
     private var cityListCache: List<CityModel> = emptyList()
 
+    private lateinit var progressViewModel: ProgressViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +42,7 @@ class AdressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
         addressData = loadAddressData(requireContext())
 
@@ -177,6 +179,7 @@ class AdressFragment : Fragment() {
             ) {
                 Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()
             } else {
+                progressViewModel.updateProgress(5)
                 viewModel.pinCode.value = binding.etPinCode.text.toString()
                 viewModel.streetAddress.value = binding.etStreet.text.toString()
                 findNavController().navigate(R.id.action_adressFragment_to_weightFragment)

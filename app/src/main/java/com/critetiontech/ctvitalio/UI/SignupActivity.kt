@@ -1,14 +1,17 @@
 package com.critetiontech.ctvitalio.UI
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
 import com.critetiontech.ctvitalio.databinding.ActivitySignupBinding
+import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 
 class SignupActivity : AppCompatActivity() {
 
@@ -16,7 +19,9 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivitySignupBinding
     private lateinit var progressViewModel: ProgressViewModel
+    private lateinit var  ViewModel: RegistrationViewModel
 
+    lateinit var mobileNo: String
     override fun onCreate (savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
@@ -27,12 +32,24 @@ class SignupActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.backButton.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            if( progressViewModel.progressPage.value==1){
+
+                val intent = Intent(this@SignupActivity, Home::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }else{
+                onBackPressedDispatcher.onBackPressed()
+            }
+
         }
 
         // ViewModel
         progressViewModel = ViewModelProvider(this)[ProgressViewModel::class.java]
+         ViewModel = ViewModelProvider(this)[RegistrationViewModel::class.java]
 
+        mobileNo = intent.getStringExtra("mobileNo").toString()
+        ViewModel.mobileNo.value=mobileNo
+        Log.d("RESPONSE", "phoneOrUHID6"+mobileNo.toString())
         // Observe LiveData
         progressViewModel.progress.observe(this, { step ->
             Log.d("UploadSuccess", "updateProgress: $step")
@@ -41,7 +58,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun updateProgress(step: Int) {
-        val totalSteps = 5
+        val totalSteps = 13
         val progressPercent = (step * 100) / totalSteps
         binding.progressBar.progress = progressPercent
         binding.tvProgressPercent.text = "$progressPercent%"

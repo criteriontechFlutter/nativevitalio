@@ -12,12 +12,55 @@ import com.critetiontech.ctvitalio.model.AllergyHistoryItem
 import com.critetiontech.ctvitalio.databinding.ItemAllergyCardBinding
 
 
-class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHolder>(
-    DiffCallback()
-) {
+class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHolder>(DiffCallback()) {
 
+    private var selectedPosition: Int = RecyclerView.NO_POSITION
 
-    inner class ViewHolder(val binding: ItemAllergyCardBinding) : RecyclerView.ViewHolder(binding.root)
+    interface SelectionListener {
+        fun onSelectionChanged(selectedCount: Int)
+    }
+
+    var selectionListener: SelectionListener? = null
+
+    inner class ViewHolder(val binding: ItemAllergyCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_POSITION) {
+                    selectPosition(pos)
+                }
+            }
+        }
+    }
+
+    private fun selectPosition(position: Int) {
+        if (selectedPosition != position) {
+            val previousPosition = selectedPosition
+            selectedPosition = position
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
+            selectionListener?.onSelectionChanged(1)
+        } else {
+            // If clicked again on the same item, deselect it (optional)
+            val previousPosition = selectedPosition
+            selectedPosition = RecyclerView.NO_POSITION
+            notifyItemChanged(previousPosition)
+            selectionListener?.onSelectionChanged(0)
+        }
+    }
+
+    fun clearSelection() {
+        val previousPosition = selectedPosition
+        selectedPosition = RecyclerView.NO_POSITION
+        if (previousPosition != RecyclerView.NO_POSITION) {
+            notifyItemChanged(previousPosition)
+        }
+        selectionListener?.onSelectionChanged(0)
+    }
+
+    fun getSelectedItem(): AllergyHistoryItem? {
+        return if (selectedPosition != RecyclerView.NO_POSITION) getItem(selectedPosition) else null
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemAllergyCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -42,12 +85,16 @@ class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHo
         }
 
         holder.binding.severityText.setTextColor(severityColor)
+
+        // Highlight selected item background
+        holder.binding.root.setBackgroundColor(
+            if (position == selectedPosition) Color.LTGRAY else Color.WHITE
+        )
     }
 
     class DiffCallback : DiffUtil.ItemCallback<AllergyHistoryItem>() {
         override fun areItemsTheSame(oldItem: AllergyHistoryItem, newItem: AllergyHistoryItem): Boolean {
-            return oldItem.rowId != null && oldItem.rowId == newItem.rowId ||
-                    oldItem.substance == newItem.substance  // fallback match
+            return oldItem.rowId != null && oldItem.rowId == newItem.rowId
         }
 
         override fun areContentsTheSame(oldItem: AllergyHistoryItem, newItem: AllergyHistoryItem): Boolean {

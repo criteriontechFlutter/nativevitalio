@@ -26,6 +26,7 @@ class CreateAccount : Fragment() {
 
     private lateinit var binding: FragmentCreateAccountBinding
     private lateinit var viewModel: RegistrationViewModel
+    private lateinit var progressViewModel: ProgressViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,7 @@ class CreateAccount : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
 
         // Initial static setup for always-visible summary items
         addSummaryItem("Name", getFullName())
@@ -120,8 +122,11 @@ class CreateAccount : Fragment() {
             viewModel.dob.postValue(it)
         }
 
+        progressViewModel.updateProgressPage(0)
         binding.btnNext.setOnClickListener(){
             viewModel.patientSignUp()
+            progressViewModel.updateProgress(10)
+            progressViewModel.updateProgressPage(1)
             findNavController().navigate(R.id.accountSuccess)
         }
 //        binding.s.setOnClickListener(){
