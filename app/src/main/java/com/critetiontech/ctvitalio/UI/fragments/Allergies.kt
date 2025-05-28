@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +17,7 @@ import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
 import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 
 
-class Allergies : Fragment() {
-
+class Allergies : Fragment(), AllergiesAdapter.SelectionListener {
 
     private lateinit var binding: FragmentAllergiesBinding
     private lateinit var viewModel: AllergiesViewModel
@@ -37,51 +37,47 @@ class Allergies : Fragment() {
 
         viewModel = ViewModelProvider(this)[AllergiesViewModel::class.java]
 
-        // RecyclerView setup
         adapter = AllergiesAdapter()
+        adapter.selectionListener = this
         binding.allergiesRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.allergiesRecycler.adapter = adapter
 
-        // Observe ViewModel
-        observeViewModel()
+        viewModel.allergyList.observe(viewLifecycleOwner) { allergyItems ->
+            adapter.submitList(allergyItems.toList())
+            adapter.clearSelection()
+        }
 
-        // Fetch data
         viewModel.getAllergies()
         viewModel.getHistorySubCategoryMasterById()
 
-        // Listen to allergy types and cache for bottom sheet
         viewModel.allergyTypes.observe(viewLifecycleOwner) { list ->
             allergyTypeList = list
         }
 
-        // Open bottom sheet with allergy types
         binding.addAllergiesBtn.setOnClickListener {
             if (allergyTypeList.isNotEmpty()) {
                 val sheet = AddAllergyBottomSheet.newInstance(allergyTypeList)
-                 sheet.show(childFragmentManager, "AddAllergyBottomSheet")
+                sheet.show(childFragmentManager, "AddAllergyBottomSheet")
             } else {
                 Toast.makeText(requireContext(), "Allergy types not loaded yet.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Optional: Back button
         binding.backBtn.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+
+        binding.deleteIcon.setOnClickListener {
+            val selectedItem = adapter.getSelectedItem()
+            if (selectedItem != null) {
+             viewModel.deletePatientAllergies(selectedItem.rowId.toString())
+            } else {
+                // No item selected, maybe show a message
+            }
+        }
     }
 
-    private fun observeViewModel() {
-        viewModel. loading.observe(viewLifecycleOwner) {
-            // Optionally show/hide progress
-        }
-
-        viewModel.allergyList.observe(viewLifecycleOwner) { allergyItems ->
-            Log.d("ALLERGIES_OBSERVER", "List updated: ${allergyItems.size}")
-            adapter.submitList(allergyItems)
-        }
-
-        viewModel._errorMessage.observe(viewLifecycleOwner) { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-        }
+    override fun onSelectionChanged(selectedCount: Int) {
+        binding.deleteIcon.isVisible = (selectedCount == 1)
     }
 }

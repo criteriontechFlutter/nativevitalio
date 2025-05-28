@@ -15,4 +15,18 @@ class ProgressViewModel : ViewModel() {
     fun updateProgress(value: Int) {
         _progress.value = value
     }
+
+
+
+
+    private val _progressPage = MutableLiveData<Int>()
+    val progressPage: LiveData<Int> get() = _progressPage
+
+    init {
+        _progressPage.value = 0 // Start at 0%
+    }
+
+    fun updateProgressPage(value: Int) {
+        _progressPage.value = value
+    }
 }

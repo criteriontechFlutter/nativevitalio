@@ -29,7 +29,7 @@ class SignUpFragment2 : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-
+        progressViewModel.updateProgressPage(0)
         // ✅ Restore existing values if already entered
         binding.etFirstName.setText(viewModel.firstName.value ?: "")
         binding.etLastName.setText(viewModel.lastName.value ?: "")

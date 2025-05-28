@@ -24,6 +24,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -123,55 +124,141 @@ class Dashboard  : Fragment() {
         binding.recyclerView.adapter = toTakeAdapter
 
         pillsViewModel.currentDatePillList.observe(viewLifecycleOwner) { pills ->
+            binding.toTake.visibility = if (pillsViewModel.currentDatePillList.value?.isEmpty() == true) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
             toTakeAdapter.updateList(pills)
         }
 
+//        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+//            val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
+//            val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+//
+//            val filtered = vitalList.filterNot {
+//                it.vitalName.equals("BP_Sys", ignoreCase = true) ||
+//                        it.vitalName.equals("BP_Dias", ignoreCase = true)
+//            }.toMutableList()
+//
+//            if (bpSys != null && bpDia != null) {
+//                val bpVital = Vital().apply {
+//                    vitalName = "Blood Pressure"
+//                    vitalValue = 0.0
+//                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
+//                    vitalDateTime = bpSys.vitalDateTime
+//                }
+//                filtered.add(bpVital)
+//            }
+//
+//            adapter = DashboardAdapter(requireContext(), filtered) { vitalType ->
+//                val bundle = Bundle().apply {
+//                    putString("vitalType", vitalType)
+//                }
+//                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+//            }
+//            binding.vitalsSlider.adapter = adapter
+//            binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
+//
+//
+//
+//
+//            sliderRunnable = object : Runnable {
+//                override fun run() {
+//                    if (adapter.count > 0) {
+//                        currentPage = (currentPage + 1) % adapter.count
+//                        binding.vitalsSlider.setCurrentItem(currentPage, true)
+//                        handler.postDelayed(this, slideDelay)
+//                    }
+//                }
+//            }
+//            handler.removeCallbacksAndMessages(null)
+//            currentPage = 0
+//            binding.vitalsSlider.setCurrentItem(currentPage, false)
+//            handler.postDelayed(sliderRunnable!!, slideDelay)
+//        }
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-            val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
-            val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+            if (vitalList.isEmpty()) {
+                // If the vital list is empty, display all available vital names
+                val vitalNames = listOf("Blood Pressure",
+                    "Heart Rate",
+                    "Spo2",
+                    "Temperature",
+                    "RespRate",
+                    "RBS",
+                    "Pulse Rate",
+                    "Weight") // Example vital names
 
-            val filtered = vitalList.filterNot {
-                it.vitalName.equals("BP_Sys", ignoreCase = true) ||
-                        it.vitalName.equals("BP_Dias", ignoreCase = true)
-            }.toMutableList()
-
-            if (bpSys != null && bpDia != null) {
-                val bpVital = Vital().apply {
-                    vitalName = "Blood Pressure"
-                    vitalValue = 0.0
-                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
-                    vitalDateTime = bpSys.vitalDateTime
-                }
-                filtered.add(bpVital)
-            }
-
-            adapter = DashboardAdapter(requireContext(), filtered) { vitalType ->
-                val bundle = Bundle().apply {
-                    putString("vitalType", vitalType)
-                }
-                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-            }
-            binding.vitalsSlider.adapter = adapter
-            binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
-
-
-
-
-            sliderRunnable = object : Runnable {
-                override fun run() {
-                    if (adapter.count > 0) {
-                        currentPage = (currentPage + 1) % adapter.count
-                        binding.vitalsSlider.setCurrentItem(currentPage, true)
-                        handler.postDelayed(this, slideDelay)
+                // Create a list of "vital name" objects to display in the slider
+                val vitalNameList = vitalNames.map {
+                    Vital().apply {
+                        vitalName = it
+                        vitalValue = 0.0  // Dummy value for display, can be updated with real data
+                        unit = "N/A"  // You can put a default unit like N/A if there's no data
                     }
                 }
-            }
-            handler.removeCallbacksAndMessages(null)
-            currentPage = 0
-            binding.vitalsSlider.setCurrentItem(currentPage, false)
-            handler.postDelayed(sliderRunnable!!, slideDelay)
-        }
 
+                // Update adapter with the vital names (display as placeholder)
+                adapter = DashboardAdapter(requireContext(), vitalNameList) { vitalType ->
+                    val bundle = Bundle().apply {
+                        putString("vitalType", vitalType)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+                }
+
+                // Set the adapter to the ViewPager (slider)
+                binding.vitalsSlider.adapter = adapter
+                binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
+            } else {
+                // If the vital list has data, show the real vitals as before
+                val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
+                val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+
+                val filtered = vitalList.filterNot {
+                    it.vitalName.equals("BP_Sys", ignoreCase = true) ||
+                            it.vitalName.equals("BP_Dias", ignoreCase = true)
+                }.toMutableList()
+
+                if (bpSys != null && bpDia != null) {
+                    val bpVital = Vital().apply {
+                        vitalName = "Blood Pressure"
+                        vitalValue = 0.0
+                        unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
+                        vitalDateTime = bpSys.vitalDateTime
+                    }
+                    filtered.add(bpVital)
+                }
+
+                // Update adapter with the filtered vitals
+                adapter = DashboardAdapter(requireContext(), filtered) { vitalType ->
+                    val bundle = Bundle().apply {
+                        putString("vitalType", vitalType)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+                }
+
+                // Set the adapter to the ViewPager (slider)
+                binding.vitalsSlider.adapter = adapter
+                binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
+
+                // Start the slider animation (if applicable)
+                sliderRunnable = object : Runnable {
+                    override fun run() {
+                        if (adapter.count > 0) {
+                            currentPage = (currentPage + 1) % adapter.count
+                            binding.vitalsSlider.setCurrentItem(currentPage, true)
+                            handler.postDelayed(this, slideDelay)
+                        }
+                    }
+                }
+
+                // Reset and start the slider
+                handler.removeCallbacksAndMessages(null)
+                currentPage = 0
+                binding.vitalsSlider.setCurrentItem(currentPage, false)
+                handler.postDelayed(sliderRunnable!!, slideDelay)
+            }
+        }
         Glide.with(MyApplication.appContext)
             .load(PrefsManager().getPatient()?.profileUrl.toString())
             .placeholder(R.drawable.baseline_person_24)

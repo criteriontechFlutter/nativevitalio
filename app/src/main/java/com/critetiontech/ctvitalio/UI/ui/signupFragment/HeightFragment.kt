@@ -31,9 +31,9 @@ class HeightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-
         // Restore previously saved height
         binding.etHeight.setText(viewModel.ht.value ?: "")
 
@@ -81,7 +81,7 @@ class HeightFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
 
-            progressViewModel.updateProgress(4)
+            progressViewModel.updateProgress(7)
             findNavController().navigate(R.id.action_heightFragment_to_chronicConditionFragment)
         }
     }

@@ -19,6 +19,7 @@ import com.critetiontech.ctvitalio.databinding.FragmentChronicConditionBinding
 class ChronicConditionFragment : Fragment() {
     private lateinit var binding: FragmentChronicConditionBinding
     private lateinit var viewModel: RegistrationViewModel
+    private lateinit var progressViewModel: ProgressViewModel
     private var latestSuggestions: List<String> = emptyList()
 
     override fun onCreateView(
@@ -32,8 +33,9 @@ class ChronicConditionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
 
+        viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
@@ -80,6 +82,7 @@ class ChronicConditionFragment : Fragment() {
             val summary = viewModel.selectedDiseaseList.value
                 ?.joinToString(", ") { it["details"] ?: "" } ?: ""
 
+            progressViewModel.updateProgress(8)
             viewModel.chronicDisease.value = summary
             findNavController().navigate(R.id.action_chronicConditionFragment_to_otherChronicDisease)
         }

@@ -1,0 +1,21 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:alignmentMode="alignMargins"
+    android:useDefaultMargins="true"
+    android:padding="8dp"
+    android:gravity="start">
+
+    <Button
+        android:id="@+id/upload_report_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Report" />
+
+    <Button
+        android:id="@+id/btnReportHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report History" />
+</GridLayout>
