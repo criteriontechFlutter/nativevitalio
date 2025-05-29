@@ -42,6 +42,7 @@ android {
         //noinspection DataBindingWithoutKapt
         dataBinding = true
     }
+
 }
 
 
@@ -78,6 +79,9 @@ dependencies {
     implementation (libs.sdp.android)
     implementation(libs.firebase.messaging)
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
+//    implementation("com.github.barteksc.pdfviewer:android-pdf-viewer:3.1.0") // Stable version of PDFView
+
+
     //otp view
 //    implementation (libs.otpview)
     implementation ("com.google.code.gson:gson:2.10.1")

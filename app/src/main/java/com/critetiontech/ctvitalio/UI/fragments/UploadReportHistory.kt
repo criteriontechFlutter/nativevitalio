@@ -21,7 +21,9 @@ class UploadReportHistory : Fragment() {
     private lateinit var binding: FragmentUploadReportHistoryBinding
     private lateinit var viewModel: UploadReportHistoryViewModel
     private lateinit var adapter: UploadHistoryAdapter
-
+    private var selectedRadiology: Int = 0
+    private var selectedImaging: Int = 0
+    private var selectedLab: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -37,11 +39,20 @@ class UploadReportHistory : Fragment() {
         binding.recyclerViewReports.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.reportList.observe(viewLifecycleOwner, Observer { reports ->
-            adapter = UploadHistoryAdapter(reports)
+            val adapter = UploadHistoryAdapter(reports) { imageUri ->
+                // Handle the image click
+                // For example, open the image in a full-screen activity
+                val bundle = Bundle().apply {
+
+//                    putString("fileUri", imageUri.ur.toString()) // DateTime string
+                }
+
+                // Navigate to the next fragment with the uploaded data
+                findNavController().navigate(R.id.action_uploadReport_to_reportFieldsFragment, bundle)
+
+            }
             binding.recyclerViewReports.adapter = adapter
-            binding.subtitleRadiology.text=reports.size.toString()
-            binding.subtitleImaging.text=reports.size.toString()
-            binding.subtitleLab.text=reports.size.toString()
+
 
         })
 
@@ -63,6 +74,34 @@ class UploadReportHistory : Fragment() {
 
         // Default selection
         selectTab("Radiology")
+        selectTab("Imaging" )
+        selectTab("Lab")
+        viewModel.selectedRadiology.observe(viewLifecycleOwner, Observer { count ->
+            // Only update if count is greater than 0
+            if (count > 0) {
+                binding.subtitleRadiology.text = " $count Record"
+            } else {
+                binding.subtitleLab.text = "No Record"
+            }
+        })
+
+        viewModel.selectedImaging.observe(viewLifecycleOwner, Observer { count ->
+            // Only update if count is greater than 0
+            if (count > 0) {
+                binding.subtitleImaging.text = " $count Record"
+            } else {
+                binding.subtitleImaging.text = "No Record"
+            }
+        })
+
+        viewModel.selectedLab.observe(viewLifecycleOwner, Observer { count ->
+            // Only update if count is greater than 0
+            if (count > 0) {
+                binding.subtitleLab.text = " $count Record"
+            } else {
+                binding.subtitleLab.text = "No Record"
+            }
+        })
     }
 
     private fun selectTab(category: String) {

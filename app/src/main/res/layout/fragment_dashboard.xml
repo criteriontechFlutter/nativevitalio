@@ -161,17 +161,18 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/vitals_indicator"
-            android:layout_width="80dp"
-            android:layout_height="5sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vitals_slider"
-            app:tabBackground="@drawable/tab_selector_dot"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@android:color/transparent"
-            app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed"
-            app:tabRippleColor="@android:color/transparent" />
+            android:layout_width="match_parent"
+        android:layout_height="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vitals_slider"
+        app:tabBackground="@drawable/tab_selector_dot"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@android:color/transparent"
+            android:background="@android:color/transparent"/>
         <!-- Primary Actions Section -->
         <TextView
             android:id="@+id/primary_actions_label"

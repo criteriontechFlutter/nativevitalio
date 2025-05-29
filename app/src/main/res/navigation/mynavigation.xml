@@ -162,6 +162,9 @@
         <action
             android:id="@+id/action_uploadReport_to_reportFieldsFragment"
             app:destination="@id/reportFieldsFragment" />
+        <action
+            android:id="@+id/action_uploadReport_to_imagePdfViewFragment"
+            app:destination="@id/imagePdfViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/reportFieldsFragment"
@@ -261,5 +264,9 @@
             android:id="@+id/action_chatBotPage_to_pillsReminder"
             app:destination="@id/pillsReminder" />
     </fragment>
+    <fragment
+        android:id="@+id/imagePdfViewFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.ImagePdfViewFragment"
+        android:label="ImagePdfViewFragment" />
 
 </navigation>
