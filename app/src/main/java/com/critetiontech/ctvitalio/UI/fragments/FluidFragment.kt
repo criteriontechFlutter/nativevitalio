@@ -399,7 +399,7 @@ class FluidFragment : Fragment() {
 
                 val label = TextView(requireContext()).apply {
                     text = it.name
-                    setTextColor(Color.DKGRAY)
+                    setTextColor(R.color.textColor)
                     textSize = 10f
                 }
 
@@ -472,8 +472,10 @@ class FluidFragment : Fragment() {
         val buttons = listOf(binding.btnIntake, binding.btnOutput)
         for (button in buttons) {
             if (button.id == checkedId) {
-                button.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.blue))
-                button.setTextColor(Color.WHITE)
+                button.run {
+                    setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.blue))
+                    setTextColor(getResources().getColor(R.color.dashboardIconBg))
+                }
             } else {
                 button.setBackgroundColor(Color.WHITE)
                 button.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gray))

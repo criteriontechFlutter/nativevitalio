@@ -3,6 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingVertical="12dp"
+    android:backgroundTint="@color/dashboardIconBg"
     android:gravity="center"
    >
 

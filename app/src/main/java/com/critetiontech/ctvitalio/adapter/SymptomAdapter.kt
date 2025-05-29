@@ -80,8 +80,8 @@ class SymptomAdapter(
         fun bind(item: ProblemWithIcon, isSelected: Boolean) {
             binding.symptom = item
 
-            val bgColor = if (isSelected) R.color.primaryBlue else R.color.white
-            val textColor = if (isSelected) android.R.color.white else android.R.color.black
+            val bgColor = if (isSelected) R.color.primaryBlue else R.color.dashboardIconBg
+            val textColor = if (isSelected) android.R.color.white else R.color.textColor
 
             binding.root.setBackgroundColor(binding.root.context.getColor(bgColor))
             binding.symptomText.setTextColor(MyApplication.appContext.getColor(textColor))
