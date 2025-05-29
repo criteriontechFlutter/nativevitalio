@@ -97,6 +97,7 @@
                 app:tint="@color/primaryBlue"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/primaryBlue"
                 android:text="Next"
                 android:textColor="#FFFFFF" />
 

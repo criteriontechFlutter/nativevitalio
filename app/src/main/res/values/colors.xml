@@ -13,6 +13,7 @@
     <color name="blue2">#0095FF</color>
 
     <!-- Grey Tones -->
+    <color name="bloodBgColor">#F5F8FA</color>
     <color name="greyText">#818284</color>
     <color name="greyText2">#828691</color>
     <color name="greyText3">#9B9B9B</color>
@@ -96,6 +97,7 @@
     <color name="dashboardIconColor3">@color/primaryBlueLight</color>
     <color name="dashboardIconColor4">@color/symptomsButton</color>
     <color name="dashboardIconBg">@color/white</color>
+    <color name="bloodgroupColor">@color/primaryBlue</color>
     <color name="drawableStrokeColor">#C4C4C4</color>
     <color name="blackTextColor">@color/black</color>
     <color name="symptomTextColor">#666666</color>

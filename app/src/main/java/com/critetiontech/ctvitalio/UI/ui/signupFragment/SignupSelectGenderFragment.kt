@@ -97,6 +97,7 @@ class SignupSelectGenderFragment : Fragment() {
                 else
                     R.drawable.gender_card_selected    // unselected background
             )
+
         }
     }
 }
