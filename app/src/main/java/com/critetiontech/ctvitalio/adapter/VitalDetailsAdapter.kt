@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.adapter
 
 import Vital
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -80,6 +81,7 @@ class VitalDetailsAdapter(
 //        notifyDataSetChanged()
 //    }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitVitals(list: List<Vital>) {
         groupedVitals.clear()
 

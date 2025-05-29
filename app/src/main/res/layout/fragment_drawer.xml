@@ -55,8 +55,8 @@
                         android:padding="@dimen/_8sdp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/three_dots"
-                        android:tint="@color/textColor"
-                        android:layout_gravity="end|center_vertical" />
+                        android:layout_gravity="end|center_vertical"
+                        app:tint="@color/textColor" />
                 </LinearLayout>
 
 
@@ -114,10 +114,10 @@
                     android:id="@+id/btnEditProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#356DF3"
                     android:text="Edit Profile"
                     android:textAllCaps="false"
-                    android:textColor="@color/textColor"
-                    android:backgroundTint="#356DF3" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <!-- Personal Info -->

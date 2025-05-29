@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundColor"
     android:id="@+id/main"
     android:layout_height="match_parent"
     tools:context=".UI.SignupActivity">
@@ -34,7 +34,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:text="@string/create_account"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/backButton"
             app:layout_constraintStart_toEndOf="@id/backButton"
@@ -62,7 +62,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="10dp"
-            android:background="#F7FAFC"
+            android:background="@color/dashboardIconBg"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="Getting Started"
-                    android:textColor="#111111"
+                    android:textColor="@color/textColor"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Great start! You’re just beginning—let’s keep going!"
-                    android:textColor="#6B7280"
+                    android:textColor="@color/textColor"
                     android:textSize="13sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -49,7 +48,7 @@ class SignupActivity : AppCompatActivity() {
 
         mobileNo = intent.getStringExtra("mobileNo").toString()
         ViewModel.mobileNo.value=mobileNo
-        Log.d("RESPONSE", "phoneOrUHID6"+mobileNo.toString())
+        Log.d("RESPONSE", "phoneOrUHID6"+ mobileNo)
         // Observe LiveData
         progressViewModel.progress.observe(this, { step ->
             Log.d("UploadSuccess", "updateProgress: $step")

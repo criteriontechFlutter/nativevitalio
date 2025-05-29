@@ -92,6 +92,7 @@ dependencies {
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.lottie.v601)
+    implementation(libs.mpandroidchart)
 
     implementation(libs.converter.gson)
     implementation (libs.lottie)

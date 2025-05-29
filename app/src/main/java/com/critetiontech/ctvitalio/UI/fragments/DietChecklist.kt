@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.adapter.DietChecklistAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDietChecklistBinding
@@ -46,6 +47,9 @@ class DietChecklist : Fragment() {
         binding.recyclerView.adapter = adapter
 
         viewModel.getFoodIntake("")
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         viewModel.dietList.observe(viewLifecycleOwner) { dietList ->
             val flatList = mutableListOf<com.critetiontech.ctvitalio.adapter.DietListItem>()
