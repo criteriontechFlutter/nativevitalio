@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
 import com.critetiontech.ctvitalio.viewmodel.EditProfileViewModel
 import java.text.SimpleDateFormat
@@ -49,7 +50,12 @@ class EditProfile : Fragment() {
             val phone = prefsManager.getPatient()?.mobileNo.toString()
             val email = prefsManager.getPatient()?.emailID.toString()
             val address = prefsManager.getPatient()?.address.toString()
-            val genderId = if (binding.radioMale.isChecked) "1" else "2"
+            val genderId = when (binding.genderGroup.checkedRadioButtonId) {
+                R.id.radioMale -> "1"
+                R.id.radioFemale -> "2"
+                R.id.radioOther -> "3"
+                else -> "1"  // Default to Male if no selection
+            }
             val height = prefsManager.getPatient()?.height.toString()
             val weight = prefsManager.getPatient()?.weight.toString()
 
@@ -106,6 +112,7 @@ class EditProfile : Fragment() {
             when (gender) {
                 "1" -> binding.radioMale.isChecked = true
                 "2" -> binding.radioFemale.isChecked = true
+                "3" -> binding.radioFemale.isChecked = true
             }
         }
     }
