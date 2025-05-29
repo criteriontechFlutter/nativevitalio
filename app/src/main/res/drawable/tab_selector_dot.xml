@@ -1,14 +1,24 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
         <shape android:shape="oval">
-            <solid android:color="@color/greyDark" />
-            <size android:width="3dp" android:height="3dp"/>
+            <solid android:color="@color/primaryBlue" />
+            <size android:width="6dp" android:height="6dp"/>
+            <corners android:radius="3dp" />
         </shape>
     </item>
     <item>
-        <shape android:shape="oval">
-            <solid android:color="#CCCCCC" />
-            <size android:width="3dp" android:height="3dp"/>
-        </shape>
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp"
+                android:bottom="2dp">
+                <shape android:shape="oval">
+                    <solid android:color="@color/greyDark" />
+                    <size android:width="6dp" android:height="6dp"/>
+                    <corners android:radius="3dp" />
+                </shape>
+            </item>
+        </layer-list>
     </item>
 </selector>
