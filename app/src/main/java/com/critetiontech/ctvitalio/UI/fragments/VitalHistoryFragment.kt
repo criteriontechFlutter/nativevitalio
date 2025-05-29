@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.BPReadingAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentVitalHistoryBinding
+import com.critetiontech.ctvitalio.utils.BpDataPoint
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.VitalHistoryViewModel
@@ -29,9 +30,12 @@ class VitalHistoryFragment : Fragment() {
     private val viewModel: VitalHistoryViewModel by viewModels()
     private lateinit var bloodPressureAdapter: BPReadingAdapter
     private lateinit var vitalId: String
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentVitalHistoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -59,6 +63,17 @@ if(vitalType=="Blood Pressure"){
         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
 
 
+
+
+
+        binding.fluidGraph.dataPoints = listOf(
+            BpDataPoint("12 AM", 122, 80, false),
+            BpDataPoint("02 AM", 120, 78, false),
+            BpDataPoint("04 AM", 117, 55, false),
+            BpDataPoint("06 AM", 121, 80, true),
+            BpDataPoint("08 AM", 110, 70, true),
+            BpDataPoint("10 AM", 132, 75, true)
+        )
         viewModel.bpList.observe(viewLifecycleOwner) { list ->
             bloodPressureAdapter = BPReadingAdapter(list.reversed())
             binding.recyclerViewFluidLogs.adapter = bloodPressureAdapter
@@ -163,4 +178,9 @@ if(vitalType=="Blood Pressure"){
             }
         }
     }
+
+
+
+
 }
+
