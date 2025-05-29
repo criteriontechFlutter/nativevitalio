@@ -146,6 +146,14 @@
                 android:text="Female"
                 android:buttonTint="@color/primaryBlue"
                 android:textColor="#000" />
+            <RadioButton
+                android:id="@+id/radioOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Other"
+                android:buttonTint="@color/primaryBlue"
+                android:textColor="#000" />
         </RadioGroup>
         <Button
             android:id="@+id/updateProfileButton"

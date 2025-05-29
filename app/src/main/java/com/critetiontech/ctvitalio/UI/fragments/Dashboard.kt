@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
@@ -75,6 +76,7 @@ class Dashboard  : Fragment() {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -177,6 +179,92 @@ class Dashboard  : Fragment() {
 //            binding.vitalsSlider.setCurrentItem(currentPage, false)
 //            handler.postDelayed(sliderRunnable!!, slideDelay)
 //        }
+
+
+//        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+//            if (vitalList.isEmpty()) {
+//                // If the vital list is empty, display all available vital names
+//                val vitalNames = listOf("Blood Pressure",
+//                    "Heart Rate",
+//                    "Spo2",
+//                    "Temperature",
+//                    "RespRate",
+//                    "RBS",
+//                    "Pulse Rate",
+//                    "Weight") // Example vital names
+//
+//                // Create a list of "vital name" objects to display in the slider
+//                val vitalNameList = vitalNames.map {
+//                    Vital().apply {
+//                        vitalName = it
+//                        vitalValue = 0.0  // Dummy value for display, can be updated with real data
+//                        unit = "N/A"  // You can put a default unit like N/A if there's no data
+//                    }
+//                }
+//
+//                // Update adapter with the vital names (display as placeholder)
+//                adapter = DashboardAdapter(requireContext(), vitalNameList) { vitalType ->
+//                    val bundle = Bundle().apply {
+//                        putString("vitalType", vitalType)
+//                    }
+//                    findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+//                }
+//
+//                // Set the adapter to the ViewPager (slider)
+//                binding.vitalsSlider.adapter = adapter
+//                binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
+//            } else {
+//                // If the vital list has data, show the real vitals as before
+//                val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
+//                val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+//
+//                val filtered = vitalList.filterNot {
+//                    it.vitalName.equals("BP_Sys", ignoreCase = true) ||
+//                            it.vitalName.equals("BP_Dias", ignoreCase = true)
+//                }.toMutableList()
+//
+//                if (bpSys != null && bpDia != null) {
+//                    val bpVital = Vital().apply {
+//                        vitalName = "Blood Pressure"
+//                        vitalValue = 0.0
+//                        unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
+//                        vitalDateTime = bpSys.vitalDateTime
+//                    }
+//                    filtered.add(bpVital)
+//                }
+//
+//                // Update adapter with the filtered vitals
+//                adapter = DashboardAdapter(requireContext(), filtered) { vitalType ->
+//                    val bundle = Bundle().apply {
+//                        putString("vitalType", vitalType)
+//                    }
+//                    findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+//                }
+//
+//                // Set the adapter to the ViewPager (slider)
+//                binding.vitalsSlider.adapter = adapter
+//                binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
+//
+//                // Start the slider animation (if applicable)
+//                sliderRunnable = object : Runnable {
+//                    override fun run() {
+//                        if (adapter.count > 0) {
+//                            currentPage = (currentPage + 1) % adapter.count
+//                            binding.vitalsSlider.setCurrentItem(currentPage, true)
+//                            handler.postDelayed(this, slideDelay)
+//                        }
+//                    }
+//                }
+//
+//                // Reset and start the slider
+//                handler.removeCallbacksAndMessages(null)
+//                currentPage = 0
+//                binding.vitalsSlider.setCurrentItem(currentPage, false)
+//                handler.postDelayed(sliderRunnable!!, slideDelay)
+//            }
+//        }
+
+
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             if (vitalList.isEmpty()) {
                 // If the vital list is empty, display all available vital names
@@ -209,8 +297,12 @@ class Dashboard  : Fragment() {
                 // Set the adapter to the ViewPager (slider)
                 binding.vitalsSlider.adapter = adapter
                 binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
+
+                // Reset slider and start the auto-slide
+                resetSliderAndStartAutoSlide()
+
             } else {
-                // If the vital list has data, show the real vitals as before
+                // If the vital list has data, show the real vitals
                 val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
                 val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
 
@@ -241,24 +333,16 @@ class Dashboard  : Fragment() {
                 binding.vitalsSlider.adapter = adapter
                 binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
 
-                // Start the slider animation (if applicable)
-                sliderRunnable = object : Runnable {
-                    override fun run() {
-                        if (adapter.count > 0) {
-                            currentPage = (currentPage + 1) % adapter.count
-                            binding.vitalsSlider.setCurrentItem(currentPage, true)
-                            handler.postDelayed(this, slideDelay)
-                        }
-                    }
-                }
-
-                // Reset and start the slider
-                handler.removeCallbacksAndMessages(null)
-                currentPage = 0
-                binding.vitalsSlider.setCurrentItem(currentPage, false)
-                handler.postDelayed(sliderRunnable!!, slideDelay)
+                // Reset slider and start the auto-slide
+                resetSliderAndStartAutoSlide()
             }
         }
+
+
+
+
+
+
         Glide.with(MyApplication.appContext)
             .load(PrefsManager().getPatient()?.profileUrl.toString())
             .placeholder(R.drawable.baseline_person_24)
@@ -374,7 +458,51 @@ class Dashboard  : Fragment() {
             }
         }
     }
+    private fun resetSliderAndStartAutoSlide() {
+        // Reset currentPage and stop previous handler
+        currentPage = 0
+        handler.removeCallbacksAndMessages(null)
 
+        // Set the ViewPager to the first item
+        binding.vitalsSlider.setCurrentItem(currentPage, false)
+
+        // Start auto-slide animation
+        sliderRunnable = object : Runnable {
+            override fun run() {
+                if (adapter.count > 0) {
+                    // Automatically slide to the next page
+                    currentPage = (currentPage + 1) % adapter.count
+                    binding.vitalsSlider.setCurrentItem(currentPage, true)
+
+                    // Continue sliding with a delay
+                    handler.postDelayed(this, slideDelay)
+                }
+            }
+        }
+
+        // Post the sliderRunnable to start sliding
+        handler.postDelayed(sliderRunnable!!, slideDelay)
+
+        // Listen for manual page changes
+        binding.vitalsSlider.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                // Not needed for this, but can be used to track scroll progress
+            }
+
+            override fun onPageSelected(position: Int) {
+                // Update currentPage when user manually swipes
+                currentPage = position
+
+                // Stop the current auto-slide handler and start it from the current page
+                handler.removeCallbacksAndMessages(null)
+                handler.postDelayed(sliderRunnable!!, slideDelay)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                // No need to handle this, but can be used for more advanced cases
+            }
+        })
+    }
     private fun showVoiceOverlay() {
         if (voiceDialog == null) {
             voiceDialog = Dialog(requireContext(), android.R.style.Theme_DeviceDefault_NoActionBar)

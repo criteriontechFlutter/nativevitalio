@@ -272,9 +272,9 @@ fun insertSymptoms(findNavController: NavController, requireContext: Context) {
                     .createApiService(
 
                     )
-                    .queryDynamicRawPost(
+                    .dynamicRawPost(
                         url = ApiEndPoint().insertSymtoms,
-                        params = queryParams
+                        body = queryParams
                     )
 
 

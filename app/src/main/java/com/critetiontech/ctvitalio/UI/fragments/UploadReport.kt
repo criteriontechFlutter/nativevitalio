@@ -28,6 +28,7 @@ import com.critetiontech.ctvitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
 import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import java.io.File
@@ -79,10 +80,22 @@ class UploadReport : Fragment() {
 
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success && imageUri != null && imageFile?.exists() == true) {
-                launchCropper(imageUri!!)
+            if (success) {
+                // Check if imageUri and imageFile are valid
+                if (imageUri != null && imageFile?.exists() == true) {
+                    // Image capture succeeded, proceed with cropping
+                    launchCropper(imageUri!!)
+                } else {
+                    // Handle failure: Image URI or file is invalid
+                    Toast.makeText(requireContext(), "Capture failed. Try again.", Toast.LENGTH_SHORT).show()
+                    imageUri = null
+                    imageFile = null
+                }
             } else {
-                Toast.makeText(requireContext(), "Capture failed", Toast.LENGTH_SHORT).show()
+                // Handle the case where the camera capture itself failed (e.g., user canceled)
+                Toast.makeText(requireContext(), "Capture failed. Try again.", Toast.LENGTH_SHORT).show()
+                imageUri = null
+                imageFile = null
             }
         }
 
@@ -151,38 +164,51 @@ class UploadReport : Fragment() {
         viewModel = ViewModelProvider(this)[UploadReportViewModel::class.java]
 
         val upperList = listOf(
-            UploadReportItem("Radiology", R.drawable.reminders),
-            UploadReportItem("Imaging", R.drawable.ic_list_icon),
-            UploadReportItem("Lab", R.drawable.ic_list_icon)
+            UploadReportItem("Radiology", R.drawable.reminders, "/path/to/file1.pdf", "Radiology"),
+            UploadReportItem("Imaging", R.drawable.reminders, "/path/to/file2.jpg", "Imaging"),
+            UploadReportItem("Lab", R.drawable.reminders, "/path/to/file3.pdf", "Lab")
         )
         binding.spinnerTestType.adapter = UploadReportAdapter(requireContext(), upperList)
 
+
         binding.etDate.setOnClickListener {
+            // Get current date in milliseconds
+            val today = Calendar.getInstance().timeInMillis
+
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select Report Date")
+                // Limit the date range to today or earlier
+                .setSelection(today) // Set the default selection to today
                 .build()
 
             datePicker.show(parentFragmentManager, "date_picker")
 
+            // Make sure user cannot pick future dates
             datePicker.addOnPositiveButtonClickListener { selectedDateMillis ->
-                val calendar = Calendar.getInstance().apply {
-                    timeInMillis = selectedDateMillis
-                }
+                if (selectedDateMillis > today) {
+                    // If the selected date is in the future, show a warning or reset the date
+                    Toast.makeText(requireContext(), "Cannot select a future date!", Toast.LENGTH_SHORT).show()
+                } else {
+                    val calendar = Calendar.getInstance().apply {
+                        timeInMillis = selectedDateMillis
+                    }
 
-                val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                val minute = calendar.get(Calendar.MINUTE)
+                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    val minute = calendar.get(Calendar.MINUTE)
 
-                TimePickerDialog(requireContext(), { _, h, m ->
-                    calendar.set(Calendar.HOUR_OF_DAY, h)
-                    calendar.set(Calendar.MINUTE, m)
+                    // Show time picker after selecting date
+                    TimePickerDialog(requireContext(), { _, h, m ->
+                        calendar.set(Calendar.HOUR_OF_DAY, h)
+                        calendar.set(Calendar.MINUTE, m)
 
-                    val formatted = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                        .format(calendar.time)
+                        val formatted = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                            .format(calendar.time)
 
-                    binding.etDate.setText(formatted)
-                }, hour, minute, false).apply {
-                    setTitle("Select Time")
-                    show()
+                        binding.etDate.setText(formatted)
+                    }, hour, minute, false).apply {
+                        setTitle("Select Time")
+                        show()
+                    }
                 }
             }
         }
@@ -200,32 +226,95 @@ class UploadReport : Fragment() {
             binding.tvSelectedFileName.text = "No file selected"
         }
 
+//        binding.btnUploadSave.setOnClickListener {
+//            val selectedFile = imageFile ?: run {
+//                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
+//
+//            lifecycleScope.launch {
+//                val result = viewModel.insertPatientMediaDataAndParseResponse(requireContext(), selectedFile)
+//
+//                val testType = binding.spinnerTestType.selectedItem?.let {
+//                    if (it is UploadReportItem) it.title else it.toString()
+//                } ?: "Unknown"
+//
+//                val testName = binding.etTestName.text.toString()
+//                val imagePath = selectedFile.absolutePath
+//
+//                val bundle = Bundle().apply {
+//                    putSerializable("parsedData", ArrayList(result))
+//                    putString("testType", testType)
+//                    putString("testName", testName)
+//                    putString("imagePath", imagePath)
+//                    putString("dateTime", binding.etDate.text.toString())
+//                }
+//
+//                findNavController().navigate(R.id.action_uploadReport_to_reportFieldsFragment, bundle)
+//
+//                Log.d("ParsedReportData", result.toString())
+//            }
+//        }
         binding.btnUploadSave.setOnClickListener {
-            val selectedFile = imageFile ?: run {
-                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+            val selectedFile = imageFile // Check if image is selected or captured
+            // Validate that the date is not empty and is a valid date
+            val selectedDate = binding.etDate.text.toString().trim()
+            if (selectedDate.isEmpty()) {
+                Toast.makeText(requireContext(), "Please select a valid date", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Validate if the date is valid (Optional: You could use a specific date format here)
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            try {
+                dateFormat.parse(selectedDate) // Try to parse the date
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Invalid date format", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validate that the test name is not empty
+            val testName = binding.etTestName.text.toString().trim()
+            if (testName.isEmpty()) {
+                Toast.makeText(requireContext(), "Please enter a test name", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Ensure that the selectedFile is not null and exists before proceeding
+            if (selectedFile == null || !selectedFile.exists() ) {
+                // Display message to the user if no file is selected or captured
+                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener // Exit the method to prevent further action
+            }
+
             lifecycleScope.launch {
+                // Proceed with uploading the file since it's selected and valid
                 val result = viewModel.insertPatientMediaDataAndParseResponse(requireContext(), selectedFile)
 
+                // Get selected test type, and fallback to "Unknown" if not selected
                 val testType = binding.spinnerTestType.selectedItem?.let {
                     if (it is UploadReportItem) it.title else it.toString()
                 } ?: "Unknown"
 
+                // Get the test name from the EditText
                 val testName = binding.etTestName.text.toString()
+
+                // Get the image path
                 val imagePath = selectedFile.absolutePath
 
+                // Prepare the bundle for navigation
                 val bundle = Bundle().apply {
-                    putSerializable("parsedData", ArrayList(result))
-                    putString("testType", testType)
-                    putString("testName", testName)
-                    putString("imagePath", imagePath)
-                    putString("dateTime", binding.etDate.text.toString())
+                    putSerializable("parsedData", ArrayList(result)) // Serialized result data
+                    putString("testType", testType) // Test type
+                    putString("testName", testName) // Test name
+                    putString("imagePath", imagePath) // Path to the uploaded image
+                    putString("dateTime", binding.etDate.text.toString()) // DateTime string
                 }
 
+                // Navigate to the next fragment with the uploaded data
                 findNavController().navigate(R.id.action_uploadReport_to_reportFieldsFragment, bundle)
 
+                // Log the parsed data (for debugging purposes)
                 Log.d("ParsedReportData", result.toString())
             }
         }
