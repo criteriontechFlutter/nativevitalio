@@ -155,7 +155,7 @@
                 android:layout_marginStart="24dp"
                 android:text="Other"
                 android:buttonTint="@color/primaryBlue"
-                android:textColor="#000" />
+                android:textColor="@color/textColor" />
         </RadioGroup>
         <Button
             android:id="@+id/updateProfileButton"
