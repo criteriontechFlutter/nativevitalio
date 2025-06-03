@@ -6,6 +6,37 @@
     android:orientation="vertical">
 
     <!-- Image view -->
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <!-- Back Icon -->
+    <ImageView
+        android:id="@+id/backIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_back"
+        android:contentDescription="Back" />
+
+    <!-- 🟢 Title: Lab Reports aligned left -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/backIcon"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
+        android:text="Report"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="@android:color/black" />
+
+
+
+</RelativeLayout>
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"

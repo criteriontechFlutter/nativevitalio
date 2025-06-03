@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+<!--    &lt;!&ndash; Cancel Button &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/btnCancel"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Cancel"-->
+<!--        android:textColor="@android:color/holo_blue_dark"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="16sp"-->
+<!--        android:paddingBottom="12dp" />-->
+
+<!--    &lt;!&ndash; Horizontal list of options &ndash;&gt;-->
+<!--    <HorizontalScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:scrollbars="none">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/imageSourceContainer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            &lt;!&ndash; Camera Option &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/optionCamera"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:src="@drawable/ic_camera" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Camera"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:gravity="center" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Photos Option &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/optionPhotos"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:src="@drawable/rounded_corners_nxt_btn" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Photos"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:gravity="center" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Gallery Option &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/optionGallery"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:src="@drawable/ic_gallery" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Gallery"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:gravity="center" />-->
+<!--            </LinearLayout>-->
+<!--            &lt;!&ndash; Gallery Option &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/removeBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:src="@drawable/bg_remove_button" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Remove"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:gravity="center" />-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+<!--    </HorizontalScrollView>-->
+
+</LinearLayout>

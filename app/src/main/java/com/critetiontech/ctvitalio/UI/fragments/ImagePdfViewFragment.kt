@@ -9,72 +9,69 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import android.widget.ImageView
+import androidx.navigation.fragment.findNavController
+import com.critetiontech.ctvitalio.databinding.FragmentImagePdfViewBinding
+import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
+
 //import com.github.barteksc.pdfviewer.PDFView
 
 class ImagePdfViewFragment : Fragment() {
 
-    private lateinit var imageView: ImageView
-//    private lateinit var pdfView: PDFView
+    private var _binding: FragmentImagePdfViewBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val binding = inflater.inflate(R.layout.fragment_image_pdf_view, container, false)
+    ): View {
+        _binding = FragmentImagePdfViewBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        imageView = binding.findViewById(R.id.imageView)
-//        pdfView = binding.findViewById(R.id.pdfView)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Get file URI passed as argument
         val fileUri: Uri? = arguments?.getParcelable("fileUri")
 
-        if (fileUri != null) {
-            val fileExtension = getFileExtension(fileUri)
+        fileUri?.let {
+            val fileExtension = getFileExtension(it)
 
             if (fileExtension.equals("pdf", ignoreCase = true)) {
-                // Show PDF
-                imageView.visibility = View.GONE
-//                pdfView.visibility = View.VISIBLE
-                loadPdf(fileUri)
+                binding.imageView.visibility = View.GONE
+                // TODO: Show PDF if implemented
             } else {
-                // Show Image
-//                pdfView.visibility = View.GONE
-                imageView.visibility = View.VISIBLE
-                loadImage(fileUri)
+                binding.imageView.visibility = View.VISIBLE
+                loadImage(it)
             }
         }
 
-        return binding
-    }
-
-    private fun loadPdf(uri: Uri) {
-        // Load PDF into PDFView
-//        pdfView.fromUri(uri)
-//            .enableSwipe(true) // Allows to swipe to change pages
-//            .swipeHorizontal(false)
-//            .enableDoubletap(true)
-//            .load()
+        binding.backIcon.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun loadImage(uri: Uri) {
-        // Load image into ImageView using Glide
         Glide.with(requireContext())
             .load(uri)
-            .into(imageView)
+            .into(binding.imageView)
     }
 
-    // Get the file extension (pdf, jpg, etc.)
     private fun getFileExtension(uri: Uri): String {
         val path = uri.path ?: return ""
-        return path.substring(path.lastIndexOf(".") + 1)
+        return path.substringAfterLast('.', "")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
         fun newInstance(uri: Uri): ImagePdfViewFragment {
             val fragment = ImagePdfViewFragment()
-            val args = Bundle()
-            args.putParcelable("fileUri", uri)
+            val args = Bundle().apply {
+                putParcelable("fileUri", uri)
+            }
             fragment.arguments = args
             return fragment
         }

@@ -177,7 +177,8 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
 
         binding.allergiesRow.title.text = getString(R.string.allergies)
         binding.allergiesRow.icon.setImageResource(R.drawable.ic_allergies)
-        binding.allergiesRow.count.text = ""
+        val allergiesValue = PrefsManager().getAllergies().toString()
+        binding.allergiesRow.count.text = if (allergiesValue == "0") "" else allergiesValue
 
         // Observer & Smartwatch
 //        binding.myObserverRow.title.text = getString(R.string.my_observer)
@@ -189,9 +190,13 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
 
         binding.connectSmartWatchRow.title.text = getString(R.string.connect_smart_watch)
         binding.connectSmartWatchRow.icon.setImageResource(R.drawable.ic_smartwatch)
+        val smartWatchRow = PrefsManager().getSmartWatch().toString()
+        binding.connectSmartWatchRow.count.text = if (smartWatchRow == "0") "" else smartWatchRow
 
         binding.emergencyContactRow.title.text = getString(R.string.emergency_contacts)
         binding.emergencyContactRow.icon.setImageResource(R.drawable.ic_emergency_contact)
+        val emergencyValue = PrefsManager().getEmergency().toString()
+        binding.emergencyContactRow.count.text = if (emergencyValue == "0") "" else emergencyValue
 //
 //        binding.familyHealthHistoryRow.title.text = getString(R.string.family_health_history)
 //        binding.familyHealthHistoryRow.icon.setImageResource(R.drawable.ic_health_history)

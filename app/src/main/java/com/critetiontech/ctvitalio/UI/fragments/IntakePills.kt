@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.databinding.FragmentIntakePillsBinding
 import com.critetiontech.ctvitalio.viewmodel.IntakePillsViewModel
 
@@ -53,6 +54,8 @@ class IntakePills : Fragment() {
                     durationType = it.durationType,
                     compareTime = it.time
                 )
+
+                findNavController().popBackStack()
             }
         }
 

@@ -59,6 +59,7 @@ dependencies {
 //        "dir" to "C:\\Gitea_Projects\\nativevitalio\\app\\libs\\omronconnectivitylibrary.aar",
 //        "include" to listOf("*.aar", "*.jar"),
 //    )))
+
     implementation(fileTree(mapOf(
         "dir" to "libs",
         "include" to listOf("*.aar", "*.jar")
@@ -80,7 +81,7 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
 //    implementation("com.github.barteksc.pdfviewer:android-pdf-viewer:3.1.0") // Stable version of PDFView
-
+    implementation ("com.google.android.material:material:1.4.0")
 
     //otp view
 //    implementation (libs.otpview)

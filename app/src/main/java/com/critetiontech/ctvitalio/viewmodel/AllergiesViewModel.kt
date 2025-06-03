@@ -86,12 +86,12 @@ class AllergiesViewModel  :ViewModel(){
                     }
 
                     _allergyList.value = allItems
-                } else {
+                } else { _allergyList.value= emptyList()
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
-            } catch (e: Exception) {
+            } catch (e: Exception) { _allergyList.value= emptyList()
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()

@@ -125,7 +125,7 @@ class CreateAccount : Fragment() {
         progressViewModel.updateProgressPage(0)
         binding.btnNext.setOnClickListener(){
             viewModel.patientSignUp()
-            progressViewModel.updateProgress(10)
+            progressViewModel.updateProgress(12)
             progressViewModel.updateProgressPage(1)
             findNavController().navigate(R.id.accountSuccess)
         }

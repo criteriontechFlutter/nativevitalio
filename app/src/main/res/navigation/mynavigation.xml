@@ -185,6 +185,9 @@
         <action
             android:id="@+id/action_uploadReportHistory_to_uploadReport3"
             app:destination="@id/uploadReport" />
+        <action
+            android:id="@+id/action_uploadReportHistory_to_imagePdfViewFragment"
+            app:destination="@id/imagePdfViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfile3"

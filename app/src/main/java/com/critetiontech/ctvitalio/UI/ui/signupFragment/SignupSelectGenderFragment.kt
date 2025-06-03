@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -46,7 +47,6 @@ class SignupSelectGenderFragment : Fragment() {
                 "Other" -> highlightSelectedCard(binding.layoutOther)
             }
             binding.btnNext.isEnabled = true
-            binding.btnNext.setBackgroundResource(R.drawable.rounded_corners)
         }
 
         binding.btnNext.setOnClickListener {
@@ -63,7 +63,7 @@ class SignupSelectGenderFragment : Fragment() {
                 else -> ""
             }
 
-            progressViewModel.updateProgress(2)
+            progressViewModel.updateProgress(3)
             findNavController().navigate(R.id.action_genderFragment_to_dobFragment)
         }
     }
@@ -83,7 +83,6 @@ class SignupSelectGenderFragment : Fragment() {
                 viewModel.genderId.value = genderMap[layout]?.second
 
                 binding.btnNext.isEnabled = true
-                binding.btnNext.setBackgroundResource(R.drawable.rounded_corners)
             }
         }
     }
@@ -91,12 +90,20 @@ class SignupSelectGenderFragment : Fragment() {
     private fun highlightSelectedCard(selected: View) {
         val allLayouts = listOf(binding.layoutMale, binding.layoutFemale, binding.layoutOther)
         allLayouts.forEach {
-            it.setBackgroundResource(
-                if (it == selected)
-                    R.drawable.gender_card_unselected  // selected background
-                else
-                    R.drawable.gender_card_selected    // unselected background
-            )
+            val textView = when (it) {
+                binding.layoutMale -> binding.tvMale
+                binding.layoutFemale -> binding.tvFemale
+                else -> binding.tvOther
+            }
+
+            // Change background and text color
+            if (it == selected) {
+                it.setBackgroundResource(R.drawable.gender_card_unselected)  // selected background
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))  // selected text color
+            } else {
+                it.setBackgroundResource(R.drawable.gender_card_selected)  // unselected background
+                textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.bgDark))  // unselected text color
+            }
         }
     }
 }

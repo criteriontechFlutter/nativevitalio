@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.utils
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -57,16 +60,26 @@ class AddAllergyBottomSheet : BottomSheetDialogFragment() {
         binding = BottomsheetAddAllergyBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Auto focus and show keyboard for inputSubstance
+        binding.inputSubstance.requestFocus()
+        binding.inputSubstance.post {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.inputSubstance, InputMethodManager.SHOW_IMPLICIT)
+        }
 
         // Define the input filter to allow only letters and spaces
         val letterFilter = InputFilter { source, start, end, dest, dstart, dend ->
             if (source.matches("[a-zA-Z\\s]+".toRegex())) {
                 null // Allow input
             } else {
-                "" // Reject input if it contains anything other than letters and spaces
+                "" // Reject input
             }
         }
 
@@ -116,7 +129,6 @@ class AddAllergyBottomSheet : BottomSheetDialogFragment() {
             )
         }
     }
-
     private fun selectSeverity(severity: String) {
         selectedSeverity = severity
 

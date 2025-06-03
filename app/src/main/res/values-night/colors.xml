@@ -15,6 +15,7 @@
     <color name="dashboardIconColor3">@color/blackText</color>
     <color name="dashboardIconColor4">@color/blackText</color>
     <color name="dashboardIconBg">@color/bgDark2</color>
+    <color name="bloodgroupColor">@color/bgDark2</color>
     <color name="drawableStrokeColor">@color/blackText</color>
     <color name="blackTextColor">@color/primaryBlueLight</color>
     <color name="symptomTextColor">@color/primaryBlueLight</color>

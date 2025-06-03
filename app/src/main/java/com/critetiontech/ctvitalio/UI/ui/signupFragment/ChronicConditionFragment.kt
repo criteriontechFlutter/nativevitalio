@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -42,7 +43,8 @@ class ChronicConditionFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 if (input.isNotEmpty()) {
-                    viewModel.getProblemList(input.first().toString())
+                    viewModel.getProblemList(input.toString())
+                    binding.chronicDis.setDropDownBackgroundResource(android.R.color.white)
                     binding.chronicDis.showDropDown()
                 }
             }
@@ -82,7 +84,7 @@ class ChronicConditionFragment : Fragment() {
             val summary = viewModel.selectedDiseaseList.value
                 ?.joinToString(", ") { it["details"] ?: "" } ?: ""
 
-            progressViewModel.updateProgress(8)
+            progressViewModel.updateProgress(9)
             viewModel.chronicDisease.value = summary
             findNavController().navigate(R.id.action_chronicConditionFragment_to_otherChronicDisease)
         }

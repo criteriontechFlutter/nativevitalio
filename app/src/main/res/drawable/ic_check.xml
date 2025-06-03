@@ -1,0 +1,10 @@
+<!-- In res/drawable/ic_check.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00FF00"
+    android:pathData="M19.4,5.6L10,15.2L4.6,9.8L3.2,11.2L10,17.6L20.8,6.8z" />
+</vector>

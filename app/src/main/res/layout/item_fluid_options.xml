@@ -7,14 +7,16 @@
     android:padding="8dp"
     android:gravity="start">
 
-    <Button
+    <com.google.android.material.chip.Chip
         android:id="@+id/btnAddFluid"
+        style="@style/ChatChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Fluid" />
 
-    <Button
+    <com.google.android.material.chip.Chip
         android:id="@+id/btnHistoryFluid"
+        style="@style/ChatChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fluid History" />
