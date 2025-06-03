@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import android.R
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,14 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
             R.layout.simple_spinner_dropdown_item,
             relationships
         )
+        val nameFilter = InputFilter { source, _, _, _, _, _ ->
+            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
+            if (source.isEmpty()) return@InputFilter null // Allow backspace
 
+            val filtered = source.filter { it.toString().matches(regex) }
+            if (filtered == source) null else filtered
+        }
+        binding.etName.filters = arrayOf(nameFilter)
         binding.btnSaveContact.setOnClickListener {
             val name = binding.etName.text.toString()
             val phone = binding.etContactNumber.text.toString()

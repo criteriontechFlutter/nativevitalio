@@ -33,7 +33,9 @@ class AccountSuccess : Fragment() {
 
         // Handle the "Set Preferences" button click
         binding.btnSetPreferences.setOnClickListener {
-            progressViewModel.updateProgress(11)
+            progressViewModel.updateProgress(12)
+
+            progressViewModel.updateProgressPage(2)
             findNavController().navigate(R.id.action_accountSuccess_to_setPreferences)
         }
     }

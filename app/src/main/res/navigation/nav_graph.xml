@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_weightFragment_to_heightFragment"
             app:destination="@id/heightFragment" />
+        <action
+            android:id="@+id/action_weightFragment_to_heightFragment2"
+            app:destination="@id/heightFragment" />
     </fragment>
     <fragment
         android:id="@+id/heightFragment"
@@ -70,6 +73,9 @@
         <action
             android:id="@+id/action_heightFragment_to_chronicConditionFragment"
             app:destination="@id/chronicConditionFragment" />
+        <action
+            android:id="@+id/action_heightFragment_to_chronicConditionFragment2"
+            app:destination="@id/chronicConditionFragment" />
     </fragment>
     <fragment
         android:id="@+id/chronicConditionFragment"
@@ -78,6 +84,9 @@
         tools:layout="@layout/fragment_chronic_condition" >
         <action
             android:id="@+id/action_chronicConditionFragment_to_otherChronicDisease"
+            app:destination="@id/otherChronicDisease" />
+        <action
+            android:id="@+id/action_chronicConditionFragment_to_otherChronicDisease2"
             app:destination="@id/otherChronicDisease" />
     </fragment>
     <fragment
@@ -94,6 +103,9 @@
         android:label="OtherChronicDisease" >
         <action
             android:id="@+id/action_otherChronicDisease_to_familyDiseaseFragment"
+            app:destination="@id/familyDiseaseFragment" />
+        <action
+            android:id="@+id/action_otherChronicDisease_to_familyDiseaseFragment2"
             app:destination="@id/familyDiseaseFragment" />
     </fragment>
     <fragment

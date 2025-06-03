@@ -50,15 +50,13 @@ class SetPreferences : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
+            progressViewModel.updateProgress(13)
+            progressViewModel.updateProgressPage(2)
+
 //            val selected = viewModel.setVitalList.value?.filter { it.isCheck } ?: emptyList()
             findNavController().navigate(R.id.action_setPreferences_to_setPreferenseFluidItake)
         }
 
-        binding.btnSkip.setOnClickListener {
-            progressViewModel.updateProgress(12)
-
-            findNavController().navigateUp()
-        }
     }
 
     private fun tryRenderRecycler() {

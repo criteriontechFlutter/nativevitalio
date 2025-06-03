@@ -25,14 +25,10 @@
         android:lineSpacingExtra="2dp"
         android:paddingEnd="8dp" />
 
-    <Button
+    <com.google.android.material.chip.Chip
         android:id="@+id/btnGoRoute"
+        style="@style/ChatChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go"
-        android:textAllCaps="false"
-        android:backgroundTint="?attr/colorPrimary"
-        android:textColor="@android:color/white"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
+        android:text="Go" />
 </LinearLayout>

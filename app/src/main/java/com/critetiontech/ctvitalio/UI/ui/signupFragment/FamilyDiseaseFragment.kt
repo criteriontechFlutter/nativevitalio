@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -44,7 +46,8 @@ class FamilyDiseaseFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 if (input.isNotEmpty()) {
-                    viewModel.getProblemList(input.first().toString())
+                    viewModel.getProblemList(input.toString())
+                    binding.chronicDis.setDropDownBackgroundResource(android.R.color.white)
                     binding.chronicDis.showDropDown()
                 }
             }
@@ -86,7 +89,7 @@ class FamilyDiseaseFragment : Fragment() {
                 "$relation: ${diseases.joinToString(", ")}"
             }
             viewModel.familyDiseases.value = joined
-            progressViewModel.updateProgress(10)
+            progressViewModel.updateProgress(11)
             findNavController().navigate(R.id.action_familyDiseaseFragment_to_createAccount2)
         }
     }
@@ -115,6 +118,7 @@ class FamilyDiseaseFragment : Fragment() {
             .setView(dialogView)
             .setCancelable(true)
             .create()
+        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners) // Apply rounded corners to dialog
 
         val checkBoxes = listOf(
             dialogView.findViewById<CheckBox>(R.id.checkboxMother),
@@ -127,13 +131,25 @@ class FamilyDiseaseFragment : Fragment() {
         val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmit)
 
         checkBoxes.forEach { cb ->
-            cb.setOnCheckedChangeListener { _, _ ->
+            cb.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    // Add a checkmark icon when checked
+                    cb.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0)  // Assuming you have a checkmark icon (ic_check)
+                } else {
+                    // Remove the checkmark when unchecked
+                    cb.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)  // No icon
+                }
+
                 val anyChecked = checkBoxes.any { it.isChecked }
-                btnSubmit.isEnabled = anyChecked
-                btnSubmit.setBackgroundResource(
-                    if (anyChecked) R.drawable.progress_selected
-                    else R.drawable.progress_unselected
+
+                // Change the background tint color depending on whether any checkbox is selected
+                btnSubmit.backgroundTintList = ColorStateList.valueOf(
+                    if (anyChecked) ContextCompat.getColor(requireContext(), R.color.primaryColor) // Selected tint
+                    else ContextCompat.getColor(requireContext(), R.color.white) // Unselected tint
                 )
+
+                // Enable/Disable the button based on the selection
+                btnSubmit.isEnabled = anyChecked
             }
         }
 

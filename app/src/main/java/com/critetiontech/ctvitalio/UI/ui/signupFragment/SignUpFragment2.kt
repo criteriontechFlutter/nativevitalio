@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +40,15 @@ class SignUpFragment2 : Fragment() {
         // ✅ Restore existing values if already entered
         binding.etFirstName.setText(viewModel.firstName.value ?: "")
         binding.etLastName.setText(viewModel.lastName.value ?: "")
+        val nameFilter = InputFilter { source, _, _, _, _, _ ->
+            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
+            if (source.isEmpty()) return@InputFilter null // Allow backspace
 
+            val filtered = source.filter { it.toString().matches(regex) }
+            if (filtered == source) null else filtered
+        }
+        binding.etFirstName.filters = arrayOf(nameFilter)
+        binding.etLastName.filters = arrayOf(nameFilter)
         binding.btnNext.setOnClickListener {
             val first = binding.etFirstName.text.toString().trim()
             val last = binding.etLastName.text.toString().trim()
@@ -55,7 +64,8 @@ class SignUpFragment2 : Fragment() {
             viewModel.lastName.value = last
 
             // ✅ Update progress
-            progressViewModel.updateProgress(1)
+            progressViewModel.updateProgress(2)
+            progressViewModel.updateProgressPage(0)
 
             // ✅ Navigate to next fragment
             findNavController().navigate(R.id.action_nameFragment_to_genderFragment)

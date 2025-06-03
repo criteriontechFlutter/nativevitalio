@@ -9,15 +9,20 @@ android:useDefaultMargins="true"
 android:padding="8dp"
 android:gravity="start">
 
-<Button
-    android:id="@+id/btnAddSymptom"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Add Symptom" />
 
-<Button
-    android:id="@+id/btnHistorySymptom"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Symptom History" />
+
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/btnAddSymptom"
+        style="@style/ChatChipStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Symptom" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/btnHistorySymptom"
+        style="@style/ChatChipStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Symptom History" />
 </GridLayout>
