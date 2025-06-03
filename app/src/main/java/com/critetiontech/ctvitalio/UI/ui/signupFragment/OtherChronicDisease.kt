@@ -47,7 +47,8 @@ class OtherChronicDisease : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 if (input.isNotEmpty()) {
-                    viewModel.getProblemList(input.first().toString())
+                    viewModel.getProblemList(input.toString())
+                    binding.chronicDis.setDropDownBackgroundResource(android.R.color.white)
                     binding.chronicDis.showDropDown()
                 }
             }
@@ -91,7 +92,7 @@ class OtherChronicDisease : Fragment() {
                 viewModel.selectedOtherChronicDiseaseList.value?.joinToString(", ") {
                     it["details"] ?: ""
                 } ?: ""
-            progressViewModel.updateProgress(9)
+            progressViewModel.updateProgress(10)
             findNavController().navigate(R.id.action_otherChronicDisease_to_familyDiseaseFragment)
         }
     }

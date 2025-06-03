@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerLayout">
@@ -55,17 +55,18 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:checkable="true"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:text="@string/daily"
             android:textColor="@android:color/white"
             app:backgroundTint="@color/primaryBlue"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="14dp"
+            app:strokeWidth="0dp"
+            app:strokeColor="@android:color/transparent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_weekly"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:paddingStart="@dimen/_16sdp"
@@ -73,11 +74,13 @@
             android:text="@string/weekly"
             android:textColor="@color/gray"
             app:backgroundTint="@android:color/white"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="14dp"
+            app:strokeWidth="0dp"
+            app:strokeColor="@android:color/transparent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_monthly"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:paddingStart="@dimen/_16sdp"
@@ -85,7 +88,9 @@
             android:text="@string/monthly"
             android:textColor="@color/gray"
             app:backgroundTint="@android:color/white"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="14dp"
+            app:strokeWidth="0dp"
+            app:strokeColor="@android:color/transparent" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <!-- Date Navigation -->
@@ -96,7 +101,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabToggleGroup">

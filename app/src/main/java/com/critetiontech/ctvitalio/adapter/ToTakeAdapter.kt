@@ -49,11 +49,15 @@ class ToTakeAdapter(
         val sampleIconType = item.jsonTime.firstOrNull()?.icon
         holder.checkBox.buttonDrawable = getTintedIcon(sampleIconType)
 
+
 //        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
 //            onCheckChanged(item, isChecked)
 //        }
 
         holder.itemView.setOnClickListener {
+            onItemClick(item)
+        }
+        holder.checkBox.setOnClickListener {
             onItemClick(item)
         }
     }
@@ -68,20 +72,21 @@ class ToTakeAdapter(
 
     private fun getTintedIcon(icon: String?): Drawable? {
         val context = MyApplication.appContext
-        val (iconRes, colorRes) = when (icon?.lowercase()) {
-            "taken" -> Pair(R.drawable.check, R.color.primaryBlue)
-            "missed" -> Pair(com.google.android.material.R.drawable.mtrl_ic_error, R.color.black)
-            "upcoming" -> Pair(R.drawable.check, R.color.darkYellow)
-            "late" -> Pair(R.drawable.check, R.color.primaryBlue)
-            "check" -> Pair(R.drawable.check, R.color.primaryBlue)
-            "exclamation" -> Pair(com.google.android.material.R.drawable.mtrl_ic_error, R.color.red)
-            else -> Pair(com.google.android.material.R.drawable.abc_list_pressed_holo_dark, R.color.white)
+
+        val iconKey = icon?.lowercase() ?: return null
+
+        val (iconRes, colorRes) = when (iconKey) {
+            "taken" -> R.drawable.check to R.color.primaryBlue
+            "missed" -> R.drawable.ic_checkbox_square to R.color.primaryBlue
+            "upcoming" -> R.drawable.check to R.color.darkYellow
+            "late" -> R.drawable.check to R.color.primaryBlue
+            "check" -> R.drawable.check to R.color.primaryBlue
+            "exclamation" -> R.drawable.ic_checkbox_square to R.color.primaryBlue
+            else -> R.drawable.check to R.color.primaryBlue // fallback
         }
 
-        return AppCompatResources.getDrawable(context, iconRes)?.apply {
-            mutate()
+        return AppCompatResources.getDrawable(context, iconRes)?.mutate()?.apply {
             setTint(ContextCompat.getColor(context, colorRes))
         }
     }
-
 }

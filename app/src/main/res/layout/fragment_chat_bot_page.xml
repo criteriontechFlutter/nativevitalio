@@ -29,19 +29,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:gravity="start"
             android:text="Vitalio Chat Bot"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold" />
 
-        <!-- Action Button -->
-        <Button
+        <com.google.android.material.chip.Chip
             android:id="@+id/actionButton"
+            style="@style/ChatChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_coner_pc"
-            android:text="Restart Chat"
-            android:contentDescription="Restart Chat" />
+            android:text="Restart Chat" />
+        <!-- Action Button -->
     </LinearLayout>
 
     <!-- RecyclerView -->

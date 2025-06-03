@@ -28,11 +28,11 @@
         android:textColor="@android:color/holo_blue_dark"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@id/fluidImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="32dp" />
 
     <!-- Subtitle -->
     <TextView
@@ -42,7 +42,7 @@
         android:text="We've got the time to remind you for your vitals.\nLet us know about your fluid intake."
         android:textColor="#666666"
         android:textSize="14sp"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +81,11 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:entries="@array/fluid_units"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="@id/fluidIntakeInput"
         app:layout_constraintBottom_toBottomOf="@id/fluidIntakeInput"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <!-- Next Button -->
     <Button
@@ -92,7 +94,7 @@
         android:layout_height="48dp"
         android:text="Next"
         android:textColor="@android:color/white"
-        android:background="@drawable/bg_button_rounded"
+        android:backgroundTint="@color/primaryBlue"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

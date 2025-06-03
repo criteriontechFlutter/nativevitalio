@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import PrefsManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -43,8 +44,11 @@ class EmergencyContactFragment : Fragment() {
             val bottomSheet = AddContactBottomSheet()
             bottomSheet.show(parentFragmentManager, "AddContactBottomSheet")
         }
-
+        viewModel.emergencyContactList.observe(viewLifecycleOwner) { data ->
+            PrefsManager().saveEmergency(viewModel.emergencyContactList.value?.size.toString())
+        }
         setupRecyclerView()
+
 
         binding.backIcon.setOnClickListener {
             findNavController().popBackStack()

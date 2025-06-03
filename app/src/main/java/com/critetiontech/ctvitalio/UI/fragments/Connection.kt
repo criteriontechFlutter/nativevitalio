@@ -207,7 +207,12 @@ class Connection: Fragment() {
 //                selectedPositionText.text = "Position: $remark"
                 Toast.makeText(requireContext(), vitalType, Toast.LENGTH_SHORT).show()
                 when (vitalType) {
-                    "Blood Pressure" -> viewModel.insertPatientVital(findNavController(),requireContext(),sysInput.text.toString(), diaInput.text.toString(), positionId.toString())
+                    "Blood Pressure" -> viewModel.insertPatientVital(
+                        navController= findNavController(),
+                        requireContext=requireContext(),
+                        BPSys=sysInput.text.toString(),
+                        BPDias=diaInput.text.toString(),
+                        positionId= positionId.toString())
                     "Respiratory Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),rr = rrInput.text.toString(), positionId = positionId.toString())
                     "Blood Oxygen (spo2)" -> viewModel.insertPatientVital(findNavController(),requireContext(),spo2 = spo2Input.text.toString(), positionId = positionId.toString())
                     "Heart Rate" -> viewModel.insertPatientVital(findNavController(),requireContext(),hr = heartRateInput.text.toString(), positionId = positionId.toString())

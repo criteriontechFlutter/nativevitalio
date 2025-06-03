@@ -80,14 +80,28 @@ class SymptomHistory : Fragment() {
             }
             applyFilter(currentFilter, newDate)
         }
-        binding.tabToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            updateToggleStyles(checkedId)
-            if (!isChecked) return@addOnButtonCheckedListener
-            when (checkedId) {
-                R.id.btn_daily -> applyFilter(FilterType.DAILY)
-                R.id.btn_weekly -> applyFilter(FilterType.WEEKLY)
-                R.id.btn_monthly -> applyFilter(FilterType.MONTHLY)
+        binding.btnDaily.setOnClickListener {
+            if (currentFilter != FilterType.DAILY) {
+                binding.tabToggleGroup.check(R.id.btn_daily)
             }
+            applyFilter(FilterType.DAILY)
+            updateToggleStyles(R.id.btn_daily)
+        }
+
+        binding.btnWeekly.setOnClickListener {
+            if (currentFilter != FilterType.WEEKLY) {
+                binding.tabToggleGroup.check(R.id.btn_weekly)
+            }
+            applyFilter(FilterType.WEEKLY)
+            updateToggleStyles(R.id.btn_weekly)
+        }
+
+        binding.btnMonthly.setOnClickListener {
+            if (currentFilter != FilterType.MONTHLY) {
+                binding.tabToggleGroup.check(R.id.btn_monthly)
+            }
+            applyFilter(FilterType.MONTHLY)
+            updateToggleStyles(R.id.btn_monthly)
         }
     }
 

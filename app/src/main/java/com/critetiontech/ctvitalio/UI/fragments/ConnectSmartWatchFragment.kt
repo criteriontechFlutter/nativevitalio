@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import PrefsManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,9 @@ class ConnectSmartWatchFragment : Fragment() {
             viewModel.addWatch(
                 WatchModel("New Watch ${Random().nextInt(999)}", "100%", R.drawable.watch)
             )
+        }
+        viewModel.watchList.observe(viewLifecycleOwner) { data ->
+            PrefsManager().saveSmartWatch(viewModel.watchList.value?.size.toString())
         }
 
         binding.btnBack.setOnClickListener {
