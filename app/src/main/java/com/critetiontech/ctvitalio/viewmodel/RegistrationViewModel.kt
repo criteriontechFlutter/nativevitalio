@@ -405,7 +405,7 @@ class RegistrationViewModel  : ViewModel(){
                         "quantity" to vital.quantity.toString(),
                         "frequencyType" to vital.frequencyType,
                         "isCheck" to false,
-                        "uhid" to 0
+                        "uhid" to  PrefsManager().getPatient()?.uhID.toString()
                     )
                 }?.toMutableList() ?: mutableListOf()
 // Now you can safely add
@@ -413,11 +413,11 @@ class RegistrationViewModel  : ViewModel(){
                     mapOf(
                         "parameterId" to "2",
                         "parameterTypeId" to "1",
-                        "name" to "Fluid Limit",
+                        "name" to "Recommended Fluid Intake",
                         "quantity" to fluidIntake.value.toString().split(".")[0].toString(),
-                        "frequencyType" to "Daily",
+                        "frequencyType" to "Recommended Fluid Intake",
                         "isCheck" to false,
-                        "uhid" to "0"
+                        "uhid" to  PrefsManager().getPatient()?.uhID.toString()
                     )
                 )
 
@@ -425,7 +425,7 @@ class RegistrationViewModel  : ViewModel(){
                     "parameterJson" to Gson().toJson(temp),
                     "clientId" to "194",
                     "pid" to PrefsManager().getPatient()?.pid.toString(),
-                    "userId" to 0
+                    "userId" to PrefsManager().getPatient()?.uhID.toString()
                 )
 
                 val response = RetrofitInstance

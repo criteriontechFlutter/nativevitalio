@@ -26,6 +26,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
 
     init {
         getEmergencyContacts()
+
     }
 
 
@@ -91,11 +92,13 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                     val parsed = Gson().fromJson(json, EmergencyContactResponse::class.java)
                     _emergencyContactList.value = parsed.responseValue
                 } else {
+                    _emergencyContactList.value= emptyList()
                     _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
+                _emergencyContactList.value= emptyList()
                 _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"

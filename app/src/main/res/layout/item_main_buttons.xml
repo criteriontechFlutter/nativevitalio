@@ -1,58 +1,66 @@
-<GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chatBotLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:columnCount="2"
-    android:rowCount="3"
-    android:padding="12dp"
-    android:useDefaultMargins="true"
-    android:alignmentMode="alignMargins">
+    android:padding="16dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnVital"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Vital"
-        android:layout_columnWeight="1"
-        style="@style/ChatGridButton" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSymptoms"
+    <!-- ChipGroup for Menu -->
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Symptoms"
-        android:layout_columnWeight="1"
-        style="@style/ChatGridButton" />
+        android:layout_marginTop="16dp"
+        app:singleLine="false"
+        app:chipSpacingHorizontal="12dp"
+        app:chipSpacingVertical="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnFluid"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Fluid"
-        android:layout_columnWeight="1"
-        style="@style/ChatGridButton" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/btnVital"
+            style="@style/ChatChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vital" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnDiet"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Diet"
-        android:layout_columnWeight="1"
-        style="@style/ChatGridButton" />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPillsReminder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pills Reminder"
-        android:layout_columnWeight="1"
-        style="@style/ChatGridButton" />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnUploadReport"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Upload Report"
-        android:layout_columnWeight="1"
-        style="@style/ChatGridButton" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/btnSymptoms"
+            style="@style/ChatChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Symptoms" />
 
-</GridLayout>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/btnFluid"
+            style="@style/ChatChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fluid" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/btnDiet"
+            style="@style/ChatChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diet" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/btnPillsReminder"
+            style="@style/ChatChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pills Reminder" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/btnUploadReport"
+            style="@style/ChatChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Report" />
+    </com.google.android.material.chip.ChipGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

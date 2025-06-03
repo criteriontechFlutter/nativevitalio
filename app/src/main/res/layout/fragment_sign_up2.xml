@@ -41,7 +41,7 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Let us now about you so we can manage to help you in better ways."
+                android:text="Let us know about you, so we can manage to help you in better ways."
                 android:textColor="#666666"
                 android:textSize="14sp"
                 android:textAlignment="textStart"
@@ -96,7 +96,7 @@
                 android:layout_marginTop="50dp"
                 app:tint="@color/primaryBlue"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_corners"
+                app:cornerRadius="10dp"
                 android:backgroundTint="@color/primaryBlue"
                 android:text="Next"
                 android:textColor="#FFFFFF" />

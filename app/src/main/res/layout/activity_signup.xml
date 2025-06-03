@@ -71,6 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/skipButton">
 
             <LinearLayout
+                android:id="@+id/progress_bar_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -100,6 +101,7 @@
                         android:layout_height="8dp"
                         android:layout_weight="1"
                         android:indeterminate="false"
+                        android:background="@drawable/rounded_corners_nxt_btn"
                         android:max="100"
                         android:progress="10"
                         android:progressDrawable="@drawable/progress_bar_blue" />

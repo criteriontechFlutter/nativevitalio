@@ -44,11 +44,11 @@ class UploadReportHistory : Fragment() {
                 // For example, open the image in a full-screen activity
                 val bundle = Bundle().apply {
 
-//                    putString("fileUri", imageUri.ur.toString()) // DateTime string
+                    putString("fileUri", imageUri.path.toString()) // DateTime string
                 }
 
                 // Navigate to the next fragment with the uploaded data
-                findNavController().navigate(R.id.action_uploadReport_to_reportFieldsFragment, bundle)
+                findNavController().navigate(R.id.action_uploadReportHistory_to_imagePdfViewFragment, bundle)
 
             }
             binding.recyclerViewReports.adapter = adapter

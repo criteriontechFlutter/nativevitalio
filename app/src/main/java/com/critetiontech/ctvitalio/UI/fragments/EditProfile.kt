@@ -3,9 +3,11 @@ package com.critetiontech.ctvitalio.UI.fragments
 import PrefsManager
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -40,13 +42,43 @@ class EditProfile : Fragment() {
         binding.dobField.setOnClickListener {
             showDatePicker()
         }
+        val nameFilter = InputFilter { source, _, _, _, _, _ ->
+            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
+            if (source.isEmpty()) return@InputFilter null // Allow backspace
+
+            val filtered = source.filter { it.toString().matches(regex) }
+            if (filtered == source) null else filtered
+        }
+        binding.firstNameField.filters = arrayOf(nameFilter)
+        binding.lastNameField.filters = arrayOf(nameFilter)
+
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
         // Handle update button click
         binding.updateProfileButton.setOnClickListener {
-            val name = "${binding.firstNameField.text} ${binding.lastNameField.text}"
+            val firstName = binding.firstNameField.text.toString().trim()
+            val lastName = binding.lastNameField.text.toString().trim()
+
+
+// 1. Validate names
+            if (firstName.isEmpty()) {
+                Toast.makeText(requireContext(), "First name is required", Toast.LENGTH_SHORT).show()
+                binding.firstNameField.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (lastName.isEmpty()) {
+                Toast.makeText(requireContext(), "Last name is required", Toast.LENGTH_SHORT).show()
+                binding.lastNameField.requestFocus()
+                return@setOnClickListener
+            }
+
+
+
+            // 2. Prepare values
+            val name = "$firstName $lastName"
             val phone = prefsManager.getPatient()?.mobileNo.toString()
             val email = prefsManager.getPatient()?.emailID.toString()
             val address = prefsManager.getPatient()?.address.toString()
@@ -54,15 +86,13 @@ class EditProfile : Fragment() {
                 R.id.radioMale -> "1"
                 R.id.radioFemale -> "2"
                 R.id.radioOther -> "3"
-                else -> "1"  // Default to Male if no selection
+                else -> "1"
             }
             val height = prefsManager.getPatient()?.height.toString()
             val weight = prefsManager.getPatient()?.weight.toString()
 
-            val rawDob = binding.dobField.text.toString()  // Expected format: yyyy-MM-dd
-
-
-            val inputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // ✅ This is the correct pattern
+            val rawDob = binding.dobField.text.toString()
+            val inputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
             val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
             val convertedDob = try {
@@ -70,9 +100,10 @@ class EditProfile : Fragment() {
                 outputFormat.format(parsedDate!!)
             } catch (e: Exception) {
                 e.printStackTrace()
-                rawDob // fallback
+                rawDob
             }
 
+            // 3. Call ViewModel if all fields are valid
             viewModel.updateUserData(
                 requireContext(),
                 filePath = null,
@@ -112,7 +143,7 @@ class EditProfile : Fragment() {
             when (gender) {
                 "1" -> binding.radioMale.isChecked = true
                 "2" -> binding.radioFemale.isChecked = true
-                "3" -> binding.radioFemale.isChecked = true
+                "3" -> binding.radioOther.isChecked = true
             }
         }
     }

@@ -1,5 +1,6 @@
 
 import android.content.Context
+import android.icu.text.DisplayOptions.DisplayLength
 import android.util.Log
 import androidx.core.content.edit
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -66,6 +67,9 @@ class PrefsManager( ) {
 
     companion object {
         private const val KEY_PATIENT = "current_patient"
+        private const val KEY_Allergies = "allergies_length"
+        private const val KEY_Emergency = "Emergency_length"
+        private const val KEY_SmartWatch = "SmartWatch_length"
         private const val KEY_DEVICE_TOKEN = "deviceToken"
     }
 
@@ -73,6 +77,23 @@ class PrefsManager( ) {
     fun savePatient(patient: Patient) {
         sharedPref.edit {
             putString(KEY_PATIENT, gson.toJson(patient))
+        }
+    }
+
+    fun saveAllergies(allergiesLength: String) {
+        sharedPref.edit {
+            putString(KEY_Allergies,allergiesLength)
+        }
+    }
+
+    fun saveEmergency(emergencyLength: String) {
+        sharedPref.edit {
+            putString(KEY_Emergency,emergencyLength)
+        }
+    }
+    fun saveSmartWatch(smartWatchLength: String) {
+        sharedPref.edit {
+            putString(KEY_SmartWatch,smartWatchLength)
         }
     }
 
@@ -101,10 +122,39 @@ class PrefsManager( ) {
             null
         }
     }
+    fun getAllergies(): String? {
+        return try {
+
+            return sharedPref.getString(KEY_Allergies, "")
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    fun getEmergency(): String? {
+        return try {
+
+            return sharedPref.getString(KEY_Emergency, "")
+        } catch (e: Exception) {
+            ""
+        }
+    }
+    fun getSmartWatch(): String? {
+        return try {
+
+            return sharedPref.getString(KEY_SmartWatch, "")
+        } catch (e: Exception) {
+            ""
+        }
+    }
 
     // Clear patient data
     fun clearPatient() {
         sharedPref.edit { remove(KEY_PATIENT) }
+        sharedPref.edit { remove(KEY_Allergies) }
+        sharedPref.edit { remove(KEY_Emergency) }
+        sharedPref.edit { remove(KEY_SmartWatch) }
+        sharedPref.edit { remove(KEY_DEVICE_TOKEN) }
     }
 
     // Optional: Direct property access

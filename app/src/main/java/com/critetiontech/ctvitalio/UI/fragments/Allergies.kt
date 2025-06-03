@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import PrefsManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -42,13 +43,15 @@ class Allergies : Fragment(), AllergiesAdapter.SelectionListener {
         binding.allergiesRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.allergiesRecycler.adapter = adapter
 
+        viewModel.getAllergies()
+        viewModel.getHistorySubCategoryMasterById()
+
         viewModel.allergyList.observe(viewLifecycleOwner) { allergyItems ->
             adapter.submitList(allergyItems.toList())
             adapter.clearSelection()
+            PrefsManager().saveAllergies(viewModel.allergyList.value?.size.toString())
         }
 
-        viewModel.getAllergies()
-        viewModel.getHistorySubCategoryMasterById()
 
         viewModel.allergyTypes.observe(viewLifecycleOwner) { list ->
             allergyTypeList = list

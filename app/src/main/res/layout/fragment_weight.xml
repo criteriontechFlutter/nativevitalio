@@ -95,11 +95,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:background="@color/white"
                         android:layout_marginEnd="12dp"
-                        android:drawableEnd="@drawable/ic_dropdown_arrow" />
+                     />
                 </LinearLayout>
 
                 <!-- Next Button -->
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnNext"
                     android:layout_width="match_parent"
@@ -107,7 +109,8 @@
                     android:layout_marginTop="50dp"
                     app:tint="@color/primaryBlue"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/rounded_corners"
+                    app:cornerRadius="10dp"
+                    android:backgroundTint="@color/primaryBlue"
                     android:text="Next"
                     android:textColor="#FFFFFF" />
             </LinearLayout>

@@ -37,20 +37,24 @@ class SetPreferenseFluidItake : Fragment() {
             val fluidText = binding.fluidIntakeInput.text.toString()
             val unit = binding.unitSpinner.selectedItem.toString()
 
-            progressViewModel.updateProgress(13)
-            if (fluidText.isNotEmpty()) {
-                try {
-                    val amount = fluidText.toFloat()
-                    viewModel.setFluidIntake(amount, unit)
+            progressViewModel.updateProgress(14)
+            progressViewModel.updateProgressPage(2)
 
+            val amount = if (fluidText.isEmpty()) {
+                0f
+            } else {
+                // Use a try-catch to handle any potential exceptions when converting to float
+                try {
+                    fluidText.toFloat()
+                } catch (e: NumberFormatException) {
+                    0f  // If parsing fails, default to 0f
+                }
+            }
+
+            viewModel.setFluidIntake(amount, unit)
                     viewModel.patientParameterSettingInsert()
                     findNavController().navigate(R.id.action_setPreferenseFluidItake_to_completionScreen)
-                } catch (e: NumberFormatException) {
-                    binding.fluidIntakeInput.error = "Enter a valid number"
-                }
-            } else {
-                binding.fluidIntakeInput.error = "This field cannot be empty"
-            }
+
         }
     }
 

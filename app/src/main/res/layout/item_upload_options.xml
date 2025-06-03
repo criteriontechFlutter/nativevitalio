@@ -7,15 +7,17 @@
     android:padding="8dp"
     android:gravity="start">
 
-    <Button
+    <com.google.android.material.chip.Chip
         android:id="@+id/upload_report_img"
+        style="@style/ChatChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload Report" />
 
-    <Button
+    <com.google.android.material.chip.Chip
         android:id="@+id/btnReportHistory"
+        style="@style/ChatChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Report History" />
+        android:text="Report History" /> 
 </GridLayout>
