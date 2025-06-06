@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:id="@+id/medicineLayout"
-    android:background="@drawable/rounded_corners"
+    android:background="@drawable/dashboard_rounded_corner"
     android:layout_margin="8dp"
    >
 

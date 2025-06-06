@@ -86,8 +86,22 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
 //            val intent = Intent(MyApplication.appContext, EditProfile::class.java)
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            MyApplication.appContext.startActivity(intent)
-            findNavController().navigate(R.id.action_drawer4_to_editProfile3)
+            val bundle = Bundle().apply {
+                putString("isProfile", "1" )
+            }
+            findNavController().navigate(R.id.action_drawer4_to_editProfile3,bundle)
         }
+
+
+
+
+        binding.personalInfoRow.root.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("isProfile", "0" )
+            }
+            findNavController().navigate(R.id.action_drawer4_to_editProfile3,bundle)
+        }
+
         binding.darkModeRow.root.setOnClickListener {
             //PrefsManager().clearPatient()
             findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
@@ -172,8 +186,8 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
     @SuppressLint("SetTextI18n")
     private fun initDrawerLayout() {
         // Personal Info
-//        binding.personalInfoRow.title.text = getString(R.string.personal_info)
-//        binding.personalInfoRow.icon.setImageResource(R.drawable.ic_personal_info)
+        binding.personalInfoRow.title.text = getString(R.string.personal_info)
+        binding.personalInfoRow.icon.setImageResource(R.drawable.ic_personal_info)
 
         binding.allergiesRow.title.text = getString(R.string.allergies)
         binding.allergiesRow.icon.setImageResource(R.drawable.ic_allergies)

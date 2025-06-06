@@ -40,13 +40,28 @@ class SignUpFragment2 : Fragment() {
         // ✅ Restore existing values if already entered
         binding.etFirstName.setText(viewModel.firstName.value ?: "")
         binding.etLastName.setText(viewModel.lastName.value ?: "")
-        val nameFilter = InputFilter { source, _, _, _, _, _ ->
-            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
-            if (source.isEmpty()) return@InputFilter null // Allow backspace
+        val nameFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            // Prevent space at the beginning of the input
+            if (start == 0 && source == " ") return@InputFilter "" // Reject space at the start of the name
 
+            // Allow only letters and spaces
+            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
             val filtered = source.filter { it.toString().matches(regex) }
-            if (filtered == source) null else filtered
+
+            // If the filtered input matches the original input, we allow it
+            if (filtered == source) {
+                // Prevent multiple consecutive spaces (i.e., two or more spaces together)
+                if (dest.isNotEmpty() && dest.last() == ' ' && source == " ") {
+                    return@InputFilter "" // Prevent consecutive spaces
+                }
+
+                return@InputFilter source // Accept the input as it is (only letters and spaces)
+            } else {
+                // If it doesn't match, return only the valid part
+                return@InputFilter filtered // Allow only letters and space
+            }
         }
+
         binding.etFirstName.filters = arrayOf(nameFilter)
         binding.etLastName.filters = arrayOf(nameFilter)
         binding.btnNext.setOnClickListener {

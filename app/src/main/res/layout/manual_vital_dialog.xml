@@ -1,122 +1,3 @@
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:padding="20dp"-->
-<!--    android:background="@drawable/rounded_corners"-->
-<!--    android:gravity="center">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/dialogTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Enter Vital"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="18sp"-->
-<!--        android:layout_marginBottom="16dp" />-->
-
-<!--    &lt;!&ndash; BP Layout &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/layoutBP"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="gone">-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/sysInput"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="Enter SYS (mmHg)"-->
-<!--            android:inputType="number"-->
-<!--            android:layout_marginBottom="8dp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/diaInput"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="Enter DIA (mmHg)"-->
-<!--            android:inputType="number" />-->
-<!--    </LinearLayout>-->
-
-<!--    &lt;!&ndash; RR Layout &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/rrInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Respiratory Rate"-->
-<!--        android:inputType="number"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-
-<!--    &lt;!&ndash; SpO2 Layout &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/spo2Input"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter SpO2 (%)"-->
-<!--        android:inputType="number"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-
-<!--    &lt;!&ndash; Heart Rate &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/heartRateInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Heart Rate"-->
-<!--        android:inputType="number"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-
-<!--    &lt;!&ndash; Temperature &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/tempInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Temperature (°F)"-->
-<!--        android:inputType="numberDecimal"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-
-<!--    &lt;!&ndash; RBS &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/rbsInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter RBS (mg/dL)"-->
-<!--        android:inputType="number"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-<!--    &lt;!&ndash; RBS &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/pulseInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Pulse (/min)"-->
-<!--        android:inputType="number"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-
-<!--    &lt;!&ndash; Weight &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/weightInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Weight (kg)"-->
-<!--        android:inputType="numberDecimal"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_marginBottom="8dp" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/saveVitalsBtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Save Vitals"-->
-<!--        android:backgroundTint="@color/colorPrimary"-->
-<!--        android:textColor="@android:color/white" />-->
-
-<!--</LinearLayout>-->
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -129,95 +10,95 @@
     android:gravity="center"
     android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/dialogTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Vital"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:layout_marginBottom="16dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/dialogTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Enter Vital"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textColor="#000000"-->
+<!--        android:layout_marginBottom="16dp" />-->
 
-    <!-- BP Layout -->
-    <LinearLayout
-        android:id="@+id/layoutBP"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+<!--    &lt;!&ndash; BP Layout &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layoutBP"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="gone">-->
 
-        <EditText
-            android:id="@+id/sysInput"
-            style="@style/StyledInput"
-            android:hint="Enter SYS (mm/Hg)" />
+<!--        <EditText-->
+<!--            android:id="@+id/sysInput"-->
+<!--            style="@style/StyledInput"-->
+<!--            android:hint="Enter SYS (mm/Hg)" />-->
 
-        <EditText
-            android:id="@+id/diaInput"
-            style="@style/StyledInput"
-            android:hint="Enter DIA (mm/Hg)" />
-    </LinearLayout>
+<!--        <EditText-->
+<!--            android:id="@+id/diaInput"-->
+<!--            style="@style/StyledInput"-->
+<!--            android:hint="Enter DIA (mm/Hg)" />-->
+<!--    </LinearLayout>-->
 
-    <!-- RR Layout -->
-    <EditText
-        android:id="@+id/rrInput"
-        style="@style/StyledInput"
-        android:hint="Enter Respiratory Rate"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; RR Layout &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/rrInput"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter Respiratory Rate"-->
+<!--        android:visibility="gone" />-->
 
-    <!-- SpO2 -->
-    <EditText
-        android:id="@+id/spo2Input"
-        style="@style/StyledInput"
-        android:hint="Enter SpO2 (%)"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; SpO2 &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/spo2Input"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter SpO2 (%)"-->
+<!--        android:visibility="gone" />-->
 
-    <!-- Heart Rate -->
-    <EditText
-        android:id="@+id/heartRateInput"
-        style="@style/StyledInput"
-        android:hint="Enter Heart Rate"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; Heart Rate &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/heartRateInput"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter Heart Rate"-->
+<!--        android:visibility="gone" />-->
 
-    <!-- Temperature -->
-    <EditText
-        android:id="@+id/tempInput"
-        style="@style/StyledInput"
-        android:hint="Enter Temperature (°F)"
-        android:inputType="numberDecimal"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; Temperature &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/tempInput"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter Temperature (°F)"-->
+<!--        android:inputType="numberDecimal"-->
+<!--        android:visibility="gone" />-->
 
-    <!-- RBS -->
-    <EditText
-        android:id="@+id/rbsInput"
-        style="@style/StyledInput"
-        android:hint="Enter RBS (mg/dL)"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; RBS &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/rbsInput"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter RBS (mg/dL)"-->
+<!--        android:visibility="gone" />-->
 
-    <!-- Pulse -->
-    <EditText
-        android:id="@+id/pulseInput"
-        style="@style/StyledInput"
-        android:hint="Enter Pulse (/min)"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; Pulse &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/pulseInput"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter Pulse (/min)"-->
+<!--        android:visibility="gone" />-->
 
-    <!-- Weight -->
-    <EditText
-        android:id="@+id/weightInput"
-        style="@style/StyledInput"
-        android:hint="Enter Weight (kg)"
-        android:inputType="numberDecimal"
-        android:visibility="gone" />
+<!--    &lt;!&ndash; Weight &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/weightInput"-->
+<!--        style="@style/StyledInput"-->
+<!--        android:hint="Enter Weight (kg)"-->
+<!--        android:inputType="numberDecimal"-->
+<!--        android:visibility="gone" />-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/saveVitalsBtn"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Save Vitals"
-        app:backgroundTint="@color/primaryColor"
-        android:textStyle="bold"
-        android:background="@drawable/bg_button_rounded"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="12dp" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/saveVitalsBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:text="Save Vitals"-->
+<!--        app:backgroundTint="@color/primaryColor"-->
+<!--        android:textStyle="bold"-->
+<!--        android:background="@drawable/bg_button_rounded"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:layout_marginTop="12dp" />-->
 
 </LinearLayout>
