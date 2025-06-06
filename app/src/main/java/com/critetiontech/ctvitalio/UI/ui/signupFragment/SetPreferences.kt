@@ -50,7 +50,7 @@ class SetPreferences : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            progressViewModel.updateProgress(13)
+            progressViewModel.updateProgress(14)
             progressViewModel.updateProgressPage(2)
 
 //            val selected = viewModel.setVitalList.value?.filter { it.isCheck } ?: emptyList()

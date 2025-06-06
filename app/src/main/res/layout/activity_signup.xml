@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
             android:text="@string/skip"
-            android:textColor="@color/purple_200"
             android:textStyle="bold"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="@+id/backButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

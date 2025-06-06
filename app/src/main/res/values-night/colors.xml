@@ -22,4 +22,10 @@
     <color name="edtExtBgColor">#000000</color>
     <color name="vitalHistoryBgColor">@color/blackText</color>
     <color name="bgInputFieldColor">@color/blackText</color>
+
+
+
+
+    <color name="dashboardBg">#000000</color>
+    <color name="dashboardContainerBg">@color/bgDark2</color>
 </resources>

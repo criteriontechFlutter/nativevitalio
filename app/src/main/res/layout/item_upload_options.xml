@@ -19,5 +19,5 @@
         style="@style/ChatChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Report History" /> 
+        android:text="Report History" />
 </GridLayout>

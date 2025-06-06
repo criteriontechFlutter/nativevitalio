@@ -2,22 +2,22 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:background="@color/backgroundColor"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <!-- Back & Title -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:weightSum="1">
 
             <ImageView
                 android:id="@+id/backBtn"
@@ -27,143 +27,480 @@
                 android:layout_marginEnd="8dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/titleId"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.7"
                 android:text="Edit Profile"
                 android:textStyle="normal"
                 android:textSize="18sp"
                 android:textColor="@color/textColor" />
+
+            <LinearLayout
+                android:id="@+id/updateProfileButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rounded_corners"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|end"
+                    android:text="Update &amp; Save"
+                    android:textColor="#356DF3"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
-
-        <!-- First Name -->
-        <TextView
-            android:layout_marginTop="24dp"
-            android:text="First Name"
-            android:textColor="@color/gray"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <EditText
-            android:id="@+id/firstNameField"
+        <!-- SECTION 1: BASIC PROFILE INFO -->
+        <LinearLayout
+            android:id="@+id/profile_view"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_edittext"
-            android:hint="Enter First Name"
-            android:paddingHorizontal="16dp"
-            android:text="Abhay"
-            android:textColor="@color/textColor"
-            android:textSize="15sp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!-- Last Name -->
-        <TextView
-            android:layout_marginTop="16dp"
-            android:text="Last Name"
-            android:textColor="@color/gray"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
-        <EditText
-            android:id="@+id/lastNameField"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_edittext"
-            android:hint="Enter Last Name"
-            android:paddingHorizontal="16dp"
-            android:text="Sharma"
-            android:textColor="@color/textColor"
-            android:textSize="15sp"/>
-
-        <!-- DOB -->
-        <TextView
-            android:layout_marginTop="16dp"
-            android:text="DOB"
-            android:textColor="@color/gray"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_edittext"
-            android:paddingHorizontal="16dp"
-            android:gravity="center_vertical">
+            <!-- First Name -->
+            <TextView
+                android:layout_marginTop="24dp"
+                android:text="First Name"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/dobField"
+                android:id="@+id/firstNameField"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="01.05.1998"
-                android:text="01.05.1998"
-                android:inputType="none"
-                android:focusable="false"
-                android:gravity="center_vertical"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter First Name"
+                android:paddingHorizontal="16dp"
+                android:text="Abhay"
                 android:textColor="@color/textColor"
-                android:textSize="15sp" />
 
-            <ImageView
-                android:id="@+id/calendarIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_calendar"
+                android:textSize="14sp"/>
 
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <!-- Gender -->
-        <TextView
-            android:layout_marginTop="16dp"
-            android:text="Gender"
-            android:textColor="@color/gray"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <RadioGroup
-            android:id="@+id/genderGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <RadioButton
-                android:id="@+id/radioMale"
+            <!-- Last Name -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Last Name"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Male"
-                android:buttonTint="@color/primaryBlue"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/lastNameField"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter Last Name"
+                android:paddingHorizontal="16dp"
+                android:text="Sharma"
                 android:textColor="@color/textColor"
-                android:checked="true" />
 
-            <RadioButton
-                android:id="@+id/radioFemale"
+                android:textSize="14sp"/>
+
+            <!-- DOB -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="DOB"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:paddingHorizontal="16dp"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/dobField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="01.05.1998"
+                    android:text="01.05.1998"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/textColor"
+
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/calendarIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calendar"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <!-- Gender -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Gender"
+                android:textColor="@color/profileText"
+
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:id="@+id/genderGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="Female"
-                android:buttonTint="@color/primaryBlue"
-                android:textColor="@color/textColor" />
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
 
-            <RadioButton
-                android:id="@+id/radioOther"
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:buttonTint="@color/primaryBlue"
+                    android:textColor="@color/textColor"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Female"
+                    android:buttonTint="@color/primaryBlue"
+                    android:textColor="@color/textColor" />
+
+                <RadioButton
+                    android:id="@+id/radioOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Other"
+                    android:buttonTint="@color/primaryBlue"
+                    android:textColor="#000" />
+            </RadioGroup>
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Mobile No."
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="Other"
-                android:buttonTint="@color/primaryBlue"
-                android:textColor="@color/textColor" />
-        </RadioGroup>
-        <Button
-            android:id="@+id/updateProfileButton"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/mobile_no"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter No"
+                android:paddingHorizontal="16dp"
+                android:text="Sharma"
+                android:textColor="@color/textColor"
+
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Email"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter Email"
+                android:paddingHorizontal="16dp"
+                android:text="Sharma"
+                android:textColor="@color/textColor"
+
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <!-- SECTION SEPARATOR -->
+
+        <!-- SECTION 2: HEALTH & ADDRESS INFO -->
+        <LinearLayout
+            android:id="@+id/personal_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/primaryBlue"
-            android:textColor="@android:color/white"/>
+            android:orientation="vertical">
+
+            <!-- Chronic Disease -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Chronic Disease to Manage"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/chronic_dieases"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/rounded_corners"
+                android:drawablePadding="8dp"
+                android:textAlignment="textStart"
+                android:hint="Select Chronic Diseases"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#000000"
+
+                android:textSize="14sp" />
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/selectedListContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:textSize="14sp"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"
+                app:alignItems="flex_start"
+                android:orientation="horizontal" />
+
+            <!-- Street Address -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Street Address"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/street_add"
+                android:layout_width="match_parent"
+
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter Address"
+                android:paddingHorizontal="16dp"
+                android:text="123 Street Name"
+                android:textColor="@color/textColor"
+
+                android:textSize="14sp"/>
+
+            <!-- Zip Code & City -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="16dp"
+                        android:text="Zip Code"
+                        android:textColor="@color/profileText"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/zip_code"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_edittext"
+                        android:hint="Enter Zip"
+                        android:paddingHorizontal="16dp"
+                        android:text="123456"
+                        android:textColor="@color/textColor"
+
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="16dp"
+                        android:text="Country"
+                        android:textColor="@color/profileText"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+                    <EditText
+                        android:id="@+id/countrySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/input_bg"
+                        android:drawableRight="@drawable/dropdown"
+                        android:drawablePadding="10dp"
+                        android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:hint="Select Country"
+                    android:text="India"
+                    android:inputType="none"
+                        android:textSize="14sp"
+
+                        android:paddingHorizontal="16dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- State & Country -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="16dp"
+                        android:text="State"
+                        android:textColor="@color/profileText"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <EditText
+                        android:id="@+id/stateSpinner"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="48dp"
+                        android:background="@drawable/input_bg"
+                        android:drawableRight="@drawable/dropdown"
+                        android:drawablePadding="10dp"
+                        android:focusable="false"
+                        android:hint="Select State"
+                        android:inputType="none"
+                        android:textSize="14sp"
+
+                        android:paddingHorizontal="16dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="16dp"
+                        android:text="City"
+                        android:textColor="@color/profileText"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <EditText
+                        android:id="@+id/citySpinner"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="48dp"
+                        android:background="@drawable/input_bg"
+                        android:drawableRight="@drawable/dropdown"
+                        android:drawablePadding="16dp"
+                        android:focusable="false"
+                        android:hint="Select City"
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:paddingHorizontal="16dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Weight -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Weight (kg)"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/weight"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter Weight"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/textColor"
+
+                android:textSize="14sp"/>
+
+            <!-- Height -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Height (cm)"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/height"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Enter Height"
+                android:paddingHorizontal="16dp"
+                android:textSize="14sp"
+                android:textColor="@color/textColor"
+                 />
+
+            <!-- Blood Group -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Blood Group"
+                android:textColor="@color/profileText"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/bloodGroupSpinner"
+                android:layout_width="match_parent"
+
+                android:layout_height="48dp"
+                android:background="@drawable/input_bg"
+                android:drawableRight="@drawable/dropdown"
+                android:drawablePadding="10dp"
+                android:textSize="14sp"
+                android:focusable="false"
+                android:hint="Select Blood Group"
+                android:inputType="none"
+                android:paddingHorizontal="16dp" />
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -267,7 +267,7 @@ class RegistrationViewModel  : ViewModel(){
                     "stateId" to selectedStateId.value?.split(".")?.firstOrNull().orEmpty(),
                     "cityId" to selectedCityId.value?.split(".")?.firstOrNull().orEmpty(),
                     "dob" to formatDob(dob.value.orEmpty()),
-                    "choronicDiseasesJson" to Gson().toJson(selectedOtherChronicDiseaseList.value ?: emptyList<Map<String, String>>()),
+                    "choronicDiseasesJson" to Gson().toJson(selectedDiseaseList.value ?: emptyList<Map<String, String>>()),
                     "familyDiseaseJson" to Gson().toJson(familyDiseaseMap.value ?: emptyMap<String, List<String>>()),
                     "clientId" to "194",
                     "isExternal" to "1"

@@ -21,6 +21,7 @@ class CompletionScreen : Fragment() {
         private lateinit var binding: FragmentCompletionScreenBinding
         private lateinit var viewModel: RegistrationViewModel
 
+    private lateinit var progressViewModel: ProgressViewModel
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -34,6 +35,8 @@ class CompletionScreen : Fragment() {
 
             viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
 
+            progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+            progressViewModel.updateProgress(15)
             lifecycleScope.launch {
                 delay(2000) // 2000 ms = 2 seconds
                 findNavController().navigate(R.id.action_completionScreen_to_completionDashboardReady)
