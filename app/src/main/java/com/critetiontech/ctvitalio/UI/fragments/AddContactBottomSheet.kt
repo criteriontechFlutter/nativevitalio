@@ -55,6 +55,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
                 return@setOnClickListener
             }
             viewModel.saveEmergencyContact(name,phone,relation)
+            viewModel.getEmergencyContacts()
             ToastUtils.showSuccess(MyApplication.appContext, "Contact saved: $name ($relation)")
             dismiss()
         }
