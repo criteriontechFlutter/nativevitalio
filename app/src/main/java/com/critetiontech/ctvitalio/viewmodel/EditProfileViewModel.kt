@@ -5,12 +5,18 @@ import PrefsManager
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.model.BaseResponse
+import com.critetiontech.ctvitalio.model.BloodGroup
+import com.critetiontech.ctvitalio.model.CityModel
+import com.critetiontech.ctvitalio.model.Problem
+import com.critetiontech.ctvitalio.model.StateModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -21,7 +27,11 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class EditProfileViewModel :ViewModel() {
 
@@ -30,6 +40,7 @@ class EditProfileViewModel :ViewModel() {
     val _updateSuccess = MutableLiveData<Boolean>()
     val _errorMessage = MutableLiveData<String>()
 
+
     fun updateUserData(
         requireContext: Context,
         filePath: String? = null,
@@ -37,10 +48,18 @@ class EditProfileViewModel :ViewModel() {
         phone: String,
         email: String,
         dob: String,
-        address: String,
         genderId: String,
-        height: String,
-        weight: String
+
+        chronicData:String,
+        street:String,
+        zipCode: String,
+        countryId: String,
+        stateId: String,
+        cityId: String,
+        weight:String,
+        height:String,
+        bgId:String,
+
     ) {
         _loading.value = true
         viewModelScope.launch {
@@ -54,22 +73,22 @@ class EditProfileViewModel :ViewModel() {
 
                 parts += partFromField("Pid", patient.pid)
                 parts += partFromField("PatientName", name)
-                parts += partFromField("EmailID", patient.emailID)
+                parts += partFromField("EmailID",email)
                 parts += partFromField("GenderId", genderId)
-                parts += partFromField("BloodGroupId", patient.bloodGroupId)
+                parts += partFromField("BloodGroupId", bgId)
                 parts += partFromField("Height","%.2f".format(height.toDoubleOrNull() ?: 0.0))
                 parts += partFromField("Weight", "%.2f".format(weight.toDoubleOrNull() ?: 0.0))
                 parts += partFromField("Dob", dob)
-                parts += partFromField("Zip",  patient.zip)
+                parts += partFromField("Zip",   zipCode)
                 parts += partFromField("AgeUnitId", patient.ageUnitId)
                 parts += partFromField("Age", patient.age)
-                parts += partFromField("Address", patient.address)
-                parts += partFromField("MobileNo", patient.mobileNo)
-                parts += partFromField("CountryId", patient.countryId)
-                parts += partFromField("StateId", patient.stateId)
-                parts += partFromField("CityId", patient.cityId)
+                parts += partFromField("Address", street)
+                parts += partFromField("MobileNo", phone)
+                parts += partFromField("CountryId",  countryId)
+                parts += partFromField("StateId",  stateId)
+                parts += partFromField("CityId",  cityId)
                 parts += partFromField("UserId", patient.userId)
-                parts += partFromField("ChoronicDiseasesJson", "")
+                parts += partFromField("ChoronicDiseasesJson", chronicData)
                 parts += partFromField("FamilyDiseaseJson", "")
                 // Add all text fields
 
@@ -174,6 +193,199 @@ class EditProfileViewModel :ViewModel() {
 
                     _loading.value = false
 
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+
+    private val _problemList = MutableLiveData<List<Problem>>()
+    val problemList: LiveData<List<Problem>> = _problemList
+
+
+
+
+    private val _selectedDiseaseList = MutableLiveData<MutableList<Map<String, String>>>(mutableListOf())
+    val selectedDiseaseList: LiveData<MutableList<Map<String, String>>> get() = _selectedDiseaseList
+
+    fun addSelectedDisease(problem: Problem, context: Context) {
+        val currentList = _selectedDiseaseList.value ?: mutableListOf()
+        val detailID = problem.id.toString()
+
+        if (currentList.any { it["detailID"] == detailID }) {
+            Toast.makeText(context, "Already added", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val newEntry = mapOf(
+            "detailID" to detailID,
+            "detailsDate" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(
+                Date()
+            ),
+            "details" to problem.problemName,
+            "isFromPatient" to "1"
+        )
+
+        currentList.add(newEntry)
+        _selectedDiseaseList.value = currentList
+    }
+
+    fun removeSelectedDisease(detailID: String) {
+        val currentList = _selectedDiseaseList.value ?: mutableListOf()
+        currentList.removeAll { it["detailID"] == detailID }
+        _selectedDiseaseList.value = currentList
+    }
+
+    fun getProblemList( alphabet:String) {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+
+
+                val queryParams = mapOf(
+                    "withICDCode" to true,
+                    "alphabet" to alphabet
+                )
+                // This response is of type Response<ResponseBody>
+                val response = RetrofitInstance
+                    .createApiService7082( )
+                    .dynamicGet(
+                        url = ApiEndPoint().getProblemList,
+                        params = queryParams
+                    )
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val body = response.body()?.string()
+                    body?.let {
+                        val list = parseJsonToProblemList(it)
+                        _problemList.postValue(list)
+                    } ?: run {
+                        _errorMessage.postValue("Empty response body")
+                    }
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun parseJsonToProblemList(json: String): List<Problem> {
+        val jsonObject = JSONObject(json)
+        val jsonArray = jsonObject.getJSONArray("responseValue")
+
+        val type = object : TypeToken<List<Problem>>() {}.type
+        return Gson().fromJson(jsonArray.toString(), type)
+    }
+
+
+    val selectedCountryId = MutableLiveData<String>()
+    val selectedCountryName = MutableLiveData<String>()
+
+    val selectedStateId = MutableLiveData<String>()
+    val selectedStateName = MutableLiveData<String>()
+
+    val selectedCityId = MutableLiveData<String>()
+    val selectedCityName = MutableLiveData<String>()
+
+    val pinCode = MutableLiveData<String>()
+    val streetAddress = MutableLiveData<String>()
+    private val _updateStateList = MutableLiveData<List<StateModel>>()
+    val updateStateList: LiveData<List<StateModel>> get() = _updateStateList
+
+
+    fun getStateMasterByCountryId( id:String) {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+
+
+                val queryParams = mapOf(
+                    "id" to id.split(".")[0].toString(),
+                    "clientId" to "176"
+                )
+                // This response is of type Response<ResponseBody>
+                val response = RetrofitInstance
+                    .createApiService5119( )
+                    .dynamicGet(
+                        url = ApiEndPoint().getStateMasterByCountryId,
+                        params = queryParams
+                    )
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val body = response.body()?.string()
+                    val type = object : TypeToken<ApiResponse<List<StateModel>>>() {}.type
+                    val parsedResponse = Gson().fromJson<ApiResponse<List<StateModel>>>(body, type)
+
+                    if (parsedResponse.status == 1) {
+                        _updateStateList.value = parsedResponse.responseValue
+                    } else {
+                        _errorMessage.value = "No states found"
+                    }
+
+
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+    val _updateCityList = MutableLiveData<List<CityModel>>()
+    val updateCityList: LiveData<List<CityModel>> = _updateCityList
+
+    fun getCityMasterByStateId( id:String) {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+
+
+                val queryParams = mapOf(
+                    "id" to id.split(".")[0].toString(),
+                    "clientId" to "176"
+                )
+                // This response is of type Response<ResponseBody>
+                val response = RetrofitInstance
+                    .createApiService5119( )
+                    .dynamicGet(
+                        url = ApiEndPoint().getCityMasterByStateId,
+                        params = queryParams
+                    )
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val body = response.body()?.string()
+
+                    val type = object : TypeToken<ApiResponse<List<CityModel>>>() {}.type
+                    val parsedResponse = Gson().fromJson<ApiResponse<List<CityModel>>>(body, type)
+
+                    if (parsedResponse.status == 1) {
+                        _updateCityList.value = parsedResponse.responseValue
+                    } else {
+                        _errorMessage.value = "No states found"
+                    }
+
+
+                } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 

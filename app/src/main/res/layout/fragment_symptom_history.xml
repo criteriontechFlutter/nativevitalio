@@ -62,6 +62,7 @@
             app:backgroundTint="@color/primaryBlue"
             app:cornerRadius="14dp"
             app:strokeWidth="0dp"
+            android:textAllCaps="false"
             app:strokeColor="@android:color/transparent" />
 
         <com.google.android.material.button.MaterialButton
@@ -76,6 +77,7 @@
             app:backgroundTint="@android:color/white"
             app:cornerRadius="14dp"
             app:strokeWidth="0dp"
+            android:textAllCaps="false"
             app:strokeColor="@android:color/transparent" />
 
         <com.google.android.material.button.MaterialButton
@@ -90,6 +92,7 @@
             app:backgroundTint="@android:color/white"
             app:cornerRadius="14dp"
             app:strokeWidth="0dp"
+            android:textAllCaps="false"
             app:strokeColor="@android:color/transparent" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

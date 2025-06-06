@@ -183,7 +183,7 @@ class ReportFieldsFragment : Fragment() {
 // ✅ Now call insertInvestigation
                             val investigationSuccess = viewModel.insertInvestigation(
                                 context = safeContext,
-                                dateTime = "$dateTime 00:00",
+                                dateTime = "$dateTime",
                                 reportData = updatedParsedData,
                                 patientDetails = patientDetails
                             )

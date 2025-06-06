@@ -68,8 +68,9 @@
     <color name="greyDark">#616161FF</color>
     <color name="darkYellow">#FFC107FF</color>
 
-
+    <color name="transparent">#00000000</color>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="profileText">#546788</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="light_grey">#d3d3d3</color>
@@ -86,7 +87,6 @@
     <!--Text Color-->
     <color name="textColor">@color/blackText</color>
     <color name="revBackgroundColor">#000000</color>
-    <color name="backgroundColor">@color/primaryBlueLight</color>
     <color name="backgroundColor1">#F4F6F9</color>
     <color name="loginTextColor1">@color/button_grey</color>
     <color name="loginTextColor2">@color/primaryBlue</color>
@@ -96,7 +96,6 @@
     <color name="dashboardIconColor2">@color/blackText</color>
     <color name="dashboardIconColor3">@color/primaryBlueLight</color>
     <color name="dashboardIconColor4">@color/symptomsButton</color>
-    <color name="dashboardIconBg">@color/white</color>
     <color name="bloodgroupColor">@color/bloodBgColor</color>
     <color name="drawableStrokeColor">#C4C4C4</color>
     <color name="blackTextColor">@color/black</color>
@@ -105,7 +104,16 @@
     <color name="vitalHistoryBgColor">#F9FBFF</color>
     <color name="bgInputFieldColor">#F5F5F5</color>
 
+    <color name="backgroundColor">@color/primaryBlueLight</color>
+    <color name="dashboardIconBg">@color/white</color>
 
     <color name="primaryPurple">#6A1B9A</color>
     <color name="primaryPurpleDark">#4A0072</color>
+
+
+
+
+
+    <color name="dashboardBg">@color/white</color>
+    <color name="dashboardContainerBg">@color/primaryBlueLight</color>
 </resources>
