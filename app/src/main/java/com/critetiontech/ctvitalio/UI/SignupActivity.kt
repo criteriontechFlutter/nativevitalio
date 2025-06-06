@@ -45,25 +45,41 @@ class SignupActivity : AppCompatActivity() {
 
 
         // Observe the progress to update UI dynamically
-        progressViewModel.progress.observe(this, { step ->
-            if(step>=13){
-                binding.createAccount.text="Set Preferences"
-            }
-            else{
-                binding.createAccount.text="Create Account"
-            }
+        progressViewModel.progress.observe(this) { step ->
 
+            binding.createAccount.text=step.toString()
+            if (step <= 5 || step == 11 || step == 15) {
+                // Disable skip button and change its text color to a disabled state
+                binding.skipButton.isEnabled = false
+                binding.skipButton.setTextColor(getColor(R.color.greyText))  // Disabled color
+            }  else {
+            // Enable skip button and change its text color to active state
+            binding.skipButton.isEnabled = true
+            binding.skipButton.setTextColor(getColor(R.color.primaryBlue))  // Active color
+        }
+
+// Update createAccount button text based on progress step
+//            if (step >= 13) {
+//                binding.createAccount.text = "Set Preferences"
+//            } else {
+//                binding.createAccount.text = "Create Account"
+//            }
+            if ( progressViewModel.progress.value == 11) {
+                binding.progressBarId.visibility = View.GONE
+
+            }
             updateProgress(step)
-        })
+        }
         progressViewModel.progressPage.observe(this, { step ->
+
             if (step == 1) {
                 binding.progressBarId.visibility = View.GONE
             } else{
                 binding.progressBarId.visibility = View.VISIBLE
 
             }
-            if ( progressViewModel.progress.value == 14) {
-                binding.progressBarId.visibility = View.GONE
+            if ( progressViewModel.progress.value == 13) {
+                binding.progressBarId.visibility = View.VISIBLE
 
             }
         })
@@ -71,7 +87,7 @@ class SignupActivity : AppCompatActivity() {
         // Back button listener to go back based on progress
         binding.backButton.setOnClickListener {
 
-            if (progressViewModel.progress.value == 13 && progressViewModel.progressPage.value == 2) {
+            if (progressViewModel.progress.value == 12 && progressViewModel.progressPage.value == 2) {
                 progressViewModel.updateProgressPage(  1)
             }
             else  if (progressViewModel.progressPage.value == 1) {
@@ -205,7 +221,7 @@ class SignupActivity : AppCompatActivity() {
             }
             13 -> {
                 binding.tvStepTitle.text = "All Done!"
-                binding.tvStepSubtitle.text = "Almost done—just complete the final step!"
+                binding.tvStepSubtitle.text = "You're just one step away from completing the process!"
             }
             14 -> {
                 binding.tvStepTitle.text = "All Done!"

@@ -231,7 +231,7 @@ fun insertSymptoms(findNavController: NavController, requireContext: Context) {
                     dtDataTable.add(
                         mapOf(
                             "detailID" to symptom.problemId.toString(),
-                            "detailsDate" to now,
+                            "detailsDate" to "2025-06-03 12:10:27.222000",
                             "details" to symptom.problemName,
                             "isFromPatient" to "1"
                         )

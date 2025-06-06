@@ -129,15 +129,15 @@
                             <EditText
                                 android:id="@+id/etState"
                                 android:layout_width="match_parent"
-                                android:layout_height="48dp"
-                                android:hint="Select State"
-                                android:padding="@dimen/_5sdp"
-                                android:focusable="false"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/input_bg"
                                 android:drawableRight="@drawable/dropdown"
-                                android:inputType="none"
-                                android:paddingEnd="16dp"
                                 android:drawablePadding="10dp"
-                                android:background="@drawable/input_bg"/>
+                                android:focusable="false"
+                                android:hint="Select State"
+                                android:inputType="none"
+                                android:padding="@dimen/_5sdp"
+                                android:paddingEnd="16dp" />
                         </LinearLayout>
                     </LinearLayout>
 

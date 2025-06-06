@@ -254,4 +254,8 @@
         <item>Litre</item>
         <!--        <item>Millilitre</item>-->
     </string-array>
+    <string name="title_activity_my_compose_screen">MyComposeScreen</string>
+
+
+    <string name="select_relationship">Select Relationship</string>
 </resources>

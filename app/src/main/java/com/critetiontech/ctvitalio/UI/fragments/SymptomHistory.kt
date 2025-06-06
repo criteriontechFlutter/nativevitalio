@@ -45,11 +45,19 @@ class SymptomHistory : Fragment() {
 
         viewModel = ViewModelProvider(this)[SymptomsHistoryViewModel::class.java]
         viewModel.getSymptoms()
+
+
+
         updateToggleStyles(binding.tabToggleGroup.checkedButtonId)
         viewModel.symptomList.observe(viewLifecycleOwner) {
             applyFilter(FilterType.WEEKLY) // default
         }
+        updateToggleStyles(binding.tabToggleGroup.checkedButtonId)
 
+        // Set default selected button (Daily)
+        binding.tabToggleGroup.check(R.id.btn_daily) // Set default selection to Daily
+        applyFilter(FilterType.DAILY) // Apply Daily filter
+        updateToggleStyles(R.id.btn_daily)
         viewModel.errorMessage.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

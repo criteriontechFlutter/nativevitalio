@@ -251,8 +251,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-362" />
-                            <option name="y" value="-57" />
+                            <option name="x" value="-2276" />
+                            <option name="y" value="196" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -528,6 +528,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_uploadReport_to_imagePdfViewFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_uploadReport_to_reportFieldsFragment">
                               <value>
                                 <LayoutPositions />
@@ -549,6 +554,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_uploadReportHistory_to_imagePdfViewFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_uploadReportHistory_to_uploadReport3">
                               <value>
                                 <LayoutPositions />
