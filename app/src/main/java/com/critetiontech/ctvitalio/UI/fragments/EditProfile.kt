@@ -125,11 +125,6 @@ class EditProfile : Fragment() {
                 return@setOnClickListener
             }
 
-            if (lastName.isEmpty()) {
-                Toast.makeText(requireContext(), "Last name is required", Toast.LENGTH_SHORT).show()
-                binding.lastNameField.requestFocus()
-                return@setOnClickListener
-            }
 
 
 

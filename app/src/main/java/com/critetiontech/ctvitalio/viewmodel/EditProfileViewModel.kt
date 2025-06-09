@@ -84,7 +84,7 @@ class EditProfileViewModel :ViewModel() {
                 parts += partFromField("Age", patient.age)
                 parts += partFromField("Address", street)
                 parts += partFromField("MobileNo", phone)
-                parts += partFromField("CountryId",  countryId)
+                parts += partFromField("CountryId",  countryId.split(".")[0])
                 parts += partFromField("StateId",  stateId)
                 parts += partFromField("CityId",  cityId)
                 parts += partFromField("UserId", patient.userId)
