@@ -35,7 +35,7 @@ class SetPreferenseFluidItake : Fragment() {
 
         binding.btnNext.setOnClickListener {
             val fluidText = binding.fluidIntakeInput.text.toString()
-            val unit = binding.unitSpinner.selectedItem.toString()
+//            val unit = binding.unitSpinner.selectedItem.toString()
 
             progressViewModel.updateProgress(15)
             progressViewModel.updateProgressPage(2)
@@ -51,7 +51,7 @@ class SetPreferenseFluidItake : Fragment() {
                 }
             }
 
-            viewModel.setFluidIntake(amount, unit)
+            viewModel.setFluidIntake(amount, "Litre")
                     viewModel.patientParameterSettingInsert()
                     findNavController().navigate(R.id.action_setPreferenseFluidItake_to_completionScreen)
 

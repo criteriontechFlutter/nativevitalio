@@ -86,17 +86,17 @@
                         <AutoCompleteTextView
                             android:id="@+id/chronic_dis"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:drawableStart="@drawable/ic_search"
-                            android:drawablePadding="8dp"
-                            android:gravity="center_vertical"
-                            android:hint="Select Chronic Diseases"
-                            android:inputType="text"
-                            android:paddingStart="36dp"
-                            android:paddingEnd="50dp"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:layout_height="48dp"
+                        android:background="@android:color/transparent"
+                        android:drawableStart="@drawable/ic_search"
+                        android:drawablePadding="12dp"
+                        android:gravity="start|center_vertical"
+                        android:hint="Select Chronic Diseases"
+                        android:inputType="text"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="50dp"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
                     </RelativeLayout>
 
                     <!-- Chips go here -->

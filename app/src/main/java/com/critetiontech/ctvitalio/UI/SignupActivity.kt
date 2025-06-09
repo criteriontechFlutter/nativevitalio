@@ -47,7 +47,7 @@ class SignupActivity : AppCompatActivity() {
         // Observe the progress to update UI dynamically
         progressViewModel.progress.observe(this) { step ->
 
-            binding.createAccount.text=step.toString()
+//            binding.createAccount.text=step.toString()
             if (step <= 5 || step == 11 || step == 15) {
                 // Disable skip button and change its text color to a disabled state
                 binding.skipButton.isEnabled = false
@@ -59,11 +59,11 @@ class SignupActivity : AppCompatActivity() {
         }
 
 // Update createAccount button text based on progress step
-//            if (step >= 13) {
-//                binding.createAccount.text = "Set Preferences"
-//            } else {
-//                binding.createAccount.text = "Create Account"
-//            }
+            if (step >= 13) {
+                binding.createAccount.text = "Set Preferences"
+            } else {
+                binding.createAccount.text = "Create Account"
+            }
             if ( progressViewModel.progress.value == 11) {
                 binding.progressBarId.visibility = View.GONE
 
@@ -79,6 +79,10 @@ class SignupActivity : AppCompatActivity() {
 
             }
             if ( progressViewModel.progress.value == 13) {
+                binding.progressBarId.visibility = View.VISIBLE
+
+            }
+            if ( progressViewModel.progress.value >= 15) {
                 binding.progressBarId.visibility = View.VISIBLE
 
             }
