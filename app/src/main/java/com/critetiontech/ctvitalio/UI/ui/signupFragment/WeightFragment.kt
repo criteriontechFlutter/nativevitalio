@@ -31,10 +31,10 @@ class WeightFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Set up the Spinner
-        val items = listOf("Kg" )  // Units list
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
-        adapter.setDropDownViewResource(R.layout.spinner_item)
-        binding.spinnerUnit.adapter = adapter  // Bind the adapter to the spinner
+//        val items = listOf("Kg" )  // Units list
+//        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+//        adapter.setDropDownViewResource(R.layout.spinner_item)
+//        binding.spinnerUnit.adapter = adapter  // Bind the adapter to the spinner
 
         // Get the ViewModel instances
 

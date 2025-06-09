@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
@@ -51,7 +53,12 @@ class ChronicConditionFragment : Fragment() {
         }
 
         binding.chronicDis.addTextChangedListener(textWatcher)
-
+        binding.chronicDis.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                // Hide keyboard when the AutoCompleteTextView has focus and shows the dropdown
+                hideKeyboard()
+            }
+        }
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
             val selectedName = parent.getItemAtPosition(position).toString()
             val selectedProblem = viewModel.problemList.value?.find { it.problemName == selectedName }
@@ -104,5 +111,13 @@ class ChronicConditionFragment : Fragment() {
         }
 
         binding.selectedListContainer.addView(chipView)
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusView = activity?.currentFocus
+        if (currentFocusView != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocusView.windowToken, 0)
+        }
     }
 }
