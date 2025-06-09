@@ -49,10 +49,9 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/editIcon"
+            android:id="@+id/createeditIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/edit"
-            app:tint="@color/black" />
+            android:src="@drawable/edit"  />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

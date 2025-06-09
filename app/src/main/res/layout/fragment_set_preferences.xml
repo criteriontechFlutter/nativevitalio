@@ -64,7 +64,6 @@
             android:text="Next"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/blue"
-            android:background="@drawable/bg_button_rounded"
             android:padding="12dp" />
 
     </LinearLayout>

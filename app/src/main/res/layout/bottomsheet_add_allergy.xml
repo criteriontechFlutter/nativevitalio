@@ -108,8 +108,8 @@
                 style="@style/SeverityButton"
                 android:textColor="@color/textColor"
                 android:text="Moderate"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp" />
 
             <Button
                 android:id="@+id/btnSevere"

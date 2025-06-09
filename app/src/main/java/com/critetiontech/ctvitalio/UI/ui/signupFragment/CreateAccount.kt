@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -83,10 +84,16 @@ class CreateAccount : Fragment() {
             addSummaryItem("Family History", it)
         }
 
-        viewModel.wt.observe(viewLifecycleOwner) {
-            addSummaryItem("Weight", it+" kg")
-        }
 
+        viewModel.wt.observe(viewLifecycleOwner) { weight ->
+            // Check if weight is not empty or null, and if it is, display "kg"
+            val weightText = if (!weight.isNullOrEmpty()) {
+                "$weight kg"
+            } else {
+                "" // Display just "kg" if the weight is empty or null
+            }
+            addSummaryItem("Weight", weightText)
+        }
         viewModel.ht.observe(viewLifecycleOwner) {
             addSummaryItem("Height", it)
         }
@@ -155,35 +162,111 @@ class CreateAccount : Fragment() {
         addSummaryItem("Address", fullAddress)
     }
 
-    private fun addSummaryItem(label: String, value: String) {
-        val existingView = binding.summaryContainer.findViewWithTag<View>(label)
-        if (existingView != null) {
-            existingView.findViewById<TextView>(R.id.value).text = value.ifBlank { "Not provided" }
+//    private fun addSummaryItem(label: String, value: String) {
+//        val existingView = binding.summaryContainer.findViewWithTag<View>(label)
+//        if (existingView != null) {
+//            existingView.findViewById<TextView>(R.id.value).text = value.ifBlank { "Not provided" }
+//        } else {
+//            val itemView = LayoutInflater.from(requireContext())
+//                .inflate(R.layout.item_summary_field, binding.summaryContainer, false)
+//
+//            itemView.tag = label
+//            itemView.findViewById<TextView>(R.id.label).text = label
+//            itemView.findViewById<TextView>(R.id.value).text = value.ifBlank { "Not provided" }
+//
+//            itemView.findViewById<ImageView>(R.id.editIcon)?.setOnClickListener {
+//                when (label) {
+//                    "Name" -> findNavController().navigate(R.id.action_createAccount2_to_nameFragment)
+//                    "Gender" -> findNavController().navigate(R.id.action_createAccount2_to_genderFragment)
+//                    "Date of Birth" -> findNavController().navigate(R.id.action_createAccount2_to_dobFragment)
+//                    "Blood Group" -> findNavController().navigate(R.id.action_createAccount2_to_bloodGroupFragment)
+//                    "Address" -> findNavController().navigate(R.id.action_createAccount2_to_adressFragment)
+//                    "Chronic Disease" -> findNavController().navigate(R.id.action_createAccount2_to_chronicConditionFragment)
+//                    "Other Chronic Diseases" -> findNavController().navigate(R.id.action_createAccount2_to_otherChronicDisease)
+//                    "Family History" -> findNavController().navigate(R.id.action_createAccount2_to_familyDiseaseFragment)
+//                    "Weight" -> findNavController().navigate(R.id.action_createAccount2_to_weightFragment)
+//                    "Height" -> findNavController().navigate(R.id.action_createAccount2_to_heightFragment)
+//                    else -> Toast.makeText(requireContext(), "No edit path for $label", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            binding.summaryContainer.addView(itemView)
+//        }
+//    }\
+private fun addSummaryItem(label: String, value: String) {
+    // Check if the summary item already exists
+    val existingView = binding.summaryContainer.findViewWithTag<View>(label)
+    val valueTextView: TextView
+    val iconImageView: ImageView
+
+    // If the item exists, retrieve references to the views
+    if (existingView != null) {
+        valueTextView = existingView.findViewById(R.id.value)
+        iconImageView = existingView.findViewById(R.id.createeditIcon)
+
+        // Update the text and color based on whether the value is blank or not
+        updateSummaryItem(valueTextView, iconImageView, label, value)
+    } else {
+        // Inflate new item if it doesn't exist
+        val itemView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.item_summary_field, binding.summaryContainer, false)
+
+        // Set the label and tag for the item
+        itemView.tag = label
+        itemView.findViewById<TextView>(R.id.label).text = label
+
+        // Get references to the views
+        valueTextView = itemView.findViewById(R.id.value)
+        iconImageView = itemView.findViewById(R.id.createeditIcon)
+
+        // Update the text and color based on whether the value is blank or not
+        updateSummaryItem(valueTextView, iconImageView, label, value)
+
+        // Set click listener for the edit icon
+        itemView.findViewById<ImageView>(R.id.createeditIcon)?.setOnClickListener {
+            navigateToEditFragment(label)
+        }
+
+
+        // Add the new item to the container
+        binding.summaryContainer.addView(itemView)
+    }
+}
+
+    private fun updateSummaryItem(valueTextView: TextView, iconImageView: ImageView, label: String, value: String) {
+        // Set the value and color for the text
+        valueTextView.text = if (value.isBlank()) {
+            "--No $label provided.--"
         } else {
-            val itemView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.item_summary_field, binding.summaryContainer, false)
+            value
+        }
+        valueTextView.setTextColor(if (value.isBlank()) Color.RED else Color.BLACK)
 
-            itemView.tag = label
-            itemView.findViewById<TextView>(R.id.label).text = label
-            itemView.findViewById<TextView>(R.id.value).text = value.ifBlank { "Not provided" }
+        // Decrease font size and make italic if value is blank
+        if (value.isBlank()) {
+            valueTextView.setTextSize(12f)  // Smaller font size
+            valueTextView.setTypeface(null, android.graphics.Typeface.ITALIC)  // Italic font
+            iconImageView.setImageResource(R.drawable.edit_icon)  // Show "edit" icon when value is blank
+        } else {
+            valueTextView.setTextSize(16f)  // Default font size
+            valueTextView.setTypeface(null, android.graphics.Typeface.NORMAL)  // Normal font style
+            iconImageView.setImageResource(R.drawable.edit)  // Show "checked" icon when value is provided
+        }
+    }
 
-            itemView.findViewById<ImageView>(R.id.editIcon)?.setOnClickListener {
-                when (label) {
-                    "Name" -> findNavController().navigate(R.id.action_createAccount2_to_nameFragment)
-                    "Gender" -> findNavController().navigate(R.id.action_createAccount2_to_genderFragment)
-                    "Date of Birth" -> findNavController().navigate(R.id.action_createAccount2_to_dobFragment)
-                    "Blood Group" -> findNavController().navigate(R.id.action_createAccount2_to_bloodGroupFragment)
-                    "Address" -> findNavController().navigate(R.id.action_createAccount2_to_adressFragment)
-                    "Chronic Disease" -> findNavController().navigate(R.id.action_createAccount2_to_chronicConditionFragment)
-                    "Other Chronic Diseases" -> findNavController().navigate(R.id.action_createAccount2_to_otherChronicDisease)
-                    "Family History" -> findNavController().navigate(R.id.action_createAccount2_to_familyDiseaseFragment)
-                    "Weight" -> findNavController().navigate(R.id.action_createAccount2_to_weightFragment)
-                    "Height" -> findNavController().navigate(R.id.action_createAccount2_to_heightFragment)
-                    else -> Toast.makeText(requireContext(), "No edit path for $label", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            binding.summaryContainer.addView(itemView)
+    private fun navigateToEditFragment(label: String) {
+        when (label) {
+            "Name" -> findNavController().navigate(R.id.action_createAccount2_to_nameFragment)
+            "Gender" -> findNavController().navigate(R.id.action_createAccount2_to_genderFragment)
+            "Date of Birth" -> findNavController().navigate(R.id.action_createAccount2_to_dobFragment)
+            "Blood Group" -> findNavController().navigate(R.id.action_createAccount2_to_bloodGroupFragment)
+            "Address" -> findNavController().navigate(R.id.action_createAccount2_to_adressFragment)
+            "Chronic Disease" -> findNavController().navigate(R.id.action_createAccount2_to_chronicConditionFragment)
+            "Other Chronic Diseases" -> findNavController().navigate(R.id.action_createAccount2_to_otherChronicDisease)
+            "Family History" -> findNavController().navigate(R.id.action_createAccount2_to_familyDiseaseFragment)
+            "Weight" -> findNavController().navigate(R.id.action_createAccount2_to_weightFragment)
+            "Height" -> findNavController().navigate(R.id.action_createAccount2_to_heightFragment)
+            else -> Toast.makeText(requireContext(), "No edit path for $label", Toast.LENGTH_SHORT).show()
         }
     }
 }
