@@ -258,4 +258,5 @@
 
 
     <string name="select_relationship">Select Relationship</string>
+    <string name="logout_from_all_devices">Logout from All Devices</string>
 </resources>
