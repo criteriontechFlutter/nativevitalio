@@ -57,7 +57,7 @@ class ApiEndPoint {
 
 
     val getPatientLastVital="api/PatientVital/GetPatientLastVital"
-    val insertPatientVital="api/PatientVital/InsertPatientVital"
+    val insertPatientVital="api/PatientVit       al/InsertPatientVital"
     val getEmergencyContact="api/EmergencyContact/GetEmergencyContactByPid"
     val saveEmergencyContact="api/EmergencyContact/InsertEmergencyContact"
     val deleteEmergency="api/EmergencyContact/RemoveEmergencyContact"
