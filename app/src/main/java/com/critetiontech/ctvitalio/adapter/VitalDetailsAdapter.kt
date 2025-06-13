@@ -35,51 +35,6 @@ class VitalDetailsAdapter(
         NORMAL, BORDERLINE, CRITICAL
     }
 
-//    fun submitVitals(list: List<Vital>) {
-//        groupedVitals.clear()
-//
-//        val sys = list.find { it.vitalName == "BP_Sys" }
-//        val dias = list.find { it.vitalName == "BP_Dias" }
-//        if (sys != null && dias != null) {
-//            groupedVitals.add(
-//                Triple(
-//                    "Blood Pressure",
-//                    "${sys.vitalValue.toInt()}/${dias.vitalValue.toInt()} ${sys.unit}",
-//                    sys.vitalDateTime.toString()
-//                )
-//            )
-//        }
-//
-//        list.forEach { vital ->
-//            val title = when (vital.vitalName) {
-//                "HeartRate" -> "Heart Rate"
-//                "Spo2" -> "Blood Oxygen (SpO2)"
-//                "Temperature" -> "Body Temperature"
-//                "RespRate" -> "Respiratory Rate"
-//                "RBS" -> "RBS"
-//                "Pulse" -> "Pulse Rate"
-//                "Weight" -> "Body Weight"
-//                else -> null
-//            }
-//
-//            title?.let { t ->
-//                val valueText = when (vital.vitalName) {
-//                    "HeartRate" -> "${vital.vitalValue.toInt()} BPM"
-//                    "Spo2" -> "${vital.vitalValue.toInt()}%"
-//                    "Temperature" -> "${vital.vitalValue} °F"
-//                    "RespRate" -> "${vital.vitalValue.toInt()} /min"
-//                    "RBS" -> "${vital.vitalValue.toInt()} mg/dL"
-//                    "Pulse" -> "${vital.vitalValue.toInt()} /min"
-//                    "Weight" -> "${vital.vitalValue} kg"
-//                    else -> ""
-//                }
-//
-//                groupedVitals.add(Triple(t, valueText, vital.vitalDateTime.toString()))
-//            }
-//        }
-//
-//        notifyDataSetChanged()
-//    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitVitals(list: List<Vital>) {
