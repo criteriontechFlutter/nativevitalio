@@ -21,12 +21,142 @@
         android:text="Who in your family has been diagnosed with this disease?"
         android:textSize="14sp"
         android:layout_marginBottom="16dp" />
+    <LinearLayout
+        android:id="@+id/checkboxMother"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
 
-    <CheckBox android:id="@+id/checkboxMother" android:text="Mother" style="@style/CheckBoxFamily"/>
-    <CheckBox android:id="@+id/checkboxFather" android:text="Father" style="@style/CheckBoxFamily"/>
-    <CheckBox android:id="@+id/checkboxBrother" android:text="Brother" style="@style/CheckBoxFamily"/>
-    <CheckBox android:id="@+id/checkboxSister" android:text="Sister" style="@style/CheckBoxFamily"/>
-    <CheckBox android:id="@+id/checkboxGrandParent" android:text="Grand Parent" style="@style/CheckBoxFamily"/>
+        <TextView
+            android:id="@+id/tvMother"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mother"
+            android:textSize="16sp"
+            android:textColor="@color/darkBackGround" />
+
+        <ImageView
+            android:id="@+id/ivCheckMother"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_box" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/checkboxFather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tvFather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Father"
+            android:textSize="16sp"
+            android:textColor="@color/darkBackGround" />
+
+        <ImageView
+            android:id="@+id/ivCheckFather"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_box" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/checkboxBrother"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tvBrother"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Brother"
+            android:textSize="16sp"
+            android:textColor="@color/darkBackGround" />
+
+        <ImageView
+            android:id="@+id/ivCheckBrother"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_box" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/checkboxSister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tvSister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sister"
+            android:textSize="16sp"
+            android:textColor="@color/darkBackGround" />
+
+        <ImageView
+            android:id="@+id/ivCheckSister"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_box" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/checkboxGrandParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tvGrandParent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Grand Parent"
+            android:textSize="16sp"
+            android:textColor="@color/darkBackGround" />
+
+        <ImageView
+            android:id="@+id/ivCheckGrandParent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_box" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btnSubmit"

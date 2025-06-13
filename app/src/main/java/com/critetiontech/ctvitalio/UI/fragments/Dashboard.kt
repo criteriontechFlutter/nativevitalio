@@ -24,9 +24,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -382,7 +382,11 @@ class Dashboard  : Fragment() {
         }
 
         binding.symptomsTracker.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_symptomsFragment)
+            viewModel.getSymptoms(
+                isFromd =true,
+                    navController = findNavController()
+            )
+
         }
 
         binding.vitalDetails.setOnClickListener {
@@ -550,6 +554,8 @@ class Dashboard  : Fragment() {
                 requireActivity().runOnUiThread {
                     val transcriptText = voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text.toString()
                     if (transcriptText.isNotBlank()) {
+                        val navController = findNavController()
+                        navigateFromDashboard(navController, transcriptText)
                         viewModel.postAnalyzedVoiceData(requireContext(), transcriptText)
                     } else {
                         Toast.makeText(requireContext(), "No speech input found", Toast.LENGTH_SHORT).show()
@@ -562,7 +568,82 @@ class Dashboard  : Fragment() {
             }
         })
     }
+    fun navigateFromDashboard(navController: NavController, destinationRaw: String) {
+        val destination = destinationRaw.lowercase()
 
+        when {
+            listOf(
+                "vital page", "vital screen", "vital view", "open vital",
+                "open vital page", "open vital screen", "open vital view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_voiceFragment)
+            }
+
+            listOf(
+                "symptom page", "symptom screen", "symptom view", "open symptom", "open symptom page", "open symptom screen", "open symptom view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_symptomsFragment)
+            }
+
+            listOf(
+                "pills reminder page", "pills page", "pills screen", "pills view",
+                "open pills", "open pills reminder", "open pills page", "open pills screen", "open pills view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_pillsReminder)
+            }
+
+            listOf(
+                "diet intake", "diet page", "diet screen", "diet view",
+                "open diet", "open diet intake", "open diet page", "open diet screen", "open diet view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_dietChecklist)
+            }
+
+            listOf(
+                "fluid intake page", "fluid page", "fluid screen", "fluid view",
+                "open fluid", "open fluid intake", "open fluid page", "open fluid screen", "open fluid view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidFragment)
+            }
+
+            listOf(
+                "fluid history page", "fluid history screen", "fluid history view",
+                "open fluid history", "open fluid history page", "open fluid history screen", "open fluid history view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidInputHistoryFragment)
+            }
+
+            listOf(
+                "output history", "output page", "output screen", "output view",
+                "open output", "open output history", "open output page", "open output screen", "open output view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidOutputFragment)
+            }
+
+            listOf(
+                "upload report page", "upload report screen", "upload report view",
+                "open upload report", "open upload report page", "open upload report screen", "open upload report view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_uploadReportHistory)
+            }
+
+            listOf(
+                "allergies page", "allergies screen", "allergies view",
+                "open allergies", "open allergies page", "open allergies screen", "open allergies view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_allergies3)
+            }
+
+            // Optional: Enable text/notes navigation
+            // listOf("text", "notes", "open text", "open notes").any { it in destination } -> {
+            //     navController.navigate(R.id.action_dashboard_to_notesFragment)
+            // }
+
+            else -> {
+                // Optionally log or toast for unrecognized command
+            }
+        }
+    }
     private fun disconnectWebSocket() {
         webSocket?.close(1000, "Closing")
         webSocket = null

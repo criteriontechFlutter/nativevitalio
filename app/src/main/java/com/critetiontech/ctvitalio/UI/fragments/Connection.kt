@@ -264,6 +264,9 @@ class Connection: Fragment() {
                     VitalPosition(131, "Walking", "VitalPosition", true, "2024-08-07T12:28:13"),
                     VitalPosition(133, "Lying", "VitalPosition", true, "2024-08-07T12:28:13")
                 )
+
+
+
                 showPositionDialog(positions) { positionId, remark ->
                     when (vitalType) {
                         "Blood Pressure" -> viewModel.insertPatientVital(

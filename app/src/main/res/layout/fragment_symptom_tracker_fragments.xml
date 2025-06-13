@@ -5,44 +5,64 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/backgroundColor"
         android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
         android:padding="16dp">
 
         <!-- Back Button -->
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="Back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Title Text -->
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:gravity="center"
-            android:text="@string/symptoms_tracker"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/backButton"
-            app:layout_constraintStart_toEndOf="@id/backButton"
-            app:layout_constraintTop_toTopOf="@id/backButton" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/back_button"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/symptoms_tracker"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1" />
 
+            <TextView
+                android:id="@+id/historyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/history"
+                android:textColor="#356DF3"
+                android:textSize="14sp"
+                android:drawableStart="@drawable/reload_icon"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical" />
+        </LinearLayout>
         <!-- Doctor Icon -->
         <ImageView
             android:id="@+id/doctorIcon"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
-            android:contentDescription="Doctor Icon"
             android:scaleType="fitCenter"
+            android:contentDescription="Doctor Icon"
             android:src="@drawable/ic_symptoms"
-            app:layout_constraintTop_toBottomOf="@id/titleText"
+            app:layout_constraintTop_toBottomOf="@id/header"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.45" />
@@ -52,15 +72,16 @@
             android:id="@+id/recyclerViewSymptoms"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:paddingBottom="8dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/doctorIcon"
-            app:layout_constraintBottom_toTopOf="@id/btnUpdate"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Fixed Update Button -->
+        <!-- Optional Update Button -->
+        <!--
         <com.critetiontech.ctvitalio.utils.CustomRoundedButton
             android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
@@ -70,9 +91,10 @@
             android:layout_marginBottom="8dp"
             android:visibility="visible"
             app:backgroundTint="@color/primaryColor"
-            app:tint="@color/primaryColor" app:layout_constraintHeight_percent="0.10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+        -->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

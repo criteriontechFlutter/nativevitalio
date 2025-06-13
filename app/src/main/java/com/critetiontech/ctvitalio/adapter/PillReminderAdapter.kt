@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -146,18 +147,18 @@ class PillReminderAdapter(
     private fun getTintedIcon(icon: String?): Drawable? {
         val context = MyApplication.appContext
         val (iconRes, colorRes) = when (icon?.lowercase()) {
-            "taken" -> Pair(R.drawable.pills_check, R.color.primaryBlue)
-            "missed" -> Pair(MaterialR.drawable.mtrl_ic_error, R.color.black)
-            "upcoming" -> Pair(R.drawable.late_dose, R.color.darkYellow)
-            "late" -> Pair(R.drawable.pills_check, R.color.primaryBlue)
-            "check" -> Pair(R.drawable.pills_check, R.color.primaryBlue)
-            "exclamation" -> Pair(MaterialR.drawable.mtrl_ic_error, R.color.red)
+            "taken" -> Pair(R.drawable.pills_check, null)
+            "missed" -> Pair(MaterialR.drawable.mtrl_ic_error, R.color.red)
+            "upcoming" -> Pair(R.drawable.late_dose,null)
+            "late" -> Pair(R.drawable.pills_check, null)
+            "check" -> Pair(R.drawable.pills_check, null)
+            "exclamation" ->  Pair(R.drawable.late_dose,null)
             else -> Pair(R.drawable.no_dose, R.color.white)
         }
 
         return AppCompatResources.getDrawable(context, iconRes)?.apply {
             mutate()
-            //setTint(ContextCompat.getColor(context, R.color.TRANSPARENT))
+            colorRes?.let { setTint(ContextCompat.getColor(context, it)) }
         }
     }
 

@@ -4,18 +4,29 @@ import PrefsManager
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -26,6 +37,10 @@ import com.critetiontech.ctvitalio.utils.ImagePickerUtil
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.DrawerViewModel
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 class drawer : Fragment() {
 
@@ -33,7 +48,7 @@ class drawer : Fragment() {
     private lateinit var binding: FragmentDrawerBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var drawerViewModel: DrawerViewModel
-
+    private   val REQUEST_CODE_PICK_IMAGE = 1001
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,20 +81,21 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
         }
 
         binding.editIcon.setOnClickListener {
-            val activity = context as? Activity
-            activity?.let {
-                ActivityCompat.requestPermissions(
-                    it,
-                    arrayOf(Manifest.permission.CAMERA),
-                    1001
-                )
-            }
-            ImagePickerUtil.pickImage(requireContext(), this) { uri ->
-                uri?.let {
-                    drawerViewModel.updateUserData(requireContext(), it) // PASS URI
-                    binding.userImage.setImageURI(it)
-                }
-            }
+//            val activity = context as? Activity
+//            activity?.let {
+//                ActivityCompat.requestPermissions(
+//                    it,
+//                    arrayOf(Manifest.permission.CAMERA),
+//                    1001
+//                )
+//            }
+//            ImagePickerUtil.pickImage(requireContext(), this) { uri ->
+//                uri?.let {
+//                    drawerViewModel.updateUserData(requireContext(), it) // PASS URI
+//                    binding.userImage.setImageURI(it)
+//                }
+//            }
+            showProfileImageBottomSheet()
         }
 
         binding.btnEditProfile.setOnClickListener {
@@ -183,6 +199,121 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
 
     }
 
+    companion object {
+        private const val CAMERA_PERMISSION_CODE = 101
+    }
+    private fun launchCamera() {
+        ImagePickerUtil.takePhoto(requireContext(), this) { uri ->
+            uri?.let {
+                val compressedUri = compressImageUnder8MB(requireContext(), it)
+                compressedUri?.let { safeUri ->
+                    drawerViewModel.updateUserData(requireContext(), safeUri)
+                    binding.userImage.setImageURI(safeUri)
+                } ?: run {
+                    Toast.makeText(requireContext(), "Image is too large even after compression", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchCamera()
+            } else {
+                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun showProfileImageBottomSheet() {
+        val bottomSheetView = layoutInflater.inflate(R.layout.upload_profile_img, null)
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        dialog.setContentView(bottomSheetView)
+
+        val btnTake = bottomSheetView.findViewById<LinearLayout>(R.id.imgTake)
+        val btnUpload = bottomSheetView.findViewById<LinearLayout>(R.id.imgUpload)
+        val btnRemove = bottomSheetView.findViewById<LinearLayout>(R.id.imgUpload)
+
+        btnTake.setOnClickListener {
+            dialog.dismiss()
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+            } else {
+                launchCamera()
+            }
+        }
+
+        btnUpload.setOnClickListener {
+
+            dialog.dismiss()
+            ImagePickerUtil.pickImage(requireContext(), this) { uri ->
+                uri?.let {
+                    val compressedUri = compressImageUnder8MB(requireContext(), it)
+
+                    compressedUri?.let { finalUri ->
+                        drawerViewModel.updateUserData(requireContext(), finalUri)
+                        binding.userImage.setImageURI(finalUri)
+                    } ?: run {
+                        Toast.makeText(requireContext(), "Image too large even after compression", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+        btnRemove.setOnClickListener {
+            dialog.dismiss()
+//            binding.userImage.setImageResource(R.drawable.baseline_person_24)
+            Toast.makeText(requireContext(), " ", Toast.LENGTH_SHORT).show()
+
+        }
+
+        dialog.show()
+    }
+
+
+
+    fun compressImageUnder8MB(context: Context, imageUri: Uri): Uri? {
+        val inputStream = context.contentResolver.openInputStream(imageUri) ?: return null
+        val originalBitmap = BitmapFactory.decodeStream(inputStream)
+        inputStream.close()
+
+        val resizedBitmap = Bitmap.createScaledBitmap(
+            originalBitmap,
+            minOf(originalBitmap.width, 2048),
+            minOf(originalBitmap.height, 2048),
+            true
+        )
+
+        var quality = 100
+        var byteArray: ByteArray
+        val outputStream = ByteArrayOutputStream()
+
+        do {
+            outputStream.reset()
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+            byteArray = outputStream.toByteArray()
+            quality -= 5
+        } while (byteArray.size > 8 * 1024 * 1024 && quality > 5)
+
+        return if (byteArray.size <= 8 * 1024 * 1024) {
+            // Save to file and return Uri
+            val file = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
+            FileOutputStream(file).use { it.write(byteArray) }
+
+            FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                file
+            )
+        } else {
+            null // still too big
+        }
+    }
     @SuppressLint("SetTextI18n")
     private fun initDrawerLayout() {
         // Personal Info
@@ -234,7 +365,8 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        ImagePickerUtil.handleResult(requestCode, resultCode, data)
+        ImagePickerUtil.handleActivityResult(requestCode, resultCode, data)
     }
+
 
 }

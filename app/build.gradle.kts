@@ -101,7 +101,7 @@ dependencies {
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
 //    implementation("com.github.barteksc.pdfviewer:android-pdf-viewer:3.1.0") // Stable version of PDFView
     implementation ("com.google.android.material:material:1.4.0")
-
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
     //otp view
 //    implementation (libs.otpview)
     implementation ("com.google.code.gson:gson:2.10.1")
