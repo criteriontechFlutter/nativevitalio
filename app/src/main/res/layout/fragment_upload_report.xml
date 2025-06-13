@@ -69,6 +69,7 @@
             android:id="@+id/dateInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="Select date"
             app:layout_constraintTop_toBottomOf="@id/textDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -107,6 +108,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTestName"
                 android:layout_width="match_parent"
+                android:hint="Enter Test Name"
                 android:background="@drawable/rounded_corners"
                 android:backgroundTint="@color/white"
                 android:layout_height="wrap_content"
@@ -138,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:gravity="start|top"
                 android:layout_height="wrap_content"
+                android:hint="Enter Findings"
                 android:background="@drawable/rounded_corners"
                 android:backgroundTint="@color/white"
                 android:inputType="textMultiLine"

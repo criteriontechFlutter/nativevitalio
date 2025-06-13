@@ -231,7 +231,7 @@ fun insertSymptoms(findNavController: NavController, requireContext: Context) {
                     dtDataTable.add(
                         mapOf(
                             "detailID" to symptom.problemId.toString(),
-                            "detailsDate" to "2025-06-03 12:10:27.222000",
+                            "detailsDate" to now.toString(),
                             "details" to symptom.problemName,
                             "isFromPatient" to "1"
                         )
@@ -282,15 +282,15 @@ fun insertSymptoms(findNavController: NavController, requireContext: Context) {
                 if (response.isSuccessful) {
                     _loading.value = false
                     ToastUtils.showSuccessPopup(requireContext, "Symptom saved successfully!!")
-                    getSymptoms()
+//                    getSymptoms()
                     _selectedSymptoms.value = mutableListOf()
                     _searchSelectedSymptomList.value = mutableListOf()
-                    val json = response.body()?.string()
+
                     findNavController.navigate(R.id.action_symptomsFragment_to_symptomHistory)
 
                 } else {
                     _loading.value = false
-                    _errorMessage.value = "Error: ${response.code()}"
+//                    _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {

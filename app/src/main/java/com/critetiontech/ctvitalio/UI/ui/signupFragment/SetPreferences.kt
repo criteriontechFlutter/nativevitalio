@@ -50,8 +50,8 @@ class SetPreferences : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            progressViewModel.updateProgress(14)
-            progressViewModel.updateProgressPage(2)
+            progressViewModel.updateProgress(10)
+            progressViewModel.updatepageNo(13)
 
 //            val selected = viewModel.setVitalList.value?.filter { it.isCheck } ?: emptyList()
             findNavController().navigate(R.id.action_setPreferences_to_setPreferenseFluidItake)

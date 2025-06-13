@@ -63,7 +63,8 @@ class SignupSelectGenderFragment : Fragment() {
                 else -> ""
             }
 
-            progressViewModel.updateProgress(3)
+            progressViewModel.updateProgress(2)
+            progressViewModel.updatepageNo(2)
             findNavController().navigate(R.id.action_genderFragment_to_dobFragment)
         }
     }

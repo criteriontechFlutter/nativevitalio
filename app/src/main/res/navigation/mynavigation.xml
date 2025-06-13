@@ -49,6 +49,21 @@
         <action
             android:id="@+id/action_dashboard_to_chatBotPage"
             app:destination="@id/chatBotPage" />
+        <action
+            android:id="@+id/action_dashboard_to_fluidInputHistoryFragment"
+            app:destination="@id/fluidInputHistoryFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_uploadReportHistory"
+            app:destination="@id/uploadReportHistory" />
+        <action
+            android:id="@+id/action_dashboard_to_allergies3"
+            app:destination="@id/allergies3" />
+        <action
+            android:id="@+id/action_dashboard_to_fluidOutputFragment"
+            app:destination="@id/fluidOutputFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_symptomTrackerFragments"
+            app:destination="@id/symptomTrackerFragments" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -96,7 +111,14 @@
         android:id="@+id/symptomTrackerFragments"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SymptomTrackerFragments"
         android:label="fragment_symptom_tracker_fragments"
-        tools:layout="@layout/fragment_symptom_tracker_fragments" />
+        tools:layout="@layout/fragment_symptom_tracker_fragments" >
+        <action
+            android:id="@+id/action_symptomTrackerFragments_to_symptomsFragment"
+            app:destination="@id/symptomsFragment" />
+        <action
+            android:id="@+id/action_symptomTrackerFragments_to_symptomHistory"
+            app:destination="@id/symptomHistory" />
+    </fragment>
     <fragment
         android:id="@+id/symptomHistory"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SymptomHistory"
@@ -204,7 +226,53 @@
     <fragment
         android:id="@+id/voiceFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.VoiceFragment"
-        android:label="VoiceFragment" />
+        android:label="VoiceFragment" >
+        <action
+            android:id="@+id/action_voiceFragment_to_uploadReportHistory"
+            app:destination="@id/uploadReportHistory" />
+        <action
+            android:id="@+id/action_voiceFragment_to_chatBotPage"
+            app:destination="@id/chatBotPage" />
+        <action
+            android:id="@+id/action_voiceFragment_to_intakePills"
+            app:destination="@id/intakePills" />
+        <action
+            android:id="@+id/action_voiceFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_voiceFragment_to_intakePills2"
+            app:destination="@id/intakePills" />
+        <action
+            android:id="@+id/action_voiceFragment_to_editProfile3"
+            app:destination="@id/editProfile3" />
+        <action
+            android:id="@+id/action_voiceFragment_to_dietChecklist"
+            app:destination="@id/dietChecklist" />
+        <action
+            android:id="@+id/action_voiceFragment_to_fluidFragment"
+            app:destination="@id/fluidFragment" />
+        <action
+            android:id="@+id/action_voiceFragment_to_fluidInputHistoryFragment"
+            app:destination="@id/fluidInputHistoryFragment" />
+        <action
+            android:id="@+id/action_voiceFragment_to_fluidOutputFragment"
+            app:destination="@id/fluidOutputFragment" />
+        <action
+            android:id="@+id/action_voiceFragment_to_allergies3"
+            app:destination="@id/allergies3" />
+        <action
+            android:id="@+id/action_voiceFragment_to_connectSmartWatchFragment"
+            app:destination="@id/connectSmartWatchFragment" />
+        <action
+            android:id="@+id/action_voiceFragment_to_symptomHistory"
+            app:destination="@id/symptomHistory" />
+        <action
+            android:id="@+id/action_voiceFragment_to_emergencyContactFragment"
+            app:destination="@id/emergencyContactFragment" />
+        <action
+            android:id="@+id/action_voiceFragment_to_vitalHistoryFragment"
+            app:destination="@id/vitalHistoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment2"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment2"

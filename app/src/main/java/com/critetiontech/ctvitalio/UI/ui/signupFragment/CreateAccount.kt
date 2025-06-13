@@ -129,11 +129,16 @@ class CreateAccount : Fragment() {
             viewModel.dob.postValue(it)
         }
 
-        progressViewModel.updateProgressPage(0)
         binding.btnNext.setOnClickListener(){
             viewModel.patientSignUp()
-            progressViewModel.updateProgress(12)
-            progressViewModel.updateProgressPage(1)
+            progressViewModel.updateProgress(9)
+            progressViewModel.updatepageNo(11)
+            progressViewModel.setNottoSkipButtonVisibility(true)
+            progressViewModel.updateisNotBack(true)
+
+            progressViewModel.updateIsDashboard(true)
+            progressViewModel.updateIsHideProgressBar(true)
+
             findNavController().navigate(R.id.accountSuccess)
         }
 //        binding.s.setOnClickListener(){

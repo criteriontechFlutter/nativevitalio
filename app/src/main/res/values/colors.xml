@@ -66,7 +66,7 @@
 
     <color name="dullBlack">#2D3344FF</color>
     <color name="greyDark">#616161FF</color>
-    <color name="darkYellow">#FFC107FF</color>
+    <color name="darkYellow">#FFC107</color>
 
     <color name="transparent">#00000000</color>
     <color name="colorPrimary">#3F51B5</color>

@@ -23,7 +23,8 @@
         android:textColorHint="#888"
         android:textSize="13sp"
         android:textColor="#555"
-        android:drawableRight="@drawable/arrow_right"
+        android:drawableRight="@drawable/chevron_down"
+
         android:paddingTop="4dp"
         android:drawablePadding="4dp" />
 </LinearLayout>
