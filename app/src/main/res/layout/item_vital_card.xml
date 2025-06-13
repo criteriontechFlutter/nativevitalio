@@ -92,6 +92,7 @@
             android:drawableEnd="@drawable/add_vital"
         android:drawablePadding="8dp"
         android:gravity="center"
+            android:textColor="#999"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
