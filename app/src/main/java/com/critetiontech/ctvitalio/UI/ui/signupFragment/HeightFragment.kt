@@ -81,7 +81,8 @@ class HeightFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
 
-            progressViewModel.updateProgress(8)
+            progressViewModel.updateProgress(7)
+            progressViewModel.updatepageNo(7)
             findNavController().navigate(R.id.action_heightFragment_to_chronicConditionFragment)
         }
     }

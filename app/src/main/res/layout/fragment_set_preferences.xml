@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/backgroundColor"
     android:layout_width="match_parent"
+    android:scrollbarSize="0dp"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
@@ -18,12 +19,13 @@
 
 
         <!-- Image -->
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:src="@drawable/ic_vital_reminder"
-            android:layout_marginVertical="24dp" />
 
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/ivIllustration"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:src="@drawable/vital_reminder" />
         <!-- Title -->
         <TextView
             android:layout_width="match_parent"

@@ -75,14 +75,14 @@ class AddAllergyBottomSheet : BottomSheetDialogFragment() {
         }
 
         // Define the input filter to allow only letters and spaces
-        val letterFilter = InputFilter { source, start, end, dest, dstart, dend ->
-            if (source.matches("[a-zA-Z\\s]+".toRegex())) {
-                null // Allow input
-            } else {
-                "" // Reject input
-            }
-        }
 
+        val letterFilter = InputFilter { source, _, _, _, _, _ ->
+            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
+            if (source.isEmpty()) return@InputFilter null // Allow backspace
+
+            val filtered = source.filter { it.toString().matches(regex) }
+            if (filtered == source) null else filtered
+        }
         // Apply filter to input fields
         binding.inputSubstance.filters = arrayOf(letterFilter)
         binding.inputReaction.filters = arrayOf(letterFilter)

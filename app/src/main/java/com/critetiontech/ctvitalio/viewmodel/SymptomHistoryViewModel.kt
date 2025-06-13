@@ -47,7 +47,6 @@ class SymptomsHistoryViewModel (application: Application) : BaseViewModel(applic
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _symptomList.value = parsed.responseValue
                 } else {
-                    _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {

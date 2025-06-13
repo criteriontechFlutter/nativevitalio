@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -57,7 +58,7 @@ class FamilyDiseaseFragment : Fragment() {
 
         viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
             if (!problemList.isNullOrEmpty()) {
-                latestSuggestions = problemList.map { it.problemName }
+                latestSuggestions = problemList.map { capitalizeFirstLetter(it.problemName) }
                 val adapter = ArrayAdapter(
                     requireContext(),
                     android.R.layout.simple_dropdown_item_1line,
@@ -89,11 +90,17 @@ class FamilyDiseaseFragment : Fragment() {
                 "$relation: ${diseases.joinToString(", ")}"
             }
             viewModel.familyDiseases.value = joined
-            progressViewModel.updateProgress(11)
+            progressViewModel.updateProgress(9)
+            progressViewModel.updatepageNo(10)
+            progressViewModel.setNottoSkipButtonVisibility(true)
             findNavController().navigate(R.id.action_familyDiseaseFragment_to_createAccount2)
         }
     }
-
+    fun capitalizeFirstLetter(sentence: String): String {
+        return sentence.trim().replaceFirstChar {
+            if (it.isLowerCase()) it.titlecaseChar() else it
+        }
+    }
     private fun addFamilyDiseaseCard(relation: String, diseases: List<String>) {
         val inflater = LayoutInflater.from(requireContext())
         val cardView = inflater.inflate(R.layout.chip_family_disease, binding.selectedListContainer, false)
@@ -118,48 +125,59 @@ class FamilyDiseaseFragment : Fragment() {
             .setView(dialogView)
             .setCancelable(true)
             .create()
-        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners) // Apply rounded corners to dialog
-
-        val checkBoxes = listOf(
-            dialogView.findViewById<CheckBox>(R.id.checkboxMother),
-            dialogView.findViewById<CheckBox>(R.id.checkboxFather),
-            dialogView.findViewById<CheckBox>(R.id.checkboxBrother),
-            dialogView.findViewById<CheckBox>(R.id.checkboxSister),
-            dialogView.findViewById<CheckBox>(R.id.checkboxGrandParent)
-        )
+        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners)
 
         val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmit)
 
-        checkBoxes.forEach { cb ->
-            cb.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    // Add a checkmark icon when checked
-                    cb.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0)  // Assuming you have a checkmark icon (ic_check)
+        val relations = listOf(
+            Triple("Mother", R.id.checkboxMother, R.id.ivCheckMother),
+            Triple("Father", R.id.checkboxFather, R.id.ivCheckFather),
+            Triple("Brother", R.id.checkboxBrother, R.id.ivCheckBrother),
+            Triple("Sister", R.id.checkboxSister, R.id.ivCheckSister),
+            Triple("Grand Parent", R.id.checkboxGrandParent, R.id.ivCheckGrandParent)
+        )
+
+        // 🔄 Always start with empty selection
+        val selectedRelations = mutableSetOf<String>()
+
+        // 🔁 Initialize each item with unchecked state and click behavior
+        relations.forEach { (name, layoutId, iconId) ->
+            val layout = dialogView.findViewById<LinearLayout>(layoutId)
+            val icon = dialogView.findViewById<ImageView>(iconId)
+
+            // ✅ Set icon to unchecked initially
+            icon.setImageResource(R.drawable.check_box)
+
+            // 🧠 Listener to toggle selection state
+            layout.setOnClickListener {
+                val isSelected = selectedRelations.contains(name)
+
+                if (isSelected) {
+                    selectedRelations.remove(name)
+                    icon.setImageResource(R.drawable.check_box)// unchecked
                 } else {
-                    // Remove the checkmark when unchecked
-                    cb.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)  // No icon
+                    selectedRelations.add(name)
+                    icon.setImageResource(R.drawable.check_icon_box)
                 }
 
-                val anyChecked = checkBoxes.any { it.isChecked }
-
-                // Change the background tint color depending on whether any checkbox is selected
-                btnSubmit.backgroundTintList = ColorStateList.valueOf(
-                    if (anyChecked) ContextCompat.getColor(requireContext(), R.color.primaryColor) // Selected tint
-                    else ContextCompat.getColor(requireContext(), R.color.white) // Unselected tint
-                )
-
-                // Enable/Disable the button based on the selection
-                btnSubmit.isEnabled = anyChecked
+                // Enable submit if any selected
+                btnSubmit.isEnabled = selectedRelations.isNotEmpty()
+                val tintColor = if (selectedRelations.isNotEmpty()) R.color.primaryColor else R.color.white
+                btnSubmit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), tintColor))
             }
         }
 
+        // Submit button logic
         btnSubmit.setOnClickListener {
-            val selectedRelations = checkBoxes.filter { it.isChecked }.map { it.text.toString() }
             selectedRelations.forEach { relation ->
                 viewModel.addDiseaseForRelation(relation, disease)
             }
             dialog.dismiss()
         }
+
+        // ❗ Start with disabled button
+        btnSubmit.isEnabled = false
+        btnSubmit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
 
         dialog.show()
     }
