@@ -66,12 +66,13 @@ class BloodGroupFragment : Fragment() {
         binding.rvBloodGroups.adapter = adapter
 
         binding.btnNext.setOnClickListener {
-            if (selectedBloodGroup != null) {
-                progressViewModel.updateProgress(5)
+//            if (selectedBloodGroup != null) {
+                progressViewModel.updateProgress(4)
+                progressViewModel.updatepageNo(4)
                 findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment)
-            } else {
-                Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()
-            }
+//            } else {
+//                Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()
+//            }
         }
     }
 

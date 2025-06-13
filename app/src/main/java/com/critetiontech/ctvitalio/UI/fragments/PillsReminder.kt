@@ -122,6 +122,7 @@ class PillsReminder : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun filterPillsByDate(selectedDate: String) {
         val list = viewModel.pillList.value ?: return
         val filteredList = list.filter { it.date == selectedDate }
@@ -141,16 +142,12 @@ class PillsReminder : Fragment() {
             headerScrollView = binding.headerScrollView,
             scrollViewsList = syncedScrollViews
         ) { pill, timeObj, iconView ->
-            val icon = timeObj.icon?.lowercase() ?: ""
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     viewModel.insertPatientMedication(
                         pill.pmId.toString(),
                         pill.prescriptionRowID.toString(),
                         timeObj.durationType.toString(),
                         timeObj.time.toString()
                     )
-                }
         }
 
         binding.recyclerView.adapter = adapter

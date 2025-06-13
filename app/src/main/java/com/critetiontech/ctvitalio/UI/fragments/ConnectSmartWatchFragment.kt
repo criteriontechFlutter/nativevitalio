@@ -51,7 +51,7 @@ class ConnectSmartWatchFragment : Fragment() {
                 WatchModel("New Watch ${Random().nextInt(999)}", "100%", R.drawable.watch)
             )
         }
-        viewModel.watchList.observe(viewLifecycleOwner) { data ->
+        viewModel.watchList.observe(viewLifecycleOwner) {
             PrefsManager().saveSmartWatch(viewModel.watchList.value?.size.toString())
         }
 

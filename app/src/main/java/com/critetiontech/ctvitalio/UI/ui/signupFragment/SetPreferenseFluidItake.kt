@@ -37,8 +37,10 @@ class SetPreferenseFluidItake : Fragment() {
             val fluidText = binding.fluidIntakeInput.text.toString()
 //            val unit = binding.unitSpinner.selectedItem.toString()
 
-            progressViewModel.updateProgress(15)
-            progressViewModel.updateProgressPage(2)
+            progressViewModel.updateProgress(11)
+            progressViewModel.updatepageNo(14)
+
+            progressViewModel.updateIsHideProgressBar(true)
 
             val amount = if (fluidText.isEmpty()) {
                 0f

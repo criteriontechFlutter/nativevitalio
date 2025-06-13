@@ -123,13 +123,12 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun convertTo24Hour(input: String): String {
-        val inputFormatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
-        val outputFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH)
-
-        val time = LocalTime.parse(input.trim(), inputFormatter)
-        return time.format(outputFormatter)
+    fun convertTo24Hour(time: String): LocalTime {
+        val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
+        return LocalTime.parse(time.trim(), formatter)
     }
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun insertPatientMedication(
         pmID:String,

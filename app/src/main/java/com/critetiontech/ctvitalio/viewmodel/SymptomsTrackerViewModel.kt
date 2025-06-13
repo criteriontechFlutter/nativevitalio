@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.SymptomDetail
@@ -54,7 +56,6 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _symptomList.value = parsed.responseValue
                 } else {
-                    _errorMessage.value = "Error: ${response.code()}"
                 }
 
             } catch (e: Exception) {
@@ -118,7 +119,9 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
                     _loading.value = false
                     ToastUtils.showSuccessPopup(requireContext, "Symptoms updated successfully!")
                     getSymptoms() // reload updated list
-                   navController.popBackStack()     
+
+                    navController.navigate(R.id.action_symptomTrackerFragments_to_symptomsFragment)
+
 
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
