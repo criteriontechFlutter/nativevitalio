@@ -172,46 +172,33 @@ class UploadReport : Fragment() {
 
 
         binding.etDate.setOnClickListener {
-            // Get current date in milliseconds
             val today = Calendar.getInstance().timeInMillis
 
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select Report Date")
-                // Limit the date range to today or earlier
-                .setSelection(today) // Set the default selection to today
+                .setSelection(today)
                 .build()
 
             datePicker.show(parentFragmentManager, "date_picker")
 
-            // Make sure user cannot pick future dates
             datePicker.addOnPositiveButtonClickListener { selectedDateMillis ->
                 if (selectedDateMillis > today) {
-                    // If the selected date is in the future, show a warning or reset the date
                     Toast.makeText(requireContext(), "Cannot select a future date!", Toast.LENGTH_SHORT).show()
                 } else {
                     val calendar = Calendar.getInstance().apply {
                         timeInMillis = selectedDateMillis
                     }
 
-                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                    val minute = calendar.get(Calendar.MINUTE)
+                    // Format the selected date only (no time)
+                    val formatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .format(calendar.time)
 
-                    // Show time picker after selecting date
-                    TimePickerDialog(requireContext(), { _, h, m ->
-                        calendar.set(Calendar.HOUR_OF_DAY, h)
-                        calendar.set(Calendar.MINUTE, m)
-
-                        val formatted = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                            .format(calendar.time)
-
-                        binding.etDate.setText(formatted)
-                    }, hour, minute, false).apply {
-                        setTitle("Select Time")
-                        show()
-                    }
+                    binding.etDate.setText(formatted)
                 }
             }
         }
+
+
 
         binding.camera.setOnClickListener { checkCameraPermissionAndLaunch() }
         binding.gallery.setOnClickListener { openGallery() }
@@ -265,7 +252,7 @@ class UploadReport : Fragment() {
             }
 
             // Validate if the date is valid (Optional: You could use a specific date format here)
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             try {
                 dateFormat.parse(selectedDate) // Try to parse the date
             } catch (e: Exception) {
@@ -301,14 +288,14 @@ class UploadReport : Fragment() {
 
                 // Get the image path
                 val imagePath = selectedFile.absolutePath
-
+                val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                 // Prepare the bundle for navigation
                 val bundle = Bundle().apply {
                     putSerializable("parsedData", ArrayList(result)) // Serialized result data
                     putString("testType", testType) // Test type
                     putString("testName", testName) // Test name
                     putString("imagePath", imagePath) // Path to the uploaded image
-                    putString("dateTime", binding.etDate.text.toString()) // DateTime string
+                    putString("dateTime", binding.etDate.text.toString()+' '+currentTime) // DateTime string
                 }
 
                 // Navigate to the next fragment with the uploaded data

@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.UI.ui.signupFragment
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.databinding.FragmentCompletionScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -46,7 +48,11 @@ class CompletionScreen : Fragment() {
                 progressViewModel.updateProgress(11)
                 progressViewModel.updatepageNo(14)
                 delay(2000) // 2000 ms = 2 seconds
-                findNavController().navigate(R.id.action_completionScreen_to_completionDashboardReady)
+//                findNavController().navigate(R.id.action_completionScreen_to_completionDashboardReady)
+
+                val intent = Intent(requireContext(), Home::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                requireContext().startActivity(intent)
             }
         }
     private fun startJumpingAnimation(dotsContainer: LinearLayout) {
