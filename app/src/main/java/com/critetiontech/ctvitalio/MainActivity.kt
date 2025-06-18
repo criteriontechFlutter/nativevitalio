@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         createNotificationChannel()
         if (intent.getBooleanExtra("from_notification", false)) {
             // Navigate to a specific fragment or screen
