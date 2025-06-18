@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,9 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.BloodGroupAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
 import com.critetiontech.ctvitalio.model.BloodGroup
 import com.critetiontech.ctvitalio.model.CityModel
@@ -171,7 +168,7 @@ class EditProfile : Fragment() {
 
                chronicData=  Gson().toJson(viewModel.selectedDiseaseList.value ?: emptyList<Map<String, String>>()),
                 street=address,
-                zipCode=  binding.email.text.toString(),
+                zipCode=  PrefsManager().getPatient()?.zip.toString(),
                 countryId = viewModel.selectedCountryId.value?.toString().orEmpty(),
                 stateId = viewModel.selectedStateId.value?.toString().orEmpty(),
                 cityId = viewModel.selectedCityId.value?.toString().orEmpty(),
