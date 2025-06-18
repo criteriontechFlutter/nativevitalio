@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -116,7 +115,7 @@ class DashboardAdapter(
         val valueView = view.findViewById<TextView>(R.id.vital_value)
         val unitView = view.findViewById<TextView>(R.id.vital_unit)
         val timeView = view.findViewById<TextView>(R.id.vital_time)
-        val addVitalButton = view.findViewById<Button>(R.id.add_vital_button)
+        val addVitalButton = view.findViewById<TextView>(R.id.add_vital_button)
 
         // Animations
         val zoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out)
