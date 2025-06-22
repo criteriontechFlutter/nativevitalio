@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/backgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Top Header -->
+
+
+
+
+        <!-- Image -->
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_vital_reminder"
+            android:layout_marginVertical="24dp" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Vital Reminder"
+            android:textAlignment="viewStart"
+            android:gravity="start"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your primary details are uploaded. Please select the interval for your vital reminders."
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:textAlignment="viewStart"
+            android:gravity="start"
+            android:layout_marginBottom="24dp" />
+
+        <!-- ✅ Replace with RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vitalRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
+
+        <!-- Next Button -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/blue"
+            android:background="@drawable/bg_button_rounded"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

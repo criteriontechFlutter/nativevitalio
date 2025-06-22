@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/nav_vitals"
+        android:icon="@drawable/ic_vitals"
+        android:title="@string/vitals" />
+
+    <item
+        android:id="@+id/nav_fluid"
+        android:icon="@drawable/ic_fluid"
+        android:title="@string/fluid" />
+
+    <item
+        android:id="@+id/nav_medication"
+        android:icon="@drawable/ic_medication"
+        android:title="@string/medication" />
+
+    <item
+        android:id="@+id/nav_diet"
+        android:icon="@drawable/ic_diet"
+        android:title="@string/diet" />
+</menu>

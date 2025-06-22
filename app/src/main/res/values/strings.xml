@@ -181,6 +181,10 @@
         <item>Fri</item>
         <item>Sat</item>
     </string-array>
+    <string-array name="fluid_units">
+        <item>Litre</item>
+        <!--        <item>Millilitre</item>-->
+    </string-array>
     <string name="title_activity_listing">ActivityListingActivity</string>
     <string name="bmi">BMI</string>
     <string name="body_age">Body Age</string>
@@ -244,5 +248,34 @@
     <string name="add_intake">Add Intake</string>
     <string name="fluid_intake">Fluid Intake</string>
     <string name="diet_checklist">Diet Checklist</string>
+    <string name="fluid">Fluid</string>
+    <string name="medication">Medication</string>
+    <string name="diet">Diet</string>
+    <string name="title_activity_observer">ObserverActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="primary_symptoms">Primary Symptoms</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="condition">Condition</string>
+    <string name="last_issue">Last Issue</string>
+    <string name="select_date">Select Date</string>
+    <string name="medicine">MEDICINE</string>
+    <string name="_8_00_am">8:00 AM</string>
+    <string name="_9_00_pm">9:00 PM</string>
+    <string name="_6_00_pm">6:00 PM</string>
+    <string name="_12_00_pm">12:00 PM</string>
+    <string name="supplements_for_the_day">Supplements for the day</string>
+    <string name="supplement">SUPPLEMENT</string>
+    <string name="_6am_7am">6am-7am</string>
+    <string name="_8am_9am">8am-9am</string>
+    <string name="_11am_11_30am">11am-11:30am</string>
+    <string name="_1pm_2pm">1pm-2pm</string>
+    <string name="recommended_fluid">Recommended Fluid:</string>
+    <string name="intake">Intake:</string>
+    <string name="fluid_output_log">Fluid Output Log</string>
+    <string name="total_output">Total Output</string>
+    <string name="fluid_output">Fluid Output</string>
+    <string name="fluid_intake_log">Fluid Intake Log</string>
 
 </resources>

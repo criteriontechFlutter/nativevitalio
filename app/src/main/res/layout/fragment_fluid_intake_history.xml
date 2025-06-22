@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
+    tools:context=".UI.ui.observer.FluidIntakeHistoryObserverFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/backgroundColor"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/fluidToggleGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@android:color/transparent"
+            app:singleSelection="true"
+            app:checkedButton="@id/btnDaily">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDaily"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@string/daily"
+                android:textColor="@android:color/white"
+                app:cornerRadius="14dp"
+                app:backgroundTint="@color/primaryBlue" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWeekly"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="@string/weekly"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:textColor="@color/gray"
+                app:cornerRadius="14dp"
+                app:backgroundTint="@android:color/white" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMonthly"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="@string/monthly"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:textColor="@color/gray"
+                app:cornerRadius="14dp"
+                app:backgroundTint="@android:color/white" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        <LinearLayout
+            android:id="@+id/dateSelectorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/btnPrevDate"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start"
+                android:src="@drawable/arrow_left"
+                android:contentDescription="Previous date"
+                android:layout_marginEnd="16dp"
+                app:tint="@color/gray" />
+
+            <TextView
+                android:id="@+id/tvSelectedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today"
+                android:textColor="@color/textColor"
+                android:paddingStart="@dimen/_35sdp"
+                android:paddingEnd="@dimen/_35sdp"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/btnNextDate"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow_right"
+                android:contentDescription="Next date"
+                android:layout_marginStart="16dp"
+                app:tint="@color/gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarLayout"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/recommendedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recommended Fluid: "
+                    android:textColor="@color/dashboardIconColor1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/intakeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/intake"
+                    android:textColor="@color/dashboardIconColor1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/stackedBar"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                android:background="#E0E0E0"
+                android:weightSum="1"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/remainingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/remaining"
+                    android:textColor="@color/dashboardIconColor1"
+                    app:layout_constraintBottom_toBottomOf="@+id/legendLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/legendLayout"
+                    app:layout_constraintTop_toTopOf="@+id/legendLayout" />
+
+                <LinearLayout
+                    android:id="@+id/legendLayout"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/bg_card"
+            android:padding="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fluid Intake Log"
+                android:textColor="@color/revBackgroundColor"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgGrsph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/graph"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/list"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgGrsph"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/textView16">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    tools:listitem="@layout/item_fluid_intake_log_observer"/>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</FrameLayout>

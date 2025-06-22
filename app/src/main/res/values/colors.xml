@@ -81,6 +81,7 @@
 
     <color name="blue">#1E6CFF</color>
     <color name="gray">#888888</color>
+    <color name="golden_yellow">#D6A700</color>
 
     <!--Text Color-->
     <color name="textColor">@color/blackText</color>
