@@ -2,7 +2,6 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.adapter.AllergiesAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 import com.critetiontech.ctvitalio.model.AllergyTypeItem
 import com.critetiontech.ctvitalio.utils.AddAllergyBottomSheet
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
-import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 
 
 class Allergies : Fragment(), AllergiesAdapter.SelectionListener {
@@ -37,6 +38,9 @@ class Allergies : Fragment(), AllergiesAdapter.SelectionListener {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[AllergiesViewModel::class.java]
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         adapter = AllergiesAdapter()
         adapter.selectionListener = this
