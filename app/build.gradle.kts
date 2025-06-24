@@ -113,7 +113,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.lottie.v601)
     implementation(libs.mpandroidchart)
-
     implementation(libs.converter.gson)
     implementation (libs.lottie)
     implementation (libs.androidx.navigation.fragment.ktx)

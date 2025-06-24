@@ -92,6 +92,7 @@ public class OmronConnectedDeviceList extends BaseActivity {
         }
         initViews();
         initClickListeners();
+        ConfigureOmronLibaryKey();
         pairingDeviceData = new PairingDeviceData(getContentResolver());
         if (preferencesManager.getPartnerKey().isEmpty()) {
             showLibraryKeyDialog(true);
@@ -133,6 +134,24 @@ public class OmronConnectedDeviceList extends BaseActivity {
     }
     // UI initializers
 
+    private void ConfigureOmronLibaryKey(){
+        inputPartnerKey = "A68C0CB6-A612-4CA4-9143-6136F4AC0751";
+        if (inputPartnerKey.isEmpty()) {
+            showErrorLoadingDevices();
+        } else {
+            // OmronConnectivityLibrary initialization and Api key setup.
+            OmronPeripheralManager.sharedManager(mContext).setAPIKey(inputPartnerKey, null);
+            addButtonDisable();
+            isShowSupportList = true;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                mContext.registerReceiver(mMessageReceiver,
+                        new IntentFilter(OmronConstants.OMRONBLEConfigurationFileAvailabilityStatusNotification),RECEIVER_NOT_EXPORTED);
+            }else{
+                mContext.registerReceiver(mMessageReceiver,
+                        new IntentFilter(OmronConstants.OMRONBLEConfigurationFileAvailabilityStatusNotification));
+            }
+        }
+    }
     private void initViews() {
         mImageViewInfo = findViewById(R.id.iv_info);
         mListView = findViewById(R.id.lv_devicelist);
