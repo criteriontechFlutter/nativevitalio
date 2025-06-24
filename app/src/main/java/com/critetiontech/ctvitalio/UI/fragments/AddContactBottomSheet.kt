@@ -94,11 +94,12 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
             val regex = Regex("[0-9]") // Allow letters and space only
             if (source.isEmpty()) return@InputFilter null // Allow backspace
 
+
             val filtered = source.filter { it.toString().matches(regex) }
             if (filtered == source) null else filtered
         }
         binding.etName.filters = arrayOf(letterFilter)
-        binding.etContactNumber.filters = arrayOf(etContactNumber)
+        binding.etContactNumber.filters = arrayOf(etContactNumber, InputFilter.LengthFilter(10))
 
 
         binding.btnSaveContact.setOnClickListener {

@@ -31,11 +31,11 @@ class ImagePdfViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fileUri: Uri? = arguments?.getParcelable("fileUri")
+        val fileUriString = arguments?.getString("fileUri")
+        val fileUri = fileUriString?.let { Uri.parse(it) }
 
         fileUri?.let {
             val fileExtension = getFileExtension(it)
-
             if (fileExtension.equals("pdf", ignoreCase = true)) {
                 binding.imageView.visibility = View.GONE
                 // TODO: Show PDF if implemented
@@ -46,7 +46,9 @@ class ImagePdfViewFragment : Fragment() {
         }
 
         binding.backIcon.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set("refreshNeeded", true)
             findNavController().popBackStack()
+
         }
     }
 
@@ -55,7 +57,6 @@ class ImagePdfViewFragment : Fragment() {
             .load(uri)
             .into(binding.imageView)
     }
-
     private fun getFileExtension(uri: Uri): String {
         val path = uri.path ?: return ""
         return path.substringAfterLast('.', "")
