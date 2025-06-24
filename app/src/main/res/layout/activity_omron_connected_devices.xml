@@ -49,14 +49,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_back" />
-
         <ImageView
             android:id="@+id/iv_info"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_alignLeft="@+id/iv_back"
-            android:src="@drawable/baseline_info_outline_24" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        android:layout_alignLeft="@+id/iv_back"
+        android:src="@drawable/baseline_info_outline_24" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_info"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:padding="10dp"-->
+<!--            android:layout_alignLeft="@+id/iv_back"-->
+<!--            android:src="@drawable/baseline_info_outline_24" />-->
 
         <TextView
             android:id="@+id/textView"

@@ -151,13 +151,19 @@ class EditProfile : Fragment() {
                 rawDob
             }
 
-
-            if (isValidEmail( binding.email.text.toString())) {
-                // Proceed with form submission
-            } else {
-                Toast.makeText(requireContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show()
-                binding.firstNameField.requestFocus()
-                return@setOnClickListener }
+            if( binding.email.text.toString().isNotEmpty()){
+                if (isValidEmail(binding.email.text.toString())) {
+                    // Proceed with form submission
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please enter a valid email address",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.firstNameField.requestFocus()
+                    return@setOnClickListener
+                }
+            }
             // 3. Call ViewModel if all fields are valid
             viewModel.updateUserData(
                 requireContext(),
@@ -171,7 +177,7 @@ class EditProfile : Fragment() {
 
                chronicData=  Gson().toJson(viewModel.selectedDiseaseList.value ?: emptyList<Map<String, String>>()),
                 street=address,
-                zipCode=  binding.email.text.toString(),
+                zipCode=  PrefsManager().getPatient()?.zip.toString(),
                 countryId = viewModel.selectedCountryId.value?.toString().orEmpty(),
                 stateId = viewModel.selectedStateId.value?.toString().orEmpty(),
                 cityId = viewModel.selectedCityId.value?.toString().orEmpty(),

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:background="@color/backgroundColor"
-    android:fillViewport="true"  android:windowSoftInputMode="adjustPan"
+    android:fillViewport="true"
+    android:windowSoftInputMode="adjustPan"
     android:isScrollContainer="true"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <!-- Back & Title -->
         <LinearLayout
@@ -90,7 +91,6 @@
                 android:paddingHorizontal="16dp"
                 android:text="Abhay"
                 android:textColor="@color/textColor"
-
                 android:textSize="14sp"/>
 
             <!-- Last Name -->
@@ -232,7 +232,7 @@
                 android:background="@drawable/bg_edittext"
                 android:hint="Enter Email"
                 android:paddingHorizontal="16dp"
-                android:text="Sharma"
+                android:text=""
                 android:textColor="@color/textColor"
 
                 android:textSize="14sp"/>

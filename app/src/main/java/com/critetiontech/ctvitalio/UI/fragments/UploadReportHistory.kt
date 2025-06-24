@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.UploadHistoryAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.viewmodel.UploadReportHistoryViewModel
+import com.google.gson.Gson
 
 class UploadReportHistory : Fragment() {
 
@@ -44,7 +47,7 @@ class UploadReportHistory : Fragment() {
                 // For example, open the image in a full-screen activity
                 val bundle = Bundle().apply {
 
-                    putString("fileUri", imageUri.path.toString()) // DateTime string
+                    putString("fileUri", imageUri.toString()) // DateTime string
                 }
 
                 // Navigate to the next fragment with the uploaded data
@@ -71,11 +74,25 @@ class UploadReportHistory : Fragment() {
         binding.tabImaging.setOnClickListener { selectTab("Imaging") }
         binding.tabLab.setOnClickListener { selectTab("Lab") }
 
+        // Listen for refresh signal from back stack
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Boolean>("refreshNeeded")
+            ?.observe(viewLifecycleOwner) { shouldRefresh ->
+                if (shouldRefresh) {
+                    selectTab("Radiology")
+                    findNavController().currentBackStackEntry?.savedStateHandle?.remove<Boolean>("refreshNeeded")
+                }
+                else{
 
+
+                }
+            }
         // Default selection
         selectTab("Radiology")
-        selectTab("Imaging" )
-        selectTab("Lab")
+
+        viewModel.getReportsByCategory("Radiology")
+        viewModel.getReportsByCategory("Imaging")
+        viewModel.getReportsByCategory("Lab")
         viewModel.selectedRadiology.observe(viewLifecycleOwner, Observer { count ->
             // Only update if count is greater than 0
             if (count > 0) {
@@ -103,7 +120,10 @@ class UploadReportHistory : Fragment() {
             }
         })
     }
-
+    override fun onResume() {
+        super.onResume()
+        viewModel.getReportsByCategory("Radiology") // or whatever the last selected tab was
+    }
     private fun selectTab(category: String) {
         val selectedTab = when (category) {
             "Radiology" -> binding.tabRadiology

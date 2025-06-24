@@ -123,7 +123,7 @@
                     android:id="@+id/subtitle_radiology"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 Record"
+                    android:text="No Record"
                     android:textSize="13sp"
                     android:textColor="@color/greyText"
                     android:layout_marginTop="2dp" />
@@ -167,7 +167,7 @@
                     android:id="@+id/subtitle_Imaging"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 Record"
+                    android:text="No Record"
                     android:textSize="13sp"
                     android:textColor="@color/greyText"
                     android:layout_marginTop="2dp" />
@@ -213,7 +213,7 @@
                     android:id="@+id/subtitle_Lab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 Record"
+                    android:text="No Record"
                     android:textSize="13sp"
                     android:textColor="@color/greyText"
                     android:layout_marginTop="2dp" />
