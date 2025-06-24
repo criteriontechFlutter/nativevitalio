@@ -1,5 +1,4 @@
-<!-- res/layout/item_profile_row.xml -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+ <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -47,10 +46,10 @@
                 android:textColor="@color/textColor" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/arrow_right"
+                android:layout_width="14dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:src="@drawable/rightarrow"
                 app:tint="@color/textColor" />
         </LinearLayout>
     </merge>

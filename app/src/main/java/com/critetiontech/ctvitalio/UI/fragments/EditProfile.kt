@@ -148,13 +148,19 @@ class EditProfile : Fragment() {
                 rawDob
             }
 
-
-            if (isValidEmail( binding.email.text.toString())) {
-                // Proceed with form submission
-            } else {
-                Toast.makeText(requireContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show()
-                binding.firstNameField.requestFocus()
-                return@setOnClickListener }
+            if( binding.email.text.toString().isNotEmpty()){
+                if (isValidEmail(binding.email.text.toString())) {
+                    // Proceed with form submission
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please enter a valid email address",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.firstNameField.requestFocus()
+                    return@setOnClickListener
+                }
+            }
             // 3. Call ViewModel if all fields are valid
             viewModel.updateUserData(
                 requireContext(),
