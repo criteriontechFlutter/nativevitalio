@@ -31,8 +31,8 @@
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:text="@string/fluid_intake"
-                android:textColor="@android:color/white"
                 app:cornerRadius="14dp"
+                android:textColor="@android:color/white"
                 app:backgroundTint="@color/primaryBlue" />
 
             <com.google.android.material.button.MaterialButton

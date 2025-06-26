@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.HomeFragment"
+        android:label="homeFragment"
+        tools:layout="@layout/fragment_home2" >
+        <action
+            android:id="@+id/action_homeFragment_to_fluidIntakeHistoryObserverFragment"
+            app:destination="@id/fluidIntakeHistoryObserverFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_medicationFragment"
+            app:destination="@id/medicationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dietFragment"
+            app:destination="@id/dietFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_fluidIntakeObserverFragment"
+            app:destination="@id/fluidIntakeObserverFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_vitalsFragment"
+            app:destination="@id/vitalsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/vitalsFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.VitalsFragment"
+        android:label="fragment_vitals"
+        tools:layout="@layout/fragment_vitals" />
+    <fragment
+        android:id="@+id/otherDetailsFragment3"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.OtherDetailsFragment"
+        android:label="OtherDetailsFragment"
+        tools:layout="@layout/fragment_other_details"/>
+    <fragment
+        android:id="@+id/fluidIntakeObserverFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.FluidIntakeObserverFragment"
+        android:label="fragment_fluid_intake2"
+        tools:layout="@layout/fragment_fluid_intake2" >
+        <action
+            android:id="@+id/action_fluidIntakeObserverFragment_to_fluidOutputHistoryObserverFragment"
+            app:destination="@id/fluidOutputHistoryObserverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fluidIntakeHistoryObserverFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.FluidIntakeHistoryObserverFragment"
+        android:label="fragment_fluid_intake_history"
+        tools:layout="@layout/fragment_fluid_intake_history" />
+    <fragment
+        android:id="@+id/fluidOutputHistoryObserverFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.FluidOutputHistoryObserverFragment"
+        android:label="fragment_fluid_output_history_observer"
+        tools:layout="@layout/fragment_fluid_output_history_observer" />
+    <fragment
+        android:id="@+id/medicationFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.MedicationFragment"
+        android:label="MedicationFragment"
+        tools:layout="@layout/fragment_medication"/>
+    <fragment
+        android:id="@+id/dietFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.DietFragment"
+        android:label="DietFragment"
+        tools:layout="@layout/fragment_diet"/>
+</navigation>

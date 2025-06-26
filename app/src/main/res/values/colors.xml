@@ -91,6 +91,7 @@
     <color name="backgroundColor2">#F9FAFB</color>
     <color name="backgroundColor3">@color/greyBG2</color>
     <color name="backgroundColor4">#f0f4f7</color>
+    <color name="backgroundColor5">@color/greyBG2</color>
     <color name="backgroundColorToast">#333333</color>
     <color name="loginTextColor1">@color/button_grey</color>
     <color name="loginTextColor2">@color/primaryBlue</color>

@@ -18,6 +18,7 @@
     <color name="dashboardIconColor2">@color/primaryBlueLight</color>
     <color name="dashboardIconColor3">@color/blackText</color>
     <color name="dashboardIconColor4">@color/blackText</color>
+    <color name="backgroundColor5">#1E1E1F</color>
     <color name="dashboardIconBg">@color/bgDark2</color>
     <color name="drawableStrokeColor">@color/blackText</color>
     <color name="blackTextColor">@color/primaryBlueLight</color>
