@@ -86,6 +86,7 @@
 
     <!--Text Color-->
     <color name="textColor">@color/blackText</color>
+    <color name="symptomsTextColor">@color/blackText</color>
     <color name="revBackgroundColor">#000000</color>
     <color name="backgroundColor1">#F4F6F9</color>
     <color name="loginTextColor1">@color/button_grey</color>
