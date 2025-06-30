@@ -319,8 +319,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="to_take" />
-                            <entry key="sourceFile" value="C:\Gitea_Projects\nativevitalio\app\src\main\res\drawable\to_take.svg" />
+                            <entry key="outputName" value="rightarrow" />
+                            <entry key="sourceFile" value="C:\Users\10039\Downloads\Vector 1.svg" />
                           </map>
                         </option>
                       </PersistentState>
