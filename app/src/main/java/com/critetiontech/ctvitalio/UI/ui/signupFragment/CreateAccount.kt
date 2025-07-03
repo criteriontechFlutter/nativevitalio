@@ -130,7 +130,7 @@ class CreateAccount : Fragment() {
         }
 
         progressViewModel.updateProgressPage(0)
-        binding.btnNext.setOnClickListener(){
+        binding.btnNext.setOnClickListener {
             viewModel.patientSignUp()
             progressViewModel.updateProgress(12)
             progressViewModel.updateProgressPage(1)
@@ -244,11 +244,11 @@ private fun addSummaryItem(label: String, value: String) {
 
         // Decrease font size and make italic if value is blank
         if (value.isBlank()) {
-            valueTextView.setTextSize(12f)  // Smaller font size
+            valueTextView.textSize = 12f  // Smaller font size
             valueTextView.setTypeface(null, android.graphics.Typeface.ITALIC)  // Italic font
             iconImageView.setImageResource(R.drawable.edit_icon)  // Show "edit" icon when value is blank
         } else {
-            valueTextView.setTextSize(16f)  // Default font size
+            valueTextView.textSize = 16f  // Default font size
             valueTextView.setTypeface(null, android.graphics.Typeface.NORMAL)  // Normal font style
             iconImageView.setImageResource(R.drawable.edit)  // Show "checked" icon when value is provided
         }

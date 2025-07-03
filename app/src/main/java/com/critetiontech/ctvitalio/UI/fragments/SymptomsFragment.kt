@@ -49,11 +49,11 @@ class SymptomsFragment : Fragment() {
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
-        binding.saveSymptomsBtn.setOnClickListener(){
-            viewModel.insertSymptoms(findNavController(),requireContext());
+        binding.saveSymptomsBtn.setOnClickListener {
+            viewModel.insertSymptoms(findNavController(),requireContext())
         }
 
-        binding.backButton.setOnClickListener(){
+        binding.backButton.setOnClickListener {
 
             findNavController().popBackStack()
         }

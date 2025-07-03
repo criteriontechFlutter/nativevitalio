@@ -80,7 +80,7 @@ public class WeightScaleDataListAdapter extends RecyclerView.Adapter<WeightScale
 
         public VersionViewHolder(View view) {
             super(view);
-            tvData = (TextView) view.findViewById(R.id.tv_data);
+            tvData = view.findViewById(R.id.tv_data);
         }
     }
     public String setTime(String stringTime){

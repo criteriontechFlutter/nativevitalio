@@ -64,7 +64,7 @@ public class SleepDataFragment extends Fragment implements LoaderManager.LoaderC
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView lvDevicelist = (RecyclerView) view.findViewById(R.id.lv_devicelist);
+        RecyclerView lvDevicelist = view.findViewById(R.id.lv_devicelist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         lvDevicelist.setLayoutManager(linearLayoutManager);

@@ -55,7 +55,7 @@ class DietChecklist : Fragment() {
             val flatList = mutableListOf<com.critetiontech.ctvitalio.adapter.DietListItem>()
 
             dietList
-                .groupBy { it.foodGivenAt ?: "Others" }
+                .groupBy { it.foodGivenAt }
                 .forEach { (timeSlot, items) ->
                     items.forEachIndexed { index, item ->
                         flatList.add(

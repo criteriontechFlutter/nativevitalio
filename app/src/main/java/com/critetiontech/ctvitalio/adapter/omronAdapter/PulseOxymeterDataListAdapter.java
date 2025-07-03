@@ -86,7 +86,7 @@ public class PulseOxymeterDataListAdapter extends RecyclerView.Adapter<PulseOxym
 
         VersionViewHolder(View view) {
             super(view);
-            tvData = (TextView) view.findViewById(R.id.tv_data);
+            tvData = view.findViewById(R.id.tv_data);
         }
     }
 

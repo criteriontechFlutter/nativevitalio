@@ -20,7 +20,7 @@ class ChatbotFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentChatbotBinding.inflate(inflater, container, false)
         return binding.root
 

@@ -19,7 +19,7 @@ public class ActivityDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
-        TextView mTvTitle = (TextView) findViewById(R.id.textView);
+        TextView mTvTitle = findViewById(R.id.textView);
 
         String itemName = getIntent().getExtras().getString(Constants.bundleKeys.KEY_ACTIVITY_DATA_TYPE);
         String itemKey = getIntent().getExtras().getString(Constants.bundleKeys.KEY_ACTIVITY_DATA_KEY);

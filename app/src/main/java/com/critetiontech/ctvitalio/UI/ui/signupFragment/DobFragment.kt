@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment;
+package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

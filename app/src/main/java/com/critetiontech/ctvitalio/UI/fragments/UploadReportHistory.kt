@@ -62,7 +62,7 @@ class UploadReportHistory : Fragment() {
         binding.addReport.setOnClickListener {
             findNavController().navigate(R.id.action_uploadReportHistory_to_uploadReport3)
         }
-        binding.backIcon.setOnClickListener(){
+        binding.backIcon.setOnClickListener {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }

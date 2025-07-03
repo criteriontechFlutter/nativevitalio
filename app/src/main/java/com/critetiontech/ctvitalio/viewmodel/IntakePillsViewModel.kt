@@ -38,7 +38,7 @@ class IntakePillsViewModel :ViewModel() {
                 val queryParams = mapOf(
                     "UhID" to PrefsManager().getPatient()?.uhID.toString(),
                     "pmID"  to  pmID,
-                    "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
+                    "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
 
 
 

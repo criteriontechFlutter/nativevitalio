@@ -88,10 +88,10 @@ public class ReminderActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        ImageView ivAddDevice = (ImageView) findViewById(R.id.iv_add_device);
-        tvTimeFormat = (TextView) findViewById(R.id.tv_time_format);
-        swTimeFormat = (Switch) findViewById(R.id.sw_time_format);
-        RecyclerView rvSavedDevices = (RecyclerView) findViewById(R.id.rv_saved_devices);
+        ImageView ivAddDevice = findViewById(R.id.iv_add_device);
+        tvTimeFormat = findViewById(R.id.tv_time_format);
+        swTimeFormat = findViewById(R.id.sw_time_format);
+        RecyclerView rvSavedDevices = findViewById(R.id.rv_saved_devices);
         findViewById(R.id.btn_update).setOnClickListener(this);
         ivAddDevice.setOnClickListener(this);
 

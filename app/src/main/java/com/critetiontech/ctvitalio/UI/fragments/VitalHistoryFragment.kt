@@ -36,7 +36,7 @@ class VitalHistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentVitalHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -126,7 +126,7 @@ if(vitalType=="Blood Pressure"){
                 when (checkedId) {
                     R.id.btnDaily -> {
                         binding.btnGraphToggleLayout.visibility= View.VISIBLE
-                        binding.tvSelectedDate.setText("Today")
+                        binding.tvSelectedDate.text = "Today"
                         binding.heartImg.visibility= View.VISIBLE
                         PrefsManager().getPatient()?.let {
                             viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
@@ -136,7 +136,7 @@ if(vitalType=="Blood Pressure"){
                     R.id.btnWeekly -> {
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastWeekRange()
-                        binding.tvSelectedDate.setText("${formatDateString(from)}--${formatDateString(to)}")
+                        binding.tvSelectedDate.text = "${formatDateString(from)}--${formatDateString(to)}"
                         binding.heartImg.visibility= View.GONE
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
 
@@ -146,7 +146,7 @@ if(vitalType=="Blood Pressure"){
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastMonthRange()
                         binding.heartImg.visibility= View.GONE
-                        binding.tvSelectedDate.setText("${formatDateString(from)}--${formatDateString(to)}")
+                        binding.tvSelectedDate.text = "${formatDateString(from)}--${formatDateString(to)}"
                         PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,from,to,vitalId) }
                     }
                 }

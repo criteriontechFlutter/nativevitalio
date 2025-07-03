@@ -69,7 +69,7 @@ class AllergiesViewModel  :ViewModel(){
 
                     val allItems = mutableListOf<AllergyHistoryItem>()
 
-                    parsed.responseValue?.forEach { group ->
+                    parsed.responseValue.forEach { group ->
                         val itemType = object : TypeToken<List<AllergyHistoryItem>>() {}.type
                         val historyItems: List<AllergyHistoryItem> = Gson().fromJson(group.jsonHistory, itemType)
 

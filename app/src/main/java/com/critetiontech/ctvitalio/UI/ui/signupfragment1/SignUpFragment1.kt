@@ -14,9 +14,4 @@ class SignUpFragments1 : Fragment() {
 
     private val viewModel: SignUpFragment1ViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 }

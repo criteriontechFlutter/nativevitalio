@@ -30,7 +30,7 @@ class CompletionDashboardReady : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
 
-        binding.btnGoToDashboard.setOnClickListener(){
+        binding.btnGoToDashboard.setOnClickListener {
 
             val intent = Intent(requireContext(), Home::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

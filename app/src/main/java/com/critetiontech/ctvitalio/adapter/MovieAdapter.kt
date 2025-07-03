@@ -11,10 +11,11 @@ import java.util.ArrayList
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private var movieList = ArrayList<Result>()
     fun setMovieList(movieList: List<Any>){
-        this.movieList = movieList as ArrayList<com.critetiontech.ctvitalio.model.Result>
+        this.movieList = movieList as ArrayList<Result>
         notifyDataSetChanged()
     }
-    class ViewHolder(val binding : MovieLayoutBinding) : RecyclerView.ViewHolder(binding.root) {}
+    class ViewHolder(val binding : MovieLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             MovieLayoutBinding.inflate(

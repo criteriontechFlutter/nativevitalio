@@ -412,11 +412,11 @@ class EditProfile : Fragment() {
             binding.mobileNo.setText(patient.mobileNo.toString())
             binding.email.setText(patient.emailID.toString())
             binding.zipCode.setText(patient.zip.toString())
-            val weight = patient.weight?.toString() ?: "0.00"
+            val weight = patient.weight.toString()
             binding.weight.setText(String.format("%.2f", weight.toDouble()))
             binding.height.setText(patient.height.toString())
 
-            val height = patient.height.toString() ?: "0.00"
+            val height = patient.height.toString()
             binding.height.setText(String.format("%.1f", height.toDouble()))
             viewModel.selectedCountryId.value=patient.countryId.toString()
 

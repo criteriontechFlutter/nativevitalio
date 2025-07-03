@@ -17,7 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.graphics.Color
 import android.widget.AdapterView
 
-import android.widget.Toast;
+import android.widget.Toast
+
 class AddContactBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetAddEmergencyContactBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +42,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
 
         val adapter = object : ArrayAdapter<String>(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.simple_spinner_item,
             relationships
         ) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -66,7 +67,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
                 return view
             }
         }
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.spinnerRelationship.adapter = adapter
 
         // Set default selected item to 0 (hint)

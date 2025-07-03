@@ -116,7 +116,7 @@ findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
         binding.userUhid.text = PrefsManager().getPatient()!!.uhID
         Glide.with(MyApplication.appContext) // or `this` if inside Activity
             .load(PrefsManager().getPatient()!!.profileUrl) // or R.drawable.image
-            .placeholder(com.critetiontech.ctvitalio.R.drawable.baseline_person_24)
+            .placeholder(R.drawable.baseline_person_24)
             .circleCrop() // optional: makes it circular
             .into(binding.userImage)
 

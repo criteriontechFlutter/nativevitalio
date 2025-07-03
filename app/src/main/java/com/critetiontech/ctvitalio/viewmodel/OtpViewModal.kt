@@ -22,6 +22,7 @@ import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class OtpViewModal  (application: Application) : BaseViewModel(application){
 
@@ -63,7 +64,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                             putExtra("UHID", uhid)
                             putExtra("mobileNo", mNo)
                         }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         MyApplication.appContext.startActivity(intent)
 
 
@@ -96,7 +97,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 var mo = ""
                 var uhidVal = ""
 
-                if (uhid.toLowerCase().contains("uhid")) {
+                if (uhid.lowercase(Locale.getDefault()).contains("uhid")) {
                     uhidVal = uhid
                 } else {
                     mo = uhid

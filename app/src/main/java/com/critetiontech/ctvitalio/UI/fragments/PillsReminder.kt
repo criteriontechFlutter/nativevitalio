@@ -141,7 +141,7 @@ class PillsReminder : Fragment() {
             headerScrollView = binding.headerScrollView,
             scrollViewsList = syncedScrollViews
         ) { pill, timeObj, iconView ->
-            val icon = timeObj.icon?.lowercase() ?: ""
+            val icon = timeObj.icon.lowercase()
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     viewModel.insertPatientMedication(
@@ -259,7 +259,7 @@ class PillsReminder : Fragment() {
                 imgIcon.setImageResource(iconRes)
 
                 val actionIcon = card.findViewById<ImageView>(R.id.imgAction)
-                val isTaken = timeObj.icon?.lowercase() in listOf("taken", "check", "late")
+                val isTaken = timeObj.icon.lowercase() in listOf("taken", "check", "late")
 
 
                 val cardColor = (card.backgroundTintList as? ColorDrawable)?.color ?: Color.WHITE

@@ -18,7 +18,7 @@ public class PersonalData {
     private int month;
     private int year;
     private String Stride;
-    private ContentResolver contentResolver;
+    private final ContentResolver contentResolver;
 
     public PersonalData(ContentResolver contentResolver){
         this.contentResolver = contentResolver;

@@ -52,8 +52,8 @@ public class WheezeDataListingActivity extends BaseActivity implements LoaderMan
 
     private void initViews() {
 
-        WheezeDataCount = (TextView) findViewById(R.id.wheeze_data_count);
-        mListView = (RecyclerView) findViewById(R.id.lv_devicelist);
+        WheezeDataCount = findViewById(R.id.wheeze_data_count);
+        mListView = findViewById(R.id.lv_devicelist);
         ((TextView) findViewById(R.id.textView)).setText("History - " +  modelName);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(WheezeDataListingActivity.this, LinearLayoutManager.VERTICAL, false);

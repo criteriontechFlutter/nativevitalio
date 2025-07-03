@@ -30,7 +30,7 @@ class ReportFeildsViewModel  : ViewModel(){
         imagePath: String
     ): String? = withContext(Dispatchers.IO) {
 
-        val url = com.critetiontech.ctvitalio.networking.RetrofitInstance.DEFAULT_BASE_URL+ ApiEndPoint().insertPatientMediaData +
+        val url = RetrofitInstance.DEFAULT_BASE_URL+ ApiEndPoint().insertPatientMediaData +
                 "?uhId=${PrefsManager().getPatient()?.uhID.toString()}&subCategory=${Uri.encode(testName)}&remark=${Uri.encode(category)}" +
                 "&category=${Uri.encode(category)}&dateTime=${Uri.encode(dateTime)}&userId=0"
         Log.e("UploadError", "url: ${url}")
