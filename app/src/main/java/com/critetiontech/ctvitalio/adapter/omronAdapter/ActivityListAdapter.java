@@ -104,8 +104,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         VersionViewHolder(View view) {
             super(view);
 
-            tvData = (TextView) view.findViewById(R.id.tv_measurement);
-            llBg = (LinearLayout) view.findViewById(R.id.ll_bg);
+            tvData = view.findViewById(R.id.tv_measurement);
+            llBg = view.findViewById(R.id.ll_bg);
         }
     }
 }

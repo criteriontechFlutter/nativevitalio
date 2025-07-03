@@ -84,11 +84,11 @@ public class ActivityItemFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView lvDevicelist = (RecyclerView) view.findViewById(R.id.lv_devicelist);
+        RecyclerView lvDevicelist = view.findViewById(R.id.lv_devicelist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         lvDevicelist.setLayoutManager(linearLayoutManager);
-        ActivityItemsListAdapter activityDataListAdapter = new ActivityItemsListAdapter(mContext, (ArrayList<ActivityDataItem>) activityDataItemArrayList, localName);
+        ActivityItemsListAdapter activityDataListAdapter = new ActivityItemsListAdapter(mContext, activityDataItemArrayList, localName);
         lvDevicelist.setAdapter(activityDataListAdapter);
     }
 

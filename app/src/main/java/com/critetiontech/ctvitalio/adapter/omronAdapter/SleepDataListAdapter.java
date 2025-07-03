@@ -106,7 +106,7 @@ public class SleepDataListAdapter extends RecyclerView.Adapter<SleepDataListAdap
 
         VersionViewHolder(View view) {
             super(view);
-            tvData = (TextView) view.findViewById(R.id.tv_data);
+            tvData = view.findViewById(R.id.tv_data);
         }
     }
 }

@@ -60,7 +60,7 @@ data class Patient(
 )
 
 
-class PrefsManager( ) {
+class PrefsManager {
     val context = MyApplication.appContext
     private val sharedPref = context.getSharedPreferences("patient_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()

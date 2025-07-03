@@ -55,7 +55,7 @@ class SignUpFragment2 : Fragment() {
 
             if (first.isEmpty()) {
 
-                showTooltip( binding.etFirstName, "Please enter your name\nEnter your full legal name as it appears on official documents.");
+                showTooltip( binding.etFirstName, "Please enter your name\nEnter your full legal name as it appears on official documents.")
                 return@setOnClickListener
             }
 

@@ -51,9 +51,9 @@ public class WeightScaleDataListingActivity extends BaseActivity implements Load
 
     private void initViews() {
 
-        WeightScaleDataCount = (TextView) findViewById(R.id.Weight_Scale_data_count);
+        WeightScaleDataCount = findViewById(R.id.Weight_Scale_data_count);
         ((TextView) findViewById(R.id.textView)).setText("History - " +  modelName);
-        mListView = (RecyclerView) findViewById(R.id.lv_devicelist);
+        mListView = findViewById(R.id.lv_devicelist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(WeightScaleDataListingActivity.this, LinearLayoutManager.VERTICAL, false);
         mListView.setLayoutManager(linearLayoutManager);

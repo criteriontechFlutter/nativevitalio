@@ -26,16 +26,16 @@ import java.util.List;
 public class PreferencesManager {
     private final static String TAG = "PreferencesManager";
     // Shared Preferences
-    private SharedPreferences pref;
+    private final SharedPreferences pref;
 
     // Editor for Shared preferences
-    private Editor editor;
+    private final Editor editor;
 
     // Context
-    private Context _context;
+    private final Context _context;
 
     // Shared pref mode
-    private int PRIVATE_MODE = 0;
+    private final int PRIVATE_MODE = 0;
 
     // Sharedpref file name
     private static final String PREF_NAME = "OmronConnectivitySamplePref";

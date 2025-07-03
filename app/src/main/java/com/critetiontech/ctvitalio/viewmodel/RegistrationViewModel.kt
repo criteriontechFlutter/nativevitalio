@@ -319,7 +319,7 @@ class RegistrationViewModel  : ViewModel(){
                 var mo = ""
                 var uhidVal = ""
 
-                if (uhid.toLowerCase().contains("uhid")) {
+                if (uhid.lowercase(Locale.getDefault()).contains("uhid")) {
                     uhidVal = uhid
                 } else {
                     mo = uhid
