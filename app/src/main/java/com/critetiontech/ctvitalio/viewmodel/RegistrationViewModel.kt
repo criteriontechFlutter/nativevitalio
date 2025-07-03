@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import Patient
 import PrefsManager
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -28,7 +29,7 @@ import java.util.Date
 import java.util.Locale
 
 
-class RegistrationViewModel  : ViewModel(){
+class RegistrationViewModel  (application: Application) : BaseViewModel(application){
     val firstName = MutableLiveData<String>()
     val lastName = MutableLiveData<String>()
     val gender = MutableLiveData<String>()
@@ -69,11 +70,8 @@ class RegistrationViewModel  : ViewModel(){
 
     fun getStateMasterByCountryId( id:String) {
         _loading.value = true
-
         viewModelScope.launch {
             try {
-
-
                 val queryParams = mapOf(
                     "id" to id.split(".")[0].toString(),
                     "clientId" to "176"
@@ -85,8 +83,9 @@ class RegistrationViewModel  : ViewModel(){
                         url = ApiEndPoint().getStateMasterByCountryId,
                         params = queryParams
                     )
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val body = response.body()?.string()
                     val type = object : TypeToken<ApiResponse<List<StateModel>>>() {}.type
                     val parsedResponse = Gson().fromJson<ApiResponse<List<StateModel>>>(body, type)
@@ -131,8 +130,9 @@ class RegistrationViewModel  : ViewModel(){
                         url = ApiEndPoint().getCityMasterByStateId,
                         params = queryParams
                     )
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val body = response.body()?.string()
 
                     val type = object : TypeToken<ApiResponse<List<CityModel>>>() {}.type
@@ -280,12 +280,13 @@ class RegistrationViewModel  : ViewModel(){
                         url = ApiEndPoint().patientSignUp,
                         body = queryParams
                     )
-                _loading.value = false
+
                 if (response.isSuccessful) {
+                    _loading.value = false
                     val responseString = response.body()?.string() ?: return@launch
                     val json = JSONObject(responseString)
-
                     if (json.optInt("status") == 1) {
+                        _loading.value = false
                         val uhid = json.getJSONArray("responseValue")
                             .getJSONObject(0)
                             .getString("uhid")
@@ -295,6 +296,7 @@ class RegistrationViewModel  : ViewModel(){
                         println("UHID = $uhid")
                         // PrefsManager().saveUHID(uhid) // Optional
                     } else {
+                        _loading.value = false
                         _errorMessage.value = json.optString("message", "Signup failed.")
                     }
 //
@@ -414,7 +416,7 @@ class RegistrationViewModel  : ViewModel(){
                         "parameterId" to "2",
                         "parameterTypeId" to "1",
                         "name" to "Recommended Fluid Intake",
-                        "quantity" to fluidIntake.value.toString().split(".")[0].toString(),
+                        "quantity" to fluidIntake.value?.toString()?.split(".")!![0].toString(),
                         "frequencyType" to "Recommended Fluid Intake",
                         "isCheck" to false,
                         "uhid" to  PrefsManager().getPatient()?.uhID.toString()

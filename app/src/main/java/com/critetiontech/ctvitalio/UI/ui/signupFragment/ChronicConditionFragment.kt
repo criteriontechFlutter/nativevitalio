@@ -18,6 +18,8 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentChronicConditionBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 
 class ChronicConditionFragment : Fragment() {
     private lateinit var binding: FragmentChronicConditionBinding
@@ -50,6 +52,9 @@ class ChronicConditionFragment : Fragment() {
                     binding.chronicDis.showDropDown()
                 }
             }
+        }
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
         }
 
         binding.chronicDis.addTextChangedListener(textWatcher)

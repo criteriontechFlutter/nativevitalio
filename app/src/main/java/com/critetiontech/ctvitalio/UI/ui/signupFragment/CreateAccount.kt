@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentCreateAccountBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -43,6 +45,9 @@ class CreateAccount : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         // Initial static setup for always-visible summary items
         addSummaryItem("Name", getFullName())
