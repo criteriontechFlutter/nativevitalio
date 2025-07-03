@@ -36,7 +36,6 @@ class SignUpFragment2 : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-        progressViewModel.updateProgressPage(0)
         // ✅ Restore existing values if already entered
         binding.etFirstName.setText(viewModel.firstName.value ?: "")
         binding.etLastName.setText(viewModel.lastName.value ?: "")
@@ -64,8 +63,8 @@ class SignUpFragment2 : Fragment() {
             viewModel.lastName.value = last
 
             // ✅ Update progress
-            progressViewModel.updateProgress(2)
-            progressViewModel.updateProgressPage(0)
+            progressViewModel.updateProgress(1)
+            progressViewModel.updatepageNo(1)
 
             // ✅ Navigate to next fragment
             findNavController().navigate(R.id.action_nameFragment_to_genderFragment)

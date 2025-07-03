@@ -6,16 +6,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
 import com.critetiontech.ctvitalio.databinding.ActivitySignupBinding
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-
+import androidx.navigation.NavOptions
 class SignupActivity : AppCompatActivity() {
 
 
@@ -44,80 +47,180 @@ class SignupActivity : AppCompatActivity() {
         Log.d("RESPONSE", "phoneOrUHID6: $mobileNo")
 
 
+
         // Observe the progress to update UI dynamically
-        progressViewModel.progress.observe(this) { step ->
+        progressViewModel.pageNo.observe(this) { step ->
 
-//            binding.createAccount.text=step.toString()
-            if (step <= 5 || step == 11 || step == 15) {
-                // Disable skip button and change its text color to a disabled state
+
+
+            if (  progressViewModel.pageNo.value!! == 10 ||
+                progressViewModel.pageNo.value!! == 11 ||
+                progressViewModel.pageNo.value!! >= 14
+            ) {
+                binding.skipButton.visibility=View.GONE
+            }
+            else   if (
+                progressViewModel.pageNo.value!! <3
+            ) {
+                binding.skipButton.visibility=View.VISIBLE
                 binding.skipButton.isEnabled = false
-                binding.skipButton.setTextColor(getColor(R.color.greyText))  // Disabled color
-            }  else {
-            // Enable skip button and change its text color to active state
-            binding.skipButton.isEnabled = true
-            binding.skipButton.setTextColor(getColor(R.color.primaryBlue))  // Active color
-        }
+                binding.skipButton.setTextColor(getColor(R.color.greyText))
 
-// Update createAccount button text based on progress step
-            if (step >= 13) {
-                binding.createAccount.text = "Set Preferences"
-            } else {
-                binding.createAccount.text = "Create Account"
             }
-            if ( progressViewModel.progress.value == 11) {
+            else {
+
+                binding.skipButton.visibility=View.VISIBLE
+                binding.skipButton.isEnabled = true
+                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
+            }
+
+
+            if ( progressViewModel.pageNo.value == 11 ||
+                progressViewModel.pageNo.value!! >= 14
+                ) {
                 binding.progressBarId.visibility = View.GONE
+            }
+            else{
+                binding.progressBarId.visibility = View.VISIBLE
 
             }
-            updateProgress(step)
+
+            if (
+                progressViewModel.pageNo.value!! == 11
+            ) {
+
+                binding.backButton.visibility=View.GONE
+            }
+            else{
+                binding.backButton.visibility=View.VISIBLE
+
+            }
+
+            if (
+                progressViewModel.pageNo.value!! <= 10
+            ) {
+
+//                binding.createAccount.text=progressViewModel.pageNo.value.toString()
+                binding.createAccount.text="Create Account "
+            }
+            else{
+                binding.createAccount.text="Set Preferences"
+//                binding.createAccount.text=progressViewModel.pageNo.value.toString()
+
+            }
+
+
+
+
+
+            updateProgress(progressViewModel.progress.value,step )
         }
-        progressViewModel.progressPage.observe(this, { step ->
-
-            if (step == 1) {
-                binding.progressBarId.visibility = View.GONE
-            } else{
-                binding.progressBarId.visibility = View.VISIBLE
-
-            }
-            if ( progressViewModel.progress.value == 13) {
-                binding.progressBarId.visibility = View.VISIBLE
-
-            }
-            if ( progressViewModel.progress.value >= 15) {
-                binding.progressBarId.visibility = View.VISIBLE
-
-            }
-        })
 
         // Back button listener to go back based on progress
         binding.backButton.setOnClickListener {
+            if(progressViewModel.pageNo.value!! >=0){
 
-            if (progressViewModel.progress.value == 12 && progressViewModel.progressPage.value == 2) {
-                progressViewModel.updateProgressPage(  1)
             }
-            else  if (progressViewModel.progressPage.value == 1) {
-                // Go to the Home Activity if at the first step
-                val intent = Intent(this@SignupActivity, Home::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            else{
+                val intent = Intent(this@SignupActivity, Login::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-            } else {
-                // Otherwise, go to the previous fragment and update progress
-                progressViewModel.updateProgress((progressViewModel.progress.value ?: 1) - 1)
-                onBackPressedDispatcher.onBackPressed()
             }
 
+            onBackPressedDispatcher.onBackPressed()
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
 
+                if (progressViewModel.pageNo.value == 11) {
+
+                }
+                else  if(progressViewModel.pageNo.value> 0){
+
+                val navHostFragment = supportFragmentManager
+                    .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController = navHostFragment.navController
+                navController.popBackStack()
+
+                    backbtnFun()
+                }
+
+                 else{
+                    val intent = Intent(this@SignupActivity, Login::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+            }
+        })
         // Skip button listener to handle skipping through the steps
         binding.skipButton.setOnClickListener {
             handleSkipButtonClick()
         }
     }
 
+  fun  backbtnFun(){
+
+        if (progressViewModel.pageNo.value == 11) {
+            // Go to the Home Activity if at the first step
+//                val intent = Intent(this@SignupActivity, Home::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                startActivity(intent)
+        } else {
+            if ( progressViewModel.pageNo.value!! != 8
+
+            ) {
+
+                progressViewModel.updateProgress((progressViewModel.progress.value ?: 1) - 1)
+
+            }
+
+
+
+            if ( progressViewModel.pageNo.value!! == 11 ||
+                progressViewModel.pageNo.value!! >= 15  ) {
+
+                binding.progressBarId.visibility = View.GONE
+            }
+            else{
+                binding.progressBarId.visibility = View.VISIBLE
+
+            }
+
+
+            if (  progressViewModel.pageNo.value!! == 11 ||
+                progressViewModel.pageNo.value!! == 12 ||
+                progressViewModel.pageNo.value!! >  15
+            ) {
+                binding.skipButton.visibility=View.GONE
+            }
+            else   if (
+                progressViewModel.pageNo.value!! <3 ||
+                progressViewModel.pageNo.value!! == 13 ||
+                progressViewModel.pageNo.value!! == 15
+            ) {
+                binding.skipButton.visibility=View.VISIBLE
+                binding.skipButton.isEnabled = false
+                binding.skipButton.setTextColor(getColor(R.color.greyText))
+
+            }
+            else {
+                binding.skipButton.visibility=View.VISIBLE
+                binding.skipButton.isEnabled = true
+                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
+            }
+
+
+            progressViewModel.updatepageNo((progressViewModel.pageNo.value ?: 1) - 1)
+
+        }
+
+    }
     // Function to handle skip button click and navigate based on progress
     private fun handleSkipButtonClick() {
-        val step = progressViewModel.progress.value ?: return
+        val step = progressViewModel.pageNo .value ?: return
 
-        if (step >= 6) {
+        if (step >= 3) {
 
             // Navigate to the appropriate fragment based on the current progress step
             val actionId = getNavigationActionForStep(step)
@@ -134,51 +237,125 @@ class SignupActivity : AppCompatActivity() {
     }
 
     // Return the appropriate navigation action ID for the given step
+//    private fun getNavigationActionForStep(step: Int): Int? {
+//        return when (step) {
+//            3 -> {  progressViewModel.updatepageNo(4)
+//                progressViewModel.updateProgress(4)
+//                R.id.action_bloodGroupFragment_to_adressFragment
+//
+//            }
+//            4 -> {  progressViewModel.updatepageNo(5)
+//                progressViewModel.updateProgress(5)
+//                R.id.action_adressFragment_to_weightFragment
+//
+//            }
+//            5 -> {  progressViewModel.updatepageNo(6)
+//                progressViewModel.updateProgress(6)
+//                R.id.action_weightFragment_to_heightFragment
+//
+//            }
+//            6 -> {  progressViewModel.updatepageNo(7)
+//                progressViewModel.updateProgress(7)
+//                R.id.action_heightFragment_to_chronicConditionFragment
+//            }
+//            7 -> {  progressViewModel.updatepageNo(8)
+//                progressViewModel.updateProgress(7)
+//                R.id.action_chronicConditionFragment_to_otherChronicDisease2
+//            }
+//            8 -> {  progressViewModel.updatepageNo(9)
+//                progressViewModel.updateProgress(8)
+//                R.id.action_otherChronicDisease_to_familyDiseaseFragment2
+//            }
+//            9 -> { progressViewModel.updatepageNo(10)
+//                progressViewModel.updateProgress(9)
+//                R.id.action_familyDiseaseFragment_to_createAccount2
+//            }
+//            10 -> { progressViewModel.updatepageNo(11)
+//                progressViewModel.updateProgress(9)
+//                R.id.action_createAccount2_to_accountSuccess
+//            }
+//            11 -> {  progressViewModel.updatepageNo(12)
+//                progressViewModel.updateProgress(9)
+//
+//                R.id.action_accountSuccess_to_setPreferences
+//            }
+//            12 -> {  progressViewModel.updatepageNo(13)
+//                progressViewModel.updateProgress(10)
+//                R.id.action_setPreferences_to_setPreferenseFluidItake
+//            }
+//            13 -> { progressViewModel.updatepageNo(14)
+//                progressViewModel.updateProgress(11)
+//                R.id.action_setPreferenseFluidItake_to_completionScreen
+//            }
+//            else -> {
+//                null
+//            }
+//        }
+//    }
+
 
     private fun getNavigationActionForStep(step: Int): Int? {
         return when (step) {
-            6 -> {  progressViewModel.updateProgress(7)
-                R.id.action_weightFragment_to_heightFragment
-
+            3 -> {
+                updateVM(4, 4)
+                R.id.action_bloodGroupFragment_to_adressFragment
             }
-            7 -> {  progressViewModel.updateProgress(8)
+            4 -> {
+                updateVM(5, 5)
+                R.id.action_adressFragment_to_weightFragment
+            }
+            5 -> {
+                updateVM(6, 6)
+                R.id.action_weightFragment_to_heightFragment
+            }
+            6 -> {
+                updateVM(7, 7)
                 R.id.action_heightFragment_to_chronicConditionFragment
             }
-            8 -> {  progressViewModel.updateProgress(9)
+            7 -> {
+                updateVM(8, 7) // keep progress as 7
                 R.id.action_chronicConditionFragment_to_otherChronicDisease2
             }
-            9 -> {  progressViewModel.updateProgress(10)
+            8 -> {
+                updateVM(9, 8)
                 R.id.action_otherChronicDisease_to_familyDiseaseFragment2
             }
-            10 -> { progressViewModel.updateProgress(11)
+            9 -> {
+                updateVM(10, 9)
                 R.id.action_familyDiseaseFragment_to_createAccount2
             }
-            12 -> {  progressViewModel.updateProgress(13)
-                progressViewModel.updateProgressPage(  2)
+            10 -> {
+                updateVM(11, 9)
+                R.id.action_createAccount2_to_accountSuccess
+            }
+            11 -> {
+                updateVM(12, 9)
                 R.id.action_accountSuccess_to_setPreferences
             }
-            13 -> {  progressViewModel.updateProgress(14)
-                progressViewModel.updateProgressPage(  2)
+            12 -> {
+                updateVM(13, 10)
                 R.id.action_setPreferences_to_setPreferenseFluidItake
             }
-            14 -> { progressViewModel.updateProgress(15)
-                progressViewModel.updateProgressPage(  2)
+            13 -> {
+                updateVM(14, 11)
                 R.id.action_setPreferenseFluidItake_to_completionScreen
             }
-            else -> {
-                null
-            }
+            else -> null
         }
     }
 
+    private fun updateVM(pageNo: Int, progress: Int) {
+        progressViewModel.updateProgress(progress)
+        progressViewModel.updatepageNo(pageNo)
+    }
     // Update the progress bar and step titles based on the current progress
-    private fun updateProgress(step: Int) {
-        val totalSteps = 14
+    private fun updateProgress(step: Int,progressTitle: Int) {
+        val totalSteps = 11
         val progressPercent = (step * 100) / totalSteps
         binding.progressBar.progress = progressPercent
         binding.tvProgressPercent.text = "$progressPercent%"
 
-        when (step) {
+        when (progressTitle+1) {
             1 -> {
                 binding.tvStepTitle.text = "Getting Started"
                 binding.tvStepSubtitle.text = "Great start! You’re just beginning—let’s keep going!"
@@ -224,8 +401,8 @@ class SignupActivity : AppCompatActivity() {
                 binding.tvStepSubtitle.text = "You're just one step away from completing the process!"
             }
             13 -> {
-                binding.tvStepTitle.text = "All Done!"
-                binding.tvStepSubtitle.text = "You're just one step away from completing the process!"
+                binding.tvStepTitle.text = "One Step Away "
+                binding.tvStepSubtitle.text = "You're nearly done-just one final step!"
             }
             14 -> {
                 binding.tvStepTitle.text = "All Done!"

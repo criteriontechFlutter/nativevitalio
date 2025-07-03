@@ -15,6 +15,8 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentAdressBinding
 import com.critetiontech.ctvitalio.model.CityModel
 import com.critetiontech.ctvitalio.model.StateModel
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -43,6 +45,9 @@ class AdressFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         addressData = loadAddressData(requireContext())
 
@@ -172,18 +177,19 @@ class AdressFragment : Fragment() {
         // NEXT BUTTON
         binding.btnNext.setOnClickListener {
 
-            if (binding.etCountry.text.isNullOrEmpty() ||
-                binding.etState.text.isNullOrEmpty() ||
-                binding.etCity.text.isNullOrEmpty() ||
-                binding.etStreet.text.isNullOrEmpty()
-            ) {
-                Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()
-            } else {
-                progressViewModel.updateProgress(6)
+//            if (binding.etCountry.text.isNullOrEmpty() ||
+//                binding.etState.text.isNullOrEmpty() ||
+//                binding.etCity.text.isNullOrEmpty() ||
+//                binding.etStreet.text.isNullOrEmpty()
+//            ) {
+//                Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()
+//            } else {
+                progressViewModel.updateProgress(5)
+                progressViewModel.updatepageNo(5)
                 viewModel.pinCode.value = binding.etPinCode.text.toString()
                 viewModel.streetAddress.value = binding.etStreet.text.toString()
                 findNavController().navigate(R.id.action_adressFragment_to_weightFragment)
-            }
+//            }
         }
     }
 

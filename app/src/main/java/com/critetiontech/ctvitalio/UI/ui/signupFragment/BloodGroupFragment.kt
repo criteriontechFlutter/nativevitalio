@@ -15,6 +15,8 @@ import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
 import com.critetiontech.ctvitalio.databinding.FragmentBloodGroupBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 
 class BloodGroupFragment : Fragment() {
 
@@ -49,6 +51,9 @@ class BloodGroupFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         // Load the selected blood group from the ViewModel
         val preSelectedGroup = bloodGroups.find { it.groupName == viewModel.bg.value }
@@ -66,12 +71,13 @@ class BloodGroupFragment : Fragment() {
         binding.rvBloodGroups.adapter = adapter
 
         binding.btnNext.setOnClickListener {
-            if (selectedBloodGroup != null) {
-                progressViewModel.updateProgress(5)
+//            if (selectedBloodGroup != null) {
+                progressViewModel.updateProgress(4)
+                progressViewModel.updatepageNo(4)
                 findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment)
-            } else {
-                Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()
-            }
+//            } else {
+//                Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()
+//            }
         }
     }
 

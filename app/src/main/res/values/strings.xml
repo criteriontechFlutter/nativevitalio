@@ -236,7 +236,7 @@
     <string name="emergency_contacts">Emergency Contacts</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="f_q"><![CDATA[F&Q]]></string>
+    <string name="f_q"><![CDATA[FAQs]]></string>
     <string name="feedback">Feedback</string>
     <string name="todo">TODO</string>
     <string name="fluid_data_input">Fluid Data Input</string>
@@ -258,4 +258,5 @@
 
 
     <string name="select_relationship">Select Relationship</string>
+    <string name="logout_from_all_devices">Logout from All Devices</string>
 </resources>

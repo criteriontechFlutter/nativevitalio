@@ -11,6 +11,7 @@ import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -87,5 +88,58 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
         }
     }
 
+    fun insertPatientVitalFromDevice(
+        BPSys: String? = "0",
+        BPDias: String? = "0",
+        rr: String? = "0",
+        spo2: String? = "0",
+        pr: String? = "0",
+        tmp: String? = "0",
+        hr: String? = "0",
+        weight: String? = "0",
+        rbs: String? = "0",
+        positionId: String? = "0",
+    ): Boolean {
+        var isSuccess = false
 
+        runBlocking {  // Or use suspend function and call from coroutine scope
+            try {
+                val queryParams = mapOf(
+                    "userId" to PrefsManager().getPatient()!!.id,
+                    "vmValueBPSys" to BPSys.toString(),
+                    "vmValueBPDias" to BPDias.toString(),
+                    "vmValueRespiratoryRate" to rr.toString(),
+                    "vmValueSPO2" to spo2.toString(),
+                    "vmValuePulse" to pr.toString(),
+                    "vmValueTemperature" to tmp.toString(),
+                    "vmValueHeartRate" to hr.toString(),
+                    "weight" to weight.toString(),
+                    "vmValueRbs" to rbs.toString(),
+                    "vitalTime" to SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date()),
+                    "vitalDate" to SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
+                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "currentDate" to SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date()),
+                    "clientId" to PrefsManager().getPatient()?.clientId.toString(),
+                    "isFromPatient" to true,
+                    "positionId" to positionId.toString()
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicRawPost(
+                        url = ApiEndPoint().insertPatientVital,
+                        body = queryParams
+                    )
+
+                isSuccess = response.isSuccessful
+            } catch (e: Exception) {
+                e.printStackTrace()
+                isSuccess = false
+            } finally {
+
+            }
+        }
+
+        return isSuccess
+    }
 }

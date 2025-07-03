@@ -24,9 +24,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -61,7 +61,6 @@ class Dashboard  : Fragment() {
     private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
     private var sliderRunnable: Runnable? = null
-
     private var audioRecord: AudioRecord? = null
     private var isRecording = false
     private var webSocket: WebSocket? = null
@@ -133,136 +132,6 @@ class Dashboard  : Fragment() {
             }
             toTakeAdapter.updateList(pills)
         }
-
-//        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-//            val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
-//            val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
-//
-//            val filtered = vitalList.filterNot {
-//                it.vitalName.equals("BP_Sys", ignoreCase = true) ||
-//                        it.vitalName.equals("BP_Dias", ignoreCase = true)
-//            }.toMutableList()
-//
-//            if (bpSys != null && bpDia != null) {
-//                val bpVital = Vital().apply {
-//                    vitalName = "Blood Pressure"
-//                    vitalValue = 0.0
-//                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
-//                    vitalDateTime = bpSys.vitalDateTime
-//                }
-//                filtered.add(bpVital)
-//            }
-//
-//            adapter = DashboardAdapter(requireContext(), filtered) { vitalType ->
-//                val bundle = Bundle().apply {
-//                    putString("vitalType", vitalType)
-//                }
-//                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-//            }
-//            binding.vitalsSlider.adapter = adapter
-//            binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
-//
-//
-//
-//
-//            sliderRunnable = object : Runnable {
-//                override fun run() {
-//                    if (adapter.count > 0) {
-//                        currentPage = (currentPage + 1) % adapter.count
-//                        binding.vitalsSlider.setCurrentItem(currentPage, true)
-//                        handler.postDelayed(this, slideDelay)
-//                    }
-//                }
-//            }
-//            handler.removeCallbacksAndMessages(null)
-//            currentPage = 0
-//            binding.vitalsSlider.setCurrentItem(currentPage, false)
-//            handler.postDelayed(sliderRunnable!!, slideDelay)
-//        }
-
-
-//        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-//            if (vitalList.isEmpty()) {
-//                // If the vital list is empty, display all available vital names
-//                val vitalNames = listOf("Blood Pressure",
-//                    "Heart Rate",
-//                    "Spo2",
-//                    "Temperature",
-//                    "RespRate",
-//                    "RBS",
-//                    "Pulse Rate",
-//                    "Weight") // Example vital names
-//
-//                // Create a list of "vital name" objects to display in the slider
-//                val vitalNameList = vitalNames.map {
-//                    Vital().apply {
-//                        vitalName = it
-//                        vitalValue = 0.0  // Dummy value for display, can be updated with real data
-//                        unit = "N/A"  // You can put a default unit like N/A if there's no data
-//                    }
-//                }
-//
-//                // Update adapter with the vital names (display as placeholder)
-//                adapter = DashboardAdapter(requireContext(), vitalNameList) { vitalType ->
-//                    val bundle = Bundle().apply {
-//                        putString("vitalType", vitalType)
-//                    }
-//                    findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-//                }
-//
-//                // Set the adapter to the ViewPager (slider)
-//                binding.vitalsSlider.adapter = adapter
-//                binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
-//            } else {
-//                // If the vital list has data, show the real vitals as before
-//                val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
-//                val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
-//
-//                val filtered = vitalList.filterNot {
-//                    it.vitalName.equals("BP_Sys", ignoreCase = true) ||
-//                            it.vitalName.equals("BP_Dias", ignoreCase = true)
-//                }.toMutableList()
-//
-//                if (bpSys != null && bpDia != null) {
-//                    val bpVital = Vital().apply {
-//                        vitalName = "Blood Pressure"
-//                        vitalValue = 0.0
-//                        unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
-//                        vitalDateTime = bpSys.vitalDateTime
-//                    }
-//                    filtered.add(bpVital)
-//                }
-//
-//                // Update adapter with the filtered vitals
-//                adapter = DashboardAdapter(requireContext(), filtered) { vitalType ->
-//                    val bundle = Bundle().apply {
-//                        putString("vitalType", vitalType)
-//                    }
-//                    findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-//                }
-//
-//                // Set the adapter to the ViewPager (slider)
-//                binding.vitalsSlider.adapter = adapter
-//                binding.vitalsIndicator.setupWithViewPager(binding.vitalsSlider)
-//
-//                // Start the slider animation (if applicable)
-//                sliderRunnable = object : Runnable {
-//                    override fun run() {
-//                        if (adapter.count > 0) {
-//                            currentPage = (currentPage + 1) % adapter.count
-//                            binding.vitalsSlider.setCurrentItem(currentPage, true)
-//                            handler.postDelayed(this, slideDelay)
-//                        }
-//                    }
-//                }
-//
-//                // Reset and start the slider
-//                handler.removeCallbacksAndMessages(null)
-//                currentPage = 0
-//                binding.vitalsSlider.setCurrentItem(currentPage, false)
-//                handler.postDelayed(sliderRunnable!!, slideDelay)
-//            }
-//        }
 
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
@@ -382,7 +251,11 @@ class Dashboard  : Fragment() {
         }
 
         binding.symptomsTracker.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_symptomsFragment)
+            viewModel.getSymptoms(
+                isFromd =true,
+                    navController = findNavController()
+            )
+
         }
 
         binding.vitalDetails.setOnClickListener {
@@ -550,6 +423,8 @@ class Dashboard  : Fragment() {
                 requireActivity().runOnUiThread {
                     val transcriptText = voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text.toString()
                     if (transcriptText.isNotBlank()) {
+                        val navController = findNavController()
+                        navigateFromDashboard(navController, transcriptText)
                         viewModel.postAnalyzedVoiceData(requireContext(), transcriptText)
                     } else {
                         Toast.makeText(requireContext(), "No speech input found", Toast.LENGTH_SHORT).show()
@@ -562,7 +437,82 @@ class Dashboard  : Fragment() {
             }
         })
     }
+    fun navigateFromDashboard(navController: NavController, destinationRaw: String) {
+        val destination = destinationRaw.lowercase()
 
+        when {
+            listOf(
+                "vital page", "vital screen", "vital view", "open vital",
+                "open vital page", "open vital screen", "open vital view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_voiceFragment)
+            }
+
+            listOf(
+                "symptom page", "symptom screen", "symptom view", "open symptom", "open symptom page", "open symptom screen", "open symptom view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_symptomsFragment)
+            }
+
+            listOf(
+                "pills reminder page", "pills page", "pills screen", "pills view",
+                "open pills", "open pills reminder", "open pills page", "open pills screen", "open pills view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_pillsReminder)
+            }
+
+            listOf(
+                "diet intake", "diet page", "diet screen", "diet view",
+                "open diet", "open diet intake", "open diet page", "open diet screen", "open diet view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_dietChecklist)
+            }
+
+            listOf(
+                "fluid intake page", "fluid page", "fluid screen", "fluid view",
+                "open fluid", "open fluid intake", "open fluid page", "open fluid screen", "open fluid view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidFragment)
+            }
+
+            listOf(
+                "fluid history page", "fluid history screen", "fluid history view",
+                "open fluid history", "open fluid history page", "open fluid history screen", "open fluid history view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidInputHistoryFragment)
+            }
+
+            listOf(
+                "output history", "output page", "output screen", "output view",
+                "open output", "open output history", "open output page", "open output screen", "open output view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidOutputFragment)
+            }
+
+            listOf(
+                "upload report page", "upload report screen", "upload report view",
+                "open upload report", "open upload report page", "open upload report screen", "open upload report view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_uploadReportHistory)
+            }
+
+            listOf(
+                "allergies page", "allergies screen", "allergies view",
+                "open allergies", "open allergies page", "open allergies screen", "open allergies view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_allergies3)
+            }
+
+            // Optional: Enable text/notes navigation
+            // listOf("text", "notes", "open text", "open notes").any { it in destination } -> {
+            //     navController.navigate(R.id.action_dashboard_to_notesFragment)
+            // }
+
+            else -> {
+                // Optionally log or toast for unrecognized command
+            }
+        }
+    }
     private fun disconnectWebSocket() {
         webSocket?.close(1000, "Closing")
         webSocket = null

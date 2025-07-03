@@ -50,8 +50,8 @@
 
         <ImageView
             android:id="@+id/createeditIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/edit"  />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

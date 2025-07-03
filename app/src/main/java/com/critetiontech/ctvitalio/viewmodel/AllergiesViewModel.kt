@@ -1,10 +1,10 @@
 package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
+import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.AllergyGroup
@@ -16,14 +16,17 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import org.json.JSONObject
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class AllergiesViewModel  :ViewModel(){
+class AllergiesViewModel  (application: Application) : BaseViewModel(application){
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
@@ -183,70 +186,67 @@ class AllergiesViewModel  :ViewModel(){
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        _loading.value = true
-        val user = PrefsManager().getPatient() ?: return
+        val user = PrefsManager().getPatient() ?: run {
+            onError("User not found")
+            return
+        }
 
-        val allergiesJson = listOf(
-            mapOf(
-                "parameterValueId" to "133",
-                "parameterStatement" to parameterStatement,
-                "clinicalDataTypeId" to "0",
-                "clinicalDataTypeRowId" to "0",
-                "date" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date()),
-                "remark" to reaction,
-                "substance" to substance,
-                "severityLevel" to severity,
-                "isFromPatient" to "1",
-                "historyParameterAssignId" to historyParameterAssignId
-            )
+        _loading.value = true
+
+        val allergiesData = mapOf(
+            "parameterValueId" to "133",
+            "parameterStatement" to parameterStatement,
+            "clinicalDataTypeId" to "0",
+            "clinicalDataTypeRowId" to "0",
+            "date" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date()),
+            "remark" to reaction,
+            "substance" to substance,
+            "severityLevel" to severity,
+            "isFromPatient" to "1",
+            "historyParameterAssignId" to historyParameterAssignId
         )
 
-        val encodedJson = Uri.encode(Gson().toJson(allergiesJson))
-//        val url = "api/PatientIPDPrescription/SavePatientAllergies?" +
-//                "uhID=${user.uhID}&clientID=${user.clientId}&allergiesJson=$encodedJson"
         val params = mapOf(
             "uhID" to user.uhID,
             "clientID" to user.clientId,
-            "allergiesJson" to encodedJson,
-            )
+            "allergiesJson" to Uri.encode(Gson().toJson(listOf(allergiesData)))
+        )
 
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = RetrofitInstance
+            runCatching {
+                RetrofitInstance
                     .createApiService(includeAuthHeader = true)
-                    .queryDynamicRawPost(
-                        url = ApiEndPoint().savePatientAllergies,
-                        params = params
-                    )
-
-
+                    .queryDynamicRawPost(ApiEndPoint().savePatientAllergies, params = params)
+            }.onSuccess { response ->
                 withContext(Dispatchers.Main) {
-
-                    if (response.isSuccessful) {
-                        _loading.value = false
-                        getAllergies()
-                        val data = response.body()?.string()
-                        val jsonObject = JSONObject(data ?: "{}")
-                        if (jsonObject.getInt("status") == 1) {
-                            _loading.value = false
-                       getAllergies()
-                            onSuccess()
-                        } else {
-                            _loading.value = false
-                            onError(jsonObject.getString("responseValue"))
-                        }
-                    } else {
-                        _loading.value = false
-                        onError("Error: ${response.code()}")
-                    }
+                    _loading.value = false
+                    handleResponse(response, onSuccess, onError)
                 }
-            } catch (e: Exception) {
+            }.onFailure { exception ->
                 withContext(Dispatchers.Main) {
-                    e.printStackTrace()
-                    onError(e.localizedMessage ?: "Unknown error occurred")
+                    _loading.value = false
+                    onError(exception.localizedMessage ?: "Unknown error occurred")
                 }
             }
         }
     }
 
+    private suspend fun handleResponse(
+        response: Response<ResponseBody>,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        if (response.isSuccessful) {
+            val jsonObject = JSONObject(response.body()?.string() ?: "{}")
+            if (jsonObject.getInt("status") == 1) {
+                delay(500) // Wait for server processing
+                getAllergies()
+                onSuccess()
+            } else {
+                onError(jsonObject.getString("responseValue"))
+            }
+        } else {
+            onError("Error: ${response.code()}")
+        }
+    }
 }

@@ -61,7 +61,8 @@ class DobFragment : Fragment() {
             val dob = "$day-$month-$year" // ✅ stored in val
             viewModel.dob.value = dob
 
-            progressViewModel.updateProgress(4)
+            progressViewModel.updateProgress(3)
+            progressViewModel.updatepageNo(3)
             findNavController().navigate(R.id.action_dobFragment_to_bloodGroupFragment)
         }
     }

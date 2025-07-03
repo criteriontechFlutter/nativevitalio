@@ -17,7 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.graphics.Color
 import android.widget.AdapterView
 
-import android.widget.Toast
+import android.widget.Toast;
+import androidx.navigation.fragment.findNavController
 
 class AddContactBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetAddEmergencyContactBinding? = null
@@ -38,11 +39,13 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Add hint as first item
-        val relationships = listOf("Select Relationship", "Father", "Mother", "Brother", "Sister", "Self")
+        val relationships = listOf("Select Relationship", "Father", "Mother", "Brother", "Sister",
+            "Son", "Daughter", "Friends",
+             "Self","Other")
 
         val adapter = object : ArrayAdapter<String>(
             requireContext(),
-            R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_item,
             relationships
         ) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -67,7 +70,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
                 return view
             }
         }
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerRelationship.adapter = adapter
 
         // Set default selected item to 0 (hint)
@@ -82,6 +85,24 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
                 selectedPosition = 0
             }
         }
+        val letterFilter = InputFilter { source, _, _, _, _, _ ->
+            val regex = Regex("[a-zA-Z ]") // Allow letters and space only
+            if (source.isEmpty()) return@InputFilter null // Allow backspace
+
+            val filtered = source.filter { it.toString().matches(regex) }
+            if (filtered == source) null else filtered
+        }
+        val etContactNumber = InputFilter { source, _, _, _, _, _ ->
+            val regex = Regex("[0-9]") // Allow letters and space only
+            if (source.isEmpty()) return@InputFilter null // Allow backspace
+
+
+            val filtered = source.filter { it.toString().matches(regex) }
+            if (filtered == source) null else filtered
+        }
+        binding.etName.filters = arrayOf(letterFilter)
+        binding.etContactNumber.filters = arrayOf(etContactNumber, InputFilter.LengthFilter(10))
+
 
         binding.btnSaveContact.setOnClickListener {
             val name = binding.etName.text.toString().trim()
@@ -97,7 +118,8 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
 
             val relation = relationships[selectedPosition]
             viewModel.saveEmergencyContact(name, phone, relation)
-            Toast.makeText(requireContext(), "Contact saved: $name ($relation)", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+           // Toast.makeText(requireContext(), "Contact saved: $name ($relation)", Toast.LENGTH_SHORT).show()
 
              dismiss()
         }

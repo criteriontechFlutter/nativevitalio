@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.databinding.FragmentCompletionDashboardReadyBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 
 class CompletionDashboardReady : Fragment() {
 
@@ -29,6 +31,9 @@ class CompletionDashboardReady : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         binding.btnGoToDashboard.setOnClickListener {
 
