@@ -104,7 +104,8 @@ data class BloodPressureReading(
     val time: String,  // e.g. "02:26 PM"
     val sys: Int,
     val dia: Int,
-    val bp: String     // "120/80 mmHg"
+    val bp: String     ,// "120/80 mmHg"
+    val position: String     // "120/80 mmHg"
 )
 
 
@@ -131,7 +132,8 @@ data class VitalDetail(
     val vitalid: Int,
     val vitalName: String,
     val vitalValue: Double,
-    val vitaldate: String
+    val vitaldate: String,
+    val vitalPositon: String
 )
 
 
@@ -224,6 +226,9 @@ data class EmergencyContact(
     val clientId: Int,
     val genderId: Int
 )
+
+
+data class VitalGroup(val value1: String, val value2: String, val value3: String, val value4: String)
 
 
 

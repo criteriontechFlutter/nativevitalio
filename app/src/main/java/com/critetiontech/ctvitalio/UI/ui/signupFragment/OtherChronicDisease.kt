@@ -58,7 +58,7 @@ class OtherChronicDisease : Fragment() {
 
         viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
             if (!problemList.isNullOrEmpty()) {
-                latestSuggestions = problemList.map { it.problemName }
+                latestSuggestions = problemList.map { capitalizeFirstLetter(it.problemName) }
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, latestSuggestions)
                 binding.chronicDis.setAdapter(adapter)
             }
@@ -75,7 +75,7 @@ class OtherChronicDisease : Fragment() {
 
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
             val selectedName = parent.getItemAtPosition(position).toString()
-            val selectedProblem = viewModel.problemList.value?.find { it.problemName == selectedName }
+            val selectedProblem = viewModel.problemList.value?.find { capitalizeFirstLetter(it.problemName) == selectedName }
 
             if (selectedProblem != null) {
                 binding.chronicDis.removeTextChangedListener(textWatcher)
@@ -92,11 +92,17 @@ class OtherChronicDisease : Fragment() {
                 viewModel.selectedOtherChronicDiseaseList.value?.joinToString(", ") {
                     it["details"] ?: ""
                 } ?: ""
-            progressViewModel.updateProgress(10)
+
+            progressViewModel.updateProgress(8)
+            progressViewModel.updatepageNo(9)
             findNavController().navigate(R.id.action_otherChronicDisease_to_familyDiseaseFragment)
         }
     }
-
+    fun capitalizeFirstLetter(sentence: String): String {
+        return sentence.trim().replaceFirstChar {
+            if (it.isLowerCase()) it.titlecaseChar() else it
+        }
+    }
     private fun addRemovableChip(text: String) {
         val inflater = LayoutInflater.from(requireContext())
         val chipView = inflater.inflate(R.layout.chip_removable, binding.selectedListContainer, false)

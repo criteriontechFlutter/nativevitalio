@@ -46,7 +46,8 @@ class WeightFragment : Fragment() {
         // Next button click listener
         binding.btnNext.setOnClickListener {
             viewModel.wt.value = binding.etWeight.text.toString()  // Save weight to ViewModel
-            progressViewModel.updateProgress(7)  // Update progress
+            progressViewModel.updateProgress(6)  // Update progress
+            progressViewModel.updatepageNo(6)
             findNavController().navigate(R.id.action_weightFragment_to_heightFragment)  // Navigate to next fragment
         }
     }

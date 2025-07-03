@@ -39,7 +39,7 @@ class UploadHistoryAdapter(
         Glide.with(holder.itemView.context)
             .load(cleanedUrl)
             .placeholder(R.drawable.uploadreport) // Show while loading
-            .error(com.google.android.material.R.drawable.mtrl_ic_error) // Fallback if image fails
+            .error(R.drawable.uploadreport) // Show while loading
             .into(holder.imagePreview)
 
         // Set the title and date

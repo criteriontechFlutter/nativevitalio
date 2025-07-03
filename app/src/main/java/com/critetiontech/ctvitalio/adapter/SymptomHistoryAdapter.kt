@@ -10,24 +10,41 @@ import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomItem
+import com.critetiontech.ctvitalio.utils.FilterType
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class SymptomHistoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
     private val itemList = mutableListOf<SymptomItem>()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun submitGroupedList(symptoms: List<SymptomDetail>) {
+    fun submitGroupedList(symptoms: List<SymptomDetail>, filterType: FilterType) {
         val groupedItems = symptoms
+            .filter { symptom ->
+                val date = try {
+                    LocalDate.parse(symptom.detailsDate.substring(0, 10), DateTimeFormatter.ISO_DATE)
+                } catch (e: Exception) {
+                    null
+                }
+
+                // Apply date filter based on filter type
+                when (filterType) {
+                    FilterType.DAILY -> date?.isEqual(LocalDate.now()) == true
+                    FilterType.WEEKLY -> date?.isAfter(LocalDate.now().minusWeeks(1)) == true
+                    FilterType.MONTHLY -> date?.month == LocalDate.now().month && date?.year == LocalDate.now().year
+                    else -> true
+                }
+            }
             .sortedByDescending { it.detailsDate }
             .groupBy {
-                val localDate = LocalDate.parse(it.detailsDate.substring(0, 10))
-                localDate.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy"))
-            }.flatMap { (date, items) ->
-                listOf(SymptomItem.DateHeader(date)) +
-                        items.map { SymptomItem.Symptom(it) }
+                val date = LocalDate.parse(it.detailsDate.substring(0, 10), DateTimeFormatter.ISO_DATE)
+                date.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy"))
+            }
+            .flatMap { (date, items) ->
+                listOf(SymptomItem.DateHeader(date)) + items.map { SymptomItem.Symptom(it) }
             }
 
         itemList.clear()
@@ -80,6 +97,7 @@ class SymptomHistoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(item: SymptomDetail) {
             tvSymptomName.text = item.details
             try {
+                // Extract and format the time from the detailsDate
                 val time = LocalTime.parse(item.detailsDate.substring(11, 19))
                 tvSymptomTime.text = time.format(DateTimeFormatter.ofPattern("hh:mm a"))
             } catch (e: Exception) {

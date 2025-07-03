@@ -1,9 +1,12 @@
 package com.critetiontech.ctvitalio.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import com.critetiontech.ctvitalio.databinding.BloodPressureLogItemBinding
 import com.critetiontech.ctvitalio.model.BloodPressureReading
 
@@ -25,6 +28,14 @@ class BPReadingAdapter(
         with(holder.binding) {
             holder.binding.vitalTime.text = item.time
             holder.binding.bpValue.text = item.bp
+            Log.d("TAG", "onBindViewHolder: "+ item.position)
+            holder.binding.postureText.text=item.position
+            if(item.dia==0 && item.sys==0){
+                holder.binding.postureText.visibility=GONE
+                holder.binding.bpUnit.text="%"
+                holder.binding.bpLabel.visibility=GONE
+            }
+
 
             // Color logic
             holder.binding.bpValue.setTextColor(
@@ -35,8 +46,6 @@ class BPReadingAdapter(
                 }
             )
 
-            // Static for now
-            holder.binding.postureText.text = "Standing"
         }
     }
 

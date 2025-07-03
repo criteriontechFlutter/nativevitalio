@@ -78,7 +78,7 @@ class EmergencyContactFragment : Fragment() {
 
         // Optionally, show loading or hide buttons here
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
+            if (isLoading) showLoading () else hideLoading()
         }
 
         // Optionally, update your contact list after the contact is deleted

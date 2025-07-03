@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.DietItemModel
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
@@ -452,7 +454,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _patientSymptomList = MutableLiveData<List<SymptomDetail>>()
     val  patientSymptomList: LiveData<List<SymptomDetail>> get() = _patientSymptomList
-    fun getSymptoms() {
+    fun getSymptoms(isFromd :Boolean? =false, navController: NavController? =null) {
         _loading.value = true
         viewModelScope.launch {
             try {
@@ -474,11 +476,31 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _patientSymptomList.value = parsed.responseValue
+                    if((isFromd==true)){
+                        if (_patientSymptomList.value.isNotEmpty()) {
+                            if (navController != null) {
+                                navController.navigate(R.id.action_dashboard_to_symptomTrackerFragments)
+                            }
+                        } else {
+                            if (navController != null) {
+                                navController.navigate(R.id.action_dashboard_to_symptomsFragment)
+                            }
+                        }
+                    }
                 } else {
+                    if((isFromd==true)){
+                        if (navController != null) {
+                            navController.navigate(R.id.action_dashboard_to_symptomsFragment)
+                        }
+                    }
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
-            } catch (e: Exception) {
+            } catch (e: Exception) { if((isFromd==true)){
+                if (navController != null) {
+                    navController.navigate(R.id.action_dashboard_to_symptomsFragment)
+                }
+            }
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
@@ -709,4 +731,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             }
         }
     }
+
+
+
 }

@@ -10,12 +10,14 @@
     <!-- Top AppBar title -->
 
     <!-- Confetti Illustration -->
-    <ImageView
-        android:id="@+id/confettiImage"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:src="@drawable/account_success"
-    android:layout_marginBottom="24dp" />
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/ivIllustration"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:src="@drawable/success_ful" />
+
 
     <!-- Progress Card -->
     <LinearLayout

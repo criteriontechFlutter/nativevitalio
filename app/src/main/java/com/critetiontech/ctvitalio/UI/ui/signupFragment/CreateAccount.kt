@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentCreateAccountBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -43,6 +45,9 @@ class CreateAccount : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         // Initial static setup for always-visible summary items
         addSummaryItem("Name", getFullName())
@@ -129,11 +134,16 @@ class CreateAccount : Fragment() {
             viewModel.dob.postValue(it)
         }
 
-        progressViewModel.updateProgressPage(0)
-        binding.btnNext.setOnClickListener {
+        binding.btnNext.setOnClickListener(){
             viewModel.patientSignUp()
-            progressViewModel.updateProgress(12)
-            progressViewModel.updateProgressPage(1)
+            progressViewModel.updateProgress(9)
+            progressViewModel.updatepageNo(11)
+            progressViewModel.setNottoSkipButtonVisibility(true)
+            progressViewModel.updateisNotBack(true)
+
+            progressViewModel.updateIsDashboard(true)
+            progressViewModel.updateIsHideProgressBar(true)
+
             findNavController().navigate(R.id.accountSuccess)
         }
 //        binding.s.setOnClickListener(){
@@ -244,11 +254,11 @@ private fun addSummaryItem(label: String, value: String) {
 
         // Decrease font size and make italic if value is blank
         if (value.isBlank()) {
-            valueTextView.textSize = 12f  // Smaller font size
+            valueTextView.setTextSize(12f)  // Smaller font size
             valueTextView.setTypeface(null, android.graphics.Typeface.ITALIC)  // Italic font
             iconImageView.setImageResource(R.drawable.edit_icon)  // Show "edit" icon when value is blank
         } else {
-            valueTextView.textSize = 16f  // Default font size
+            valueTextView.setTextSize(16f)  // Default font size
             valueTextView.setTypeface(null, android.graphics.Typeface.NORMAL)  // Normal font style
             iconImageView.setImageResource(R.drawable.edit)  // Show "checked" icon when value is provided
         }

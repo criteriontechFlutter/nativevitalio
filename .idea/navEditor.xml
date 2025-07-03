@@ -13,8 +13,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="80" />
-                            <option name="y" value="45" />
+                            <option name="x" value="-922" />
+                            <option name="y" value="-283" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -152,6 +152,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboard_to_allergies3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_chatBotPage">
                               <value>
                                 <LayoutPositions />
@@ -182,6 +187,16 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_fluidInputHistoryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_fluidOutputFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_intakePills">
                               <value>
                                 <LayoutPositions />
@@ -198,6 +213,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_symptomsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_uploadReportHistory">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -352,8 +372,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="81" />
-                            <option name="y" value="-746" />
+                            <option name="x" value="-439" />
+                            <option name="y" value="-516" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -364,8 +384,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="294" />
-                            <option name="y" value="-706" />
+                            <option name="x" value="-448" />
+                            <option name="y" value="-882" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -612,9 +632,88 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="527" />
-                            <option name="y" value="-175" />
+                            <option name="x" value="78" />
+                            <option name="y" value="225" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_voiceFragment_to_allergies3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_chatBotPage">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_connectSmartWatchFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_dietChecklist">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_editProfile3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_emergencyContactFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_fluidFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_fluidInputHistoryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_fluidOutputFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_intakePills">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_intakePills2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_notificationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_symptomHistory">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_uploadReportHistory">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_voiceFragment_to_vitalHistoryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

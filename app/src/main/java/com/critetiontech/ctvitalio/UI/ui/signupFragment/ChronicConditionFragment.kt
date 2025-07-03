@@ -18,6 +18,8 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentChronicConditionBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 
 class ChronicConditionFragment : Fragment() {
     private lateinit var binding: FragmentChronicConditionBinding
@@ -51,6 +53,9 @@ class ChronicConditionFragment : Fragment() {
                 }
             }
         }
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         binding.chronicDis.addTextChangedListener(textWatcher)
         binding.chronicDis.setOnFocusChangeListener { _, hasFocus ->
@@ -61,7 +66,7 @@ class ChronicConditionFragment : Fragment() {
         }
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
             val selectedName = parent.getItemAtPosition(position).toString()
-            val selectedProblem = viewModel.problemList.value?.find { it.problemName == selectedName }
+            val selectedProblem = viewModel.problemList.value?.find {capitalizeFirstLetter(it.problemName) == selectedName }
 
             if (selectedProblem != null) {
                 viewModel.addSelectedDisease(selectedProblem, requireContext())
@@ -74,7 +79,7 @@ class ChronicConditionFragment : Fragment() {
 
         viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
             if (!problemList.isNullOrEmpty()) {
-                latestSuggestions = problemList.map { it.problemName }
+                latestSuggestions = problemList.map { capitalizeFirstLetter(it.problemName)  }
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, latestSuggestions)
                 binding.chronicDis.setAdapter(adapter)
             }
@@ -91,12 +96,19 @@ class ChronicConditionFragment : Fragment() {
             val summary = viewModel.selectedDiseaseList.value
                 ?.joinToString(", ") { it["details"] ?: "" } ?: ""
 
-            progressViewModel.updateProgress(9)
+            progressViewModel.updateProgress(7)
+            progressViewModel.updatepageNo(8)
+            progressViewModel.updateotherChronical(101)
+
             viewModel.chronicDisease.value = summary
             findNavController().navigate(R.id.action_chronicConditionFragment_to_otherChronicDisease)
         }
     }
-
+    fun capitalizeFirstLetter(sentence: String): String {
+        return sentence.trim().replaceFirstChar {
+            if (it.isLowerCase()) it.titlecaseChar() else it
+        }
+    }
     private fun addRemovableChip(disease: Map<String, String>) {
         val inflater = LayoutInflater.from(requireContext())
         val chipView = inflater.inflate(R.layout.chip_removable, binding.selectedListContainer, false)

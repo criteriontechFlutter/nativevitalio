@@ -13,7 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,9 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.BloodGroupAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
 import com.critetiontech.ctvitalio.model.BloodGroup
 import com.critetiontech.ctvitalio.model.CityModel
@@ -150,6 +148,19 @@ class EditProfile : Fragment() {
                 rawDob
             }
 
+            if( binding.email.text.toString().isNotEmpty()){
+                if (isValidEmail(binding.email.text.toString())) {
+                    // Proceed with form submission
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please enter a valid email address",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.firstNameField.requestFocus()
+                    return@setOnClickListener
+                }
+            }
             // 3. Call ViewModel if all fields are valid
             viewModel.updateUserData(
                 requireContext(),
@@ -163,7 +174,7 @@ class EditProfile : Fragment() {
 
                chronicData=  Gson().toJson(viewModel.selectedDiseaseList.value ?: emptyList<Map<String, String>>()),
                 street=address,
-                zipCode=  binding.email.text.toString(),
+                zipCode=  PrefsManager().getPatient()?.zip.toString(),
                 countryId = viewModel.selectedCountryId.value?.toString().orEmpty(),
                 stateId = viewModel.selectedStateId.value?.toString().orEmpty(),
                 cityId = viewModel.selectedCityId.value?.toString().orEmpty(),
@@ -182,7 +193,10 @@ class EditProfile : Fragment() {
 
     private var selectedBloodGroup: BloodGroup? = null
 
-
+    fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                && email.lowercase().endsWith(".com")
+    }
     private fun   chronicDiease(){
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -387,15 +401,16 @@ class EditProfile : Fragment() {
                 }
             }
         }
-
     }
 
     private fun bindPatientData() {
         prefsManager.getPatient()?.let { patient ->
-            val nameParts = patient.patientName.split(" ")
-            binding.firstNameField.setText(nameParts.getOrNull(0) ?: "")
-            binding.lastNameField.setText(nameParts.getOrNull(1) ?: "")
+            val nameParts = patient.patientName.trim().split("\\s+".toRegex())
+            val firstName = nameParts.firstOrNull() ?: ""
+            val lastName = if (nameParts.size > 1) nameParts.subList(1, nameParts.size).joinToString(" ") else ""
 
+            binding.firstNameField.setText(firstName)
+            binding.lastNameField.setText(lastName)
             // Format date before showing
             val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             val displayFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Example: 20 May 2025
@@ -410,7 +425,10 @@ class EditProfile : Fragment() {
 
             binding.dobField.setText(formattedDob)
             binding.mobileNo.setText(patient.mobileNo.toString())
-            binding.email.setText(patient.emailID.toString())
+            if (patient.emailID.toString() != "0") {
+                binding.email.setText(patient.emailID.toString())
+            }
+
             binding.zipCode.setText(patient.zip.toString())
             val weight = patient.weight.toString()
             binding.weight.setText(String.format("%.2f", weight.toDouble()))
@@ -465,7 +483,10 @@ class EditProfile : Fragment() {
             }
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED)
+    }
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
 

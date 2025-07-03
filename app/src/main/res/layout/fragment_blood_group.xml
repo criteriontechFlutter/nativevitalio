@@ -22,6 +22,7 @@
             android:layout_height="match_parent"
             android:background="@color/backgroundColor"
             android:padding="24dp"
+            android:scrollbarSize="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -35,15 +36,12 @@
                 android:orientation="vertical">
 
                 <!-- Illustration -->
-                <ImageView
-                    android:id="@+id/ivIllustration"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bg"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp" />
 
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/ivIllustration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:src="@drawable/blood" />
                 <!-- Title -->
                 <TextView
                     android:id="@+id/tvWelcome"

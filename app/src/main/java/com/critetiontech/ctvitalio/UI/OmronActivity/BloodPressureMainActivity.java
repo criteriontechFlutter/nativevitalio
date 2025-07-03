@@ -1,5 +1,9 @@
 package com.critetiontech.ctvitalio.UI.OmronActivity;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import static java.security.AccessController.getContext;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -11,6 +15,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.critetiontech.ctvitalio.Database.OmronDBConstans;
 import com.critetiontech.ctvitalio.model.PairingDeviceData;
 import com.critetiontech.ctvitalio.utils.Constants;
@@ -27,6 +36,7 @@ import com.critetiontech.ctvitalio.utils.PreferencesManager;
 import com.critetiontech.ctvitalio.utils.sampleLog;
 import com.critetiontech.ctvitalio.R;
 import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.critetiontech.ctvitalio.viewmodel.ConnectionViewModel;
 import com.intuit.sdp.BuildConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;
@@ -44,10 +54,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class BloodPressureMainActivity extends BaseActivity {
 
+
+    private ConnectionViewModel viewModel;
     private Context mContext;
     private static final String TAG = "OmronSampleApp";
     private OmronPeripheral mSelectedPeripheral;
@@ -249,11 +262,12 @@ public class BloodPressureMainActivity extends BaseActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
     // Data transfer with multiple users
     private void transferUsersDataWithPeripheral(final boolean isHistoricDataRead) {
         startOmronPeripheralManager(isHistoricDataRead);
         // Set State Change Listener
+
+        viewModel = new ViewModelProvider(this).get(ConnectionViewModel.class); // ViewModel initialization
         setStateChanges();
         connectStatus = connectStatus_Scanning;
         OmronPeripheralManager.sharedManager(MyApplication.Companion.getAppContext()).startDataTransferFromPeripheral(mSelectedPeripheral, selectedUsers, true, new OmronPeripheralManagerDataTransferListener() {
@@ -271,6 +285,45 @@ public class BloodPressureMainActivity extends BaseActivity {
                                 if (vitalData != null) {
                                     // VitalData Data
                                     vitalDataList = (ArrayList<HashMap<String, Object>>) vitalData.get(OmronConstants.OMRONVitalDataBloodPressureKey);
+
+
+                                    Log.d("VitalData", "SYS: " + vitalDataList + " mmHg");
+                                    if (vitalDataList != null && !vitalDataList.isEmpty()) {
+                                        // Get last index data
+                                        HashMap<String, Object> lastData = vitalDataList.get(vitalDataList.size() - 1);
+
+                                        Object sysObj = lastData.get("OMRONVitalDataSystolicKey");
+                                        Object diaObj = lastData.get("OMRONVitalDataDiastolicKey");
+                                        Object prObj  = lastData.get("OMRONVitalDataPulseKey");
+                                        Object dateObj = lastData.get("OMRONVitalDataMeasurementDateKey");
+
+                                        if (sysObj != null && diaObj != null && prObj != null && dateObj != null) {
+                                            double sys = Double.parseDouble(sysObj.toString());
+                                            double dia = Double.parseDouble(diaObj.toString());
+                                            double pr  = Double.parseDouble(prObj.toString());
+
+                                            String measurementDate = dateObj.toString();  // Already in "yyyy-MM-dd HH:mm:ss" format
+
+                                            boolean success =  viewModel.insertPatientVitalFromDevice(
+
+                                                    String.valueOf(sys),                           // BPSys
+                                                    String.valueOf(dia),                           // BPDias
+                                                    "0",  // rr
+                                                    "0", String.valueOf(pr), "0", "0", "0", "0",  // spo2, pr, tmp, hr, weight, rbs
+                                                    "129".toString()          // positionId
+                                            );
+
+                                            if (success) {
+                                                Toast.makeText(getActivity(), "Vital Added Successfully!", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getActivity(), "Failed to add vital.", Toast.LENGTH_SHORT).show();
+                                            }
+                                            Log.d("VitalData", "Last Entry -> Date: " + measurementDate
+                                                    + " | SYS: " + sys + " mmHg"
+                                                    + " | DIA: " + dia + " mmHg"
+                                                    + " | PR: " + pr + " bpm");
+                                        }
+                                    }
                                     preferencesManager.addDataStoredDeviceList(device.get(Constants.deviceInfoKeys.KEY_LOCAL_NAME), Integer.parseInt(device.get(OmronConstants.OMRONBLEConfigDevice.Category)), peripheral.getModelName(), device.get(OmronConstants.OMRONBLEConfigDevice.Identifier));
                                     insertVitalDataToDB(vitalDataList, deviceInfo);
                                 }

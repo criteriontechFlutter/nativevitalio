@@ -1,6 +1,8 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -25,7 +27,7 @@ class SymptomsFragment : Fragment() {
     private lateinit var binding: FragmentSymtomsBinding
     private lateinit var viewModel: SymptomsViewModel
     private lateinit var symptomAdapter: SymptomAdapter
-
+    private var handler = Handler(Looper.getMainLooper())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -104,7 +106,8 @@ class SymptomsFragment : Fragment() {
         binding.searchSymptom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val query = s?.toString()?.trim().orEmpty()
-                if (query.length >= 2) {
+                if (query.length >= 3) {
+
                     viewModel.getAllProblems(query)
                 } else {
                     binding.searchSuggestionList.visibility = View.GONE
