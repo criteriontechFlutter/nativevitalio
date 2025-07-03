@@ -170,6 +170,7 @@ class ReportFieldsFragment : Fragment() {
                             val patientDetails = mapOf(
                                 "patient_name" to (patientDetailsRaw["patient_name"] ?: ""),
                                 "sex" to (patientDetailsRaw["sex"] ?: ""),
+                                "itemName" to (testName),
                                 "age" to (patientDetailsRaw["age"] ?: ""),
                                 "lab_name" to (patientDetailsRaw["lab_name"] ?: ""),
                                 "collection_date" to (patientDetailsRaw["collection_date"] ?: ""),
