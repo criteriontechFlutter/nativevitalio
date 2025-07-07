@@ -277,5 +277,12 @@
     <string name="total_output">Total Output</string>
     <string name="fluid_output">Fluid Output</string>
     <string name="fluid_intake_log">Fluid Intake Log</string>
+    <string name="temperature">Temperature</string>
+    <string name="medication_intake">Medication Intake</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="missed">Missed</string>
+    <string name="ml">ml</string>
+    <string name="add_member">Add Member</string>
+    <string name="stay_commected_to_their_health_metrics">Stay Commected to Their Health Metrics</string>
 
 </resources>

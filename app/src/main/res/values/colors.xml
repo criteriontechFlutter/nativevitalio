@@ -101,7 +101,7 @@
     <color name="dashboardIconColor2">@color/blackText</color>
     <color name="dashboardIconColor3">@color/primaryBlueLight</color>
     <color name="dashboardIconColor4">@color/symptomsButton</color>
-    <color name="dashboardIconBg">@color/primaryBlueLight</color>
+    <color name="dashboardIconBg">@color/primaryColor</color>
     <color name="drawableStrokeColor">#C4C4C4</color>
     <color name="blackTextColor">@color/black</color>
     <color name="blackTextColor1">@color/gray</color>
