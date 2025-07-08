@@ -15,6 +15,8 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentAdressBinding
 import com.critetiontech.ctvitalio.model.CityModel
 import com.critetiontech.ctvitalio.model.StateModel
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -43,6 +45,9 @@ class AdressFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
+        viewModel.loading.observe(this) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         addressData = loadAddressData(requireContext())
 

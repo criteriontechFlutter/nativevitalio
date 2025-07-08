@@ -161,7 +161,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/vitals_indicator"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
         android:layout_height="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

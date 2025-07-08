@@ -66,17 +66,23 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                     val result = mutableListOf<BloodPressureReading>()
 
                     patientGraph.forEach { graph ->
-                        if (!graph.vitalDateTime.startsWith(today)) return@forEach
+                      //  if (!graph.vitalDateTime.startsWith(today)) return@forEach
+                        Log.d("TAG", "getBloodPressureRangeHistory: "+graph.vitalDetails.toString())
 
                         val detailsArray = JSONArray(graph.vitalDetails)
                         var sys: Int? = null
                         var dia: Int? = null
-                        var temprature: Int? = null
+                         var temprature: Int? = null
+                         var position: String? = null
 
                         for (i in 0 until detailsArray.length()) {
                             val item = detailsArray.getJSONObject(i)
+                            Log.d("|", "positionBP: "+item.getString("vitalPositon").toString())
                             when (item.getString("vitalName")) {
-                                "BP_Sys" -> if (sys == null) sys = item.getDouble("vitalValue").toInt()
+                                "BP_Sys" -> {
+                                    if (sys == null) sys = item.getDouble("vitalValue").toInt()
+                                    position = item.getString("vitalPositon").toString()
+                                }
                                 "BP_Dias" -> dia = item.getDouble("vitalValue").toInt()
                                 "Temperature" -> temprature = item.getDouble("vitalValue").toInt()
                             }
@@ -89,7 +95,8 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                                     time = time,
                                     sys = sys,
                                     dia = dia,
-                                    bp = "$sys/$dia "
+                                    bp = "$sys/$dia ",
+                                    position =position.toString()
                                 )
                             )
                         }else{
@@ -99,7 +106,8 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                                     time = time,
                                     sys = 0,
                                     dia = 0,
-                                    bp = "$temprature"
+                                    bp = "$temprature",
+                                    position = ""
                                 )
                             )
                         }

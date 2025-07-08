@@ -96,7 +96,7 @@ class FamilyDiseaseFragment : Fragment() {
             findNavController().navigate(R.id.action_familyDiseaseFragment_to_createAccount2)
         }
     }
-    fun capitalizeFirstLetter(sentence: String): String {
+    private fun capitalizeFirstLetter(sentence: String): String {
         return sentence.trim().replaceFirstChar {
             if (it.isLowerCase()) it.titlecaseChar() else it
         }

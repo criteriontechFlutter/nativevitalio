@@ -18,6 +18,8 @@ import android.graphics.Color
 import android.widget.AdapterView
 
 import android.widget.Toast;
+import androidx.navigation.fragment.findNavController
+
 class AddContactBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetAddEmergencyContactBinding? = null
     private val binding get() = _binding!!
@@ -116,7 +118,8 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
 
             val relation = relationships[selectedPosition]
             viewModel.saveEmergencyContact(name, phone, relation)
-            Toast.makeText(requireContext(), "Contact saved: $name ($relation)", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+           // Toast.makeText(requireContext(), "Contact saved: $name ($relation)", Toast.LENGTH_SHORT).show()
 
              dismiss()
         }
