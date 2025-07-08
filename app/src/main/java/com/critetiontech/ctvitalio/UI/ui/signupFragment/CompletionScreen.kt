@@ -18,6 +18,8 @@ import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.databinding.FragmentCompletionScreenBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -41,6 +43,9 @@ class CompletionScreen : Fragment() {
             super.onViewCreated(view, savedInstanceState)
 
             viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
+            viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+                if (isLoading) showLoading() else hideLoading()
+            }
 
             startJumpingAnimation(binding.dotsContainer)
             progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]

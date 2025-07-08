@@ -3,6 +3,7 @@
 
     <!--Text Color-->
     <color name="textColor">@color/white</color>
+    <color name="symptomsTextColor">@color/white</color>
     <color name="revBackgroundColor">@color/white</color>
     <color name="backgroundColor">#000000</color>
     <color name="backgroundColor1">#000000</color>
