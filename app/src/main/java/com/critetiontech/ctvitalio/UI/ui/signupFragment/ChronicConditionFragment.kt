@@ -47,13 +47,13 @@ class ChronicConditionFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 if (input.isNotEmpty()) {
-                    viewModel.getProblemList(input.toString())
+                    viewModel.getProblemList(input)
                     binding.chronicDis.setDropDownBackgroundResource(android.R.color.white)
                     binding.chronicDis.showDropDown()
                 }
             }
         }
-        viewModel.loading.observe(this) { isLoading ->
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
 
