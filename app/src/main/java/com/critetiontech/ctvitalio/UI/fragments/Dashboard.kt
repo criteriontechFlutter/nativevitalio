@@ -390,7 +390,7 @@ class Dashboard  : Fragment() {
         voiceDialog?.dismiss()
     }
 
-   fun  loadanimation(){
+   private fun  loadanimation(){
         binding.vitalDetails.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
         binding.pillsReminder.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
         binding.profileImage.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
