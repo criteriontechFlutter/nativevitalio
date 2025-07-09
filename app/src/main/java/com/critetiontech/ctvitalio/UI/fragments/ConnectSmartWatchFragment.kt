@@ -2,9 +2,12 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +16,15 @@ import com.critetiontech.ctvitalio.viewmodel.ConnectSmartWatchViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentConnectSmartWatchBinding
 import com.critetiontech.ctvitalio.model.WatchModel
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import org.json.JSONObject
 import java.util.Random
 
 
@@ -20,6 +32,24 @@ class ConnectSmartWatchFragment : Fragment() {
     private lateinit var binding: FragmentConnectSmartWatchBinding
     private  val viewModel: ConnectSmartWatchViewModel by viewModels()
     private lateinit var watchAdapter: WatchAdapter
+     // QR scanner launcher
+    private val qrScanner = registerForActivityResult(ScanContract()) { result ->
+        if (result.contents != null) {
+
+            val json = JSONObject(result.contents)
+            val token = json.getString("token")
+            Log.d("Firestore", "User added result!${json}")
+
+                viewModel.insertWatchDetails(watchdata = json)
+
+
+            Toast.makeText(requireContext(), ": ${result.contents}", Toast.LENGTH_LONG).show()
+            // You can pass result.contents to ViewModel or handle as needed
+        } else {
+            Log.d("requireContext", "requireContext added result! ")
+            Toast.makeText(requireContext(), "Scan cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,37 +59,46 @@ class ConnectSmartWatchFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize RecyclerView and Adapter
+        watchAdapter = WatchAdapter { item ->
+            viewModel.deleteWatchDetails(requireContext() ,item.id.toString(),item.token.toString())
 
-
-        watchAdapter = viewModel.watchList.value?.let {
-            WatchAdapter(it) { item ->
-                viewModel.removeWatch(item)
-            }
-        }!!
+            
+        }
 
         binding.recyclerWatchList.apply {
             adapter = watchAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        binding.btnAddNew.setOnClickListener {
-            viewModel.addWatch(
-                WatchModel("New Watch ${Random().nextInt(999)}", "100%", R.drawable.watch)
-            )
+        // Observe LiveData from ViewModel
+        viewModel.watchList.observe(viewLifecycleOwner) { list ->
+            list?.let {
+                watchAdapter.setData(it)
+            }
         }
-        viewModel.watchList.observe(viewLifecycleOwner) {
-            PrefsManager().saveSmartWatch(viewModel.watchList.value?.size.toString())
+
+        viewModel.getWatchDetails() // Triggers data load
+
+        binding.btnAddNew.setOnClickListener {
+            val options = ScanOptions().apply {
+                setPrompt("Scan a QR Code")
+                setBeepEnabled(true)
+                setOrientationLocked(false)
+                setCameraId(0)
+            }
+            qrScanner.launch(options)
         }
 
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-
-
     }
+
+
+
 
 }
