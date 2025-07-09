@@ -26,20 +26,15 @@ import com.critetiontech.ctvitalio.databinding.FragmentDevicesConnectivityBindin
 
 class DevicesConnectivity : Fragment() {
     private var passedDeviceName: String? = null
-
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var bluetoothLeScanner: BluetoothLeScanner? = null
     private var scanning = false
     private var targetDevice: BluetoothDevice? = null
-
     private var gatt: BluetoothGatt? = null
-
     private val SCAN_PERIOD: Long = 4000
     private val handler = Handler(Looper.getMainLooper())
-
     private lateinit var binding: FragmentDevicesConnectivityBinding
 
-    private val PERMISSION_REQUEST_CODE = 1001
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
