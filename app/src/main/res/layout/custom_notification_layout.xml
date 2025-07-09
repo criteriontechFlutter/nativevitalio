@@ -1,20 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="10dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="@drawable/notification_background"
+    android:elevation="4dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!-- Notification Icon -->
+    <ImageView
+        android:id="@+id/notification_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/logo"
+        android:scaleType="centerCrop"
+        android:background="@drawable/icon_circle_background"
+        android:padding="8dp" />
 
-    <TextView
-        android:id="@+id/body"
-        android:textSize="14sp"
-        android:text="Body text goes here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!-- Content Container -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Header with title and timestamp -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Notification Title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 min ago"
+                android:textSize="12sp"
+                android:textColor="@color/textColor"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+
+        <!-- Body text -->
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is the notification body text that provides more details about the notification content."
+            android:textSize="14sp"
+            android:textColor="@color/textColor"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp" />
+
+        <!-- Action buttons (optional) -->
+        <LinearLayout
+            android:id="@+id/action_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="end"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btn_dismiss"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Dismiss"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_action"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="View"
+                android:textColor="@color/textColor"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Priority indicator -->
+    <View
+        android:id="@+id/priority_indicator"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:layout_marginStart="8dp"
+        android:visibility="gone" />
+
 </LinearLayout>
