@@ -175,6 +175,8 @@ data class FluidOutputSummary(
 
 
 data class WatchModel(
+    val id: String,
+    val token: String,
     val brand: String,
     val model: String,
     val watch: Int,

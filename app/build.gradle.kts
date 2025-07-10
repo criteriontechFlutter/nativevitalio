@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.firestore.ktx)
 
 
     /*    implementation(libs.androidx.navigation.fragment.ktx)
@@ -107,6 +108,7 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation (libs.android.gif.drawable)
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // retrofit
