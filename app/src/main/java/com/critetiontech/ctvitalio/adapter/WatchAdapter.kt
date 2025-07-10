@@ -7,9 +7,16 @@ import com.critetiontech.ctvitalio.databinding.ItemWatchBinding
 import com.critetiontech.ctvitalio.model.WatchModel
 
 class WatchAdapter(
-    private val items: List<WatchModel>,
     private val onRemoveClick: (WatchModel) -> Unit
 ) : RecyclerView.Adapter<WatchAdapter.WatchViewHolder>() {
+
+    private val items = mutableListOf<WatchModel>()
+
+    fun setData(newList: List<WatchModel>) {
+        items.clear()
+        items.addAll(newList)
+        notifyDataSetChanged()
+    }
 
     inner class WatchViewHolder(val binding: ItemWatchBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,10 +30,9 @@ class WatchAdapter(
         val item = items[position]
         with(holder.binding) {
             watchName.text = item.brand
-            batteryLevel.text = "91"
-
+            batteryLevel.text = "91" // you may want to fetch real value
             btnRemove.setOnClickListener {
-                onRemoveClick(item)
+                onRemoveClick(item )
             }
         }
     }
