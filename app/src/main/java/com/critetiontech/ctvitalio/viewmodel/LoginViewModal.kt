@@ -71,7 +71,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
                     Log.d("RESPONSE", "phoneOrUHID2"+mo.toString())
                     if (parsed.responseValue.isEmpty()) {
-                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString());
+                        sentLogInOTPForSHFCApp( uhid=uhid.toString(), mobileNo=mo.toString());
                         }
                     else{
                         val firstPatient = parsed.responseValue.firstOrNull()

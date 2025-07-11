@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI
 
 import Patient
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -57,6 +58,7 @@ class Login : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
+
                 val isValid = input.length >= 8
                 binding.sendOtpBtn.isEnabled = isValid
                 binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
@@ -118,18 +120,29 @@ class Login : AppCompatActivity() {
 
 
 
+    @SuppressLint("MissingInflatedId")
     private fun showVitalDialog(title: String) {
         if (isFinishing || isDestroyed) return
         val dialogView = LayoutInflater.from(this).inflate(R.layout.login_multiple_dialog, null)
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
+
         dialogView.findViewById<TextView>(R.id.title)?.text = title
         dialogView.findViewById<Button>(R.id.btnLogoutAll)?.setOnClickListener {
             dialog.dismiss()
+            var uhid = ""
+            var mo = ""
+
+            val input = binding.inputField.text.toString()
+            if (input.contains("UHID")) {
+                uhid = input
+            } else {
+                mo = input
+            }
             // Handle logout from all devices
-            viewModel.sentLogInOTPForSHFCApp(uhid=storedUHID.uhID.toString(),
-                mobileNo=storedUHID.mobileNo.toString(),ifLoggedOutFromAllDevices="1")
+            viewModel.sentLogInOTPForSHFCApp(uhid=uhid.toString(),
+                mobileNo=mo.toString(),ifLoggedOutFromAllDevices="1")
         }
         dialogView.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
             dialog.dismiss()
