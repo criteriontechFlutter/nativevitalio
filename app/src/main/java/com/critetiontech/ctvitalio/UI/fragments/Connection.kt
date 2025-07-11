@@ -337,7 +337,6 @@ class Connection: Fragment() {
     fun validateField(field: EditText, fieldName: String, min: Double = 0.0, max: Double = 300.0): Boolean {
         val text = field.text.toString()
         val value = text.toDoubleOrNull()
-
         return when {
             text.isBlank() -> {
                 field.error = "$fieldName is required"

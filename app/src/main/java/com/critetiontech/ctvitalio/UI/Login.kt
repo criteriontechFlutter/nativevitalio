@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.R.*
 import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
@@ -31,10 +32,12 @@ class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var regestrationViewModel: RegistrationViewModel
-    companion object {
-        lateinit var storedUHID: Patient
 
-    }
+        companion object {
+            var storedUHID: Patient? = null
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,7 +64,7 @@ class Login : AppCompatActivity() {
                 binding.sendOtpBtn.isEnabled = isValid
                 binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(this@Login,
-                        if (isValid) R.color.primaryBlue else R.color.greyText)
+                        if (isValid) color.primaryBlue else color.greyText)
                 )
             }
         })
@@ -120,18 +123,18 @@ class Login : AppCompatActivity() {
 
     private fun showVitalDialog(title: String) {
         if (isFinishing || isDestroyed) return
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.login_multiple_dialog, null)
+        val dialogView = LayoutInflater.from(this).inflate(layout.login_multiple_dialog, null)
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
-        dialogView.findViewById<TextView>(R.id.title)?.text = title
-        dialogView.findViewById<Button>(R.id.btnLogoutAll)?.setOnClickListener {
+        dialogView.findViewById<TextView>(id.title)?.text = title
+        dialogView.findViewById<Button>(id.btnLogoutAll)?.setOnClickListener {
             dialog.dismiss()
             // Handle logout from all devices
-            viewModel.sentLogInOTPForSHFCApp(uhid=storedUHID.uhID.toString(),
-                mobileNo=storedUHID.mobileNo.toString(),ifLoggedOutFromAllDevices="1")
+            viewModel.sentLogInOTPForSHFCApp(uhid= storedUHID?.uhID.toString(),
+                mobileNo= storedUHID?.mobileNo.toString(),ifLoggedOutFromAllDevices="1")
         }
-        dialogView.findViewById<Button>(R.id.btnCancel)?.setOnClickListener {
+        dialogView.findViewById<Button>(id.btnCancel)?.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
@@ -154,8 +157,8 @@ class Login : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val bottomCard = findViewById<CardView>(R.id.bottomCard)
-        val animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
+        val bottomCard = findViewById<CardView>(id.bottomCard)
+        val animation = AnimationUtils.loadAnimation(this, anim.zoom_in)
         Handler(Looper.getMainLooper()).postDelayed({
             bottomCard.startAnimation(animation)
         }, 200)
