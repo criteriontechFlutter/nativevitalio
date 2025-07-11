@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_shared_acc"
+    app:startDestination="@id/sharedAccountHoldersFragment">
+    <fragment
+        android:id="@+id/sharedAccountHoldersFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.SharedAccountHoldersFragment"
+        android:label="fragment_shared_account_holders"
+        tools:layout="@layout/fragment_shared_account_holders" >
+        <action
+            android:id="@+id/action_sharedAccountHoldersFragment_to_addMemberFragment"
+            app:destination="@id/addMemberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMemberFragment"
+        android:name="com.criterion.nativevitalio.UI.ui.observer.AddMemberFragment"
+        android:label="fragment_add_member"
+        tools:layout="@layout/fragment_add_member" />
+</navigation>
