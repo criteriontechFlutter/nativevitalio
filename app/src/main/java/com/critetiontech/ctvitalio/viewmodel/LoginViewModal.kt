@@ -23,7 +23,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
-import java.util.Locale
 
 class LoginViewModel (application: Application) : BaseViewModel(application){
 
@@ -42,7 +41,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
             var mo = ""
             var uhidVal = ""
 
-            if (uhid.lowercase(Locale.getDefault()).contains("uhid")) {
+            if (uhid.toLowerCase().contains("uhid")) {
                 uhidVal = uhid
             } else {
                 mo = uhid
@@ -72,8 +71,8 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
                     Log.d("RESPONSE", "phoneOrUHID2"+mo.toString())
                     if (parsed.responseValue.isEmpty()) {
-                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString())
-                    }
+                        sentLogInOTPForSHFCApp( uhid=uhid.toString(), mobileNo=mo.toString());
+                        }
                     else{
                         val firstPatient = parsed.responseValue.firstOrNull()
                         firstPatient?.let {
@@ -89,7 +88,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
                 } else {
                     if(mo.toString().length>9){
-                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString())
+                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString());
 
                     }
                     else{
@@ -136,7 +135,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                         putExtra("mobileNo", mobileNo)
                         putExtra("isRegistered", otpResponse.isRegisterd.toString())
                     }
-                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     MyApplication.appContext.startActivity(intent)
 
 
