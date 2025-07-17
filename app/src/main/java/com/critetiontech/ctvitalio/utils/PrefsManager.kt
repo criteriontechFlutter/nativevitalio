@@ -56,7 +56,8 @@ data class Patient(
     val isCashLess: Boolean,
     val insuranceCompanyId: Int,
     val policyOrCardNumber: String,
-    val profileUrl: String
+    val profileUrl: String,
+    var isHoldToSpeak: Int = 0
 )
 
 

@@ -6,6 +6,8 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,7 +24,6 @@ import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class OtpViewModal  (application: Application) : BaseViewModel(application){
 
@@ -59,18 +60,22 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
                     if(isRegistered.toString()=="0"){
-                        Log.d("RESPONSE", "phoneOrUHID5"+mNo.toString())
-                        val intent = Intent(MyApplication.appContext,  SignupActivity::class.java).apply {
-                            putExtra("UHID", uhid)
-                            putExtra("mobileNo", mNo)
+
+                        if(uhid.isEmpty()){
+                            Log.d("RESPONSE", "phoneOrUHID5$mNo")
+                            val intent =
+                                Intent(MyApplication.appContext, SignupActivity::class.java).apply {
+                                    putExtra("UHID", uhid)
+                                    putExtra("mobileNo", mNo)
+                                }
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            MyApplication.appContext.startActivity(intent)
+                        }else{
+                            Toast.makeText(context, "Enter valid uhid", Toast.LENGTH_SHORT).show()
                         }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        MyApplication.appContext.startActivity(intent)
 
 
-//                        val intent = Intent(context, SignupActivity::class.java)
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        context.startActivity(intent)
+
                     }else{
                     getPatientDetailsByUHIDs(uhid,context)
                     }
@@ -97,7 +102,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 var mo = ""
                 var uhidVal = ""
 
-                if (uhid.lowercase(Locale.getDefault()).contains("uhid")) {
+                if (uhid.toLowerCase().contains("uhid")) {
                     uhidVal = uhid
                 } else {
                     mo = uhid
