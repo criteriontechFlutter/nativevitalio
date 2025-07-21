@@ -55,7 +55,7 @@ class otp : AppCompatActivity() {
         binding.verify.setOnClickListener {
             if (allFilled){
 
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 viewModel.getPatientDetailsByUHID(uhid=storedUHID,
                     deviceToken="deviceToken",isRegistered=isRegistered
                     ,otp=otptext ,context=applicationContext,

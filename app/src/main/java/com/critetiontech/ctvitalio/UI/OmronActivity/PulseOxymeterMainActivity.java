@@ -48,7 +48,7 @@ public class PulseOxymeterMainActivity extends BaseActivity {
     private Context mContext;
     private static final String TAG = "OmronSampleApp";
     private OmronPeripheral mSelectedPeripheral;
-    private List<Integer> selectedUsers = new ArrayList<>();
+    private final List<Integer> selectedUsers = new ArrayList<>();
     private TextView mTvDeviceLocalName, mTvDeviceUuid, mTvStatusLabel, mTvErrorCode, mTvErrorDesc;
     private ProgressBar mProgressBar;
     private Button transferBtn;

@@ -60,8 +60,8 @@ public class ScannedDevicesAdapter extends BaseAdapter {
     private View createContentView(LayoutInflater inflator, final OmronPeripheral item, ViewGroup parent) {
         View v = inflator.inflate(R.layout.list_item_scanned_device, parent, false);
 
-        TextView tvMdelName = (TextView) v.findViewById(R.id.tv_model_name);
-        TextView tvDeviceSeries = (TextView) v.findViewById(R.id.tv_device_series);
+        TextView tvMdelName = v.findViewById(R.id.tv_model_name);
+        TextView tvDeviceSeries = v.findViewById(R.id.tv_device_series);
 
 
         tvMdelName.setText(item.getModelName());

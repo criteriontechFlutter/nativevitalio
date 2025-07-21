@@ -57,9 +57,9 @@ public class BloodPressureDataListingActivity extends BaseActivity implements Lo
 
     private void initViews() {
 
-        vitalCount = (TextView) findViewById(R.id.vital_count);
+        vitalCount = findViewById(R.id.vital_count);
         ((TextView) findViewById(R.id.textView)).setText("History - " +  modelName);
-        mListView = (RecyclerView) findViewById(R.id.lv_devicelist);
+        mListView = findViewById(R.id.lv_devicelist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(BloodPressureDataListingActivity.this, LinearLayoutManager.VERTICAL, false);
         mListView.setLayoutManager(linearLayoutManager);

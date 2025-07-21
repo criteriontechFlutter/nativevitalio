@@ -43,7 +43,7 @@ public class DataDeviceListingActivity extends BaseActivity {
         mContext = this;
         preferencesManager = new PreferencesManager(DataDeviceListingActivity.this);
         deviceList = preferencesManager.getDataStoredDeviceList();
-        rvSavedDevices = (RecyclerView) findViewById(R.id.rv_saved_devices);
+        rvSavedDevices = findViewById(R.id.rv_saved_devices);
         category = 0;
         localName = "";
 

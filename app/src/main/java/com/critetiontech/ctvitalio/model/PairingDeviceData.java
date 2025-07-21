@@ -21,8 +21,8 @@ public class PairingDeviceData {
     private static List<Map<String, String>> pairingDeviceList;
     private static ContentResolver contentResolver;
     public PairingDeviceData(ContentResolver contentResolver){
-        this.contentResolver = contentResolver;
-        if(this.pairingDeviceList == null) {
+        PairingDeviceData.contentResolver = contentResolver;
+        if(pairingDeviceList == null) {
             loadPairingDeviceInfoList();
         }
     }

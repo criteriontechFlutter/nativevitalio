@@ -47,7 +47,7 @@ class VitalDetail  : Fragment() {
             if (isLoading) showLoading() else hideLoading()
         }
 
-        binding.backButton.setOnClickListener(){
+        binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
 

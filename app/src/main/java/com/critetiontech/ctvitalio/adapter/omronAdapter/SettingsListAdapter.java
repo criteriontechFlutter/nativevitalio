@@ -64,8 +64,8 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
 
         VersionViewHolder(View view) {
             super(view);
-            tvReminderTime = (TextView) view.findViewById(R.id.tv_reminder_time);
-            tvRepeat = (TextView) view.findViewById(R.id.tv_repeat);
+            tvReminderTime = view.findViewById(R.id.tv_reminder_time);
+            tvRepeat = view.findViewById(R.id.tv_repeat);
 
         }
     }

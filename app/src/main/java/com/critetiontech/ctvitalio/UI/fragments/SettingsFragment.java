@@ -63,7 +63,7 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        lvDevicelist = (RecyclerView) view.findViewById(R.id.lv_devicelist);
+        lvDevicelist = view.findViewById(R.id.lv_devicelist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         lvDevicelist.setLayoutManager(linearLayoutManager);

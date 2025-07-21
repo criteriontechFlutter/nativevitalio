@@ -28,8 +28,8 @@ public class ConnectedDeviceAdapter extends BaseAdapter {
 
     private final Context context;
 
-    private List<Map<String, String>> mDeviceList;
-    private OmronConnectedDeviceList mOmronConnectedDeviceList;
+    private final List<Map<String, String>> mDeviceList;
+    private final OmronConnectedDeviceList mOmronConnectedDeviceList;
 
     public ConnectedDeviceAdapter(Context _context, List<Map<String, String>> deviceList) {
         this.context = _context;

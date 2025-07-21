@@ -26,8 +26,8 @@ import java.util.List;
 public class ActivityItemsListAdapter extends RecyclerView.Adapter<ActivityItemsListAdapter.VersionViewHolder> {
 
     private final Context context;
-    private List<ActivityDataItem> mActivityDataItemArrayList;
-    private String localName;
+    private final List<ActivityDataItem> mActivityDataItemArrayList;
+    private final String localName;
 
     public ActivityItemsListAdapter(Context _context, List<ActivityDataItem> activityDataItemArrayList, String _localName) {
         this.context = _context;
@@ -81,8 +81,8 @@ public class ActivityItemsListAdapter extends RecyclerView.Adapter<ActivityItems
 
         VersionViewHolder(View view) {
             super(view);
-            linearLayout1 = (RelativeLayout) view.findViewById(R.id.linearLayout1);
-            tvData = (TextView) view.findViewById(R.id.tv_data);
+            linearLayout1 = view.findViewById(R.id.linearLayout1);
+            tvData = view.findViewById(R.id.tv_data);
         }
     }
 

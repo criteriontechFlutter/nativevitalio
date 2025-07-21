@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.UI.OmronActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -43,7 +44,7 @@ public class UserPersonalSettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         //init view
         setContentView(R.layout.activity_user_personal_settings);
         tvDateOfBirth = findViewById(R.id.tv_date);

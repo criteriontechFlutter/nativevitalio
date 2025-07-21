@@ -40,7 +40,7 @@ public class Utilities {
             us_height_inc += inch * 4;
         }
 
-        gss_arg_value = (int) us_height_inc * 254;
+        gss_arg_value = us_height_inc * 254;
         gss_arg_value = (gss_arg_value + 100) / 200;
         gss_arg_value = gss_arg_value * 5;
 

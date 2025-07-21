@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class dataListData implements Parcelable {
-    private List<Map<String, String>> dataList;
+    private final List<Map<String, String>> dataList;
 
     public dataListData(List<Map<String, String>> dataList) {
         this.dataList = dataList;

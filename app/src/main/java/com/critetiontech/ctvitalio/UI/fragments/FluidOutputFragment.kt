@@ -32,7 +32,7 @@ class FluidOutputFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentFluidOutputBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -99,7 +99,7 @@ class FluidOutputFragment : Fragment() {
                     R.id.btnDaily -> {
 
                         binding.btnGraphToggleLayout.visibility= View.VISIBLE
-                        binding.tvSelectedDate.setText("Today")
+                        binding.tvSelectedDate.text = "Today"
                         viewModel.outputList.observe(viewLifecycleOwner) { list ->
                             fluidOutputAdapter = FluidOutputHistoryAdapter(list)
                             binding.recyclerViewFluidLogs.adapter = fluidOutputAdapter
@@ -110,7 +110,7 @@ class FluidOutputFragment : Fragment() {
 
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastWeekRange()
-                        binding.tvSelectedDate.setText("$from--$to")
+                        binding.tvSelectedDate.text = "$from--$to"
                         viewModel.fetchManualFluidOutPutByRange(PrefsManager().getPatient()!!.uhID,from,to)
                         viewModel.outputListRangeWise.observe(viewLifecycleOwner) { list ->
                             Log.d("TAG", "onViewCreated: "+list.size.toString())
@@ -124,7 +124,7 @@ class FluidOutputFragment : Fragment() {
 
                         binding.btnGraphToggleLayout.visibility= View.GONE
                         val (from, to) = DateUtils.getLastMonthRange()
-                        binding.tvSelectedDate.setText("$from--$to")
+                        binding.tvSelectedDate.text = "$from--$to"
                         viewModel.fetchManualFluidOutPutByRange(PrefsManager().getPatient()!!.uhID,from,to)
                        viewModel.outputListRangeWise.observe(viewLifecycleOwner) { list ->
                             Log.d("TAG", "onViewCreated: "+list.size.toString())

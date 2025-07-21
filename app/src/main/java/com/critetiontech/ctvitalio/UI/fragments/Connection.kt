@@ -78,7 +78,7 @@ class Connection: Fragment() {
             if (isLoading) showLoading() else hideLoading()
         }
 
-        binding.deviceContainer.setOnClickListener(){
+        binding.deviceContainer.setOnClickListener {
             val intent = Intent(MyApplication.appContext, OmronConnectedDeviceList::class.java)
             startActivity(intent)
 
@@ -86,7 +86,7 @@ class Connection: Fragment() {
         }
 
 
-        binding.backButton.setOnClickListener(){
+        binding.backButton.setOnClickListener {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
