@@ -106,7 +106,7 @@ class FluidInputHistoryFragment : Fragment() {
                     R.id.btnDaily -> {
                         binding.progressBarLayout.visibility = VISIBLE
                         binding.btnGraphToggleLayout.visibility = VISIBLE
-                        binding.tvSelectedDate.setText("Today")
+                        binding.tvSelectedDate.text = "Today"
                         viewModel.intakeList.observe(viewLifecycleOwner) { list ->
                             fluidIntakeAdapter = FluidIntakeLogAdapter(list)
                             binding.recyclerViewFluidLogs.adapter = fluidIntakeAdapter
@@ -118,7 +118,7 @@ class FluidInputHistoryFragment : Fragment() {
                         binding.progressBarLayout.visibility = GONE
                         binding.btnGraphToggleLayout.visibility = GONE
                         val (from, to) = DateUtils.getLastWeekRange()
-                        binding.tvSelectedDate.setText("$from--$to")
+                        binding.tvSelectedDate.text = "$from--$to"
                         viewModel.fetchManualFluidIntakeByRange(
                             PrefsManager().getPatient()!!.uhID,
                             from,
@@ -137,7 +137,7 @@ class FluidInputHistoryFragment : Fragment() {
                         binding.progressBarLayout.visibility = GONE
                         binding.btnGraphToggleLayout.visibility = GONE
                         val (from, to) = DateUtils.getLastMonthRange()
-                        binding.tvSelectedDate.setText("$from--$to")
+                        binding.tvSelectedDate.text = "$from--$to"
                         viewModel.fetchManualFluidIntakeByRange(
                             PrefsManager().getPatient()!!.uhID,
                             from,

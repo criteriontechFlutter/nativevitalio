@@ -59,8 +59,8 @@ public class PulseOxymeterDataListingActivity extends BaseActivity implements Lo
 
     private void initViews() {
 
-        OxymeterDataCount = (TextView) findViewById(R.id.oxymeter_data_count);
-        mListView = (RecyclerView) findViewById(R.id.lv_devicelist);
+        OxymeterDataCount = findViewById(R.id.oxymeter_data_count);
+        mListView = findViewById(R.id.lv_devicelist);
         ((TextView) findViewById(R.id.textView)).setText("History - " +  modelName);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(PulseOxymeterDataListingActivity.this, LinearLayoutManager.VERTICAL, false);

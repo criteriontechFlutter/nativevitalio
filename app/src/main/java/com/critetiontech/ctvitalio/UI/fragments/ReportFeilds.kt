@@ -126,7 +126,7 @@ class ReportFieldsFragment : Fragment() {
 
             containerLayout.addView(reportContainer)
         }
-            binding.backButton.setOnClickListener(){
+            binding.backButton.setOnClickListener {
 
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }

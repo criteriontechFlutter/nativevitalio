@@ -24,8 +24,8 @@ import org.json.JSONObject;
 public class DataSavedDevicesListAdapter extends RecyclerView.Adapter<DataSavedDevicesListAdapter.VersionViewHolder> {
     private final static String TAG = "DataSavedDevicesListAdapter";
     private JSONArray deviceList;
-    private DeviceItemSelect mSavedItemSelect;
-    private DeviceDelete mDeviceDelete;
+    private final DeviceItemSelect mSavedItemSelect;
+    private final DeviceDelete mDeviceDelete;
 
     public DataSavedDevicesListAdapter(JSONArray _deviceList, DeviceItemSelect savedItemSelect ,DeviceDelete deviceDelete) {
         this.deviceList = _deviceList;
@@ -83,9 +83,9 @@ public class DataSavedDevicesListAdapter extends RecyclerView.Adapter<DataSavedD
 
         VersionViewHolder(View view) {
             super(view);
-            llDetails = (LinearLayout) view.findViewById(R.id.ll_details);
-            tvModelName = (TextView) view.findViewById(R.id.tv_model_name);
-            tvLocalName = (TextView) view.findViewById(R.id.tv_local_name);
+            llDetails = view.findViewById(R.id.ll_details);
+            tvModelName = view.findViewById(R.id.tv_model_name);
+            tvLocalName = view.findViewById(R.id.tv_local_name);
 
             llDetails.setOnClickListener(this);
             llDetails.setOnLongClickListener(this);

@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapter.VersionViewHolder> {
     private final static String TAG = "ReminderListAdapter";
-    private ReminderSelect mSavedItemSelect;
+    private final ReminderSelect mSavedItemSelect;
     private Boolean isTimeFormat24 = true;
     private JSONArray peripheralDevices;
 
@@ -173,9 +173,9 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
 
         VersionViewHolder(View view) {
             super(view);
-            tvReminderTime = (TextView) view.findViewById(R.id.tv_reminder_time);
-            tvRepeat = (TextView) view.findViewById(R.id.tv_repeat);
-            ivRemove = (ImageView) view.findViewById(R.id.iv_remove);
+            tvReminderTime = view.findViewById(R.id.tv_reminder_time);
+            tvRepeat = view.findViewById(R.id.tv_repeat);
+            ivRemove = view.findViewById(R.id.iv_remove);
 
             tvReminderTime.setOnClickListener(this);
             tvRepeat.setOnClickListener(this);

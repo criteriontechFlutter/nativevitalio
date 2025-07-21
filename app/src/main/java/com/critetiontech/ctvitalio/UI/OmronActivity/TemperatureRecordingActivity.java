@@ -329,12 +329,12 @@ public class TemperatureRecordingActivity extends AppCompatActivity {
     private void initViews() {
 
 
-        mTvTImeStamp = (TextView) findViewById(R.id.tv_timestamp_value);
-        mTvTemperature = (TextView) findViewById(R.id.tv_temperature_value);
-        mTvSignalLevel = (TextView) findViewById(R.id.tv_signalLevel_value);
-        mTvDisclaimer = (TextView) findViewById(R.id.tv_disclaimer_value);
+        mTvTImeStamp = findViewById(R.id.tv_timestamp_value);
+        mTvTemperature = findViewById(R.id.tv_temperature_value);
+        mTvSignalLevel = findViewById(R.id.tv_signalLevel_value);
+        mTvDisclaimer = findViewById(R.id.tv_disclaimer_value);
 
-        scanBtn = (Button) findViewById(R.id.btn_scan);
+        scanBtn = findViewById(R.id.btn_scan);
     }
 
     private void resetView() {

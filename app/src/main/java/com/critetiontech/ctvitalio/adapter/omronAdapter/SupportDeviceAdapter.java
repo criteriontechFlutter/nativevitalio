@@ -27,7 +27,7 @@ public class SupportDeviceAdapter extends BaseAdapter {
 
     private final Context context;
 
-    private List<Map<String, String>> mDeviceList;
+    private final List<Map<String, String>> mDeviceList;
 
     public SupportDeviceAdapter(Context _context, List<Map<String, String>> deviceList) {
         this.context = _context;

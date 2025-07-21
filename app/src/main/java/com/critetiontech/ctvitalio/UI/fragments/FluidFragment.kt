@@ -474,7 +474,7 @@ class FluidFragment : Fragment() {
             if (button.id == checkedId) {
                 button.run {
                     setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.blue))
-                    setTextColor(getResources().getColor(R.color.dashboardIconBg))
+                    setTextColor(resources.getColor(R.color.dashboardIconBg))
                 }
             } else {
                 button.setBackgroundColor(Color.WHITE)

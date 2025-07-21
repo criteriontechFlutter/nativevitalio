@@ -65,7 +65,7 @@ public class ActivityListingActivity extends BaseActivity implements LoaderManag
 
     private void initViews() {
 
-        mListView = (RecyclerView) findViewById(R.id.lv_activitylist);
+        mListView = findViewById(R.id.lv_activitylist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(ActivityListingActivity.this, LinearLayoutManager.VERTICAL, false);
         mListView.setLayoutManager(linearLayoutManager);

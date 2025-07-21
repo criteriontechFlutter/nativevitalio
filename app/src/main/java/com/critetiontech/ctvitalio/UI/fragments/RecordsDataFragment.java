@@ -69,8 +69,8 @@ public class RecordsDataFragment extends Fragment implements LoaderManager.Loade
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tvDataCount = (TextView) view.findViewById(R.id.tv_data_count);
-        RecyclerView lvDevicelist = (RecyclerView) view.findViewById(R.id.lv_devicelist);
+        tvDataCount = view.findViewById(R.id.tv_data_count);
+        RecyclerView lvDevicelist = view.findViewById(R.id.lv_devicelist);
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         lvDevicelist.setLayoutManager(linearLayoutManager);

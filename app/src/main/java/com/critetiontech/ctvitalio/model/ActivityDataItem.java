@@ -6,8 +6,8 @@ package com.critetiontech.ctvitalio.model;
 
 public class ActivityDataItem {
 
-    private String mKey;
-    private String mName;
+    private final String mKey;
+    private final String mName;
 
     public ActivityDataItem(String _mKey, String _mName) {
         this.mKey = _mKey;

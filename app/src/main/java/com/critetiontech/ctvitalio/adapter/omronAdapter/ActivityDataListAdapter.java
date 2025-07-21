@@ -27,7 +27,7 @@ public class ActivityDataListAdapter extends RecyclerView.Adapter<ActivityDataLi
     private final Context context;
     private Cursor mCursor;
 
-    private ActivityDaySelect mActivityItemSelect;
+    private final ActivityDaySelect mActivityItemSelect;
 
     public ActivityDataListAdapter(Context _context, ActivityDaySelect activityItemSelect) {
         this.context = _context;
@@ -161,8 +161,8 @@ public class ActivityDataListAdapter extends RecyclerView.Adapter<ActivityDataLi
 
         VersionViewHolder(View view) {
             super(view);
-            llBg = (LinearLayout) view.findViewById(R.id.ll_bg);
-            tvData = (TextView) view.findViewById(R.id.tv_data);
+            llBg = view.findViewById(R.id.ll_bg);
+            tvData = view.findViewById(R.id.tv_data);
         }
     }
 }

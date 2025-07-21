@@ -151,10 +151,6 @@ class Login : AppCompatActivity() {
     }
 
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun onStart() {
         super.onStart()
         val bottomCard = findViewById<CardView>(id.bottomCard)
@@ -164,13 +160,6 @@ class Login : AppCompatActivity() {
         }, 200)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-    }
     private fun scrollToView(scrollView: NestedScrollView, view: View) {
         scrollView.post {
             scrollView.smoothScrollTo(0, view.top)
