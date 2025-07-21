@@ -3,6 +3,10 @@
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
         android:title="@string/home" />
+    <item
+        android:id="@+id/challenges"
+        android:icon="@drawable/challenges_icon"
+        android:title="@string/challenges" />
 
     <item
         android:id="@+id/nav_reminders"

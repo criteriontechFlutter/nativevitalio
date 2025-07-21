@@ -20,6 +20,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="challenges">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1113" />
+                            <option name="y" value="-828" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="chatBotPage">
                     <value>
                       <LayoutPositions>
@@ -208,6 +220,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_pillsReminder">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_symptomTrackerFragments">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -507,6 +524,20 @@
                             <option name="x" value="184" />
                             <option name="y" value="590" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_symptomTrackerFragments_to_symptomHistory">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_symptomTrackerFragments_to_symptomsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

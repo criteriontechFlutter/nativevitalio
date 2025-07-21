@@ -242,9 +242,6 @@ class Dashboard  : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
         }
 
-        binding.fluidlayout.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
-        }
 
         binding.pillsReminder.setOnClickListener {
             findNavController().navigate(R.id.pillsReminder)
@@ -293,22 +290,26 @@ class Dashboard  : Fragment() {
             }
         }
 
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_chat -> {
-                    findNavController().navigate(R.id.action_dashboard_to_chatBotPage)
-                    true
-                }
-                R.id.nav_home -> {
-                    true
-                }
-                R.id.nav_reminders -> {
-                    findNavController().navigate(R.id.action_dashboard_to_pillsReminder)
-                    true
-                }
-                else -> false
-            }
-        }
+//        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.nav_chat -> {
+//                    findNavController().navigate(R.id.action_dashboard_to_chatBotPage)
+//                    true
+//                }
+//                R.id.nav_home -> {
+//                    true
+//                }
+//                R.id.challenges -> {
+//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+//                    true
+//                }
+//                R.id.nav_reminders -> {
+//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {

@@ -5,6 +5,7 @@
     <string name="other">Other</string>
     <string name="home">Home</string>
     <string name="reminders">Reminders</string>
+    <string name="challenges">Challenges</string>
     <string name="chat">Chat</string>
     <string name="login_sign_up">Login/Sign Up</string>
     <string name="enter_uhid_or_mobile_no">Enter UHID or Mobile No</string>
@@ -259,4 +260,5 @@
 
     <string name="select_relationship">Select Relationship</string>
     <string name="logout_from_all_devices">Logout from All Devices</string>
+    <string name="app_bar_icon" />
 </resources>

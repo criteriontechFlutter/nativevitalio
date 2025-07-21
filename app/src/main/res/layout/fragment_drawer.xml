@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="@color/backgroundColor"
+        android:background="@drawable/background_gradient"
         android:padding="5dp">
 
 
@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:backgroundTint="@color/transparent"
                 app:cardElevation="1dp"
                 android:background="@drawable/profile_card_bg"
                 android:padding="15dp">
@@ -127,12 +128,13 @@
                 android:orientation="vertical"
                 android:textColor="@color/textColor"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/section_bg"
+                android:background="@drawable/background_gradient"
                 >
 
                 <include
                     android:visibility="gone"
                     layout="@layout/item_profile_row"
+
                     android:id="@+id/personalInfoRow" />
 
                 <include layout="@layout/item_profile_row"
