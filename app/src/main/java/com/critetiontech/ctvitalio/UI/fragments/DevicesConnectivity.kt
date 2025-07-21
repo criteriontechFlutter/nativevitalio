@@ -13,6 +13,7 @@ import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -72,10 +73,14 @@ class DevicesConnectivity : Fragment() {
         val permissionsNeeded = mutableListOf<String>()
 
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-            permissionsNeeded.add(Manifest.permission.BLUETOOTH_SCAN)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                permissionsNeeded.add(Manifest.permission.BLUETOOTH_SCAN)
+            }
         }
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            permissionsNeeded.add(Manifest.permission.BLUETOOTH_CONNECT)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                permissionsNeeded.add(Manifest.permission.BLUETOOTH_CONNECT)
+            }
         }
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION)

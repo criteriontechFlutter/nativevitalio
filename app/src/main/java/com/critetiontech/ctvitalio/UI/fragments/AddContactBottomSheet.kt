@@ -24,7 +24,6 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetAddEmergencyContactBinding? = null
     private val binding get() = _binding!!
     private val viewModel: EmergencyContactViewModel by viewModels()
-
     private var selectedPosition = 0 // default to 0 (hint)
 
     override fun onCreateView(

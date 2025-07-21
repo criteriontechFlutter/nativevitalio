@@ -49,7 +49,7 @@ class otp : AppCompatActivity() {
         mobileNo = intent.getStringExtra("mobileNo").toString()
         isRegistered = intent.getStringExtra("isRegistered").toString()
 
-        Log.d("RESPONSE", "phoneOrUHID4"+mobileNo.toString())
+        Log.d("RESPONSE", "phoneOrUHID4$mobileNo")
         setupOtpInputs(storedUHID)
 
         binding.verify.setOnClickListener {

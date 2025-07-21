@@ -20,7 +20,7 @@ class IntakePills : Fragment() {
     private lateinit var _binding: FragmentIntakePillsBinding
     private lateinit var viewModel: IntakePillsViewModel
 
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

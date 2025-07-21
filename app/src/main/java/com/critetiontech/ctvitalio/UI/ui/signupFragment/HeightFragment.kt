@@ -58,7 +58,7 @@ class HeightFragment : Fragment() {
                         displayText = "${inches.toInt()} in"
                     }
                     selectedHeight.contains("'") -> {
-                        val regex = Regex("""(\d+)' (\d+)\"""")
+                        val regex = Regex("""(\d+)' (\d+)"""")
                         val match = regex.find(selectedHeight)
                         if (match != null) {
                             val (feet, inches) = match.destructured

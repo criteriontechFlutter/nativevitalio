@@ -10,15 +10,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.UI.Login
-import com.critetiontech.ctvitalio.model.OtpResponse
 import com.critetiontech.ctvitalio.UI.otp
 import com.critetiontech.ctvitalio.model.BaseResponse
+import com.critetiontech.ctvitalio.model.OtpResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
-
-import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
