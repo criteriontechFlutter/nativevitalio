@@ -29,12 +29,17 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/blue"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tab_layout_background"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorGravity="stretch"
+            app:tabBackground="@android:color/transparent"
+            app:tabTextColor="@color/tab_text_color_selector"
+            app:tabRippleColor="@android:color/transparent"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="@color/gray" />
+            app:tabGravity="fill" />
+
+
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
