@@ -48,6 +48,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
+import androidx.core.graphics.drawable.toDrawable
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
@@ -227,7 +228,7 @@ class Dashboard  : Fragment() {
         binding.sosIcon.setOnClickListener {
             val dialog = Dialog(requireContext())
             dialog.setContentView(R.layout.emergency_popup)
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
             dialog.show()
 
             val closeBtn = dialog.findViewById<ImageView>(R.id.closeBtn)
@@ -290,26 +291,26 @@ class Dashboard  : Fragment() {
             }
         }
 
-//        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.nav_chat -> {
-//                    findNavController().navigate(R.id.action_dashboard_to_chatBotPage)
-//                    true
-//                }
-//                R.id.nav_home -> {
-//                    true
-//                }
-//                R.id.challenges -> {
-//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
-//                    true
-//                }
-//                R.id.nav_reminders -> {
-//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_chat -> {
+                    findNavController().navigate(R.id.action_dashboard_to_chatBotPage)
+                    true
+                }
+                R.id.nav_home -> {
+                    true
+                }
+                R.id.challenges -> {
+                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+                    true
+                }
+                R.id.nav_reminders -> {
+                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+                    true
+                }
+                else -> false
+            }
+        }
 
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {
