@@ -290,26 +290,26 @@ class Dashboard  : Fragment() {
             }
         }
 
-//        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.nav_chat -> {
-//                    findNavController( ).navigate(R.id.action_dashboard_to_chatBotPage)
-//                    true
-//                }
-//                R.id.nav_home -> {
-//                    true
-//                }
-//                R.id.challenges -> {
-//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
-//                    true
-//                }
-//                R.id.nav_reminders -> {
-//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_chat -> {
+                    findNavController( ).navigate(R.id.action_dashboard_to_chatBotPage)
+                    true
+                }
+                R.id.nav_home -> {
+                    true
+                }
+                R.id.challenges -> {
+                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+                    true
+                }
+                R.id.nav_reminders -> {
+                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+                    true
+                }
+                else -> false
+            }
+        }
 
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {

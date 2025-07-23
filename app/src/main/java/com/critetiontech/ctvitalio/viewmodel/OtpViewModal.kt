@@ -42,7 +42,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
             try {
                 val queryParams = mapOf(
                     "otp" to otp,
-                    "UHID" to uhid,
+                    "UHID" to "emp015",
                     "deviceToken" to  PrefsManager().getDeviceToken().toString(),
                     "ifLoggedOutFromAllDevices" to  "0"
                 )
@@ -109,7 +109,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 }
                 val queryParams = mapOf(
                     "mobileNo" to mo,
-                    "uhid" to uhidVal,
+                    "uhid" to "emp015",
                     "ClientId" to 194
                 )
 
@@ -165,7 +165,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
             try {
                 val queryParams = mapOf(
                     "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
-                    "UHID" to uhid
+                    "UHID" to "emp015"
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
