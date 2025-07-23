@@ -117,6 +117,8 @@ dependencies {
     implementation(libs.mpandroidchart)
     implementation(libs.converter.gson)
     implementation (libs.lottie)
+    implementation(libs.circleimageview)
+    implementation(libs.androidx.cardview)
     implementation (libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)
     implementation (libs.flexbox)
