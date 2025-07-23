@@ -37,15 +37,6 @@ class Challenges : Fragment() {
             }
         }.attach()
 
-        // Optional: to add spacing between tabs
-        val tabStrip = binding.tabLayout.getChildAt(0) as ViewGroup
-        for (i in 0 until tabStrip.childCount) {
-            val tab = tabStrip.getChildAt(i)
-            val lp = tab.layoutParams as ViewGroup.MarginLayoutParams
-            lp.setMargins(8, 8, 8, 8)
-            tab.layoutParams = lp
-            binding.tabLayout.requestLayout()
-        }
 
 
     }
