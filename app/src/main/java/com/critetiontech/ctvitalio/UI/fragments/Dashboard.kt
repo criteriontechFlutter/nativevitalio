@@ -314,7 +314,7 @@ class Dashboard  : Fragment() {
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {
                 WebSocketState.CONNECTING -> "Connecting..."
-                WebSocketState.CONNECTED -> "Please speak"
+                WebSocketState.CONNECTED -> "Please spe ak"
                 WebSocketState.DISCONNECTED -> "Disconnected"
                 WebSocketState.ERROR -> "Connection Error"
             }
