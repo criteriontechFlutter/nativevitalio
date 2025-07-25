@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
-    android:layout_marginStart="20dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="22dp"
     android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginEnd="20dp"
+    android:layout_marginEnd="22dp"
     android:background="@drawable/rounded_corners"
     android:backgroundTint="#F5F0F5"
     app:cardElevation="0dp">
@@ -47,7 +47,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="57dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
@@ -56,6 +56,7 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -93,28 +94,31 @@
     <!-- participants_row.xml -->
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/transparent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
         <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Participants"
-            android:textColor="#666666"
-            android:textSize="12sp" />
+            android:text="People Joined"
+            android:textColor="#A4A2A2"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/participantsRecyclerView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="13dp"
             android:clipChildren="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
@@ -126,77 +130,53 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@color/transparent"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@+id/cardView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
-        <!-- Progress Bar with Diamond Container -->
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="87dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp">
+            android:text="Starts in 1 day"
+            android:textColor="#000000"
+            android:textSize="12sp" />
 
-            <!-- Progress Bar -->
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/diamondIconnew"
-                android:background="@drawable/progress_background"
-                android:max="30"
-                android:progress="15"
-                android:progressDrawable="@drawable/custom_progress_bar" />
-
-            <!-- Diamond Icon -->
-            <ImageView
-                android:id="@+id/diamondIconnew"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="-10dp"
-                android:background="@drawable/diamond_background"
-                android:contentDescription="Diamond reward"
-                android:src="@drawable/gem" />
-
-        </RelativeLayout>
-
-        <!-- Text Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <!-- Days Achieved Text -->
-            <TextView
-                android:id="@+id/tvDaysAchieved"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
-                android:text="15/30 days achieved"
-                android:textColor="#6B7280"
-                android:textSize="12sp" />
-
-            <!-- Days Left Text -->
-            <TextView
-                android:id="@+id/tvDaysLeft"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="15 days left"
-                android:textColor="#6B7280"
-                android:textSize="14sp" />
-
-        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/joinNowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_join_button"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Join Now"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
