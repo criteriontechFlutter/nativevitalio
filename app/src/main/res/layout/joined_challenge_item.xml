@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="173dp"
-    android:layout_marginStart="22dp"
+    android:layout_height="180dp"
+    android:layout_marginStart="20dp"
     android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginEnd="22dp"
+    android:layout_marginEnd="20dp"
     android:background="@drawable/rounded_corners"
     android:backgroundTint="#F5F0F5"
     app:cardElevation="0dp">
@@ -14,10 +14,10 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/footsteps" />
@@ -39,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Log BP daily upon waking for one month."
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -47,37 +47,40 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="@dimen/_57sdp"
-        android:layout_height="@dimen/_34sdp"
-        android:layout_margin="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="57dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:padding="5dp"
         app:cardBackgroundColor="#F8F3F8"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/diamondIcon"
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:contentDescription="Diamond Icon"
-                android:src="@drawable/diamond" />
+                android:paddingStart="5dp"
+                android:src="@drawable/group__1_" />
 
             <TextView
                 android:id="@+id/scoreText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center|center_horizontal|center_vertical"
+                android:paddingStart="5dp"
                 android:text="10"
                 android:textColor="#202124"
                 android:textSize="16sp"
@@ -90,12 +93,11 @@
     <!-- participants_row.xml -->
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="@dimen/_170sdp"
-        android:layout_height="45dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@color/transparent"
         android:orientation="horizontal"
-        android:padding="5dp"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
@@ -106,7 +108,7 @@
             android:layout_gravity="center_vertical"
             android:text="Participants"
             android:textColor="#666666"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/participantsRecyclerView"
@@ -124,9 +126,9 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:background="@color/transparent"
         android:orientation="vertical"
-        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -144,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="40dp"
+                android:layout_toStartOf="@+id/diamondIconnew"
                 android:background="@drawable/progress_background"
                 android:max="30"
                 android:progress="15"
@@ -157,9 +159,10 @@
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="-10dp"
                 android:background="@drawable/diamond_background"
                 android:contentDescription="Diamond reward"
-                android:src="@drawable/ic_diamond" />
+                android:src="@drawable/gem" />
 
         </RelativeLayout>
 
@@ -179,7 +182,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="15/30 days achieved"
                 android:textColor="#6B7280"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <!-- Days Left Text -->
             <TextView

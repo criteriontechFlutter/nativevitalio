@@ -27,7 +27,7 @@ class JoinedChallengesAdapter (
         val item = items[position]
         val binding = holder.binding
 
-        val randomColor = getRandomPastelColor()
+        val randomColor = getVeryLightPastelColor()
         holder.itemView.backgroundTintList = ColorStateList.valueOf(randomColor)
 
         binding.textView3.text=item.title
@@ -43,15 +43,19 @@ class JoinedChallengesAdapter (
 
 
     }
-    fun getRandomPastelColor(): Int {
+
+
+    private fun getVeryLightPastelColor(): Int {
         val rnd = Random()
-        val red = 200 + rnd.nextInt(56)  // 200-255
-        val green = 200 + rnd.nextInt(56)
-        val blue = 200 + rnd.nextInt(56)
-        val alpha = 255  // Same opacity as #F5F0F5
+        val red = 240 + rnd.nextInt(16)   // 240–255
+        val green = 240 + rnd.nextInt(16) // 240–255
+        val blue = 240 + rnd.nextInt(16)  // 240–255
+        val alpha = 255
 
         return Color.argb(alpha, red, green, blue)
     }
+
+
 
 
     override fun getItemCount() = items.size

@@ -2,9 +2,9 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.JoinedChallenge
@@ -21,17 +21,20 @@ class ChallengesViewModel  (application: Application) : BaseViewModel(applicatio
 
 
 
+
+
     private val _joinedChallengeList = MutableLiveData<List<JoinedChallenge>>()
     val joinedChallengeList: LiveData<List<JoinedChallenge>> get() = _joinedChallengeList
-
 
     private val _newChallengeList = MutableLiveData<List<NewChallengeModel>>()
     val newChallengeList: LiveData<List<NewChallengeModel>> get() = _newChallengeList
 
+
     val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-
+    val joinedCount: LiveData<Int> = joinedChallengeList.map { it.size }
+    val newCount: LiveData<Int> = newChallengeList.map { it.size }
 
     /**
      * Fetches the list of challenges that the current patient has joined.
@@ -107,7 +110,6 @@ class ChallengesViewModel  (application: Application) : BaseViewModel(applicatio
                     val type = object : TypeToken<AllergyApiResponse<List<NewChallengeModel>>>() {}.type
                     val parsed = Gson().fromJson<AllergyApiResponse<List<NewChallengeModel>>>(json, type)
                     _newChallengeList.value = parsed.responseValue
-                    Log.d("TAG", "getJoinedChallenge: "+_newChallengeList.value.size.toString())
                 } else { _newChallengeList.value= emptyList()
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"

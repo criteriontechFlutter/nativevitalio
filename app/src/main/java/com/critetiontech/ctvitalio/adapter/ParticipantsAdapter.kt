@@ -26,14 +26,14 @@ class ParticipantsAdapter(private val items: List<Person>) :
 
     override fun getItemCount(): Int {
         return when {
-            items.size <= 3 -> items.size
-            else -> 3 // first 2 images + 1 for +N
+            items.size <= 6 -> items.size
+            else -> 6 // first 2 images + 1 for +N
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if (position < 2 || items.size <= 3) {
+        if (position < 5 || items.size <= 6) {
             // Show image
             holder.countText.visibility = View.GONE
             holder.profileImage.visibility = View.VISIBLE
@@ -45,7 +45,7 @@ class ParticipantsAdapter(private val items: List<Person>) :
             // Show "+N"
             holder.profileImage.visibility = View.GONE
             holder.countText.visibility = View.VISIBLE
-            val remainingCount = items.size - 2
+            val remainingCount = items.size - 5
             holder.countText.text = "$remainingCount+"
         }
 

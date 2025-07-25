@@ -13,11 +13,11 @@ data class NewChallengeModel(
     val peopleJoined: String  // ← change from List<NewPerson> to String
 ) {
     // Helper to decode JSON string to List<NewPerson>
-    fun getPeopleJoinedList(): List<NewPerson> {
+    fun getPeopleJoinedList(): List<Person> {
         return try {
             Gson().fromJson(
                 peopleJoined,
-                object : TypeToken<List<NewPerson>>() {}.type
+                object : TypeToken<List<Person>>() {}.type
             )
         } catch (e: Exception) {
             emptyList()
@@ -25,8 +25,3 @@ data class NewChallengeModel(
     }
 }
 
-data class NewPerson(
-    val empId: String,
-    val employeeName: String,
-    val imageURL: String
-)
