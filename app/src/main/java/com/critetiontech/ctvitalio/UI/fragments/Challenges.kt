@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -22,7 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class Challenges : Fragment() {
     private lateinit var binding: FragmentChallengesBinding
-    private lateinit var challengesViewModel: ChallengesViewModel
+    private  val challengesViewModel: ChallengesViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,22 +37,24 @@ class Challenges : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
+//        challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
         challengesViewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
 
 
+        challengesViewModel.getJoinedChallenge()
         val pagerAdapter = ChallengesAdapter(requireActivity())
         binding.viewPager.adapter = pagerAdapter
 
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Joined Challenges ${0}"
-                else -> "New Challenges (3)"
+                0 -> "Joined Challenges (0)"
+                else -> "New Challenges (0)"
             }
         }.attach()
-
+        observeTabCounts()
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -66,5 +70,18 @@ class Challenges : Fragment() {
 
 
 
+
     }
+    private fun observeTabCounts() {
+        challengesViewModel.joinedCount.observe(viewLifecycleOwner) { count ->
+            val tab = binding.tabLayout.getTabAt(0)
+            tab?.text = "Joined Challenges ($count)"
+        }
+
+        challengesViewModel.newCount.observe(viewLifecycleOwner) { count ->
+            val tab = binding.tabLayout.getTabAt(1)
+            tab?.text = "New Challenges ($count)"
+        }
+    }
+
 }

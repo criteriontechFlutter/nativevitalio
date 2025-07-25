@@ -1,7 +1,7 @@
 <!-- item_participant.xml -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/_24sdp"
-    android:layout_height="@dimen/_24sdp"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
     android:layout_marginStart="-12dp"
     android:background="@android:color/transparent">
 
