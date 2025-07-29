@@ -22,6 +22,8 @@ class ApiEndPoint {
     val deletePatientAllergies="api/PatientIPDPrescription/DeletePatientAllergies"
 
 
+    val corporateEmployeeLogin = "api/CorporateEmployee/CorporateEmployeeLogin"
+
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
     val sentLogInOTPForVitalioApp="api/LogInForVitalioApp/SentLogInOTPForVitalioApp"
     val verifyLogInOTPForVitalioApp= "api/LogInForVitalioApp/VerifyLogInOTPForVitalioApp"

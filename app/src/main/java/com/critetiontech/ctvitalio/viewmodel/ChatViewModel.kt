@@ -149,7 +149,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
 //                parts += partFromField("SendToName","%.2f".format(height.toDoubleOrNull() ?: 0.0))
 //                parts += partFromField("ThumbnailImage", "%.2f".format(weight.toDoubleOrNull() ?: 0.0))
 //                parts += partFromField("IsActive", dob)
-                parts += partFromField("SendFrom",  PrefsManager().getPatient()!!.id)
+                parts += partFromField("SendFrom",  PrefsManager().getPatient()!!.id.toString())
               //  parts += partFromField("ChatFile", patient.ageUnitId)
                 parts += partFromField("IsGroupChating", false.toString())
                 parts += partFromField("IsContact",  false.toString())
