@@ -39,7 +39,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
             var mo = ""
             var uhidVal = ""
 
-            if (uhid.toLowerCase().contains("uhid")) {
+            if (uhid.toLowerCase().contains("emp")) {
                 uhidVal = uhid
             } else {
                 mo = uhid
@@ -47,8 +47,8 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
             try {
                 val queryParams = mapOf(
-                    "mobileNo" to mo,
-                    "uhid" to uhidVal,
+                   // "mobileNo" to mo,
+                    "uhid" to "emp015",
                     "ClientId" to 194
                 )
 
@@ -110,7 +110,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
             try {
                 val queryParams = mapOf(
                     "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
-                    "UHID" to uhid.toString()
+                    "UHID" to "emp015"
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -158,7 +158,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "UHID" to uhid,
+                    "UHID" to "emp015",
                     "deviceToken" to PrefsManager().getDeviceToken().toString()
                 )
 

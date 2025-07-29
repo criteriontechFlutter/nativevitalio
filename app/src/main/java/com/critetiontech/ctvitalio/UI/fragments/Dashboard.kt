@@ -293,7 +293,7 @@ class Dashboard  : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_chat -> {
-                    findNavController().navigate(R.id.action_dashboard_to_chatBotPage)
+                    findNavController( ).navigate(R.id.action_dashboard_to_chatBotPage)
                     true
                 }
                 R.id.nav_home -> {
@@ -314,7 +314,7 @@ class Dashboard  : Fragment() {
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {
                 WebSocketState.CONNECTING -> "Connecting..."
-                WebSocketState.CONNECTED -> "Please speak"
+                WebSocketState.CONNECTED -> "Please spe ak"
                 WebSocketState.DISCONNECTED -> "Disconnected"
                 WebSocketState.ERROR -> "Connection Error"
             }

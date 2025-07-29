@@ -60,7 +60,7 @@ class Login : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
-                val isValid = input.length >= 8
+                val isValid = input.length >= 2
                 binding.sendOtpBtn.isEnabled = isValid
                 binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(this@Login,
@@ -81,7 +81,7 @@ class Login : AppCompatActivity() {
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
             val phoneOrUHID = binding.inputField.text.toString().trim()
-            if (phoneOrUHID.lowercase().contains("uhid")) {
+            if (phoneOrUHID.lowercase().contains("emp")) {
                 // Handle UHID case here
             } else {
 

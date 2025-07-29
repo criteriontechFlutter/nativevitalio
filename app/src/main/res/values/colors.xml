@@ -110,11 +110,6 @@
 
     <color name="primaryPurple">#6A1B9A</color>
     <color name="primaryPurpleDark">#4A0072</color>
-
-
-
-
-
     <color name="dashboardBg">@color/white</color>
     <color name="dashboardContainerBg">@color/primaryBlueLight</color>
 </resources>
