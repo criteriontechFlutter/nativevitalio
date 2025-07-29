@@ -2,6 +2,8 @@
 agp = "8.3.0"
 androidGifDrawable = "1.2.29"
 artifactid = "version"
+cardview = "1.0.0"
+circleimageview = "3.1.0"
 firebaseMessaging = "24.1.1"
 flexbox = "3.0.0"
 glide = "4.16.0"
@@ -35,11 +37,13 @@ firebaseFirestoreKtx = "25.1.4"
 
 [libraries]
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawable" }
+androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-core = { module = "androidx.core:core", version.ref = "coreKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragment" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragment" }
 artifactId = { module = "groupId:artifactId", version.ref = "artifactid" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }

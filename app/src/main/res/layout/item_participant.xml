@@ -1,0 +1,27 @@
+<!-- item_participant.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_marginStart="-12dp"
+    android:background="@android:color/transparent">
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_background"
+        android:padding="2dp" />
+
+    <TextView
+        android:id="@+id/extraCountText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:backgroundTint="#BBD3FF"
+        android:background="@drawable/circle_background" />
+</FrameLayout>
