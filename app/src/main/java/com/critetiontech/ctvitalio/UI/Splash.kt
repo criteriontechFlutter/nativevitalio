@@ -32,12 +32,12 @@ class Splash : AppCompatActivity() {
             )
 
             // Check if user data is saved locally using PrefsManager
-            val currentPatientUHID = PrefsManager().currentPatientUHID
+            val currentPatientUHID = PrefsManager().getPatient()?.id.toString()
 
             Log.d("RESPONSE", "responseValue: $currentPatientUHID")
 
             // Navigate to the appropriate screen
-            if (!currentPatientUHID.isNullOrEmpty()) {
+            if (currentPatientUHID.isNotEmpty()) {
                 startActivity(Intent(this, Home::class.java))
             } else {
                 startActivity(Intent(this, Login::class.java))
