@@ -438,7 +438,7 @@ class EditProfile : Fragment() {
             binding.height.setText(String.format("%.1f", height.toDouble()))
             viewModel.selectedCountryId.value=patient.countryId.toString()
 
-              selectedBloodGroup  = bloodGroups.find { it.id.toString() == patient.bloodGroupId  }
+              selectedBloodGroup  = bloodGroups.find { it.id.toString() == patient.bloodGroupId.toString()  }
 
 
             if (selectedBloodGroup != null) {
@@ -475,7 +475,7 @@ class EditProfile : Fragment() {
                     Log.e("Error", "City not found for ID: ${patient.cityId}")
                 }
             })
-            val gender = patient.genderId
+            val gender = patient.genderId.toString()
             when (gender) {
                 "1" -> binding.radioMale.isChecked = true
                 "2" -> binding.radioFemale.isChecked = true
