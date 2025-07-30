@@ -1,112 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:id="@+id/vitalCard"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:background="@drawable/bg_card_rounded"
+    android:padding="16dp">
 
-    app:cardBackgroundColor="@color/dashboardContainerBg"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp">
+    <!-- Icon Container -->
+    <FrameLayout
+        android:id="@+id/icon_container"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_icon_circle"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/vitalCard"
-        android:layout_width="150dp"
-        android:layout_height="160dp"
-        android:padding="16dp">
-
-        <!-- Vital Icon -->
         <ImageView
             android:id="@+id/vital_icon"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:src="@drawable/doctors"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/blue" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/diamond"
+            android:contentDescription="vital_icon_desc"/>
+    </FrameLayout>
 
-        <!-- Vital Title -->
-        <TextView
-            android:id="@+id/vital_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Heart Rate"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/right_section"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toEndOf="@id/vital_icon"
-            app:layout_constraintTop_toTopOf="@id/vital_icon" />
+    <!-- Arrow Icon -->
+    <ImageView
+        android:id="@+id/arrow_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/vital_arrow"
+        android:contentDescription="vital_arrow_desc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Vital Time -->
-        <TextView
-            android:id="@+id/vital_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="1hr ago"
-            android:textColor="#888"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/vital_title"
-            app:layout_constraintStart_toStartOf="@id/vital_title"
-            app:layout_constraintTop_toBottomOf="@id/vital_title" />
+    <!-- Vital Title -->
 
-        <!-- Right Section: Value -->
-        <LinearLayout
-            android:id="@+id/right_section"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="@+id/vital_icon"
-            app:layout_constraintTop_toBottomOf="@+id/vital_icon">
+    <!-- Vital Value -->
 
-            <TextView
-                android:id="@+id/vital_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="60"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/vital_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
+        android:text="Heart Rate"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon_container" />
 
-            <TextView
-                android:id="@+id/vital_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="BPM"
-                android:textColor="#050505"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/vital_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="68 BPM"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vital_title" />
 
-
-        <!-- + Add Vital Button -->
-        <TextView
-            android:id="@+id/add_vital_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/add_vital"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:text="Add Vital"
-            android:textColor="#999"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!--        <Button-->
-        <!--            android:id="@+id/add_vital_button"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="+ Add Vital"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:backgroundTint="@color/blue"-->
-        <!--            android:visibility="gone"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent" />-->
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

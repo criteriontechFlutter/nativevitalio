@@ -6,5 +6,8 @@
 
     <declare-styleable name="CustomRoundedButton">
         <attr name="customStrokeColor" format="color" />
+        <attr name="customStrokeWidth" format="dimension" />
     </declare-styleable>
+
+
 </resources>
