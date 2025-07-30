@@ -37,6 +37,7 @@ import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.Utilities
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
@@ -48,6 +49,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
+import androidx.core.graphics.toColorInt
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
@@ -219,6 +221,7 @@ class Dashboard  : Fragment() {
             .into(binding.profileImage)
 
         binding.userName.text = PrefsManager().getPatient()!!.patientName
+        Utilities.applyGradientTextColor( binding.userName, "#1153C9".toColorInt(),"#05BAC9".toColorInt());
         binding.profileImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
