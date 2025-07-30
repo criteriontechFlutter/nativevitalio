@@ -19,98 +19,194 @@
         android:background="@color/dashboardBg">
 
         <!-- Profile Section -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/profile_section"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="16dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            &lt;!&ndash; Profile Image &ndash;&gt;-->
+<!--            <ImageView-->
+<!--                android:id="@+id/profile_image"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/baseline_person_24"-->
+<!--                android:visibility="visible"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            &lt;!&ndash; Greeting and Name &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/patient_data"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/profile_image"-->
+<!--                app:layout_constraintStart_toEndOf="@id/profile_image"-->
+<!--                app:layout_constraintTop_toTopOf="@id/profile_image">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/greeting"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Good Morning,"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:textSize="13sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/userName"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Abhay Sharma"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Notification Icon &ndash;&gt;-->
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/notification_icon_wrapper"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="12dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/sos_icon"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/notification_icon"-->
+<!--                    android:layout_width="28dp"-->
+<!--                    android:layout_height="28dp"-->
+<!--                    android:backgroundTint="@color/textColor"-->
+<!--                    android:layout_centerInParent="true"-->
+<!--                    android:src="@drawable/bell" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/notification_badge"-->
+<!--                    android:layout_width="16dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:layout_alignTop="@id/notification_icon"-->
+<!--                    android:layout_alignEnd="@id/notification_icon"-->
+<!--                    android:background="@drawable/badge_circle_red"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="0"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="10sp" />-->
+<!--            </RelativeLayout>-->
+
+<!--            &lt;!&ndash; SOS Icon &ndash;&gt;-->
+<!--            <ImageView-->
+<!--                android:id="@+id/sos_icon"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/sos"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+        <LinearLayout
             android:id="@+id/profile_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingEnd="16dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Profile Image -->
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/baseline_person_24"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!-- Profile with badge -->
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp">
 
-            <!-- Greeting and Name -->
-            <LinearLayout
-                android:id="@+id/patient_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/profile_image"
-                app:layout_constraintStart_toEndOf="@id/profile_image"
-                app:layout_constraintTop_toTopOf="@id/profile_image">
-
-                <TextView
-                    android:id="@+id/greeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Good Morning,"
-                    android:textColor="@color/textColor"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/userName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Abhay Sharma"
-                    android:textColor="@color/textColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Notification Icon -->
-            <RelativeLayout
-                android:id="@+id/notification_icon_wrapper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/sos_icon"
-                app:layout_constraintTop_toTopOf="parent">
-
+                <!-- Circular profile with green border -->
                 <ImageView
-                    android:id="@+id/notification_icon"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:backgroundTint="@color/textColor"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/bell" />
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/person_badge"
+                    android:background="@drawable/green_border_circle"
+                    android:padding="2dp" />
 
-                <TextView
-                    android:id="@+id/notification_badge"
+                <!-- Badge icon -->
+                <ImageView
+                    android:id="@+id/badgeIcon"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_alignTop="@id/notification_icon"
-                    android:layout_alignEnd="@id/notification_icon"
-                    android:background="@drawable/badge_circle_red"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:textSize="10sp" />
-            </RelativeLayout>
+                    android:layout_gravity="bottom|end"
+                    android:src="@drawable/dash_budage" />
+            </FrameLayout>
 
-            <!-- SOS Icon -->
-            <ImageView
-                android:id="@+id/sos_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/sos"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Notification bell with dot -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/notificationBell"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/dash_bell"
+                    android:contentDescription="Notifications" />
+
+                <!-- Blue Dot -->
+                <View
+                    android:id="@+id/dotView"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/red_dot" />
+            </FrameLayout>
+
+            <!-- Points container -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:background="@drawable/points_background"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:src="@drawable/diamondimg"
+                    android:contentDescription="Points" />
+
+                <TextView
+                    android:id="@+id/pointsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="230 Points"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/to_take"
             android:layout_width="wrap_content"
@@ -150,16 +246,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recyclerView" />
 
-        <androidx.viewpager.widget.ViewPager
+<!--        <androidx.viewpager.widget.ViewPager-->
+<!--            android:id="@+id/vitals_slider"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:padding="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/vitals_label" />-->
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/vitals_slider"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:padding="15dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:padding="16dp"
+            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vitals_label" />
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/vitals_indicator"
             android:layout_width="100dp"
