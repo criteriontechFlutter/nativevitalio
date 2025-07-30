@@ -14,8 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+
         android:background="@color/dashboardBg">
 
         <!-- Profile Section -->
@@ -23,50 +23,91 @@
             android:id="@+id/profile_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:paddingLeft="16dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Profile Image -->
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/baseline_person_24"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
+<!--            &lt;!&ndash; Profile Image &ndash;&gt;-->
+<!--            <ImageView-->
+<!--                android:id="@+id/profile_image"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/baseline_person_24"-->
+<!--                android:background="@drawable/tab_background_selector"-->
+<!--                android:visibility="visible"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Gradient Border Background -->
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/gradient_border_bg" />
+
+                <!-- Profile Picture -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_person_24" />
+
+                <!-- Corner Icon -->
+                <ImageView
+                    android:id="@+id/corner_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_alignEnd="@id/profile_image"
+                    android:layout_alignBottom="@id/profile_image"
+                    android:layout_marginEnd="-17dp"
+                    android:layout_marginBottom="-6dp"
+                    android:background="@drawable/profile_corner_icon"
+                    android:src="@drawable/ic_check"
+                    android:padding="4dp" />
+
+            </RelativeLayout>
 
             <!-- Greeting and Name -->
             <LinearLayout
                 android:id="@+id/patient_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/profile_image"
-                app:layout_constraintStart_toEndOf="@id/profile_image"
-                app:layout_constraintTop_toTopOf="@id/profile_image">
-
-                <TextView
-                    android:id="@+id/greeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Good Morning,"
-                    android:textColor="@color/textColor"
-                    android:textSize="13sp" />
+                app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
                 <TextView
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Abhay Sharma"
+                    android:text="Good Morning,"
+
+                    android:textStyle="bold"
                     android:textColor="@color/textColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="36sp" />
+
+                <TextView
+                    android:id="@+id/greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A great day to make your health better!"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                     />
             </LinearLayout>
 
             <!-- Notification Icon -->
@@ -74,17 +115,17 @@
                 android:id="@+id/notification_icon_wrapper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/sos_icon"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="@+id/relativeLayout">
 
                 <ImageView
                     android:id="@+id/notification_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:backgroundTint="@color/textColor"
                     android:layout_centerInParent="true"
+                    android:backgroundTint="@color/textColor"
                     android:src="@drawable/bell" />
 
                 <TextView
@@ -103,12 +144,11 @@
             <!-- SOS Icon -->
             <ImageView
                 android:id="@+id/sos_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/sos"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/notification_icon_wrapper" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
@@ -143,7 +183,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="Vitals"
+            android:text="Vital stats"
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@id/vitals_slider"
@@ -152,8 +192,8 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vitals_slider"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="159dp"
+            android:layout_height="160dp"
             android:layout_marginTop="8dp"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,8 +203,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/vitals_indicator"
             android:layout_width="100dp"
-        android:layout_height="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vitals_slider"
         app:tabBackground="@drawable/tab_selector_dot"

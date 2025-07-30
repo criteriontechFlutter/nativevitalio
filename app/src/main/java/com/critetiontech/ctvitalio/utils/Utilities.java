@@ -1,5 +1,9 @@
 package com.critetiontech.ctvitalio.utils;
 
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
+import android.graphics.Color;
+import android.widget.TextView;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -21,11 +25,13 @@ public class Utilities {
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private static final String default_notification_channel_id = "default";
 
+    // Convert lb to Kg
     public static float convertlbToKg(int lb) {
         int kg = lb * 4536;
         return kg / 10000.0f;
     }
 
+    // Convert Feet and Inches to Cm
     public static float convertFeetInchToCm(int feetValue, float inchValue) {
 
         int gss_arg_value;
@@ -47,19 +53,20 @@ public class Utilities {
         return (float) (gss_arg_value * 0.1);
     }
 
+    // Round the value
     public static double round(double d, int n) {
         return Math.round(d * Math.pow(10, n)) / Math.pow(10, n);
     }
 
+    // Schedule notification
     public static void scheduleNotification(Notification notification, int delay) {
         Intent notificationIntent = new Intent(MyApplication.Companion.getAppContext(), NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(MyApplication.Companion.getAppContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        }
-        else{
+        } else {
             pendingIntent = PendingIntent.getBroadcast(MyApplication.Companion.getAppContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
@@ -68,6 +75,7 @@ public class Utilities {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
+    // Get Notification
     public static Notification getNotification(String content) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplication.Companion.getAppContext(), Utilities.default_notification_channel_id);
         builder.setContentTitle("Scheduled Notification");
@@ -77,6 +85,20 @@ public class Utilities {
         builder.setChannelId(Utilities.NOTIFICATION_CHANNEL_ID);
         return builder.build();
     }
+
+    // Apply gradient color to the text of TextView
+    public static void applyGradientTextColor(TextView textView, int startColor, int endColor) {
+        // Get the width of the TextView to apply the gradient properly
+        float width = textView.getWidth();
+
+        // Define the linear gradient
+        LinearGradient linearGradient = new LinearGradient(
+                0f, 0f, width, 0f, // from left to right
+                startColor, endColor, // gradient start and end colors
+                Shader.TileMode.CLAMP // ensures the gradient stretches across the full text
+        );
+
+        // Apply the gradient shader to the TextPaint of the TextView
+        textView.getPaint().setShader(linearGradient);
+    }
 }
-
-
