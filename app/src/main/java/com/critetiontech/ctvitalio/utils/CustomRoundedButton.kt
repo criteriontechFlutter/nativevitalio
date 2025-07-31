@@ -17,8 +17,8 @@ class CustomRoundedButton @JvmOverloads constructor(
     init {
         // Default appearance
         cornerRadius = 20
-        strokeWidth = 2
-        // Apply custom attributes if any
+        strokeWidth = 2 // fallback default
+
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.CustomRoundedButton,
@@ -27,6 +27,9 @@ class CustomRoundedButton @JvmOverloads constructor(
             try {
                 val strokeColor = getColor(R.styleable.CustomRoundedButton_customStrokeColor, Color.BLACK)
                 setStrokeColor(ColorStateList.valueOf(strokeColor))
+
+                val strokeWidthPx = getDimensionPixelSize(R.styleable.CustomRoundedButton_customStrokeWidth, 2)
+                strokeWidth = strokeWidthPx
             } finally {
                 recycle()
             }

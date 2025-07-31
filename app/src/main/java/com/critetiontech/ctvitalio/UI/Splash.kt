@@ -2,14 +2,18 @@ package com.critetiontech.ctvitalio.UI
 
 import PrefsManager
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.databinding.ActivitySplashBinding
 import com.critetiontech.ctvitalio.utils.FCMHelper
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.firebase.FirebaseApp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class Splash : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -17,6 +21,7 @@ class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         try {
 
@@ -32,16 +37,19 @@ class Splash : AppCompatActivity() {
             )
 
             // Check if user data is saved locally using PrefsManager
-            val currentPatientUHID = PrefsManager().currentPatientUHID
+            val currentPatientUHID = PrefsManager().getPatient()?.pid.toString()
 
             Log.d("RESPONSE", "responseValue: $currentPatientUHID")
 
             // Navigate to the appropriate screen
-            if (!currentPatientUHID.isNullOrEmpty()) {
-                startActivity(Intent(this, Home::class.java))
-            } else {
-                startActivity(Intent(this, Login::class.java))
-            }
+
+                if (currentPatientUHID.isNotEmpty()) {
+                    startActivity(Intent(applicationContext, Home::class.java))
+                } else {
+                    startActivity(Intent(applicationContext, Login::class.java))
+                }
+
+                finish() // Optional: close splash screen so user can't return with back button
 
         } catch (e: Exception) {
             Log.e("SplashActivity", "Error during Splash Screen Navigation: ${e.message}")
