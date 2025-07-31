@@ -5,11 +5,13 @@ import android.util.Log
 import androidx.core.content.edit
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 
 // Data class for patient (include all fields from your JSON)
 data class Patient(
     val pid: String,
-    val patientName: String,
+     @SerializedName("empName")
+     val patientName: String,
     val registrationDate: String,
      val ageUnitId: String,
      val categoryId: String?,
@@ -32,6 +34,7 @@ data class Patient(
     val refferedFrom: String?,
     val sexualOrientation: String,
      val status: String,
+    @SerializedName("empId")
     val uhID: String,
     val userId: String,
     val weight: String,
@@ -44,10 +47,7 @@ data class Patient(
     val policyOrCardNumber: String,
     val profileUrl: String,
     var isHoldToSpeak: Int = 0,
-
     val id: Int,
-    val empName: String,
-    val empId: String,
     val mobileNo: String,
     val genderId: Int,
     val age: String,
