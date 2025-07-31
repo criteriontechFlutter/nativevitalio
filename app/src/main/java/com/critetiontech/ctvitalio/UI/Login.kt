@@ -25,6 +25,7 @@ import com.critetiontech.ctvitalio.R.*
 import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 
@@ -32,6 +33,7 @@ class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var regestrationViewModel: RegistrationViewModel
+    val context = MyApplication.appContext
 
         companion object {
             var storedUHID: Patient? = null
@@ -51,28 +53,40 @@ class Login : AppCompatActivity() {
             if (isLoading) showLoading() else hideLoading()
         }
 
-
+        binding.sendOtpBtn.isEnabled = false
+        updateButtonState() // I
 
         binding.sendOtpBtn.isEnabled = false
         // Enable button only when text is valid
-        binding.inputField.addTextChangedListener(object : TextWatcher {
+//        binding.inputField.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//            override fun afterTextChanged(s: Editable?) {}
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                updateButtonState()
+//                val input = s.toString().trim()
+//                val isValid = input.length >= 2
+//                binding.sendOtpBtn.isEnabled = isValid
+//                binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
+//                    ContextCompat.getColor(this@Login,
+//                        if (isValid) color.primaryBlue else color.greyText)
+//                )
+//            }
+//        })
+
+
+        val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable?) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val input = s.toString().trim()
-                val isValid = input.length >= 2
-                binding.sendOtpBtn.isEnabled = isValid
-                binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this@Login,
-                        if (isValid) color.primaryBlue else color.greyText)
-                )
+                updateButtonState()
             }
-        })
+            override fun afterTextChanged(s: Editable?) {}
+        }
 
-
+        binding.inputField.addTextChangedListener(textWatcher)
+        binding.passField.addTextChangedListener(textWatcher)
 
         // ✅ Observe once — not on every button click
-        observeViewModel()
+//        observeViewModel()
         binding.inputField.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 scrollToView(binding.mainScrollView, binding.inputField)
@@ -89,7 +103,11 @@ class Login : AppCompatActivity() {
             }
             Log.d("RESPONSE", "phoneOrUHID"+phoneOrUHID.toString())
 
-            viewModel.getPatientDetailsByUHID(phoneOrUHID)
+            viewModel.corporateEmployeeLogin(
+                context,
+                username = binding.inputField.text.toString(),
+                password = binding.passField.text.toString()
+            )
 //            binding.sendOtpBtn.isEnabled  = true
 //            binding. progressBar.visibility  = View.GONE
         }
@@ -100,7 +118,17 @@ class Login : AppCompatActivity() {
 //            startActivity(intent)
 //        }
     }
+    private fun updateButtonState() {
+        val employeeId = binding.inputField.text.toString().trim()
+        val password = binding.passField.text.toString().trim()
 
+        val isValid = employeeId.isNotEmpty() && password.isNotEmpty()
+
+        binding.sendOtpBtn.isEnabled = isValid
+        binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(this, if (isValid) R.color.primaryBlue else R.color.greyText)
+        )
+    }
     private fun observeViewModel() {
         viewModel.loading.observe(this) { isLoading ->
             binding.sendOtpBtn.isEnabled = !isLoading
@@ -127,7 +155,7 @@ class Login : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
-        dialogView.findViewById<TextView>(id.title)?.text = title
+//        dialogView.findViewById<TextView>(id.title)?.text = title
         dialogView.findViewById<Button>(id.btnLogoutAll)?.setOnClickListener {
             dialog.dismiss()
             // Handle logout from all devices
