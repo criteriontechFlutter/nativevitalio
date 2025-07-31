@@ -2,144 +2,39 @@ package com.critetiontech.ctvitalio.adapter
 
 import Vital
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
+import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.alpha
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.critetiontech.ctvitalio.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Random
 
 class DashboardAdapter(
     private val context: Context,
     private val vitalList: List<Vital>,
     private val onVitalCardClick: (String) -> Unit
 ) : RecyclerView.Adapter<DashboardAdapter.VitalViewHolder>() {
-//    PagerAdapter() {
 
-//    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-//        val inflater = LayoutInflater.from(context)
-//        val view = inflater.inflate(R.layout.item_vital_card, container, false)
-//
-//        val vital = vitalList[position]
-//        val iconView = view.findViewById<ImageView>(R.id.vital_icon)
-//        val titleView = view.findViewById<TextView>(R.id.vital_title)
-//        val valueView = view.findViewById<TextView>(R.id.vital_value)
-////        val unitView = view.findViewById<TextView>(R.id.vital_unit)
-////        val timeView = view.findViewById<TextView>(R.id.vital_time)
-////        val addVitalButton = view.findViewById<TextView>(R.id.add_vital_button)
-//
-//        // Animations
-//        val zoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out)
-//        valueView.startAnimation(zoomOut)
-//        view.findViewById<ConstraintLayout>(R.id.vitalCard).startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
-//
-//        // ✅ Map proper title for vitals
-//        val title = when (vital.vitalName) {
-//            "HeartRate" -> "Heart Rate"
-//            "Spo2" -> "Blood Oxygen (SpO2)"
-//            "Temperature" -> "Body Temperature"
-//            "RespRate" -> "Respiratory Rate"
-//            "RBS" -> "RBS"
-//            "Pulse" -> "Pulse Rate"
-//            "Weight" -> "Body Weight"
-//            "Blood Pressure" -> "Blood Pressure"
-//            else -> vital.vitalName ?: "--"  // Handle null or unknown vital names
-//        }
-//
-//        titleView.text = title
-//
-//        // ✅ Format timestamp using getTimeAgo method (handle null cases)
-////        timeView.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && vital.vitalDateTime != null) {
-////            getTimeAgo(vital.vitalDateTime!!)
-////        } else {
-////            vital.vitalDateTime ?: "Not available"  // Fallback for null values
-////        }
-//
-//        // ✅ Show values or add button based on vital status
-//        if (vital.vitalName.equals("Blood Pressure", true)) {
-//            if (vital.unit.isNullOrEmpty() || vital.unit.equals("N/A", true) || vital.unit.equals("0/0 mm/Hg", true)) {
-//                valueView.visibility = View.GONE
-////                unitView.visibility = View.GONE
-////                addVitalButton.visibility = View.VISIBLE
-//            } else {
-//                valueView.visibility = View.GONE
-////                unitView.visibility = View.VISIBLE
-////                unitView.text = vital.unit
-////                addVitalButton.visibility = View.GONE
-//            }
-//        } else if (vital.vitalValue == 0.0) {
-//            valueView.visibility = View.GONE
-////            unitView.visibility = View.GONE
-////            addVitalButton.visibility = View.VISIBLE
-//        } else {
-//            valueView.visibility = View.VISIBLE
-////            unitView.visibility = View.VISIBLE
-//            valueView.text = vital.vitalValue.toInt().toString()
-////            unitView.text = vital.unit ?: ""
-////            addVitalButton.visibility = View.GONE
-//        }
-//
-//        // ✅ Icon assignment based on vital name
-//        val iconRes = when (vital.vitalName?.lowercase()) {
-//            "spo2" -> R.drawable.spo2
-//            "heartrate" -> R.drawable.heart_rate_1
-//            "temperature" -> R.drawable.body_temperature
-//            "pulse" -> R.drawable.spo2
-//            "weight" -> R.drawable.doctors
-//            "blood pressure" -> R.drawable.bloodpressure
-//            else -> R.drawable.doctors
-//        }
-//        iconView.setImageResource(iconRes)
-////        addVitalButton.setOnClickListener {
-////            onVitalCardClick.invoke(title)
-////        }
-//
-//        // ✅ Card click callback
-//        view.setOnClickListener {
-//            onVitalCardClick.invoke(title)
-//        }
-//
-//        container.addView(view)
-//        return view
-//    }
-//    override fun getCount(): Int = vitalList.size
-//    override fun isViewFromObject(view: View, obj: Any): Boolean = view == obj
-//    override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
-//        container.removeView(obj as View)
-//    }
-//
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun getTimeAgo(dateTimeStr: String): String {
-//        return try {
-//            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-//            val dateTime = LocalDateTime.parse(dateTimeStr, formatter)
-//            val now = LocalDateTime.now()
-//
-//            val minutes = ChronoUnit.MINUTES.between(dateTime, now)
-//            val hours = ChronoUnit.HOURS.between(dateTime, now)
-//            val days = ChronoUnit.DAYS.between(dateTime, now)
-//            val months = ChronoUnit.MONTHS.between(dateTime.toLocalDate(), now.toLocalDate())
-//
-//            when {
-//                minutes < 1 -> "Just now"
-//                minutes < 60 -> "$minutes min ago"
-//                hours < 24 -> "$hours hr ago"
-//                days < 30 -> "$days day${if (days > 1) "s" else ""} ago"
-//                else -> "$months month${if (months > 1) "s" else ""} ago"
-//            }
-//        } catch (e: Exception) {
-//            "-"
-//        }
-//    }
 inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val iconView: ImageView = itemView.findViewById(R.id.vital_icon)
     val titleView: TextView = itemView.findViewById(R.id.vital_title)
@@ -167,33 +62,57 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             "Blood Pressure" -> "Blood Pressure"
             else -> vital.vitalName ?: "--"
         }
-            holder.arrowIcon.setOnClickListener {
+        val randomColor = getVeryLightPastelColor()
+        holder.itemView.backgroundTintList = ColorStateList.valueOf(randomColor)
+
+
+
+
+        val shape = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 16f
+            setColor(getSlightlyDarkerPastelColor()) // Set based on your logic
+        }
+
+        val itemContainer = holder.itemView.findViewById<FrameLayout>(R.id.icon_container)
+        itemContainer.background = shape
+        holder.arrowIcon.setOnClickListener {
             onVitalCardClick.invoke(title)
         }
+
         holder.titleView.text = title
 
-        if (vital.vitalName.equals("Blood Pressure", true)) {
-            if (vital.unit.isNullOrEmpty() || vital.unit.equals("0/0 mm/Hg", true)) {
-                holder.valueView.visibility = View.GONE
-            } else {
-                holder.valueView.visibility = View.GONE // Or display BP value in a different way
-            }
-        } else if (vital.vitalValue == 0.0) {
-            holder.valueView.visibility = View.GONE
+        val isBloodPressure = vital.vitalName.equals("Blood Pressure", ignoreCase = true)
+
+          // Logic to show/hide the value view
+        val shouldShowValue = if (isBloodPressure) {
+            !vital.unit.isNullOrEmpty() && !vital.unit.equals("0/0 mm/Hg", ignoreCase = true)
         } else {
-            holder.valueView.visibility = View.VISIBLE
-            holder.valueView.text = vital.vitalValue.toInt().toString()
+            vital.vitalValue != 0.0
+        }
+
+        holder.valueView.visibility = if (shouldShowValue) View.VISIBLE else View.GONE
+
+          // Set the text based on the vital type
+        if (shouldShowValue) {
+            holder.valueView.text = if (isBloodPressure) {
+                vital.unit.toString()
+            } else {
+                vital.vitalValue.toInt().toString()+vital.unit
+            }
         }
 
         val iconRes = when (vital.vitalName?.lowercase()) {
-            "spo2" -> R.drawable.spo2
-            "heartrate" -> R.drawable.heart_rate_1
-            "temperature" -> R.drawable.body_temperature
+            "spo2" -> R.drawable.spo_2_new_icon
+            "heartrate" -> R.drawable.heart_icon_new
+            "temperature" -> R.drawable.body_temprature
             "pulse" -> R.drawable.spo2
             "weight" -> R.drawable.doctors
-            "blood pressure" -> R.drawable.bloodpressure
+            "blood pressure" -> R.drawable.bp_new_icon
             else -> R.drawable.doctors
         }
+
+
 
         holder.iconView.setImageResource(iconRes)
 
@@ -203,6 +122,33 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         holder.itemView.setOnClickListener {
             onVitalCardClick(title)
         }
+    }
+    private fun getSlightlyDarkerPastelColor(): Int {
+        val rnd = Random()
+        val red = 240 + rnd.nextInt(16)   // 240–255
+        val green = 240 + rnd.nextInt(16)
+        val blue = 240 + rnd.nextInt(16)
+        val alpha = 255
+
+        val darkeningFactor = 0.8f  // between 0.0 (black) and 1.0 (no change)
+
+        return android.graphics.Color.argb(
+            alpha,
+            (red * darkeningFactor).toInt().coerceIn(0, 255),
+            (green * darkeningFactor).toInt().coerceIn(0, 255),
+            (blue * darkeningFactor).toInt().coerceIn(0, 255)
+        )
+    }
+
+
+    private fun getVeryLightPastelColor(): Int {
+        val rnd = Random()
+        val red = 240 + rnd.nextInt(16)   // 240–255
+        val green = 240 + rnd.nextInt(16) // 240–255
+        val blue = 240 + rnd.nextInt(16)  // 240–255
+        val alpha = 255
+
+        return android.graphics.Color.argb(alpha, red, green, blue)
     }
 
     override fun getItemCount(): Int = vitalList.size
