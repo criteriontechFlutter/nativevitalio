@@ -181,7 +181,7 @@ class Dashboard  : Fragment() {
             .into(binding.profileImage)
 
 
-       binding.userName.text = PrefsManager().getPatient()!!.patientName
+        binding.userName.text = PrefsManager().getPatient()!!.patientName
         binding.profileImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
