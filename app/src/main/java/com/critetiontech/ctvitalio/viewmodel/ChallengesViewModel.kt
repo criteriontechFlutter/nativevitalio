@@ -108,8 +108,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                         return@launch
                     }
 
-                    val type =
-                        object : TypeToken<AllergyApiResponse<List<NewChallengeModel>>>() {}.type
+                    val type = object : TypeToken<AllergyApiResponse<List<NewChallengeModel>>>() {}.type
                     val parsed =
                         Gson().fromJson<AllergyApiResponse<List<NewChallengeModel>>>(json, type)
                     _newChallengeList.value = parsed.responseValue
