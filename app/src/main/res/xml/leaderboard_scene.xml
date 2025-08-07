@@ -5,9 +5,9 @@
     <ConstraintSet android:id="@+id/collapsed">
         <!-- playerid (top-3 area) — smaller in collapsed -->
         <Constraint
-            android:id="@id/playerid"
+            android:id="@id/playerId"
             android:layout_width="0dp"
-            android:layout_height="114dp"
+            android:layout_height="223dp"
             motion:layout_constraintTop_toBottomOf="@id/title"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -17,8 +17,8 @@
         <Constraint
             android:id="@id/playerList"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            motion:layout_constraintTop_toBottomOf="@id/playerid"
+            android:layout_height="4740dp"
+            motion:layout_constraintTop_toBottomOf="@id/playerList"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
@@ -31,9 +31,9 @@
     <!-- Expanded: top area larger, full list visible -->
     <ConstraintSet android:id="@+id/expanded">
         <Constraint
-            android:id="@id/playerid"
+            android:id="@id/playerId"
             android:layout_width="0dp"
-            android:layout_height="241dp"
+            android:layout_height="374dp"
             motion:layout_constraintTop_toBottomOf="@id/title"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,8 @@
         <Constraint
             android:id="@id/playerList"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            motion:layout_constraintTop_toBottomOf="@id/playerid"
+            android:layout_height="274dp"
+            motion:layout_constraintTop_toBottomOf="@id/playerList"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"

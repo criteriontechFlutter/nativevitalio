@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.adapter
 
 
 
+import PrefsManager
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -12,10 +13,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.databinding.NewChallengedJoinedBinding
 import com.critetiontech.ctvitalio.model.NewChallengeModel
+import com.critetiontech.ctvitalio.model.Person
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import okhttp3.Challenge
 import java.util.Random
 
 class NewChallengedAdapter (
     private val items: List<NewChallengeModel>,
+    private val onItemClick: (NewChallengeModel) -> Unit
+
 ) : RecyclerView.Adapter<NewChallengedAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: NewChallengedJoinedBinding) :
@@ -52,6 +59,12 @@ class NewChallengedAdapter (
         shape.setColor(darkColor)
         binding.joinNowButton.background = shape
 
+        if(item.getPeopleJoinedList().any { it.empId.toString() == PrefsManager().getPatient()?.empId.toString() }){
+            binding.joinNowButton.isEnabled = false
+            binding.joinNowButton.text = "Joined"
+            binding.joinNowButton.setTextColor(Color.WHITE)
+        }
+
         binding.joinNowButton.setOnClickListener {
             it.animate()
                 .scaleX(0.95f)
@@ -60,14 +73,21 @@ class NewChallengedAdapter (
                 .withEndAction {
                     it.animate().scaleX(1f).scaleY(1f).setDuration(100).start()
                 }.start()
+            onItemClick(item)
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
         }
 
 
 
 
-
-
     }
+
+
+
+
 
     private fun getRandomPastelColor(): Int {
         val rnd = Random()
