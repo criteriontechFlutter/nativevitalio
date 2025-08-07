@@ -2,6 +2,9 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -14,6 +17,7 @@ import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class ChallengesViewModel(application: Application) : BaseViewModel(application) {
     private val _loading = MutableLiveData<Boolean>()
@@ -122,6 +126,63 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
             } catch (e: Exception) {
                 _newChallengeList.value = emptyList()
                 _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    fun insertChallengeparticipants(  challengesId: String) {
+        _loading.postValue(true)
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                 "challengeId" to challengesId.toString(),
+                "pid" to PrefsManager().getPatient()?.id.toString(),
+                "clientId" to PrefsManager().getPatient()?.clientId.toString(),
+                "userId" to PrefsManager().getPatient()?.id.toString(),
+
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicRawPost(
+                        url = "api/Challengeparticipants/InsertChallengeparticipants",
+                        body = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val responseBodyString = response.body()?.string()
+                    Log.d("RESPONSE", "phoneOrUHID3: $responseBodyString")
+
+                    // Parse the JSON response
+
+                    val jsonObject = JSONObject(responseBodyString)
+                    val message = jsonObject.optString("message", "Success")
+                    _loading.postValue(false)
+//                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                    getNewChallenge()
+                } else {
+                    val responseBodyString = response.errorBody()?.string()
+                    Log.d("RESPONSE", "phoneOrUHID3: $responseBodyString")
+
+                    // Parse the JSON response
+
+                    val jsonObject = JSONObject(responseBodyString)
+                    val message = jsonObject.optString("message", "Success")
+
+//                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                    _loading.value = false
+                    _loading.postValue(false)
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+
+                _loading.value = false
+                _loading.postValue(false)
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
             }

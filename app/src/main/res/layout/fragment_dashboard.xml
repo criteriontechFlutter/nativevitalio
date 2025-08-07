@@ -94,6 +94,7 @@
 
                 <!-- Points container -->
                 <LinearLayout
+                    android:id="@+id/leaderBoardId"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:background="@drawable/points_background"

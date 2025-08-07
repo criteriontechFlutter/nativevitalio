@@ -83,13 +83,16 @@ class LeaderboardFragment : Fragment() {
                 // Replace R.id.expanded with the actual id in your MotionScene if different.
                 if (currentId == R.id.expanded) {
                     // Fully expanded — hide the top area (removes it from layout flow)
-                    binding.playerid.visibility = View.VISIBLE
-                    binding.bodyLeft.visibility = View.VISIBLE
-                    binding.bodyRight.visibility = View.VISIBLE
-                    binding.avatarCenter.visibility = View.VISIBLE
+//                    binding.playerid.visibility = View.VISIBLE
+//                    binding.bodyLeft.visibility = View.VISIBLE
+//                    binding.bodyRight.visibility = View.VISIBLE
+//                    binding.bodyCenter.visibility = View.VISIBLE
                 } else {
                     // Collapsed or other — ensure it's visible
-                    binding.playerid.visibility = View.GONE
+//                    binding.playerid.visibility = View.GONE
+//                    binding.bodyLeft.visibility = View.GONE
+//                    binding.bodyRight.visibility = View.GONE
+//                    binding.bodyCenter.visibility = View.GONE
 //                    binding.playerid.alpha = 1f
                 }
             }
