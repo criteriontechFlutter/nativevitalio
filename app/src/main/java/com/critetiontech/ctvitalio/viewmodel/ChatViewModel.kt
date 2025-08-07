@@ -149,7 +149,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
 //                parts += partFromField("SendToName","%.2f".format(height.toDoubleOrNull() ?: 0.0))
 //                parts += partFromField("ThumbnailImage", "%.2f".format(weight.toDoubleOrNull() ?: 0.0))
 //                parts += partFromField("IsActive", dob)
-                parts += partFromField("SendFrom",  PrefsManager().getPatient()!!.id.toString())
+                parts += partFromField("SendFrom",  PrefsManager().getPatient()!!.pid.toString())
               //  parts += partFromField("ChatFile", patient.ageUnitId)
                 parts += partFromField("IsGroupChating", false.toString())
                 parts += partFromField("IsContact",  false.toString())
@@ -220,7 +220,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             try {
                 _loading.value = true
-                val queryParams = mapOf("sendFrom" to PrefsManager().getPatient()!!.id, "sendTo" to PrefsManager().getPatient()!!.doctorID,"isPatient" to true,"groupId" to 0)
+                val queryParams = mapOf("sendFrom" to PrefsManager().getPatient()!!.pid, "sendTo" to PrefsManager().getPatient()!!.doctorID,"isPatient" to true,"groupId" to 0)
 
                 val response = RetrofitInstance
                     .createApiService5100()

@@ -15,12 +15,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 
-class ChallengesViewModel  (application: Application) : BaseViewModel(application) {
+class ChallengesViewModel(application: Application) : BaseViewModel(application) {
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-
-
-
 
 
     private val _joinedChallengeList = MutableLiveData<List<JoinedChallenge>>()
@@ -44,7 +41,7 @@ class ChallengesViewModel  (application: Application) : BaseViewModel(applicatio
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "pid" to PrefsManager().getPatient()?.pid.orEmpty(),
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
                     "clientId" to PrefsManager().getPatient()?.clientId.toString()
                 )
                 val response = RetrofitInstance
@@ -62,15 +59,19 @@ class ChallengesViewModel  (application: Application) : BaseViewModel(applicatio
                         return@launch
                     }
 
-                    val type = object : TypeToken<AllergyApiResponse<List<JoinedChallenge>>>() {}.type
-                    val parsed = Gson().fromJson<AllergyApiResponse<List<JoinedChallenge>>>(json, type)
+                    val type =
+                        object : TypeToken<AllergyApiResponse<List<JoinedChallenge>>>() {}.type
+                    val parsed =
+                        Gson().fromJson<AllergyApiResponse<List<JoinedChallenge>>>(json, type)
                     _joinedChallengeList.value = parsed.responseValue
-                } else { _joinedChallengeList.value= emptyList()
+                } else {
+                    _joinedChallengeList.value = emptyList()
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
-            } catch (e: Exception) { _joinedChallengeList.value= emptyList()
+            } catch (e: Exception) {
+                _joinedChallengeList.value = emptyList()
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
@@ -107,15 +108,19 @@ class ChallengesViewModel  (application: Application) : BaseViewModel(applicatio
                         return@launch
                     }
 
-                    val type = object : TypeToken<AllergyApiResponse<List<NewChallengeModel>>>() {}.type
-                    val parsed = Gson().fromJson<AllergyApiResponse<List<NewChallengeModel>>>(json, type)
+                    val type =
+                        object : TypeToken<AllergyApiResponse<List<NewChallengeModel>>>() {}.type
+                    val parsed =
+                        Gson().fromJson<AllergyApiResponse<List<NewChallengeModel>>>(json, type)
                     _newChallengeList.value = parsed.responseValue
-                } else { _newChallengeList.value= emptyList()
+                } else {
+                    _newChallengeList.value = emptyList()
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
-            } catch (e: Exception) { _newChallengeList.value= emptyList()
+            } catch (e: Exception) {
+                _newChallengeList.value = emptyList()
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
