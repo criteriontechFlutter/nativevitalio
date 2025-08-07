@@ -37,7 +37,7 @@ public class WeightScaleDataListAdapter extends RecyclerView.Adapter<WeightScale
             return;
         }
         String tvText = "";
-        tvText = tvText + "User  : " +                          mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
+        tvText = tvText + "com.critetiontech.ctvitalio.UI.fragments.User  : " +                          mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
         tvText = tvText + "Start Date  : " +                    setTime(mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.WEIGHT_DATA_StartTimeKey))) + "\n";
         tvText = tvText + "Weight(Kg)  : " +                    mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.WEIGHT_DATA_WeightKey)) + "\n";
         tvText = tvText + "Body Fat Level  : " +                mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.WEIGHT_DATA_BodyFatLevelKey)) + "\n";

@@ -187,7 +187,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
         onError: (String) -> Unit
     ) {
         val user = PrefsManager().getPatient() ?: run {
-            onError("User not found")
+            onError("com.critetiontech.ctvitalio.UI.fragments.User not found")
             return
         }
 

@@ -2,149 +2,86 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@color/backgroundColor"
     android:id="@+id/main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dashboardIconBg"
     tools:context=".UI.SignupActivity">
 
+    <!-- Progress Layout Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/back_button"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/createAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:gravity="center_vertical"
-            android:text="@string/create_account"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/backButton"
-            app:layout_constraintStart_toEndOf="@id/backButton"
-            app:layout_constraintTop_toTopOf="@+id/backButton"
-            app:layout_constraintVertical_bias="0.65"/>
-
-        <TextView
             android:id="@+id/skipButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:enabled="false"
+            android:layout_marginEnd="16dp"
             android:text="@string/skip"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/backButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.65" />
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
 
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/progresscard"
+        <TextView
+            android:id="@+id/tvStepTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/dashboardIconBg"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:text="Getting Started"
+            android:textColor="@color/textColor"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/backButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/skipButton">
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/progress_bar_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/progressRecycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
 
-                <!-- Top Row: 0% and progress bar -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvProgressPercent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="10%"
-                        android:textColor="#3B82F6"
-                        android:textSize="12sp" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="0dp"
-                        android:layout_height="8dp"
-                        android:layout_weight="1"
-                        android:indeterminate="false"
-                        android:background="@drawable/rounded_corners_nxt_btn"
-                        android:max="100"
-                        android:progress="10"
-                        android:progressDrawable="@drawable/progress_bar_blue" />
-                </LinearLayout>
-
-                <!-- Title -->
-                <TextView
-                    android:id="@+id/tvStepTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="Getting Started"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Subtitle -->
-                <TextView
-                    android:id="@+id/tvStepSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Great start! You’re just beginning—let’s keep going!"
-                    android:textColor="@color/textColor"
-                    android:textSize="13sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStepTitle" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressLayout"
-        app:navGraph="@navigation/nav_graph" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progressLayout"
+                app:navGraph="@navigation/nav_graph" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -101,7 +101,7 @@ class ChronicConditionFragment : Fragment() {
             progressViewModel.updateotherChronical(101)
 
             viewModel.chronicDisease.value = summary
-            findNavController().navigate(R.id.action_chronicConditionFragment_to_otherChronicDisease)
+            findNavController().navigate(R.id.action_chronicConditionFragment_to_familyDiseaseFragment)
         }
     }
     fun capitalizeFirstLetter(sentence: String): String {

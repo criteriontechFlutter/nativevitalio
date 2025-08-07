@@ -39,9 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gender"
-                android:textSize="22sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="#1153C9"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
 
             <!-- Subtitle -->
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hi Abhinav, let us know if you are male or female."
                 android:textColor="#666666"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textAlignment="textStart"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"/>
@@ -67,7 +67,7 @@
                 <LinearLayout
                     android:id="@+id/layoutMale"
                     style="@style/GenderOption"
-                    android:layout_marginEnd="8dp">
+                     android:layout_marginEnd="8dp">
 
                     <ImageView
                         android:id="@+id/ivMale"

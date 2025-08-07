@@ -1,0 +1,7 @@
+<View
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/circleView"
+    android:layout_width="16dp"
+    android:layout_height="16dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/highlighted_circle" />

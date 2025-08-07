@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI
 
 import Patient
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -53,6 +54,7 @@ class Login : AppCompatActivity() {
             if (isLoading) showLoading() else hideLoading()
         }
 
+
         binding.sendOtpBtn.isEnabled = false
         updateButtonState() // I
 
@@ -92,26 +94,38 @@ class Login : AppCompatActivity() {
                 scrollToView(binding.mainScrollView, binding.inputField)
             }
         }
+
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
-            val phoneOrUHID = binding.inputField.text.toString().trim()
-            if (phoneOrUHID.lowercase().contains("emp")) {
-                // Handle UHID case here
-            } else {
-
-                // Proceed to send OTP or next step
-            }
-            Log.d("RESPONSE", "phoneOrUHID"+phoneOrUHID.toString())
 
             viewModel.corporateEmployeeLogin(
                 context,
                 username = binding.inputField.text.toString(),
                 password = binding.passField.text.toString()
             )
-//            binding.sendOtpBtn.isEnabled  = true
-//            binding. progressBar.visibility  = View.GONE
+//            val intent =
+//                Intent(MyApplication.appContext, SignupActivity::class.java).apply {
+//                    putExtra("UHID", "uhid")
+//                    putExtra("mobileNo", "mNo")
+//                }
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            MyApplication.appContext.startActivity(intent)
+         }
+
+        binding.forgotPasswordBtn.setOnClickListener(){
+            val intent =
+                Intent(MyApplication.appContext, ForgotPassword::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            MyApplication.appContext.startActivity(intent)
         }
 
+
+        binding.loginWithOtpBtn.setOnClickListener(){
+            val intent =
+                Intent(MyApplication.appContext, ChangePassword::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            MyApplication.appContext.startActivity(intent)
+        }
 
 //        binding.privacyPolicy.setOnClickListener {
 //            val intent = Intent(applicationContext, SignupActivity::class.java)

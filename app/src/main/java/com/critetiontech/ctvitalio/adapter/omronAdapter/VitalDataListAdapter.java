@@ -42,7 +42,7 @@ public class VitalDataListAdapter extends RecyclerView.Adapter<VitalDataListAdap
             return;
         }
         String tvText = "";
-        tvText = tvText + "User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
+        tvText = tvText + "com.critetiontech.ctvitalio.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
         tvText = tvText + "Start Date  : " + setTime(mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.VITAL_DATA_OMRONVitalDataMeasurementDateKey))) + "\n";
         tvText = tvText + "Systolic " + " (mmHg)  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.VITAL_DATA_OMRONVitalDataSystolicKey)) + "\n";
         tvText = tvText + "Diastolic " + " (mmHg)  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.VITAL_DATA_OMRONVitalDataDiastolicKey)) + "\n";

@@ -169,6 +169,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_challenges">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_chatBotPage">
                               <value>
                                 <LayoutPositions />
@@ -427,6 +432,18 @@
                           <Point>
                             <option name="x" value="-1366" />
                             <option name="y" value="-681" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="leaderboardFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1585" />
+                            <option name="y" value="-484" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -797,6 +814,18 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="addYourPhoto">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1037" />
+                            <option name="y" value="153" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="adressFragment">
                     <value>
                       <LayoutPositions>
@@ -850,7 +879,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_chronicConditionFragment_to_familyDiseaseFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_chronicConditionFragment_to_otherChronicDisease">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_chronicConditionFragment_to_otherChronicDisease2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -880,6 +919,15 @@
                             <option name="x" value="2036" />
                             <option name="y" value="-90" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_completionScreen_to_completionDashboardReady">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -987,6 +1035,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_familyDiseaseFragment_to_addYourPhoto">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_familyDiseaseFragment_to_createAccount2">
                               <value>
                                 <LayoutPositions />
@@ -1034,6 +1087,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_heightFragment_to_chronicConditionFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -1072,6 +1130,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_otherChronicDisease_to_familyDiseaseFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_otherChronicDisease_to_familyDiseaseFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -1123,6 +1186,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="setYourOwnGoal">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1231" />
+                            <option name="y" value="161" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="weightFragment">
                     <value>
                       <LayoutPositions>
@@ -1135,6 +1210,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_weightFragment_to_heightFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_weightFragment_to_heightFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>

@@ -83,7 +83,7 @@ public class ConnectedDeviceAdapter extends BaseAdapter {
         String Info = item.get(OmronConstants.OMRONBLEConfigDevice.ModelDisplayName) + "(" + item.get(OmronConstants.OMRONBLEConfigDevice.Identifier) + ")";
         String UserNo = item.get(Constants.deviceInfoKeys.KEY_SELECTED_USER);
         if(!UserNo.equals("0")){
-            Info += "\n" + item.get(Constants.deviceInfoKeys.KEY_LOCAL_NAME) + "\nUser " + UserNo;
+            Info += "\n" + item.get(Constants.deviceInfoKeys.KEY_LOCAL_NAME) + "\ncom.critetiontech.ctvitalio.UI.fragments.User " + UserNo;
         }
         holder.tvModelName.setText(Info);
 
