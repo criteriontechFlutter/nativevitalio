@@ -1,0 +1,32 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer Circle -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#587EBC"/>
+        </shape>
+    </item>
+
+    <!-- Middle Circle -->
+    <item
+        android:left="16dp"
+        android:top="16dp"
+        android:right="16dp"
+        android:bottom="16dp">
+        <shape android:shape="oval">
+            <solid android:color="#E3ECFF"/>
+        </shape>
+    </item>
+
+    <!-- Inner Circle -->
+    <item
+        android:left="101dp"
+        android:top="101dp"
+        android:right="101dp"
+        android:bottom="101dp">
+        <shape android:shape="oval">
+            <solid android:color="#5A85C8"/>
+        </shape>
+    </item>
+
+</layer-list>

@@ -38,7 +38,7 @@ class ConnectSmartWatchFragment : Fragment() {
 
             val json = JSONObject(result.contents)
             val token = json.getString("token")
-            Log.d("Firestore", "User added result!${json}")
+            Log.d("Firestore", "com.critetiontech.ctvitalio.UI.fragments.User added result!${json}")
 
                 viewModel.insertWatchDetails(watchdata = json)
 

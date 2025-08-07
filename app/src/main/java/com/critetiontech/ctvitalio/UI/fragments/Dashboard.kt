@@ -6,6 +6,7 @@ import Vital
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -50,6 +51,7 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.critetiontech.ctvitalio.UI.ChangePassword
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
@@ -299,9 +301,17 @@ class Dashboard  : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
         }
 
+        binding.leaderBoardId.setOnClickListener{
 
+            findNavController().navigate(R.id.action_dashboard_to_leaderboardFragment)
+        }
         binding.pillsReminder.setOnClickListener {
-            findNavController().navigate(R.id.pillsReminder)
+//            findNavController().navigate(R.id.pillsReminder)
+
+            val intent =
+                Intent(MyApplication.appContext, ChangePassword::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            MyApplication.appContext.startActivity(intent)
         }
 
         binding.symptomsTracker.setOnClickListener {

@@ -128,7 +128,7 @@ public class ScanActivity extends BaseActivity {
         peripheralConfig.deviceFilters = filterDevices;
         // Set Scan timeout interval (optional)
         peripheralConfig.timeoutInterval = Constants.CONNECTION_TIMEOUT;
-        // Set User Hash Id (mandatory)
+        // Set com.critetiontech.ctvitalio.UI.fragments.User Hash Id (mandatory)
         peripheralConfig.userHashId = "<email_address_of_user>"; // Set logged in user email
 
         ArrayList<HashMap> deviceSettings = new ArrayList<>();
