@@ -2,14 +2,20 @@ package com.critetiontech.ctvitalio.UI
 
 import PrefsManager
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.databinding.ActivitySplashBinding
 import com.critetiontech.ctvitalio.utils.FCMHelper
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.firebase.FirebaseApp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class Splash : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -30,24 +36,70 @@ class Splash : AppCompatActivity() {
                     Log.e("MainActivity", "Error getting token: ${error.message}")
                 }
             )
-
+            playSplashVideo()
             // Check if user data is saved locally using PrefsManager
-            val currentPatientUHID = PrefsManager().getPatient()?.id.toString()
+//            var currentPatientUHID = PrefsManager().getPatient()?.patientName.toString()
+//
+//
+//            // Navigate to the appropriate screen
+//
+//                if (PrefsManager().getPatient()?.patientName.toString().isNotEmpty() && currentPatientUHID != "null") {
+//                    startActivity(Intent(applicationContext, Home::class.java))
+//                    finish()
+//                } else {
+//                    startActivity(Intent(applicationContext, Login::class.java))
+//                    finish()
+//                }
 
-            Log.d("RESPONSE", "responseValue: $currentPatientUHID")
-
-            // Navigate to the appropriate screen
-            if (currentPatientUHID.isNotEmpty()) {
-                startActivity(Intent(this, Home::class.java))
-            } else {
-                startActivity(Intent(this, Login::class.java))
-            }
+                // Optional: close splash screen so user can't return with back button
 
         } catch (e: Exception) {
             Log.e("SplashActivity", "Error during Splash Screen Navigation: ${e.message}")
             startActivity(Intent(this, Login::class.java)) // Safe fallback to login
         }
 
-        finish() // Prevent going back to splash
+    }
+
+    private fun playSplashVideo() {
+        try {
+            // Set the video URI from the raw folder
+            val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.microsoft_teams}")
+            binding.videoView.setVideoURI(videoUri)
+
+            binding.videoView.setOnCompletionListener {
+                navigateNextScreen()
+            }
+
+            binding.videoView.setOnErrorListener { mp, what, extra ->
+                Log.e("SplashActivity", "Video error: $what")
+                navigateNextScreen() // fallback
+                true
+            }
+
+            binding.videoView.start()
+
+        } catch (e: Exception) {
+            Log.e("SplashActivity", "Error playing video: ${e.message}")
+            navigateNextScreen()
+        }
+    }
+
+    private fun navigateNextScreen() {
+        try {
+            val currentPatientUHID = PrefsManager().getPatient()?.patientName.toString()
+
+            if (currentPatientUHID.isNotEmpty() && currentPatientUHID != "null") {
+                startActivity(Intent(this, Home::class.java))
+            } else {
+                startActivity(Intent(this, Login::class.java))
+            }
+
+            finish()
+
+        } catch (e: Exception) {
+            Log.e("SplashActivity", "Navigation error: ${e.message}")
+            startActivity(Intent(this, Login::class.java))
+            finish()
+        }
     }
 }
