@@ -200,12 +200,12 @@ class Dashboard  : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_leaderboardFragment)
         }
         binding.pillsReminder.setOnClickListener {
-//            findNavController().navigate(R.id.pillsReminder)
+            findNavController().navigate(R.id.pillsReminder)
 
-            val intent =
-                Intent(MyApplication.appContext, ChangePassword::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyApplication.appContext.startActivity(intent)
+//            val intent =
+//                Intent(MyApplication.appContext, ChangePassword::class.java)
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            MyApplication.appContext.startActivity(intent)
         }
 
         binding.symptomsTracker.setOnClickListener {
