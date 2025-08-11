@@ -1,34 +1,29 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
-    <!-- Collapsed: top area smaller, playerList pushed down a bit -->
+    <!-- Collapsed State -->
     <ConstraintSet android:id="@+id/collapsed">
-        <!-- playerid (top-3 area) — smaller in collapsed -->
         <Constraint
             android:id="@id/playerId"
             android:layout_width="0dp"
-            android:layout_height="223dp"
+            android:layout_height="123dp"
             motion:layout_constraintTop_toBottomOf="@id/title"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             android:translationY="0dp" />
 
-        <!-- playerList — top starts lower to hide most of the list -->
         <Constraint
             android:id="@id/playerList"
             android:layout_width="0dp"
-            android:layout_height="4740dp"
-            motion:layout_constraintTop_toBottomOf="@id/playerList"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toBottomOf="@id/playerId"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="0dp" /> <!-- tweak this to control collapsed visible area -->
-
-        <!-- keep dragHandle attached to top of playerList -->
-
+            android:translationY="0dp" />
     </ConstraintSet>
 
-    <!-- Expanded: top area larger, full list visible -->
+    <!-- Expanded State -->
     <ConstraintSet android:id="@+id/expanded">
         <Constraint
             android:id="@id/playerId"
@@ -42,28 +37,40 @@
         <Constraint
             android:id="@id/playerList"
             android:layout_width="0dp"
-            android:layout_height="274dp"
-            motion:layout_constraintTop_toBottomOf="@id/playerList"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toBottomOf="@id/playerId"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="0dp" />
-
-
+            android:translationY="0dp" />
     </ConstraintSet>
 
-    <!-- Single Transition animating both the top area and the list -->
+    <!-- Expand Transition (Up) -->
     <Transition
         motion:constraintSetStart="@id/collapsed"
         motion:constraintSetEnd="@id/expanded"
         motion:duration="300"
         motion:motionInterpolator="easeInOut">
-
         <OnSwipe
             motion:touchAnchorId="@id/playerList"
             motion:touchAnchorSide="top"
             motion:touchRegionId="@id/playerList"
-            motion:dragDirection="dragUp" />
+            motion:dragDirection="dragUp"
+            motion:moveWhenScrollAtTop="true" /> <!-- this is CRITICAL -->
+    </Transition>
+
+    <!-- Collapse Transition (Down) -->
+    <Transition
+        motion:constraintSetStart="@id/expanded"
+        motion:constraintSetEnd="@id/collapsed"
+        motion:duration="300"
+        motion:motionInterpolator="easeInOut">
+        <OnSwipe
+            motion:touchAnchorId="@id/playerList"
+            motion:touchAnchorSide="top"
+            motion:touchRegionId="@id/playerList"
+            motion:dragDirection="dragDown"
+            motion:moveWhenScrollAtTop="true" /> <!-- also CRITICAL -->
     </Transition>
 
 </MotionScene>

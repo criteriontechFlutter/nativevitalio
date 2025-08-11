@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ class LeaderboardFragment : Fragment() {
     private var _binding: FragmentLeaderBoardBinding? = null
     private val binding get() = _binding!!
 
+    private var isPlayerId2Visible = false // Tracks visibility state
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,78 +31,67 @@ class LeaderboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Sample data
+        // Sample user data
         val users = listOf(
             User(1, "Albert Flores", 465),
             User(2, "Jacob Jones", 360),
             User(3, "Darrell Steward", 350),
-            User(1, "Albert Flores", 465),
-            User(2, "Jacob Jones", 360),
-            User(3, "Darrell Steward", 350),
-            User(1, "Albert Flores", 465),
-            User(2, "Jacob Jones", 360),
-            User(3, "Darrell Steward", 350),
-            User(1, "Albert Flores", 465),
-            User(2, "Jacob Jones", 360),
-            User(3, "Darrell Steward", 350),
-            User(1, "Albert Flores", 465),
-            User(2, "Jacob Jones", 360),
-            User(3, "Darrell Steward", 350),
-            User(1, "Albert Flores", 465),
-            User(2, "Jacob Jones", 360),
-            User(3, "Darrell Steward", 350),
-            // repeat or load real data...
+            User(4, "Emma Watson", 320),
+            User(5, "Chris Evans", 310),
+            User(6, "Scarlett Johansson", 300),
+            User(7, "Robert Downey", 290),
+            User(8, "Tom Holland", 280),
+            User(9, "Benedict Cumberbatch", 270)
         )
+
+        // Initial visibility
+        binding.playerId.visibility = View.VISIBLE
+        binding.playerId2.visibility = View.GONE
 
         // RecyclerView setup
         binding.playerList.layoutManager = LinearLayoutManager(requireContext())
         binding.playerList.adapter = LeaderboardAdapter(users)
 
-        // Optionally start expanded:
-        // binding.motionLayout.transitionToEnd()
-
         // MotionLayout transition listener
         binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) { }
+            override fun onTransitionStarted(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int
+            ) {
 
+            }
             override fun onTransitionChange(
                 motionLayout: MotionLayout?,
                 startId: Int,
                 endId: Int,
                 progress: Float
             ) {
-                // Optional: fade out the top area gradually as the sheet expands
-                // progress goes from 0 (collapsed) -> 1 (expanded)
-                // Replace 'playerid' with the id of the view you want to fade/hide
-
-                // If you want to shrink or translate top cards while sliding,
-                // you can also animate scale/translation here:
-                // binding.card_center.scaleX = 1f + 0.1f * progress
-                // binding.card_center.scaleY = 1f + 0.1f * progress
-            }
-
-            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                // When transition completes, hide or show the top layout based on the state.
-                // Replace R.id.expanded with the actual id in your MotionScene if different.
-                if (currentId == R.id.expanded) {
-                    // Fully expanded — hide the top area (removes it from layout flow)
-//                    binding.playerid.visibility = View.VISIBLE
-//                    binding.bodyLeft.visibility = View.VISIBLE
-//                    binding.bodyRight.visibility = View.VISIBLE
-//                    binding.bodyCenter.visibility = View.VISIBLE
-                } else {
-                    // Collapsed or other — ensure it's visible
-//                    binding.playerid.visibility = View.GONE
-//                    binding.bodyLeft.visibility = View.GONE
-//                    binding.bodyRight.visibility = View.GONE
-//                    binding.bodyCenter.visibility = View.GONE
-//                    binding.playerid.alpha = 1f
+                when {
+                    startId == R.id.collapsed && endId == R.id.expanded -> {
+                        Log.d("MotionState", "Sliding UP → Expanding")
+                    }
+                    startId == R.id.expanded && endId == R.id.collapsed -> {
+                        Log.d("MotionState", "Sliding DOWN → Collapsing")
+                    }
                 }
             }
 
+            override fun onTransitionCompleted(
+                motionLayout: MotionLayout?,
+                currentId: Int
+            ) {
+                // Only update playerId2; leave playerId untouched
+
+                binding.playerId.visibility =  View.GONE
+            }
+
             override fun onTransitionTrigger(
-                motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float
-            ) { }
+                motionLayout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {}
         })
     }
 
