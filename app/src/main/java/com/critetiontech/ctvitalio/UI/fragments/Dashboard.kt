@@ -51,10 +51,13 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
+import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var viewModel: DashboardViewModel
+    private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
     private lateinit var toTakeAdapter: ToTakeAdapter
@@ -100,6 +103,15 @@ class Dashboard  : Fragment() {
         }
 
         loadanimation()
+
+
+        challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
+
+
+        challengesViewModel.getNewChallenge()
+        challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
+            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(list)
+        }
 
         binding.fabAdd.animate()
             .scaleX(1.1f)
@@ -181,7 +193,7 @@ class Dashboard  : Fragment() {
             .into(binding.profileImage)
 
 
-        binding.userName.text = PrefsManager().getPatient()!!.patientName
+        binding.userName.text = "Hi " +PrefsManager().getPatient()!!.patientName
         binding.profileImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
