@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -40,8 +41,40 @@ class NewChallengedAdapter (
         binding.textView4.text = item.description
         binding.scoreText.text = item.rewardPoints.toString()
         binding.participantsRecyclerView.adapter = ParticipantsAdapter(item.getPeopleJoinedList())
-        binding.startText.text="Starts in "+item.startsIn
+        val startsIn = item.startsIn // e.g., "01d:05h:20m"
 
+// Extract day, hour, and minute parts
+        val dayPart = startsIn.substringBefore("d").toIntOrNull() ?: 0
+        val hourPart = startsIn.substringAfter("d:").substringBefore("h").toIntOrNull() ?: 0
+        val minutePart = startsIn.substringAfter("h:").substringBefore("m").toIntOrNull() ?: 0
+
+// Create smart display text
+        val displayText = when {
+            dayPart > 0 -> "Starts in $dayPart day${if (dayPart > 1) "s" else ""}"
+            hourPart > 0 -> "Starts in $hourPart hour${if (hourPart > 1) "s" else ""}"
+            minutePart > 0 -> "Starts in $minutePart minute${if (minutePart > 1) "s" else ""}"
+            else -> "Already Started!"
+        }
+
+// Set text to view
+        binding.startText.text = displayText
+
+
+//        object : CountDownTimer(timeLeft, 1000) {
+//            override fun onTick(millisUntilFinished: Long) {
+//                val seconds = millisUntilFinished / 1000 % 60
+//                val minutes = millisUntilFinished / (1000 * 60) % 60
+//                val hours = millisUntilFinished / (1000 * 60 * 60) % 24
+//                val days = millisUntilFinished / (1000 * 60 * 60 * 24)
+//
+//                val timeStr = String.format("%02dd:%02dh:%02dm:%02ds", days, hours, minutes, seconds)
+//                holder.binding.startText.text = "Starts in $timeStr"
+//            }
+//
+//            override fun onFinish() {
+//                holder.binding.startText.text = "Started"
+//            }
+//        }.start()
         // Generate darker color for the button
         val darkColor = getDarkerShade(pastelColor)
 
@@ -68,6 +101,20 @@ class NewChallengedAdapter (
 
 
     }
+
+    fun parseDuration(duration: String): Long {
+        val regex = Regex("""(\d+)d:(\d+)h:(\d+)m""")
+        val match = regex.find(duration) ?: return 0L
+
+        val (days, hours, minutes) = match.destructured
+        val totalMillis =
+            days.toLong() * 24 * 60 * 60 * 1000 +
+                    hours.toLong() * 60 * 60 * 1000 +
+                    minutes.toLong() * 60 * 1000
+
+        return totalMillis
+    }
+
 
     private fun getRandomPastelColor(): Int {
         val rnd = Random()

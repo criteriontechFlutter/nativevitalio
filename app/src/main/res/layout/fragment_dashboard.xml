@@ -5,6 +5,7 @@
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".UI.fragments.Dashboard">
 
     <androidx.core.widget.NestedScrollView
@@ -19,7 +20,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_100sdp"
             android:background="@color/dashboardBg"
             android:fitsSystemWindows="false">
 
@@ -95,7 +97,7 @@
                 <!-- Points container -->
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/points_background"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -134,7 +136,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -163,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:lineSpacingExtra="2dp"
+
                     android:text="A great day to make your health better!"
                     android:textColor="#666666"
                     android:textSize="16sp" />
@@ -175,7 +177,7 @@
                 android:id="@+id/moodLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="10dp"
                 android:backgroundTint="#FFF5E6"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
@@ -187,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="157dp"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="15dp">
 
                     <!-- Title Text -->
                     <TextView
@@ -393,27 +395,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerView" />
 
-            <!--        <androidx.viewpager.widget.ViewPager-->
-            <!--            android:id="@+id/vitals_slider"-->
-            <!--            android:layout_width="150dp"-->
-            <!--            android:layout_height="150dp"-->
-            <!--            android:layout_marginTop="8dp"-->
-            <!--            android:padding="15dp"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/vitals_label" />-->
-            <androidx.recyclerview.widget.RecyclerView
+             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vitals_slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:overScrollMode="never"
-                android:padding="16dp"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -627,7 +619,7 @@
                 android:layout_marginTop="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="Other"
+                android:text="Latest Challenges"
                 android:textSize="18sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -642,6 +634,7 @@
                 android:columnCount="3"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/other">
@@ -678,10 +671,39 @@
             </GridLayout>
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/newChallengedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/other_grid"
+                app:layout_constraintStart_toStartOf="@+id/other_grid"
+                app:layout_constraintTop_toBottomOf="@+id/other_grid"
+                tools:listitem="@layout/new_challenged_joined" />
+
+            <!-- Custom Sleep Tracker View -->
+            <com.critetiontech.ctvitalio.utils.SleepTrackerView
+                android:id="@+id/sleepTrackerView"
+                android:layout_width="0dp"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/newChallengedRecyclerView"
+                app:layout_constraintStart_toStartOf="@+id/newChallengedRecyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/newChallengedRecyclerView" />
+
+
+
             <!-- Bottom Navigation -->
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
