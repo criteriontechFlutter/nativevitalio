@@ -16,9 +16,10 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@id/scrollid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundColor"
+            android:background="@color/dashboardIconBg"
             android:padding="24dp"
             android:scrollbarSize="0dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,19 +33,22 @@
                 android:orientation="vertical">
 
 
+
                 <pl.droidsonroids.gif.GifImageView
                     android:id="@+id/ivIllustration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:src="@drawable/family" />
+                    android:layout_width="204dp"
+                    android:layout_height="186dp"
+                    android:paddingEnd="32dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/rfamily" />
                 <TextView
                     android:id="@+id/tvWelcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Your Family's Health History."
-                    android:textColor="#1153C9"
-                    android:textSize="22sp"
+                    android:textColor="@color/black"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -56,7 +60,7 @@
                     android:text="Are there any hereditary conditions in your family?."
                     android:textAlignment="textStart"
                     android:textColor="#666666"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <!-- Form container -->
                 <LinearLayout
@@ -70,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:text="Chronic Disease"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/darkGreyText"
                         android:textSize="14sp" />
 
                     <RelativeLayout
@@ -115,18 +119,25 @@
                 <!-- Next Button -->
 
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnNext"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="50dp"
-                    app:tint="@color/primaryBlue"
-                    android:layout_marginBottom="16dp"
-                    app:cornerRadius="10dp"
-                    android:backgroundTint="@color/primaryBlue"
-                    android:text="Next"
-                    android:textColor="#FFFFFF" />
+
             </LinearLayout>
         </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="50dp"
+            app:tint="@color/primaryBlue"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/primaryBlue"
+            android:text="Next"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/scrollid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,0 +1,76 @@
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <!-- Collapsed State -->
+    <ConstraintSet android:id="@+id/collapsed">
+        <Constraint
+            android:id="@id/playerId"
+            android:layout_width="0dp"
+            android:layout_height="123dp"
+            motion:layout_constraintTop_toBottomOf="@id/title"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:translationY="0dp" />
+
+        <Constraint
+            android:id="@id/playerList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toBottomOf="@id/playerId"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:translationY="0dp" />
+    </ConstraintSet>
+
+    <!-- Expanded State -->
+    <ConstraintSet android:id="@+id/expanded">
+        <Constraint
+            android:id="@id/playerId"
+            android:layout_width="0dp"
+            android:layout_height="374dp"
+            motion:layout_constraintTop_toBottomOf="@id/title"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:translationY="0dp" />
+
+        <Constraint
+            android:id="@id/playerList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toBottomOf="@id/playerId"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:translationY="0dp" />
+    </ConstraintSet>
+
+    <!-- Expand Transition (Up) -->
+    <Transition
+        motion:constraintSetStart="@id/collapsed"
+        motion:constraintSetEnd="@id/expanded"
+        motion:duration="300"
+        motion:motionInterpolator="easeInOut">
+        <OnSwipe
+            motion:touchAnchorId="@id/playerList"
+            motion:touchAnchorSide="top"
+            motion:touchRegionId="@id/playerList"
+            motion:dragDirection="dragUp"
+            motion:moveWhenScrollAtTop="true" /> <!-- this is CRITICAL -->
+    </Transition>
+
+    <!-- Collapse Transition (Down) -->
+    <Transition
+        motion:constraintSetStart="@id/expanded"
+        motion:constraintSetEnd="@id/collapsed"
+        motion:duration="300"
+        motion:motionInterpolator="easeInOut">
+        <OnSwipe
+            motion:touchAnchorId="@id/playerList"
+            motion:touchAnchorSide="top"
+            motion:touchRegionId="@id/playerList"
+            motion:dragDirection="dragDown"
+            motion:moveWhenScrollAtTop="true" /> <!-- also CRITICAL -->
+    </Transition>
+
+</MotionScene>

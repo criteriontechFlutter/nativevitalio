@@ -1,0 +1,132 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/bg_picker_dialog"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancle"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:textColor="@color/primaryBlue"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Centimeter picker -->
+
+    <LinearLayout
+        android:id="@+id/containerImperialMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/circle_background"
+            android:backgroundTint="@color/primaryBlueLight"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/rstep" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Daily Move Goal"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Set a goal based on how active you are\nor how active you'd like to be, each day."
+            android:textColor="#546788"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/containerImperial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Minus Button -->
+                <ImageView
+                    android:id="@+id/subarrow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/primaryBlue"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/rsubtract" />
+
+                <!-- Value Display -->
+                <TextView
+                    android:id="@+id/valueText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:gravity="center"
+                    android:text="70000"
+                    android:textColor="@color/black"
+                    android:textSize="48sp"
+                    android:textStyle="bold" />
+
+                <!-- Plus Button -->
+                <ImageView
+                    android:id="@+id/addarrow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/primaryBlue"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/raddimg" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:gravity="center"
+                android:text="STEPS/DAY"
+                android:textColor="#546788"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryBlueLight"
+        android:textColor="@color/primaryBlue"
+        android:text="Set Goal"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

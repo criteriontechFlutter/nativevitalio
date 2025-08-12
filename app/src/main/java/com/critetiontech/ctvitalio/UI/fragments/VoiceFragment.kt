@@ -154,7 +154,7 @@ class VoiceFragment : Fragment() {
             audioRecord?.stop()
             audioRecord?.release()
             vadThread?.interrupt()
-            webSocket?.close(1000, "User left")
+            webSocket?.close(1000, "com.critetiontech.ctvitalio.UI.fragments.User left")
         } catch (e: Exception) {
             Log.e("VAD", "Stop error: ${e.message}")
         }

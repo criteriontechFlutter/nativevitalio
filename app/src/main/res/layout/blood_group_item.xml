@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View" />
         <variable
@@ -10,30 +11,32 @@
     </data>
 
     <FrameLayout
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:id="@+id/bloodGroupContainer"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="16dp"
         android:layout_margin="8dp"
-        android:background="@drawable/blood_item_selector"
-        android:backgroundTint="@{isSelected ? @color/primaryBlue : @color/bloodgroupColor}"
+        android:background="@drawable/bg_unselected"
         android:gravity="center">
 
         <TextView
             android:id="@+id/tvBlood"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="57dp"
+            android:layout_height="48dp"
             android:gravity="center|center_vertical|center_horizontal"
             android:text="@{item}"
             android:textColor="@{isSelected ? @color/white : @color/black}"
             android:textSize="16sp"
-             android:textStyle="bold" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ivCheck"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:layout_margin="6dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/check"
             android:visibility="@{isSelected ? View.VISIBLE : View.GONE}" />
     </FrameLayout>
 </layout>

@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_chronicConditionFragment_to_otherChronicDisease2"
             app:destination="@id/otherChronicDisease" />
+        <action
+            android:id="@+id/action_chronicConditionFragment_to_familyDiseaseFragment"
+            app:destination="@id/familyDiseaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/adressFragment"
@@ -116,6 +119,9 @@
         <action
             android:id="@+id/action_familyDiseaseFragment_to_createAccount2"
             app:destination="@id/createAccount2" />
+        <action
+            android:id="@+id/action_familyDiseaseFragment_to_addYourPhoto"
+            app:destination="@id/addYourPhoto" />
     </fragment>
     <fragment
         android:id="@+id/createAccount2"
@@ -191,4 +197,16 @@
         android:id="@+id/completionDashboardReady"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.CompletionDashboardReady"
         android:label="CompletionDashboardReady" />
+    <fragment
+        android:id="@+id/addYourPhoto"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AddYourPhoto"
+        android:label="AddYourPhoto" >
+        <action
+            android:id="@+id/action_addYourPhoto_to_setYourOwnGoal"
+            app:destination="@id/setYourOwnGoal" />
+    </fragment>
+    <fragment
+        android:id="@+id/setYourOwnGoal"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SetYourOwnGoal"
+        android:label="SetYourOwnGoal" />
 </navigation>

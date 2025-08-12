@@ -38,7 +38,7 @@ public class WheezeDataListAdapter extends RecyclerView.Adapter<WheezeDataListAd
             return;
         }
         String tvText = "";
-        tvText = tvText + "User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
+        tvText = tvText + "com.critetiontech.ctvitalio.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
         tvText = tvText + "Start Date  : " + setTime(mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.WHEEZE_DATA_StartTimeKey))) + "\n";
         tvText = tvText + "Wheeze  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.WHEEZE_DATA_WheezeKey)) + "\n";
         tvText = tvText + "Error Noise  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.WHEEZE_DATA_ErrorNoiseKey)) + "\n";

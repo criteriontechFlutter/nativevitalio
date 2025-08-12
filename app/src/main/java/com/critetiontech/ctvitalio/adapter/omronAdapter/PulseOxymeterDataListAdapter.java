@@ -43,7 +43,7 @@ public class PulseOxymeterDataListAdapter extends RecyclerView.Adapter<PulseOxym
             return;
         }
         String tvText = "";
-        tvText = tvText + "User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
+        tvText = tvText + "com.critetiontech.ctvitalio.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
         tvText = tvText + "Start Date  : " + setTime(mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.OXYMETER_DATA_StartTimeKey))) + "\n";
         tvText = tvText + "SpO2 " + " (%) : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.OXYMETER_DATA_SpO2Key)) + "\n";
         tvText = tvText + "Pulse " + " (bpm)  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.OXYMETER_DATA_PulseKey));

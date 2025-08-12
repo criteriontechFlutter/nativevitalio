@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_dashboard_to_challenges"
             app:destination="@id/challenges" />
+        <action
+            android:id="@+id/action_dashboard_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -347,5 +350,9 @@
         android:name="com.critetiontech.ctvitalio.UI.fragments.Challenges"
         android:label="fragment_challenges"
         tools:layout="@layout/fragment_challenges" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.LeaderboardFragment"
+        android:label="LeaderboardFragment" />
 
 </navigation>
