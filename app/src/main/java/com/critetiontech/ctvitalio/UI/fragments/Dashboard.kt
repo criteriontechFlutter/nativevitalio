@@ -110,7 +110,10 @@ class Dashboard  : Fragment() {
 
         challengesViewModel.getNewChallenge()
         challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
-            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(list)
+            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(list){ challenge ->
+                challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+
+            }
         }
 
         binding.fabAdd.animate()
