@@ -125,7 +125,7 @@ class ReportFeildsViewModel  : ViewModel(){
 
 
             val body = mapOf(
-                "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                "uhid" to PrefsManager().getPatient()?.empId.toString(),
                 "investigationDetailsJson" to Gson().toJson(tempPatientData),
                 "clientId" to PrefsManager().getPatient()?.clientId.toString(),
                 "investigationResultJson" to Gson().toJson(tempReportData),

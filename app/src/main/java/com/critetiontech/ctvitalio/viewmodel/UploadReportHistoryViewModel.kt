@@ -38,7 +38,7 @@ class UploadReportHistoryViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhId" to PrefsManager().getPatient()?.uhID.orEmpty(),
+                    "uhId" to PrefsManager().getPatient()?.empId.orEmpty(),
                     "category" to category,
                 )
 

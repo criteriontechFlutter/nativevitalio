@@ -40,7 +40,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhID.toString()
+                    "UhID" to PrefsManager().getPatient()?.empId.toString()
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -143,7 +143,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                 val convertedTime = convertTo24Hour(compareTime)
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "UhID" to PrefsManager().getPatient()?.empId.toString(),
                     "pmID"  to  pmID,
                     "intakeDateAndTime"  to    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())+" "+convertedTime,
 
