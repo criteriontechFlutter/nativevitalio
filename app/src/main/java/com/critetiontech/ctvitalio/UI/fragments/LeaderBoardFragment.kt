@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,8 +46,8 @@ class LeaderboardFragment : Fragment() {
         )
 
         // Initial visibility
-        binding.playerId.visibility = View.VISIBLE
-        binding.playerId2.visibility = View.GONE
+//        binding.playerId.visibility = View.VISIBLE
+//        binding.playerId2.visibility = View.GONE
 
         // RecyclerView setup
         binding.playerList.layoutManager = LinearLayoutManager(requireContext())
@@ -67,23 +68,37 @@ class LeaderboardFragment : Fragment() {
                 endId: Int,
                 progress: Float
             ) {
-                when {
-                    startId == R.id.collapsed && endId == R.id.expanded -> {
-                        Log.d("MotionState", "Sliding UP → Expanding")
-                    }
-                    startId == R.id.expanded && endId == R.id.collapsed -> {
-                        Log.d("MotionState", "Sliding DOWN → Collapsing")
-                    }
-                }
+//                when {
+//                    startId == R.id.collapsed && endId == R.id.expanded -> {
+//                        Log.d("MotionState", "Sliding UP → Expanding")
+//                    }
+//                    startId == R.id.expanded && endId == R.id.collapsed -> {
+//                        Log.d("MotionState", "Sliding DOWN → Collapsing")
+//                    }
+//                }
             }
 
             override fun onTransitionCompleted(
                 motionLayout: MotionLayout?,
                 currentId: Int
             ) {
-                // Only update playerId2; leave playerId untouched
-
-                binding.playerId.visibility =  View.GONE
+                Log.d("MotionState", "Transition completed to $currentId")
+                when (currentId) {
+                    R.id.collapsed -> {
+                        Log.d("MotionState", "Collapsed state reached")
+                        binding.bodyLeft.visibility = View.GONE
+                        binding.bodyCenter.visibility = View.GONE
+                        binding.bodyRight.visibility = View.GONE
+                        binding.playerId.gravity = Gravity.TOP
+                    }
+                    R.id.expanded -> {
+                        Log.d("MotionState", "Expanded state reached")
+                        binding.bodyLeft.visibility = View.VISIBLE
+                        binding.bodyCenter.visibility = View.VISIBLE
+                        binding.bodyRight.visibility = View.VISIBLE
+                        binding.playerId.gravity = Gravity.CENTER
+                    }
+                }
             }
 
             override fun onTransitionTrigger(

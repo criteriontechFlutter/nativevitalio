@@ -155,7 +155,7 @@ class EditProfileViewModel :ViewModel() {
 
                 val queryParams = mapOf(
                     "mobileNo" to "",
-                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "ClientId" to 194
                 )
 

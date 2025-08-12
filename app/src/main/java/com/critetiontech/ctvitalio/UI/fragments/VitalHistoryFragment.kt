@@ -60,7 +60,7 @@ if(vitalType=="Blood Pressure"){
     vitalId="5"
    }
 
-        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.uhID,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
+        PrefsManager().getPatient()?.let { viewModel.getBloodPressureRangeHistory(it.empId,DateUtils.getTodayDate(),DateUtils.getTodayDate(),vitalId) }
 
 
 

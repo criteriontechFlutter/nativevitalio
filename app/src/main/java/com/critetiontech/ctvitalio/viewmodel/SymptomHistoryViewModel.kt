@@ -29,7 +29,7 @@ class SymptomsHistoryViewModel (application: Application) : BaseViewModel(applic
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhID" to PrefsManager().getPatient()?.empId.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
