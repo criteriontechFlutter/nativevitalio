@@ -248,7 +248,7 @@ class FluidFragment : Fragment() {
 
 
 
-        PrefsManager().getPatient()?.let { viewModel.fetchManualFluidIntake(it.uhID) }
+        PrefsManager().getPatient()?.let { viewModel.fetchManualFluidIntake(it.empId.toString()) }
 
 
 

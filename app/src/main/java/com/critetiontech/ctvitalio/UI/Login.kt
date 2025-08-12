@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -94,7 +96,41 @@ class Login : AppCompatActivity() {
                 scrollToView(binding.mainScrollView, binding.inputField)
             }
         }
+        var isNewPasswordVisible = false
 
+
+        binding.passField.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableEnd = 2  // Index for drawableRight
+                val drawableWidth = binding.passField.compoundDrawables[drawableEnd]?.bounds?.width() ?: 0
+                if (event.rawX >= (binding.passField.right - drawableWidth)) {
+                    isNewPasswordVisible = !isNewPasswordVisible
+
+                    // Preserve typeface before changing inputType
+                    val typeface = binding.passField.typeface
+
+                    // Change input type
+                    binding.passField.inputType = if (isNewPasswordVisible) {
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    } else {
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+
+                    // Reapply typeface to maintain font appearance
+                    binding.passField.typeface = typeface
+
+                    // Preserve cursor position
+                    binding.passField.setSelection(binding.passField.text.length)
+
+                    // Toggle eye icon
+                    val icon = if (isNewPasswordVisible) R.drawable.close_eye else R.drawable.open_eye
+                    binding.passField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, icon, 0)
+
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
 
@@ -120,12 +156,7 @@ class Login : AppCompatActivity() {
         }
 
 
-        binding.loginWithOtpBtn.setOnClickListener(){
-            val intent =
-                Intent(MyApplication.appContext, ChangePassword::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyApplication.appContext.startActivity(intent)
-        }
+
 
 //        binding.privacyPolicy.setOnClickListener {
 //            val intent = Intent(applicationContext, SignupActivity::class.java)

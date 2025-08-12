@@ -38,7 +38,7 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhID" to PrefsManager().getPatient()?.empId.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
@@ -99,7 +99,7 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
                 }
 
                 val queryParams = mapOf(
-                    "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
+                    "uhID" to (PrefsManager().getPatient()?.empId ?: ""),
                     "userID" to (PrefsManager().getPatient()?.userId ?: ""),
                     "doctorId" to (PrefsManager().getPatient()?.doctorID ?: ""),
                     "jsonSymtoms" to Gson().toJson(dtDataTable),

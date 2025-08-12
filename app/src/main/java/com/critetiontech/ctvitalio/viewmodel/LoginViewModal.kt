@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.UI.ChangePassword
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.UI.otp
@@ -67,14 +68,23 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     Log.d("RESPONSE", "responseValueresponseValue: ${Gson().toJson(parsed.responseValue)}")
                     parsed.let {
-                        PrefsManager().savePatient(it.responseValue.first())
-                        val intent = Intent(context, Home::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        context.startActivity(intent)
 
+                        PrefsManager().savePatient(it.responseValue.first())
+                        if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
+
+                            val intent = Intent(context, Home::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            context.startActivity(intent)
+                        }
+                        else{
+                            val intent = Intent(context, ChangePassword::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            context.startActivity(intent)
+                        }
                     }
                  } else {
-
+                    val errorMsg = parseErrorMessage(response.errorBody())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }

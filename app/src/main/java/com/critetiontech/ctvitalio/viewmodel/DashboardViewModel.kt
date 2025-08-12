@@ -70,7 +70,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
                 val queryParams = mapOf(
-                    "uhID" to uhid
+                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                 )
 
                 val response = RetrofitInstance
@@ -112,7 +112,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhID.toString()
+                    "UhID" to PrefsManager().getPatient()?.empId.toString()
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -156,7 +156,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "Uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "Uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "entryType" to "D",
                     "fromDate" to finalDate,
                 )
@@ -264,7 +264,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 //            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
             "text" to transcript,
             "userid" to patient.id.toString(),
-            "uhid" to patient.uhID.toString(),
+            "uhid" to patient.empId.toString(),
             "date" to currentDate,
             "time" to currentTime,
             "clientID" to 1,
@@ -459,7 +459,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhID" to PrefsManager().getPatient()?.empId.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
@@ -583,7 +583,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     "vmValueRbs" to rbs.toString(),
                     "vitalTime" to SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date()),
                     "vitalDate" to SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
-                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "currentDate" to  SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date()),
                     "clientId" to PrefsManager().getPatient()?.clientId.toString(),
                     "isFromPatient" to true,
@@ -651,7 +651,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 }
 
                 val queryParams = mapOf(
-                    "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
+                    "uhID" to (PrefsManager().getPatient()?.empId ?: ""),
                     "userID" to "0",
                     "doctorId" to "0",
                     "jsonSymtoms" to Gson().toJson(dtDataTable),
@@ -693,7 +693,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val user = PrefsManager().getPatient()
                 val body = mapOf(
                     "givenQuanitityInGram" to "0",
-                    "uhid" to user?.uhID.orEmpty(),
+                    "uhid" to user?.empId.orEmpty(),
                     "foodId" to foodId,
                     "pmId" to "0",
                     "givenFoodQuantity" to givenFoodQuantity,

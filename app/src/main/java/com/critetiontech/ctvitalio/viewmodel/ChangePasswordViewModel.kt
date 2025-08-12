@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.ResetPassword
 import com.critetiontech.ctvitalio.model.OtpResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -69,7 +70,9 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel(applicat
 
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-
+                    val intent = Intent(context, Home::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
 
                 } else {
 

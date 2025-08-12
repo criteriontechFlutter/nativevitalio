@@ -38,5 +38,5 @@ class ForgotPassword : AppCompatActivity() {
 
         }
 
-    }
+    }  
 }
