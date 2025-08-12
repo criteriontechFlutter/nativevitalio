@@ -131,11 +131,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/divider">
 
@@ -143,6 +144,9 @@
             android:id="@+id/startText"
             android:layout_width="87dp"
             android:layout_height="wrap_content"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center_horizontal|center_vertical"
+            android:maxLines="1"
             android:text="Starts in 1 day"
             android:textColor="#000000"
             android:textSize="12sp" />
