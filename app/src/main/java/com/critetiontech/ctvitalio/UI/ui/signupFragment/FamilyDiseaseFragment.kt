@@ -93,7 +93,7 @@ class FamilyDiseaseFragment : Fragment() {
             progressViewModel.updateProgress(9)
             progressViewModel.updatepageNo(10)
             progressViewModel.setNottoSkipButtonVisibility(true)
-            findNavController().navigate(R.id.action_familyDiseaseFragment_to_createAccount2)
+            findNavController().navigate(R.id.action_familyDiseaseFragment_to_addYourPhoto)
         }
     }
     private fun capitalizeFirstLetter(sentence: String): String {

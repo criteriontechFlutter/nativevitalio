@@ -1,0 +1,157 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="String"/>
+        <variable
+            name="isSelected"
+            type="Boolean"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:padding="24dp"
+            android:scrollbarSize="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <!-- Illustration -->
+
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/ivIllustration"
+                    android:layout_width="204dp"
+                    android:layout_height="186dp"
+                    android:paddingEnd="32dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/raddphoto" />
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/tvWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Do I need a photo?"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="The photo will make you more reliable to other users of the application."
+                    android:textColor="#666666"
+                    android:textSize="16sp"
+                    android:textAlignment="textStart"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Weight input with unit -->
+                <FrameLayout
+                    android:id="@+id/profileImageContainer"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="24dp">
+
+                    <ImageView
+                        android:id="@+id/profileImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#F5F8FC"
+                        android:background="@drawable/circle_light_blue_background"
+                        android:contentDescription="Profile Image"
+                        android:scaleType="centerInside"
+                        android:padding="12dp"
+                        android:src="@drawable/rperson" />
+
+                    <ImageView
+                        android:id="@+id/addIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/raddimg"
+                        android:backgroundTint="@color/primaryBlue"
+                        android:background="@drawable/circle_background"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="4dp"
+                    android:padding="4dp"
+                    android:contentDescription="Add Icon" />
+
+
+                </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/nameId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Test"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:id="@+id/testid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32313"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    android:textAlignment="textStart"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp" />
+            </LinearLayout>
+
+                <!-- Next Button -->
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="50dp"
+            app:tint="@color/primaryBlue"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="10dp"
+
+            android:backgroundTint="@color/primaryBlue"
+            android:text="Next"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/scrollid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

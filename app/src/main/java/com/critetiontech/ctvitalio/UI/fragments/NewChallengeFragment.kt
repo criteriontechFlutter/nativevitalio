@@ -8,11 +8,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeBinding
+import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 
 class NewChallengeFragment : Fragment() {
     private lateinit var binding: FragmentNewChallengeBinding
     private lateinit var challengesViewModel: ChallengesViewModel
+//    val context = MyApplication.appContext
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +36,11 @@ class NewChallengeFragment : Fragment() {
 
         challengesViewModel.getNewChallenge()
         challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
-            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(list)
+            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(list){ challenge ->
+                challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+
+            }
+
         }
 
     }

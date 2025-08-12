@@ -34,7 +34,7 @@ data class Patient(
     val refferedFrom: String?,
     val sexualOrientation: String,
      val status: String,
-    @SerializedName("empId")
+//    @SerializedName("empId")
     val uhID: String,
     val userId: String,
     val weight: String,
@@ -48,6 +48,7 @@ data class Patient(
     val profileUrl: String,
     var isHoldToSpeak: Int = 0,
     val id: Int,
+    val empId: String,
     val mobileNo: String,
     val genderId: Int,
     val age: String,
