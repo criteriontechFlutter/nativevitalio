@@ -407,7 +407,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                         "quantity" to vital.quantity.toString(),
                         "frequencyType" to vital.frequencyType,
                         "isCheck" to false,
-                        "uhid" to  PrefsManager().getPatient()?.uhID.toString()
+                        "uhid" to  PrefsManager().getPatient()?.empId.toString()
                     )
                 }?.toMutableList() ?: mutableListOf()
 // Now you can safely add
@@ -419,7 +419,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                         "quantity" to fluidIntake.value?.toString()?.split(".")!![0].toString(),
                         "frequencyType" to "Recommended Fluid Intake",
                         "isCheck" to false,
-                        "uhid" to  PrefsManager().getPatient()?.uhID.toString()
+                        "uhid" to  PrefsManager().getPatient()?.empId.toString()
                     )
                 )
 

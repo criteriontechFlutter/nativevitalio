@@ -6,7 +6,7 @@
         <Constraint
             android:id="@id/playerId"
             android:layout_width="0dp"
-            android:layout_height="123dp"
+            android:layout_height="74dp"
             motion:layout_constraintTop_toBottomOf="@id/title"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +47,8 @@
 
     <!-- Expand Transition (Up) -->
     <Transition
-        motion:constraintSetStart="@id/collapsed"
-        motion:constraintSetEnd="@id/expanded"
+        motion:constraintSetStart="@id/expanded"
+        motion:constraintSetEnd="@id/collapsed"
         motion:duration="300"
         motion:motionInterpolator="easeInOut">
         <OnSwipe
@@ -58,11 +58,9 @@
             motion:dragDirection="dragUp"
             motion:moveWhenScrollAtTop="true" /> <!-- this is CRITICAL -->
     </Transition>
-
-    <!-- Collapse Transition (Down) -->
     <Transition
-        motion:constraintSetStart="@id/expanded"
-        motion:constraintSetEnd="@id/collapsed"
+        motion:constraintSetStart="@id/collapsed"
+        motion:constraintSetEnd="@id/expanded"
         motion:duration="300"
         motion:motionInterpolator="easeInOut">
         <OnSwipe
@@ -70,7 +68,6 @@
             motion:touchAnchorSide="top"
             motion:touchRegionId="@id/playerList"
             motion:dragDirection="dragDown"
-            motion:moveWhenScrollAtTop="true" /> <!-- also CRITICAL -->
+            motion:moveWhenScrollAtTop="true" />
     </Transition>
-
 </MotionScene>

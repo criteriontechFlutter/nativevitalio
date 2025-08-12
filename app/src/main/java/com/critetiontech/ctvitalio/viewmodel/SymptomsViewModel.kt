@@ -53,7 +53,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhID" to PrefsManager().getPatient()?.empId.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
@@ -261,7 +261,7 @@ fun insertSymptoms(findNavController: NavController, requireContext: Context) {
                 }
 
                 val queryParams = mapOf(
-                    "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
+                    "uhID" to (PrefsManager().getPatient()?.empId ?: ""),
                     "userID" to  "0",
                     "doctorId" to  "0",
                     "jsonSymtoms" to  Gson().toJson(dtDataTable),

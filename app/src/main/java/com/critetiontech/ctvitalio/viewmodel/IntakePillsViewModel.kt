@@ -36,7 +36,7 @@ class IntakePillsViewModel :ViewModel() {
                 val convertedTime = convertTo24Hour(compareTime)
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "UhID" to PrefsManager().getPatient()?.empId.toString(),
                     "pmID"  to  pmID,
                     "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
 

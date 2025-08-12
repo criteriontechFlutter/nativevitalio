@@ -15,9 +15,11 @@ import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 
 class ForgotPasswordViewModel(application: Application) : BaseViewModel(application){
 
@@ -56,19 +58,16 @@ class ForgotPasswordViewModel(application: Application) : BaseViewModel(applicat
 
 
                 if (response.isSuccessful) {
-                    val responseBodyString = response.body()?.string()
-                    Toast.makeText(context, responseBodyString, Toast.LENGTH_LONG).show()
+                 
 
-                    val intent =
-                        Intent(MyApplication.appContext, ResetPassword::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    MyApplication.appContext.startActivity(intent)
+                    val errorMsg = parseErrorMessage(response.body())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
 
                 } else {
 
-                    val responseBodyString = response.errorBody()?.string()
 
-                    Toast.makeText(context, responseBodyString, Toast.LENGTH_LONG).show()
+                    val errorMsg = parseErrorMessage(response.errorBody())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }
@@ -82,4 +81,16 @@ class ForgotPasswordViewModel(application: Application) : BaseViewModel(applicat
             }
         }
     }
+
+    fun parseErrorMessage(errorBody: ResponseBody?): String {
+        return try {
+            val gson = Gson()
+            val type = object : TypeToken<Map<String, Any>>() {}.type
+            val errorMap: Map<String, Any> = gson.fromJson(errorBody?.charStream(), type)
+            errorMap["message"]?.toString() ?: "Something went wrong"
+        } catch (e: Exception) {
+            "Unable to parse error"
+        }
+    }
+
 }

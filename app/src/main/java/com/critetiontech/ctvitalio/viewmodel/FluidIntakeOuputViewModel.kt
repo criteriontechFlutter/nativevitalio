@@ -399,7 +399,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 _loading.value = true
                 val queryParams = mapOf(
                     "givenQuanitityInGram" to '0',
-                "uhid" to PrefsManager().getPatient()!!.uhID,
+                "uhid" to PrefsManager().getPatient()!!.empId,
                 "foodId" to _selectedFluid.value!!.foodID, // Required(fixed)
                 "pmId" to '0',
                 "givenFoodQuantity" to _selectFluidIntakeVolume.value!!.toDouble(), //Required

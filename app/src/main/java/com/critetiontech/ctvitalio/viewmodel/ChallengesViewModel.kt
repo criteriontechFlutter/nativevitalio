@@ -14,9 +14,12 @@ import com.critetiontech.ctvitalio.model.JoinedChallenge
 import com.critetiontech.ctvitalio.model.NewChallengeModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import org.json.JSONObject
 
 class ChallengesViewModel(application: Application) : BaseViewModel(application) {
@@ -147,30 +150,22 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                 val response = RetrofitInstance
                     .createApiService(includeAuthHeader = true)
                     .dynamicRawPost(
-                        url = "api/Challengeparticipants/InsertChallengeparticipants",
+                        url =  ApiEndPointCorporateModule().insertChallengeparticipants,
                         body = queryParams
                     )
 
                 if (response.isSuccessful) {
+                    val errorMsg = parseErrorMessage(response.body())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _loading.value = false
-                    val responseBodyString = response.body()?.string()
-                    Log.d("RESPONSE", "phoneOrUHID3: $responseBodyString")
 
-                    // Parse the JSON response
-
-                    val jsonObject = JSONObject(responseBodyString)
-                    val message = jsonObject.optString("message", "Success")
                     _loading.postValue(false)
-//                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+//
                     getNewChallenge()
                 } else {
-                    val responseBodyString = response.errorBody()?.string()
-                    Log.d("RESPONSE", "phoneOrUHID3: $responseBodyString")
 
-                    // Parse the JSON response
-
-                    val jsonObject = JSONObject(responseBodyString)
-                    val message = jsonObject.optString("message", "Success")
+                    val errorMsg = parseErrorMessage(response.errorBody())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
 
 //                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                     _loading.value = false
@@ -185,6 +180,16 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
             }
+        }
+    }
+    fun parseErrorMessage(errorBody: ResponseBody?): String {
+        return try {
+            val gson = Gson()
+            val type = object : TypeToken<Map<String, Any>>() {}.type
+            val errorMap: Map<String, Any> = gson.fromJson(errorBody?.charStream(), type)
+            errorMap["message"]?.toString() ?: "Something went wrong"
+        } catch (e: Exception) {
+            "Unable to parse error"
         }
     }
 

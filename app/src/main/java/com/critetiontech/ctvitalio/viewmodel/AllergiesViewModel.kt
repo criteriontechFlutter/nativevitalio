@@ -45,7 +45,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.orEmpty(),
+                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString()
                 )
 
