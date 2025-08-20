@@ -20,6 +20,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="challengeDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1309" />
+                            <option name="y" value="-827" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="challenges">
                     <value>
                       <LayoutPositions>
@@ -28,6 +40,15 @@
                             <option name="x" value="-1113" />
                             <option name="y" value="-828" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_challenges_to_challengeDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -158,8 +179,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1299" />
-                            <option name="y" value="-320" />
+                            <option name="x" value="-1333" />
+                            <option name="y" value="-452" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -215,6 +236,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_intakePills">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_leaderboardFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

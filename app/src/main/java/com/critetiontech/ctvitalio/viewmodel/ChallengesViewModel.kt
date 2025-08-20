@@ -182,6 +182,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
             }
         }
     }
+
     fun parseErrorMessage(errorBody: ResponseBody?): String {
         return try {
             val gson = Gson()
@@ -193,4 +194,51 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
         }
     }
 
+    fun leaveChallenge(  challengesId: String) {
+        _loading.postValue(true)
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                    "challengeId" to challengesId.toString(),
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "clientId" to PrefsManager().getPatient()?.clientId.toString(),
+                    "userId" to PrefsManager().getPatient()?.id.toString(),
+
+                    )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicRawPost(
+                        url =  ApiEndPointCorporateModule().insertChallengeparticipants,
+                        body = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    val errorMsg = parseErrorMessage(response.body())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
+                    _loading.value = false
+
+                    _loading.postValue(false)
+//
+                    getNewChallenge()
+                } else {
+
+                    val errorMsg = parseErrorMessage(response.errorBody())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
+
+//                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                    _loading.value = false
+                    _loading.postValue(false)
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+
+                _loading.value = false
+                _loading.postValue(false)
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
 }

@@ -21,7 +21,8 @@ import java.util.Random
 
 class NewChallengedAdapter (
     private val items: List<NewChallengeModel>,
-    private val onItemClick: (NewChallengeModel) -> Unit
+    private val onItemClick: (NewChallengeModel) -> Unit,
+    private val onItemClick1: (NewChallengeModel) -> Unit
 
 ) : RecyclerView.Adapter<NewChallengedAdapter.ViewHolder>() {
 
@@ -77,7 +78,7 @@ class NewChallengedAdapter (
         }
 
         holder.itemView.setOnClickListener {
-            onItemClick(item)
+            onItemClick1(item)
         }
 
 
