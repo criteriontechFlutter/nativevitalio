@@ -103,10 +103,20 @@ class Dashboard  : Fragment() {
 
         challengesViewModel.getNewChallenge()
         challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
-            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(list){ challenge ->
-                challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
+                list,
+                onItemClick =  { challenge ->
+                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                },
+                onItemClick1 =  { challenge ->
+                    val bundle = Bundle().apply {
+                        putSerializable("challenges", challenge)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
 
-            }
+                }
+            )
+
         }
 
         binding.fabAdd.animate()
