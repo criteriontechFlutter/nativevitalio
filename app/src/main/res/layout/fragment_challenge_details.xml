@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFB"
+    android:background="#CAE2E4"
     android:orientation="vertical">
 
 
@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
-        android:paddingTop="8dp"
+        android:paddingTop="32dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
 
@@ -33,19 +33,20 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:padding="8dp">
 
         <!-- Water Glass Icon -->
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/circle_blue_background"
-            android:gravity="center"
-            android:layout_marginBottom="24dp">
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:src="@drawable/watergllass"
                 app:tint="#FFFFFF" />
 
@@ -53,6 +54,7 @@
 
         <!-- Title -->
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -63,6 +65,7 @@
 
         <!-- Subtitle -->
         <TextView
+            android:id="@+id/detailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -73,32 +76,44 @@
 
         <!-- Challenge Badge -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/badge_background"
-            android:gravity="center_vertical"
+            android:id="@+id/topId"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
             android:layout_marginBottom="32dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="#A8D6D9"
+            android:gravity="center"
             android:paddingStart="12dp"
             android:paddingTop="6dp"
             android:paddingEnd="12dp"
             android:paddingBottom="6dp">
 
-<!--            <ImageView-->
-<!--                android:layout_width="16dp"-->
-<!--                android:layout_height="16dp"-->
-<!--                android:layout_marginEnd="6dp"-->
-<!--                android:src="@drawable/ic_trophy"-->
-<!--                 />-->
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/rarget"
+                             />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3 liters/day for 30 days"
-                android:textColor="#FF6B6B"
+                android:text="Top 3 wins in most step score"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:padding="8dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="#A8D6D9"
+            android:gravity="center"
+            android:orientation="vertical">
 
         <!-- Completion Reward -->
         <TextView
@@ -114,7 +129,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -134,6 +148,7 @@
                     app:tint="#FF6B6B" />
 
                 <TextView
+                    android:id="@+id/rewardPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100"
@@ -194,57 +209,125 @@
 
         </LinearLayout>
 
+        </LinearLayout>
         <!-- Starting In Label -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Starting in"
-            android:textColor="#666666"
-            android:textSize="14sp" />
-
-        <!-- Countdown Timer -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="01:03:17"
-            android:textColor="#1A1A1A"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1" />
-
-    </LinearLayout>
-
-    <!-- Bottom Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <!-- Join Now Button -->
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="match_parent"
+             android:padding="8dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/button_blue_background"
-            android:text="Join Now!"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:background="@drawable/rounded_corners"
+            android:gravity="center|top"
+            android:orientation="vertical">
 
-        <!-- People joining text -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:text="7 people to join you in this challenge"
-            android:textColor="#666666"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/startTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Starting in"
+                android:textColor="#666666"
+                android:textSize="16sp" />
 
+            <!-- Countdown Timer -->
+            <TextView
+                android:id="@+id/countdownText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:letterSpacing="0.1"
+                android:text=""
+                android:textColor="#1A1A1A"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+
+            <!-- Bottom Section -->
+
+            <!-- Join Now Button -->
+
+<!--            <Button-->
+<!--                android:id="@+id/joidId"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="56dp"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:background="@drawable/button_blue_background"-->
+<!--                android:backgroundTint="#5FBDC0"-->
+<!--                android:text="Join Now!"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:drawableEnd="@drawable/check_challeges"-->
+<!--                android:drawablePadding="0dp"-->
+<!--                android:gravity="center" />-->
+
+
+            <LinearLayout
+                android:id="@+id/joidId"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                 android:orientation="horizontal"
+                android:background="@drawable/button_blue_background"
+                android:backgroundTint="#3DA7E6"
+                android:layout_marginBottom="14dp"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp">
+
+                <TextView
+                    android:id="@+id/tvChallengeJoined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Join Now!"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <ImageView
+                    android:id="@+id/ivCheck"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/check_challeges"
+                    />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/leaveChallengesId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="Leave Challenge"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+            <!-- People joining text -->
+            <TextView
+                android:id="@+id/joinpId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:text="7 people to join you in this challenge"
+                android:textColor="#666666"
+                android:textSize="12sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/participantsRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="13dp"
+                android:clipChildren="false"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:padding="1dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
