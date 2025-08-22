@@ -1,37 +1,20 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.unit.dp
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.ChallengeDetailsAdapter
-import com.critetiontech.ctvitalio.adapter.ChallengesAdapter
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 import com.critetiontech.ctvitalio.databinding.FragmentChallengeDetailsBinding
-import com.critetiontech.ctvitalio.databinding.FragmentChallengesBinding
-import com.critetiontech.ctvitalio.databinding.FragmentIntakePillsBinding
 import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.IntakePillsViewModel
-import com.google.android.material.tabs.TabLayoutMediator
-import okio.utf8Size
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -102,11 +85,9 @@ class ChallengeDetailsFragment : Fragment() {
 
         binding.joidId.setOnClickListener(){
             val currentUserId = PrefsManager().getPatient()?.empId.toString()
-
             val hasJoined = challenges
                 ?.getPeopleJoinedList()
                 ?.any { it.empId.toString() == currentUserId } == true
-
             if (!hasJoined) {
                 viewModel.insertChallengeparticipants(
                     challengesId = challenges?.id.toString()
