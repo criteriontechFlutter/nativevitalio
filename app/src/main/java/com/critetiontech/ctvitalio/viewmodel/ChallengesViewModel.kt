@@ -199,21 +199,21 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "challengeId" to challengesId.toString(),
                     "pid" to PrefsManager().getPatient()?.id.toString(),
-                    "clientId" to PrefsManager().getPatient()?.clientId.toString(),
-                    "userId" to PrefsManager().getPatient()?.id.toString(),
+                    "challengeId" to "4".toString(),
 
-                    )
+                     )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
-                    .dynamicRawPost(
-                        url =  ApiEndPointCorporateModule().insertChallengeparticipants,
-                        body = queryParams
+                    .createApiService( )
+                    .queryDynamicPut(
+                        url =  ApiEndPointCorporateModule().leaveChallengeparticipants,
+                        params = queryParams
                     )
 
                 if (response.isSuccessful) {
+
+                    Log.d("RESPONSE", "response: ${response.body()}")
                     val errorMsg = parseErrorMessage(response.body())
                     ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _loading.value = false
@@ -222,6 +222,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
 //
                     getNewChallenge()
                 } else {
+                    Log.d("RESPONSE", "response: ${response.body()}")
 
                     val errorMsg = parseErrorMessage(response.errorBody())
                     ToastUtils.showFailure(MyApplication.appContext, errorMsg)
