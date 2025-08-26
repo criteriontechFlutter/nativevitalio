@@ -52,7 +52,7 @@ class SignupActivity : AppCompatActivity() {
         viewModel.mobileNo.value = mobileNo
         Log.d("RESPONSE", "phoneOrUHID6: $mobileNo")
 
-
+        updateProgress(1,  1)
         // Observe the progress to update UI dynamically
         progressViewModel.pageNo.observe(this) { step ->
 
@@ -380,56 +380,45 @@ class SignupActivity : AppCompatActivity() {
 //        binding.progressBar.progress = progressPercent
 //        binding.tvProgressPercent.text = "$progressPercent%"
 
-        when (progressTitle+1) {
-            1 -> {
-                binding.tvStepTitle.text = "Getting Started"
-//                binding.tvStepSubtitle.text = "Great start! You’re just beginning—let’s keep going!"
-            }
-            2 -> {
-                binding.tvStepTitle.text = "Moving Forward"
-//                binding.tvStepSubtitle.text = "You're gaining momentum - keep moving forward!"
-            }
-            3 -> {
-                binding.tvStepTitle.text = "Staying on Track"
-//                binding.tvStepSubtitle.text = "Nice work! You're a quarter of the way there!"
-            }
-            4 -> {
+        when (progressTitle) {
+
+            0 -> {
                 binding.tvStepTitle.text = "Blood Group"
 //                binding.tvStepSubtitle.text = "Nice work! You're a third of the way there!"
             }
-            5 -> {
+            1 -> {
                 binding.tvStepTitle.text = "Your address"
 //                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
             }
-            6 -> {
+            2 -> {
                 binding.tvStepTitle.text = "Add weight"
 //                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
             }
-            7 -> {
+            3 -> {
                 binding.tvStepTitle.text = "Add height"
 //                binding.tvStepSubtitle.text = "You're past halfway—great job so far!"
             }
-            8 -> {
+            4 -> {
                 binding.tvStepTitle.text = "Chronic disease"
 //                binding.tvStepSubtitle.text = "You're making great progress—just a little more to go!"
             }
-            9 -> {
+            5 -> {
                 binding.tvStepTitle.text = "Family disease"
 //                binding.tvStepSubtitle.text = "You've come so far—just a final push!"
             }
-            10 -> {
+            6 -> {
                 binding.tvStepTitle.text = "Add your photo"
 //                binding.tvStepSubtitle.text = "So close! Only a few steps remain!"
             }
-            11 -> {
+            7 -> {
                 binding.tvStepTitle.text = "Set your own goal"
 //                binding.tvStepSubtitle.text = "You're just one step away from completing the process!"
             }
-            13 -> {
+            8 -> {
                 binding.tvStepTitle.text = "One Step Away "
 //                binding.tvStepSubtitle.text = "You're nearly done-just one final step!"
             }
-            14 -> {
+            9 -> {
                 binding.tvStepTitle.text = "All Done!"
 //                binding.tvStepSubtitle.text = "Almost done—just complete the final step!"
             }

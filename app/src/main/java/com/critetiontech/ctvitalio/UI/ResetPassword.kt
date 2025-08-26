@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
@@ -9,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
 import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.ActivityResetPasswordBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -67,12 +69,34 @@ class ResetPassword : AppCompatActivity() {
             }
             false
         }
+
+
+
+
+        viewModel.loginSuccess.observe(this) { success ->
+            if (success) {
+                ConfirmUpdateDialog(
+                    title = "Password updated successfully.",
+                    message = "Next, let's set up your profile to get started.",
+                    btnText = "Start Profile Setup",
+                    onConfirm = {
+
+                            val intent = Intent(context, SignupActivity::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            context.startActivity(intent)
+
+                    },
+
+                    ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
+            } else {
+            }
+        }
+
         binding.submitBtn.setOnClickListener(){
             viewModel.resetPassword(
                 context = context,
                 newPassword = binding.inputField.text.toString(),
                 confirmNewPassword = binding.confirmPasswordField.text.toString(),
-
             )
         }
 

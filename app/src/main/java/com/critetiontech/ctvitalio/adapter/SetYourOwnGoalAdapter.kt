@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +19,24 @@ class SetYourOwnGoalAdapter(private val items: List<SetGoalModel>,
     inner class SetGoalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val iconImage: ImageView = itemView.findViewById(R.id.iconImage)
         private val labelText: TextView = itemView.findViewById(R.id.labelText)
+        private val checkMark: ImageView = itemView.findViewById(R.id.checkMark)
 
         fun bind(goal: SetGoalModel) {
-            iconImage.setImageResource(goal.iconRes)
-            labelText.text = goal.label
+            iconImage.setImageResource(goal.icon)
+            labelText.text = goal.name
+
+            if (goal.isSelected) {
+                iconImage.setBackgroundResource(R.drawable.circle_primary_background) // solid primary
+                iconImage.setColorFilter(Color.WHITE) // icon white
+                labelText.setTextColor(Color.BLACK)
+                checkMark.visibility = View.VISIBLE
+            } else {
+                iconImage.setBackgroundResource(R.drawable.circle_light_blue_background) // default bg
+                iconImage.setColorFilter(Color.parseColor("#739BE3")) // default icon tint
+                labelText.setTextColor(itemView.context.getColor(R.color.setgoaltext))
+                checkMark.visibility = View.GONE
+            }
+
             itemView.setOnClickListener {
                 onItemClick(goal)
             }

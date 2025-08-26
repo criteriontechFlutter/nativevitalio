@@ -835,11 +835,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="action_dobFragment_to_nameFragment">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
                   <entry key="addYourPhoto">
                     <value>
                       <LayoutPositions>
@@ -848,6 +843,15 @@
                             <option name="x" value="1037" />
                             <option name="y" value="153" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addYourPhoto_to_setYourOwnGoal">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -878,8 +882,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="801" />
-                            <option name="y" value="-563" />
+                            <option name="x" value="-47" />
+                            <option name="y" value="-619" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -989,27 +993,12 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_createAccount2_to_dobFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_createAccount2_to_familyDiseaseFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_createAccount2_to_genderFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_createAccount2_to_heightFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_createAccount2_to_nameFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

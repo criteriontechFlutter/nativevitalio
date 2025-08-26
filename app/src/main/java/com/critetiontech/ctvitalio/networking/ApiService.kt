@@ -81,6 +81,14 @@ interface ApiService {
         @Part parts: List<MultipartBody.Part>
     ): Response<ResponseBody>
 
+    @PUT
+    suspend fun queryDynamicPut(
+        @Url url: String,
+        @HeaderMap headers: Map<String, String> = emptyMap(),
+        @QueryMap params: Map<String, String> = emptyMap(),
+    ): Response<ResponseBody>
+
+
 
     @DELETE
     suspend fun dynamicDelete(

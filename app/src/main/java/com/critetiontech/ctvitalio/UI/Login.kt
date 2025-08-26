@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI
 
 import Patient
+import PrefsManager
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -20,11 +21,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.R.*
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
 import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
@@ -131,6 +134,32 @@ class Login : AppCompatActivity() {
             }
             false
         }
+
+        viewModel.loginSuccess.observe(this) { success ->
+            if (success) {
+                ConfirmUpdateDialog(
+                    title = "Login Successful",
+                    message = "Hello "+ PrefsManager().getPatient()?.patientName.toString()+"." +
+                            " Welcome to Vitalio.\nLet's secure your account with a new password.",
+                    btnText = " Change Password",
+                    onConfirm = {
+                        if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="2"){
+
+                            val intent = Intent(context, Home::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            context.startActivity(intent)
+                        }
+                        else{
+                            val intent = Intent(context, ResetPassword::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            context.startActivity(intent)
+                        }
+                    },
+
+                ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
+            } else {
+             }
+        }
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {
 
@@ -139,6 +168,8 @@ class Login : AppCompatActivity() {
                 username = binding.inputField.text.toString(),
                 password = binding.passField.text.toString()
             )
+
+
 //            val intent =
 //                Intent(MyApplication.appContext, SignupActivity::class.java).apply {
 //                    putExtra("UHID", "uhid")
