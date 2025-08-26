@@ -5,23 +5,39 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="8dp">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/iconImage"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:padding="12dp"
-        android:backgroundTint="#F5F8FC"
-        android:background="@drawable/circle_light_blue_background"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_personal_info" />
+        <!-- Circle + Icon -->
 
+        <ImageView
+            android:id="@+id/iconImage"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="12dp"
+            android:background="@drawable/circle_light_blue_background"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_personal_info" />
+
+        <!-- Checkmark -->
+        <ImageView
+            android:id="@+id/checkMark"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/check"
+            android:visibility="gone" /> <!-- hidden by default -->
+
+        <!-- Label -->
+    </FrameLayout>
     <TextView
         android:id="@+id/labelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Steps"
-        android:layout_marginTop="6dp"
+        android:layout_gravity="bottom|center_horizontal"
         android:textSize="12sp"
         android:textColor="@color/setgoaltext"
         android:gravity="center"/>

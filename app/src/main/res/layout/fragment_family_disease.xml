@@ -30,6 +30,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
 
@@ -58,7 +59,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="24dp"
                     android:text="Are there any hereditary conditions in your family?."
-                    android:textAlignment="textStart"
+                    android:textAlignment="center"
                     android:textColor="#666666"
                     android:textSize="16sp" />
 
@@ -130,6 +131,7 @@
             android:layout_marginTop="50dp"
             app:tint="@color/primaryBlue"
             android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             app:cornerRadius="10dp"
             android:backgroundTint="@color/primaryBlue"
             android:text="Next"

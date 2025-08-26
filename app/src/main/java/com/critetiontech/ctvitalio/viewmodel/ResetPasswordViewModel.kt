@@ -26,16 +26,19 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
 
 
 
+    private val _loginSuccess = MutableLiveData<Boolean>()
+    val loginSuccess: LiveData<Boolean> get() = _loginSuccess
     fun  resetPassword(context: Context, newPassword: String, confirmNewPassword: String) {
         _loading.value = true
         viewModelScope.launch {
 
+            _loginSuccess.postValue(false)
 
             try {
                 val queryParams = mapOf(
                     // "mobileNo" to mo,
 
-                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "username" to PrefsManager().getPatient()?.empId.toString(),
                 "newPassword" to newPassword,
                 "confirmNewPassword" to confirmNewPassword,
                     )
@@ -51,10 +54,12 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
 
                 if (response.isSuccessful) {
 
+                    _loginSuccess.postValue(true)
 //                    val responseBodyString = response.body()?.string()
 //                    Log.d("RESPONSE", "phoneOrUHID3"+responseBodyString.toString())
                 } else {
 
+                    _loginSuccess.postValue(false)
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }

@@ -45,7 +45,7 @@ class CreateAccount : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-        viewModel.loading.observe(this) { isLoading ->
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
 
@@ -266,9 +266,9 @@ private fun addSummaryItem(label: String, value: String) {
 
     private fun navigateToEditFragment(label: String) {
         when (label) {
-            "Name" -> findNavController().navigate(R.id.action_createAccount2_to_nameFragment)
-            "Gender" -> findNavController().navigate(R.id.action_createAccount2_to_genderFragment)
-            "Date of Birth" -> findNavController().navigate(R.id.action_createAccount2_to_dobFragment)
+            "Name" -> findNavController().navigate(R.id.action_createAccount2_to_bloodGroupFragment)
+//            "Gender" -> findNavController().navigate(R.id.action_createAccount2_to_genderFragment)
+//            "Date of Birth" -> findNavController().navigate(R.id.action_createAccount2_to_dobFragment)
             "Blood Group" -> findNavController().navigate(R.id.action_createAccount2_to_bloodGroupFragment)
             "Address" -> findNavController().navigate(R.id.action_createAccount2_to_adressFragment)
             "Chronic Disease" -> findNavController().navigate(R.id.action_createAccount2_to_chronicConditionFragment)

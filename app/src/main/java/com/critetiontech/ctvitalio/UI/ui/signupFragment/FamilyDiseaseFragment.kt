@@ -90,8 +90,8 @@ class FamilyDiseaseFragment : Fragment() {
                 "$relation: ${diseases.joinToString(", ")}"
             }
             viewModel.familyDiseases.value = joined
-            progressViewModel.updateProgress(9)
-            progressViewModel.updatepageNo(10)
+            progressViewModel.updateProgress(6)
+            progressViewModel.updatepageNo(6)
             progressViewModel.setNottoSkipButtonVisibility(true)
             findNavController().navigate(R.id.action_familyDiseaseFragment_to_addYourPhoto)
         }

@@ -90,6 +90,9 @@ class Splash : AppCompatActivity() {
 
             if (currentPatientUHID.isNotEmpty() && currentPatientUHID != "null") {
                 startActivity(Intent(this, Home::class.java))
+//                val intent = Intent(this, SignupActivity::class.java)
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                this.startActivity(intent)
             } else {
                 startActivity(Intent(this, Login::class.java))
             }

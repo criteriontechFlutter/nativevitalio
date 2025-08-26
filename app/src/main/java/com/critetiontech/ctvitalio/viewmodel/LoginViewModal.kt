@@ -14,6 +14,7 @@ import com.critetiontech.ctvitalio.UI.ChangePassword
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.UI.otp
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
 import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.model.OtpResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -39,12 +40,15 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
 
 
+    private val _loginSuccess = MutableLiveData<Boolean>()
+    val loginSuccess: LiveData<Boolean> get() = _loginSuccess
+
 
     fun corporateEmployeeLogin(context:Context, username: String, password: String,) {
         _loading.value = true
         viewModelScope.launch {
 
-
+            _loginSuccess.postValue(false)
             try {
                 val queryParams = mapOf(
                     // "mobileNo" to mo,
@@ -62,6 +66,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
 
                 if (response.isSuccessful) {
+                    _loginSuccess.postValue(true)
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
@@ -70,19 +75,11 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     parsed.let {
 
                         PrefsManager().savePatient(it.responseValue.first())
-                        if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
 
-                            val intent = Intent(context, Home::class.java)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            context.startActivity(intent)
-                        }
-                        else{
-                            val intent = Intent(context, ChangePassword::class.java)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            context.startActivity(intent)
-                        }
                     }
+
                  } else {
+                    _loginSuccess.postValue(false)
                     val errorMsg = parseErrorMessage(response.errorBody())
                     ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _loading.value = false
