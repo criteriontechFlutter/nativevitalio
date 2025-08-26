@@ -27,8 +27,9 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:id="@+id/imgId"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/primaryBlueLight"
@@ -44,6 +45,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/discriptionId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -108,11 +110,12 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/unitId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:gravity="center"
-                android:text="STEPS/DAY"
+                android:text=""
                 android:textColor="#546788"
                 android:textSize="20sp"
                 android:textStyle="bold" />
