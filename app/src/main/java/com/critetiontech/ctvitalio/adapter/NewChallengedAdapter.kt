@@ -54,7 +54,7 @@ class NewChallengedAdapter (
         shape.setColor(darkColor)
         binding.joinNowButton.background = shape
 
-        if(item.getPeopleJoinedList().any { it.empId.toString() == PrefsManager().getPatient()?.empId.toString() }){
+        if(item.getPeopleJoinedList().any { it.empId == PrefsManager().getPatient()?.empId.toString() }){
             binding.joinNowButton.isEnabled = false
             binding.joinNowButton.text = "Joined"
             binding.joinNowButton.setTextColor(Color.WHITE)
