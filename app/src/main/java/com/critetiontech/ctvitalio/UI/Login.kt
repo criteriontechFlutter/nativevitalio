@@ -154,7 +154,7 @@ class Login : AppCompatActivity() {
                             " Welcome to Vitalio.\nLet's secure your account with a new password.",
                     btnText = " Change Password",
                     onConfirm = {
-                        if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="2"){
+                        if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
 
                             val intent = Intent(context, Home::class.java)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
