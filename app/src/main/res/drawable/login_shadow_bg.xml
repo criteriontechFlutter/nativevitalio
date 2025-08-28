@@ -1,0 +1,10 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <padding android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp"/>
+    <shadow
+        android:shadowColor="@color/white"
+        android:shadowDx="-14"
+        android:shadowDy="-14"
+        android:shadowRadius="14"/>
+</shape>

@@ -4,6 +4,7 @@ import Patient
 import PrefsManager
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -101,6 +102,8 @@ class Login : AppCompatActivity() {
         }
         var isNewPasswordVisible = false
 
+        binding.validationId.visibility=View.GONE
+
 
         binding.passField.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_UP) {
@@ -135,8 +138,16 @@ class Login : AppCompatActivity() {
             false
         }
 
+        binding.passField.setBackgroundResource(R.drawable.bg_edittext_rounded)
+        binding.inputField.setBackgroundResource(R.drawable.bg_edittext_rounded)
+//        happygif angergif
         viewModel.loginSuccess.observe(this) { success ->
             if (success) {
+                binding.passField.setBackgroundResource(R.drawable.bg_edittext_rounded)
+                binding.inputField.setBackgroundResource(R.drawable.bg_edittext_rounded)
+                binding.doctorsImage.setImageResource(R.drawable.happygif)
+                binding.upperground.setBackgroundColor(Color.parseColor("#FFDD00"))
+                binding.validationId.visibility=View.GONE
                 ConfirmUpdateDialog(
                     title = "Login Successful",
                     message = "Hello "+ PrefsManager().getPatient()?.patientName.toString()+"." +
@@ -158,7 +169,13 @@ class Login : AppCompatActivity() {
 
                 ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
             } else {
-             }
+                binding.passField.setBackgroundResource(R.drawable.error_feild)
+                binding.inputField.setBackgroundResource(R.drawable.error_feild)
+                binding.validationId.visibility=View.VISIBLE
+                binding.doctorsImage.setImageResource(R.drawable.angergif)
+                binding.upperground.setBackgroundColor(Color.parseColor("#FE1E09"))
+
+            }
         }
         // Button click triggers API call
         binding.sendOtpBtn.setOnClickListener {

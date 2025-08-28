@@ -4,14 +4,18 @@ import Patient
 import PrefsManager
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.Login
+import com.critetiontech.ctvitalio.UI.SignupActivity
 import com.critetiontech.ctvitalio.model.FrequencyModel
 import com.critetiontech.ctvitalio.model.VitalReminder
 import com.critetiontech.ctvitalio.model.BaseResponse
@@ -29,6 +33,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
+import retrofit2.Response
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -87,7 +92,17 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
 
 
 
+    private val _updateSuccess = MutableLiveData<Boolean>()
+    val updateSuccess: LiveData<Boolean> = _updateSuccess
 
+
+    fun updateProfile(response: Response<Any>) {
+        if (response.isSuccessful) {
+            _updateSuccess.postValue(true)
+        } else {
+            _errorMessage.postValue("Error: ${response.code()}")
+        }
+    }
 
 
 
@@ -106,10 +121,11 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
         weight:String,
         height:String,
         bgId:String,
-
-        ) {
+        EmployeeGoalsJson:String,
+         ) {
         _loading.value = true
         viewModelScope.launch {
+            _updateSuccess.postValue(false)
             try {
                 val patient = PrefsManager().getPatient() ?: return@launch
                 val parts = mutableListOf<MultipartBody.Part>()
@@ -137,7 +153,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                 parts += partFromField("UserId", "99")
                 parts += partFromField("ChoronicDiseasesJson", chronicData)
                 parts += partFromField("FamilyDiseaseJson", familyDiseaseJson)
-//                parts += partFromField("EmployeeGoalsJson",  )
+                parts += partFromField("EmployeeGoalsJson",EmployeeGoalsJson  )
                 // Add all text fields
 
 //                parts += partFromField("ProfileURL", patient.profileUrl.replace("https://api.medvantage.tech:7082/", ""))
@@ -186,10 +202,12 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                     )
 
                 if (response.isSuccessful) {
+                    _updateSuccess.postValue(true)
                     ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
 
-//                    _updateSuccess.postValue(true)
+
                 } else {
+                    _updateSuccess.postValue(false)
                     Log.e("UpdateProfile", "Update failed. Code: ${response.code()}")
                     _errorMessage.postValue("Error: ${response.code()}")
                 }

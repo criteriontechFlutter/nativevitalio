@@ -1,9 +1,15 @@
 package com.critetiontech.ctvitalio.UI
 
 import android.content.Intent
+import android.graphics.BlurMaskFilter
+import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -36,6 +42,16 @@ class ResetPassword : AppCompatActivity() {
 
         var isNewPasswordVisible = false
 
+
+        binding.doctorsImage.apply {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null) // disable hardware accel for blur
+
+            val paint = Paint()
+            paint.color = Color.WHITE
+            paint.maskFilter = BlurMaskFilter(30f, BlurMaskFilter.Blur.NORMAL)
+
+            setLayerType(View.LAYER_TYPE_SOFTWARE, paint)
+        }
 
         binding.inputField.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_UP) {

@@ -62,21 +62,21 @@ class SignupActivity : AppCompatActivity() {
                 progressViewModel.pageNo.value!! == 11 ||
                 progressViewModel.pageNo.value!! >= 14
             ) {
-                binding.skipButton.visibility=View.GONE
+//                binding.skipButton.visibility=View.GONE
             }
             else   if (
                 progressViewModel.pageNo.value!! <3
             ) {
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = false
-                binding.skipButton.setTextColor(getColor(R.color.greyText))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = false
+//                binding.skipButton.setTextColor(getColor(R.color.greyText))
 
             }
             else {
 
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = true
-                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = true
+//                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
             }
 
 
@@ -159,9 +159,9 @@ class SignupActivity : AppCompatActivity() {
             }
         })
         // Skip button listener to handle skipping through the steps
-        binding.skipButton.setOnClickListener {
-            handleSkipButtonClick()
-        }
+//        binding.skipButton.setOnClickListener {
+//            handleSkipButtonClick()
+//        }
 
 
 
@@ -217,22 +217,22 @@ class SignupActivity : AppCompatActivity() {
                 progressViewModel.pageNo.value!! == 12 ||
                 progressViewModel.pageNo.value!! >  15
             ) {
-                binding.skipButton.visibility=View.GONE
+//                binding.skipButton.visibility=View.GONE
             }
             else   if (
                 progressViewModel.pageNo.value!! <3 ||
                 progressViewModel.pageNo.value!! == 13 ||
                 progressViewModel.pageNo.value!! == 15
             ) {
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = false
-                binding.skipButton.setTextColor(getColor(R.color.greyText))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = false
+//                binding.skipButton.setTextColor(getColor(R.color.greyText))
 
             }
             else {
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = true
-                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = true
+//                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
             }
 
 

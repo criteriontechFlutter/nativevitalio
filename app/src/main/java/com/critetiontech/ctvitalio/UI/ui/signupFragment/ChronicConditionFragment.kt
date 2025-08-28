@@ -65,15 +65,16 @@ class ChronicConditionFragment : Fragment() {
         }
 
 
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
-        }
+//        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+//            if (isLoading) showLoading() else hideLoading()
+//        }
 
         binding.chronicDis.addTextChangedListener(textWatcher)
         binding.chronicDis.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // Hide keyboard when the AutoCompleteTextView has focus and shows the dropdown
                 hideKeyboard()
+                binding.chronicDis.showDropDown()
             }
         }
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
