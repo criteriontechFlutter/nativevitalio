@@ -86,9 +86,9 @@ class Splash : AppCompatActivity() {
 
     private fun navigateNextScreen() {
         try {
-            val currentPatientUHID = PrefsManager().getPatient()?.patientName.toString()
+            val currentPatientUHID = PrefsManager().getPatient()?.isFirstLoginCompleted.toString()
 
-            if (currentPatientUHID.isNotEmpty() && currentPatientUHID != "null") {
+            if (currentPatientUHID.isNotEmpty() && currentPatientUHID == "1") {
                 startActivity(Intent(this, Home::class.java))
 //                val intent = Intent(this, SignupActivity::class.java)
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

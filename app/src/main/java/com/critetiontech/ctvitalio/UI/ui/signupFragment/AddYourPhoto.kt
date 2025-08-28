@@ -67,6 +67,8 @@ class AddYourPhoto : Fragment() {
         binding.btnNext.setOnClickListener(){
 
             progressViewModel.updateProgress(7)
+            progressViewModel.updatepageNo(7)
+
             findNavController().navigate(R.id.action_addYourPhoto_to_setYourOwnGoal)
         }
     }

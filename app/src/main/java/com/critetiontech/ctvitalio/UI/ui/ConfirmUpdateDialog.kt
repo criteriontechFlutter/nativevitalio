@@ -28,7 +28,7 @@ class ConfirmUpdateDialog(
 
 
         // ✅ Set message dynamically
-        binding.message.text = title
+        binding.title.text = title
         binding.message.text = message
         binding.changePassBtn.text = btnText
 

@@ -10,8 +10,10 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/upperground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFDD00"
             android:paddingTop="16dp">
 
             <!-- Top Bar -->
@@ -20,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
+
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -33,17 +36,32 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <TextView
+
+                <!--                <TextView-->
+<!--                    android:id="@+id/appTitle"-->
+<!--                    style="@style/veryLargeWCB"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Our Smart App!"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/info"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/langText"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent" />-->
+
+                <ImageView
                     android:id="@+id/appTitle"
-                    style="@style/veryLargeWCB"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Our Smart App!"
-                    app:layout_constraintStart_toEndOf="@id/info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vitalio_logo_svg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/langText"
+                    app:layout_constraintStart_toEndOf="@id/info"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/langText"
@@ -61,19 +79,32 @@
             <!-- Doctor Image -->
 
             <!-- Bottom Card (Login Form) -->
-            <ImageView
+<!--            <ImageView-->
+<!--                android:id="@+id/doctorsImage"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:scaleType="fitXY"-->
+<!--                android:src="@drawable/doctors"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/bottomCard"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/topBar"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/doctorsImage"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/doctors"
+                android:layout_width="match_parent"
+                android:layout_height="302dp"
+                 android:src="@drawable/happygif"
+
+
                 app:layout_constraintBottom_toTopOf="@id/bottomCard"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topBar"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/bottomCard"
@@ -91,6 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/only_top_corners"
+                    android:backgroundTint="@color/white"
                     android:padding="24dp">
 
                     <!-- Login Header -->
@@ -166,6 +198,7 @@
                         android:padding="12dp"
                         android:maxLines="1"
                         android:drawableRight="@drawable/open_eye"
+
                         android:inputType="textPassword"
                         android:textColorHint="@color/loginHintTextColor"
                         android:layout_marginTop="4dp"
@@ -174,6 +207,16 @@
                          app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/passLabel" />
+                    <TextView
+                        android:id="@+id/validationId"
+                        style="@style/mediumGCN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Employee id or password are incorrect.\nPlease try again!"
+                        android:textColor="#FF3737"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/passField" />
 
                     <!-- Send OTP Button -->
                     <com.critetiontech.ctvitalio.utils.CustomRoundedButton
@@ -183,14 +226,14 @@
                         android:layout_marginTop="24dp"
                         app:strokeWidth="0dp"
                         app:strokeColor="@color/transparent"
-                        android:backgroundTint="@drawable/button_background_selector"
+                        android:backgroundTint="@color/primaryBlue"
                         android:text="Login"
                         android:textColor="#FFFFFF"
                         android:enabled="false"
                         app:customStrokeWidth="0dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/passField" />
+                        app:layout_constraintTop_toBottomOf="@id/validationId" />
 
                     <!-- Terms and Privacy -->
                     <TextView

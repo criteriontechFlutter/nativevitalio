@@ -25,8 +25,11 @@ import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
 import com.critetiontech.ctvitalio.adapter.SetYourOwnGoalAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSetYourOwnGoalBinding
 import com.critetiontech.ctvitalio.model.SetGoalModel
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 
 class SetYourOwnGoal : Fragment() {
     private lateinit var binding: FragmentSetYourOwnGoalBinding
@@ -34,7 +37,7 @@ class SetYourOwnGoal : Fragment() {
     private lateinit var viewModel: RegistrationViewModel
     private lateinit var adapter:  SetYourOwnGoalAdapter
 
-    val metrics = mutableListOf(
+     val metrics = mutableListOf(
         SetGoalModel(
             R.drawable.rstep,
             "Steps",
@@ -65,36 +68,36 @@ class SetYourOwnGoal : Fragment() {
             normalValue  = 4,   // default value
             isSelected = false
         ),
-        SetGoalModel(
-            R.drawable.rspo2,
-            "Spo2",
-            6,
-            "%",
-            "Measures blood oxygen saturation levels.",
-            selectedGoal = 98,
-            normalValue  = 98,
-            isSelected = false
-        ),
-        SetGoalModel(
-            R.drawable.rhr,
-            "Heart Rate",
-            74,
-            "bpm",
-            "Tracks resting and active heart rate.",
-            selectedGoal = 72,
-            normalValue  = 72,
-            isSelected = false
-        ),
-        SetGoalModel(
-            R.drawable.rbp,
-            "Blood Pressure",
-            4,
-            "mmHg",
-            "Monitors systolic blood pressure values.",
-            selectedGoal = 120,
-            normalValue  = 120,
-            isSelected = false
-        ),
+//        SetGoalModel(
+//            R.drawable.rspo2,
+//            "Spo2",
+//            6,
+//            "%",
+//            "Measures blood oxygen saturation levels.",
+//            selectedGoal = 98,
+//            normalValue  = 98,
+//            isSelected = false
+//        ),
+//        SetGoalModel(
+//            R.drawable.rhr,
+//            "Heart Rate",
+//            74,
+//            "bpm",
+//            "Tracks resting and active heart rate.",
+//            selectedGoal = 72,
+//            normalValue  = 72,
+//            isSelected = false
+//        ),
+//        SetGoalModel(
+//            R.drawable.rbp,
+//            "Blood Pressure",
+//            4,
+//            "mmHg",
+//            "Monitors systolic blood pressure values.",
+//            selectedGoal = 120,
+//            normalValue  = 120,
+//            isSelected = false
+//        ),
         SetGoalModel(
             R.drawable.rsugar,
             "Sugar",
@@ -168,6 +171,14 @@ class SetYourOwnGoal : Fragment() {
          val recyclerView = binding.metricsRecyclerView
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 4) // Corrected this line as well
         recyclerView.adapter = adapter
+        viewModel.updateSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                ToastUtils.showSuccessPopup(requireContext(), "Profile updated successfully!")
+
+                val intent = Intent(requireContext(), Home::class.java)
+                startActivity(intent)
+            }
+        }
 
         binding.btnNext.setOnClickListener(){
             ConfirmUpdateDialog(
@@ -191,8 +202,18 @@ class SetYourOwnGoal : Fragment() {
                         height = viewModel.htInCm.value?.toString().orEmpty(),
                         bgId = viewModel.bgId.value?.toString().orEmpty(),
                         familyDiseaseJson = Gson().toJson( viewModel.familyDiseaseMap.value ?: emptyMap<String, List<String>>()),
-
-                    )
+                        EmployeeGoalsJson =Gson().toJson(
+                            metrics
+                                .filter { it.isSelected }
+                                .map {
+                                    GoalTarget(
+                                        vmId = it.vmId,
+                                        targetValue = it.selectedGoal,
+                                        unit = it.unit,
+                                    )
+                                }
+                        ),
+                     )
                 },
 
                 ).show(childFragmentManager, ConfirmUpdateDialog.TAG)
@@ -248,3 +269,9 @@ class SetYourOwnGoal : Fragment() {
         dialog.show()
     }
 }
+
+data class GoalTarget(
+    val vmId: Int,
+    val targetValue: Int,
+    val unit: String
+)
