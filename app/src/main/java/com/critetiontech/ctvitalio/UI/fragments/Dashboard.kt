@@ -1,27 +1,22 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import HorizontalItemSpacing
 import PrefsManager
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -31,15 +26,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
+import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.critetiontech.ctvitalio.viewmodel.WebSocketState
@@ -50,9 +46,6 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
-import androidx.recyclerview.widget.LinearSnapHelper
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
