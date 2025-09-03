@@ -7,9 +7,8 @@
 
     <fragment
         android:id="@+id/dashboard"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.Dashboard"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
+        android:label="fragment_dashboard">
         <action
             android:id="@+id/action_dashboard_to_drawer4"
             app:destination="@id/drawer4" />
@@ -34,7 +33,7 @@
         <action
             android:id="@+id/action_dashboard_to_dietChecklist"
             app:destination="@id/dietChecklist" />
-          <action
+        <action
             android:id="@+id/action_dashboard_to_notificationFragment"
             app:destination="@id/notificationFragment" />
         <action
@@ -365,5 +364,9 @@
         android:id="@+id/challengeDetailsFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.ChallengeDetailsFragment"
         android:label="ChallengeDetailsFragment" />
+    <fragment
+        android:id="@+id/corporateDashBoard"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
+        android:label="CorporateDashBoard" />
 
 </navigation>

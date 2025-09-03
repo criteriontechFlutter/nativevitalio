@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="500">
+
+        <OnSwipe
+            motion:touchAnchorId="@id/contentScroll"
+            motion:touchAnchorSide="top"
+            motion:dragDirection="dragUp"
+            motion:maxVelocity="3"
+            motion:moveWhenScrollAtTop="true"
+            />
+    </Transition>
+
+    <!-- Start state - Header visible -->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/moodLayout">
+            <PropertySet
+                android:alpha="1.0"
+                android:translationY="0dp" />
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent" />
+        </Constraint>
+
+        <Constraint android:id="@+id/contentScroll">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="1200dp"
+                motion:layout_constraintTop_toBottomOf="@id/moodLayout"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent" />
+        </Constraint>
+    </ConstraintSet>
+
+    <!-- End state - Header faded and moved up -->
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@+id/moodLayout">
+            <PropertySet
+                android:alpha="0.0"
+                android:translationY="-100dp" />
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent" />
+        </Constraint>
+
+        <Constraint android:id="@+id/contentScroll">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent" />
+        </Constraint>
+    </ConstraintSet>
+
+</MotionScene>

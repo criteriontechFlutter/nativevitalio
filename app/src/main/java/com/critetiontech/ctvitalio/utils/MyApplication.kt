@@ -8,6 +8,10 @@ import android.content.Context
 import android.os.Build
 import android.preference.PreferenceManager
 import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.critetiontech.ctvitalio.logging.LoggingManager
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -41,6 +45,38 @@ class MyApplication : Application() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val themePref = prefs.getString("theme_pref", NetworkUtils.ThemeHelper.MODE_SYSTEM)
         NetworkUtils.ThemeHelper.applyTheme(themePref ?: NetworkUtils.ThemeHelper.MODE_SYSTEM)
+
+
+        // Observe app lifecycle for open/close
+        ProcessLifecycleOwner.get().lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                when (event) {
+                    Lifecycle.Event.ON_START -> {
+                        // 🔹 App moved to foreground
+                        LoggingManager.logEvent(
+                            event = "app_open",
+                            screen = "app",
+                            extras = mapOf("note" to "App started" , "os" to "Android ${Build.VERSION.RELEASE}",
+                                "deviceModel" to Build.MODEL)
+                        )
+                    }
+
+                    Lifecycle.Event.ON_STOP -> {
+                        // 🔹 App moved to background
+                        LoggingManager.logEvent(
+                            event = "app_close",
+                            screen = "app",
+                            extras = mapOf("note" to "App stopped",  "os" to "Android ${Build.VERSION.RELEASE}",
+                                "deviceModel" to Build.MODEL)
+                        )
+                        // Flush logs immediately on close
+                        LoggingManager.flushLogs(this)
+                    }
+
+                    else -> {}
+                }
+            }
+        )
     }
 
     private fun createNotificationChannel() {
