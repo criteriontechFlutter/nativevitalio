@@ -261,4 +261,6 @@
     <string name="select_relationship">Select Relationship</string>
     <string name="logout_from_all_devices">Logout from All Devices</string>
     <string name="app_bar_icon" />
+    <string name="sleep_efficiency">Sleep Efficiency <b><font color="#000000">89</font></b> %</string>
+
 </resources>
