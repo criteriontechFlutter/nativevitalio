@@ -6,13 +6,13 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="500">
+        motion:duration="150">
 
         <OnSwipe
             motion:touchAnchorId="@id/contentScroll"
             motion:touchAnchorSide="top"
             motion:dragDirection="dragUp"
-            motion:maxVelocity="3"
+            motion:maxVelocity="2"
             motion:moveWhenScrollAtTop="true"
             />
     </Transition>

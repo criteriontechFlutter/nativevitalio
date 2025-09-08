@@ -31,7 +31,7 @@ class CircularProgressView @JvmOverloads constructor(
 
     // Visual properties
     private var strokeWidth = 24f
-    private var progressColor = Color.parseColor("#10B981") // Green color
+    private var progressColor = Color.parseColor("#0DB46C") // Green color
     private var backgroundColor = Color.parseColor("#E5E7EB") // Light gray
     private var textColor = Color.parseColor("#1F2937") // Dark gray
     private var textSize = 48f
