@@ -115,9 +115,28 @@ class CorporateDashBoard : Fragment() {
         binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
         binding.tFeelingBelow.setTypeface(typeface )
 
+        binding.greeting.text = "Good Morning,\n${PrefsManager().getPatient()?.patientName ?: ""}"
+
+        viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
+            // `vitals` is the latest value emitted by LiveData
+            // Example: submit to RecyclerView adapter
+            val vitalMovementIndex = vitals.find { it.vitalName.equals("MovementIndex", ignoreCase = true) }
+            val vitalRecoveryIndex = vitals.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+            val vitalStepsIndex = vitals.find { it.vitalName.equals("Steps", ignoreCase = true) }
+            binding.tvMovementIndex.text= vitalMovementIndex?.vitalValue.toString()
+            binding.tvRecoveryIndex.text= vitalRecoveryIndex?.vitalValue.toString()
+            binding.tvSteps.text= vitalStepsIndex?.vitalValue.toString()
+        }
+
+
+
 
         // Animate to 80%
        binding.WellnessProgres.setProgress(80f, animate = true)
+
+        binding.ivIllustration.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_moodFragment)
+        }
 //
 //// Change color dynamically
 //        binding.WellnessProgres.setProgressColor(Color.GREEN)

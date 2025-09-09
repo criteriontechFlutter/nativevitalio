@@ -45,7 +45,7 @@
                 android:id="@+id/greeting"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:lineHeight="25dp"
                 android:text="Good Morning,\nKatherine Pollac!"
                 android:textColor="@android:color/white"
@@ -444,7 +444,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/tvMovementIndex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -537,7 +537,7 @@
                             app:layout_constraintTop_toTopOf="@+id/linearLayout7" />
 
                         <TextView
-                            android:id="@+id/textView13"
+                            android:id="@+id/tvRecoveryIndex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="82"
@@ -617,6 +617,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="4dp"
                                     android:text="9,240"
+                                    android:id="@+id/tvSteps"
                                     android:textColor="#000000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />

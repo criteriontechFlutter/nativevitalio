@@ -161,25 +161,34 @@ enableEdgeToEdge()
                 binding.doctorsImage.setImageResource(R.drawable.happygif)
                 binding.upperground.setBackgroundColor(Color.parseColor("#FFDD00"))
                 binding.validationId.visibility=View.GONE
-                ConfirmUpdateDialog(
-                    title = "Login Successful",
-                    message = "Hello "+ PrefsManager().getPatient()?.patientName.toString()+"." +
-                            " Welcome to Vitalio.\nLet's secure your account with a new password.",
-                    btnText = " Change Password",
-                    onConfirm = {
-                        if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
-                            val intent = Intent(context, Home::class.java)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            context.startActivity(intent)
-                        }
-                        else{
-                            val intent = Intent(context, ResetPassword::class.java)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            context.startActivity(intent)
-                        }
-                    },
 
-                ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
+                if(PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
+                    ConfirmUpdateDialog(
+                        title = "Login Successful",
+                        message = "Hello "+ PrefsManager().getPatient()?.patientName.toString()+"." +
+                                " Welcome to Vitalio.\nLet's secure your account with a new password.",
+                        btnText = " Change Password",
+                        onConfirm = {
+                            if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
+                                val intent = Intent(context, Home::class.java)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                context.startActivity(intent)
+                            }
+                            else{
+                                val intent = Intent(context, ResetPassword::class.java)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                context.startActivity(intent)
+                            }
+                        },
+
+                        ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
+                }else{
+                    val intent = Intent(context, Home::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
+
+
             } else {
                 binding.passField.setBackgroundResource(R.drawable.error_feild)
                 binding.inputField.setBackgroundResource(R.drawable.error_feild)
