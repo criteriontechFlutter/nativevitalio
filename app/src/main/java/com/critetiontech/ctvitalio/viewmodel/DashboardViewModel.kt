@@ -71,6 +71,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                 val queryParams = mapOf(
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
+                    "emailId" to "animesh.singh0108@gmail.com",
+                    "clientId" to 194,
+                    "date" to "09/09/2025",
                 )
 
                 val response = RetrofitInstance

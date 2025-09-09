@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_dashboard_to_challengeDetailsFragment"
             app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_moodFragment"
+            app:destination="@id/moodFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -367,6 +370,14 @@
     <fragment
         android:id="@+id/corporateDashBoard"
         android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
-        android:label="CorporateDashBoard" />
+        android:label="CorporateDashBoard" >
+        <action
+            android:id="@+id/action_corporateDashBoard_to_moodFragment"
+            app:destination="@id/moodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moodFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.MoodFragment"
+        android:label="MoodFragment" />
 
 </navigation>
