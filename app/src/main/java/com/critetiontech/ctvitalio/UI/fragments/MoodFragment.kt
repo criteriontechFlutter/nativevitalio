@@ -28,11 +28,11 @@ class MoodFragment : Fragment() {
 
     private val moods = listOf(
         MoodData("Spectacular", "#FFA4BA", "🤩"),
-        MoodData("Upset", "#88A7FF ", "😰"),
+        MoodData("Upset", "#88A7FF", "😰"),
         MoodData("Stressed", "#FF9459", "😤"),
-        MoodData("Happy", "#9ABDFF ", "😄"),
+        MoodData("Happy", "#9ABDFF", "😄"),
         MoodData("Good", "#FFC107", "😊"),
-        MoodData("Sad",   "#7DE7EE ", "😢")
+        MoodData("Sad",   "#7DE7EE", "😢")
 
     )
 
@@ -196,7 +196,7 @@ class MoodFragment : Fragment() {
     }
 
     private fun animateSlideTransition(isNext: Boolean) {
-        val slideDistance = if (isNext) -300f else 300f
+        val slideDistance = if (isNext) -600f else 300f
 
         binding.cardContainer.animate()
             .translationX(slideDistance)
@@ -205,7 +205,7 @@ class MoodFragment : Fragment() {
             .setInterpolator(AccelerateDecelerateInterpolator())
             .withEndAction {
                 updateMoodDisplay()
-                binding.cardContainer.translationX = -slideDistance
+                binding.cardContainer.translationX = 0f // ✅ correct reset
                 binding.cardContainer.animate()
                     .translationX(0f)
                     .alpha(1f)
@@ -214,6 +214,7 @@ class MoodFragment : Fragment() {
             }
             .start()
     }
+
 
     private fun onMoodSelected(mood: MoodData) {
         // Handle mood selection
