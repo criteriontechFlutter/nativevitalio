@@ -19,11 +19,14 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
@@ -49,9 +52,19 @@ class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(binding.mainScrollView) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(
+                view.paddingLeft,
+                view.paddingTop,
+                view.paddingRight,
+                systemBarsInsets.bottom // add bottom inset so scrolling works
+            )
+            insets
+        }
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         regestrationViewModel = ViewModelProvider(this)[RegistrationViewModel::class.java]
         // Disable button initially
@@ -155,7 +168,6 @@ class Login : AppCompatActivity() {
                     btnText = " Change Password",
                     onConfirm = {
                         if( PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
-
                             val intent = Intent(context, Home::class.java)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             context.startActivity(intent)

@@ -1,0 +1,129 @@
+package com.critetiontech.ctvitalio.UI.fragments
+
+import PrefsManager
+import android.Manifest
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.Typeface
+import android.media.AudioRecord
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
+import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.showRetrySnackbar
+import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
+import okhttp3.WebSocket
+
+
+class CorporateDashBoard : Fragment() {
+    private lateinit var binding: FragmentCorporateDashBoardBinding
+    private lateinit var viewModel: DashboardViewModel
+    private lateinit var challengesViewModel: ChallengesViewModel
+    private lateinit var pillsViewModel: PillsReminderViewModal
+    private lateinit var adapter: DashboardAdapter
+    private lateinit var toTakeAdapter: ToTakeAdapter
+    private var voiceDialog: Dialog? = null
+    private var snackbar: Snackbar? = null
+    private var currentPage = 0
+    private val slideDelay: Long = 2100
+    private val handler = Handler(Looper.getMainLooper())
+    private var sliderRunnable: Runnable? = null
+    private var audioRecord: AudioRecord? = null
+    private var isRecording = false
+    private var webSocket: WebSocket? = null
+    private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
+    private val PERMISSION_REQUEST_CODE = 101
+
+    override fun onCreateView(
+
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentCorporateDashBoardBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
+
+        pillsViewModel.getAllPatientMedication()
+
+        viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected) {
+                snackbar?.dismiss()
+                viewModel.getVitals()
+            } else {
+                showRetrySnackbar(
+                    ""
+                ) { viewModel.getVitals() }
+            }
+        }
+        Glide.with(MyApplication.appContext)
+            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .placeholder(R.drawable.baseline_person_24)
+            .circleCrop()
+            .into(binding.avatar)
+        binding.avatar.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_drawer4)
+        }
+
+
+        val text = "How are you feeling now?"
+        val spannable = SpannableString(text)
+
+        // Change only the word "feeling" to orange
+        val start = text.indexOf("feeling")
+        val end = start + "feeling".length
+        spannable.setSpan(
+            ForegroundColorSpan(Color.parseColor("#FFA500")), // Orange color
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+       binding.tFeeling.text = spannable
+
+        val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
+        binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
+        binding.tFeelingBelow.setTypeface(typeface )
+
+
+        // Animate to 80%
+       binding.WellnessProgres.setProgress(80f, animate = true)
+//
+//// Change color dynamically
+//        binding.WellnessProgres.setProgressColor(Color.GREEN)
+
+// Update multiple metrics
+        //updateWellnessData(78f, 92f, 85f, 82f)
+
+    }
+}

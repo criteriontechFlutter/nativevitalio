@@ -174,18 +174,35 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="corporateDashBoard">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1569" />
+                            <option name="y" value="-1297" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="dashboard">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1333" />
-                            <option name="y" value="-452" />
+                            <option name="x" value="-1786" />
+                            <option name="y" value="-1062" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_dashboard_to_allergies3">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_challengeDetailsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
