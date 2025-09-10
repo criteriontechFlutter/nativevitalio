@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -57,7 +58,7 @@ class CorporateDashBoard : Fragment() {
     private var webSocket: WebSocket? = null
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_REQUEST_CODE = 101
-
+    var fragmentOpened = false
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,6 +138,30 @@ class CorporateDashBoard : Fragment() {
         binding.ivIllustration.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_moodFragment)
         }
+
+        binding.moodLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(
+                motionLayout: MotionLayout?, startId: Int, endId: Int
+            ) {}
+
+            override fun onTransitionChange(
+                motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float
+            ) {
+                // progress goes from 0.0 → 1.0
+//                if (!fragmentOpened && progress > 0.5f) {
+//                   // openNewFragment()
+//                }
+            }
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {}
+            override fun onTransitionTrigger(
+                motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float
+            ) {}
+        })
+
+
+
+
 //
 //// Change color dynamically
 //        binding.WellnessProgres.setProgressColor(Color.GREEN)
@@ -145,4 +170,10 @@ class CorporateDashBoard : Fragment() {
         //updateWellnessData(78f, 92f, 85f, 82f)
 
     }
+    private fun openNewFragment() {
+        findNavController().navigate(R.id.moodFragment)
+    }
+
+
+
 }
