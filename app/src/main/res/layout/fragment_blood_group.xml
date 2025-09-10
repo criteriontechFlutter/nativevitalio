@@ -71,6 +71,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBloodGroups"
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/blood_group_item"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:overScrollMode="never"
