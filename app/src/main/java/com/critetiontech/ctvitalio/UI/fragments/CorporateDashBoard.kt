@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
+import Vital
 import android.Manifest
 import android.app.Dialog
 import android.graphics.Color
@@ -215,7 +216,6 @@ class CorporateDashBoard : Fragment() {
 
 // Update multiple metrics
         //updateWellnessData(78f, 92f, 85f, 82f)
-
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 

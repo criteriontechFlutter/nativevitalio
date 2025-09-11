@@ -79,7 +79,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val queryParams = mapOf(
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                     "emailId" to "animesh.singh0108@gmail.com",
-                    "date" to "09/09/2025",
+                    "date" to todayDate,
                     "clientId" to 194,
                 )
 
