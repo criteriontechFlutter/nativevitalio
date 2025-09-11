@@ -330,6 +330,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="5f6471" />
+                            <entry key="outputName" value="vitals_icon_home" />
+                            <entry key="sourceFile" value="C:\Users\CT-Animesh\Downloads\vitals_icon_home.svg" />
                             <entry key="outputName" value="medicine" />
                             <entry key="sourceFile" value="C:\Users\10058\Downloads\fi_2008183.svg" />
                           </map>

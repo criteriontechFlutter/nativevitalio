@@ -2,19 +2,17 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="@string/home" />
+        android:title="Home" />
     <item
-        android:id="@+id/challenges"
-        android:icon="@drawable/challenges_icon"
-        android:title="@string/challenges" />
-
+        android:id="@+id/nav_heart"
+        android:icon="@drawable/heart_icon_new"
+        android:title="Vitals" />
     <item
-        android:id="@+id/nav_reminders"
-        android:icon="@drawable/reminders"
-        android:title="@string/reminders" />
-
+        android:id="@+id/nav_medicine"
+        android:icon="@drawable/pill"
+        android:title="Medicine" />
     <item
-        android:id="@+id/nav_chat"
-        android:icon="@drawable/chat"
-        android:title="@string/chat" />
+        android:id="@+id/nav_target"
+        android:icon="@drawable/challenge_icon_page"
+        android:title="Goals" />
 </menu>
