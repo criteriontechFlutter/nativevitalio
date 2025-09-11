@@ -24,11 +24,16 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.MedicineAdapter
 import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
+import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
@@ -122,7 +127,24 @@ class CorporateDashBoard : Fragment() {
         )
 
        binding.tFeeling.text = spannable
+        val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
+        val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
+        val sleepGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
 
+        stepsGoal?.let {
+            binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
+        }
+
+        waterGoal?.let {
+            binding.waterGoalId.text = "/"+ it.targetValue.toString()+" ml"
+        }
+
+
+
+
+
+        viewModel.fluidIntake(requireContext() , "245", "414")
+        viewModel.getFoodIntake()
         val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
         binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
         binding.tFeelingBelow.setTypeface(typeface )
@@ -140,7 +162,16 @@ class CorporateDashBoard : Fragment() {
             binding.tvSteps.text= vitalStepsIndex?.vitalValue.toString()
         }
 
+        viewModel.quickMetricListList.observe(viewLifecycleOwner) { vitals ->
+            val efficiencyMetric = viewModel.quickMetricListList.value
+                ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
 
+            binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
+
+            val sleepId = viewModel.quickMetricListList.value
+                ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+            binding.sleepId.text =  sleepId?.DisplayText ?: "-"
+        }
 
 
         // Animate to 80%
@@ -185,6 +216,59 @@ class CorporateDashBoard : Fragment() {
 // Update multiple metrics
         //updateWellnessData(78f, 92f, 85f, 82f)
 
+
+        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+
+            val adapter: DashboardAdapter
+            val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
+            val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+
+            val filtered = vitalList.filterNot {
+                it.vitalName.equals("BP_Sys", ignoreCase = true) ||
+                        it.vitalName.equals("BP_Dias", ignoreCase = true)
+            }.toMutableList()
+
+            val finalVitalList = mutableListOf<Vital>()
+
+            if (bpSys != null && bpDia != null) {
+                val bpVital = Vital().apply {
+                    vitalName = "Blood Pressure"
+                    vitalValue = 0.0 // Optional placeholder
+                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
+                    vitalDateTime = bpSys.vitalDateTime
+                }
+                finalVitalList.add(bpVital)
+            }
+
+//            finalVitalList.addAll(filtered)
+
+            adapter = DashboardAdapter(requireContext(), finalVitalList) { vitalType ->
+                val bundle = Bundle().apply {
+                    putString("vitalType", vitalType)
+                }
+                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+
+            }
+            binding.vitalsSlider.adapter = adapter
+
+        }
+
+
+
+
+
+
+        binding.recyclerMedicines.layoutManager = LinearLayoutManager(requireContext())
+
+// Sample data
+        val medicineList = listOf(
+            Medicine("Metformin 500mg", "8:00 AM", "Taken"),
+            Medicine("Omega-3", "6:00 AM", "Taken"),
+            Medicine("Vitamin D", "9:00 AM", "Missed")
+        )
+
+        val adapter = MedicineAdapter(medicineList)
+        binding.recyclerMedicines.adapter = adapter
     }
     private fun openNewFragment() {
         findNavController().navigate(R.id.moodFragment)

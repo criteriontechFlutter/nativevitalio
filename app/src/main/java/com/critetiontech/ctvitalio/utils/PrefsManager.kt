@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.google.gson.reflect.TypeToken
 
 // Data class for patient (include all fields from your JSON)
 data class Patient(
@@ -64,9 +65,19 @@ data class Patient(
     val emailID: String,
     val bloodGroupId: Int,
     val clientId: Int,
-    val isFirstLoginCompleted: Int
-)
+    val isFirstLoginCompleted: Int,
 
+
+
+    val employeegoalsDetails: String
+)
+data class EmployeeGoal(
+    val pid: Int,
+    val vmId: Int,
+    val vitalName: String,
+    val targetValue: Int,
+    val unit: String
+)
 
 class PrefsManager {
     val context = MyApplication.appContext
@@ -93,7 +104,18 @@ class PrefsManager {
             putString(KEY_Allergies,allergiesLength)
         }
     }
+    fun getEmployeeGoals(): List<EmployeeGoal> {
+        val patient = getPatient() ?: return emptyList()
 
+        return try {
+            Gson().fromJson(
+                patient.employeegoalsDetails,
+                object : TypeToken<List<EmployeeGoal>>() {}.type
+            )
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
     fun saveEmergency(emergencyLength: String) {
         sharedPref.edit {
             putString(KEY_Emergency,emergencyLength)
