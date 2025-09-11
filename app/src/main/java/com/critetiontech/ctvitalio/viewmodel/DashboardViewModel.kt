@@ -3,6 +3,7 @@ package com.critetiontech.ctvitalio.viewmodel
 import PillReminderModel
 import PillTime
 import PrefsManager
+import QuickMetric
 import Vital
 import VitalsResponse
 import android.app.Application
@@ -17,6 +18,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.DietItemModel
+import com.critetiontech.ctvitalio.model.FluidType
+import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -45,6 +48,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     private val _vitalList = MutableLiveData<List<Vital>>()
     val vitalList: LiveData<List<Vital>> get() = _vitalList
 
+    private val _quickMetricList = MutableLiveData<List<QuickMetric>>()
+    val  quickMetricListList: LiveData<List<QuickMetric>> get() = _quickMetricList
     private val _dietList = MutableLiveData<List<DietItemModel>>()
     val dietList: LiveData<List<DietItemModel>> get() = _dietList
     private val _errorMessage = MutableLiveData<String>()
@@ -64,16 +69,18 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         _webSocketStatus.postValue(state)
     }
     fun getVitals() {
-        _loading.value = true
         viewModelScope.launch {
+            _loading.value = true
             try {
                 val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val todayDate = sdf.format(Date())
                 val queryParams = mapOf(
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                     "emailId" to "animesh.singh0108@gmail.com",
-                    "clientId" to 194,
                     "date" to "09/09/2025",
+                    "clientId" to 194,
                 )
 
                 val response = RetrofitInstance
@@ -90,6 +97,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
+                    _quickMetricList.value = parsed.responseValue.quickMetric
                 } else {
                     _vitalList.value = emptyList()
                         _loading.value = false
@@ -106,7 +114,57 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-
+//    fun fetchManualFluidIntake(uhid: String) {
+//        viewModelScope.launch {
+//            try {
+//                _loading.value = true
+//                val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
+//
+//                val response = RetrofitInstance
+//                    .createApiService7096()
+//                    .dynamicGet(
+//                        url = ApiEndPoint().getFluidIntakeDetails,
+//                        params = queryParams
+//                    )
+//
+//                if (response.isSuccessful) {
+//                    _loading.value = false
+//                    val responseBodyString = response.body()?.string()
+//                    val type = object : TypeToken<ManualFoodAssignResponse>() {}.type
+//                    val parsed = Gson().fromJson<ManualFoodAssignResponse>(responseBodyString, type)
+//                    val allItems = parsed.responseValue
+//                    _intakeList.value= allItems
+//                    val filteredList = parsed.responseValue.mapNotNull {
+//
+//                        Log.d("TAG", "fetchManualFluidIntake: "+intakeList.value)
+//                        val qty = it.quantity.toFloatOrNull() ?: 0f
+//                        if (qty > 0f) {
+//                            FluidType(
+//                                name = it.foodName.trim(),
+//                                amount = qty.toInt(),
+//                                color = mapColorForFood(it.foodName) ,
+//                                id= it.foodID
+//                            )
+//                        } else null
+//                    }
+//                    _fluidList.value = filteredList
+//
+//                } else {
+//                    _loading.value = false
+//                    _errorMessage.value = "Error: ${response.code()}"
+//                }
+//
+//            } catch (e: Exception) {
+//                _loading.value = false
+//                _errorMessage.value = e.message ?: "Unknown error occurred"
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+fun getCurrentDate(pattern: String = "yyyy-MM-dd"): String {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.format(Date())
+}
     fun getAllPatientMedication( ) {
         _loading.value = true
 
@@ -148,14 +206,14 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             }
         }
     }
-    fun getFoodIntake(date:  String?) {
+    fun getFoodIntake( ) {
         _loading.value = true
-        val finalDate = if (date.isNullOrBlank()) {
-            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        } else {
-            date
-        }
-
+//        val finalDate = if (date.isNullOrBlank()) {
+//            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+//        } else {
+//            date
+//        }
+        val finalDate = getCurrentDate("yyyy-MM-dd")
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
@@ -170,7 +228,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams
                     )
-
+                Log.e("getFoodIntakegetFoodIntake", "Failed: ${ response.body()?.string()}")
                 _loading.value = false
 
                 if (response.isSuccessful) {
@@ -709,7 +767,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     "entryType" to "N",
                     "isFrom" to "0",
                     "dietID" to "0",
-                    "userID" to user?.userId.toString()
+                    "userID" to "99"
                 )
 
                 val response = RetrofitInstance
