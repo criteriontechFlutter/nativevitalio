@@ -9,6 +9,7 @@ data class VitalsResponse(
 data class VitalResponseValue(
     val lastVital: List<Vital>,
     val allVitalAvg: List<AllVitalAvg>,
+    val quickMetric: List<QuickMetric>,
    // val sleepmetrics: SleepMetrics? = null
 )
 
@@ -24,7 +25,17 @@ data class Vital(
     val userId: Int = 0,
     val rowId: Int = 0
 )
+data class QuickMetric(
+    val Title: String,
+    val DisplayText: String,
+    val Unit: String?,
+    val Value: Value,
+    val Type: String
+)
 
+data class Value(
+    val ValueKind: Int
+)
 // Avg values
 data class AllVitalAvg(
     val vmId: Int,

@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.alpha
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.critetiontech.ctvitalio.R
@@ -39,8 +40,10 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     val iconView: ImageView = itemView.findViewById(R.id.vital_icon)
     val titleView: TextView = itemView.findViewById(R.id.vital_title)
     val valueView: TextView = itemView.findViewById(R.id.vital_value)
-    val cardLayout: ConstraintLayout = itemView.findViewById(R.id.vitalCard)
-    val arrowIcon: ImageView = itemView.findViewById(R.id.arrow_icon)
+        val unitView: TextView = itemView.findViewById(R.id.vital_unit)
+    val addView: TextView = itemView.findViewById(R.id.addId)
+//    val cardLayout: ConstraintLayout = itemView.findViewById(R.id.vitalCard)
+//    val arrowIcon: ImageView = itemView.findViewById(R.id.arrow_icon)
 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VitalViewHolder {
@@ -62,8 +65,8 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             "Blood Pressure" -> "Blood Pressure"
             else -> vital.vitalName ?: "--"
         }
-        val randomColor = getVeryLightPastelColor()
-        holder.itemView.backgroundTintList = ColorStateList.valueOf(randomColor)
+//        val randomColor = getVeryLightPastelColor()
+//        holder.itemView.backgroundTintList = ColorStateList.valueOf(randomColor)
 
 
 
@@ -74,9 +77,9 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             setColor(getSlightlyDarkerPastelColor()) // Set based on your logic
         }
 
-        val itemContainer = holder.itemView.findViewById<FrameLayout>(R.id.icon_container)
-        itemContainer.background = shape
-        holder.arrowIcon.setOnClickListener {
+//        val itemContainer = holder.itemView.findViewById<FrameLayout>(R.id.icon_container)
+//        itemContainer.background = shape
+        holder.addView.setOnClickListener {
             onVitalCardClick.invoke(title)
         }
 
@@ -95,10 +98,11 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
           // Set the text based on the vital type
         if (shouldShowValue) {
-            holder.valueView.text = if (isBloodPressure) {
+            holder.valueView.text =
+                if (isBloodPressure) {
                 vital.unit.toString()
             } else {
-                vital.vitalValue.toInt().toString()+vital.unit
+                vital.vitalValue.toInt().toString()
             }
         }
 
@@ -112,11 +116,22 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             else -> R.drawable.doctors
         }
 
-
+        val colorRes = when (vital.vitalName?.lowercase()) {
+            "spo2" -> R.color.blue
+            "heartrate" -> R.color.red
+            "temperature" -> R.color.blue
+            "pulse" -> R.color.blue
+            "weight" -> R.color.blue
+            "blood pressure" -> R.color.blue
+            else -> R.color.gray
+        }
 
         holder.iconView.setImageResource(iconRes)
-
-        holder.cardLayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
+        ImageViewCompat.setImageTintList(
+            holder.iconView,
+            ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
+        )
+//        holder.cardLayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
         holder.valueView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_out))
 
         holder.itemView.setOnClickListener {
