@@ -16,26 +16,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.WebSocket
 
@@ -59,6 +57,10 @@ class CorporateDashBoard : Fragment() {
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_REQUEST_CODE = 101
     var fragmentOpened = false
+    private val tabLabels = listOf("Home", "Streaks", "Triggers", "Challenges")
+    private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
+    private lateinit var navItems: List<View>
+
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,6 +79,15 @@ class CorporateDashBoard : Fragment() {
 
         pillsViewModel.getAllPatientMedication()
 
+        navItems = listOf(
+            view.findViewById(R.id.nav_home),
+            view.findViewById(R.id.nav_vitals),
+            view.findViewById(R.id.nav_medicine),
+            view.findViewById(R.id.nav_goals)
+        )
+
+        setupNav()
+        setupBottomNav(view)
         viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
             if (isConnected) {
                 snackbar?.dismiss()
@@ -134,9 +145,14 @@ class CorporateDashBoard : Fragment() {
 
         // Animate to 80%
        binding.WellnessProgres.setProgress(80f, animate = true)
-
+        val extras = FragmentNavigatorExtras(
+            binding.avatar to "heroImageTransition",
+            binding.greeting to "heroGreetingtextTransition"
+        )
         binding.ivIllustration.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_moodFragment)
+            findNavController().navigate(R.id.action_dashboard_to_moodFragment ,null,
+                null,
+                extras)
         }
 
         binding.moodLayout.setTransitionListener(object : MotionLayout.TransitionListener {
@@ -174,6 +190,71 @@ class CorporateDashBoard : Fragment() {
         findNavController().navigate(R.id.moodFragment)
     }
 
+    private fun setupBottomNav(view1: View) {
+        // Home
+        val homeItem = view1.findViewById<View>(R.id.nav_home)
+        homeItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.home)
+        homeItem.findViewById<TextView>(R.id.navText).text = "Home"
 
+        // Vitals
+        val vitalsItem =  view1.findViewById<View>(R.id.nav_vitals)
+        vitalsItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.vitals_icon_home)
+        vitalsItem.findViewById<TextView>(R.id.navText).text = "Vitals"
+
+        // Medicine
+        val medicineItem =  view1.findViewById<View>(R.id.nav_medicine)
+        medicineItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.reminders)
+        medicineItem.findViewById<TextView>(R.id.navText).text = "Medicine"
+
+        // Goals
+        val goalsItem =  view1.findViewById<View>(R.id.nav_goals)
+        goalsItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.challenges_icon)
+        goalsItem.findViewById<TextView>(R.id.navText).text = "Goals"
+    }
+
+    private fun setupNav() {
+        navItems.forEachIndexed { index, view ->
+            val icon = view.findViewById<ImageView>(R.id.navIcon)
+            val text = view.findViewById<TextView>(R.id.navText)
+            view.setOnClickListener {
+                text.text = tabLabels[index]
+               // icon.setBackgroundResource( tabIcons[index])
+                selectItem(index)
+            }
+        }
+
+        // Default select Home
+        selectItem(0)
+    }
+
+    private fun selectItem(index: Int) {
+        navItems.forEachIndexed { i, view ->
+            val text = view.findViewById<TextView>(R.id.navText)
+            val icon = view.findViewById<ImageView>(R.id.navIcon)
+
+            if (i == index) {
+                view.isSelected = true
+                text.visibility = View.VISIBLE
+                icon.setColorFilter(ContextCompat.getColor(requireActivity(), android.R.color.white))
+
+                // Load fragment based on index
+//                val fragment = when (i) {
+//                    0 -> HomeFragment()
+//                    1 -> VitalsFragment()
+//                    2 -> MedicineFragment()
+//                    3 -> GoalsFragment()
+//                    else -> HomeFragment()
+//                }
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.fragmentContainer, fragment)
+//                    .commit()
+
+            } else {
+                view.isSelected = false
+                text.visibility = View.GONE
+                icon.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.blue))
+            }
+        }
+    }
 
 }
