@@ -9,7 +9,7 @@ data class VitalsResponse(
 data class VitalResponseValue(
     val lastVital: List<Vital>,
     val allVitalAvg: List<AllVitalAvg>,
-    val quickMetric: List<QuickMetric>,
+    val quickMetric: String,
    // val sleepmetrics: SleepMetrics? = null
 )
 

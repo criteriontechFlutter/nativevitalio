@@ -97,7 +97,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
-                    _quickMetricList.value = parsed.responseValue.quickMetric
+                    val type = object : TypeToken<List<QuickMetric>>() {}.type
+                    val parsedData: List<QuickMetric> = Gson().fromJson(parsed.responseValue.quickMetric, type)
+                    _quickMetricList.value = parsedData
                 } else {
                     _vitalList.value = emptyList()
                         _loading.value = false
