@@ -885,7 +885,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="4dp"
-                                    android:text="7h 32m"
+                                    android:text="-"
                                     android:textColor="#000000"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -897,7 +897,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="16dp"
-                                    android:text="@string/sleep_efficiency"
+                                    android:text="-"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
                                     android:textColor="#999999"
                                     android:textSize="14sp" />
