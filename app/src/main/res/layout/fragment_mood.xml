@@ -59,16 +59,52 @@
 
             <!-- Top Section with User Info -->
 
+            android:paddingTop="40dp"
+            android:background="@color/primaryBlue">
+
+            <!-- User Avatar -->
+            <!-- Back Arrow -->
+
+            <!-- Skip Text -->
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="80dp"
+                android:contentDescription="@string/back"
+                android:src="@drawable/ic_arrow_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- User Avatar -->
+
+
+            <TextView
+                android:id="@+id/tvSkip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                android:text="Skip"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userAvatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:transitionName="heroImageTransition"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="24dp"
+                android:paddingBottom="10dp"
                 android:src="@drawable/ic_user_avatar"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
-                app:layout_constraintBottom_toTopOf="@+id/userName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"

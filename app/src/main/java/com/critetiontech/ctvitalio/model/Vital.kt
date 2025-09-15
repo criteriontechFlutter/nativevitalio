@@ -10,9 +10,26 @@ data class VitalResponseValue(
     val lastVital: List<Vital>,
     val allVitalAvg: List<AllVitalAvg>,
     val quickMetric: String,
-   // val sleepmetrics: SleepMetrics? = null
+    val sleepmetrics: List<SleepMetric>?
+)
+data class SleepMetric(
+    val uhid: String,
+    val pmId: Int,
+    val vitalID: Int,
+    val vitalName: String,
+    val vitalValue: String?
+)
+data class SleepValue(
+    val Score: Int,
+    val Title: String,
+    val BedtimeStart: String,
+    val BedtimeEnd: String,
+    val Details: SleepDetails
 )
 
+data class SleepDetails(
+    val QuickMetrics: List<QuickMetric>?
+)
 // Vital object
 data class Vital(
     val uhid: String? = null,
@@ -88,4 +105,29 @@ data class SleepSummary(
     val interruptions: String,
     val sleepStages: String,
     val overall: String
+)
+data class MoodResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<MoodItem>
+)
+
+data class MoodItem(
+    val pid: Int,
+    val moodId: Int,
+    val label: String,
+    val description: String
+)
+data class MoodsResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<Mood>
+)
+
+data class Mood(
+    val id: Int,
+    val label: String,
+    val color: String,
+    val description: String,
+    val emojiRes: Int,   // Drawable resource ID
 )

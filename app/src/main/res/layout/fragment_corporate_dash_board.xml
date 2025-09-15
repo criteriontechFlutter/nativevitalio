@@ -133,7 +133,7 @@
                 android:src="@drawable/moods"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.58000004" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Placeholder white container (next step we’ll fill it with cards) -->
@@ -1418,6 +1418,7 @@
                 <!-- Water Intake -->
 
                 <ImageView
+                    android:id="@+id/energy_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/energy_level" />

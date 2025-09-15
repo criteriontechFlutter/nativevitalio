@@ -1,9 +1,11 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import MoodResponse
 import PillReminderModel
 import PillTime
 import PrefsManager
 import QuickMetric
+import SleepValue
 import Vital
 import VitalsResponse
 import android.app.Application
@@ -24,6 +26,7 @@ import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.ConfirmationBottomSheet
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
@@ -97,9 +100,26 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
-                    val type = object : TypeToken<List<QuickMetric>>() {}.type
-                    val parsedData: List<QuickMetric> = Gson().fromJson(parsed.responseValue.quickMetric, type)
-                    _quickMetricList.value = parsedData
+
+                    val sleepMetric243 = parsed.responseValue.sleepmetrics
+                        ?.firstOrNull { it.vitalID == 243 }
+
+                    sleepMetric243?.vitalValue?.let { vitalValueJson ->
+                        try {
+                            // parse the nested JSON string
+                            val sleepValue = Gson().fromJson(vitalValueJson, SleepValue::class.java)
+
+                            // extract QuickMetrics
+                            _quickMetricList.value = sleepValue.Details.QuickMetrics ?: emptyList()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            _quickMetricList.value = emptyList()
+                        }
+                    } ?: run {
+                        // fallback if no vitalID=243 found
+                        _quickMetricList.value = emptyList()
+                    }
+
                 } else {
                     _vitalList.value = emptyList()
                         _loading.value = false
@@ -167,6 +187,57 @@ fun getCurrentDate(pattern: String = "yyyy-MM-dd"): String {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
     return sdf.format(Date())
 }
+
+    val selectedMoodId = MutableLiveData<String>()
+    fun onMoodClicked(id:String) {
+        selectedMoodId.value =id
+    }
+    fun getMoodByPid( ) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+
+                val queryParams = mapOf(
+                    "pid" to PrefsManager().getPatient()?.id.toString() ,
+                    "clientId" to "194",
+                )
+
+
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicGet(
+                        url =  ApiEndPointCorporateModule().getMoodByPid,
+                        params = queryParams
+                    )
+
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, MoodResponse::class.java)
+
+// Store the label in a variable
+                    val moodLabel: String? = parsed.responseValue.firstOrNull()?.moodId.toString()
+                    if (moodLabel != null) {
+                        onMoodClicked(moodLabel)
+                    }
+                    Log.d("RESPONSE", "responseValue: $json")
+
+                } else {
+
+                    _loading.value = false
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
     fun getAllPatientMedication( ) {
         _loading.value = true
 
