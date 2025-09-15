@@ -77,7 +77,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             try {
                 val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
-                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val todayDate = sdf.format(Date())
                 val queryParams = mapOf(
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
