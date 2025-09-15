@@ -1,9 +1,11 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import MoodData
 import PrefsManager
 import Vital
 import android.Manifest
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.AudioRecord
@@ -67,6 +69,15 @@ class CorporateDashBoard : Fragment() {
     private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
 
+    private val moods = listOf(
+        MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
+        MoodData(3,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
+        MoodData(1, "Stressed", "#FF9459",  R.drawable.stressed_mood, "#782E04"),
+        MoodData(4,"Happy", "#9ABDFF",  R.drawable.happy_mood,"#505D87"),
+        MoodData(7,"Good", "#F9C825",  R.drawable.good_mood, "#664F00"),
+        MoodData(6,"Sad",   "#7DE7EE",  R.drawable.sad_mood,  "#3A7478")
+
+    )
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,9 +102,29 @@ class CorporateDashBoard : Fragment() {
             view.findViewById(R.id.nav_medicine),
             view.findViewById(R.id.nav_goals)
         )
+        viewModel.selectedMoodId.observe(viewLifecycleOwner) { moodId ->
+            if (moodId.isNullOrEmpty()) {
 
+            } else {
+
+                val drawableRes = moods.find { it.id.toString() == moodId.toString() }?.emojiRes
+                val feeling = moods.find { it.id.toString() == moodId.toString() }?.name
+                binding.tFeelingBelow.visibility=View.GONE
+                binding.tFeeling.text="Feeling "+feeling
+                if (drawableRes != null) {
+                    binding.ivIllustration.setImageResource(drawableRes)
+                    val layoutParams = binding.ivIllustration.layoutParams
+                    layoutParams.width = dpToPx(344, requireContext())   // 400dp → pixels
+                    layoutParams.height = dpToPx(140, requireContext())
+                    binding.ivIllustration.layoutParams = layoutParams
+
+                       
+                }
+            }
+        }
         setupNav()
         setupBottomNav(view)
+        viewModel.getMoodByPid()
         viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
             if (isConnected) {
                 snackbar?.dismiss()
@@ -137,7 +168,7 @@ class CorporateDashBoard : Fragment() {
         }
 
         waterGoal?.let {
-            binding.waterGoalId.text = "/"+ it.targetValue.toString()+" ml"
+            binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
         }
 
 
@@ -163,13 +194,13 @@ class CorporateDashBoard : Fragment() {
             binding.tvSteps.text= vitalStepsIndex?.vitalValue.toString()
         }
 
-        viewModel.quickMetricListList.observe(viewLifecycleOwner) { vitals ->
-            val efficiencyMetric = viewModel.quickMetricListList.value
+        viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->
+            val efficiencyMetric = quickMetricListList
                 ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
 
             binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
 
-            val sleepId = viewModel.quickMetricListList.value
+            val sleepId = quickMetricListList
                 ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
             binding.sleepId.text =  sleepId?.DisplayText ?: "-"
         }
@@ -207,6 +238,9 @@ class CorporateDashBoard : Fragment() {
             ) {}
         })
 
+        binding.energyLevel.setOnClickListener{
+            findNavController().navigate(R.id.action_dashboard_to_energyTank)
+        }
 
 
 
@@ -340,5 +374,7 @@ class CorporateDashBoard : Fragment() {
             }
         }
     }
-
+    fun dpToPx(dp: Int, context: Context): Int {
+        return (dp * context.resources.displayMetrics.density).toInt()
+    }
 }

@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_dashboard_to_moodFragment"
             app:destination="@id/moodFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_energyTank"
+            app:destination="@id/energyTank" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -379,5 +382,10 @@
         android:id="@+id/moodFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.MoodFragment"
         android:label="MoodFragment" />
+    <fragment
+        android:id="@+id/energyTank"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.EnergyTank"
+        android:label="fragment_energy_tank"
+        tools:layout="@layout/fragment_energy_tank" />
 
 </navigation>

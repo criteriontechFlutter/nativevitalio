@@ -183,6 +183,15 @@
                             <option name="y" value="-1297" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_corporateDashBoard_to_moodFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -258,6 +267,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_leaderboardFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -396,6 +410,18 @@
                           <Point>
                             <option name="x" value="611" />
                             <option name="y" value="98" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="energyTank">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-2027" />
+                            <option name="y" value="-1293" />
                           </Point>
                         </option>
                       </LayoutPositions>
