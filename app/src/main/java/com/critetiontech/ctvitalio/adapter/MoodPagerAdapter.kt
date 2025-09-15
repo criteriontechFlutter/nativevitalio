@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.databinding.ItemMoodBinding
 
-class MoodAdapter(private val moods: List<MoodData>) :
+class MoodAdapter(private val moods: List<Mood> ) :
     RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
 
     inner class MoodViewHolder(val binding: ItemMoodBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(mood: MoodData) {
-            binding.moodEmoji.setImageResource(mood.emojiRes)
-            binding.moodTitle.text = mood.name
+        fun bind(mood: Mood) {
+                binding.moodEmoji.setImageResource(mood.emojiRes)
+
+            binding.moodTitle.text = mood.label
             binding.root.setBackgroundColor(Color.TRANSPARENT)
         }
     }
@@ -33,6 +34,7 @@ class MoodAdapter(private val moods: List<MoodData>) :
 }
 
 data class MoodData(
+    val id: Int,
     val name: String,
     val color: String,
     val emojiRes: Int,

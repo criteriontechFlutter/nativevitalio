@@ -35,6 +35,7 @@ activityCompose = "1.10.1"
 composeBom = "2023.08.00"
 firebaseFirestoreKtx = "25.1.4"
 workRuntimeKtx = "2.10.3"
+coreAnimation = "1.0.0"
 
 [libraries]
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawable" }
@@ -83,6 +84,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+androidx-core-animation = { group = "androidx.core", name = "core-animation", version.ref = "coreAnimation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
