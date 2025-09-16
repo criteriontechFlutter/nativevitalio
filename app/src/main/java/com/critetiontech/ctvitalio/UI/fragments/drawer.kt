@@ -113,7 +113,7 @@ class drawer : Fragment() {
 
     private fun showProfileImageBottomSheet() {
         val bottomSheetView = layoutInflater.inflate(R.layout.upload_profile_img, null)
-        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        val dialog = BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(bottomSheetView)
 
         val btnTake = bottomSheetView.findViewById<LinearLayout>(R.id.imgTake)
@@ -121,7 +121,7 @@ class drawer : Fragment() {
 
         btnTake.setOnClickListener {
             dialog.dismiss()
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED
             ) {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
