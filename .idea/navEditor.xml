@@ -25,8 +25,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1309" />
-                            <option name="y" value="-827" />
+                            <option name="x" value="-953" />
+                            <option name="y" value="-1274" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -179,12 +179,17 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1569" />
-                            <option name="y" value="-1297" />
+                            <option name="x" value="-1593" />
+                            <option name="y" value="-1372" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_corporateDashBoard_to_challengeDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
@@ -216,6 +221,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_challengeDetailsFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_challenges">
                               <value>
                                 <LayoutPositions />
@@ -242,6 +252,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_drawer4">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_energyTank">
                               <value>
                                 <LayoutPositions />
                               </value>

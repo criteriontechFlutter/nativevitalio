@@ -24,12 +24,14 @@ data class SleepValue(
     val Title: String,
     val BedtimeStart: String,
     val BedtimeEnd: String,
-    val Details: SleepDetails
-)
-
-data class SleepDetails(
+    val SleepScore: SleepScore,
     val QuickMetrics: List<QuickMetric>?
 )
+
+//data class SleepDetails(
+//    val Score: Int,
+//    val QuickMetrics: List<QuickMetric>?
+//)
 // Vital object
 data class Vital(
     val uhid: String? = null,
@@ -37,6 +39,7 @@ data class Vital(
     val vitalID: Int = 0,
     var vitalName: String? = null,
     var vitalValue: Double = 0.0,
+    var totalValue: Double = 0.0,
     var unit: String? = null,
     var vitalDateTime: String? = null,
     val userId: Int = 0,
@@ -52,6 +55,10 @@ data class QuickMetric(
 
 data class Value(
     val ValueKind: Int
+)
+
+data class SleepScore(
+    val Score: Int
 )
 // Avg values
 data class AllVitalAvg(
