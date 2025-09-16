@@ -15,6 +15,7 @@ import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -101,7 +102,8 @@ class CorporateDashBoard : Fragment() {
             view.findViewById(R.id.nav_goals)
         )
         viewModel.selectedMoodId.observe(viewLifecycleOwner) { moodId ->
-            if (moodId.isNullOrEmpty()) {
+            Log.d("TAG", "onViewCreated: "+moodId.toString());
+            if (moodId==null || moodId.toString().trim()=="null") {
                 binding.ivIllustration.setImageResource(R.drawable.moods)
                 binding.tFeelingBelow.visibility=View.VISIBLE
                 val text = "How are you feeling now?"
@@ -123,7 +125,7 @@ class CorporateDashBoard : Fragment() {
                 val drawableRes = moods.find { it.id.toString() == moodId.toString() }?.emojiRes
                 val feeling = moods.find { it.id.toString() == moodId.toString() }?.name
                 binding.tFeelingBelow.visibility=View.GONE
-                binding.tFeeling.text="Feeling "+feeling
+                binding.tFeeling.text= "Feeling $feeling"
                 if (drawableRes != null) {
                     binding.ivIllustration.setImageResource(drawableRes)
                     val layoutParams = binding.ivIllustration.layoutParams
