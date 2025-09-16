@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.MedicineAdapter
+import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -156,7 +157,26 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
 
+        challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
 
+
+        challengesViewModel.getNewChallenge()
+        challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
+            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
+                list,
+                onItemClick =  { challenge ->
+                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                },
+                onItemClick1 =  { challenge ->
+                    val bundle = Bundle().apply {
+                        putSerializable("challenges", challenge)
+                    }
+                   // findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+
+                }
+            )
+
+        }
 
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
         val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
@@ -181,10 +201,10 @@ class CorporateDashBoard : Fragment() {
 
         binding.ivIllustration.postDelayed({
             binding.ivIllustration.startAnimation(animation)
-        }, 600)
+        }, 2000)
         binding.contentScroll.postDelayed({
             binding.contentScroll.startAnimation(animation)
-        }, 1200)
+        }, 5000)
 
 
 
@@ -290,14 +310,14 @@ class CorporateDashBoard : Fragment() {
 
 //            finalVitalList.addAll(filtered)
 
-            adapter = DashboardAdapter(requireContext(), finalVitalList) { vitalType ->
-                val bundle = Bundle().apply {
-                    putString("vitalType", vitalType)
-                }
-                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-
-            }
-            binding.vitalsSlider.adapter = adapter
+//            adapter = DashboardAdapter(requireContext(), finalVitalList) { vitalType ->
+//                val bundle = Bundle().apply {
+//                    putString("vitalType", vitalType)
+//                }
+//                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+//
+//            }
+//            binding.vitalsSlider.adapter = adapter
 
         }
 
@@ -306,17 +326,17 @@ class CorporateDashBoard : Fragment() {
 
 
 
-        binding.recyclerMedicines.layoutManager = LinearLayoutManager(requireContext())
-
-// Sample data
-        val medicineList = listOf(
-            Medicine("Metformin 500mg", "8:00 AM", "Taken"),
-            Medicine("Omega-3", "6:00 AM", "Taken"),
-            Medicine("Vitamin D", "9:00 AM", "Missed")
-        )
-
-        val adapter = MedicineAdapter(medicineList)
-        binding.recyclerMedicines.adapter = adapter
+//        binding.recyclerMedicines.layoutManager = LinearLayoutManager(requireContext())
+//
+//// Sample data
+//        val medicineList = listOf(
+//            Medicine("Metformin 500mg", "8:00 AM", "Taken"),
+//            Medicine("Omega-3", "6:00 AM", "Taken"),
+//            Medicine("Vitamin D", "9:00 AM", "Missed")
+//        )
+//
+//        val adapter = MedicineAdapter(medicineList)
+//        binding.recyclerMedicines.adapter = adapter
     }
     private fun openNewFragment() {
         findNavController().navigate(R.id.moodFragment)

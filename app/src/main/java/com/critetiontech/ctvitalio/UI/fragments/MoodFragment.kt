@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +71,9 @@ class MoodFragment : Fragment() {
                 .inflateTransition(R.transition.change_image_transform)
         // Listen for page change
         viewModel.getMoodByPid()
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
         viewModel.moodsLiveData.observe(viewLifecycleOwner) { moodsFromApi ->
             val moodDataList = moodsFromApi.map { apiMood ->
                 val drawableRes = moods.find { it.id == apiMood.id }?.emojiRes
