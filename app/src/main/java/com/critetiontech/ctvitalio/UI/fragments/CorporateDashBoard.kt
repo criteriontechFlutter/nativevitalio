@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -28,14 +29,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.MedicineAdapter
-import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -52,7 +50,6 @@ class CorporateDashBoard : Fragment() {
     private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
-    private lateinit var toTakeAdapter: ToTakeAdapter
     private var voiceDialog: Dialog? = null
     private var snackbar: Snackbar? = null
     private var currentPage = 0
@@ -104,7 +101,22 @@ class CorporateDashBoard : Fragment() {
         )
         viewModel.selectedMoodId.observe(viewLifecycleOwner) { moodId ->
             if (moodId.isNullOrEmpty()) {
+                binding.ivIllustration.setImageResource(R.drawable.moods)
+                binding.tFeelingBelow.visibility=View.VISIBLE
+                val text = "How are you feeling now?"
+                val spannable = SpannableString(text)
 
+                // Change only the word "feeling" to orange
+                val start = text.indexOf("feeling")
+                val end = start + "feeling".length
+                spannable.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#FFA500")), // Orange color
+                    start,
+                    end,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                binding.tFeeling.text = spannable
             } else {
 
                 val drawableRes = moods.find { it.id.toString() == moodId.toString() }?.emojiRes
@@ -145,32 +157,34 @@ class CorporateDashBoard : Fragment() {
         }
 
 
-        val text = "How are you feeling now?"
-        val spannable = SpannableString(text)
 
-        // Change only the word "feeling" to orange
-        val start = text.indexOf("feeling")
-        val end = start + "feeling".length
-        spannable.setSpan(
-            ForegroundColorSpan(Color.parseColor("#FFA500")), // Orange color
-            start,
-            end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-       binding.tFeeling.text = spannable
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
         val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
         val sleepGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
 
         stepsGoal?.let {
-            binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
+           // binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
         }
 
         waterGoal?.let {
             binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
         }
 
+        val animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.item_animation_from_bottom)
+
+        // Start animations with delay one by one
+        binding.tFeeling.startAnimation(animation)
+
+        binding.tFeelingBelow.postDelayed({
+            binding.tFeelingBelow.startAnimation(animation)
+        }, 300)
+
+        binding.ivIllustration.postDelayed({
+            binding.ivIllustration.startAnimation(animation)
+        }, 600)
+        binding.contentScroll.postDelayed({
+            binding.contentScroll.startAnimation(animation)
+        }, 1200)
 
 
 
@@ -191,7 +205,7 @@ class CorporateDashBoard : Fragment() {
             val vitalStepsIndex = vitals.find { it.vitalName.equals("Steps", ignoreCase = true) }
             binding.tvMovementIndex.text= vitalMovementIndex?.vitalValue.toString()
             binding.tvRecoveryIndex.text= vitalRecoveryIndex?.vitalValue.toString()
-            binding.tvSteps.text= vitalStepsIndex?.vitalValue.toString()
+            binding.tvStepss.text= vitalStepsIndex?.vitalValue.toString()
         }
 
         viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->
