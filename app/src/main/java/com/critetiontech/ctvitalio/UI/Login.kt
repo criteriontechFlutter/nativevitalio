@@ -162,7 +162,7 @@ enableEdgeToEdge()
                 binding.upperground.setBackgroundColor(Color.parseColor("#FFDD00"))
                 binding.validationId.visibility=View.GONE
 
-                if(PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="0"){
+                if(PrefsManager().getPatient()?.isFirstLoginCompleted.toString()=="1"){
                     ConfirmUpdateDialog(
                         title = "Login Successful",
                         message = "Hello "+ PrefsManager().getPatient()?.patientName.toString()+"." +

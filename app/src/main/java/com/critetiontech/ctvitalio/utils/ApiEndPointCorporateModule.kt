@@ -13,4 +13,5 @@ class ApiEndPointCorporateModule {
 
 
     val insertEnergyTankMaster="api/EnergyTankMaster/InsertEnergyTankMaster"
+    val getAllEnergyTankMaster="api/EnergyTankMaster/GetAllEnergyTankMaster"
 }

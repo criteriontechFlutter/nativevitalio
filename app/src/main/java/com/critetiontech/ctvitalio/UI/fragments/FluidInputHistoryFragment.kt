@@ -54,7 +54,7 @@ class FluidInputHistoryFragment : Fragment() {
         updateToggleStyles(binding.fluidToggleGroup.checkedButtonId)
 
         viewModel = ViewModelProvider(this)[FluidIntakeOuputViewModel::class.java]
-        PrefsManager().getPatient()?.let { viewModel.fetchManualFluidIntake(it.uhID) }
+        PrefsManager().getPatient()?.let { viewModel.fetchManualFluidIntake(it.empId) }
 
         viewModel.intakeList.observe(viewLifecycleOwner) { list ->
             fluidIntakeAdapter = FluidIntakeLogAdapter(list)

@@ -62,7 +62,7 @@ class FluidFragment : Fragment() {
 
 
 
-        updateToggleStyles(binding.fluidToggleGroup.checkedButtonId)
+//        updateToggleStyles(binding.fluidToggleGroup.checkedButtonId)
 
 
         binding.historyBtn.setOnClickListener {
@@ -219,31 +219,31 @@ class FluidFragment : Fragment() {
 
 
         // Listen for changes
-        binding.fluidToggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if (isChecked) {
-                updateToggleStyles(checkedId)
-
-                when (checkedId) {
-                    R.id.btnIntake -> {
-                        viewModel.setSelectedIntakeButton(false)
-                        binding.fluidIntakeLayout.visibility=VISIBLE
-                        binding.outPutLayout.visibility=GONE
-                        binding.btnAddIntake.text="Add Intake"
-                        // Handle Fluid Intake click
-                    }
-
-                    R.id.btnOutput -> {
-                        viewModel.setSelectedIntakeButton(true)
-                        binding.fluidIntakeLayout.visibility=GONE
-                        binding.outPutLayout.visibility=VISIBLE
-                        binding.btnAddIntake.text="Update"
-                        // Handle Fluid Output click
-                    }
-                }
-            }
-
-
-        }
+//        binding.fluidToggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+//            if (isChecked) {
+//                updateToggleStyles(checkedId)
+//
+//                when (checkedId) {
+//                    R.id.btnIntake -> {
+//                        viewModel.setSelectedIntakeButton(false)
+//                        binding.fluidIntakeLayout.visibility=VISIBLE
+//                        binding.outPutLayout.visibility=GONE
+//                        binding.btnAddIntake.text="Add Intake"
+//                        // Handle Fluid Intake click
+//                    }
+//
+//                    R.id.btnOutput -> {
+//                        viewModel.setSelectedIntakeButton(true)
+//                        binding.fluidIntakeLayout.visibility=GONE
+//                        binding.outPutLayout.visibility=VISIBLE
+//                        binding.btnAddIntake.text="Update"
+//                        // Handle Fluid Output click
+//                    }
+//                }
+//            }
+//
+//
+//        }
 
 
 
@@ -468,20 +468,20 @@ class FluidFragment : Fragment() {
 
 
 
-    private fun updateToggleStyles(checkedId: Int) {
-        val buttons = listOf(binding.btnIntake, binding.btnOutput)
-        for (button in buttons) {
-            if (button.id == checkedId) {
-                button.run {
-                    setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.blue))
-                    setTextColor(resources.getColor(R.color.dashboardIconBg))
-                }
-            } else {
-                button.setBackgroundColor(Color.WHITE)
-                button.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gray))
-            }
-        }
-    }
+//    private fun updateToggleStyles(checkedId: Int) {
+//        val buttons = listOf(binding.btnIntake, binding.btnOutput)
+//        for (button in buttons) {
+//            if (button.id == checkedId) {
+//                button.run {
+//                    setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.blue))
+//                    setTextColor(resources.getColor(R.color.dashboardIconBg))
+//                }
+//            } else {
+//                button.setBackgroundColor(Color.WHITE)
+//                button.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gray))
+//            }
+//        }
+//    }
 
 }
 
