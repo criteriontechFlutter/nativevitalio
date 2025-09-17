@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_dashboard_to_energyTank"
             app:destination="@id/energyTank" />
+        <action
+            android:id="@+id/action_dashboard_to_wellnessMetrics"
+            app:destination="@id/wellnessMetrics" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -377,6 +380,12 @@
         <action
             android:id="@+id/action_corporateDashBoard_to_moodFragment"
             app:destination="@id/moodFragment" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_connection"
+            app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_wellnessMetrics"
+            app:destination="@id/wellnessMetrics" />
     </fragment>
     <fragment
         android:id="@+id/moodFragment"
@@ -387,5 +396,9 @@
         android:name="com.critetiontech.ctvitalio.UI.fragments.EnergyTank"
         android:label="fragment_energy_tank"
         tools:layout="@layout/fragment_energy_tank" />
+    <fragment
+        android:id="@+id/wellnessMetrics"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.WellnessMetrics"
+        android:label="WellnessMetrics" />
 
 </navigation>

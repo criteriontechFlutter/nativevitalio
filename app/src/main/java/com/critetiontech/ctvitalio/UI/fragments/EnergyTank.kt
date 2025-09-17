@@ -69,9 +69,8 @@ class EnergyTank : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.tvSkip.setOnClickListener(){
-            findNavController().popBackStack()
-        }
+
+
         updateEnergyUI(energyLevel)
     }
     /**

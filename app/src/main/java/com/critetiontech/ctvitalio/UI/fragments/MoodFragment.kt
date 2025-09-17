@@ -59,6 +59,7 @@ class MoodFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MoodViewModel::class.java]
 
 
+
         viewModel.onMoodClicked("5")
         // Make it behave like pager (one item per swipe)
         val snapHelper = PagerSnapHelper()

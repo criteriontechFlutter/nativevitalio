@@ -59,8 +59,8 @@
 
             <!-- Top Section with User Info -->
 
-            android:paddingTop="40dp"
-            android:background="@color/primaryBlue">
+<!--            android:paddingTop="40dp"-->
+<!--            android:background="@color/primaryBlue">-->
 
             <!-- User Avatar -->
             <!-- Back Arrow -->
@@ -82,19 +82,19 @@
             <!-- User Avatar -->
 
 
-            <TextView
-                android:id="@+id/tvSkip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="16dp"
-                android:text="Skip"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvSkip"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="16dp"-->
+<!--                android:layout_marginTop="28dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:text="Skip"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userAvatar"

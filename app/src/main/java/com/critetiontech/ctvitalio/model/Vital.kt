@@ -131,3 +131,21 @@ data class Mood(
     val description: String,
     val emojiRes: Int,   // Drawable resource ID
 )
+
+
+data class EnergyResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<EnergyItem>
+)
+
+data class EnergyItem(
+    val id: Int,
+    val pid: Int,
+    val energyPercentage: Int,
+    val statusLabel: String,
+    val userId: Int,
+    val clientId: Int,
+    val status: Boolean,
+    val createdDate: String
+)

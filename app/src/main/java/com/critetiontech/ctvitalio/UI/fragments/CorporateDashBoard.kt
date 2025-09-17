@@ -16,14 +16,17 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +38,8 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.MedicineAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
+import com.critetiontech.ctvitalio.adapter.ProgressCard
+import com.critetiontech.ctvitalio.adapter.ProgressCardAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -44,6 +49,7 @@ import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.WebSocket
+import kotlin.math.abs
 
 
 class CorporateDashBoard : Fragment() {
@@ -126,11 +132,24 @@ class CorporateDashBoard : Fragment() {
                 val feeling = moods.find { it.id.toString() == moodId.toString() }?.name
                 binding.tFeelingBelow.visibility=View.GONE
                 binding.tFeeling.text= "Feeling $feeling"
+
+                binding.tFeeling.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
+
+                val params = binding.tFeeling.layoutParams as ConstraintLayout.LayoutParams
+                params.verticalBias = 0.1f  // move it down
+                binding.tFeeling.layoutParams = params
+
                 if (drawableRes != null) {
                     binding.ivIllustration.setImageResource(drawableRes)
+
+
+                    val params = binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams
+                    params.verticalBias = -0.14f  // move it down
+                    binding.ivIllustration.layoutParams = params
+
                     val layoutParams = binding.ivIllustration.layoutParams
-                    layoutParams.width = dpToPx(344, requireContext())   // 400dp → pixels
-                    layoutParams.height = dpToPx(140, requireContext())
+                    layoutParams.width = dpToPx(374, requireContext())   // 400dp → pixels
+                    layoutParams.height = dpToPx(203, requireContext())
                     binding.ivIllustration.layoutParams = layoutParams
 
                        
@@ -140,6 +159,14 @@ class CorporateDashBoard : Fragment() {
         setupNav()
         setupBottomNav(view)
         viewModel.getMoodByPid()
+        viewModel.getAllEnergyTankMaster()
+
+
+
+        viewModel.fetchManualFluidIntake(uhid = PrefsManager().getPatient()?.empId.toString())
+
+
+        viewModel.getVitals()
         viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
             if (isConnected) {
                 snackbar?.dismiss()
@@ -161,8 +188,37 @@ class CorporateDashBoard : Fragment() {
 
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
 
-
         challengesViewModel.getNewChallenge()
+        viewModel.fluidList.observe(viewLifecycleOwner) { list ->
+            val waterQty = list
+                .firstOrNull { it.id.toString() == "97694" }
+                ?.amount?.toFloat() ?: 0f  // convert safely to Float
+
+
+            binding.intakeWaterId.text=waterQty.toString()
+
+
+
+            val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
+
+
+            waterGoal?.let {
+                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+
+                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
+                binding.intakeWaterId.text=waterQty.toString()
+// Now set progress
+                binding.waterproGress.setProgress(progress)
+
+
+            }
+
+
+        }
+
+
+
+
         challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list,
@@ -190,6 +246,14 @@ class CorporateDashBoard : Fragment() {
 
         waterGoal?.let {
             binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+
+
+
+
+
+        }
+        binding.waterContId.setOnClickListener(){
+            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
         }
 
         val animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.item_animation_from_bottom)
@@ -274,11 +338,15 @@ class CorporateDashBoard : Fragment() {
             ) {}
         })
 
-        binding.energyLevel.setOnClickListener{
+        binding.energyCard.setOnClickListener{
             findNavController().navigate(R.id.action_dashboard_to_energyTank)
         }
-
-
+        binding.energyCard.setOnClickListener{
+            findNavController().navigate(R.id.action_dashboard_to_energyTank)
+        }
+         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
+             binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
+        }
 
 //
 //// Change color dynamically
@@ -287,6 +355,16 @@ class CorporateDashBoard : Fragment() {
 // Update multiple metrics
         //updateWellnessData(78f, 92f, 85f, 82f)
 
+        binding.linearLayout3.setOnClickListener()
+        {
+
+            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
+        }
+        binding.addvitalBtn.setOnClickListener()
+        {
+
+            findNavController().navigate(R.id.action_dashboard_to_connection )
+        }
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             val adapter: DashboardAdapter
@@ -307,8 +385,13 @@ class CorporateDashBoard : Fragment() {
                     unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
                     vitalDateTime = bpSys.vitalDateTime
                 }
+
+                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
                 finalVitalList.add(bpVital)
             }
+
+
+
 
 //            finalVitalList.addAll(filtered)
 
@@ -320,7 +403,22 @@ class CorporateDashBoard : Fragment() {
 //
 //            }
 //            binding.vitalsSlider.adapter = adapter
-
+//            val cards = listOf(
+//                ProgressCard("👍", "You're making progress", "Last night's sleep is fueling today's focus and calm."),
+//                ProgressCard("🔥", "Great energy!", "Your activity is keeping your momentum high."),
+//                ProgressCard("💧", "Stay hydrated", "Water helps keep your focus sharp.")
+//            )
+//
+//            val adapters = ProgressCardAdapter(cards)
+//            binding.progressViewPager.adapter = adapters
+//
+//            binding.dotsIndicator.attachTo(binding.progressViewPager)
+//
+//            binding.progressViewPager.setPageTransformer { page, position ->
+//                page.translationX = -40 * position   // overlap effect
+//                page.scaleY = 1 - (0.1f * abs(position))  // shrink side pages
+//                page.alpha = 0.8f + (1 - abs(position)) * 0.2f
+//            }
         }
 
 
