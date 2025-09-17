@@ -229,7 +229,7 @@ class CorporateDashBoard : Fragment() {
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge)
                     }
-                   // findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+                     findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
 
                 }
             )
@@ -260,17 +260,21 @@ class CorporateDashBoard : Fragment() {
 
         // Start animations with delay one by one
         binding.tFeeling.startAnimation(animation)
+        binding.tFeeling.postDelayed({
+            binding.tFeeling.startAnimation(animation)
+        }, 3000)
+
 
         binding.tFeelingBelow.postDelayed({
             binding.tFeelingBelow.startAnimation(animation)
-        }, 300)
+        }, 5000)
 
         binding.ivIllustration.postDelayed({
             binding.ivIllustration.startAnimation(animation)
-        }, 2000)
+        }, 6000)
         binding.contentScroll.postDelayed({
             binding.contentScroll.startAnimation(animation)
-        }, 5000)
+        }, 7500)
 
 
 
@@ -288,10 +292,12 @@ class CorporateDashBoard : Fragment() {
             // Example: submit to RecyclerView adapter
             val vitalMovementIndex = vitals.find { it.vitalName.equals("MovementIndex", ignoreCase = true) }
             val vitalRecoveryIndex = vitals.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+            val activeMinutes = vitals.find { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
             val vitalStepsIndex = vitals.find { it.vitalName.equals("Steps", ignoreCase = true) }
-            binding.tvMovementIndex.text= vitalMovementIndex?.vitalValue.toString()
-            binding.tvRecoveryIndex.text= vitalRecoveryIndex?.vitalValue.toString()
-            binding.tvStepss.text= vitalStepsIndex?.vitalValue.toString()
+            binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
+            binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
+            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.totalValue)+" steps"
+            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.totalValue)+" mins"
         }
 
         viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->

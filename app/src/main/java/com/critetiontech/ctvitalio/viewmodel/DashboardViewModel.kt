@@ -109,11 +109,15 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                     sleepMetric243?.vitalValue?.let { vitalValueJson ->
                         try {
-                            // parse the nested JSON string
-                            val sleepValue = Gson().fromJson(vitalValueJson, SleepValue::class.java)
+                            val cleanedJson = vitalValueJson
+                                .trim('"')                  // remove starting/ending quotes
+                                .replace("\\\"", "\"")      // unescape quotes
 
-                            // extract QuickMetrics
-                            _quickMetricList.value = sleepValue.Details.QuickMetrics ?: emptyList()
+                            val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
+
+                            Log.d("TAG", "Sleep Score: ${sleepValue.SleepScore.Score}")
+                            _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+
                         } catch (e: Exception) {
                             e.printStackTrace()
                             _quickMetricList.value = emptyList()

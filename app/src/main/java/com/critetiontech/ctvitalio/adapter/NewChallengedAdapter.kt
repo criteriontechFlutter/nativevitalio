@@ -52,7 +52,7 @@ class NewChallengedAdapter (
         shape.shape = GradientDrawable.RECTANGLE
         shape.cornerRadius = 48f
         shape.setColor(darkColor)
-        binding.joinNowButton.background = shape
+       // binding.joinNowButton.background = shape
 
         if(item.getPeopleJoinedList().any { it.empId == PrefsManager().getPatient()?.empId.toString() }){
             binding.joinNowButton.isEnabled = false
