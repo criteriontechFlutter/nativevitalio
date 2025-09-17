@@ -79,6 +79,9 @@
             android:id="@+id/action_dashboard_to_energyTank"
             app:destination="@id/energyTank" />
         <action
+            android:id="@+id/action_dashboard_to_challengeDetailsFragment2"
+            app:destination="@id/challengeDetailsFragment" />
+        <action
             android:id="@+id/action_dashboard_to_wellnessMetrics"
             app:destination="@id/wellnessMetrics" />
     </fragment>
@@ -386,6 +389,9 @@
         <action
             android:id="@+id/action_corporateDashBoard_to_wellnessMetrics"
             app:destination="@id/wellnessMetrics" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moodFragment"

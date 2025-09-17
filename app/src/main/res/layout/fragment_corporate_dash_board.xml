@@ -131,6 +131,8 @@
                 android:layout_width="300dp"
                 android:layout_height="130dp"
                 android:src="@drawable/moods"
+                android:adjustViewBounds="true"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1080,6 +1082,7 @@ android:paddingRight="13dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="12dp"
                     android:text="Activities"
+                    android:layout_marginTop="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />

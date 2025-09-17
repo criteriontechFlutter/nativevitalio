@@ -165,7 +165,7 @@ class SetYourOwnGoal : Fragment() {
              if(metrics.any{
                      it.isSelected
                  }){
-                 binding.btnNext.text="Finsh"
+                 binding.btnNext.text="Finish"
              }
         }
          val recyclerView = binding.metricsRecyclerView
