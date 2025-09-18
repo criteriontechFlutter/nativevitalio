@@ -177,19 +177,19 @@ class AdressFragment : Fragment() {
         // NEXT BUTTON
         binding.btnNext.setOnClickListener {
 
-//            if (binding.etCountry.text.isNullOrEmpty() ||
-//                binding.etState.text.isNullOrEmpty() ||
-//                binding.etCity.text.isNullOrEmpty() ||
-//                binding.etStreet.text.isNullOrEmpty()
-//            ) {
-//                Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()
-//            } else {
-                progressViewModel.updateProgress(5)
-                progressViewModel.updatepageNo(5)
+            if (binding.etCountry.text.isNullOrEmpty() ||
+                binding.etState.text.isNullOrEmpty() ||
+                binding.etCity.text.isNullOrEmpty() ||
+                binding.etStreet.text.isNullOrEmpty()
+            ) {
+                Toast.makeText(requireContext(), "Please complete address fields", Toast.LENGTH_SHORT).show()
+            } else {
+                progressViewModel.updateProgress(2)
+                progressViewModel.updatepageNo(2)
                 viewModel.pinCode.value = binding.etPinCode.text.toString()
                 viewModel.streetAddress.value = binding.etStreet.text.toString()
                 findNavController().navigate(R.id.action_adressFragment_to_weightFragment)
-//            }
+            }
         }
     }
 

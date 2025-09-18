@@ -47,21 +47,34 @@ class ChronicConditionFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString().trim()
                 if (input.isNotEmpty()) {
-                    viewModel.getProblemList(input)
+                    viewModel.getProblemList(input.toString())
                     binding.chronicDis.setDropDownBackgroundResource(android.R.color.white)
                     binding.chronicDis.showDropDown()
                 }
             }
         }
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
+
+        binding.chronicDis.addTextChangedListener(textWatcher)
+
+        viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
+            if (!problemList.isNullOrEmpty()) {
+                latestSuggestions = problemList.map { capitalizeFirstLetter(it.problemName) }
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, latestSuggestions)
+                binding.chronicDis.setAdapter(adapter)
+            }
         }
+
+
+//        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+//            if (isLoading) showLoading() else hideLoading()
+//        }
 
         binding.chronicDis.addTextChangedListener(textWatcher)
         binding.chronicDis.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // Hide keyboard when the AutoCompleteTextView has focus and shows the dropdown
                 hideKeyboard()
+                binding.chronicDis.showDropDown()
             }
         }
         binding.chronicDis.setOnItemClickListener { parent, _, position, _ ->
@@ -77,13 +90,6 @@ class ChronicConditionFragment : Fragment() {
             }
         }
 
-        viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
-            if (!problemList.isNullOrEmpty()) {
-                latestSuggestions = problemList.map { capitalizeFirstLetter(it.problemName)  }
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, latestSuggestions)
-                binding.chronicDis.setAdapter(adapter)
-            }
-        }
 
         viewModel.selectedDiseaseList.observe(viewLifecycleOwner) { list ->
             binding.selectedListContainer.removeAllViews()
@@ -96,12 +102,12 @@ class ChronicConditionFragment : Fragment() {
             val summary = viewModel.selectedDiseaseList.value
                 ?.joinToString(", ") { it["details"] ?: "" } ?: ""
 
-            progressViewModel.updateProgress(7)
-            progressViewModel.updatepageNo(8)
+            progressViewModel.updateProgress(5)
+            progressViewModel.updatepageNo(5)
             progressViewModel.updateotherChronical(101)
 
             viewModel.chronicDisease.value = summary
-            findNavController().navigate(R.id.action_chronicConditionFragment_to_otherChronicDisease)
+            findNavController().navigate(R.id.action_chronicConditionFragment_to_familyDiseaseFragment)
         }
     }
     fun capitalizeFirstLetter(sentence: String): String {

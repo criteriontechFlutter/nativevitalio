@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_item_player"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/rankText"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/bg_current_user"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/badge_circle_red"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/gemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="230"
+        android:drawableLeft="@drawable/red_dot"
+        android:drawablePadding="4dp"
+        android:textStyle="bold"
+        android:textColor="#D60000" />
+</LinearLayout>

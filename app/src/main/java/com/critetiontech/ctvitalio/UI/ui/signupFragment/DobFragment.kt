@@ -63,7 +63,7 @@ class DobFragment : Fragment() {
 
             progressViewModel.updateProgress(3)
             progressViewModel.updatepageNo(3)
-            findNavController().navigate(R.id.action_dobFragment_to_bloodGroupFragment)
+//            findNavController().navigate(R.id.action_dobFragment_to_bloodGroupFragment)
         }
     }
 }

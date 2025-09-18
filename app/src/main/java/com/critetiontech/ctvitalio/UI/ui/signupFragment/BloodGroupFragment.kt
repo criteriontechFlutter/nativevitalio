@@ -72,8 +72,8 @@ class BloodGroupFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
 //            if (selectedBloodGroup != null) {
-                progressViewModel.updateProgress(4)
-                progressViewModel.updatepageNo(4)
+                progressViewModel.updateProgress(1)
+                progressViewModel.updatepageNo(1)
                 findNavController().navigate(R.id.action_bloodGroupFragment_to_adressFragment)
 //            } else {
 //                Toast.makeText(requireContext(), "Please select a blood group", Toast.LENGTH_SHORT).show()

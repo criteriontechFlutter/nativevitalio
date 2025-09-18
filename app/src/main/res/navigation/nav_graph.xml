@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/nameFragment">
+    app:startDestination="@id/bloodGroupFragment">
 
     <!--<fragment
         android:id="@+id/uhidFragment"
@@ -13,37 +13,11 @@
             android:id="@+id/action_uhidFragment_to_otpFragment"
             app:destination="@id/otpFragment" />
     </fragment>-->
-    <fragment
-        android:id="@+id/nameFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment2"
-        android:label="Enter Name"
-        tools:layout="@layout/fragment_sign_up2" >
-        <action
-            android:id="@+id/action_nameFragment_to_genderFragment"
-            app:destination="@id/genderFragment" />
-    </fragment>
 
-    <fragment
-        android:id="@+id/genderFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
-        android:label="Select Gender"
-        tools:layout="@layout/fragment_signup_select_gender" >
-        <action
-            android:id="@+id/action_genderFragment_to_dobFragment"
-            app:destination="@id/dobFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/dobFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.DobFragment"
-        android:label="Enter DOB"
-        tools:layout="@layout/fragment_dob" >
-        <action
-            android:id="@+id/action_dobFragment_to_bloodGroupFragment"
-            app:destination="@id/bloodGroupFragment" />
-    </fragment>
-    <action
-        android:id="@+id/action_dobFragment_to_nameFragment"
-        app:destination="@id/nameFragment" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="signUpFragment2" />-->
     <fragment
         android:id="@+id/bloodGroupFragment"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.BloodGroupFragment"
@@ -88,6 +62,9 @@
         <action
             android:id="@+id/action_chronicConditionFragment_to_otherChronicDisease2"
             app:destination="@id/otherChronicDisease" />
+        <action
+            android:id="@+id/action_chronicConditionFragment_to_familyDiseaseFragment"
+            app:destination="@id/familyDiseaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/adressFragment"
@@ -116,20 +93,14 @@
         <action
             android:id="@+id/action_familyDiseaseFragment_to_createAccount2"
             app:destination="@id/createAccount2" />
+        <action
+            android:id="@+id/action_familyDiseaseFragment_to_addYourPhoto"
+            app:destination="@id/addYourPhoto" />
     </fragment>
     <fragment
         android:id="@+id/createAccount2"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.CreateAccount"
         android:label="CreateAccount" >
-        <action
-            android:id="@+id/action_createAccount2_to_nameFragment"
-            app:destination="@id/nameFragment" />
-        <action
-            android:id="@+id/action_createAccount2_to_genderFragment"
-            app:destination="@id/genderFragment" />
-        <action
-            android:id="@+id/action_createAccount2_to_dobFragment"
-            app:destination="@id/dobFragment" />
         <action
             android:id="@+id/action_createAccount2_to_bloodGroupFragment"
             app:destination="@id/bloodGroupFragment" />
@@ -191,4 +162,16 @@
         android:id="@+id/completionDashboardReady"
         android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.CompletionDashboardReady"
         android:label="CompletionDashboardReady" />
+    <fragment
+        android:id="@+id/addYourPhoto"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AddYourPhoto"
+        android:label="AddYourPhoto" >
+        <action
+            android:id="@+id/action_addYourPhoto_to_setYourOwnGoal"
+            app:destination="@id/setYourOwnGoal" />
+    </fragment>
+    <fragment
+        android:id="@+id/setYourOwnGoal"
+        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SetYourOwnGoal"
+        android:label="SetYourOwnGoal" />
 </navigation>

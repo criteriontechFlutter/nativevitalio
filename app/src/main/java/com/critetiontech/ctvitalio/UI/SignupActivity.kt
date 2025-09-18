@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI
 
+import ProgressAdapter
 import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
@@ -19,6 +20,9 @@ import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
 import com.critetiontech.ctvitalio.databinding.ActivitySignupBinding
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import androidx.navigation.NavOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 class SignupActivity : AppCompatActivity() {
 
 
@@ -27,6 +31,8 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var progressViewModel: ProgressViewModel
     private lateinit var viewModel: RegistrationViewModel
     lateinit var mobileNo: String
+    private lateinit var progressAdapter: ProgressAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,42 +52,41 @@ class SignupActivity : AppCompatActivity() {
         viewModel.mobileNo.value = mobileNo
         Log.d("RESPONSE", "phoneOrUHID6: $mobileNo")
 
-
-
+        updateProgress(1,  1)
         // Observe the progress to update UI dynamically
         progressViewModel.pageNo.observe(this) { step ->
 
 
-
+            progressAdapter.updateDots(setupDots(step))
             if (  progressViewModel.pageNo.value!! == 10 ||
                 progressViewModel.pageNo.value!! == 11 ||
                 progressViewModel.pageNo.value!! >= 14
             ) {
-                binding.skipButton.visibility=View.GONE
+//                binding.skipButton.visibility=View.GONE
             }
             else   if (
                 progressViewModel.pageNo.value!! <3
             ) {
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = false
-                binding.skipButton.setTextColor(getColor(R.color.greyText))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = false
+//                binding.skipButton.setTextColor(getColor(R.color.greyText))
 
             }
             else {
 
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = true
-                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = true
+//                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
             }
 
 
             if ( progressViewModel.pageNo.value == 11 ||
                 progressViewModel.pageNo.value!! >= 14
                 ) {
-                binding.progressBarId.visibility = View.GONE
+//                binding.progressBarId.visibility = View.GONE
             }
             else{
-                binding.progressBarId.visibility = View.VISIBLE
+//                binding.progressBarId.visibility = View.VISIBLE
 
             }
 
@@ -101,10 +106,10 @@ class SignupActivity : AppCompatActivity() {
             ) {
 
 //                binding.createAccount.text=progressViewModel.pageNo.value.toString()
-                binding.createAccount.text="Create Account "
+//                binding.createAccount.text="Create Account "
             }
             else{
-                binding.createAccount.text="Set Preferences"
+//                binding.createAccount.text="Set Preferences"
 //                binding.createAccount.text=progressViewModel.pageNo.value.toString()
 
             }
@@ -154,11 +159,31 @@ class SignupActivity : AppCompatActivity() {
             }
         })
         // Skip button listener to handle skipping through the steps
-        binding.skipButton.setOnClickListener {
-            handleSkipButtonClick()
+//        binding.skipButton.setOnClickListener {
+//            handleSkipButtonClick()
+//        }
+
+
+
+
+        val progressRecycler = findViewById<RecyclerView>(R.id.progressRecycler)
+        progressRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        progressAdapter =  ProgressAdapter(setupDots(progressViewModel.pageNo.value ?: 0))
+        binding.progressRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        progressRecycler.adapter = progressAdapter
+
+    }
+    private fun setupDots(currentPage: Int): List<ProgressAdapter.DotState> {
+        return List(7) { index ->
+            when {
+                index < currentPage -> ProgressAdapter.DotState.FILLED
+                index == currentPage -> ProgressAdapter.DotState.HIGHLIGHTED
+                else -> ProgressAdapter.DotState.EMPTY
+            }
         }
     }
-
   fun  backbtnFun(){
 
         if (progressViewModel.pageNo.value == 11) {
@@ -180,10 +205,10 @@ class SignupActivity : AppCompatActivity() {
             if ( progressViewModel.pageNo.value!! == 11 ||
                 progressViewModel.pageNo.value!! >= 15  ) {
 
-                binding.progressBarId.visibility = View.GONE
+//                binding.progressBarId.visibility = View.GONE
             }
             else{
-                binding.progressBarId.visibility = View.VISIBLE
+//                binding.progressBarId.visibility = View.VISIBLE
 
             }
 
@@ -192,22 +217,22 @@ class SignupActivity : AppCompatActivity() {
                 progressViewModel.pageNo.value!! == 12 ||
                 progressViewModel.pageNo.value!! >  15
             ) {
-                binding.skipButton.visibility=View.GONE
+//                binding.skipButton.visibility=View.GONE
             }
             else   if (
                 progressViewModel.pageNo.value!! <3 ||
                 progressViewModel.pageNo.value!! == 13 ||
                 progressViewModel.pageNo.value!! == 15
             ) {
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = false
-                binding.skipButton.setTextColor(getColor(R.color.greyText))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = false
+//                binding.skipButton.setTextColor(getColor(R.color.greyText))
 
             }
             else {
-                binding.skipButton.visibility=View.VISIBLE
-                binding.skipButton.isEnabled = true
-                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
+//                binding.skipButton.visibility=View.VISIBLE
+//                binding.skipButton.isEnabled = true
+//                binding.skipButton.setTextColor(getColor(R.color.primaryBlue))
             }
 
 
@@ -352,61 +377,50 @@ class SignupActivity : AppCompatActivity() {
     private fun updateProgress(step: Int,progressTitle: Int) {
         val totalSteps = 11
         val progressPercent = (step * 100) / totalSteps
-        binding.progressBar.progress = progressPercent
-        binding.tvProgressPercent.text = "$progressPercent%"
+//        binding.progressBar.progress = progressPercent
+//        binding.tvProgressPercent.text = "$progressPercent%"
 
-        when (progressTitle+1) {
+        when (progressTitle) {
+
+            0 -> {
+                binding.tvStepTitle.text = "Blood Group"
+//                binding.tvStepSubtitle.text = "Nice work! You're a third of the way there!"
+            }
             1 -> {
-                binding.tvStepTitle.text = "Getting Started"
-                binding.tvStepSubtitle.text = "Great start! You’re just beginning—let’s keep going!"
+                binding.tvStepTitle.text = "Your address"
+//                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
             }
             2 -> {
-                binding.tvStepTitle.text = "Moving Forward"
-                binding.tvStepSubtitle.text = "You're gaining momentum - keep moving forward!"
+                binding.tvStepTitle.text = "Add weight"
+//                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
             }
             3 -> {
-                binding.tvStepTitle.text = "Staying on Track"
-                binding.tvStepSubtitle.text = "Nice work! You're a quarter of the way there!"
+                binding.tvStepTitle.text = "Add height"
+//                binding.tvStepSubtitle.text = "You're past halfway—great job so far!"
             }
             4 -> {
-                binding.tvStepTitle.text = "One-Third Complete"
-                binding.tvStepSubtitle.text = "Nice work! You're a third of the way there!"
+                binding.tvStepTitle.text = "Chronic disease"
+//                binding.tvStepSubtitle.text = "You're making great progress—just a little more to go!"
             }
             5 -> {
-                binding.tvStepTitle.text = "Almost There to Halfway"
-                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
+                binding.tvStepTitle.text = "Family disease"
+//                binding.tvStepSubtitle.text = "You've come so far—just a final push!"
             }
             6 -> {
-                binding.tvStepTitle.text = "Staying on Track"
-                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
+                binding.tvStepTitle.text = "Add your photo"
+//                binding.tvStepSubtitle.text = "So close! Only a few steps remain!"
             }
             7 -> {
-                binding.tvStepTitle.text = "Moving Ahead"
-                binding.tvStepSubtitle.text = "You're past halfway—great job so far!"
+                binding.tvStepTitle.text = "Set your own goal"
+//                binding.tvStepSubtitle.text = "You're just one step away from completing the process!"
             }
             8 -> {
-                binding.tvStepTitle.text = "Final Stretch in Sight"
-                binding.tvStepSubtitle.text = "You're making great progress—just a little more to go!"
+                binding.tvStepTitle.text = "One Step Away "
+//                binding.tvStepSubtitle.text = "You're nearly done-just one final step!"
             }
             9 -> {
-                binding.tvStepTitle.text = "Just a Little Further to Go"
-                binding.tvStepSubtitle.text = "You've come so far—just a final push!"
-            }
-            10 -> {
-                binding.tvStepTitle.text = "Final Push Ahead"
-                binding.tvStepSubtitle.text = "So close! Only a few steps remain!"
-            }
-            11 -> {
                 binding.tvStepTitle.text = "All Done!"
-                binding.tvStepSubtitle.text = "You're just one step away from completing the process!"
-            }
-            13 -> {
-                binding.tvStepTitle.text = "One Step Away "
-                binding.tvStepSubtitle.text = "You're nearly done-just one final step!"
-            }
-            14 -> {
-                binding.tvStepTitle.text = "All Done!"
-                binding.tvStepSubtitle.text = "Almost done—just complete the final step!"
+//                binding.tvStepSubtitle.text = "Almost done—just complete the final step!"
             }
         }
     }

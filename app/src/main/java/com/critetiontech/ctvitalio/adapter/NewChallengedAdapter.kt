@@ -2,12 +2,11 @@ package com.critetiontech.ctvitalio.adapter
 
 
 
-import android.annotation.SuppressLint
+import PrefsManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.databinding.NewChallengedJoinedBinding
@@ -16,6 +15,9 @@ import java.util.Random
 
 class NewChallengedAdapter (
     private val items: List<NewChallengeModel>,
+    private val onItemClick: (NewChallengeModel) -> Unit,
+    private val onItemClick1: (NewChallengeModel) -> Unit
+
 ) : RecyclerView.Adapter<NewChallengedAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: NewChallengedJoinedBinding) :
@@ -50,7 +52,13 @@ class NewChallengedAdapter (
         shape.shape = GradientDrawable.RECTANGLE
         shape.cornerRadius = 48f
         shape.setColor(darkColor)
-        binding.joinNowButton.background = shape
+       // binding.joinNowButton.background = shape
+
+        if(item.getPeopleJoinedList().any { it.empId == PrefsManager().getPatient()?.empId.toString() }){
+            binding.joinNowButton.isEnabled = false
+            binding.joinNowButton.text = "Joined"
+            binding.joinNowButton.setTextColor(Color.WHITE)
+        }
 
         binding.joinNowButton.setOnClickListener {
             it.animate()
@@ -60,14 +68,21 @@ class NewChallengedAdapter (
                 .withEndAction {
                     it.animate().scaleX(1f).scaleY(1f).setDuration(100).start()
                 }.start()
+            onItemClick(item)
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick1(item)
         }
 
 
 
 
-
-
     }
+
+
+
+
 
     private fun getRandomPastelColor(): Int {
         val rnd = Random()

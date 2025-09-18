@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="22dp"
-    android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginEnd="22dp"
+
     android:background="@drawable/rounded_corners"
     android:backgroundTint="#F5F0F5"
     app:cardElevation="0dp">
@@ -17,6 +15,7 @@
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
+        android:visibility="gone"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +29,8 @@
         android:text="Morning Readiness Tracker"
         android:textColor="#040404"
         android:textSize="18sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
+        android:visibility="gone"
         android:padding="5dp"
         app:cardBackgroundColor="#F8F3F8"
         app:cardCornerRadius="10dp"
@@ -94,14 +96,14 @@
     <!-- participants_row.xml -->
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="@dimen/_170sdp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="20dp"
         android:background="@color/transparent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/divider">
 
         <TextView
@@ -118,7 +120,7 @@
             android:id="@+id/participantsRecyclerView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="5dp"
             android:clipChildren="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
@@ -131,11 +133,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
-        android:gravity="center_horizontal"
+        android:gravity="end"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/divider">
 
@@ -143,6 +146,10 @@
             android:id="@+id/startText"
             android:layout_width="87dp"
             android:layout_height="wrap_content"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center_horizontal|center_vertical"
+            android:maxLines="1"
+            android:visibility="gone"
             android:text="Starts in 1 day"
             android:textColor="#000000"
             android:textSize="12sp" />

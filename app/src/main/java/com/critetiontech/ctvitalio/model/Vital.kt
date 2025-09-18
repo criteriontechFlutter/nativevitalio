@@ -1,31 +1,158 @@
-class Vital {
-    var uhid: String? = null
-    var pmId = 0
-    var vitalID = 0
-    var vitalName: String? = null
-    var vitalValue = 0.0
-    var unit: String? = null
-    var vitalDateTime: String? = null
-    var userId = 0
-    var rowId = 0
-}
-
+// Main Response
 data class VitalsResponse(
     val status: Int,
     val message: String? = null,
     val responseValue: VitalResponseValue
 )
 
-
+// ResponseValue object
 data class VitalResponseValue(
     val lastVital: List<Vital>,
-    val allVitalAvg: List<AllVitalAvg>
+    val allVitalAvg: List<AllVitalAvg>,
+    val quickMetric: String,
+    val sleepmetrics: List<SleepMetric>?
+)
+data class SleepMetric(
+    val uhid: String,
+    val pmId: Int,
+    val vitalID: Int,
+    val vitalName: String,
+    val vitalValue: String?
+)
+data class SleepValue(
+    val Score: Int,
+    val Title: String,
+    val BedtimeStart: String,
+    val BedtimeEnd: String,
+    val SleepScore: SleepScore,
+    val QuickMetrics: List<QuickMetric>?
 )
 
+//data class SleepDetails(
+//    val Score: Int,
+//    val QuickMetrics: List<QuickMetric>?
+//)
+// Vital object
+data class Vital(
+    val uhid: String? = null,
+    val pmId: Int = 0,
+    val vitalID: Int = 0,
+    var vitalName: String? = null,
+    var vitalValue: Double = 0.0,
+    var totalValue: Double = 0.0,
+    var unit: String? = null,
+    var vitalDateTime: String? = null,
+    val userId: Int = 0,
+    val rowId: Int = 0
+)
+data class QuickMetric(
+    val Title: String,
+    val DisplayText: String,
+    val Unit: String?,
+    val Value: Value,
+    val Type: String
+)
 
+data class Value(
+    val ValueKind: Int
+)
+
+data class SleepScore(
+    val Score: Int
+)
+// Avg values
 data class AllVitalAvg(
     val vmId: Int,
     val pmId: Int,
     val avgVmValue: Double
 )
 
+// Sleep metrics
+data class SleepMetrics(
+    val score: Int,
+    val scoreQuality: String,
+    val timeInBed: String,
+    val totalSleepTime: String,
+    val totalDeepSleep: String,
+    val totalLightSleep: String,
+    val totalRemSleep: String,
+    val totalAwakeTime: String,
+    val efficiency: Int,
+    val avgHr: Int,
+    val avgHrv: Int,
+    val sleepGraph: List<SleepGraphItem>,
+    val movementGraph: List<MovementGraphItem>,
+    val hrGraph: List<GraphPoint>,
+    val hrvGraph: List<GraphPoint>,
+    val summary: SleepSummary
+)
+
+// Graphs
+data class SleepGraphItem(
+    val start: String,
+    val end: String,
+    val stage: String
+)
+
+data class MovementGraphItem(
+    val time: String,
+    val movement: String
+)
+
+data class GraphPoint(
+    val time: String,
+    val value: Int
+)
+
+// Sleep Summary
+data class SleepSummary(
+    val efficiency: String,
+    val restfulness: String,
+    val consistency: String,
+    val interruptions: String,
+    val sleepStages: String,
+    val overall: String
+)
+data class MoodResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<MoodItem>
+)
+
+data class MoodItem(
+    val pid: Int,
+    val moodId: Int,
+    val label: String,
+    val description: String
+)
+data class MoodsResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<Mood>
+)
+
+data class Mood(
+    val id: Int,
+    val label: String,
+    val color: String,
+    val description: String,
+    val emojiRes: Int,   // Drawable resource ID
+)
+
+
+data class EnergyResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<EnergyItem>
+)
+
+data class EnergyItem(
+    val id: Int,
+    val pid: Int,
+    val energyPercentage: Int,
+    val statusLabel: String,
+    val userId: Int,
+    val clientId: Int,
+    val status: Boolean,
+    val createdDate: String
+)

@@ -67,7 +67,7 @@ class SignUpFragment2 : Fragment() {
             progressViewModel.updatepageNo(1)
 
             // ✅ Navigate to next fragment
-            findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
+//            findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
         }
     }
 

@@ -3,16 +3,16 @@
 
     <!-- Primary Colors -->
     <color name="primaryColor">#007AFF</color>
-    <color name="primaryBlue">#1564ED</color>
+    <color name="primaryBlue">#0079FF</color>
     <color name="primaryBlue2">#0C73BB</color>
     <color name="primaryBlueLight">#F5F8FC</color>
 
     <!-- Accent Colors -->
     <color name="skyBlue">#05BAC9</color>
+    <color name="darkb">#323DEB</color>
     <color name="blueLight">#DDFDFF</color>
     <color name="blue2">#0095FF</color>
-
-    <!-- Grey Tones -->
+     <!-- Grey Tones -->
     <color name="bloodBgColor">#F5F8FA</color>
     <color name="greyText">#818284</color>
     <color name="greyText2">#828691</color>
@@ -78,7 +78,7 @@
     <color name="start_blue_dark">#006ad1</color>
     <color name="omron_blue">#0072BB</color>
     <color name="button_grey">#808080</color>
-    <color name="black">#546788</color>
+    <color name="black">#202529</color>
     <color name="darkBackGround">#141415</color>
 
     <color name="blue">#1E6CFF</color>
@@ -112,4 +112,8 @@
     <color name="primaryPurpleDark">#4A0072</color>
     <color name="dashboardBg">@color/white</color>
     <color name="dashboardContainerBg">@color/primaryBlueLight</color>
+
+
+
+    <color name="setgoaltext">#898D9E</color>
 </resources>
