@@ -7,9 +7,8 @@
 
     <fragment
         android:id="@+id/dashboard"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.Dashboard"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
+        android:label="fragment_dashboard">
         <action
             android:id="@+id/action_dashboard_to_drawer4"
             app:destination="@id/drawer4" />
@@ -34,7 +33,7 @@
         <action
             android:id="@+id/action_dashboard_to_dietChecklist"
             app:destination="@id/dietChecklist" />
-          <action
+        <action
             android:id="@+id/action_dashboard_to_notificationFragment"
             app:destination="@id/notificationFragment" />
         <action
@@ -67,6 +66,24 @@
         <action
             android:id="@+id/action_dashboard_to_challenges"
             app:destination="@id/challenges" />
+        <action
+            android:id="@+id/action_dashboard_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_moodFragment"
+            app:destination="@id/moodFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_energyTank"
+            app:destination="@id/energyTank" />
+        <action
+            android:id="@+id/action_dashboard_to_challengeDetailsFragment2"
+            app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_wellnessMetrics"
+            app:destination="@id/wellnessMetrics" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -346,6 +363,48 @@
         android:id="@+id/challenges"
         android:name="com.critetiontech.ctvitalio.UI.fragments.Challenges"
         android:label="fragment_challenges"
-        tools:layout="@layout/fragment_challenges" />
+        tools:layout="@layout/fragment_challenges" >
+        <action
+            android:id="@+id/action_challenges_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.LeaderboardFragment"
+        android:label="LeaderboardFragment" />
+    <fragment
+        android:id="@+id/challengeDetailsFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.ChallengeDetailsFragment"
+        android:label="ChallengeDetailsFragment" />
+    <fragment
+        android:id="@+id/corporateDashBoard"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
+        android:label="CorporateDashBoard" >
+        <action
+            android:id="@+id/action_corporateDashBoard_to_moodFragment"
+            app:destination="@id/moodFragment" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_connection"
+            app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_wellnessMetrics"
+            app:destination="@id/wellnessMetrics" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moodFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.MoodFragment"
+        android:label="MoodFragment" />
+    <fragment
+        android:id="@+id/energyTank"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.EnergyTank"
+        android:label="fragment_energy_tank"
+        tools:layout="@layout/fragment_energy_tank" />
+    <fragment
+        android:id="@+id/wellnessMetrics"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.WellnessMetrics"
+        android:label="WellnessMetrics" />
 
 </navigation>

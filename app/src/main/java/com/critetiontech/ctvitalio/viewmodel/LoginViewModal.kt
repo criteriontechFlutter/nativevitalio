@@ -10,9 +10,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.UI.ChangePassword
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.UI.otp
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
 import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.model.OtpResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -38,12 +40,15 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
 
 
+    private val _loginSuccess = MutableLiveData<Boolean>()
+    val loginSuccess: LiveData<Boolean> get() = _loginSuccess
+
 
     fun corporateEmployeeLogin(context:Context, username: String, password: String,) {
         _loading.value = true
         viewModelScope.launch {
 
-
+            _loginSuccess.postValue(false)
             try {
                 val queryParams = mapOf(
                     // "mobileNo" to mo,
@@ -61,20 +66,22 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
 
                 if (response.isSuccessful) {
+                    _loginSuccess.postValue(true)
                     _loading.value = false
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     Log.d("RESPONSE", "responseValueresponseValue: ${Gson().toJson(parsed.responseValue)}")
                     parsed.let {
+
                         PrefsManager().savePatient(it.responseValue.first())
-                        val intent = Intent(context, Home::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        context.startActivity(intent)
 
                     }
-                 } else {
 
+                 } else {
+                    _loginSuccess.postValue(false)
+                    val errorMsg = parseErrorMessage(response.errorBody())
+                    ToastUtils.showFailure(MyApplication.appContext, errorMsg)
                     _loading.value = false
                     _errorMessage.value = "Error: ${response.code()}"
                 }

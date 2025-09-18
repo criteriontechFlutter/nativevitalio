@@ -1,27 +1,22 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import HorizontalItemSpacing
 import PrefsManager
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -31,15 +26,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
+import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.critetiontech.ctvitalio.viewmodel.WebSocketState
@@ -50,11 +46,11 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
-import androidx.recyclerview.widget.LinearSnapHelper
 
 class Dashboard  : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var viewModel: DashboardViewModel
+    private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
     private lateinit var toTakeAdapter: ToTakeAdapter
@@ -100,6 +96,28 @@ class Dashboard  : Fragment() {
         }
 
         loadanimation()
+
+
+        challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
+
+
+        challengesViewModel.getNewChallenge()
+        challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
+            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
+                list,
+                onItemClick =  { challenge ->
+                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                },
+                onItemClick1 =  { challenge ->
+                    val bundle = Bundle().apply {
+                        putSerializable("challenges", challenge)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+
+                }
+            )
+
+        }
 
         binding.fabAdd.animate()
             .scaleX(1.1f)
@@ -181,7 +199,7 @@ class Dashboard  : Fragment() {
             .into(binding.profileImage)
 
 
-        binding.userName.text = PrefsManager().getPatient()!!.patientName
+        binding.userName.text = "Hi " +PrefsManager().getPatient()!!.patientName
         binding.profileImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
@@ -237,26 +255,26 @@ class Dashboard  : Fragment() {
             }
         }
 
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_chat -> {
-                    findNavController( ).navigate(R.id.action_dashboard_to_chatBotPage)
-                    true
-                }
-                R.id.nav_home -> {
-                    true
-                }
-                R.id.challenges -> {
-                    findNavController().navigate(R.id.action_dashboard_to_challenges)
-                    true
-                }
-                R.id.nav_reminders -> {
-                    findNavController().navigate(R.id.action_dashboard_to_challenges)
-                    true
-                }
-                else -> false
-            }
-        }
+//        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.nav_chat -> {
+//                    findNavController( ).navigate(R.id.action_dashboard_to_chatBotPage)
+//                    true
+//                }
+//                R.id.nav_home -> {
+//                    true
+//                }
+//                R.id.challenges -> {
+//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+//                    true
+//                }
+//                R.id.nav_reminders -> {
+//                    findNavController().navigate(R.id.action_dashboard_to_challenges)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
         viewModel.webSocketStatus.observe(viewLifecycleOwner) { status ->
             val statusText = when (status) {

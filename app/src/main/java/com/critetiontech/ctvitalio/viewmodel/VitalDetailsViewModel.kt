@@ -28,7 +28,7 @@ class VitalDetailsViewModel(application: Application) : BaseViewModel(applicatio
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.orEmpty(),
+                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                 )
 
                 val response = RetrofitInstance

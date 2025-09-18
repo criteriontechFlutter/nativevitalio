@@ -1,36 +1,72 @@
 package com.critetiontech.ctvitalio.UI
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
+import com.critetiontech.ctvitalio.logging.LoggingManager
 import com.google.android.material.snackbar.Snackbar
 
 class Home :  AppCompatActivity() {
     private lateinit var binding : ActivityDashboardBinding
     private var lastBackPressTime: Long = 0
     private var backPressSnackbar:    Snackbar? = null
+
+    private var lastScreen: String? = null
+    private var screenEnterTime: Long = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        //val profileSection = findViewById<ImageView>(R.id.profile_image)
-//        profileSection.setOnClickListener {
-//            val intent = Intent(this, drawer::class.java)
-//            startActivity(intent)
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
 //        }
+
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val now = System.currentTimeMillis()
+
+            // 🔹 log when leaving previous screen
+            lastScreen?.let { screen ->
+                val duration = now - screenEnterTime
+                LoggingManager.logEvent(
+                    event = "page_exit",
+                    screen = screen,
+                    extras = mapOf(
+                        "duration_ms" to duration,
+                        "os" to "Android ${Build.VERSION.RELEASE}",
+                        "deviceModel" to Build.MODEL
+                    )
+                )
+            }
+
+            // 🔹 log entering new screen
+            val screenName = destination.label?.toString() ?: destination.id.toString()
+            LoggingManager.logEvent(
+                event = "page_view",
+                screen = screenName,
+                extras = mapOf(
+                    "os" to "Android ${Build.VERSION.RELEASE}",
+                    "deviceModel" to Build.MODEL
+                )
+            )
+
+            lastScreen = screenName
+            screenEnterTime = now
+        }
     }
 
 

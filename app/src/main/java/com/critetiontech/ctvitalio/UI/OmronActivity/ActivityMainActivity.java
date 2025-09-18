@@ -134,7 +134,7 @@ public class ActivityMainActivity extends BaseActivity {
         peripheralConfig.deviceSettings = deviceSettings;
         // Set Scan timeout interval (optional)
         peripheralConfig.timeoutInterval = Constants.CONNECTION_TIMEOUT;
-        // Set User Hash Id (mandatory)
+        // Set com.critetiontech.ctvitalio.UI.fragments.User Hash Id (mandatory)
         peripheralConfig.userHashId = "<email_address_of_user>"; // Set logged in user email
         // Set configuration for OmronPeripheralManager
         OmronPeripheralManager.sharedManager(MyApplication.Companion.getAppContext()).setConfiguration(peripheralConfig);
@@ -417,7 +417,7 @@ public class ActivityMainActivity extends BaseActivity {
             mTvTruReadInterval = addLayoutToScrollView(parentLayout3,res.getString(R.string.tru_read_interval));
             mTvSeqNum.setText(mSequenceNoString != null ? mSequenceNoString : "-");
         }
-        mTvUserSelected.setText("User " +  android.text.TextUtils.join(",",selectedUsers));
+        mTvUserSelected.setText("com.critetiontech.ctvitalio.UI.fragments.User " +  android.text.TextUtils.join(",",selectedUsers));
         transferBtn = findViewById(R.id.btn_transfer);
     }
 
@@ -469,7 +469,7 @@ public class ActivityMainActivity extends BaseActivity {
                     Object objectData;
                     objectData = vitalDataItem.get(OmronConstants.OMRONVitalData.UserIdKey);
                     if (objectData != null) {
-                        mTvUserSelected.setText("User " + objectData);
+                        mTvUserSelected.setText("com.critetiontech.ctvitalio.UI.fragments.User " + objectData);
                     }
 
                     objectData = vitalDataItem.get(OmronConstants.OMRONVitalData.SequenceKey);

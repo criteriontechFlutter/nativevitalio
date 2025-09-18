@@ -65,7 +65,7 @@ class SignupSelectGenderFragment : Fragment() {
 
             progressViewModel.updateProgress(2)
             progressViewModel.updatepageNo(2)
-            findNavController().navigate(R.id.action_genderFragment_to_dobFragment)
+//            findNavController().navigate(R.id.action_genderFragment_to_dobFragment)
         }
     }
 
@@ -99,10 +99,10 @@ class SignupSelectGenderFragment : Fragment() {
 
             // Change background and text color
             if (it == selected) {
-                it.setBackgroundResource(R.drawable.gender_card_unselected)  // selected background
+                it.setBackgroundResource(R.drawable.bg_selected)  // selected background
                 textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))  // selected text color
             } else {
-                it.setBackgroundResource(R.drawable.gender_card_selected)  // unselected background
+                it.setBackgroundResource(R.drawable.bg_unselected)  // unselected background
                 textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.bgDark))  // unselected text color
             }
         }

@@ -7,14 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.SymptomHistoryAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSymptomHistoryBinding
@@ -119,7 +116,7 @@ class SymptomHistory : Fragment() {
         val fullList = viewModel.symptomList.value.orEmpty()
         val filtered = fullList.filter {
             val rawDate = it.detailsDate
-            if (rawDate.isNullOrEmpty() || rawDate.length < 10) return@filter false
+            if (rawDate.isEmpty() || rawDate.length < 10) return@filter false
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
             val date = try {
                 LocalDate.parse(rawDate, formatter)

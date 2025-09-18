@@ -1,12 +1,17 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import EnergyResponse
+import MoodResponse
 import PillReminderModel
 import PillTime
 import PrefsManager
+import QuickMetric
+import SleepValue
 import Vital
 import VitalsResponse
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
@@ -17,10 +22,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.DietItemModel
+import com.critetiontech.ctvitalio.model.FluidType
+import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
+import com.critetiontech.ctvitalio.model.ManualFoodItem
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.ConfirmationBottomSheet
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
@@ -45,6 +54,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     private val _vitalList = MutableLiveData<List<Vital>>()
     val vitalList: LiveData<List<Vital>> get() = _vitalList
 
+    private val _quickMetricList = MutableLiveData<List<QuickMetric>>()
+    val  quickMetricListList: LiveData<List<QuickMetric>> get() = _quickMetricList
     private val _dietList = MutableLiveData<List<DietItemModel>>()
     val dietList: LiveData<List<DietItemModel>> get() = _dietList
     private val _errorMessage = MutableLiveData<String>()
@@ -64,13 +75,18 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         _webSocketStatus.postValue(state)
     }
     fun getVitals() {
-        _loading.value = true
         viewModelScope.launch {
+            _loading.value = true
             try {
                 val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val todayDate = sdf.format(Date())
                 val queryParams = mapOf(
-                    "uhID" to uhid
+                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
+                    "emailId" to "animesh.singh0108@gmail.com",
+                    "date" to todayDate,
+                    "clientId" to 194,
                 )
 
                 val response = RetrofitInstance
@@ -87,6 +103,30 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
+
+                    val sleepMetric243 = parsed.responseValue.sleepmetrics
+                        ?.firstOrNull { it.vitalID == 243 }
+
+                    sleepMetric243?.vitalValue?.let { vitalValueJson ->
+                        try {
+                            val cleanedJson = vitalValueJson
+                                .trim('"')                  // remove starting/ending quotes
+                                .replace("\\\"", "\"")      // unescape quotes
+
+                            val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
+
+                            Log.d("TAG", "Sleep Score: ${sleepValue.SleepScore.Score}")
+                            _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            _quickMetricList.value = emptyList()
+                        }
+                    } ?: run {
+                        // fallback if no vitalID=243 found
+                        _quickMetricList.value = emptyList()
+                    }
+
                 } else {
                     _vitalList.value = emptyList()
                         _loading.value = false
@@ -104,6 +144,187 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     }
 
 
+    private val _intakeList = MutableLiveData<List<ManualFoodItem>>()
+    var intakeList: LiveData<List<ManualFoodItem>> = _intakeList
+
+    private val _fluidList = MutableLiveData<List<FluidType>>()
+    val fluidList: LiveData<List<FluidType>> = _fluidList
+
+
+    fun fetchManualFluidIntake(uhid: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
+
+                val response = RetrofitInstance
+                    .createApiService7096()
+                    .dynamicGet(
+                        url = ApiEndPoint().getFluidIntakeDetails,
+                        params = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<ManualFoodAssignResponse>() {}.type
+                    val parsed = Gson().fromJson<ManualFoodAssignResponse>(responseBodyString, type)
+                    val allItems = parsed.responseValue
+                    _intakeList.value= allItems
+                    val filteredList = parsed.responseValue.mapNotNull {
+
+                        Log.d("TAG", "fetchManualFluidIntake: "+intakeList.value)
+                        val qty = it.quantity.toFloatOrNull() ?: 0f
+                        if (qty > 0f) {
+                            FluidType(
+                                name = it.foodName.trim(),
+                                amount = qty.toInt(),
+                                color = mapColorForFood(it.foodName) ,
+                                id= it.foodID
+                            )
+                        } else null
+                    }
+                    _fluidList.value = filteredList
+
+                } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+
+    private fun mapColorForFood(name: String): Int {
+        return when (name.trim().lowercase()) {
+            "milk" -> Color.parseColor("#FFEB3B")
+            "water" -> Color.parseColor("#4FC3F7")
+            "green tea", "tea" -> Color.parseColor("#A1887F")
+            "coffee" -> Color.parseColor("#795548")
+            "fruit juice", "juice" -> Color.parseColor("#FF9800")
+            else -> Color.LTGRAY
+        }}
+
+
+    fun getCurrentDate(pattern: String = "yyyy-MM-dd"): String {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.format(Date())
+}
+
+    val selectedMoodId = MutableLiveData<String>()
+    fun onMoodClicked(id:String) {
+        selectedMoodId.value =id
+    }
+    fun getMoodByPid( ) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+
+                val queryParams = mapOf(
+                    "pid" to PrefsManager().getPatient()?.id.toString() ,
+                    "clientId" to "194",
+                )
+
+
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicGet(
+                        url =  ApiEndPointCorporateModule().getMoodByPid,
+                        params = queryParams
+                    )
+
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, MoodResponse::class.java)
+
+// Store the label in a variable
+                    val moodLabel: String? = parsed.responseValue.firstOrNull()?.moodId.toString()
+                    if (moodLabel != null) {
+                        onMoodClicked(moodLabel)
+                    }
+                    Log.d("RESPONSE", "responseValue: $json")
+
+                } else {
+
+                    _loading.value = false
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    private val _latestEnergy = MutableLiveData<Int>()
+    val latestEnergy: LiveData<Int> get() = _latestEnergy
+
+    private val _latestStatus = MutableLiveData<String>()
+    val latestStatus: LiveData<String> get() = _latestStatus
+    fun getAllEnergyTankMaster( ) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+
+                val queryParams = mapOf(
+                    "pid" to PrefsManager().getPatient()?.id.toString() ,
+                    "userId" to "99",
+                    "clientId" to "194",
+                )
+
+
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicGet(
+                        url =  ApiEndPointCorporateModule().getAllEnergyTankMaster,
+                        params = queryParams
+                    )
+
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, EnergyResponse::class.java)
+
+// Store the label in a variable
+                    val latest = parsed.responseValue.maxByOrNull { it.createdDate }
+                    _latestEnergy .value = latest?.energyPercentage
+                    _latestStatus .value = latest?.statusLabel
+                    Log.d("RESPONSE", "responseValue: $json")
+
+                } else {
+
+                    _loading.value = false
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
     fun getAllPatientMedication( ) {
         _loading.value = true
 
@@ -112,7 +333,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.uhID.toString()
+                    "UhID" to PrefsManager().getPatient()?.empId.toString()
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -145,18 +366,18 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             }
         }
     }
-    fun getFoodIntake(date:  String?) {
+    fun getFoodIntake( ) {
         _loading.value = true
-        val finalDate = if (date.isNullOrBlank()) {
-            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        } else {
-            date
-        }
-
+//        val finalDate = if (date.isNullOrBlank()) {
+//            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+//        } else {
+//            date
+//        }
+        val finalDate = getCurrentDate("yyyy-MM-dd")
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "Uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "Uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "entryType" to "D",
                     "fromDate" to finalDate,
                 )
@@ -167,7 +388,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams
                     )
-
+                Log.e("getFoodIntakegetFoodIntake", "Failed: ${ response.body()?.string()}")
                 _loading.value = false
 
                 if (response.isSuccessful) {
@@ -264,7 +485,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 //            "text" to "fever pulse rate 74 water 100 ml urine 100 ml output 74 ml ",
             "text" to transcript,
             "userid" to patient.id.toString(),
-            "uhid" to patient.uhID.toString(),
+            "uhid" to patient.empId.toString(),
             "date" to currentDate,
             "time" to currentTime,
             "clientID" to 1,
@@ -459,7 +680,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhID" to PrefsManager().getPatient()?.empId.toString(),
                     "clientID" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
@@ -583,7 +804,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     "vmValueRbs" to rbs.toString(),
                     "vitalTime" to SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date()),
                     "vitalDate" to SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
-                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "currentDate" to  SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date()),
                     "clientId" to PrefsManager().getPatient()?.clientId.toString(),
                     "isFromPatient" to true,
@@ -651,7 +872,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 }
 
                 val queryParams = mapOf(
-                    "uhID" to (PrefsManager().getPatient()?.uhID ?: ""),
+                    "uhID" to (PrefsManager().getPatient()?.empId ?: ""),
                     "userID" to "0",
                     "doctorId" to "0",
                     "jsonSymtoms" to Gson().toJson(dtDataTable),
@@ -693,7 +914,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val user = PrefsManager().getPatient()
                 val body = mapOf(
                     "givenQuanitityInGram" to "0",
-                    "uhid" to user?.uhID.orEmpty(),
+                    "uhid" to user?.empId.orEmpty(),
                     "foodId" to foodId,
                     "pmId" to "0",
                     "givenFoodQuantity" to givenFoodQuantity,
@@ -706,7 +927,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     "entryType" to "N",
                     "isFrom" to "0",
                     "dietID" to "0",
-                    "userID" to user?.userId.toString()
+                    "userID" to "99"
                 )
 
                 val response = RetrofitInstance

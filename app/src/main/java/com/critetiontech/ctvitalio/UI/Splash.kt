@@ -88,8 +88,11 @@ class Splash : AppCompatActivity() {
         try {
             val currentPatientUHID = PrefsManager().getPatient()?.patientName.toString()
 
-            if (currentPatientUHID.isNotEmpty() && currentPatientUHID != "null") {
+            if (currentPatientUHID.isNotEmpty() && currentPatientUHID != "" && currentPatientUHID!="null") {
                 startActivity(Intent(this, Home::class.java))
+//                val intent = Intent(this, SignupActivity::class.java)
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                this.startActivity(intent)
             } else {
                 startActivity(Intent(this, Login::class.java))
             }

@@ -39,8 +39,7 @@
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/historyBtn"
-            app:layout_constraintStart_toEndOf="@id/backIcon"
+             app:layout_constraintStart_toEndOf="@id/backIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- History Button -->

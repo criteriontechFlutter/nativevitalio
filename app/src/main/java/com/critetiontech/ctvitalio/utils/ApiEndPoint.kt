@@ -23,6 +23,9 @@ class ApiEndPoint {
 
 
     val corporateEmployeeLogin = "api/CorporateEmployee/CorporateEmployeeLogin"
+    val employeeResetPassowrdLink = "api/CorporateEmployee/EmployeeResetPassowrdLink"
+    val corporateEmployeeChangePassword = "api/CorporateEmployee/CorporateEmployeeChangePassword"
+    val corporateEmployeeForgotPassword = "api/CorporateEmployee/CorporateEmployeeForgotPassword"
 
     val getPatientDetailsByMobileNo = "api/PatientRegistration/GetPatientDetailsByMobileNo"
     val sentLogInOTPForVitalioApp="api/LogInForVitalioApp/SentLogInOTPForVitalioApp"
@@ -58,7 +61,7 @@ class ApiEndPoint {
 
 
 
-    val getPatientLastVital="api/PatientVital/GetPatientLastVital"
+    val getPatientLastVital="api/UltrahumanVitals/GetUltrahumanVitals"
     val insertPatientVital="api/PatientVital/InsertPatientVital"
     val getEmergencyContact="api/EmergencyContact/GetEmergencyContactByPid"
     val saveEmergencyContact="api/EmergencyContact/InsertEmergencyContact"

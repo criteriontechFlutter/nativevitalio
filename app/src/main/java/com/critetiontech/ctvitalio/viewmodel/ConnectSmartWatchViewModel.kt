@@ -82,7 +82,7 @@ fun saveUser(
         if (userData != null) {
             users.document(token).set(userData)
         } // using Kotlin coroutines
-        Log.d("Firestore", "User added successfully!")
+        Log.d("Firestore", "com.critetiontech.ctvitalio.UI.fragments.User added successfully!")
 
         // replace with your own function
     } catch (e: Exception) {

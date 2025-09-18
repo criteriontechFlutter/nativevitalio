@@ -40,7 +40,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "Uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "Uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "entryType" to "D",
                     "fromDate" to finalDate,
                 )
@@ -91,7 +91,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
 //                val convertedTime = convertTo24Hour(compareTime)
 
                 val queryParams = mapOf(
-                    "Uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "Uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "userID" to PrefsManager().getPatient()?.id.toString(),
                     "dietID"  to  dietID,
 //                    "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())+" "+convertedTime,

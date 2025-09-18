@@ -113,7 +113,7 @@ public class PulseOxymeterMainActivity extends BaseActivity {
         peripheralConfig.deviceSettings = deviceSettings;
         // Set Scan timeout interval (optional)
         peripheralConfig.timeoutInterval = Constants.CONNECTION_TIMEOUT;
-        // Set User Hash Id (mandatory)
+        // Set com.critetiontech.ctvitalio.UI.fragments.User Hash Id (mandatory)
         peripheralConfig.userHashId = "<email_address_of_user>"; // Set logged in user email
         // Disclaimer: Read definition before usage
         peripheralConfig.enableAllDataRead = isHistoricDataRead;

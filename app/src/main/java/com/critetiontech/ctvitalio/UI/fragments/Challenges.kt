@@ -68,9 +68,6 @@ class Challenges : Fragment() {
         })
 
 
-
-
-
     }
     private fun observeTabCounts() {
         challengesViewModel.joinedCount.observe(viewLifecycleOwner) { count ->

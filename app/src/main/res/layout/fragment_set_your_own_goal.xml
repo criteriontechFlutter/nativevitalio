@@ -1,0 +1,101 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="String"/>
+        <variable
+            name="isSelected"
+            type="Boolean"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:padding="24dp"
+            android:scrollbarSize="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- Illustration -->
+
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/ivIllustration"
+                    android:layout_width="204dp"
+                    android:layout_height="186dp"
+                    android:paddingEnd="32dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/rsetgoal" />
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/tvWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personalized Goal"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select activities and create your own goal."
+                    android:textColor="#666666"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Weight input with unit -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/metricsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp" />
+                <!-- Next Button -->
+
+
+            </LinearLayout>
+        </ScrollView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="50dp"
+            app:tint="@color/primaryBlue"
+            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/primaryBlue"
+            android:text="Complete Registration"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/scrollid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
