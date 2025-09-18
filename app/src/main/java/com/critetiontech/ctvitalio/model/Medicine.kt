@@ -1,7 +1,10 @@
 package com.critetiontech.ctvitalio.model
-
 data class Medicine(
-    val name: String,
     val time: String,
-    val status: String // e.g. "Taken", "Missed"
+    val name: String,
+    val dose: String,
+    val frequency: String,
+    val note: String,
+    var isTaken: Boolean = false,  // Mark Taken state
+    var isSkipped: Boolean = false // Skip state
 )
