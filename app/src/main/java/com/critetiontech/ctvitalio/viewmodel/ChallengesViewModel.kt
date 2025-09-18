@@ -93,10 +93,10 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
     fun getNewChallenge() {
         _loading.postValue(true)
         viewModelScope.launch {
-            try {
+//            try {
                 val queryParams = mapOf(
-                    "pid" to PrefsManager().getPatient()?.pid.orEmpty(),
-                    "clientId" to PrefsManager().getPatient()?.clientId.toString()
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "clientId" to "194",
                 )
 
                 val response = RetrofitInstance
@@ -106,6 +106,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                         params = queryParams
                     )
 
+            Log.d("RESPONSE", "responseresponseresponseresponse: ${response.body()}")
                 if (response.isSuccessful) {
                     _loading.value = false
                     val json = response.body()?.string()
@@ -125,12 +126,12 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
-            } catch (e: Exception) {
-                _newChallengeList.value = emptyList()
-                _loading.value = false
-                _errorMessage.value = e.message ?: "Unknown error occurred"
-                e.printStackTrace()
-            }
+//            } catch (e: Exception) {
+//                _newChallengeList.value = emptyList()
+//                _loading.value = false
+//                _errorMessage.value = e.message ?: "Unknown error occurred"
+//                e.printStackTrace()
+//            }
         }
     }
 
@@ -142,7 +143,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                 val queryParams = mapOf(
                  "challengeId" to challengesId.toString(),
                 "pid" to PrefsManager().getPatient()?.id.toString(),
-                "clientId" to PrefsManager().getPatient()?.clientId.toString(),
+                "clientId" to "194",
                 "userId" to PrefsManager().getPatient()?.id.toString(),
 
                 )

@@ -155,6 +155,38 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <LinearLayout
+                android:id="@+id/tabViewId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                <TextView
+                    android:id="@+id/activeChalleTextId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Active Challeges"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/challengedId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/other_grid"
+                    app:layout_constraintStart_toStartOf="@+id/other_grid"
+                    app:layout_constraintTop_toBottomOf="@+id/other_grid"
+                    tools:listitem="@layout/new_challenged_joined" />
+            <LinearLayout
+                android:id="@+id/homeId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_corners"
@@ -269,7 +301,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-
                                     android:orientation="vertical">
 
                                     <TextView
@@ -303,7 +334,6 @@
                                     android:id="@+id/WellnessProgres"
                                     android:layout_width="60dp"
                                     android:layout_height="60dp"
-
                                     app:progress="80"
                                     app:progressColor="#0DB46C"
                                     app:strokeWidth="5dp" />
@@ -673,10 +703,10 @@ android:paddingRight="13dp"
                                 android:src="@drawable/nimbus_fire" />
 
                             <TextView
+                                android:id="@+id/tvCaloriee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="2,150 kcal"
-                                android:id="@+id/tvCaloriee"
                                 android:textColor="@color/blackText"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -981,11 +1011,12 @@ android:paddingRight="13dp"
 
                 <!-- Reminders -->
                 <TextView
+                    android:id="@+id/activechalgesId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="12dp"
                     android:layout_marginTop="15dp"
-                    android:text="Upcoming Challenges"
+                    android:text="Active Challenges"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -1558,7 +1589,7 @@ android:paddingRight="13dp"
                          android:scaleType="fitCenter" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-            </LinearLayout>
+            </LinearLayout></LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

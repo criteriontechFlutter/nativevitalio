@@ -40,6 +40,7 @@ import com.critetiontech.ctvitalio.adapter.MedicineAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.ProgressCardAdapter
+import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -233,6 +234,23 @@ class CorporateDashBoard : Fragment() {
 
                 }
             )
+            binding.challengedId.adapter = NewChallengedAdapter(
+                list,
+                onItemClick =  { challenge ->
+                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                },
+                onItemClick1 =  { challenge ->
+                    val bundle = Bundle().apply {
+                        putSerializable("challenges", challenge)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+
+                }
+            )
+
+
+binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
         }
 
@@ -494,7 +512,45 @@ class CorporateDashBoard : Fragment() {
                 view.isSelected = true
                 text.visibility = View.VISIBLE
                 icon.setColorFilter(ContextCompat.getColor(requireActivity(), android.R.color.white))
+                val fragment = when (i) {
+                    0 -> {
+                        binding.homeId.visibility=View.VISIBLE
+                        binding.challengedId.visibility=View.GONE
+                        binding.activeChalleTextId.visibility=View.GONE
 
+                        binding.recyclerView.visibility=View.GONE
+
+                    }
+                    2 -> {
+                        binding.recyclerView.visibility=View.VISIBLE
+                        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+                        val medicines = listOf(
+                            Medicine("08:00 AM", "Lisinopril 10ml", "1 Tablet", "Daily", "Take with morning meal"),
+                            Medicine("02:32 PM", "Metformin 500mg", "1 Tablet", "Daily", "After lunch"),
+                            Medicine("08:00 PM", "Atorvastatin 20mg", "1 Tablet", "Daily", "Before sleep")
+                        )
+
+                        binding.recyclerView.adapter = TabMedicineAdapter(medicines)
+                        binding.homeId.visibility=View.GONE
+                        binding.challengedId.visibility=View.GONE
+                        binding.activeChalleTextId.visibility=View.GONE
+
+                    } 3 -> {
+                        binding.homeId.visibility=View.GONE
+                        binding.challengedId.visibility=View.VISIBLE
+                        binding.activeChalleTextId.visibility=View.VISIBLE
+
+                        binding.recyclerView.visibility=View.GONE
+
+                    }
+
+//                    else -> HomeFragment()
+//                    1 -> VitalsFragment()
+//                    2 -> MedicineFragment()
+//                    3 -> GoalsFragment()
+                    else -> {}
+                }
                 // Load fragment based on index
 //                val fragment = when (i) {
 //                    0 -> HomeFragment()
