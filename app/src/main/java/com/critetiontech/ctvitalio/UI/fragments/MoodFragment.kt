@@ -74,6 +74,7 @@ class MoodFragment : Fragment() {
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
         viewModel.moodsLiveData.observe(viewLifecycleOwner) { moodsFromApi ->
             val moodDataList = moodsFromApi.map { apiMood ->
                 val drawableRes = moods.find { it.id == apiMood.id }?.emojiRes
