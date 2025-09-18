@@ -6,20 +6,34 @@ import java.io.Serializable
 
 data class NewChallengeModel(
     val id: Int,
-    val title: String,
-    val description: String,
+    val title: String?,
+    val description: String?,
     val rewardPoints: Int,
     val clientId: Int,
-    val startsIn: String,
-    val startDate: String,
-    val endDate: String,
-    val peopleJoined: String  // ← change from List<NewPerson> to String
+    val startsIn: String?,
+    val startDate: String?,
+    val endDate: String?,
+    val peopleJoined: String? // nullable
 ) : Serializable {
-    // Helper to decode JSON string to List<NewPerson>
+    // Safe hashCode
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + rewardPoints
+        result = 31 * result + clientId
+        result = 31 * result + (startsIn?.hashCode() ?: 0)
+        result = 31 * result + (startDate?.hashCode() ?: 0)
+        result = 31 * result + (endDate?.hashCode() ?: 0)
+        result = 31 * result + (peopleJoined?.hashCode() ?: 0)
+        return result
+    }
+
+    // Helper to decode JSON string to List<Person>
     fun getPeopleJoinedList(): List<Person> {
         return try {
             Gson().fromJson(
-                peopleJoined,
+                peopleJoined ?: "[]",
                 object : TypeToken<List<Person>>() {}.type
             )
         } catch (e: Exception) {
