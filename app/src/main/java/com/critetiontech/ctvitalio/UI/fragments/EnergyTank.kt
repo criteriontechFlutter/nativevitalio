@@ -2,15 +2,22 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
 import android.animation.ValueAnimator
+import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
+import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.GestureDetector
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +28,7 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
 import com.critetiontech.ctvitalio.databinding.FragmentMoodBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.EnergyTankViewModel
 import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
 
@@ -49,6 +57,29 @@ class EnergyTank : Fragment() {
             gestureDetector.onTouchEvent(event)
             true // must return true to consume event
         }
+
+        var greetings= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ToastUtils.getSimpleGreeting()
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        };
+        binding.greetingText.text=greetings
+        val text = "How's your energy tank this morning?"
+        val spannable = SpannableString(text)
+
+        // Change only the word "feeling" to orange
+        val start = text.indexOf("energy tank")
+        val end = start + "energy tank".length
+        spannable.setSpan(
+            ForegroundColorSpan(Color.parseColor("#DCF629")), // Orange color
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        binding.questionText.text = spannable
+        val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
+        binding.questionText.setTypeface(typeface, Typeface.BOLD)
         gestureDetector = GestureDetector(requireContext(), GestureListener())
         binding.lightningIcon.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
         binding.userName.text =   PrefsManager().getPatient()?.patientName ?: ""

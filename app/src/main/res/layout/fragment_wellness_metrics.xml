@@ -59,18 +59,19 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-
         android:paddingTop="8dp"
-        android:src="@drawable/img_6"
+        android:background="@drawable/stresss"
         />
 
         <ImageView
             android:id="@+id/wellnessImage2"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:paddingTop="8dp"
+
             android:src="@drawable/img_14"
              />
 <!--        <ImageView-->
