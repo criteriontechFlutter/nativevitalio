@@ -9,6 +9,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.AudioRecord
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -44,6 +45,7 @@ import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
@@ -102,6 +104,8 @@ class CorporateDashBoard : Fragment() {
 
         pillsViewModel.getAllPatientMedication()
 
+
+
         navItems = listOf(
             view.findViewById(R.id.nav_home),
             view.findViewById(R.id.nav_vitals),
@@ -147,7 +151,6 @@ class CorporateDashBoard : Fragment() {
                     val params = binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams
                     params.verticalBias = -0.14f  // move it down
                     binding.ivIllustration.layoutParams = params
-
                     val layoutParams = binding.ivIllustration.layoutParams
                     layoutParams.width = dpToPx(374, requireContext())   // 400dp → pixels
                     layoutParams.height = dpToPx(203, requireContext())
@@ -277,22 +280,25 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         val animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.item_animation_from_bottom)
 
         // Start animations with delay one by one
-        binding.tFeeling.startAnimation(animation)
-        binding.tFeeling.postDelayed({
-            binding.tFeeling.startAnimation(animation)
-        }, 3000)
-
-
-        binding.tFeelingBelow.postDelayed({
-            binding.tFeelingBelow.startAnimation(animation)
-        }, 5000)
-
-        binding.ivIllustration.postDelayed({
-            binding.ivIllustration.startAnimation(animation)
-        }, 6000)
-        binding.contentScroll.postDelayed({
-            binding.contentScroll.startAnimation(animation)
-        }, 7500)
+//        binding.tFeeling.startAnimation(animation)
+//        binding.tFeeling.postDelayed({
+//            binding.tFeeling.visibility=View.VISIBLE
+//            binding.tFeeling.startAnimation(animation)
+//        }, 1000)
+//
+//
+//        binding.tFeelingBelow.postDelayed({
+//            binding.tFeelingBelow.visibility=View.VISIBLE
+//            binding.tFeelingBelow.startAnimation(animation)
+//        }, 2000)
+//
+//        binding.ivIllustration.postDelayed({
+//            binding.ivIllustration.startAnimation(animation)
+//        }, 3000)
+//        binding.contentScroll.postDelayed({
+//
+//            binding.contentScroll.startAnimation(animation)
+//        }, 4000)
 
 
 
@@ -303,7 +309,13 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
         binding.tFeelingBelow.setTypeface(typeface )
 
-        binding.greeting.text = "Good Morning,\n${PrefsManager().getPatient()?.patientName ?: ""}"
+        var greetings= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ToastUtils.getSimpleGreeting()
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        };
+
+        binding.greeting.text = "${greetings},\n${PrefsManager().getPatient()?.patientName ?: ""}"
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
             // `vitals` is the latest value emitted by LiveData

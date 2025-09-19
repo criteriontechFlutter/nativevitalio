@@ -157,14 +157,15 @@ class drawer : Fragment() {
         val patient = PrefsManager().getPatient()
         binding.userName.text = patient?.patientName ?: ""
         binding.userUhid.text = patient?.uhID ?: ""
-        Glide.with(this)
-            .load(patient?.profileUrl)
+
+        Glide.with(MyApplication.appContext)
+            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.userImage)
-
-
-
+//        binding.avatar.setOnClickListener {
+//            findNavController().navigate(R.id.action_dashboard_to_drawer4)
+//        }
 
 
 
