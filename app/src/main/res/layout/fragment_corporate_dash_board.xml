@@ -160,11 +160,237 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="9dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_corners"
+                    android:backgroundTint="#D9D9D9" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
+
+
+            <LinearLayout
+                android:id="@+id/healthSnaps"
+                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Sleep"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/sleepScoreId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/totalSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/sleepEfficiencyId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/timeInBedId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/fulSleepCycleId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/showId"
+
+                        layout="@layout/hide_show_box"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                    <include
+                        android:id="@+id/remSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/viewAllSleepDataaId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/deepSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/lightSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/restorativeSleepId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/movementsId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/morningAlertnessId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/tossesAndTurnsId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/averageBodyTempId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/hideId"
+
+                        layout="@layout/hide_show_box"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                  />
+            </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/activeChalleTextId"
                     android:layout_width="wrap_content"
@@ -195,12 +421,6 @@
                 android:paddingBottom="100dp">
 
 
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="9dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="#D9D9D9" />
 <!--                <LinearLayout-->
 
 <!--                    android:layout_width="match_parent"-->
