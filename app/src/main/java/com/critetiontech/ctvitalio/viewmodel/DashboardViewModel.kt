@@ -74,6 +74,10 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     fun setWebSocketState(state: WebSocketState) {
         _webSocketStatus.postValue(state)
     }
+
+
+    private val _sleepValueList = MutableLiveData<SleepValue>()
+    val sleepValueList: LiveData<SleepValue> get() = _sleepValueList
     fun getVitals() {
         viewModelScope.launch {
             _loading.value = true
@@ -114,6 +118,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                 .replace("\\\"", "\"")      // unescape quotes
 
                             val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
+                            _sleepValueList.value = Gson().fromJson(cleanedJson, SleepValue::class.java)
 
                             Log.d("TAG", "Sleep Score: ${sleepValue.SleepScore.Score}")
                             _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()

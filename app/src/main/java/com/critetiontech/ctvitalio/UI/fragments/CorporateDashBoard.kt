@@ -29,6 +29,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -450,6 +451,8 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 
 
 
+
+
 //        binding.recyclerMedicines.layoutManager = LinearLayoutManager(requireContext())
 //
 //// Sample data
@@ -461,6 +464,106 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //
 //        val adapter = MedicineAdapter(medicineList)
 //        binding.recyclerMedicines.adapter = adapter
+        var isBoxVisible = false
+        binding.viewAllSleepDataaId.visibility=View.GONE
+binding.showId.showHideId.setOnClickListener{
+    binding.viewAllSleepDataaId.visibility=View.VISIBLE
+    binding.showId.showHideId.visibility=View.GONE
+}
+        binding.hideId.showHideId.setOnClickListener{
+            binding.viewAllSleepDataaId.visibility=View.GONE
+            binding.showId.showHideId.visibility=View.VISIBLE
+        }
+
+
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+        binding.sleepScoreId.cardTitle.text="Sleep Score"
+        binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
+        binding.sleepScoreId.cardStatus.text="Good"
+
+
+    val totalSleep = sleepValue.QuickMetricsTiled
+        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+
+    binding.totalSleepId.cardTitle.text="Total Sleep"
+        binding.totalSleepId.cardValue.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+         binding.totalSleepId.cardStatus.text= totalSleep?.Tag.toString()
+
+
+    val efficiencyMetric = sleepValue.QuickMetrics
+        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
+
+        binding.sleepEfficiencyId.cardTitle.text="Sleep Efficiency"
+        binding.sleepEfficiencyId.cardValue.text= efficiencyMetric?.DisplayText.toString()
+         binding.sleepEfficiencyId.cardStatus.text="Good"
+
+    val timeinBed = sleepValue.QuickMetricsTiled
+        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+        binding.timeInBedId.cardTitle.text="Time in Bed"
+        binding.timeInBedId.cardValue.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.timeInBedId.cardStatus.text= timeinBed?.Tag.toString()
+
+
+
+
+        binding.fulSleepCycleId.cardTitle.text="Full Sleep Cycle"
+        binding.fulSleepCycleId.cardValue.text="3"
+         binding.fulSleepCycleId.cardStatus.text="Good"
+
+
+
+
+    val rem_sleep = sleepValue.SleepStages
+        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
+        binding.remSleepId.cardTitle.text="REM Sleep"
+        binding.remSleepId.cardValue.text= rem_sleep?.StageTimeText.toString()
+        binding.remSleepId.cardStatus.text="Good"
+
+
+    val deep_sleep = sleepValue.SleepStages
+        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
+        binding.deepSleepId.cardTitle.text="Deep Sleep"
+        binding.deepSleepId.cardValue.text=deep_sleep?.StageTimeText.toString()
+        binding.deepSleepId.cardStatus.text="Good"
+
+
+    val light_sleep = sleepValue.SleepStages
+        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
+        binding.lightSleepId.cardTitle.text="Llght Sleep"
+        binding.lightSleepId.cardValue.text=light_sleep?.StageTimeText.toString()
+        binding.lightSleepId.cardStatus.text="Good"
+
+
+    val restorative = sleepValue.QuickMetricsTiled
+        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
+        binding.restorativeSleepId.cardTitle.text="Restorative Sleep"
+        binding.restorativeSleepId.cardValue.text=restorative?.Value.toString()
+         binding.restorativeSleepId.cardStatus.text=restorative?.Tag.toString()
+
+
+
+        binding.movementsId.cardTitle.text="Movements"
+        binding.movementsId.cardValue.text= sleepValue.MovementGraph?.Data?.size.toString()
+         binding.movementsId.cardStatus.text="High"
+
+        binding.morningAlertnessId.cardTitle.text="Morning Alertness"
+        binding.morningAlertnessId.cardValue.text="12"
+        binding.morningAlertnessId.hrId.text="mins"
+        binding.morningAlertnessId.cardStatus.text="Optimal"
+
+        binding.tossesAndTurnsId.cardTitle.text="Tosses and Turns"
+        binding.tossesAndTurnsId.cardValue.text="12"
+        binding.tossesAndTurnsId.cardStatus.text="Optimal"
+
+
+        binding.morningAlertnessId.cardTitle.text="Average Body Temp."
+        binding.morningAlertnessId.cardValue.text="95.2"
+        binding.morningAlertnessId.hrId.text="F"
+        binding.morningAlertnessId.cardStatus.text="Optimal"
+
+
+            binding.hideId.cardTitlse.text="Hide"
+}
     }
     private fun openNewFragment() {
         findNavController().navigate(R.id.moodFragment)
@@ -519,6 +622,15 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                         binding.activeChalleTextId.visibility=View.GONE
 
                         binding.recyclerView.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.GONE
+
+                    }  1 -> {
+                        binding.homeId.visibility=View.GONE
+                        binding.challengedId.visibility=View.GONE
+                        binding.activeChalleTextId.visibility=View.GONE
+
+                        binding.recyclerView.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.VISIBLE
 
                     }
                     2 -> {
@@ -535,6 +647,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                         binding.homeId.visibility=View.GONE
                         binding.challengedId.visibility=View.GONE
                         binding.activeChalleTextId.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.GONE
 
                     } 3 -> {
                         binding.homeId.visibility=View.GONE
@@ -542,6 +655,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                         binding.activeChalleTextId.visibility=View.VISIBLE
 
                         binding.recyclerView.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.GONE
 
                     }
 
