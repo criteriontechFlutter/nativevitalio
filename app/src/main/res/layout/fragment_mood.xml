@@ -54,13 +54,14 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.78"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- Top Section with User Info -->
 
-<!--            android:paddingTop="40dp"-->
-<!--            android:background="@color/primaryBlue">-->
+            <!--            android:paddingTop="40dp"-->
+            <!--            android:background="@color/primaryBlue">-->
 
             <!-- User Avatar -->
             <!-- Back Arrow -->
@@ -82,19 +83,19 @@
             <!-- User Avatar -->
 
 
-<!--            <TextView-->
-<!--                android:id="@+id/tvSkip"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="16dp"-->
-<!--                android:layout_marginTop="28dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:text="Skip"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvSkip"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="16dp"-->
+            <!--                android:layout_marginTop="28dp"-->
+            <!--                android:layout_marginEnd="16dp"-->
+            <!--                android:text="Skip"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="16sp"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userAvatar"
@@ -114,13 +115,12 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Good Morning"
                 android:textColor="#202529"
-                android:transitionName="heroGreetingtextTransition"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/userAvatar"
+                android:transitionName="heroGreetingtextTransition"
                 app:layout_constraintEnd_toEndOf="@+id/userAvatar"
                 app:layout_constraintStart_toStartOf="@+id/userAvatar"
                 app:layout_constraintTop_toBottomOf="@+id/userAvatar" />
@@ -131,12 +131,12 @@
                 android:id="@+id/userName2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Katherine Prokes"
                 android:textColor="#202529"
                 android:textSize="24sp"
-                android:transitionName="heroGreetingtextTransition"
                 android:textStyle="bold"
+                android:transitionName="heroGreetingtextTransition"
                 app:layout_constraintEnd_toEndOf="@+id/userAvatar"
                 app:layout_constraintStart_toStartOf="@+id/userAvatar"
                 app:layout_constraintTop_toBottomOf="@+id/userName" />

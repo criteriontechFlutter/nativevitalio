@@ -17,7 +17,6 @@ class Home :  AppCompatActivity() {
     private lateinit var binding : ActivityDashboardBinding
     private var lastBackPressTime: Long = 0
     private var backPressSnackbar:    Snackbar? = null
-
     private var lastScreen: String? = null
     private var screenEnterTime: Long = 0L
 
