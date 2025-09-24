@@ -563,7 +563,67 @@ binding.showId.showHideId.setOnClickListener{
 
 
             binding.hideId.cardTitlse.text="Hide"
-}
+
+
+
+
+//            Activity
+
+
+            binding.movementIndexId.cardTitle.text="Movement Index"
+            binding.movementIndexId.cardValue.text="95 "
+            binding.movementIndexId.cardStatus.text="Optimal"
+
+            binding.inactiveHoursId.cardTitle.text="Inactive Time"
+            binding.inactiveHoursId.cardValue.text="95 "
+            binding.inactiveHoursId.cardStatus.text="Optimal"
+
+
+            binding.StepsId.cardTitle.text="Steps"
+            binding.StepsId.cardValue.text="95 "
+            binding.StepsId.cardStatus.text="Optimal"
+
+
+            binding.activieHoursId.cardTitle.text="Active Hours"
+            binding.activieHoursId.cardValue.text="95 "
+            binding.activieHoursId.cardStatus.text="Optimal"
+
+
+            binding.ActiveminutesId.cardTitle.text="Active Minutes"
+            binding.ActiveminutesId.cardValue.text="95 "
+            binding.ActiveminutesId.cardStatus.text="Optimal"
+
+
+            binding.WeeklyActiveMinutesId.cardTitle.text="Weekly Active Minutes"
+            binding.WeeklyActiveMinutesId.cardValue.text="95 "
+            binding.WeeklyActiveMinutesId.cardStatus.text="Optimal"
+
+
+//            Recovery
+
+
+
+            binding.recoveryScoreId.cardTitle.text="Recovery Score"
+            binding.recoveryScoreId.cardValue.text="95 "
+            binding.recoveryScoreId.cardStatus.text="Optimal"
+
+            binding.lastNightHrvId.cardTitle.text="Last Night's HRV"
+            binding.lastNightHrvId.cardValue.text="95 "
+            binding.lastNightHrvId.cardStatus.text="Optimal"
+
+
+            binding.SleepStageHrvId.cardTitle.text="Sleep Stage' HRV"
+            binding.SleepStageHrvId.cardValue.text="95 "
+            binding.SleepStageHrvId.cardStatus.text="Optimal"
+
+            binding.StressRhythmScoreId.cardTitle.text="Stress Rhyythm Score"
+            binding.StressRhythmScoreId.cardValue.text="95 "
+            binding.StressRhythmScoreId.cardStatus.text="Optimal"
+
+            binding.tempDeviationId.cardTitle.text="Temperature Devoatoion"
+            binding.tempDeviationId.cardValue.text="95 "
+            binding.tempDeviationId.cardStatus.text="Optimal"
+        }
     }
     private fun openNewFragment() {
         findNavController().navigate(R.id.moodFragment)
