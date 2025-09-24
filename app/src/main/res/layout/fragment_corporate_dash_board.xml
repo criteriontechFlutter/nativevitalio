@@ -383,6 +383,210 @@
 
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Activity"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/movementIndexId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+
+                    <include
+                        android:id="@+id/inactiveHoursId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/StepsId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/activieHoursId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+<!--                    <include-->
+<!--                        android:id="@+id/showActivityId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+
+                    <include
+                        android:id="@+id/ActiveminutesId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/WeeklyActiveMinutesId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+<!--                    <include-->
+<!--                        android:id="@+id/hideActivityId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Revovery"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+ <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="12dp">
+
+
+     <include
+         android:id="@+id/recoveryScoreId"
+
+         layout="@layout/sleep_layout"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:layout_marginEnd="8dp"/>
+                <include
+                    android:id="@+id/lastNightHrvId"
+
+                    layout="@layout/sleep_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"/>
+
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/SleepStageHrvId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+
+
+<!--                    <include-->
+<!--                        android:id="@+id/showRecoveryId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                    <include
+                        android:id="@+id/StressRhythmScoreId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/tempDeviationId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+
+
+<!--                    <include-->
+<!--                        android:id="@+id/hideRecoveryId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                </LinearLayout>
                 <View
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -411,7 +615,17 @@
                     app:layout_constraintStart_toStartOf="@+id/other_grid"
                     app:layout_constraintTop_toBottomOf="@+id/other_grid"
                     tools:listitem="@layout/new_challenged_joined" />
-            <LinearLayout
+<!--                <include-->
+<!--                    android:id="@+id/health_progressId"-->
+<!--                    layout="@layout/your_health_progress"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginEnd="8dp"/>-->
+
+
+
+                <LinearLayout
                 android:id="@+id/homeId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
