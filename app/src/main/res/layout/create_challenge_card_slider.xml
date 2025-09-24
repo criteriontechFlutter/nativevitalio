@@ -72,54 +72,71 @@
             android:layout_marginBottom="12dp" />
 
         <!-- Progress Bar -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:padding="2dp"
-            android:background="@drawable/bg_progress_track">
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/bg_progress_track"
+        android:padding="4dp">
 
-            <!-- ProgressBar -->
+        <!-- Left label (Current) -->
+        <TextView
+            android:id="@+id/labelCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:textStyle="normal"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Progress Container -->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <!-- Background Progress Track -->
+            <ProgressBar
+                android:id="@+id/progressBarBackground"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/progress_background" />
+
+            <!-- Actual Progress -->
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="61dp"
-                android:layout_marginRight="8dp"
-                android:backgroundTint="#D6E2EF"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
                 android:indeterminate="false"
                 android:max="100"
                 android:progress="68"
-                android:progressTint="#00D48B"
-                android:scaleY="4.0" />
+                android:progressDrawable="@drawable/progress_drawable" />
 
-            <!-- Left label (Current) -->
-            <TextView
-                android:id="@+id/labelCurrent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
-                android:text="Current"
-                android:textSize="12sp"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="bold" />
-
-            <!-- Right value (percentage) -->
+            <!-- Percentage Text -->
             <TextView
                 android:id="@+id/labelPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/labelCurrent"
-                android:layout_marginStart="23dp"
-                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
                 android:text="68%"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
         </RelativeLayout>
+
+    </LinearLayout>
 
         <!-- Reminder Row -->
         <LinearLayout

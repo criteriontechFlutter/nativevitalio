@@ -16,6 +16,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.critetiontech.ctvitalio.R;
 
+import java.time.LocalTime;
+
 /**
  * Created by Omron HealthCare Inc
  */
@@ -101,4 +103,5 @@ public class Utilities {
         // Apply the gradient shader to the TextPaint of the TextView
         textView.getPaint().setShader(linearGradient);
     }
+
 }

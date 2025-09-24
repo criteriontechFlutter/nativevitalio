@@ -33,7 +33,14 @@
     <color name="bgDark2">#252527</color>
     <color name="cardDark">#24252B</color>
     <color name="glassbg">#EDF3FC</color>
+    <!-- Light green background for the card -->
+    <color name="light_green_background">#E8F5E8</color>
 
+    <!-- Green color for the heart icon -->
+    <color name="green_primary">#4CAF50</color>
+
+    <!-- Text color -->
+    <color name="text_primary">#2E2E2E</color>
     <!-- Alert & Status Colors -->
     <color name="brightRed">#D40000</color>
     <color name="error">#E8B44A</color>
