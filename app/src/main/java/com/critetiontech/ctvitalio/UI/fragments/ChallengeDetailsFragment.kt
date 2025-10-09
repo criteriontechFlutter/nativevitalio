@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.adapter.ChallengeDetailsAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentChallengeDetailsBinding
 import com.critetiontech.ctvitalio.model.NewChallengeModel
@@ -61,6 +62,9 @@ class ChallengeDetailsFragment : Fragment() {
             binding.topId.visibility=View.GONE
         }
 
+        binding.backBtn.setOnClickListener(){
+            findNavController().popBackStack()
+        }
 
         binding.leaveChallengesId.visibility=View.GONE
 

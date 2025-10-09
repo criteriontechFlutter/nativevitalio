@@ -132,10 +132,10 @@
                 android:layout_height="130dp"
                 android:src="@drawable/moods"
                 android:adjustViewBounds="true"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.58000004" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.58000004" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Placeholder white container (next step we’ll fill it with cards) -->
@@ -154,13 +154,10 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <LinearLayout
+                android:id="@+id/tabViewId"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
-                android:backgroundTint="#F9F9F9"
-                android:orientation="vertical"
-                android:paddingBottom="100dp">
-
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <View
                     android:layout_width="100dp"
@@ -168,7 +165,501 @@
                     android:layout_gravity="center"
                     android:background="@drawable/rounded_corners"
                     android:backgroundTint="#D9D9D9" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
 
+
+            <LinearLayout
+                android:id="@+id/healthSnaps"
+                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Sleep"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/sleepScoreId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/totalSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/sleepEfficiencyId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/timeInBedId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/fulSleepCycleId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/showId"
+
+                        layout="@layout/hide_show_box"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                    <include
+                        android:id="@+id/remSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/viewAllSleepDataaId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/deepSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/lightSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/restorativeSleepId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/movementsId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/morningAlertnessId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/tossesAndTurnsId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/averageBodyTempId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/hideId"
+
+                        layout="@layout/hide_show_box"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Activity"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/movementIndexId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+
+                    <include
+                        android:id="@+id/inactiveHoursId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/StepsId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/activieHoursId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+<!--                    <include-->
+<!--                        android:id="@+id/showActivityId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+
+                    <include
+                        android:id="@+id/ActiveminutesId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <include
+                        android:id="@+id/WeeklyActiveMinutesId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+<!--                    <include-->
+<!--                        android:id="@+id/hideActivityId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Revovery"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+ <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="12dp">
+
+
+     <include
+         android:id="@+id/recoveryScoreId"
+
+         layout="@layout/sleep_layout"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:layout_marginEnd="8dp"/>
+                <include
+                    android:id="@+id/lastNightHrvId"
+
+                    layout="@layout/sleep_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"/>
+
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/SleepStageHrvId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+
+
+<!--                    <include-->
+<!--                        android:id="@+id/showRecoveryId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                    <include
+                        android:id="@+id/StressRhythmScoreId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/tempDeviationId"
+
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+
+
+<!--                    <include-->
+<!--                        android:id="@+id/hideRecoveryId"-->
+
+<!--                        layout="@layout/hide_show_box"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginStart="8dp"/>-->
+                </LinearLayout>
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                  />
+            </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/activeChalleTextId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:text="Active Challeges"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/challengedId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/other_grid"
+                    app:layout_constraintStart_toStartOf="@+id/other_grid"
+                    app:layout_constraintTop_toBottomOf="@+id/other_grid"
+                    tools:listitem="@layout/new_challenged_joined" />
+<!--                <include-->
+<!--                    android:id="@+id/health_progressId"-->
+<!--                    layout="@layout/your_health_progress"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginEnd="8dp"/>-->
+
+
+
+                <LinearLayout
+                android:id="@+id/homeId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="#F9F9F9"
+                android:orientation="vertical"
+                android:paddingBottom="100dp">
+
+
+<!--                <LinearLayout-->
+
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center">-->
+
+<!--                    <androidx.viewpager2.widget.ViewPager2-->
+<!--                        android:id="@+id/progressViewPager"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clipToPadding="false"-->
+<!--                        android:paddingStart="40dp"-->
+<!--                        android:paddingEnd="40dp"-->
+<!--                        android:overScrollMode="never" />-->
+
+<!--                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
+<!--                        android:id="@+id/dotsIndicator"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        app:dotsColor="#D9D9D9"-->
+<!--                        app:selectedDotColor="#1F3247"-->
+<!--                        app:dotsSpacing="6dp"-->
+<!--                        app:dotsSize="6dp" />-->
+<!--                </LinearLayout>-->
                 <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
@@ -180,10 +671,121 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_gravity="center_vertical|center"
+                android:backgroundTint="@color/light_green_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
+
+                    <!-- Heart Icon -->
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:src="@drawable/heart_green"
+                        android:layout_marginEnd="10sp"
+                        app:tint="@color/green_primary" />
+
+                    <!-- Text Content -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Good Foundation"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/green_primary"
+                            android:fontFamily="@font/lato" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" - Scope to optimize further."
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/energyCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corners"
+                    android:elevation="0dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_energy_gradient"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Text Section -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/energyTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="You're feeling 85% energized today ⚡"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/energySubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ready to take on the day!"
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!-- Illustration -->
+                        <ImageView
+                            android:id="@+id/energyImage"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_meditation" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <!-- Wellness Score Card -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginBottom="10dp"
                     app:cardCornerRadius="16dp">
 
@@ -243,7 +845,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-
                                     android:orientation="vertical">
 
                                     <TextView
@@ -277,7 +878,6 @@
                                     android:id="@+id/WellnessProgres"
                                     android:layout_width="60dp"
                                     android:layout_height="60dp"
-
                                     app:progress="80"
                                     app:progressColor="#0DB46C"
                                     app:strokeWidth="5dp" />
@@ -647,10 +1247,10 @@ android:paddingRight="13dp"
                                 android:src="@drawable/nimbus_fire" />
 
                             <TextView
+                                android:id="@+id/tvCaloriee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="2,150 kcal"
-                                android:id="@+id/tvCaloriee"
                                 android:textColor="@color/blackText"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -855,6 +1455,7 @@ android:paddingRight="13dp"
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/waterContId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_corners"
@@ -904,7 +1505,7 @@ android:paddingRight="13dp"
                                 android:orientation="vertical">
 
                                 <!-- Main steps count -->
-                                <TextView
+                                <TextView android:id="@+id/intakeWaterId"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="750"
@@ -917,7 +1518,7 @@ android:paddingRight="13dp"
                                     android:id="@+id/waterGoalId"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="/3000 ml"
+                                    android:text="/ 0 ml"
                                     android:textColor="#999999"
                                     android:textSize="14sp" />
 
@@ -937,7 +1538,7 @@ android:paddingRight="13dp"
                                     android:layout_width="60dp"
                                     android:layout_height="60dp"
                                     app:progress="25"
-                                    app:progressColor="#0079FF"
+                                    app:progressColor="#0DB46C"
                                     app:strokeWidth="5dp" />
 
                             </LinearLayout>
@@ -954,11 +1555,12 @@ android:paddingRight="13dp"
 
                 <!-- Reminders -->
                 <TextView
+                    android:id="@+id/activechalgesId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="12dp"
                     android:layout_marginTop="15dp"
-                    android:text="Upcoming Challenges"
+                    android:text="Active Challenges"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -1018,20 +1620,7 @@ android:paddingRight="13dp"
                 </LinearLayout>
 
 
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/newChallengedRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/other_grid"
-                    app:layout_constraintStart_toStartOf="@+id/other_grid"
-                    app:layout_constraintTop_toBottomOf="@+id/other_grid"
-                    tools:listitem="@layout/new_challenged_joined" />
-
-<!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
 <!--                    android:id="@+id/recyclerMedicines"-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->
@@ -1052,6 +1641,17 @@ android:paddingRight="13dp"
 <!--                    app:layout_constraintTop_toBottomOf="@id/vitals_label" />-->
 
                 <!-- Activities -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/newChallengedRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/other_grid"
+                    app:layout_constraintStart_toStartOf="@+id/other_grid"
+                    app:layout_constraintTop_toBottomOf="@+id/other_grid"
+                    tools:listitem="@layout/new_challenged_joined" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1340,6 +1940,7 @@ android:paddingRight="13dp"
                                                         android:orientation="vertical">
 
                                                         <TextView
+                                                            android:id="@+id/bpDataId"
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
                                                             android:layout_marginTop="15dp"
@@ -1358,6 +1959,7 @@ android:paddingRight="13dp"
                                                     </LinearLayout>
 
                                                     <ImageView
+                                                        android:id="@+id/addvitalBtn"
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
                                                         android:src="@drawable/btn"/>
@@ -1475,13 +2077,14 @@ android:paddingRight="13dp"
                                 </LinearLayout>
 
 
-                <ImageView
-                    android:id="@+id/energy_level"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/energy_level" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/energy_level"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/energy_level" />-->
 
 
+            </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

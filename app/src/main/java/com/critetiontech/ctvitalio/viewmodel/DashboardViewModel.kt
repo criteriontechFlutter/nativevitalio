@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import EnergyResponse
 import MoodResponse
 import PillReminderModel
 import PillTime
@@ -10,6 +11,7 @@ import Vital
 import VitalsResponse
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
@@ -22,6 +24,7 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.DietItemModel
 import com.critetiontech.ctvitalio.model.FluidType
 import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
+import com.critetiontech.ctvitalio.model.ManualFoodItem
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -71,6 +74,10 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     fun setWebSocketState(state: WebSocketState) {
         _webSocketStatus.postValue(state)
     }
+
+
+    private val _sleepValueList = MutableLiveData<SleepValue>()
+    val sleepValueList: LiveData<SleepValue> get() = _sleepValueList
     fun getVitals() {
         viewModelScope.launch {
             _loading.value = true
@@ -111,6 +118,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                 .replace("\\\"", "\"")      // unescape quotes
 
                             val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
+                            _sleepValueList.value = Gson().fromJson(cleanedJson, SleepValue::class.java)
 
                             Log.d("TAG", "Sleep Score: ${sleepValue.SleepScore.Score}")
                             _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
@@ -140,54 +148,77 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-//    fun fetchManualFluidIntake(uhid: String) {
-//        viewModelScope.launch {
-//            try {
-//                _loading.value = true
-//                val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
-//
-//                val response = RetrofitInstance
-//                    .createApiService7096()
-//                    .dynamicGet(
-//                        url = ApiEndPoint().getFluidIntakeDetails,
-//                        params = queryParams
-//                    )
-//
-//                if (response.isSuccessful) {
-//                    _loading.value = false
-//                    val responseBodyString = response.body()?.string()
-//                    val type = object : TypeToken<ManualFoodAssignResponse>() {}.type
-//                    val parsed = Gson().fromJson<ManualFoodAssignResponse>(responseBodyString, type)
-//                    val allItems = parsed.responseValue
-//                    _intakeList.value= allItems
-//                    val filteredList = parsed.responseValue.mapNotNull {
-//
-//                        Log.d("TAG", "fetchManualFluidIntake: "+intakeList.value)
-//                        val qty = it.quantity.toFloatOrNull() ?: 0f
-//                        if (qty > 0f) {
-//                            FluidType(
-//                                name = it.foodName.trim(),
-//                                amount = qty.toInt(),
-//                                color = mapColorForFood(it.foodName) ,
-//                                id= it.foodID
-//                            )
-//                        } else null
-//                    }
-//                    _fluidList.value = filteredList
-//
-//                } else {
-//                    _loading.value = false
-//                    _errorMessage.value = "Error: ${response.code()}"
-//                }
-//
-//            } catch (e: Exception) {
-//                _loading.value = false
-//                _errorMessage.value = e.message ?: "Unknown error occurred"
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-fun getCurrentDate(pattern: String = "yyyy-MM-dd"): String {
+
+    private val _intakeList = MutableLiveData<List<ManualFoodItem>>()
+    var intakeList: LiveData<List<ManualFoodItem>> = _intakeList
+
+    private val _fluidList = MutableLiveData<List<FluidType>>()
+    val fluidList: LiveData<List<FluidType>> = _fluidList
+
+
+    fun fetchManualFluidIntake(uhid: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
+
+                val response = RetrofitInstance
+                    .createApiService7096()
+                    .dynamicGet(
+                        url = ApiEndPoint().getFluidIntakeDetails,
+                        params = queryParams
+                    )
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<ManualFoodAssignResponse>() {}.type
+                    val parsed = Gson().fromJson<ManualFoodAssignResponse>(responseBodyString, type)
+                    val allItems = parsed.responseValue
+                    _intakeList.value= allItems
+                    val filteredList = parsed.responseValue.mapNotNull {
+
+                        Log.d("TAG", "fetchManualFluidIntake: "+intakeList.value)
+                        val qty = it.quantity.toFloatOrNull() ?: 0f
+                        if (qty > 0f) {
+                            FluidType(
+                                name = it.foodName.trim(),
+                                amount = qty.toInt(),
+                                color = mapColorForFood(it.foodName) ,
+                                id= it.foodID
+                            )
+                        } else null
+                    }
+                    _fluidList.value = filteredList
+
+                } else {
+                    _loading.value = false
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+
+    private fun mapColorForFood(name: String): Int {
+        return when (name.trim().lowercase()) {
+            "milk" -> Color.parseColor("#FFEB3B")
+            "water" -> Color.parseColor("#4FC3F7")
+            "green tea", "tea" -> Color.parseColor("#A1887F")
+            "coffee" -> Color.parseColor("#795548")
+            "fruit juice", "juice" -> Color.parseColor("#FF9800")
+            else -> Color.LTGRAY
+        }}
+
+
+    fun getCurrentDate(pattern: String = "yyyy-MM-dd"): String {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
     return sdf.format(Date())
 }
@@ -242,6 +273,63 @@ fun getCurrentDate(pattern: String = "yyyy-MM-dd"): String {
             }
         }
     }
+
+
+
+    private val _latestEnergy = MutableLiveData<Int>()
+    val latestEnergy: LiveData<Int> get() = _latestEnergy
+
+    private val _latestStatus = MutableLiveData<String>()
+    val latestStatus: LiveData<String> get() = _latestStatus
+    fun getAllEnergyTankMaster( ) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+
+                val queryParams = mapOf(
+                    "pid" to PrefsManager().getPatient()?.id.toString() ,
+                    "userId" to "99",
+                    "clientId" to "194",
+                )
+
+
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicGet(
+                        url =  ApiEndPointCorporateModule().getAllEnergyTankMaster,
+                        params = queryParams
+                    )
+
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, EnergyResponse::class.java)
+
+// Store the label in a variable
+                    val latest = parsed.responseValue.maxByOrNull { it.createdDate }
+                    _latestEnergy .value = latest?.energyPercentage
+                    _latestStatus .value = latest?.statusLabel
+                    Log.d("RESPONSE", "responseValue: $json")
+
+                } else {
+
+                    _loading.value = false
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
     fun getAllPatientMedication( ) {
         _loading.value = true
 
