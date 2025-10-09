@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:padding="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        >
+    <TextView
+        android:id="@+id/titleTexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Health Progress"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/cardIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/arrow_right"
+        app:tint="@color/greyText" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/weeklyComparisonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This Week vs Last Week"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_corners"
+            android:padding="8dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:text="Time in range:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="85 -> 94"
+                android:layout_marginStart="8dp"/>
+            <ImageView
+                 android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/check" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_corners"
+            android:padding="8dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:text="Medication Adherence:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="85 -> 94"
+                android:layout_marginStart="8dp"/>
+            <ImageView
+                 android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/check"  />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_corners"
+            android:padding="8dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:text="Care team check-ins:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="85 -> 94"
+                android:layout_marginStart="8dp"/>
+            <ImageView
+                 android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/check"  />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

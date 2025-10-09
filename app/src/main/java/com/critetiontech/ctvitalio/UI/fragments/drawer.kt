@@ -56,11 +56,11 @@ class drawer : Fragment() {
     private var imageUri: Uri? = null
     private var imageFile: File? = null
 
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            launchCropper(it)
-        }
-    }
+//    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+//        uri?.let {
+//            launchCropper(it)
+//        }
+//    }
 
     private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful && result.uriContent != null) {
@@ -99,21 +99,21 @@ class drawer : Fragment() {
         return FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
     }
 
-    private fun openGallery() {
-        galleryLauncher.launch("image/*")
-    }
+//    private fun openGallery() {
+//        galleryLauncher.launch("image/*")
+//    }
 
-    private fun launchCamera() {
-        ImagePickerUtil.takePhoto(requireContext(), this) { uri ->
-            uri?.let {
-                launchCropper(it)  // ✅ Crop the taken photo just like gallery image
-            }
-        }
-    }
+//    private fun launchCamera() {
+//        ImagePickerUtil.takePhoto(requireContext(), this) { uri ->
+//            uri?.let {
+//                launchCropper(it)  // ✅ Crop the taken photo just like gallery image
+//            }
+//        }
+//    }
 
     private fun showProfileImageBottomSheet() {
         val bottomSheetView = layoutInflater.inflate(R.layout.upload_profile_img, null)
-        val dialog = BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme)
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(bottomSheetView)
 
         val btnTake = bottomSheetView.findViewById<LinearLayout>(R.id.imgTake)
@@ -121,12 +121,13 @@ class drawer : Fragment() {
 
         btnTake.setOnClickListener {
             dialog.dismiss()
-            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED
             ) {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
             } else {
-                launchCamera()
+//                launchCamera()
+                openCamera()
             }
         }
 
@@ -156,11 +157,70 @@ class drawer : Fragment() {
         val patient = PrefsManager().getPatient()
         binding.userName.text = patient?.patientName ?: ""
         binding.userUhid.text = patient?.uhID ?: ""
-        Glide.with(this)
-            .load(patient?.profileUrl)
+
+        Glide.with(MyApplication.appContext)
+            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.userImage)
+//        binding.avatar.setOnClickListener {
+//            findNavController().navigate(R.id.action_dashboard_to_drawer4)
+//        }
+
+
+
+    }
+
+
+    private var tempImageUri: Uri? = null
+    private fun openGallery() {
+        galleryLauncher.launch("image/*")
+    }
+
+    private fun openCamera() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            val imageFile = File.createTempFile("profile_", ".jpg", requireContext().cacheDir)
+            tempImageUri = FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                imageFile
+            )
+            cameraLauncher.launch(tempImageUri)
+        } else {
+            requestCameraPermission.launch(Manifest.permission.CAMERA)
+        }
+    }
+    // Open Gallery
+    private val galleryLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            drawerViewModel.setSelectedImage(it) // store in ViewModel
+
+            drawerViewModel.updateUserData(requireContext(), it)
+        }
+    }
+    private val requestCameraPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openCamera()
+            } else {
+                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    // Open Camera
+    private val cameraLauncher = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success) {
+            tempImageUri?.let {
+                drawerViewModel.setSelectedImage(it) // store in ViewModel
+
+                drawerViewModel.updateUserData(requireContext(), it)
+            }
+        }
     }
 
     private fun setupObservers() {
@@ -201,6 +261,12 @@ class drawer : Fragment() {
         binding.backDrawer.setOnClickListener { findNavController().popBackStack() }
 
         binding.logoutMenu.setOnClickListener { showLogoutPopup() }
+
+
+
+
+
+
     }
 
     private fun showLogoutPopup() {
@@ -327,16 +393,16 @@ class drawer : Fragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_PERMISSION_CODE &&
-            grantResults.isNotEmpty() &&
-            grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            launchCamera()
-        } else {
-            Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == CAMERA_PERMISSION_CODE &&
+//            grantResults.isNotEmpty() &&
+//            grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//            launchCamera()
+//        } else {
+//            Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     companion object {
         private const val CAMERA_PERMISSION_CODE = 101

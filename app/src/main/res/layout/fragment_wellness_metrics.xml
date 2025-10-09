@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:paddingTop="32dp"
+    android:background="@color/primaryBlueLight">
+
+    <LinearLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/primaryBlueLight"
+        android:orientation="vertical">
+
+        <!-- Header: Arrow + Text -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/wellnessImageArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_left"
+              />
+
+            <TextView
+                android:id="@+id/wellnessText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Wellness Metrics"
+                android:textSize="18sp"
+                android:paddingStart="16dp"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <!-- Wellness Images -->
+        <ImageView
+            android:id="@+id/wellnessImage1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:paddingTop="8dp"
+            android:src="@drawable/img_11"
+            android:contentDescription="@string/app_name"/>
+
+
+    <ImageView
+        android:id="@+id/wellnessImage3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:paddingTop="8dp"
+        android:background="@drawable/stresss"
+        />
+
+        <ImageView
+            android:id="@+id/wellnessImage2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:paddingTop="8dp"
+
+            android:src="@drawable/img_14"
+             />
+<!--        <ImageView-->
+<!--            android:id="@+id/wellnessImage4"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:paddingTop="8dp"-->
+<!--            android:src="@drawable/img_14"-->
+<!--            />-->
+
+    </LinearLayout>
+</ScrollView>

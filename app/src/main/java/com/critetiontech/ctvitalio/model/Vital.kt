@@ -25,9 +25,34 @@ data class SleepValue(
     val BedtimeStart: String,
     val BedtimeEnd: String,
     val SleepScore: SleepScore,
-    val QuickMetrics: List<QuickMetric>?
+    val QuickMetrics: List<QuickMetric>?,
+    val QuickMetricsTiled: List<QuickMetricsTiled>?,
+    val SleepStages: List<SleepStage>?,
+    val MovementGraph: MovementGraph?,
+)
+data class MovementGraph(
+    val Title: String,
+    val Data: List<MovementData>
 )
 
+data class MovementData(
+    val Timestamp: String,
+    val Type: String
+)
+data class QuickMetricsTiled(
+    val Title: String,
+    val Value: String,
+    val Tag: String,
+    val TagColor: String,
+    val Type: String
+)
+data class SleepStage(
+    val Title: String,
+    val Type: String,
+    val Percentage: Int,
+    val StageTimeText: String,
+    val StageTime: Int
+)
 //data class SleepDetails(
 //    val Score: Int,
 //    val QuickMetrics: List<QuickMetric>?
@@ -137,4 +162,22 @@ data class Mood(
     val color: String,
     val description: String,
     val emojiRes: Int,   // Drawable resource ID
+)
+
+
+data class EnergyResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<EnergyItem>
+)
+
+data class EnergyItem(
+    val id: Int,
+    val pid: Int,
+    val energyPercentage: Int,
+    val statusLabel: String,
+    val userId: Int,
+    val clientId: Int,
+    val status: Boolean,
+    val createdDate: String
 )

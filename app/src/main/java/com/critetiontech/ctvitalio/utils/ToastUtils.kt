@@ -5,16 +5,19 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.critetiontech.ctvitalio.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.ResponseBody
+import java.time.LocalTime
 
 
 object ToastUtils {
@@ -32,6 +35,18 @@ object ToastUtils {
     }
 
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getSimpleGreeting(): String {
+        val hour = LocalTime.now().hour
+
+        return when (hour) {
+            in 5..11 -> "Good Morning"
+            in 12..17 -> "Good Afternoon"
+            in 18..21 -> "Good Evening"
+            else -> "Good Night"
+        }
+    }
     fun showSuccessPopup(context: Context, message: String) {
         val dialog = Dialog(context)
         val view = LayoutInflater.from(context).inflate(R.layout.custom_success_popup, null)

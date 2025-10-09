@@ -29,19 +29,19 @@
     <!-- User Avatar -->
 
 
-    <TextView
-        android:id="@+id/tvSkip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:text="Skip"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/tvSkip"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="Skip"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userAvatar"
@@ -95,8 +95,7 @@
         android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="How’s your"
         android:textColor="@android:color/white"
@@ -107,53 +106,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userName" />
 
-    <TextView
-        android:id="@+id/questionT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="energy "
-        android:textColor="@android:color/holo_green_light"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/questionText"
-        app:layout_constraintTop_toBottomOf="@id/userName" />
-
-
-    <TextView
-        android:id="@+id/questionTexts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:gravity="center"
-        android:text="tank"
-        android:textColor="@android:color/holo_green_light"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/questionText" />
-
-    <TextView
-        android:id="@+id/questions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:gravity="center"
-        android:text="this morning?"
-        android:textColor="@android:color/white"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toEndOf="@id/questionTexts"
-        app:layout_constraintTop_toBottomOf="@id/questionText" />
 
     <TextView
         android:id="@+id/percentageText"
@@ -165,9 +117,9 @@
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/questionTexts" />
+        app:layout_constraintTop_toBottomOf="@id/questionText" />
 
     <TextView
         android:id="@+id/charged"
@@ -178,10 +130,9 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/questionTexts" />
+        app:layout_constraintEnd_toEndOf="@+id/percentageText"
+        app:layout_constraintStart_toStartOf="@+id/percentageText"
+        app:layout_constraintTop_toBottomOf="@id/questionText" />
 
     <TextView
         android:id="@+id/statusText"
@@ -193,15 +144,15 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/percentageText" />
 
     <FrameLayout
         android:id="@+id/lightningContainer"
         android:layout_width="188dp"
-        android:layout_height="338dp"
-        app:layout_constraintTop_toBottomOf="@id/questionTexts"
+        android:layout_height="400dp"
+        app:layout_constraintTop_toBottomOf="@id/questionText"
         app:layout_constraintStart_toEndOf="@id/percentageText"
         app:layout_constraintEnd_toEndOf="parent">
 

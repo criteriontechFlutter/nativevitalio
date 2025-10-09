@@ -56,17 +56,32 @@ object ImagePickerUtil {
             else -> throw IllegalArgumentException("Invalid caller")
         }
     }
+//    fun takePhoto(context: Context, fragment: Fragment, cb: (Uri?) -> Unit) {
+//        callback = cb
+//        val imageFile = File(context.cacheDir, "temp_image.jpg")
+//        val uri = FileProvider.getUriForFile(
+//            context,
+//            "${context.packageName}.provider",
+//            imageFile
+//        )
+//        tempImageUri = uri
+//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+//        fragment.startActivityForResult(cameraIntent, REQUEST_CAMERA)
+//    }
+
+
     fun takePhoto(context: Context, fragment: Fragment, cb: (Uri?) -> Unit) {
         callback = cb
-        val imageFile = File(context.cacheDir, "temp_image.jpg")
-        val uri = FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.provider",
-            imageFile
-        )
+        val imageFile = File(context.cacheDir, "camera_${System.currentTimeMillis()}.jpg")
+        val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", imageFile)
         tempImageUri = uri
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            putExtra(MediaStore.EXTRA_OUTPUT, uri)
+            addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
         fragment.startActivityForResult(cameraIntent, REQUEST_CAMERA)
     }
     fun handleActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

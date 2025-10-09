@@ -9,6 +9,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.AudioRecord
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,16 +17,20 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -35,15 +40,20 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.MedicineAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
+import com.critetiontech.ctvitalio.adapter.ProgressCard
+import com.critetiontech.ctvitalio.adapter.ProgressCardAdapter
+import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.WebSocket
+import kotlin.math.abs
 
 
 class CorporateDashBoard : Fragment() {
@@ -95,6 +105,8 @@ class CorporateDashBoard : Fragment() {
 
         pillsViewModel.getAllPatientMedication()
 
+
+
         navItems = listOf(
             view.findViewById(R.id.nav_home),
             view.findViewById(R.id.nav_vitals),
@@ -121,30 +133,45 @@ class CorporateDashBoard : Fragment() {
 
                 binding.tFeeling.text = spannable
             } else {
+
                 val drawableRes = moods.find { it.id.toString() == moodId.toString() }?.emojiRes
                 val feeling = moods.find { it.id.toString() == moodId.toString() }?.name
                 binding.tFeelingBelow.visibility=View.GONE
                 binding.tFeeling.text= "Feeling $feeling"
+
+                binding.tFeeling.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
+
+                val params = binding.tFeeling.layoutParams as ConstraintLayout.LayoutParams
+                params.verticalBias = 0.1f  // move it down
+                binding.tFeeling.layoutParams = params
+
                 if (drawableRes != null) {
                     binding.ivIllustration.setImageResource(drawableRes)
 
-                    val params = binding.ivIllustration.layoutParams
-                    params.width = dpToPx(400, requireContext())
-                    params.height = dpToPx(160, requireContext())
+
+                    val params = binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams
+                    params.verticalBias = -0.14f  // move it down
                     binding.ivIllustration.layoutParams = params
+                    val layoutParams = binding.ivIllustration.layoutParams
+                    layoutParams.width = dpToPx(374, requireContext())   // 400dp → pixels
+                    layoutParams.height = dpToPx(203, requireContext())
+                    binding.ivIllustration.layoutParams = layoutParams
 
-// Force layout refresh
-                    binding.ivIllustration.requestLayout()
-                    binding.ivIllustration.invalidate()
-
-
-
+                       
                 }
             }
         }
         setupNav()
         setupBottomNav(view)
         viewModel.getMoodByPid()
+        viewModel.getAllEnergyTankMaster()
+
+
+
+        viewModel.fetchManualFluidIntake(uhid = PrefsManager().getPatient()?.empId.toString())
+
+
+        viewModel.getVitals()
         viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
             if (isConnected) {
                 snackbar?.dismiss()
@@ -166,8 +193,37 @@ class CorporateDashBoard : Fragment() {
 
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
 
-
         challengesViewModel.getNewChallenge()
+        viewModel.fluidList.observe(viewLifecycleOwner) { list ->
+            val waterQty = list
+                .firstOrNull { it.id.toString() == "97694" }
+                ?.amount?.toFloat() ?: 0f  // convert safely to Float
+
+
+            binding.intakeWaterId.text=waterQty.toString()
+
+
+
+            val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
+
+
+            waterGoal?.let {
+                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+
+                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
+                binding.intakeWaterId.text=waterQty.toString()
+// Now set progress
+                binding.waterproGress.setProgress(progress)
+
+
+            }
+
+
+        }
+
+
+
+
         challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list,
@@ -182,6 +238,23 @@ class CorporateDashBoard : Fragment() {
 
                 }
             )
+            binding.challengedId.adapter = NewChallengedAdapter(
+                list,
+                onItemClick =  { challenge ->
+                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                },
+                onItemClick1 =  { challenge ->
+                    val bundle = Bundle().apply {
+                        putSerializable("challenges", challenge)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+
+                }
+            )
+
+
+binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
         }
 
@@ -195,27 +268,38 @@ class CorporateDashBoard : Fragment() {
 
         waterGoal?.let {
             binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+
+
+
+
+
+        }
+        binding.waterContId.setOnClickListener(){
+            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
         }
 
         val animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.item_animation_from_bottom)
 
         // Start animations with delay one by one
-        binding.tFeeling.startAnimation(animation)
-        binding.tFeeling.postDelayed({
-            binding.tFeeling.startAnimation(animation)
-        }, 3000)
-
-
-        binding.tFeelingBelow.postDelayed({
-            binding.tFeelingBelow.startAnimation(animation)
-        }, 5000)
-
-        binding.ivIllustration.postDelayed({
-            binding.ivIllustration.startAnimation(animation)
-        }, 6000)
-        binding.contentScroll.postDelayed({
-            binding.contentScroll.startAnimation(animation)
-        }, 7500)
+//        binding.tFeeling.startAnimation(animation)
+//        binding.tFeeling.postDelayed({
+//            binding.tFeeling.visibility=View.VISIBLE
+//            binding.tFeeling.startAnimation(animation)
+//        }, 1000)
+//
+//
+//        binding.tFeelingBelow.postDelayed({
+//            binding.tFeelingBelow.visibility=View.VISIBLE
+//            binding.tFeelingBelow.startAnimation(animation)
+//        }, 2000)
+//
+//        binding.ivIllustration.postDelayed({
+//            binding.ivIllustration.startAnimation(animation)
+//        }, 3000)
+//        binding.contentScroll.postDelayed({
+//
+//            binding.contentScroll.startAnimation(animation)
+//        }, 4000)
 
 
 
@@ -226,7 +310,13 @@ class CorporateDashBoard : Fragment() {
         binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
         binding.tFeelingBelow.setTypeface(typeface )
 
-        binding.greeting.text = "Good Morning,\n${PrefsManager().getPatient()?.patientName ?: ""}"
+        var greetings= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ToastUtils.getSimpleGreeting()
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        };
+
+        binding.greeting.text = "${greetings},\n${PrefsManager().getPatient()?.patientName ?: ""}"
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
             // `vitals` is the latest value emitted by LiveData
@@ -285,11 +375,15 @@ class CorporateDashBoard : Fragment() {
             ) {}
         })
 
-        binding.energyLevel.setOnClickListener{
+        binding.energyCard.setOnClickListener{
             findNavController().navigate(R.id.action_dashboard_to_energyTank)
         }
-
-
+        binding.energyCard.setOnClickListener{
+            findNavController().navigate(R.id.action_dashboard_to_energyTank)
+        }
+         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
+             binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
+        }
 
 //
 //// Change color dynamically
@@ -298,6 +392,16 @@ class CorporateDashBoard : Fragment() {
 // Update multiple metrics
         //updateWellnessData(78f, 92f, 85f, 82f)
 
+        binding.linearLayout3.setOnClickListener()
+        {
+
+            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
+        }
+        binding.addvitalBtn.setOnClickListener()
+        {
+
+            findNavController().navigate(R.id.action_dashboard_to_connection )
+        }
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             val adapter: DashboardAdapter
@@ -318,8 +422,13 @@ class CorporateDashBoard : Fragment() {
                     unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
                     vitalDateTime = bpSys.vitalDateTime
                 }
+
+                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
                 finalVitalList.add(bpVital)
             }
+
+
+
 
 //            finalVitalList.addAll(filtered)
 
@@ -331,8 +440,25 @@ class CorporateDashBoard : Fragment() {
 //
 //            }
 //            binding.vitalsSlider.adapter = adapter
-
+//            val cards = listOf(
+//                ProgressCard("👍", "You're making progress", "Last night's sleep is fueling today's focus and calm."),
+//                ProgressCard("🔥", "Great energy!", "Your activity is keeping your momentum high."),
+//                ProgressCard("💧", "Stay hydrated", "Water helps keep your focus sharp.")
+//            )
+//
+//            val adapters = ProgressCardAdapter(cards)
+//            binding.progressViewPager.adapter = adapters
+//
+//            binding.dotsIndicator.attachTo(binding.progressViewPager)
+//
+//            binding.progressViewPager.setPageTransformer { page, position ->
+//                page.translationX = -40 * position   // overlap effect
+//                page.scaleY = 1 - (0.1f * abs(position))  // shrink side pages
+//                page.alpha = 0.8f + (1 - abs(position)) * 0.2f
+//            }
         }
+
+
 
 
 
@@ -350,6 +476,166 @@ class CorporateDashBoard : Fragment() {
 //
 //        val adapter = MedicineAdapter(medicineList)
 //        binding.recyclerMedicines.adapter = adapter
+        var isBoxVisible = false
+        binding.viewAllSleepDataaId.visibility=View.GONE
+binding.showId.showHideId.setOnClickListener{
+    binding.viewAllSleepDataaId.visibility=View.VISIBLE
+    binding.showId.showHideId.visibility=View.GONE
+}
+        binding.hideId.showHideId.setOnClickListener{
+            binding.viewAllSleepDataaId.visibility=View.GONE
+            binding.showId.showHideId.visibility=View.VISIBLE
+        }
+
+
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+        binding.sleepScoreId.cardTitle.text="Sleep Score"
+        binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
+        binding.sleepScoreId.cardStatus.text="Good"
+
+
+    val totalSleep = sleepValue.QuickMetricsTiled
+        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+
+    binding.totalSleepId.cardTitle.text="Total Sleep"
+        binding.totalSleepId.cardValue.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+         binding.totalSleepId.cardStatus.text= totalSleep?.Tag.toString()
+
+
+    val efficiencyMetric = sleepValue.QuickMetrics
+        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
+
+        binding.sleepEfficiencyId.cardTitle.text="Sleep Efficiency"
+        binding.sleepEfficiencyId.cardValue.text= efficiencyMetric?.DisplayText.toString()
+         binding.sleepEfficiencyId.cardStatus.text="Good"
+
+    val timeinBed = sleepValue.QuickMetricsTiled
+        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+        binding.timeInBedId.cardTitle.text="Time in Bed"
+        binding.timeInBedId.cardValue.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.timeInBedId.cardStatus.text= timeinBed?.Tag.toString()
+
+
+
+
+        binding.fulSleepCycleId.cardTitle.text="Full Sleep Cycle"
+        binding.fulSleepCycleId.cardValue.text="3"
+         binding.fulSleepCycleId.cardStatus.text="Good"
+
+
+
+
+    val rem_sleep = sleepValue.SleepStages
+        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
+        binding.remSleepId.cardTitle.text="REM Sleep"
+        binding.remSleepId.cardValue.text= rem_sleep?.StageTimeText.toString()
+        binding.remSleepId.cardStatus.text="Good"
+
+
+    val deep_sleep = sleepValue.SleepStages
+        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
+        binding.deepSleepId.cardTitle.text="Deep Sleep"
+        binding.deepSleepId.cardValue.text=deep_sleep?.StageTimeText.toString()
+        binding.deepSleepId.cardStatus.text="Good"
+
+
+    val light_sleep = sleepValue.SleepStages
+        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
+        binding.lightSleepId.cardTitle.text="Llght Sleep"
+        binding.lightSleepId.cardValue.text=light_sleep?.StageTimeText.toString()
+        binding.lightSleepId.cardStatus.text="Good"
+
+
+    val restorative = sleepValue.QuickMetricsTiled
+        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
+        binding.restorativeSleepId.cardTitle.text="Restorative Sleep"
+        binding.restorativeSleepId.cardValue.text=restorative?.Value.toString()
+         binding.restorativeSleepId.cardStatus.text=restorative?.Tag.toString()
+
+
+
+        binding.movementsId.cardTitle.text="Movements"
+        binding.movementsId.cardValue.text= sleepValue.MovementGraph?.Data?.size.toString()
+         binding.movementsId.cardStatus.text="High"
+
+        binding.morningAlertnessId.cardTitle.text="Morning Alertness"
+        binding.morningAlertnessId.cardValue.text="12"
+        binding.morningAlertnessId.hrId.text="mins"
+        binding.morningAlertnessId.cardStatus.text="Optimal"
+
+        binding.tossesAndTurnsId.cardTitle.text="Tosses and Turns"
+        binding.tossesAndTurnsId.cardValue.text="12"
+        binding.tossesAndTurnsId.cardStatus.text="Optimal"
+
+
+        binding.morningAlertnessId.cardTitle.text="Average Body Temp."
+        binding.morningAlertnessId.cardValue.text="95.2"
+        binding.morningAlertnessId.hrId.text="F"
+        binding.morningAlertnessId.cardStatus.text="Optimal"
+
+
+            binding.hideId.cardTitlse.text="Hide"
+
+
+
+
+//            Activity
+
+
+            binding.movementIndexId.cardTitle.text="Movement Index"
+            binding.movementIndexId.cardValue.text="95 "
+            binding.movementIndexId.cardStatus.text="Optimal"
+
+            binding.inactiveHoursId.cardTitle.text="Inactive Time"
+            binding.inactiveHoursId.cardValue.text="95 "
+            binding.inactiveHoursId.cardStatus.text="Optimal"
+
+
+            binding.StepsId.cardTitle.text="Steps"
+            binding.StepsId.cardValue.text="95 "
+            binding.StepsId.cardStatus.text="Optimal"
+
+
+            binding.activieHoursId.cardTitle.text="Active Hours"
+            binding.activieHoursId.cardValue.text="95 "
+            binding.activieHoursId.cardStatus.text="Optimal"
+
+
+            binding.ActiveminutesId.cardTitle.text="Active Minutes"
+            binding.ActiveminutesId.cardValue.text="95 "
+            binding.ActiveminutesId.cardStatus.text="Optimal"
+
+
+            binding.WeeklyActiveMinutesId.cardTitle.text="Weekly Active Minutes"
+            binding.WeeklyActiveMinutesId.cardValue.text="95 "
+            binding.WeeklyActiveMinutesId.cardStatus.text="Optimal"
+
+
+//            Recovery
+
+
+
+            binding.recoveryScoreId.cardTitle.text="Recovery Score"
+            binding.recoveryScoreId.cardValue.text="95 "
+            binding.recoveryScoreId.cardStatus.text="Optimal"
+
+            binding.lastNightHrvId.cardTitle.text="Last Night's HRV"
+            binding.lastNightHrvId.cardValue.text="95 "
+            binding.lastNightHrvId.cardStatus.text="Optimal"
+
+
+            binding.SleepStageHrvId.cardTitle.text="Sleep Stage' HRV"
+            binding.SleepStageHrvId.cardValue.text="95 "
+            binding.SleepStageHrvId.cardStatus.text="Optimal"
+
+            binding.StressRhythmScoreId.cardTitle.text="Stress Rhyythm Score"
+            binding.StressRhythmScoreId.cardValue.text="95 "
+            binding.StressRhythmScoreId.cardStatus.text="Optimal"
+
+            binding.tempDeviationId.cardTitle.text="Temperature Devoatoion"
+            binding.tempDeviationId.cardValue.text="95 "
+            binding.tempDeviationId.cardStatus.text="Optimal"
+        }
     }
     private fun openNewFragment() {
         findNavController().navigate(R.id.moodFragment)
@@ -401,7 +687,56 @@ class CorporateDashBoard : Fragment() {
                 view.isSelected = true
                 text.visibility = View.VISIBLE
                 icon.setColorFilter(ContextCompat.getColor(requireActivity(), android.R.color.white))
+                val fragment = when (i) {
+                    0 -> {
+                        binding.homeId.visibility=View.VISIBLE
+                        binding.challengedId.visibility=View.GONE
+                        binding.activeChalleTextId.visibility=View.GONE
 
+                        binding.recyclerView.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.GONE
+
+                    }  1 -> {
+                        binding.homeId.visibility=View.GONE
+                        binding.challengedId.visibility=View.GONE
+                        binding.activeChalleTextId.visibility=View.GONE
+
+                        binding.recyclerView.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.VISIBLE
+
+                    }
+                    2 -> {
+                        binding.recyclerView.visibility=View.VISIBLE
+                        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+                        val medicines = listOf(
+                            Medicine("08:00 AM", "Lisinopril 10ml", "1 Tablet", "Daily", "Take with morning meal"),
+                            Medicine("02:32 PM", "Metformin 500mg", "1 Tablet", "Daily", "After lunch"),
+                            Medicine("08:00 PM", "Atorvastatin 20mg", "1 Tablet", "Daily", "Before sleep")
+                        )
+
+                        binding.recyclerView.adapter = TabMedicineAdapter(medicines)
+                        binding.homeId.visibility=View.GONE
+                        binding.challengedId.visibility=View.GONE
+                        binding.activeChalleTextId.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.GONE
+
+                    } 3 -> {
+                        binding.homeId.visibility=View.GONE
+                        binding.challengedId.visibility=View.VISIBLE
+                        binding.activeChalleTextId.visibility=View.VISIBLE
+
+                        binding.recyclerView.visibility=View.GONE
+                        binding.healthSnaps.visibility=View.GONE
+
+                    }
+
+//                    else -> HomeFragment()
+//                    1 -> VitalsFragment()
+//                    2 -> MedicineFragment()
+//                    3 -> GoalsFragment()
+                    else -> {}
+                }
                 // Load fragment based on index
 //                val fragment = when (i) {
 //                    0 -> HomeFragment()

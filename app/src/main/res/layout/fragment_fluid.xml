@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/backgroundColor"
+            android:paddingTop="32dp"
             android:gravity="center_horizontal">
 
             <!-- Header -->
@@ -86,41 +87,41 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/fluidToggleGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:background="@color/dashboardIconBg"
-                android:backgroundTint="@android:color/transparent"
-                app:singleSelection="true"
-                app:checkedButton="@id/btnIntake">
+<!--            <com.google.android.material.button.MaterialButtonToggleGroup-->
+<!--                android:id="@+id/fluidToggleGroup"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:background="@color/dashboardIconBg"-->
+<!--                android:backgroundTint="@android:color/transparent"-->
+<!--                app:singleSelection="true"-->
+<!--                app:checkedButton="@id/btnIntake">-->
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnIntake"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:text="@string/fluid_intake"
-                    android:textColor="@android:color/white"
-                    app:cornerRadius="14dp"
-                    app:backgroundTint="@color/primaryBlue" />
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/btnIntake"-->
+<!--                    style="@style/Widget.MaterialComponents.Button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:paddingStart="@dimen/_16sdp"-->
+<!--                    android:paddingEnd="@dimen/_16sdp"-->
+<!--                    android:text="@string/fluid_intake"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    app:cornerRadius="14dp"-->
+<!--                    app:backgroundTint="@color/primaryBlue" />-->
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnOutput"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="Fluid Output"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:textColor="@color/gray"
-                    app:cornerRadius="14dp"
-                    app:backgroundTint="@android:color/white" />
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/btnOutput"-->
+<!--                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:text="Fluid Output"-->
+<!--                    android:paddingStart="@dimen/_16sdp"-->
+<!--                    android:paddingEnd="@dimen/_16sdp"-->
+<!--                    android:textColor="@color/gray"-->
+<!--                    app:cornerRadius="14dp"-->
+<!--                    app:backgroundTint="@android:color/white" />-->
+<!--            </com.google.android.material.button.MaterialButtonToggleGroup>-->
 
             <!-- Recommended / Intake / Remaining -->
 

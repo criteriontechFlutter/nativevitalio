@@ -8,6 +8,7 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.GestureDetector
@@ -24,6 +25,7 @@ import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMoodBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
 
 class MoodFragment : Fragment() {
@@ -58,6 +60,7 @@ class MoodFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MoodViewModel::class.java]
 
 
+
         viewModel.onMoodClicked("5")
         // Make it behave like pager (one item per swipe)
         val snapHelper = PagerSnapHelper()
@@ -73,6 +76,7 @@ class MoodFragment : Fragment() {
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
         viewModel.moodsLiveData.observe(viewLifecycleOwner) { moodsFromApi ->
             val moodDataList = moodsFromApi.map { apiMood ->
                 val drawableRes = moods.find { it.id == apiMood.id }?.emojiRes
@@ -100,6 +104,12 @@ class MoodFragment : Fragment() {
         binding.selectMoodButton.setOnClickListener{
             viewModel.insertMood(requireContext())
         }
+        var greetings= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ToastUtils.getSimpleGreeting()
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        };
+        binding.userName.text=greetings
         binding.moodEmoji.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
