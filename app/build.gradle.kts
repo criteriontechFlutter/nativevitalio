@@ -22,6 +22,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        manifestPlaceholders["appAuthRedirectScheme"] = "com.critetiontech.ctvitalio"
+
+
     }
 
     buildTypes {
@@ -131,4 +135,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.tbuonomo:dotsindicator:4.3")
+    implementation("net.openid:appauth:0.11.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 }

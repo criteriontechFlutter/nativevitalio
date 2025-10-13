@@ -47,11 +47,11 @@
         <activity
             android:name=".UI.ForgotPassword"
             android:exported="false" />
-        <activity
-            android:name=".UI.CTChatBot.MyComposeScreen"
-            android:exported="false"
-            android:label="@string/title_activity_my_compose_screen"
-            android:theme="@style/Theme.Nativevitalio" />
+<!--        <activity-->
+<!--            android:name=".UI.CTChatBot.MyComposeScreen"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_my_compose_screen"-->
+<!--            android:theme="@style/Theme.Nativevitalio" />-->
         <activity
             android:name=".UI.SignupActivity"
             android:exported="false" />
@@ -66,8 +66,21 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".UI.Home"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="${appAuthRedirectScheme}"
+                    android:host="callback" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".UI.Login"
             android:exported="true"

@@ -1,7 +1,9 @@
 package com.critetiontech.ctvitalio.UI
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard
 import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
 import com.critetiontech.ctvitalio.logging.LoggingManager
 import com.google.android.material.snackbar.Snackbar
@@ -66,9 +69,30 @@ class Home :  AppCompatActivity() {
             lastScreen = screenName
             screenEnterTime = now
         }
+
+
+
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        Log.d("TAG", "onNewIntentChecking1: ")
+        // Get NavHostFragment
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.my_nav_host_fragment)
 
+        // Get the current visible fragment
+        val currentFragment = navHostFragment
+            ?.childFragmentManager
+            ?.fragments
+            ?.firstOrNull()
+        Log.d("TAG", "onNewIntentChecking: ")
+        // If it's your OAuthFragment, forward the intent
+        if (currentFragment is CorporateDashBoard) {
+
+            currentFragment.onNewIntentReceived(intent)
+        }
+    }
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val navController = findNavController(R.id.my_nav_host_fragment)
