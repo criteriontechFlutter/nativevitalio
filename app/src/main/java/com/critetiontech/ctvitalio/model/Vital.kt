@@ -29,12 +29,30 @@ data class SleepValue(
     val QuickMetricsTiled: List<QuickMetricsTiled>?,
     val SleepStages: List<SleepStage>?,
     val MovementGraph: MovementGraph?,
+    val MorningAlertness: MorningAlertness?,
+    val lastVital: List<Vital>
+)
+data class MorningAlertness(
+    val Minutes: String,
+)
+
+data class Vitals(
+    val id: Int,
+    val pmId: Int,
+    val vitalID: Int,
+    val vitalName: String,
+    val vitalPosition: String?,
+    val vitalValue: Double,
+    val totalValue: Double,
+    val unit: String,
+    val vitalDateTime: String,
+    val userId: Int,
+    val rowId: Int
 )
 data class MovementGraph(
     val Title: String,
     val Data: List<MovementData>
 )
-
 data class MovementData(
     val Timestamp: String,
     val Type: String
