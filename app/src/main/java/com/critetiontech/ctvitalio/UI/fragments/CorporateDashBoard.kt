@@ -612,48 +612,48 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
     binding.StepsId.cardTitle.text="Steps"
-    binding.StepsId.cardValue.text= vitalStepsIndex?.totalValue.toString()
+    binding.StepsId.cardValue.text= vitalStepsIndex?.vitalValue.toString()
     binding.StepsId.cardStatus.visibility=View.GONE
 
     val TemperatureBody = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
     binding.averageBodyTempId.cardTitle.text="Average Body Temp."
-    binding.averageBodyTempId.cardValue.text=  "${"%.1f".format(TemperatureBody?.totalValue ?: 0.0)}"
+    binding.averageBodyTempId.cardValue.text=  "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
     binding.averageBodyTempId.cardStatus.visibility=View.GONE
 
     val activeMinutes = vitalList
         ?.firstOrNull { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
     binding.ActiveminutesId.cardTitle.text="Active Minutes"
-    binding.ActiveminutesId.cardValue.text= activeMinutes?.totalValue.toString()
+    binding.ActiveminutesId.cardValue.text= activeMinutes?.vitalValue.toString()
     binding.ActiveminutesId.cardStatus.visibility=View.GONE
     val Temperature = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
     binding.tempDeviationId.cardTitle.text="Temperature Devoatoion"
-    binding.tempDeviationId.cardValue.text=   "${"%.1f".format(Temperature?.totalValue ?: 0.0)}"
+    binding.tempDeviationId.cardValue.text=   "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
     binding.tempDeviationId.cardStatus.visibility=View.GONE
 
     val recoveryIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
     binding.recoveryScoreId.cardTitle.text="Recovery Score"
-    binding.recoveryScoreId.cardValue.text= recoveryIndex?.totalValue.toString()
+    binding.recoveryScoreId.cardValue.text= recoveryIndex?.vitalValue.toString()
     binding.recoveryScoreId.cardStatus.visibility=View.GONE
 
     val HRV = vitalList
         ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
     binding.lastNightHrvId.cardTitle.text="Last Night's HRV"
-    binding.lastNightHrvId.cardValue.text= HRV?.totalValue.toString()
+    binding.lastNightHrvId.cardValue.text= HRV?.vitalValue.toString()
     binding.lastNightHrvId.cardStatus.visibility=View.GONE
 
 
     binding.SleepStageHrvId.cardTitle.text="Sleep Stage' HRV"
-    binding.SleepStageHrvId.cardValue.text=HRV?.totalValue.toString()
+    binding.SleepStageHrvId.cardValue.text=HRV?.vitalValue.toString()
     binding.SleepStageHrvId.cardStatus.visibility=View.GONE
 
     val movementIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
 
     binding.movementIndexId.cardTitle.text="Movement Index"
-    binding.movementIndexId.cardValue.text=  movementIndex?.totalValue.toString()
+    binding.movementIndexId.cardValue.text=  movementIndex?.vitalValue.toString()
     binding.movementIndexId.cardStatus.visibility=View.GONE
         }
     }
