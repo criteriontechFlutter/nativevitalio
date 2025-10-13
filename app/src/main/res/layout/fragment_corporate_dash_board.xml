@@ -627,39 +627,40 @@
                 <LinearLayout
                 android:id="@+id/homeId"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
                 android:backgroundTint="#F9F9F9"
                 android:orientation="vertical"
                 android:paddingBottom="100dp">
 
 
-<!--                <LinearLayout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:gravity="center">-->
 
-<!--                    <androidx.viewpager2.widget.ViewPager2-->
-<!--                        android:id="@+id/progressViewPager"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:clipToPadding="false"-->
-<!--                        android:paddingStart="40dp"-->
-<!--                        android:paddingEnd="40dp"-->
-<!--                        android:overScrollMode="never" />-->
 
-<!--                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
-<!--                        android:id="@+id/dotsIndicator"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="12dp"-->
-<!--                        app:dotsColor="#D9D9D9"-->
-<!--                        app:selectedDotColor="#1F3247"-->
-<!--                        app:dotsSpacing="6dp"-->
-<!--                        app:dotsSize="6dp" />-->
-<!--                </LinearLayout>-->
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/progressViewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="74dp"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            android:overScrollMode="never" />
+
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/dotsIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:dotsColor="#D9D9D9"
+                        app:selectedDotColor="#1F3247"
+                        app:dotsSpacing="6dp"
+                        app:dotsSize="6dp" />
+                </LinearLayout>
                 <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
