@@ -6,6 +6,7 @@ import Vital
 import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.AudioRecord
@@ -22,14 +23,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -38,10 +39,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
-import com.critetiontech.ctvitalio.adapter.MedicineAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.adapter.ProgressCard
-import com.critetiontech.ctvitalio.adapter.ProgressCardAdapter
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
@@ -52,8 +50,14 @@ import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.google.android.material.snackbar.Snackbar
+import net.openid.appauth.AuthorizationRequest
+import net.openid.appauth.AuthorizationService
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.ResponseTypeValues
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.WebSocket
-import kotlin.math.abs
+import java.io.IOException
 
 
 class CorporateDashBoard : Fragment() {
@@ -77,6 +81,8 @@ class CorporateDashBoard : Fragment() {
     private val tabLabels = listOf("Home", "Streaks", "Triggers", "Challenges")
     private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
+
+    private var authService: AuthorizationService? = null
 
     private val moods = listOf(
         MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
@@ -104,7 +110,6 @@ class CorporateDashBoard : Fragment() {
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
 
         pillsViewModel.getAllPatientMedication()
-
 
 
         navItems = listOf(
@@ -252,6 +257,16 @@ class CorporateDashBoard : Fragment() {
                 }
             )
 
+            binding.ringIcon.setOnClickListener {
+
+                initializeAuth()
+                handleAuthRedirectIntent(requireActivity().intent)
+
+
+
+
+            }
+
 
 binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
@@ -278,28 +293,6 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
         }
 
-        val animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.item_animation_from_bottom)
-
-        // Start animations with delay one by one
-//        binding.tFeeling.startAnimation(animation)
-//        binding.tFeeling.postDelayed({
-//            binding.tFeeling.visibility=View.VISIBLE
-//            binding.tFeeling.startAnimation(animation)
-//        }, 1000)
-//
-//
-//        binding.tFeelingBelow.postDelayed({
-//            binding.tFeelingBelow.visibility=View.VISIBLE
-//            binding.tFeelingBelow.startAnimation(animation)
-//        }, 2000)
-//
-//        binding.ivIllustration.postDelayed({
-//            binding.ivIllustration.startAnimation(animation)
-//        }, 3000)
-//        binding.contentScroll.postDelayed({
-//
-//            binding.contentScroll.startAnimation(animation)
-//        }, 4000)
 
 
 
@@ -385,12 +378,6 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
              binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
         }
 
-//
-//// Change color dynamically
-//        binding.WellnessProgres.setProgressColor(Color.GREEN)
-
-// Update multiple metrics
-        //updateWellnessData(78f, 92f, 85f, 82f)
 
         binding.linearLayout3.setOnClickListener()
         {
@@ -456,6 +443,12 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //                page.scaleY = 1 - (0.1f * abs(position))  // shrink side pages
 //                page.alpha = 0.8f + (1 - abs(position)) * 0.2f
 //            }
+        }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            Handler().postDelayed({
+                 viewModel.getVitals()
+                binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
+            }, 2000)
         }
 
 
@@ -661,6 +654,86 @@ binding.showId.showHideId.setOnClickListener{
         val goalsItem =  view1.findViewById<View>(R.id.nav_goals)
         goalsItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.challenges_icon)
         goalsItem.findViewById<TextView>(R.id.navText).text = "Goals"
+    }
+
+
+
+
+    private fun handleAuthRedirectIntent(intent: Intent) {
+        val data = intent.data
+        if (data != null && data.scheme == "com.critetiontech.ctvitalio" && data.host == "callback") {
+            val accessToken = data.getQueryParameter("accessToken")
+            val refreshToken = data.getQueryParameter("refreshToken")
+            val tokenType = data.getQueryParameter("tokenType")
+            val expiry = data.getQueryParameter("expiresIn")
+
+            if (accessToken != null) {
+                Log.d("OAuth", "Received code: $accessToken and state: $tokenType")
+                Log.d("OAuth", "Received refreshToken: $refreshToken")
+                Log.d("OAuth", "Received refreshToken: $tokenType")
+                Log.d("OAuth", "Received refreshToken: $expiry")
+                viewModel.insertUltraHumanToken(accessToken,refreshToken,tokenType,expiry)
+                Toast.makeText(context, "Check$refreshToken", Toast.LENGTH_LONG)
+              //  exchangeCodeForToken(accessToken)
+            } else {
+                Log.e("OAuth", "No authorization code found in redirect URI")
+            }
+        }
+    }
+
+    fun onNewIntentReceived(intent: Intent){
+        handleAuthRedirectIntent(intent = intent)
+    }
+
+    private fun initializeAuth() {
+        authService = AuthorizationService(requireContext())
+        startOAuthFlow()
+    }
+
+    private fun startOAuthFlow() {
+        val authUri = "https://auth.ultrahuman.com/authorise".toUri()
+        val tokenUri = "https://partner.ultrahuman.com/oauth/token".toUri()
+        val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback".toUri()
+
+        val serviceConfig = AuthorizationServiceConfiguration(authUri, tokenUri)
+
+        val authRequest = AuthorizationRequest.Builder(
+            serviceConfig,
+            "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo",
+            ResponseTypeValues.CODE,
+            redirectUri
+        ).setScope("profile ring_data cgm_data").build()
+
+        val intent = authService!!.getAuthorizationRequestIntent(authRequest)
+        startActivity(intent)
+    }
+
+    private fun exchangeCodeForToken(authCode: String) {
+        val tokenUrl = "https://partner.ultrahuman.com/oauth/token"
+        val clientId = "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo"
+        val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback"
+
+        val requestBody =
+            "grant_type=authorization_code&code=$authCode&redirect_uri=$redirectUri&client_id=$clientId&state=animesh.singh0108@gmail.com"
+
+        val request = Request.Builder()
+            .url(tokenUrl)
+            .addHeader("Content-Type", "application/json")
+            .post(okhttp3.RequestBody.create(null, requestBody))
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                Log.e("OAuth", "Token request failed: ${e.message}")
+            }
+
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                response.use {
+                    val body = it.body?.string()
+                    Log.d("OAuth", "Token response: $body")
+                }
+            }
+        })
     }
 
     private fun setupNav() {

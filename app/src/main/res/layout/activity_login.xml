@@ -54,6 +54,7 @@
                     android:id="@+id/appTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
+                    android:layout_marginTop="100dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/vitalio_logo_svg"

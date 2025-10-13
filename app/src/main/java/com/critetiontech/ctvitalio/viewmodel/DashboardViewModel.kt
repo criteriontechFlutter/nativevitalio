@@ -88,7 +88,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val todayDate = sdf.format(Date())
                 val queryParams = mapOf(
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
-                    "emailId" to "animesh.singh0108@gmail.com",
+                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
                     "date" to todayDate,
                     "clientId" to 194,
                 )
@@ -827,6 +827,47 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                 if (response.isSuccessful) {
 
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    fun insertUltraHumanToken(
+        accessToken: String,
+        refreshToken: String?,
+        tokenType: String?,
+        expiry: String?
+    ) {
+        _loading.value = true
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                    "loginId" to  PrefsManager().getPatient()?.emailID.toString(),
+                    "accessToken" to accessToken.toString(),
+                    "expiresIn" to expiry.toString(),
+                    "refreshToken" to refreshToken.toString(),
+
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicRawPost(
+                        url = ApiEndPoint().insertApisToken,
+                        body = queryParams
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    Toast.makeText(MyApplication.appContext,"Connected to Ring", Toast.LENGTH_SHORT).show()
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }
