@@ -35,6 +35,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
@@ -157,7 +159,7 @@ class CorporateDashBoard : Fragment() {
                     layoutParams.height = dpToPx(203, requireContext())
                     binding.ivIllustration.layoutParams = layoutParams
 
-                       
+
                 }
             }
         }
@@ -440,31 +442,27 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //
 //            }
 //            binding.vitalsSlider.adapter = adapter
-//            val cards = listOf(
-//                ProgressCard("👍", "You're making progress", "Last night's sleep is fueling today's focus and calm."),
-//                ProgressCard("🔥", "Great energy!", "Your activity is keeping your momentum high."),
-//                ProgressCard("💧", "Stay hydrated", "Water helps keep your focus sharp.")
-//            )
-//
-//            val adapters = ProgressCardAdapter(cards)
-//            binding.progressViewPager.adapter = adapters
-//
-//            binding.dotsIndicator.attachTo(binding.progressViewPager)
-//
-//            binding.progressViewPager.setPageTransformer { page, position ->
-//                page.translationX = -40 * position   // overlap effect
-//                page.scaleY = 1 - (0.1f * abs(position))  // shrink side pages
-//                page.alpha = 0.8f + (1 - abs(position)) * 0.2f
-//            }
+
         }
 
+// Vertical orientation
 
 
+        val cards = listOf(
+            ProgressCard("👍", "Progress", "Last night's sleep fuels today."),
+            ProgressCard("🔥", "Energy!", "Your activity keeps momentum."),
+            ProgressCard("💧", "Hydrate", "Water keeps focus sharp.")
+        )
 
+        binding.progressViewPager.adapter = ProgressCardAdapter(cards)
+        binding.progressViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
 
-
-
-
+// Optional: smooth scale effect
+        val transformer = ViewPager2.PageTransformer { page, position ->
+            val r = 1 - kotlin.math.abs(position)
+        }
+        binding.progressViewPager.setPageTransformer(transformer)
+        binding.dotsIndicator.setViewPager2(binding.progressViewPager)
 //        binding.recyclerMedicines.layoutManager = LinearLayoutManager(requireContext())
 //
 //// Sample data

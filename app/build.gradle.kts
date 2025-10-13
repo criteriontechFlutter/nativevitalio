@@ -131,4 +131,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.tbuonomo:dotsindicator:4.3")
+    implementation("com.github.yuyakaido:CardStackView:v2.3.4")
 }

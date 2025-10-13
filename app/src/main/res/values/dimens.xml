@@ -15,5 +15,6 @@
 
 
     <dimen name="recycler_item_spacing">16dp</dimen>
-
+    <dimen name="pageMargin">16dp</dimen> <!-- space on sides -->
+    <dimen name="pagerWidth">40dp</dimen>  <!-- extra space for peek effect -->
 </resources>
