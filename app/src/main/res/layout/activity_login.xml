@@ -5,7 +5,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/mainScrollView"
         android:windowSoftInputMode="adjustResize"
-        android:fitsSystemWindows="true"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFDD00"
@@ -172,6 +172,9 @@
                         android:hint="Enter Employee ID"
                         android:padding="12dp"
                         android:maxLines="1"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
                         android:textColorHint="@color/loginHintTextColor"
                         android:layout_marginTop="4dp"
                         android:drawablePadding="8dp"
@@ -199,16 +202,18 @@
                         android:hint="Enter new password"
                         android:padding="12dp"
                         android:maxLines="1"
-                        android:drawableRight="@drawable/open_eye"
-
+                        android:singleLine="true"
                         android:inputType="textPassword"
+                        android:imeOptions="actionDone"
                         android:textColorHint="@color/loginHintTextColor"
                         android:layout_marginTop="4dp"
                         android:drawablePadding="8dp"
                         android:drawableLeft="@drawable/lock"
-                         app:layout_constraintStart_toStartOf="parent"
+                        android:drawableRight="@drawable/open_eye"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/passLabel" />
+
                     <TextView
                         android:id="@+id/validationId"
                         style="@style/mediumGCN"

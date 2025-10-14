@@ -57,6 +57,19 @@
                 app:layout_constraintTop_toTopOf="@+id/avatar" />
 
             <ImageView
+                android:id="@+id/ring_icon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ring"
+                app:layout_constraintBottom_toBottomOf="@+id/greeting"
+                app:layout_constraintEnd_toStartOf="@+id/notification"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toEndOf="@+id/greeting"
+                app:layout_constraintTop_toTopOf="@+id/greeting"
+                app:tint="@android:color/white" />
+
+
+            <ImageView
                 android:id="@+id/notification"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
@@ -634,33 +647,33 @@
                 android:paddingBottom="100dp">
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="200dp"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center">-->
 
 
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/progressViewPager"
-                            android:layout_width="match_parent"
-                            android:layout_height="74dp"
-                            android:clipToPadding="false"
-                            android:clipChildren="false"
-                            android:overScrollMode="never" />
+<!--                        <androidx.viewpager2.widget.ViewPager2-->
+<!--                            android:id="@+id/progressViewPager"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="74dp"-->
+<!--                            android:clipToPadding="false"-->
+<!--                            android:clipChildren="false"-->
+<!--                            android:overScrollMode="never" />-->
 
 
-                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                        android:id="@+id/dotsIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        app:dotsColor="#D9D9D9"
-                        app:selectedDotColor="#1F3247"
-                        app:dotsSpacing="6dp"
-                        app:dotsSize="6dp" />
-                </LinearLayout>
+<!--                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
+<!--                        android:id="@+id/dotsIndicator"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        app:dotsColor="#D9D9D9"-->
+<!--                        app:selectedDotColor="#1F3247"-->
+<!--                        app:dotsSpacing="6dp"-->
+<!--                        app:dotsSize="6dp" />-->
+<!--                </LinearLayout>-->
                 <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
