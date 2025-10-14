@@ -47,7 +47,6 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
     fun corporateEmployeeLogin(context:Context, username: String, password: String,) {
         _loading.value = true
         viewModelScope.launch {
-
             _loginSuccess.postValue(false)
             try {
                 val queryParams = mapOf(

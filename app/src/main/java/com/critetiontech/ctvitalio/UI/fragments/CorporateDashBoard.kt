@@ -36,12 +36,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
+import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
@@ -88,11 +88,11 @@ class CorporateDashBoard : Fragment() {
 
     private val moods = listOf(
         MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
-        MoodData(3,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
+        MoodData(6,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
         MoodData(1, "Stressed", "#FF9459",  R.drawable.stressed_mood, "#782E04"),
-        MoodData(4,"Happy", "#9ABDFF",  R.drawable.happy_mood,"#505D87"),
-        MoodData(7,"Good", "#F9C825",  R.drawable.good_mood, "#664F00"),
-        MoodData(6,"Sad",   "#7DE7EE",  R.drawable.sad_mood,  "#3A7478")
+        MoodData(2,"Happy", "#9ABDFF",  R.drawable.happy_mood,"#505D87"),
+        MoodData(4,"Good", "#F9C825",  R.drawable.good_mood, "#664F00"),
+        MoodData(3,"Sad",   "#7DE7EE",  R.drawable.sad_mood,  "#3A7478")
 
     )
     override fun onCreateView(
@@ -121,8 +121,8 @@ class CorporateDashBoard : Fragment() {
             view.findViewById(R.id.nav_goals)
         )
         viewModel.selectedMoodId.observe(viewLifecycleOwner) { moodId ->
-            Log.d("TAG", "onViewCreated: "+moodId.toString());
-            if (moodId==null || moodId.toString().trim()=="null") {
+            Log.d("TAG", "onViewCreated: $moodId");
+            if (moodId==null || moodId.trim()=="null") {
                 binding.ivIllustration.setImageResource(R.drawable.moods)
                 binding.tFeelingBelow.visibility=View.VISIBLE
                 val text = "How are you feeling now?"
@@ -431,12 +431,12 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //            binding.vitalsSlider.adapter = adapter
 
         }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            Handler().postDelayed({
-                 viewModel.getVitals()
-                binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
-            }, 2000)
-        }
+//        binding.swipeRefreshLayout.setOnRefreshListener {
+//            Handler().postDelayed({
+//                 viewModel.getVitals()
+//                binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
+//            }, 2000)
+//        }
 
 // Vertical orientation
 
@@ -447,15 +447,16 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             ProgressCard("💧", "Hydrate", "Water keeps focus sharp.")
         )
 
-        binding.progressViewPager.adapter = ProgressCardAdapter(cards)
-        binding.progressViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
+//        binding.progressViewPager.adapter = ProgressCardAdapter(cards)
+//        binding.progressViewPager.orientation = ViewPager2 cv v
+//        .ORIENTATION_VERTICAL
 
 // Optional: smooth scale effect
         val transformer = ViewPager2.PageTransformer { page, position ->
             val r = 1 - kotlin.math.abs(position)
         }
-        binding.progressViewPager.setPageTransformer(transformer)
-        binding.dotsIndicator.setViewPager2(binding.progressViewPager)
+//        binding.progressViewPager.setPageTransformer(transformer)
+//        binding.dotsIndicator.setViewPager2(binding.progressViewPager)
 //        binding.recyclerMedicines.layoutManager = LinearLayoutManager(requireContext())
 //
 //// Sample data
@@ -694,7 +695,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                 Log.d("OAuth", "Received refreshToken: $expiry")
                 viewModel.insertUltraHumanToken(accessToken,refreshToken,tokenType,expiry)
                 Toast.makeText(context, "Check$refreshToken", Toast.LENGTH_LONG)
-              //  exchangeCodeForToken(accessToken)
+                exchangeCodeForToken(accessToken)
             } else {
                 Log.e("OAuth", "No authorization code found in redirect URI")
             }
@@ -722,7 +723,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo",
             ResponseTypeValues.CODE,
             redirectUri
-        ).setScope("profile ring_data cgm_data").build()
+        ).setScope("profile ring_data cgm_data ring_extended_data").build()
 
         val intent = authService!!.getAuthorizationRequestIntent(authRequest)
         startActivity(intent)
@@ -734,7 +735,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback"
 
         val requestBody =
-            "grant_type=authorization_code&code=$authCode&redirect_uri=$redirectUri&client_id=$clientId&state=animesh.singh0108@gmail.com"
+            "grant_type=authorization_code&code=$authCode&redirect_uri=$redirectUri&client_id=$clientId&state=${PrefsManager().getPatient()?.emailID}|1"
 
         val request = Request.Builder()
             .url(tokenUrl)
