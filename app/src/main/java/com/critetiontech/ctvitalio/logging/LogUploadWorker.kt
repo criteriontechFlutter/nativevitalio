@@ -17,7 +17,10 @@ class LogUploadWorker(appContext: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         val payload = inputData.getString("logs") ?: return Result.success()
         Log.d("workerMessage", "🚀 Payload: $payload")
-
+        if (!isNetworkAvailable()) {
+            Log.e("LogUploadWorker", "No internet. Skipping upload.")
+            return Result.retry() // or Result.success() if you want to drop logs
+        }
         return try {
             val client = OkHttpClient()
             val mediaType = "application/json".toMediaType()
@@ -31,10 +34,7 @@ class LogUploadWorker(appContext: Context, workerParams: WorkerParameters) :
 
             client.newCall(request).execute().use { response ->
                 val respBody = response.body?.string()
-                Log.d("workerMessage", "🔄 Response code: ${response.code}")
-                Log.d("workerMessage", "📩 Response body: $respBody")
-
-                return if (response.isSuccessful) {
+                if (response.isSuccessful) {
                     Log.d("LogUploadWorker", "✅ Logs uploaded successfully")
                     Result.success()
                 } else {
@@ -42,9 +42,29 @@ class LogUploadWorker(appContext: Context, workerParams: WorkerParameters) :
                     Result.retry()
                 }
             }
+        } catch (e: java.net.ConnectException) {
+            Log.e("LogUploadWorker", "No connection: ${e.message}")
+            Result.retry()
+        } catch (e: java.net.UnknownHostException) {
+            Log.e("LogUploadWorker", "Cannot resolve host: ${e.message}")
+            Result.retry()
+        } catch (e: java.net.SocketTimeoutException) {
+            Log.e("LogUploadWorker", "Timeout: ${e.message}")
+            Result.retry()
         } catch (e: Exception) {
-            Log.e("LogUploadWorker", "⚠️ Exception: ${e.message}", e)
-            return Result.retry()
+            Log.e("LogUploadWorker", "Unexpected error: ${e.message}", e)
+            Result.retry()
+        }
+
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        return try {
+            val process = Runtime.getRuntime().exec("ping -c 1 google.com")
+            process.waitFor() == 0
+        } catch (e: Exception) {
+            false
         }
     }
+
 }

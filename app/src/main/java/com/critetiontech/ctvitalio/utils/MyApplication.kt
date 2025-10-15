@@ -14,11 +14,14 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.critetiontech.ctvitalio.logging.LoggingManager
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
+import okhttp3.Cache
+import java.io.File
 
 class MyApplication : Application() {
     companion object {
         lateinit var appContext: Context
             private set
+
     }
 
     override fun onCreate() {
@@ -29,7 +32,6 @@ class MyApplication : Application() {
 
         // Create notification channel
         createNotificationChannel()
-
         // Get FCM token
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {

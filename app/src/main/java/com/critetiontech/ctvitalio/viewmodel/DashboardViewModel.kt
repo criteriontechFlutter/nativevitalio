@@ -120,7 +120,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                             val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
                             _sleepValueList.value = Gson().fromJson(cleanedJson, SleepValue::class.java)
 
-                            Log.d("TAG", "Sleep Score: ${sleepValue.SleepScore.Score}")
+                            Log.d("TAG", "Sleep Score: ${sleepValue.QuickMetrics?.size.toString()}")
                             _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
 
                         } catch (e: Exception) {
