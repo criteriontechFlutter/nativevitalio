@@ -319,11 +319,11 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             val vitalMovementIndex = vitals.find { it.vitalName.equals("MovementIndex", ignoreCase = true) }
             val vitalRecoveryIndex = vitals.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
             val activeMinutes = vitals.find { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
-            val vitalStepsIndex = vitals.find { it.vitalName.equals("Steps", ignoreCase = true) }
+            val vitalStepsIndex = vitals.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
             binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
             binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
-            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.totalValue)+" steps"
-            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.totalValue)+" mins"
+            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
+            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
         }
 
         viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->
@@ -339,7 +339,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 
 
         // Animate to 80%
-       binding.WellnessProgres.setProgress(80f, animate = true)
+       binding.WellnessProgres.setProgress(55f, animate = true)
         val extras = FragmentNavigatorExtras(
             binding.avatar to "heroImageTransition",
             binding.greeting to "heroGreetingtextTransition"
@@ -602,7 +602,7 @@ binding.showId.showHideId.setOnClickListener{
 
         }
 viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-    val vitalStepsIndex = vitalList.find { it.vitalName.equals("Steps", ignoreCase = true) }
+    val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
 
 
     binding.StepsId.cardTitle.text="Steps"

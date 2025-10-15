@@ -137,5 +137,6 @@ dependencies {
     implementation ("com.tbuonomo:dotsindicator:4.3")
     implementation("net.openid:appauth:0.11.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    
 
 }

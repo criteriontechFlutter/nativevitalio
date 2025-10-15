@@ -892,7 +892,7 @@
                                     android:id="@+id/WellnessProgres"
                                     android:layout_width="60dp"
                                     android:layout_height="60dp"
-                                    app:progress="80"
+                                    app:progress="55"
                                     app:progressColor="#0DB46C"
                                     app:strokeWidth="5dp" />
                             </LinearLayout>
