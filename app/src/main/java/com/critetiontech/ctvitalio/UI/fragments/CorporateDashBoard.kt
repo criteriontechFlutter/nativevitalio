@@ -727,6 +727,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
         val intent = authService!!.getAuthorizationRequestIntent(authRequest)
         startActivity(intent)
+
     }
 
     private fun exchangeCodeForToken(authCode: String) {
