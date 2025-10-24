@@ -185,6 +185,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_corporateDashBoard_self">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_challengeDetailsFragment">
                               <value>
                                 <LayoutPositions />
@@ -201,6 +206,11 @@
                               </value>
                             </entry>
                             <entry key="action_corporateDashBoard_to_moodFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_corporateDashBoard_to_sleepDetails">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -632,6 +642,18 @@
                           <Point>
                             <option name="x" value="-1840" />
                             <option name="y" value="1860" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="sleepDetails">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1374" />
+                            <option name="y" value="-1104" />
                           </Point>
                         </option>
                       </LayoutPositions>
