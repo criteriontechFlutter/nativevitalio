@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sleepChartContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Sleep Chart Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/bg_sleep_card"
+            android:clipToOutline="true">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tvScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sleep"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <!-- Bars container -->
+            <LinearLayout
+                android:id="@+id/barsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="6" >
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Health Summary Cards -->
+        <LinearLayout
+            android:id="@+id/healthSnaps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingBottom="20dp"
+                android:text="Sleep"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="12dp">
+
+                <include
+                    android:id="@+id/totalSleepId"
+                    layout="@layout/sleep_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp" />
+
+                <include
+                    android:id="@+id/timeInBedId"
+                    layout="@layout/sleep_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <include
+                    android:id="@+id/restorativeSleepId"
+                    layout="@layout/sleep_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    tools:ignore="Suspicious0dp" />
+
+                <include
+                    android:id="@+id/hrId"
+                    layout="@layout/sleep_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    tools:ignore="Suspicious0dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Progress Cards Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+         android:orientation="vertical" >
+        <include
+            android:id="@+id/sleepEfficiencyId"
+            layout="@layout/include_progress_card" />
+
+        <include
+            android:id="@+id/tempId"
+            layout="@layout/include_progress_card" />
+
+        <include
+            android:id="@+id/restfulnessId"
+            layout="@layout/include_progress_card" />
+
+        <include
+            android:id="@+id/totalSleepProgressId"
+            layout="@layout/include_progress_card" />
+
+        <include
+            android:id="@+id/hrProgress"
+            layout="@layout/include_progress_card" />
+
+        <include
+            android:id="@+id/restorativeSleepProgressId"
+            layout="@layout/include_progress_card" />
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
