@@ -70,7 +70,6 @@ class CorporateDashBoard : Fragment() {
     private lateinit var adapter: DashboardAdapter
     private var voiceDialog: Dialog? = null
     private var snackbar: Snackbar? = null
-    private var currentPage = 0
     private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
     private var sliderRunnable: Runnable? = null
