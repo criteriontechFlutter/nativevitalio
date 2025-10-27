@@ -26,12 +26,13 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/cardIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@drawable/arrow_right"
-            app:tint="@color/greyText" />
+<!--        <ImageView-->
+<!--            android:id="@+id/cardNewIcon"-->
+<!--            android:layout_width="16dp"-->
+<!--            android:layout_height="16dp"-->
+<!--            android:contentDescription="TODO"-->
+<!--            android:src="@drawable/arrow_right"-->
+<!--            app:tint="@color/greyText" />-->
     </LinearLayout>
 
     <!-- Value -->
@@ -86,12 +87,11 @@
         android:layout_marginTop="6dp"
         android:paddingTop="4dp">
     <TextView
-        android:id="@+id/cardStatus"
+        android:id="@+id/cardStatus6"
         android:layout_width="wrap_content"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
-
-        android:layout_height="18.dp"
+        android:layout_height="18dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/greyBG"
         android:text="Status"
