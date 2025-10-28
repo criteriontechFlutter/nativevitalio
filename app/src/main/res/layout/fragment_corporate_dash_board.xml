@@ -1305,6 +1305,9 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <include
+                        android:id="@+id/priority_action"
+                        layout="@layout/priority_action_card" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
