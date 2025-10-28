@@ -319,8 +319,8 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             val vitalRecoveryIndex = vitals.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
             val activeMinutes = vitals.find { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
             val vitalStepsIndex = vitals.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
-            binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
-            binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
+//            binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
+//            binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
             binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
             binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
         }
@@ -338,8 +338,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 
 
         // Animate to 80%
-       binding.WellnessProgres.setProgress(55f, animate = true)
-        val extras = FragmentNavigatorExtras(
+         val extras = FragmentNavigatorExtras(
             binding.avatar to "heroImageTransition",
             binding.greeting to "heroGreetingtextTransition"
         )
@@ -380,11 +379,11 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         }
 
 
-        binding.linearLayout3.setOnClickListener()
-        {
-
-            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
-        }
+//        binding.linearLayout3.setOnClickListener()
+//        {
+//
+//            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
+//        }
         binding.addvitalBtn.setOnClickListener()
         {
 
