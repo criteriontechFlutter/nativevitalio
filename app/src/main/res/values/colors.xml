@@ -73,7 +73,9 @@
 
     <color name="dullBlack">#2D3344FF</color>
     <color name="greyDark">#616161FF</color>
-    <color name="darkYellow">#FFC107</color>
+    <color name="darkYellow">#FFDD00</color>
+    <color name="angerRed">#FF1000</color>
+    <color name="forgotPassword">#7DE7EE</color>
 
     <color name="transparent">#00000000</color>
     <color name="colorPrimary">#3F51B5</color>
