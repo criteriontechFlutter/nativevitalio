@@ -12,7 +12,7 @@
         android:id="@+id/headerContainer"
         android:layout_width="0dp"
         android:layout_height="85dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:background="@color/primaryBlue"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -35,9 +35,9 @@
                 android:layout_height="55dp"
                 android:background="@drawable/circle_background"
                 android:padding="2dp"
-                android:transitionName="heroImageTransition"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_personal_info"
+                android:transitionName="heroImageTransition"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,12 +57,12 @@
                 app:layout_constraintTop_toTopOf="@+id/avatar" />
 
             <ImageView
-                android:id="@+id/ring_icon"
+                android:id="@+id/notification"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/ring"
+                android:src="@drawable/ic_notification"
                 app:layout_constraintBottom_toBottomOf="@+id/greeting"
-                app:layout_constraintEnd_toStartOf="@+id/notification"
+                app:layout_constraintEnd_toStartOf="@+id/ring_icon"
                 app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toEndOf="@+id/greeting"
                 app:layout_constraintTop_toTopOf="@+id/greeting"
@@ -70,10 +70,10 @@
 
 
             <ImageView
-                android:id="@+id/notification"
+                android:id="@+id/ring_icon"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/ic_notification"
+                android:src="@drawable/ring"
                 app:layout_constraintBottom_toBottomOf="@+id/greeting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/greeting"
