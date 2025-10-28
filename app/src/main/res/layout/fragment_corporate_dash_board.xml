@@ -12,7 +12,6 @@
         android:id="@+id/headerContainer"
         android:layout_width="0dp"
         android:layout_height="85dp"
-
         android:background="@color/primaryBlue"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -25,60 +24,131 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:background="@color/primaryBlue"
+          >
 
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:background="@drawable/circle_background"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_personal_info"
-                android:transitionName="heroImageTransition"
+            <!-- Avatar with Progress Ring -->
+            <FrameLayout
+                android:id="@+id/avatar_container"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/greeting"
+                <!-- Progress Bar (Circular) -->
+                   <ProgressBar
+                    android:id="@+id/progress_circular"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="75"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+
+                <!-- Avatar Image -->
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_dashboard_background"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_personal_info" />
+                <ImageView
+                    android:id="@+id/profile_badge"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@drawable/badge_user"
+                    android:gravity="center"
+
+                    android:textColor="@android:color/white"
+
+                    android:textStyle="bold"
+                    android:elevation="4dp" />
+            </FrameLayout>
+
+            <!-- Greeting Text -->
+            <LinearLayout
+                android:id="@+id/greeting_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:lineHeight="25dp"
-                android:text="Good Morning,\nKatherine Pollac!"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:transitionName="heroGreetingtextTransition"
-                app:layout_constraintBottom_toBottomOf="@+id/avatar"
-                app:layout_constraintStart_toEndOf="@+id/avatar"
-                app:layout_constraintTop_toTopOf="@+id/avatar" />
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/avatar_container"
+                app:layout_constraintEnd_toStartOf="@+id/notification"
+                app:layout_constraintStart_toEndOf="@+id/avatar_container"
+                app:layout_constraintTop_toTopOf="@+id/avatar_container">
 
-            <ImageView
+                <TextView
+                    android:id="@+id/greeting_hi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi, Good Morning"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:alpha="0.9" />
+
+                <TextView
+                    android:id="@+id/greeting_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Katherine Pollac!"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Notification Icon with Badge -->
+            <FrameLayout
                 android:id="@+id/notification"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_notification"
-                app:layout_constraintBottom_toBottomOf="@+id/greeting"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/greeting_container"
                 app:layout_constraintEnd_toStartOf="@+id/ring_icon"
-                app:layout_constraintHorizontal_bias="0.8"
-                app:layout_constraintStart_toEndOf="@+id/greeting"
-                app:layout_constraintTop_toTopOf="@+id/greeting"
-                app:tint="@android:color/white" />
+                app:layout_constraintTop_toTopOf="@+id/greeting_container">
 
+                <ImageView
+                    android:id="@+id/notification_icon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_notification"
+                    app:tint="@android:color/white" />
 
+                <!-- Notification Badge -->
+                <TextView
+                    android:id="@+id/notification_badge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/badge_noti_background"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+            <!-- Ring/Menu Icon -->
             <ImageView
                 android:id="@+id/ring_icon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="6dp"
                 android:src="@drawable/ring"
-                app:layout_constraintBottom_toBottomOf="@+id/greeting"
+                app:layout_constraintBottom_toBottomOf="@+id/greeting_container"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/greeting"
+                app:layout_constraintTop_toTopOf="@+id/greeting_container"
                 app:tint="@android:color/white" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

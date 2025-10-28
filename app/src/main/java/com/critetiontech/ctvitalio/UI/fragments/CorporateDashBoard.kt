@@ -310,7 +310,8 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             TODO("VERSION.SDK_INT < O")
         };
 
-        binding.greeting.text = "${greetings},\n${PrefsManager().getPatient()?.patientName ?: ""}"
+        binding.greetingHi.text = "${greetings}"
+        binding.greetingName.text = "${PrefsManager().getPatient()?.patientName ?: ""}"
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
             // `vitals` is the latest value emitted by LiveData
@@ -340,7 +341,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         // Animate to 80%
          val extras = FragmentNavigatorExtras(
             binding.avatar to "heroImageTransition",
-            binding.greeting to "heroGreetingtextTransition"
+            binding.greetingHi to "heroGreetingtextTransition"
         )
         binding.ivIllustration.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_moodFragment ,null,
