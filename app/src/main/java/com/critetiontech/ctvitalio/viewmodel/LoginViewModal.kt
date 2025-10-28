@@ -52,7 +52,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                 val queryParams = mapOf(
                     // "mobileNo" to mo,
                     "username" to username,
-                "password" to  password
+                   "password" to  password
                 )
 
                 // This response is of type Response<ResponseBody>
@@ -70,7 +70,6 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
                     val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
-                    Log.d("RESPONSE", "responseValueresponseValue: ${Gson().toJson(parsed.responseValue)}")
                     parsed.let {
 
                         PrefsManager().savePatient(it.responseValue.first())
@@ -92,124 +91,6 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
             }
         }
     }
-//    fun getPatientDetailsByUHID(uhid: String) {
-//        _loading.value = true
-//        viewModelScope.launch {
-//            var mo = ""
-//            var uhidVal = ""
-//
-//            if (uhid.toLowerCase().contains("emp")) {
-//                uhidVal = uhid
-//            } else {
-//                mo = uhid
-//            }
-//
-//            try {
-//                val queryParams = mapOf(
-//                   // "mobileNo" to mo,
-//                    "uhid" to "emp015",
-//                    "ClientId" to 194
-//                )
-//
-//                // This response is of type Response<ResponseBody>
-//                val response = RetrofitInstance
-//                    .createApiService()
-//                    .dynamicGet(
-//                        url = ApiEndPoint().getPatientDetailsByMobileNo,
-//                        params = queryParams
-//                    )
-//
-//
-//                if (response.isSuccessful) {
-//                    _loading.value = false
-//                    val responseBodyString = response.body()?.string()
-//                    val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
-//                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
-//                    Log.d("RESPONSE", "responseValue: ${Gson().toJson(parsed.responseValue)}")
-//                    Log.d("RESPONSE", "phoneOrUHID2"+mo.toString())
-//                    if (parsed.responseValue.isEmpty()) {
-//                        sentLogInOTPForSHFCApp( uhid=uhid.toString(), mobileNo=mo.toString());
-//                        }
-//                    else{
-//                        val firstPatient = parsed.responseValue.firstOrNull()
-//                        firstPatient?.let {
-//                            Login.storedUHID = it
-//                            sentLogInOTPForSHFCApp(uhid=it.uhID.toString(),mobileNo=it.mobileNo.toString())
-//                            Log.d("RESPONSE", "Full Patients: ${PrefsManager().getPatient()?.uhID.toString()}"
-//                            )
-//                        }
-//                    }
-//
-//
-//
-//
-//                } else {
-//                    if(mo.toString().length>9){
-//                        sentLogInOTPForSHFCApp( uhid=mo.toString(), mobileNo=mo.toString());
-//
-//                    }
-//                    else{
-//
-//                    }
-//                    _loading.value = false
-//                    _errorMessage.value = "Error: ${response.code()}"
-//                }
-//
-//            } catch (e: Exception) {
-//                _loading.value = false
-//                _errorMessage.value = e.message ?: "Unknown error occurred"
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-
-    fun sentLogInOTPForSHFCApp(uhid: String,mobileNo: String="", ifLoggedOutFromAllDevices: String = "0") {
-        _loading.value = true
-        viewModelScope.launch {
-            try {
-                val queryParams = mapOf(
-                    "ifLoggedOutFromAllDevices" to ifLoggedOutFromAllDevices,
-                    "UHID" to "emp015"
-                )
-                // This response is of type Response<ResponseBody>
-                val response = RetrofitInstance
-                    .createApiService()
-                    .dynamicGet(
-                        url = ApiEndPoint().sentLogInOTPForVitalioApp,
-                        params = queryParams
-                    )
-
-
-                if (response.isSuccessful) {
-                    _loading.value = false
-                    val responseBodyString = response.body()?.string()
-                    val otpResponse = Gson().fromJson(responseBodyString, OtpResponse::class.java)
-                    isRegistered.value = otpResponse.isRegisterd
-
-                    Log.d("RESPONSE", "phoneOrUHID3"+mobileNo.toString())
-                    val intent = Intent(MyApplication.appContext, otp::class.java).apply {
-                        putExtra("UHID", uhid)
-                        putExtra("mobileNo", mobileNo)
-                        putExtra("isRegistered", otpResponse.isRegisterd.toString())
-                    }
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    MyApplication.appContext.startActivity(intent)
-
-
-
-                    Log.d("RESPONSE", "responseValue: $responseBodyString")
-                } else {
-                    _loading.value = false
-                    _showDialog.postValue("Logout Confirmation")
-                    _errorMessage.value = "Error: ${response.code()}"
-                }
-            } catch (e: Exception) {
-                _loading.value = false
-                _errorMessage.value = e.message ?: "Unknown error occurred"
-                e.printStackTrace()
-            }
-        }
-    }
 
 
     fun logoutFromApp(uhid: String, deviceToken: String) {
@@ -217,7 +98,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "UHID" to "emp015",
+                    "UHID" to PrefsManager().currentPatientUHID.toString(),
                     "deviceToken" to PrefsManager().getDeviceToken().toString()
                 )
 

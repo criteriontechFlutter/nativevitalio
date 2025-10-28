@@ -16,7 +16,7 @@ import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
 import com.critetiontech.ctvitalio.logging.LoggingManager
 import com.google.android.material.snackbar.Snackbar
 
-class Home :  AppCompatActivity() {
+class Home :  BaseActivity() {
     private lateinit var binding : ActivityDashboardBinding
     private var lastBackPressTime: Long = 0
     private var backPressSnackbar:    Snackbar? = null
@@ -25,15 +25,14 @@ class Home :  AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        setSystemBarsColor(
+            statusBarColor = R.color.primaryColor,  // or custom color
+            navBarColor = android.R.color.white,
+            lightIcons = true
+        )
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
