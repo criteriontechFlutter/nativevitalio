@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_dashboard_to_wellnessMetrics"
             app:destination="@id/wellnessMetrics" />
+        <action
+            android:id="@+id/action_dashboard_to_sleepDetails"
+            app:destination="@id/sleepDetails" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -395,6 +398,9 @@
         <action
             android:id="@+id/action_corporateDashBoard_to_challengeDetailsFragment2"
             app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_sleepDetails"
+            app:destination="@id/sleepDetails" />
     </fragment>
     <fragment
         android:id="@+id/moodFragment"
@@ -409,5 +415,9 @@
         android:id="@+id/wellnessMetrics"
         android:name="com.critetiontech.ctvitalio.UI.fragments.WellnessMetrics"
         android:label="WellnessMetrics" />
+    <fragment
+        android:id="@+id/sleepDetails"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.SleepDetails"
+        android:label="SleepDetails" />
 
 </navigation>
