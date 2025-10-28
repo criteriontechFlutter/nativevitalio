@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
-        android:id="@+id/cardIcon"
+        android:id="@+id/cardIcon3"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/arrow_right"

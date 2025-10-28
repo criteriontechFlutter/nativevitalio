@@ -205,6 +205,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_corporateDashBoard_to_sleepDetails">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_wellnessMetrics">
                               <value>
                                 <LayoutPositions />
@@ -220,8 +225,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1786" />
-                            <option name="y" value="-1062" />
+                            <option name="x" value="-1822" />
+                            <option name="y" value="-1006" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -312,6 +317,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_pillsReminder">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_sleepDetails">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -632,6 +642,18 @@
                           <Point>
                             <option name="x" value="-1840" />
                             <option name="y" value="1860" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="sleepDetails">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1726" />
+                            <option name="y" value="-1362" />
                           </Point>
                         </option>
                       </LayoutPositions>
