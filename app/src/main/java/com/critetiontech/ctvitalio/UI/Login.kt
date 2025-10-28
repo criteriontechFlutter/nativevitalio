@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
@@ -35,7 +37,7 @@ import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
  * Handles user authentication, UI interactions, and navigation to the next screen.
  * Uses ViewModel architecture for business logic separation.
  */
-class Login : AppCompatActivity() {
+   class Login : BaseActivity() {
 
     // View binding for UI access
     private lateinit var binding: ActivityLoginBinding
@@ -56,6 +58,11 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSystemBarsColor(
+            statusBarColor = R.color.darkYellow,  // or custom color
+            navBarColor = android.R.color.white,
+            lightIcons = true
+        )
         setupInsets()
         initializeViewModels()
         setupListeners()
@@ -248,6 +255,11 @@ class Login : AppCompatActivity() {
         binding.inputField.setBackgroundResource(R.drawable.error_feild)
         binding.validationId.visibility = View.VISIBLE
         binding.doctorsImage.setImageResource(R.drawable.angergif)
+        setSystemBarsColor(
+            statusBarColor = R.color.angerRed,  // or custom color
+            navBarColor = android.R.color.white,
+            lightIcons = true
+        )
         binding.upperground.setBackgroundColor(Color.parseColor("#FE1E09"))
     }
 
@@ -258,7 +270,6 @@ class Login : AppCompatActivity() {
         val employeeId = binding.inputField.text.toString().trim()
         val password = binding.passField.text.toString().trim()
         val isValid = employeeId.isNotEmpty() && password.isNotEmpty()
-
         binding.sendOtpBtn.isEnabled = isValid
         binding.sendOtpBtn.backgroundTintList = ColorStateList.valueOf(
             ContextCompat.getColor(this, if (isValid) R.color.primaryBlue else R.color.greyText)

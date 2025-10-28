@@ -5,7 +5,6 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/mainScrollView"
         android:windowSoftInputMode="adjustResize"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFDD00"
@@ -99,8 +98,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="302dp"
                  android:src="@drawable/happygif"
-
-
                 app:layout_constraintBottom_toTopOf="@id/bottomCard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -233,7 +230,6 @@
                         android:layout_marginTop="24dp"
                         app:strokeWidth="0dp"
                         app:strokeColor="@color/transparent"
-
                         android:text="Login"
                         android:textColor="#FFFFFF"
                         android:enabled="false"

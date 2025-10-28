@@ -37,21 +37,6 @@ class Splash : AppCompatActivity() {
                 }
             )
             playSplashVideo()
-            // Check if user data is saved locally using PrefsManager
-//            var currentPatientUHID = PrefsManager().getPatient()?.patientName.toString()
-//
-//
-//            // Navigate to the appropriate screen
-//
-//                if (PrefsManager().getPatient()?.patientName.toString().isNotEmpty() && currentPatientUHID != "null") {
-//                    startActivity(Intent(applicationContext, Home::class.java))
-//                    finish()
-//                } else {
-//                    startActivity(Intent(applicationContext, Login::class.java))
-//                    finish()
-//                }
-
-                // Optional: close splash screen so user can't return with back button
 
         } catch (e: Exception) {
             Log.e("SplashActivity", "Error during Splash Screen Navigation: ${e.message}")
@@ -65,19 +50,15 @@ class Splash : AppCompatActivity() {
             // Set the video URI from the raw folder
             val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.microsoft_teams}")
             binding.videoView.setVideoURI(videoUri)
-
             binding.videoView.setOnCompletionListener {
                 navigateNextScreen()
             }
-
             binding.videoView.setOnErrorListener { mp, what, extra ->
                 Log.e("SplashActivity", "Video error: $what")
                 navigateNextScreen() // fallback
                 true
             }
-
             binding.videoView.start()
-
         } catch (e: Exception) {
             Log.e("SplashActivity", "Error playing video: ${e.message}")
             navigateNextScreen()
@@ -90,15 +71,10 @@ class Splash : AppCompatActivity() {
 
             if (currentPatientUHID.isNotEmpty() && currentPatientUHID != "" && currentPatientUHID!="null") {
                 startActivity(Intent(this, Home::class.java))
-//                val intent = Intent(this, SignupActivity::class.java)
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                this.startActivity(intent)
             } else {
                 startActivity(Intent(this, Login::class.java))
             }
-
             finish()
-
         } catch (e: Exception) {
             Log.e("SplashActivity", "Navigation error: ${e.message}")
             startActivity(Intent(this, Login::class.java))
