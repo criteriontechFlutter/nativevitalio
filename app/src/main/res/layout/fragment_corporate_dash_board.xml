@@ -12,7 +12,7 @@
         android:id="@+id/headerContainer"
         android:layout_width="0dp"
         android:layout_height="85dp"
-        android:layout_marginTop="20dp"
+
         android:background="@color/primaryBlue"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -99,7 +99,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="0dp"
             android:background="@color/primaryBlue"
             app:layout_constraintBottom_toTopOf="@+id/contentScroll"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +155,7 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/contentScroll"
             android:layout_width="match_parent"
-            android:layout_height="1200dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_content_white"
             android:clipToPadding="true"

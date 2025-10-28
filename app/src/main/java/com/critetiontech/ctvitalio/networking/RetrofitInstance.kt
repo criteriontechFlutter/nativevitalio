@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.networking
 
+import com.critetiontech.ctvitalio.utils.MyApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,24 +10,6 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitInstance {
-
-//    private const val DEFAULT_BASE_URL = "https://api.medvantage.tech:7082/"
-//    private const val DEFAULT_BASE_URL_7096 = "https://api.medvantage.tech:7096/"
-//    private const val DEFAULT_BASE_URL_7082 = "https://api.medvantage.tech:7082/"
-//    private const val DEFAULT_BASE_URL = "http://52.172.134.222:205/api/v1.0/"
-
-
-   //Vitalio Development Server
-//    const val DEFAULT_BASE_URL = "http://172.16.61.31:5082/"
-//    const val DEFAULT_BASE_URL_7096 = "http://172.16.61.31:5096/"
-//    const val DEFAULT_BASE_URL_7082 = "http://172.16.61.31:5082/"
-//    const val DEFAULT_BASE_URL_7083 = "http://172.16.61.31:5083/"
-//    const val DEFAULT_BASE_URL_5119 = "http://172.16.61.31:5119/"
-//    const val DEFAULT_BASE_URL_5090 = "http://172.16.61.31:5090/"
-//    const val DEFAULT_BASE_URL_5100 = "http://172.16.61.31:5100/"
-//    const val  shopright = "http://food.shopright.ai:3478/api/"
-//    val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"
-//    val holdSpeakWsUrl ="ws://182.156.200.177:8002/listen?token="
 
 
 
@@ -42,23 +25,10 @@ object RetrofitInstance {
     val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"
     val holdSpeakWsUrl ="ws://182.156.200.177:8002/listen?token="
 
-//    late String baseUrlMedvanatge = "https://api.medvantage.tech:5080/";
-//    late String baseUrlMedvanatge7084 = "http://172.16.61.31:5084/";
-//    late String baseUrlMedvanatge7082 = "http://172.16.61.31:5082/";
-//    late String baseUrlMedvanatge7096 = "http://172.16.61.31:5096/";
-//    late String baseUrlMedvanatge7090 = "http://172.16.61.31:5090/";
-//    late String baseUrlMedvanatge7100 = "http://172.16.61.31:7100/";
-//    late String baseUrlMedvanatge7083 = "http://172.16.61.31:5083/";
-//    static const String supplementUrl='http://52.172.134.222:204/';
-//    static const String kiosUrl='http://182.156.200.178:192/Services/patientProblem.asmx/';
-//    static const String knowmedBaseUrl='http://182.156.200.179:332/api/v1.0/Knowmed/';
-//    static const String hisBaseUrl='http://182.156.200.179:201/API/';
-
-//    private const val DEFAULT_BASE_URL = "http://52.172.134.222:205/api/v1.0/"
-
     private val baseOkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(createLoggingInterceptor())
+
             .connectTimeout(60, TimeUnit.SECONDS) // default is 10 seconds
             .readTimeout(60, TimeUnit.SECONDS)    // default is 10 seconds
             .writeTimeout(60, TimeUnit.SECONDS)   // default is 10 seconds
@@ -84,6 +54,7 @@ object RetrofitInstance {
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()
             .addInterceptor(createAuthInterceptor(headers))
+            .addInterceptor(NetworkConnectionInterceptor(MyApplication.appContext))
             .build()
 
         return getRetrofitInstance(baseUrlToUse).newBuilder()
@@ -103,6 +74,7 @@ object RetrofitInstance {
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()
             .addInterceptor(createAuthInterceptor(headers))
+            .addInterceptor(NetworkConnectionInterceptor(MyApplication.appContext))
             .build()
 
         return getRetrofitInstance(baseUrlToUse).newBuilder()
@@ -122,6 +94,7 @@ object RetrofitInstance {
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()
             .addInterceptor(createAuthInterceptor(headers))
+            .addInterceptor(NetworkConnectionInterceptor(MyApplication.appContext))
             .build()
 
         return getRetrofitInstance(baseUrlToUse).newBuilder()
@@ -141,6 +114,7 @@ object RetrofitInstance {
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()
             .addInterceptor(createAuthInterceptor(headers))
+            .addInterceptor(NetworkConnectionInterceptor(MyApplication.appContext))
             .build()
 
         return getRetrofitInstance(baseUrlToUse).newBuilder()
@@ -176,6 +150,7 @@ object RetrofitInstance {
 
         val clientWithHeaders = baseOkHttpClient.newBuilder()
             .addInterceptor(createAuthInterceptor(headers))
+            .addInterceptor(NetworkConnectionInterceptor(MyApplication.appContext))
             .build()
 
         return getRetrofitInstance(baseUrlToUse).newBuilder()
