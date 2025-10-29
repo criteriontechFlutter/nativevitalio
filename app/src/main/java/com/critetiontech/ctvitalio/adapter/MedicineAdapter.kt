@@ -20,9 +20,9 @@ class MedicineAdapter(private val medicines: List<Medicine>) :
         val medicineTime: TextView = itemView.findViewById(R.id.medicine_time)
         val medicineName: TextView = itemView.findViewById(R.id.medicine_name)
         val medicineDose: TextView = itemView.findViewById(R.id.medicine_dose)
-        val medicineNote: TextView = itemView.findViewById(R.id.medicine_note)
-        val btnMarkTaken: TextView = itemView.findViewById(R.id.btn_mark_taken)
-        val btnSkip: TextView = itemView.findViewById(R.id.btn_skip)
+     //   val medicineNote: TextView = itemView.findViewById(R.id.medicine_note)
+        val btnMarkTaken: TextView = itemView.findViewById(R.id.btn_taken)
+       // val btnSkip: TextView = itemView.findViewById(R.id.btn_skip)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineViewHolder {
@@ -38,7 +38,7 @@ class MedicineAdapter(private val medicines: List<Medicine>) :
         holder.medicineTime.text = medicine.time
         holder.medicineName.text = medicine.name
         holder.medicineDose.text = "${medicine.dose} • ${medicine.frequency}"
-        holder.medicineNote.text = medicine.note
+       // holder.medicineNote.text = medicine.note
 
         // Update UI based on taken/skipped state
         if (medicine.isTaken) {
@@ -66,11 +66,11 @@ class MedicineAdapter(private val medicines: List<Medicine>) :
         }
 
         // Skip click
-        holder.btnSkip.setOnClickListener {
-            medicine.isSkipped = !medicine.isSkipped
-            if (medicine.isSkipped) medicine.isTaken = false
-            notifyItemChanged(position)
-        }
+//        holder.btnSkip.setOnClickListener {
+//            medicine.isSkipped = !medicine.isSkipped
+//            if (medicine.isSkipped) medicine.isTaken = false
+//            notifyItemChanged(position)
+//        }
     }
 
     override fun getItemCount() = medicines.size

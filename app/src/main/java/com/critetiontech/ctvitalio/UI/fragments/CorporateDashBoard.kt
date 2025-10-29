@@ -175,6 +175,10 @@ class CorporateDashBoard : Fragment() {
 
 
         viewModel.fetchManualFluidIntake(uhid = PrefsManager().getPatient()?.empId.toString())
+        binding.recyclerView.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+        }
+
 
 
         viewModel.getVitals()
@@ -486,7 +490,7 @@ binding.showId.showHideId.setOnClickListener{
 
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
         binding.sleepScoreId.cardTitle.text="Sleep Score"
-        binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
+    //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
         binding.sleepScoreId.cardStatus6.visibility=View.GONE
 
 
@@ -814,7 +818,11 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                             Medicine("08:00 PM", "Atorvastatin 20mg", "1 Tablet", "Daily", "Before sleep")
                         )
 
-                        binding.recyclerView.adapter = TabMedicineAdapter(medicines)
+                        val adapter = TabMedicineAdapter(medicines) { selectedMedicine ->
+                            findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+                        }
+                        binding.recyclerView.adapter = adapter
+
                         binding.homeId.visibility=View.GONE
                         binding.challengedId.visibility=View.GONE
                         binding.activeChalleTextId.visibility=View.GONE
