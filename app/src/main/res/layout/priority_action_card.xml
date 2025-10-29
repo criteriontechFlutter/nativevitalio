@@ -15,119 +15,63 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Today's Priority Action"
-            android:textColor="#1A1A1A"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp"/>
-
-        <!-- Content Container -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#EAF4FF"
-            android:gravity="center_vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="#EAF4FF"
-                android:gravity="center_vertical">
-
-                <!-- Icon -->
-                <ImageView
-                    android:id="@+id/ivIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_breathing"
-                    android:contentDescription="Breathing icon"
-                    app:tint="#4A90E2"/>
-
-                <!-- Text Content -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp">
-
-                    <TextView
-                        android:id="@+id/tvMessage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Stress slightly high!"
-                        android:textColor="#1A1A1A"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="4dp"/>
-
-                    <TextView
-                        android:id="@+id/tvDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="A 3-min breathing break can help you reset."
-                        android:textColor="#666666"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Button at the end with layout_gravity -->
-            <Button
-                android:id="@+id/btnStartSession"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Start Session"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:backgroundTint="#2196F3"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:textAllCaps="false"/>
-        </LinearLayout>
-
-        <!-- Slider/Progress Indicator -->
+        <!-- Card content -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center">
+            android:gravity="center_vertical">
 
-            <View
-                android:id="@+id/indicator1"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                 android:background="@drawable/dot_active"
-                android:layout_marginEnd="4dp"/>
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_breathing"
+                app:tint="#4A90E2"
+                android:layout_marginEnd="12dp" />
 
-            <View
-                android:id="@+id/indicator2"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                 android:background="@drawable/dot_inactive"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"/>
-
-            <View
-                android:id="@+id/indicator3"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="6dp"
-                 android:background="@drawable/dot_inactive"
-                android:layout_marginStart="4dp"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stress slightly high!"
+                    android:textColor="#1A1A1A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A 3-min breathing break can help you reset."
+                    android:textColor="#666666"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnStartSession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:backgroundTint="#2196F3"/>
         </LinearLayout>
+
+        <!-- Dynamic slider indicator -->
+        <LinearLayout
+            android:id="@+id/layoutIndicators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
