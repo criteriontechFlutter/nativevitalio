@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -36,9 +37,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.DailyTip
+import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
@@ -68,6 +72,7 @@ class CorporateDashBoard : Fragment() {
     private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
+    private lateinit var dailyTipAdapter: DailyTipAdapter
     private var voiceDialog: Dialog? = null
     private var snackbar: Snackbar? = null
     private val slideDelay: Long = 2100
@@ -84,7 +89,8 @@ class CorporateDashBoard : Fragment() {
     private lateinit var navItems: List<View>
 
     private var authService: AuthorizationService? = null
-
+    private var currentIndex = 0
+    private val totalIndicators = 3
     private val moods = listOf(
         MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
         MoodData(6,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
@@ -653,6 +659,67 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     binding.movementIndexId.cardTitle.text="Movement Index"
     binding.movementIndexId.cardValue.text=  movementIndex?.vitalValue.toString()
     binding.movementIndexId.cardStatus6.visibility=View.GONE
+        }
+
+
+
+
+
+
+        val tips = listOf(
+            DailyTip(R.drawable.ic_breathing, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start"),
+            DailyTip(R.drawable.vitals_icon_home, "Low Sleep Detected", "Try to sleep at least 7 hours tonight.", "Improve"),
+            DailyTip(R.drawable.ic_water, "Hydration Low", "Drink 2 more glasses of water today.", "Track")
+        )
+
+        dailyTipAdapter = DailyTipAdapter(tips)
+
+        binding.recyclerSlider.apply {
+            layoutManager = LinearLayoutManager(requireContext(),
+ LinearLayoutManager.HORIZONTAL, false)
+            adapter = dailyTipAdapter
+            updateIndicators(totalIndicators)
+            // Optional: Snap to center like ViewPager
+            PagerSnapHelper().attachToRecyclerView(this)
+        }
+
+
+    }
+    private fun setupIndicators(count: Int) {
+        val indicators = arrayOfNulls<ImageView>(count)
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.setMargins(6, 0, 6, 0)
+
+        for (i in indicators.indices) {
+            indicators[i] = ImageView(requireContext()).apply {
+                setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dot_inactive
+                    )
+                )
+                this.layoutParams = layoutParams
+            }
+            binding.layoutIndicators.addView(indicators[i])
+        }
+    }
+
+    private fun updateIndicators(index: Int) {
+        val childCount = binding.layoutIndicators.childCount
+        for (i in 0 until childCount) {
+            val imageView = binding.layoutIndicators.getChildAt(i) as ImageView
+            if (i == index) {
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(requireContext(), R.drawable.dot_active)
+                )
+            } else {
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(requireContext(), R.drawable.dot_inactive)
+                )
+            }
         }
     }
     private fun openNewFragment() {

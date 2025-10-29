@@ -188,10 +188,6 @@
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/rounded_corners"
                             android:backgroundTint="#F6F6F6"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
                             android:text="Low movement today 0 small steps still move you forward."
                             android:textColor="#5F6471"
                             android:textSize="9sp" />
@@ -287,10 +283,6 @@
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/rounded_corners"
                             android:backgroundTint="#F6F6F6"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
                             android:text="Low movement today 0 small steps still move you forward."
                             android:textColor="#5F6471"
                             android:textSize="9sp" />
