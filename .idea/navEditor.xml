@@ -179,8 +179,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1569" />
-                            <option name="y" value="-1297" />
+                            <option name="x" value="-1543" />
+                            <option name="y" value="-1491" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -563,13 +563,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="medicationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1202" />
+                            <option name="y" value="-1794" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="moodFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1307" />
-                            <option name="y" value="-1402" />
+                            <option name="x" value="-1247" />
+                            <option name="y" value="-1418" />
                           </Point>
                         </option>
                       </LayoutPositions>
