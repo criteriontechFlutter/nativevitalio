@@ -30,13 +30,10 @@ class NewChallengedAdapter(
         val iconGoal: ImageView = view.findViewById(R.id.iconGoal)
         val titleText: TextView = view.findViewById(R.id.titleText)
         val subtitleText: TextView = view.findViewById(R.id.subtitleText)
-        val statusText: TextView = view.findViewById(R.id.statusText)
-        val targetText: TextView = view.findViewById(R.id.targetText)
-        val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+          val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         val labelPercent: TextView = view.findViewById(R.id.labelPercent)
         val labelCurrent: TextView = view.findViewById(R.id.labelCurrent)
-        val iconReminder: ImageView = view.findViewById(R.id.iconReminder)
-        val reminderText: TextView = view.findViewById(R.id.reminderText)
+         val reminderText: TextView = view.findViewById(R.id.reminderText)
         val btnLogReading: Button = view.findViewById(R.id.btn_log_reading)
         val btnMessageCoach: Button = view.findViewById(R.id.btn_message_coach)
     }
@@ -53,9 +50,7 @@ class NewChallengedAdapter(
         // Bind model data
         holder.titleText.text = challenge.title
         holder.subtitleText.text = "w/Coach Sarah | 7 day"
-        holder.statusText.text = "Almost there!"
-        val progress = (challenge.rewardPoints % 100)
-        holder.targetText.text ="Target: $progress% time-in-range"
+         val progress = (challenge.rewardPoints % 100)
 
         // Fake progress (you can replace with real logic)
         holder.progressBar.progress = progress

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     app:cardCornerRadius="16dp"
+     android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- Left section -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Title / Reminder -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/trophyIcon"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_centerHorizontal="true"
+                 android:src="@drawable/medicne"
+                android:contentDescription="Trophy"/>
+            <TextView
+                android:id="@+id/tvReminderTitle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Next dose in 15 mins — stay on track"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/arrow_right_grey"
+                    android:contentDescription="Trophy"/>
+            </LinearLayout>
+            <!-- Medication info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvMedication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Metformin 500mg"
+                android:textColor="#333333"
+                android:textSize="13sp" />
+
+            <!-- Frequency and time -->
+            <TextView
+                android:id="@+id/tvFrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="2 times a day | 08:00 AM"
+                android:textColor="#777777"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnMarkTaken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mark Taken"
+            android:textSize="13sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#007BFF"
+            android:drawableStart="@drawable/check"
+             android:drawablePadding="6dp"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:minHeight="14dp"
+            android:layout_gravity="center_vertical" />
+        </LinearLayout>
+        </LinearLayout>
+        <!-- "Mark Taken" button -->
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

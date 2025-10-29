@@ -262,6 +262,7 @@
     <string name="logout_from_all_devices">Logout from All Devices</string>
     <string name="app_bar_icon" />
     <string name="sleep_efficiency">Sleep Efficiency <b><font color="#000000">89</font></b> %</string>
-    <string name="mild_imbalance_due_to_elevated_stress_taking_a_brief_mindfulness_or_reflection_break_right_now_can_help_reset_your_mind_and_bring_your_wellness_score_back_toward_balance">Mild imbalance due to elevated stress, taking a brief mindfulness or reflection break right now can help reset your mind and bring your wellness score back toward balance.</string>
+    <string name="mild_imbalance_due_to_elevated_stress_taking_a_brief_mindfulness_or_reflection_break_right_now_can_help_reset_your_mind_and_bring_your_wellness_score_back_toward_balance"> taking a brief mindfulness or reflection break right now can help reset your mind and bring your wellness score back toward balance.</string>
+    <string name="mild_imbalance_due_to_elevated_stress">Mild imbalance due to elevated stress,</string>
 
 </resources>
