@@ -25,7 +25,7 @@
                 android:translationY="0dp" />
             <Layout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="214dp"
                 motion:layout_constraintTop_toTopOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent" />
