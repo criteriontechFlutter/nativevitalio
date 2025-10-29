@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -211,24 +212,24 @@ class CorporateDashBoard : Fragment() {
                 .firstOrNull { it.id.toString() == "97694" }
                 ?.amount?.toFloat() ?: 0f  // convert safely to Float
 
-
-            binding.intakeWaterId.text=waterQty.toString()
-
-
-
-            val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
-
-
-            waterGoal?.let {
-                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
-
-                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
-                binding.intakeWaterId.text=waterQty.toString()
-// Now set progress
-                binding.waterproGress.setProgress(progress)
-
-
-            }
+//
+//            binding.intakeWaterId.text=waterQty.toString()
+//
+//
+//
+//            val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
+//
+//
+//            waterGoal?.let {
+//                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+//
+//                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
+//                binding.intakeWaterId.text=waterQty.toString()
+//// Now set progress
+//                binding.waterproGress.setProgress(progress)
+//
+//
+//            }
 
 
         }
@@ -288,18 +289,18 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
            // binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
         }
 
-        waterGoal?.let {
-            binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
-
-
-
-
-
-        }
-        binding.waterContId.setOnClickListener(){
-            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
-        }
-
+//        waterGoal?.let {
+//            binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+//
+//
+//
+//
+//
+//        }
+//        binding.waterContId.setOnClickListener(){
+//            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
+//        }
+//
 
 
 
@@ -328,19 +329,19 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             val vitalStepsIndex = vitals.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
 //            binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
 //            binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
-            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
-            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
+//            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
+//            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
         }
 
         viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->
             val efficiencyMetric = quickMetricListList
                 ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
 
-            binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
+//            binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
 
             val sleepId = quickMetricListList
                 ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
-            binding.sleepId.text =  sleepId?.DisplayText ?: "-"
+//            binding.sleepId.text =  sleepId?.DisplayText ?: "-"
         }
 
 
@@ -382,8 +383,31 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             findNavController().navigate(R.id.action_dashboard_to_energyTank)
         }
          viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
-             binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
-        }
+
+             if(energy.toString().isEmpty()){
+
+                 binding.energyTitle.text="Your energy story awaits "
+                 binding.energySubtitle.text="Log your energy for today ⚡"
+
+                 binding.energyid.setBackgroundColor(Color.WHITE)
+val params = binding.energyImage.layoutParams
+                 params.height = ViewGroup.LayoutParams.MATCH_PARENT
+                 binding.energyImage.layoutParams = params
+                 binding.energyImage.scaleType = ImageView.ScaleType.FIT_CENTER
+                 binding.energyImage.setImageResource(R.drawable. storyset)
+                 binding.energyid.setBackgroundResource( R.drawable.bordercolor_radius )
+             }
+             else{
+                 binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
+                 binding.energyTitle.text="Your energy story awaits "
+
+                 val params = binding.energyImage.layoutParams
+                 params.height = ViewGroup.LayoutParams.MATCH_PARENT
+                 binding.energyImage.layoutParams = params
+                 binding.energyid.setBackgroundResource( R.drawable.bg_energy_gradient )
+                 binding.energyImage.setImageResource(R.drawable. ic_meditation)
+             }
+         }
 
 
 //        binding.linearLayout3.setOnClickListener()
@@ -391,16 +415,16 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //
 //            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
 //        }
-        binding.addvitalBtn.setOnClickListener()
-        {
-
-            findNavController().navigate(R.id.action_dashboard_to_connection )
-        }
-        binding.sleepContainerId.setOnClickListener()
-        {
-
-            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
-        }
+//        binding.addvitalBtn.setOnClickListener()
+//        {
+//
+//            findNavController().navigate(R.id.action_dashboard_to_connection )
+//        }
+//        binding.sleepContainerId.setOnClickListener()
+//        {
+//
+//            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
+//        }
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             val adapter: DashboardAdapter
@@ -422,7 +446,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                     vitalDateTime = bpSys.vitalDateTime
                 }
 
-                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
+//                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
                 finalVitalList.add(bpVital)
             }
 
@@ -479,187 +503,187 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //        val adapter = MedicineAdapter(medicineList)
 //        binding.recyclerMedicines.adapter = adapter
         var isBoxVisible = false
-        binding.viewAllSleepDataaId.visibility=View.GONE
-binding.showId.showHideId.setOnClickListener{
-    binding.viewAllSleepDataaId.visibility=View.VISIBLE
-    binding.showId.showHideId.visibility=View.GONE
-}
-        binding.hideId.showHideId.setOnClickListener{
-            binding.viewAllSleepDataaId.visibility=View.GONE
-            binding.showId.showHideId.visibility=View.VISIBLE
-        }
+//        binding.viewAllSleepDataaId.visibility=View.GONE
+//binding.showId.showHideId.setOnClickListener{
+//    binding.viewAllSleepDataaId.visibility=View.VISIBLE
+//    binding.showId.showHideId.visibility=View.GONE
+//}
+//        binding.hideId.showHideId.setOnClickListener{
+//            binding.viewAllSleepDataaId.visibility=View.GONE
+//            binding.showId.showHideId.visibility=View.VISIBLE
+//        }
+//
+//
+//        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+//        binding.sleepScoreId.cardTitle.text="Sleep Score"
+//        binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
+//        binding.sleepScoreId.cardStatus6.visibility=View.GONE
+//
+//
+//    val totalSleep = sleepValue.QuickMetricsTiled
+//        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+//
+//    binding.totalSleepId.cardTitle.text="Total Sleep"
+//        binding.totalSleepId.cardValue.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
+//
+//
+//    val efficiencyMetric = sleepValue.QuickMetrics
+//        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
+//
+//        binding.sleepEfficiencyId.cardTitle.text="Sleep Efficiency"
+//        binding.sleepEfficiencyId.cardValue.text= efficiencyMetric?.DisplayText.toString()
+//         binding.sleepEfficiencyId.cardStatus6.visibility=View.GONE
+//
+//    val timeinBed = sleepValue.QuickMetricsTiled
+//        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+//        binding.timeInBedId.cardTitle.text="Time in Bed"
+//        binding.timeInBedId.cardValue.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
+//
+//
+//
+//
+//        binding.fulSleepCycleId.cardTitle.text="Full Sleep Cycle"
+//        binding.fulSleepCycleId.cardValue.text="_"
+//         binding.fulSleepCycleId.cardStatus6.visibility=View.GONE
+//
+//
+//
+//
+//    val rem_sleep = sleepValue.SleepStages
+//        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
+//        binding.remSleepId.cardTitle.text="REM Sleep"
+//        binding.remSleepId.cardValue.text= rem_sleep?.StageTimeText.toString()
+//        binding.remSleepId.cardStatus6.visibility=View.GONE
+//
+//
+//    val deep_sleep = sleepValue.SleepStages
+//        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
+//        binding.deepSleepId.cardTitle.text="Deep Sleep"
+//        binding.deepSleepId.cardValue.text=deep_sleep?.StageTimeText.toString()
+//        binding.deepSleepId.cardStatus6.visibility=View.GONE
+//
+//
+//    val light_sleep = sleepValue.SleepStages
+//        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
+//        binding.lightSleepId.cardTitle.text="Llght Sleep"
+//        binding.lightSleepId.cardValue.text=light_sleep?.StageTimeText.toString()
+//        binding.lightSleepId.cardStatus6.visibility=View.GONE
+//
+//
+//    val restorative = sleepValue.QuickMetricsTiled
+//        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
+//        binding.restorativeSleepId.cardTitle.text="Restorative Sleep"
+//        binding.restorativeSleepId.cardValue.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
+//
+//
+//
+//        binding.movementsId.cardTitle.text="Movements"
+//        binding.movementsId.cardValue.text= sleepValue.MovementGraph?.Data?.size.toString()
+//         binding.movementsId.cardStatus6.visibility=View.GONE
+//
+//
+//            val morningAlertness = sleepValue.MorningAlertness
+//                ?.Minutes
+//            binding.morningAlertnessId.cardTitle.text="Morning Alertness"
+//        binding.morningAlertnessId.cardValue.text=morningAlertness
+//        binding.morningAlertnessId.hrId.text="mins"
+//        binding.morningAlertnessId.cardStatus6.visibility=View.GONE
+//
+//        binding.tossesAndTurnsId.cardTitle.text="Tosses and Turns"
+//        binding.tossesAndTurnsId.cardValue.text="_"
+//        binding.tossesAndTurnsId.cardStatus6.visibility=View.GONE
+//
+//
+//
+//
+//            binding.hideId.cardTitlse.text="Hide"
+//
+//
+//
+//
+////            Activity
+//
+//
+//
+//            binding.inactiveHoursId.cardTitle.text="Inactive Time"
+//            binding.inactiveHoursId.cardValue.text="_"
+//            binding.inactiveHoursId.cardStatus6.visibility=View.GONE
+//
+//
+//
+//            binding.activieHoursId.cardTitle.text="Active Hours"
+//            binding.activieHoursId.cardValue.text="_"
+//            binding.activieHoursId.cardStatus6.visibility=View.GONE
+//
+//
+//
+//
+//            binding.WeeklyActiveMinutesId.cardTitle.text="Weekly Active Minutes"
+//            binding.WeeklyActiveMinutesId.cardValue.text="_"
+//            binding.WeeklyActiveMinutesId.cardStatus6.visibility=View.GONE
+//
+//
+////            Recovery
+//
+//
+//
+//            binding.StressRhythmScoreId.cardTitle.text="Stress Rhyythm Score"
+//            binding.StressRhythmScoreId.cardValue.text= "_"
+//            binding.StressRhythmScoreId.cardStatus6.visibility=View.GONE
 
-
-        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
-        binding.sleepScoreId.cardTitle.text="Sleep Score"
-        binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
-        binding.sleepScoreId.cardStatus6.visibility=View.GONE
-
-
-    val totalSleep = sleepValue.QuickMetricsTiled
-        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
-
-    binding.totalSleepId.cardTitle.text="Total Sleep"
-        binding.totalSleepId.cardValue.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
-
-
-    val efficiencyMetric = sleepValue.QuickMetrics
-        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
-
-        binding.sleepEfficiencyId.cardTitle.text="Sleep Efficiency"
-        binding.sleepEfficiencyId.cardValue.text= efficiencyMetric?.DisplayText.toString()
-         binding.sleepEfficiencyId.cardStatus6.visibility=View.GONE
-
-    val timeinBed = sleepValue.QuickMetricsTiled
-        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
-        binding.timeInBedId.cardTitle.text="Time in Bed"
-        binding.timeInBedId.cardValue.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
-
-
-
-
-        binding.fulSleepCycleId.cardTitle.text="Full Sleep Cycle"
-        binding.fulSleepCycleId.cardValue.text="_"
-         binding.fulSleepCycleId.cardStatus6.visibility=View.GONE
-
-
-
-
-    val rem_sleep = sleepValue.SleepStages
-        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
-        binding.remSleepId.cardTitle.text="REM Sleep"
-        binding.remSleepId.cardValue.text= rem_sleep?.StageTimeText.toString()
-        binding.remSleepId.cardStatus6.visibility=View.GONE
-
-
-    val deep_sleep = sleepValue.SleepStages
-        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
-        binding.deepSleepId.cardTitle.text="Deep Sleep"
-        binding.deepSleepId.cardValue.text=deep_sleep?.StageTimeText.toString()
-        binding.deepSleepId.cardStatus6.visibility=View.GONE
-
-
-    val light_sleep = sleepValue.SleepStages
-        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
-        binding.lightSleepId.cardTitle.text="Llght Sleep"
-        binding.lightSleepId.cardValue.text=light_sleep?.StageTimeText.toString()
-        binding.lightSleepId.cardStatus6.visibility=View.GONE
-
-
-    val restorative = sleepValue.QuickMetricsTiled
-        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
-        binding.restorativeSleepId.cardTitle.text="Restorative Sleep"
-        binding.restorativeSleepId.cardValue.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
-
-
-
-        binding.movementsId.cardTitle.text="Movements"
-        binding.movementsId.cardValue.text= sleepValue.MovementGraph?.Data?.size.toString()
-         binding.movementsId.cardStatus6.visibility=View.GONE
-
-
-            val morningAlertness = sleepValue.MorningAlertness
-                ?.Minutes
-            binding.morningAlertnessId.cardTitle.text="Morning Alertness"
-        binding.morningAlertnessId.cardValue.text=morningAlertness
-        binding.morningAlertnessId.hrId.text="mins"
-        binding.morningAlertnessId.cardStatus6.visibility=View.GONE
-
-        binding.tossesAndTurnsId.cardTitle.text="Tosses and Turns"
-        binding.tossesAndTurnsId.cardValue.text="_"
-        binding.tossesAndTurnsId.cardStatus6.visibility=View.GONE
-
-
-
-
-            binding.hideId.cardTitlse.text="Hide"
-
-
-
-
-//            Activity
-
-
-
-            binding.inactiveHoursId.cardTitle.text="Inactive Time"
-            binding.inactiveHoursId.cardValue.text="_"
-            binding.inactiveHoursId.cardStatus6.visibility=View.GONE
-
-
-
-            binding.activieHoursId.cardTitle.text="Active Hours"
-            binding.activieHoursId.cardValue.text="_"
-            binding.activieHoursId.cardStatus6.visibility=View.GONE
-
-
-
-
-            binding.WeeklyActiveMinutesId.cardTitle.text="Weekly Active Minutes"
-            binding.WeeklyActiveMinutesId.cardValue.text="_"
-            binding.WeeklyActiveMinutesId.cardStatus6.visibility=View.GONE
-
-
-//            Recovery
-
-
-
-            binding.StressRhythmScoreId.cardTitle.text="Stress Rhyythm Score"
-            binding.StressRhythmScoreId.cardValue.text= "_"
-            binding.StressRhythmScoreId.cardStatus6.visibility=View.GONE
-
-        }
-viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-    val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
-
-
-    binding.StepsId.cardTitle.text="Steps"
-    binding.StepsId.cardValue.text= vitalStepsIndex?.vitalValue.toString()
-    binding.StepsId.cardStatus6.visibility=View.GONE
-
-    val TemperatureBody = vitalList
-        ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
-    binding.averageBodyTempId.cardTitle.text="Average Body Temp."
-    binding.averageBodyTempId.cardValue.text=  "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
-    binding.averageBodyTempId.cardStatus6.visibility=View.GONE
-
-    val activeMinutes = vitalList
-        ?.firstOrNull { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
-    binding.ActiveminutesId.cardTitle.text="Active Minutes"
-    binding.ActiveminutesId.cardValue.text= activeMinutes?.vitalValue.toString()
-    binding.ActiveminutesId.cardStatus6.visibility=View.GONE
-    val Temperature = vitalList
-        ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
-    binding.tempDeviationId.cardTitle.text="Temperature Devoatoion"
-    binding.tempDeviationId.cardValue.text=   "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
-    binding.tempDeviationId.cardStatus6.visibility=View.GONE
-
-    val recoveryIndex = vitalList
-        ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
-    binding.recoveryScoreId.cardTitle.text="Recovery Score"
-    binding.recoveryScoreId.cardValue.text= recoveryIndex?.vitalValue.toString()
-    binding.recoveryScoreId.cardStatus6.visibility=View.GONE
-
-    val HRV = vitalList
-        ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
-    binding.lastNightHrvId.cardTitle.text="Last Night's HRV"
-    binding.lastNightHrvId.cardValue.text= HRV?.vitalValue.toString()
-    binding.lastNightHrvId.cardStatus6.visibility=View.GONE
-
-
-    binding.SleepStageHrvId.cardTitle.text="Sleep Stage' HRV"
-    binding.SleepStageHrvId.cardValue.text=HRV?.vitalValue.toString()
-    binding.SleepStageHrvId.cardStatus6.visibility=View.GONE
-
-    val movementIndex = vitalList
-        ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
-
-    binding.movementIndexId.cardTitle.text="Movement Index"
-    binding.movementIndexId.cardValue.text=  movementIndex?.vitalValue.toString()
-    binding.movementIndexId.cardStatus6.visibility=View.GONE
-        }
+//        }
+//viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+//    val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
+//
+//
+//    binding.StepsId.cardTitle.text="Steps"
+//    binding.StepsId.cardValue.text= vitalStepsIndex?.vitalValue.toString()
+//    binding.StepsId.cardStatus6.visibility=View.GONE
+//
+//    val TemperatureBody = vitalList
+//        ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
+//    binding.averageBodyTempId.cardTitle.text="Average Body Temp."
+//    binding.averageBodyTempId.cardValue.text=  "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
+//    binding.averageBodyTempId.cardStatus6.visibility=View.GONE
+//
+//    val activeMinutes = vitalList
+//        ?.firstOrNull { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
+//    binding.ActiveminutesId.cardTitle.text="Active Minutes"
+//    binding.ActiveminutesId.cardValue.text= activeMinutes?.vitalValue.toString()
+//    binding.ActiveminutesId.cardStatus6.visibility=View.GONE
+//    val Temperature = vitalList
+//        ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
+//    binding.tempDeviationId.cardTitle.text="Temperature Devoatoion"
+//    binding.tempDeviationId.cardValue.text=   "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
+//    binding.tempDeviationId.cardStatus6.visibility=View.GONE
+//
+//    val recoveryIndex = vitalList
+//        ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+//    binding.recoveryScoreId.cardTitle.text="Recovery Score"
+//    binding.recoveryScoreId.cardValue.text= recoveryIndex?.vitalValue.toString()
+//    binding.recoveryScoreId.cardStatus6.visibility=View.GONE
+//
+//    val HRV = vitalList
+//        ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
+//    binding.lastNightHrvId.cardTitle.text="Last Night's HRV"
+//    binding.lastNightHrvId.cardValue.text= HRV?.vitalValue.toString()
+//    binding.lastNightHrvId.cardStatus6.visibility=View.GONE
+//
+//
+//    binding.SleepStageHrvId.cardTitle.text="Sleep Stage' HRV"
+//    binding.SleepStageHrvId.cardValue.text=HRV?.vitalValue.toString()
+//    binding.SleepStageHrvId.cardStatus6.visibility=View.GONE
+//
+//    val movementIndex = vitalList
+//        ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
+//
+//    binding.movementIndexId.cardTitle.text="Movement Index"
+//    binding.movementIndexId.cardValue.text=  movementIndex?.vitalValue.toString()
+//    binding.movementIndexId.cardStatus6.visibility=View.GONE
+//        }
 
 
 
@@ -683,9 +707,32 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             PagerSnapHelper().attachToRecyclerView(this)
         }
 
-
+        animateConfetti()
     }
-    private fun setupIndicators(count: Int) {
+
+
+    private fun animateConfetti() {
+        val confettiIds = listOf(
+            binding.celebrationId.confetti1, binding.celebrationId.confetti2, binding.celebrationId.confetti3,
+            binding.celebrationId.confetti4, binding.celebrationId.confetti5,
+            binding.celebrationId.star1,binding.celebrationId.star2, binding.celebrationId.star3
+        )
+
+        confettiIds.forEachIndexed { index, id ->
+            val animation = createTwinkleAnimation()
+            animation.startOffset = (index * 200).toLong()
+            id.startAnimation(animation)
+        }
+    }
+
+    private fun createTwinkleAnimation(): Animation {
+        val anim = android.view.animation.AlphaAnimation(0.3f, 1.0f)
+        anim.duration = 1500
+        anim.repeatMode = Animation.REVERSE
+        anim.repeatCount = Animation.INFINITE
+        return anim
+    }
+     private fun setupIndicators(count: Int) {
         val indicators = arrayOfNulls<ImageView>(count)
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -860,7 +907,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                         binding.activeChalleTextId.visibility=View.GONE
 
                         binding.recyclerView.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.GONE
+//                        binding.healthSnaps.visibility=View.GONE
 
                     }  1 -> {
                         binding.homeId.visibility=View.GONE
@@ -868,7 +915,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                         binding.activeChalleTextId.visibility=View.GONE
 
                         binding.recyclerView.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.VISIBLE
+//                        binding.healthSnaps.visibility=View.VISIBLE
 
                     }
                     2 -> {
@@ -885,7 +932,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                         binding.homeId.visibility=View.GONE
                         binding.challengedId.visibility=View.GONE
                         binding.activeChalleTextId.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.GONE
+//                        binding.healthSnaps.visibility=View.GONE
 
                     } 3 -> {
                         binding.homeId.visibility=View.GONE
@@ -893,7 +940,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                         binding.activeChalleTextId.visibility=View.VISIBLE
 
                         binding.recyclerView.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.GONE
+//                        binding.healthSnaps.visibility=View.GONE
 
                     }
 
