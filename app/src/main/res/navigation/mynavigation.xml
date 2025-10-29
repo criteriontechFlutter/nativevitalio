@@ -13,9 +13,6 @@
             android:id="@+id/action_dashboard_to_drawer4"
             app:destination="@id/drawer4" />
         <action
-            android:id="@+id/action_dashboard_to_pillsReminder"
-            app:destination="@id/pillsReminder" />
-        <action
             android:id="@+id/action_dashboard_to_symptomsFragment"
             app:destination="@id/symptomsFragment" />
         <action
@@ -118,10 +115,6 @@
             android:id="@+id/action_drawer4_to_emergencyContactFragment"
             app:destination="@id/emergencyContactFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/pillsReminder"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.PillsReminder"
-        android:label="PillsReminder" />
     <fragment
         android:id="@+id/symptomsFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SymptomsFragment"
@@ -357,9 +350,6 @@
         <action
             android:id="@+id/action_chatBotPage_to_symptomsFragment"
             app:destination="@id/symptomsFragment" />
-        <action
-            android:id="@+id/action_chatBotPage_to_pillsReminder"
-            app:destination="@id/pillsReminder" />
     </fragment>
     <fragment
         android:id="@+id/imagePdfViewFragment"

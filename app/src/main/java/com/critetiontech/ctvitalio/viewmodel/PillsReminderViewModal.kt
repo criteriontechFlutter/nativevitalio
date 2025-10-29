@@ -10,8 +10,11 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
@@ -23,10 +26,9 @@ import java.util.Locale
 
 class PillsReminderViewModal (application: Application) : BaseViewModel(application) {
 
-    private val _pillList = MutableLiveData<List<PillReminderModel>>()
-    val pillList: LiveData<List<PillReminderModel>> get() = _pillList
-    private val _currentDatePillList = MutableLiveData<List<PillReminderModel>>()
-    val currentDatePillList: LiveData<List<PillReminderModel>> get() = _currentDatePillList
+    private val _pillList = MutableLiveData<List<Medicine>>()
+    val pillList: LiveData<List<Medicine>> get() = _pillList
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
@@ -40,7 +42,8 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
 
                 val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.empId.toString()
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "clientId" to 194
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
@@ -52,124 +55,38 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                 _loading.value = false
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
-                    val list = parseMedicationNameAndDateList(json)
-                    val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
-                        Date()
-                    )
-
-// Filter the list to only include today's medications
-                    val todaysMedications = list.filter { it.date == currentDate }
-                    _currentDatePillList.postValue(todaysMedications)
-                    _pillList.postValue(list)
-                    Log.d("RESPONSE", "responseValue: $todaysMedications")
-
-                } else {
-                    _errorMessage.value = "Error: ${response.code()}"
-                }
-
-            } catch (e: Exception) {
-                _loading.value = false
-                _errorMessage.value = e.message ?: "Unknown error occurred"
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun parseMedicationNameAndDateList(json: String?): List<PillReminderModel> {
-        val result = mutableListOf<PillReminderModel>()
-        if (json == null) return result
-
-        val root = JSONObject(json)
-        val medArray = root.getJSONObject("responseValue").getJSONArray("medicationNameAndDate")
-
-        for (i in 0 until medArray.length()) {
-            val obj = medArray.getJSONObject(i)
-
-            val jsonTime = JSONArray(obj.getString("jsonTime"))
-
-            val times = mutableListOf<PillTime>()
-            for (j in 0 until jsonTime.length()) {
-                val timeObj = jsonTime.getJSONObject(j)
-                times.add(
-                    PillTime(
-                        time = timeObj.optString("time"),
-                        durationType = timeObj.optString("durationType"),
-                        icon = timeObj.optString("icon"),
-                        intakeTime = timeObj.optString("intakeTime")
-                    )
-                )
-            }
-
-            result.add(
-                PillReminderModel(
-                    prescriptionRowID = obj.optInt("prescriptionRowID"),
-                    pmId = obj.optInt("pmId"),
-                    date = obj.optString("date"),
-                    drugName = obj.optString("drugName"),
-                    dosageForm = obj.optString("dosageForm"),
-                    frequency = obj.optString("frequency"),
-                    doseFrequency = obj.optString("doseFrequency"),
-                    remark = obj.optString("remark"),
-                    medicineId = obj.optInt("medicineId"),
-                    drugId = obj.optInt("drugId"),
-                    jsonTime = times,
-                    translation = obj.optString("translation")
-                )
-            )
-        }
-
-        return result
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun convertTo24Hour(time: String): LocalTime {
-        val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
-        return LocalTime.parse(time.trim(), formatter)
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun insertPatientMedication(
-        pmID:String,
-        prescriptionID:String,
-        durationType:String,
-        compareTime: String
-    ) {
-        _loading.value = true
-
-        viewModelScope.launch {
-            try {
-                val convertedTime = convertTo24Hour(compareTime)
-
-                val queryParams = mapOf(
-                    "UhID" to PrefsManager().getPatient()?.empId.toString(),
-                    "pmID"  to  pmID,
-                    "intakeDateAndTime"  to    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())+" "+convertedTime,
-
-
-
-                    "prescriptionID" to prescriptionID,
-                    "userID"  to PrefsManager().getPatient()?.id.toString(),
-                "duration"  to  durationType ,
-                "compareTime"  to  convertedTime
-                )
-
-                // This response is of type Response<ResponseBody>
-                val response = RetrofitInstance
-                    .createApiService( )
-                    .dynamicRawPost(
-                        url = ApiEndPoint().insertPatientMedication,
-                        body = queryParams
-                    )
-                getAllPatientMedication()
-                _loading.value = false
-                if (response.isSuccessful) {
-                    val json = response.body()?.string()
                     Log.d("RESPONSE", "responseValue: $json")
 
+                    try {
+                        val jsonObject = JSONObject(json ?: "")
+                        val status = jsonObject.optInt("status")
+                        val message = jsonObject.optString("message")
+
+                        if (status == 1) {
+                            val responseArray = jsonObject.optJSONArray("responseValue")
+
+                            // Parse JSON array to List<Medicine>
+                            if (responseArray != null && responseArray.length() > 0) {
+                                val gson = Gson()
+                                val type = object : TypeToken<List<Medicine>>() {}.type
+                                val medicines: List<Medicine> = gson.fromJson(responseArray.toString(), type)
+
+                                _pillList.postValue(medicines)
+                                Log.d("PILLS_LIST", "Parsed medicines: $medicines")
+                            } else {
+                                _pillList.postValue(emptyList())
+                                Log.d("PILLS_LIST", "Empty responseValue array")
+                            }
+                        } else {
+                            _pillList.postValue(emptyList())
+                            Log.d("PILLS_LIST", "No record found: $message")
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        _errorMessage.postValue("Error parsing response")
+                    }
                 } else {
-                    _errorMessage.value = "Error: ${response.code()}"
+                    _errorMessage.postValue("Error: ${response.code()}")
                 }
 
             } catch (e: Exception) {
@@ -179,6 +96,60 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
             }
         }
     }
+
+
+
+
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun insertPatientMedication(
+//        pmID:String,
+//        prescriptionID:String,
+//        durationType:String,
+//        compareTime: String
+//    ) {
+//        _loading.value = true
+//
+//        viewModelScope.launch {
+//            try {
+//                val convertedTime = convertTo24Hour(compareTime)
+//
+//                val queryParams = mapOf(
+//                    "UhID" to PrefsManager().getPatient()?.empId.toString(),
+//                    "pmID"  to  pmID,
+//                    "intakeDateAndTime"  to    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())+" "+convertedTime,
+//
+//
+//
+//                    "prescriptionID" to prescriptionID,
+//                    "userID"  to PrefsManager().getPatient()?.id.toString(),
+//                "duration"  to  durationType ,
+//                "compareTime"  to  convertedTime
+//                )
+//
+//                // This response is of type Response<ResponseBody>
+//                val response = RetrofitInstance
+//                    .createApiService( )
+//                    .dynamicRawPost(
+//                        url = ApiEndPoint().insertPatientMedication,
+//                        body = queryParams
+//                    )
+//                getAllPatientMedication()
+//                _loading.value = false
+//                if (response.isSuccessful) {
+//                    val json = response.body()?.string()
+//                    Log.d("RESPONSE", "responseValue: $json")
+//
+//                } else {
+//                    _errorMessage.value = "Error: ${response.code()}"
+//                }
+//
+//            } catch (e: Exception) {
+//                _loading.value = false
+//                _errorMessage.value = e.message ?: "Unknown error occurred"
+//                e.printStackTrace()
+//            }
+//        }
+//    }
 
 
 
