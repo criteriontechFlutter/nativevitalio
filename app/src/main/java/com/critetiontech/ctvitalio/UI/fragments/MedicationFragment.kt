@@ -1,130 +1,131 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import android.animation.ObjectAnimator
+import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
+import android.util.AttributeSet
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.utils.CustomCalendarView
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import com.critetiontech.ctvitalio.databinding.FragmentMedicationBinding
+
+import com.critetiontech.ctvitalio.utils.VitalioCalendarView
+import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.sin
 
 
 class MedicationFragment : Fragment() {
-    private lateinit var dateContainer: LinearLayout
-    private lateinit var progressBar: ProgressBar
-    private lateinit var txtMonth: TextView
 
-    private var selectedPosition = -1
-    private val calendar = Calendar.getInstance()
+    private var _binding: FragmentMedicationBinding? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_medication, container, false)
+        _binding = FragmentMedicationBinding.inflate(inflater, container, false)
+        return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        dateContainer = view.findViewById(R.id.date_container)
-//        progressBar = view.findViewById(R.id.date_progress)
-//        txtMonth = view.findViewById(R.id.txt_month)
+       // _binding?.calendarContainer?.background = ContextCompat.getDrawable(requireContext(), R.drawable.bottom_curve_bg)
 
-        generateDateItems()
+        // Create and add custom calendar view
+        val calendarView = VitalioCalendarView(requireContext())
+
+        _binding?.calendarContainer?.addView(calendarView)
+
+
+        // Highlight specific goal dates
+        calendarView.setGoalDates(listOf(8, 9, 10, 13, 15))
 
     }
-    private fun generateDateItems() {
-        val inflater = LayoutInflater.from(requireActivity())
-        val today = Calendar.getInstance()
 
-        // Get Monday as starting point of week
-        val weekStart = today.clone() as Calendar
-        weekStart.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+}
 
-        val dayFormat = SimpleDateFormat("EEE", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
 
-        dateContainer.removeAllViews()
+class CurvedNumberView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 
-        for (i in 0..6) {
-            val dateView = inflater.inflate(R.layout.item_date_picker, dateContainer, false)
-            val tvDay = dateView.findViewById<TextView>(R.id.tv_day)
-            val tvDate = dateView.findViewById<TextView>(R.id.tv_date)
+    private val numbers = (10..18).toList()
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        textSize = 48f
+        textAlign = Paint.Align.CENTER
+    }
 
-            val date = weekStart.clone() as Calendar
-            date.add(Calendar.DAY_OF_MONTH, i)
+    private var selectedIndex = numbers.indexOf(14)
+    private var touchStartX = 0f
+    private var totalScrollX = 0f
 
-            tvDay.text = dayFormat.format(date.time)
-            tvDate.text = dateFormat.format(date.time)
+    // --- Set fixed height and width ---
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val desiredWidth = 600 // px or use dp conversion if needed
+        val desiredHeight = 200
+        val width = resolveSize(desiredWidth, widthMeasureSpec)
+        val height = resolveSize(desiredHeight, heightMeasureSpec)
+        setMeasuredDimension(width, height)
+    }
 
-            // Highlight today's date
-            if (isSameDay(date, today)) {
-                setDateSelected(tvDate, true)
-                selectedPosition = i
-                updateMonth(date)
-                progressBar.progress = (i + 1) * 15 // starting position progress
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        val centerX = width / 2f
+        val topY = 0f // arc should appear upward (numbers above the curve)
+        val radius = width / 1.5f
+        val angleStep = 20f // controls spacing and curvature
+
+        for (i in numbers.indices) {
+            val offsetFromCenter = i - selectedIndex
+
+            // 🔁 Reverse the curve: flip vertical direction by subtracting angle
+            val angle = 90 + (offsetFromCenter * angleStep)
+            val rad = Math.toRadians(angle.toDouble())
+
+            val x = (centerX + radius * cos(rad)).toFloat()
+            val y = (topY + radius * sin(rad)).toFloat()
+
+            val scale = if (i == selectedIndex) 1.3f else 1.0f
+            paint.textSize = 48f * scale
+            paint.color = if (i == selectedIndex) Color.parseColor("#FFC107") else Color.GRAY
+            paint.isFakeBoldText = (i == selectedIndex)
+
+            canvas.drawText(numbers[i].toString(), x, y, paint)
+        }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                touchStartX = event.x
+                return true
             }
 
-            // On click listener
-            dateView.setOnClickListener {
-                selectDate(i, tvDate, date)
+            MotionEvent.ACTION_MOVE -> {
+                val deltaX = event.x - touchStartX
+                totalScrollX += deltaX
+                touchStartX = event.x
+
+                if (abs(totalScrollX) > 100) { // swipe threshold
+                    if (totalScrollX < 0 && selectedIndex < numbers.lastIndex) {
+                        selectedIndex++
+                    } else if (totalScrollX > 0 && selectedIndex > 0) {
+                        selectedIndex--
+                    }
+                    totalScrollX = 0f
+                    invalidate()
+                }
             }
-
-            dateContainer.addView(dateView)
         }
-    }
-    private fun selectDate(position: Int, tvDate: TextView, date: Calendar) {
-        // Reset previous selection
-        if (selectedPosition != -1) {
-            val prevView = dateContainer.getChildAt(selectedPosition)
-            val prevDateText = prevView.findViewById<TextView>(R.id.tv_date)
-            setDateSelected(prevDateText, false)
-        }
-
-        // Highlight new selection
-        setDateSelected(tvDate, true)
-        selectedPosition = position
-
-        // Animate progress bar
-        val progressValue = ((position + 1) / 7f * 100).toInt()
-        ObjectAnimator.ofInt(progressBar, "progress", progressBar.progress, progressValue)
-            .setDuration(400)
-            .start()
-
-        updateMonth(date)
+        return true
     }
 
-    private fun setDateSelected(tvDate: TextView, selected: Boolean) {
-        if (selected) {
-            tvDate.setBackgroundResource(R.drawable.date_circle_bg_active)
-            tvDate.setTextColor(Color.WHITE)
-            tvDate.animate().scaleX(1.1f).scaleY(1.1f).setDuration(150).start()
-        } else {
-            tvDate.setBackgroundResource(R.drawable.date_circle_bg_grey)
-            tvDate.setTextColor(Color.BLACK)
-            tvDate.animate().scaleX(1f).scaleY(1f).setDuration(150).start()
-        }
-    }
-
-    private fun updateMonth(date: Calendar) {
-        val monthFormat = SimpleDateFormat("MMM", Locale.getDefault())
-        txtMonth.text = monthFormat.format(date.time)
-    }
-
-    private fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
-    }
-
+    fun getSelectedNumber(): Int = numbers[selectedIndex]
 }

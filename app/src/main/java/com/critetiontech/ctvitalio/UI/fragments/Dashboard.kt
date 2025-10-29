@@ -143,14 +143,14 @@ class Dashboard  : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = toTakeAdapter
 
-        pillsViewModel.currentDatePillList.observe(viewLifecycleOwner) { pills ->
-            binding.toTake.visibility = if (pillsViewModel.currentDatePillList.value?.isEmpty() == true) {
-                View.GONE
-            } else {
-                View.VISIBLE
-            }
-            toTakeAdapter.updateList(pills)
-        }
+//        pillsViewModel.currentDatePillList.observe(viewLifecycleOwner) { pills ->
+//            binding.toTake.visibility = if (pillsViewModel.currentDatePillList.value?.isEmpty() == true) {
+//                View.GONE
+//            } else {
+//                View.VISIBLE
+//            }
+//            toTakeAdapter.updateList(pills)
+//        }
 
 
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
@@ -212,9 +212,9 @@ class Dashboard  : Fragment() {
         }
 
 
-        binding.pillsReminder.setOnClickListener {
-            findNavController().navigate(R.id.pillsReminder)
-        }
+//        binding.pillsReminder.setOnClickListener {
+//            findNavController().navigate(R.id.pillsReminder)
+//        }
 
         binding.symptomsTracker.setOnClickListener {
             viewModel.getSymptoms(
@@ -382,7 +382,7 @@ class Dashboard  : Fragment() {
                 "pills reminder page", "pills page", "pills screen", "pills view",
                 "open pills", "open pills reminder", "open pills page", "open pills screen", "open pills view"
             ).any { it in destination } -> {
-                navController.navigate(R.id.action_dashboard_to_pillsReminder)
+                //navController.navigate(R.id.action_dashboard_to_pillsReminder)
             }
 
             listOf(

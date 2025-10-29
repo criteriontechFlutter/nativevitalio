@@ -213,13 +213,13 @@ class ChatBotPageAdapter(
             itemView.findViewById<Button>(R.id.btnAddReminder).setOnClickListener {
                 handleSelection("Intake Pills", "Route :-", onEvent,
                     ChatItem.NavigationRoute("Dashboard > Pills Reminder > Click on Intake Icon") {
-                        onNavigate(R.id.action_chatBotPage_to_pillsReminder)
+                        //onNavigate(R.id.action_chatBotPage_to_pillsReminder)
                     })
             }
             itemView.findViewById<Button>(R.id.btnHistoryReminder).setOnClickListener {
                 handleSelection("Pills History", "Route :-", onEvent,
                     ChatItem.NavigationRoute("Dashboard > Pills Reminder > History") {
-                        onNavigate(R.id.action_chatBotPage_to_pillsReminder)
+                  //      onNavigate(R.id.action_chatBotPage_to_pillsReminder)
                     })
             }
         }

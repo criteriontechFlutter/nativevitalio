@@ -84,7 +84,7 @@ class CorporateDashBoard : Fragment() {
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_REQUEST_CODE = 101
     var fragmentOpened = false
-    private val tabLabels = listOf("Home", "Streaks", "Triggers", "Challenges")
+    private val tabLabels = listOf("Home", "Snaps", "Reminders", "Challenges")
     private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
 
@@ -876,26 +876,35 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
                     }
                     2 -> {
-                        binding.recyclerView.visibility=View.VISIBLE
+                        binding.recyclerView.visibility = View.VISIBLE
                         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-                        val medicines = listOf(
-                            Medicine("08:00 AM", "Lisinopril 10ml", "1 Tablet", "Daily", "Take with morning meal"),
-                            Medicine("02:32 PM", "Metformin 500mg", "1 Tablet", "Daily", "After lunch"),
-                            Medicine("08:00 PM", "Atorvastatin 20mg", "1 Tablet", "Daily", "Before sleep")
-                        )
-
-                        val adapter = TabMedicineAdapter(medicines) { selectedMedicine ->
+                        // Initialize adapter once with an empty list
+                        val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
                             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
                         }
                         binding.recyclerView.adapter = adapter
 
-                        binding.homeId.visibility=View.GONE
-                        binding.challengedId.visibility=View.GONE
-                        binding.activeChalleTextId.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.GONE
+                        // Observe pill list updates
+                        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+                            if (list.isNotEmpty()) {
+                                adapter.updateList(list) // Update existing adapter data
+                                binding.recyclerView.visibility = View.VISIBLE
+                              //  binding.tvNoData.visibility = View.GONE
+                            } else {
+                                binding.recyclerView.visibility = View.GONE
+                               // binding.tvNoData.visibility = View.VISIBLE
+                            }
+                        }
 
-                    } 3 -> {
+                        // Hide other views
+                        binding.homeId.visibility = View.GONE
+                        binding.challengedId.visibility = View.GONE
+                        binding.activeChalleTextId.visibility = View.GONE
+                        binding.healthSnaps.visibility = View.GONE
+                    }
+
+                    3 -> {
                         binding.homeId.visibility=View.GONE
                         binding.challengedId.visibility=View.VISIBLE
                         binding.activeChalleTextId.visibility=View.VISIBLE
