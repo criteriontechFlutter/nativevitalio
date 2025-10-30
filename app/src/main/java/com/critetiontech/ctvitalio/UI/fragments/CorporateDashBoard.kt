@@ -287,7 +287,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
         val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
         val sleepGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
-
+ mn  m
         stepsGoal?.let {
            // binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
         }
