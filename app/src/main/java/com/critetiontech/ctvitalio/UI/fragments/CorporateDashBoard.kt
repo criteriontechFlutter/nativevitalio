@@ -354,8 +354,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         )
         binding.ivIllustration.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_moodFragment ,null,
-                null,
-                extras)
+                null)
         }
 
         binding.moodLayout.setTransitionListener(object : MotionLayout.TransitionListener {

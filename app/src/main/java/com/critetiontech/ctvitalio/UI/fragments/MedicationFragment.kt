@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.databinding.FragmentMedicationBinding
 
 import com.critetiontech.ctvitalio.utils.VitalioCalendarView
@@ -45,6 +46,11 @@ class MedicationFragment : Fragment() {
         calendarView.setDateProgress(14, 0.85f) // Update to 85%
         // Highlight specific goal dates
         calendarView.setGoalDates(listOf(8, 9, 10, 13, 15))
+
+        _binding?.backIV?.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
     }
 
