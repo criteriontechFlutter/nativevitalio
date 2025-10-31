@@ -7,6 +7,7 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.AudioRecord
@@ -39,6 +40,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -50,6 +52,7 @@ import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.model.Medicine
+import com.critetiontech.ctvitalio.model.NewChallengeModel
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -265,6 +268,7 @@ class CorporateDashBoard : Fragment() {
                 }
             )
 
+
             binding.ringIcon.setOnClickListener {
 
                 initializeAuth()
@@ -279,7 +283,37 @@ class CorporateDashBoard : Fragment() {
 binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
-        }
+            binding.newChallengedRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+                PagerSnapHelper().attachToRecyclerView(this)
+            }
+            binding.newChallengedRecyclerView.removeAllViews()
+// Dynamically add dots here, e.g.:
+            for (i in 0 until list.size) {
+                val dot = ImageView(context)
+                val params = LinearLayout.LayoutParams(16, 16)
+                params.setMargins(8, 0, 8, 0)
+                dot.layoutParams = params
+                if (i == 0) dot.setImageResource(R.drawable.dot_active) else  dot.setImageResource(R.drawable.dot_inactive)
+                binding.activechalgesDotId.addView(dot)
+            }
+            // Setup indicators
+//            setupIndicators(list.size)
+            binding.newChallengedRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val position = layoutManager.findFirstVisibleItemPosition()
+
+                    for (i in 0 until binding.activechalgesDotId.childCount) {
+                        val imageView = binding.activechalgesDotId.getChildAt(i) as ImageView
+                        var drawableId =    if (i == position) R.drawable.dot_active else R.drawable.dot_inactive
+
+                        imageView.setImageResource(drawableId)
+                    }
+                }
+            })        }
 
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
         val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
@@ -287,6 +321,8 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 
         stepsGoal?.let {
            // binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
+
+            binding.stepsProgressId.tvStepsLabel.text="Steps 60.4%"
         }
 
 //        waterGoal?.let {
@@ -881,15 +917,133 @@ val params = binding.energyImage.layoutParams
         dailyTipAdapter = DailyTipAdapter(tips)
 
         binding.recyclerSlider.apply {
-            layoutManager = LinearLayoutManager(requireContext(),
- LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = dailyTipAdapter
-            updateIndicators(totalIndicators)
-            // Optional: Snap to center like ViewPager
             PagerSnapHelper().attachToRecyclerView(this)
         }
+         binding.recyclerSlider.removeAllViews()
+// Dynamically add dots here, e.g.:
+        for (i in 0 until tips.size) {
+            val dot = ImageView(context)
+            val params = LinearLayout.LayoutParams(16, 16)
+            params.setMargins(8, 0, 8, 0)
+            dot.layoutParams = params
+            if (i == 0) dot.setImageResource(R.drawable.dot_active) else  dot.setImageResource(R.drawable.dot_inactive)
+            binding.layoutIndicators.addView(dot)
+        }
+        // Setup indicators
+//        setupIndicators(tips.size)
+        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val position = layoutManager.findFirstVisibleItemPosition()
 
+                for (i in 0 until binding.layoutIndicators.childCount) {
+                    val imageView = binding.layoutIndicators.getChildAt(i) as ImageView
+                    val drawableId = if (i == position) R.drawable.dot_active else R.drawable.dot_inactive
+                    imageView.setImageResource(drawableId)
+                }
+            }
+        })
         animateConfetti()
+
+
+        binding.stepsProgressId.ivStepsIcon.setImageResource(R.drawable.step_progress)
+        binding.sleepProgressId.ivStepsIcon.setImageResource(R.drawable.sleep_progress)
+        binding.waterProgressId.ivStepsIcon.setImageResource(R.drawable.water_progress)
+        binding.glucoseProgressId.ivStepsIcon.setImageResource(R.drawable.glucose_progress)
+        binding.bpProgressId.ivStepsIcon.setImageResource(R.drawable.bp_progress)
+        binding.medicineProgressId.ivStepsIcon.setImageResource(R.drawable.medicine_progress)
+
+        binding.stepsProgressId.progressSteps.progressTintList =
+            ColorStateList.valueOf(Color.parseColor("#1281FD"))
+        binding.sleepProgressId.progressSteps.progressTintList =
+            ColorStateList.valueOf(Color.parseColor("#00C67A"))
+        binding.waterProgressId.progressSteps.progressTintList =
+            ColorStateList.valueOf(Color.parseColor("#FEA33C"))
+        binding.glucoseProgressId.progressSteps.progressTintList =
+            ColorStateList.valueOf(Color.parseColor("#00C67A"))
+        binding.bpProgressId.progressSteps.progressTintList =
+            ColorStateList.valueOf(Color.parseColor("#FF3737"))
+//        binding.medicineProgressId.progressSteps.progressTintList =
+//            ColorStateList.valueOf(Color.parseColor("#FF3737"))
+//        binding.waterProgressId.progressSteps.setImageResource(R.drawable.water_progress)
+//        binding.glucoseProgressId.progressSteps.setImageResource(R.drawable.glucose_progress)
+//        binding.bpProgressId.progressSteps.setImageResource(R.drawable.bp_progress)
+//        binding.medicineProgressId.progressSteps.setImageResource(R.drawable.medicine_progress)
+
+viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+    val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
+
+
+    val vitalMovementIndex = vitalList.find { it.vitalName.equals("MovementIndex", ignoreCase = true) }
+    val vitalRecoveryIndex = vitalList.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+    val sleepscore = vitalList.find { it.vitalName.equals("Sleep Score", ignoreCase = true) }
+    val stressScore = vitalList.find { it.vitalName.equals("StressScore", ignoreCase = true) }
+    binding.StepsId.cardTitle.text="Steps"
+    binding.StepsId.cardValue.text= vitalStepsIndex?.vitalValue.toString()
+    binding.StepsId.cardStatus6.visibility=View.GONE
+        binding.stepsProgressId.tvStepsLabel.text="Steps 60.4%"
+        binding.sleepProgressId.tvStepsLabel.text="Sleep "+ sleepscore?.vitalValue.toString()
+        binding.waterProgressId.tvStepsLabel.text="Water 30%"
+        binding.glucoseProgressId.tvStepsLabel.text="Glucose 100%"
+        binding.bpProgressId.tvStepsLabel.text="Blood Pressure 50%"
+        binding.medicineProgressId.tvStepsLabel.text="Medicine 10%"
+
+
+
+
+    binding.stepsProgressId.progressSteps.progress=60
+    binding.sleepProgressId.progressSteps.progress=90
+    binding.waterProgressId.progressSteps.progress=30
+    binding.glucoseProgressId.progressSteps.progress= 100
+    binding.bpProgressId.progressSteps.progress= 50
+    binding.medicineProgressId.progressSteps.progress= 10
+
+
+        binding.stepsProgressId.tvStepsValue.text=vitalStepsIndex?.vitalValue.toString()
+        binding.sleepProgressId.tvStepsValue.text="8h 41n"
+        binding.waterProgressId.tvStepsValue.text="700 ml"
+        binding.glucoseProgressId.tvStepsValue.text="1/1"
+        binding.bpProgressId.tvStepsValue.text="1/2"
+        binding.medicineProgressId.tvStepsValue.text="1/7"
+
+}
+
+
+
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+            val totalSleep = sleepValue.QuickMetricsTiled
+                ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+
+            binding.stepsProgressId.tvStepsLabel.text="Steps 60.4%"
+
+            binding.sleepProgressId.tvStepsValue.text=HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+            binding.sleepProgressId.tvStepsLabel.text="Sleep"
+    }
+
+
+        viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
+            // `vitals` is the latest value emitted by LiveData
+            // Example: submit to RecyclerView adapter
+            val vitalMovementIndex = vitals.find { it.vitalName.equals("MovementIndex", ignoreCase = true) }
+            val vitalRecoveryIndex = vitals.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+            val sleepscore = vitals.find { it.vitalName.equals("Sleep Score", ignoreCase = true) }
+            val vitalStepsIndex = vitals.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
+            val stressScore = vitals.find { it.vitalName.equals("StressScore", ignoreCase = true) }
+            binding.sleepProgressIds.sleepValue.text=String.format("%.0f", sleepscore?.vitalValue)
+            binding.sleepProgressIds.movementValue.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
+            binding.sleepProgressIds.stressValue.text=String.format("%.0f", stressScore?.vitalValue)
+            binding.sleepProgressIds.recoveryValue.text=String.format("%.0f", vitalRecoveryIndex?.vitalValue)
+
+
+
+
+        }
+
+
     }
 
 
@@ -911,46 +1065,11 @@ val params = binding.energyImage.layoutParams
         val anim = android.view.animation.AlphaAnimation(0.3f, 1.0f)
         anim.duration = 1500
         anim.repeatMode = Animation.REVERSE
-        anim.repeatCount = Animation.INFINITE
+        anim.repeatCount = Animation.ZORDER_TOP
         return anim
     }
-     private fun setupIndicators(count: Int) {
-        val indicators = arrayOfNulls<ImageView>(count)
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.setMargins(6, 0, 6, 0)
 
-        for (i in indicators.indices) {
-            indicators[i] = ImageView(requireContext()).apply {
-                setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.dot_inactive
-                    )
-                )
-                this.layoutParams = layoutParams
-            }
-            binding.layoutIndicators.addView(indicators[i])
-        }
-    }
 
-    private fun updateIndicators(index: Int) {
-        val childCount = binding.layoutIndicators.childCount
-        for (i in 0 until childCount) {
-            val imageView = binding.layoutIndicators.getChildAt(i) as ImageView
-            if (i == index) {
-                imageView.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.drawable.dot_active)
-                )
-            } else {
-                imageView.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.drawable.dot_inactive)
-                )
-            }
-        }
-    }
     private fun openNewFragment() {
         findNavController().navigate(R.id.moodFragment)
     }

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:padding="32dp">
 
+
             <!-- Confetti decorations (stars and dots) -->
             <TextView
                 android:id="@+id/confetti1"

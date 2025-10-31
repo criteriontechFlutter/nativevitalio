@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="w/Coach Sarah | 7 days"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="#555555"
                     android:layout_marginTop="2dp" />
 
@@ -82,10 +82,9 @@
        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
+         android:orientation="horizontal"
         android:gravity="center"
-         android:padding="4dp">
+         android:padding="8dp">
 
         <!-- Left label (Current) -->
         <TextView
@@ -93,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Progress 74"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
             android:textStyle="normal"
             android:layout_marginEnd="16dp" />
@@ -110,9 +109,10 @@
                 android:id="@+id/progressBarBackground"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="9dp"
                 android:layout_centerInParent="true"
                 android:indeterminate="false"
+
                 android:max="100"
                 android:progress="100"
                 android:progressDrawable="@drawable/progress_background" />
@@ -122,7 +122,7 @@
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="9dp"
                 android:layout_centerInParent="true"
                 android:indeterminate="false"
                 android:max="100"
@@ -143,7 +143,117 @@
         </RelativeLayout>
 
     </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+             android:background="#FFFFFF">
 
+            <!-- Consistency wins! text -->
+            <TextView
+                android:id="@+id/tvConsistencyWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Consistency wins!"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#FF6F07"
+                android:layout_marginEnd="16dp" />
+
+            <!-- Day indicators container -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="17.dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Monday -->
+                <TextView
+                    android:id="@+id/tvMonday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="M"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="@drawable/day_circle_background"  />
+
+                <!-- Tuesday -->
+                <TextView
+                    android:id="@+id/tvTuesday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="T"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9"  />
+
+                <!-- Wednesday -->
+                <TextView
+                    android:id="@+id/tvWednesday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="W"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9"  />
+
+                <!-- Thursday -->
+                <TextView
+                    android:id="@+id/tvThursday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="T"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9" />
+
+                <!-- Friday -->
+                <TextView
+                    android:id="@+id/tvFriday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="F"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9"  />
+
+                <!-- Fire emoji/icon -->
+                <TextView
+                    android:id="@+id/tvFireIcon"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="🔥"
+                    android:background="#FFE5D9"
+                    android:textSize="20sp"
+                    android:gravity="center"  />
+
+                <!-- Saturday -->
+                <TextView
+                    android:id="@+id/tvSaturday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="S"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#999999"
+                    android:gravity="center"
+                    android:layout_marginEnd="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
         <!-- Reminder Row -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -164,7 +274,9 @@
                 android:layout_width="match_parent"
                 android:padding="12dp"
                 android:layout_height="wrap_content"
-                android:text="Next Log post-lunch reading | Due: 2:30 PM (30 minutes)"
+                android:background="@drawable/dashboard_rounded_corner"
+                android:backgroundTint="#EAF4FF"
+                android:text="Tiny push needed — one smooth glucose day completes your streak."
                 android:textSize="12sp"
                 android:textColor="#444444" />
         </LinearLayout>
@@ -181,7 +293,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_log_reading"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:text="Log reading"
                 android:textAllCaps="false"
                 android:textSize="14sp"
@@ -189,9 +301,11 @@
                 app:icon="@drawable/ic_log"
                 app:iconGravity="start"
                 app:iconPadding="6dp"
-                app:cornerRadius="12dp"
+                app:cornerRadius="6dp"
+                android:paddingVertical="0dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 app:backgroundTint="#007BFF"
-                android:paddingHorizontal="20dp"
                 android:layout_marginEnd="12dp" />
 
             <!-- Message Coach Button -->
@@ -200,7 +314,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_message_coach"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:text="Message coach"
                 android:textAllCaps="false"
                 android:textSize="14sp"
@@ -209,7 +323,10 @@
                 app:iconTint="#007BFF"
                 app:iconGravity="start"
                 app:iconPadding="6dp"
-                app:cornerRadius="12dp"
+                android:paddingVertical="0dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                app:cornerRadius="6dp"
                 app:backgroundTint="@color/greyBG"
                 android:paddingHorizontal="20dp"
                 android:layout_marginEnd="12dp" />

@@ -22,33 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dashboard_rounded_corner"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:orientation="vertical" >
 
                 <!-- Wellness Score Header Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:src="@drawable/wellness_score_icon"
-                        android:contentDescription="Wellness Score Icon" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="10dp"
-                        android:text="Wellness Score"
-                        android:textColor="@color/bgDark"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <!-- Score and Status Section -->
                 <LinearLayout
@@ -59,8 +35,7 @@
                     android:background="@drawable/dashboard_rounded_corner"
                     android:backgroundTint="#FFD4D4"
                     android:padding ="16dp"
-
-                    android:layout_marginBottom="16dp">
+ >
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -129,6 +104,11 @@
                 </LinearLayout>
 
                 <!-- Sleep Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding ="18dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -182,45 +162,45 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:padding ="10dp"-->
 
-                        android:background="@drawable/dashboard_rounded_corner"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
+<!--                        android:background="@drawable/dashboard_rounded_corner"-->
+<!--                        android:backgroundTint="#F6F6F6"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#F6F6F6"
-                            android:text="Low movement today 0 small steps still move you forward."
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="8dp"-->
+<!--                            android:background="@drawable/rounded_corners"-->
+<!--                            android:backgroundTint="#F6F6F6"-->
+<!--                            android:text="Low movement today 0 small steps still move you forward."-->
+<!--                            android:textColor="#5F6471"-->
+<!--                            android:textSize="14sp" />-->
 
-                        <TextView
-                            android:id="@+id/addSleepActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/addSleepActivityBtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/dashboard_rounded_corner"-->
+<!--                            android:backgroundTint="#FFFFFF"-->
+<!--                            android:drawableStart="@drawable/add_vital"-->
+<!--                            android:drawableTint="#0079FF"-->
+<!--                            android:drawablePadding="4dp"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:paddingTop="6dp"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:paddingBottom="6dp"-->
+<!--                            android:text="Add Activity"-->
+<!--                            android:textColor="#0079FF"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </LinearLayout>-->
                 </LinearLayout>
 
                 <!-- Movement Section -->
@@ -277,45 +257,45 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:padding ="10dp"-->
 
-                        android:background="@drawable/dashboard_rounded_corner"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
+<!--                        android:background="@drawable/dashboard_rounded_corner"-->
+<!--                        android:backgroundTint="#F6F6F6"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#F6F6F6"
-                            android:text="Low movement today 0 small steps still move you forward."
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="8dp"-->
+<!--                            android:background="@drawable/rounded_corners"-->
+<!--                            android:backgroundTint="#F6F6F6"-->
+<!--                            android:text="Low movement today 0 small steps still move you forward."-->
+<!--                            android:textColor="#5F6471"-->
+<!--                            android:textSize="14sp" />-->
 
-                        <TextView
-                            android:id="@+id/addMovementActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/addMovementActivityBtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/dashboard_rounded_corner"-->
+<!--                            android:backgroundTint="#FFFFFF"-->
+<!--                            android:drawableStart="@drawable/add_vital"-->
+<!--                            android:drawableTint="#0079FF"-->
+<!--                            android:drawablePadding="4dp"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:paddingTop="6dp"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:paddingBottom="6dp"-->
+<!--                            android:text="Add Activity"-->
+<!--                            android:textColor="#0079FF"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </LinearLayout>-->
                 </LinearLayout>
 
                 <!-- Stress Section -->
@@ -372,43 +352,43 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
-                        android:background="@drawable/dashboard_rounded_corner"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:padding ="10dp"-->
+<!--                        android:background="@drawable/dashboard_rounded_corner"-->
+<!--                        android:backgroundTint="#F6F6F6"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                             android:backgroundTint="#F6F6F6"
-                             android:text="Low movement today 0 small steps still move you forward."
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="8dp"-->
+<!--                             android:backgroundTint="#F6F6F6"-->
+<!--                             android:text="Low movement today 0 small steps still move you forward."-->
+<!--                            android:textColor="#5F6471"-->
+<!--                            android:textSize="14sp" />-->
 
-                        <TextView
-                            android:id="@+id/addStressActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/addStressActivityBtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/dashboard_rounded_corner"-->
+<!--                            android:backgroundTint="#FFFFFF"-->
+<!--                            android:drawableStart="@drawable/add_vital"-->
+<!--                            android:drawableTint="#0079FF"-->
+<!--                            android:drawablePadding="4dp"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:paddingTop="6dp"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:paddingBottom="6dp"-->
+<!--                            android:text="Add Activity"-->
+<!--                            android:textColor="#0079FF"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </LinearLayout>-->
                 </LinearLayout>
 
                 <!-- Recovery Section -->
@@ -465,47 +445,48 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
-                        android:background="@drawable/rounded_button_bg"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:padding ="10dp"-->
+<!--                        android:background="@drawable/rounded_button_bg"-->
+<!--                        android:backgroundTint="#F6F6F6"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#F6F6F6"
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="8dp"-->
+<!--                            android:background="@drawable/rounded_corners"-->
+<!--                            android:backgroundTint="#F6F6F6"-->
 
-                            android:text="Low movement today 0 small steps still move you forward."
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+<!--                            android:text="Low movement today 0 small steps still move you forward."-->
+<!--                            android:textColor="#5F6471"-->
+<!--                            android:textSize="14sp" />-->
 
-                        <TextView
-                            android:id="@+id/addRecoveryActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/addRecoveryActivityBtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/dashboard_rounded_corner"-->
+<!--                            android:backgroundTint="#FFFFFF"-->
+<!--                            android:drawableStart="@drawable/add_vital"-->
+<!--                            android:drawableTint="#0079FF"-->
+<!--                            android:drawablePadding="4dp"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:paddingTop="6dp"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:paddingBottom="6dp"-->
+<!--                            android:text="Add Activity"-->
+<!--                            android:textColor="#0079FF"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </LinearLayout>-->
                 </LinearLayout>
 
+            </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
