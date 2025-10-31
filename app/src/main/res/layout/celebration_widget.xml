@@ -116,7 +116,7 @@
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                android:src="@drawable/ic_trophy"
+                android:src="@drawable/achivement"
                 android:contentDescription="Trophy"/>
 
             <!-- Emoji -->
