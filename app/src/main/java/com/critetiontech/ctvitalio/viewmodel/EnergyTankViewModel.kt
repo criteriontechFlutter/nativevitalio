@@ -22,7 +22,7 @@ class EnergyTankViewModel(application: Application) : BaseViewModel(application)
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-    fun insertEnergyTankMaster(context: Context,energyPercentage:String) {
+    fun insertEnergyTankMaster(context: Context,status:String ,energyPercentage:String) {
         viewModelScope.launch {
             _loading.value = true
             try {
@@ -31,7 +31,7 @@ class EnergyTankViewModel(application: Application) : BaseViewModel(application)
                     "pid" to PrefsManager().getPatient()?.id.toString() ,
                     "id" to PrefsManager().getPatient()?.id.toString() ,
                     "energyPercentage" to energyPercentage ,
-                    "statusLabel" to "test2",
+                    "statusLabel" to status.toString(),
                     "userId" to "194",
                     "clientId" to "194",
                 )

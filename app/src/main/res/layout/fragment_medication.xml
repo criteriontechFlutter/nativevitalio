@@ -6,27 +6,63 @@
     android:layout_height="match_parent"
     android:background="#F8FAFD">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appbar"
+        android:background="@drawable/bg_card_white"
+        android:orientation="vertical"
+        android:id="@+id/appHeader"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- First Logged Medicine -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                 android:id="@+id/backIV"
+                android:src="@drawable/ic_back"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14sdp"
+                android:text="Medication"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/calendarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+app:layout_constraintTop_toBottomOf="@+id/appHeader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -264,15 +300,18 @@
     </LinearLayout>
 
         <!-- Floating Add Button -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="24dp"
-            android:src="@drawable/add_vital"
-            app:backgroundTint="#5A9DFD"
-            app:tint="@android:color/white" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:src="@drawable/raddimg"
+
+        app:backgroundTint="@color/primaryBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
 
 
 

@@ -4,7 +4,6 @@ import PrefsManager
 import android.animation.ValueAnimator
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.os.Bundle
@@ -19,18 +18,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
-import com.critetiontech.ctvitalio.databinding.FragmentMoodBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.EnergyTankViewModel
-import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
 
 class EnergyTank : Fragment() {
 
@@ -39,7 +34,6 @@ class EnergyTank : Fragment() {
     private var energyLevel =  0 // start at 50%
     private lateinit var gestureDetector: GestureDetector
     private lateinit var viewModel: EnergyTankViewModel
-    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,6 +85,7 @@ class EnergyTank : Fragment() {
         binding.actionButton.setOnClickListener(){
             viewModel.insertEnergyTankMaster(
                 context = requireContext(),
+                status=binding.statusText.text.toString(),
                 energyPercentage = binding.percentageText.text.toString().replace("%", "")
             )
             findNavController().popBackStack()

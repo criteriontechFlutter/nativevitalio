@@ -15,11 +15,7 @@ import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
-
-
-
-
-
+import androidx.core.graphics.toColorInt
 
 
 class VitalioCalendarView(context: Context) : LinearLayout(context) {
@@ -40,14 +36,14 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
     private var isExpanded = true
 
     // Pixel-perfect color scheme
-    private val primaryColor = Color.parseColor("#2196F3")
-    private val goalColor = Color.parseColor("#4CAF50")
-    private val todayColor = Color.parseColor("#FFA726")
+    private val primaryColor = "#2196F3".toColorInt()
+    private val goalColor = "#4CAF50".toColorInt()
+    private val todayColor = "#FFA726".toColorInt()
     private val backgroundColor = Color.WHITE
-    private val textPrimaryColor = Color.parseColor("#212121")
-    private val textSecondaryColor = Color.parseColor("#9E9E9E")
-    private val textLightColor = Color.parseColor("#E0E0E0")
-    private val separatorColor = Color.parseColor("#F5F5F5")
+    private val textPrimaryColor = "#212121".toColorInt()
+    private val textSecondaryColor = "#9E9E9E".toColorInt()
+    private val textLightColor = "#E0E0E0".toColorInt()
+    private val separatorColor = "#F5F5F5".toColorInt()
 
     init {
         orientation = VERTICAL
