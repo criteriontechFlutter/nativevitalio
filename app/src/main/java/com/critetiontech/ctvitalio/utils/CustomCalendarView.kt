@@ -1,32 +1,32 @@
 package com.critetiontech.ctvitalio.utils
 
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.GradientDrawable
-import android.util.AttributeSet
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.HorizontalScrollView
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import com.critetiontech.ctvitalio.R
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
+
+
+
+
+
 
 
 class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
     private val calendar = Calendar.getInstance()
     private val goalDates = mutableListOf<Int>()
+    private val dateProgressMap = mutableMapOf<Int, Float>() // Store progress for each date
     private val gridLayout = GridLayout(context)
     private val selectedDateText = TextView(context)
     private val bottomDateScroller = HorizontalScrollView(context)
@@ -35,27 +35,50 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
     private lateinit var dropdownArrow: TextView
     private lateinit var calendarContainer: LinearLayout
     private var selectedDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+    private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
+    private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var isExpanded = true
 
-    // Modern color scheme matching the image
+    // Pixel-perfect color scheme
     private val primaryColor = Color.parseColor("#2196F3")
     private val goalColor = Color.parseColor("#4CAF50")
     private val todayColor = Color.parseColor("#FFA726")
     private val backgroundColor = Color.WHITE
     private val textPrimaryColor = Color.parseColor("#212121")
-    private val textSecondaryColor = Color.parseColor("#BDBDBD")
-    private val textLightColor = Color.parseColor("#E8E8E8")
+    private val textSecondaryColor = Color.parseColor("#9E9E9E")
+    private val textLightColor = Color.parseColor("#E0E0E0")
+    private val separatorColor = Color.parseColor("#F5F5F5")
 
     init {
         orientation = VERTICAL
-        setPadding(0, 16, 0, 16)
+        setPadding(0, 0, 0, 0)
         setBackgroundColor(backgroundColor)
+
+        // Add rounded corners to the entire view
+        clipToOutline = true
+        outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                val width = view.width
+                val height = view.height
+                val path = Path().apply {
+                    moveTo(0f, 0f)
+                    lineTo(0f, height - 60f)
+                    quadTo(width / 2f, height + 60f, width.toFloat(), height - 60f)
+                    lineTo(width.toFloat(), 0f)
+                    close()
+                }
+
+                outline.setConvexPath(path)
+            }
+        }
+
 
         setupCalendarContainer()
         setupSelectedDateView()
-//        setupBottomDateScroller()
+        setupBottomDateScroller()
 
         renderCalendar()
+
     }
 
     /** CALENDAR CONTAINER (collapsible) **/
@@ -63,20 +86,21 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         calendarContainer = LinearLayout(context).apply {
             orientation = VERTICAL
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-            setPadding(10, 0, 10, 0)
+            setPadding(16, 0, 16, 0)
         }
 
         setupHeader()
         setupWeekDayLabels()
+
         val separator = View(context).apply {
             layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT,
-                5  // thickness of line in pixels
+                2
             ).apply {
-                topMargin = 8
-                bottomMargin = 8
+                topMargin = 12
+                bottomMargin = 16
             }
-            setBackgroundColor(Color.parseColor("#FFFFFF")) // light gray
+            setBackgroundColor(separatorColor)
         }
         calendarContainer.addView(separator)
         setupCalendarGrid()
@@ -90,15 +114,30 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-            setPadding(8, 16, 8, 20)
+            setPadding(16, 20, 16, 16)
+        }
+
+        // Left spacer for centering
+        val leftSpacer = View(context).apply {
+            layoutParams = LinearLayout.LayoutParams(0, 1, 1f)
+        }
+
+        // Center container with month and arrows
+        val centerContainer = LinearLayout(context).apply {
+            orientation = HORIZONTAL
+            gravity = Gravity.CENTER
+            layoutParams = LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            )
         }
 
         val prevButton = TextView(context).apply {
-            text = "‹"
-            textSize = 35f
+            text = "❮"
+            textSize = 18f
             setTextColor(primaryColor)
-
-            setPadding(8, 0, 8, 0)
+            setPadding(12, 0, 16, 0)
+            setTypeface(null, Typeface.BOLD)
             setOnClickListener {
                 calendar.add(Calendar.MONTH, -1)
                 renderCalendar()
@@ -107,27 +146,40 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
         monthLabel = TextView(context).apply {
             text = getMonthYearString()
-            textSize = 16f
-            setTypeface(null, Typeface.BOLD)
+            textSize = 18f
+            setTypeface(null, Typeface.NORMAL)
             setTextColor(primaryColor)
             gravity = Gravity.CENTER
-            layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
+            layoutParams = LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+            )
         }
 
         val nextButton = TextView(context).apply {
-            text = "›"
-            textSize = 35f
+            text = "❯"
+            textSize = 18f
             setTextColor(primaryColor)
-            setPadding(8, 0, 8, 0)
+            setPadding(16, 0, 12, 0)
+            setTypeface(null, Typeface.BOLD)
             setOnClickListener {
                 calendar.add(Calendar.MONTH, 1)
                 renderCalendar()
             }
         }
 
-        headerLayout.addView(prevButton)
-        headerLayout.addView(monthLabel)
-        headerLayout.addView(nextButton)
+        centerContainer.addView(prevButton)
+        centerContainer.addView(monthLabel)
+        centerContainer.addView(nextButton)
+
+        // Right spacer for centering
+        val rightSpacer = View(context).apply {
+            layoutParams = LinearLayout.LayoutParams(0, 1, 1f)
+        }
+
+        headerLayout.addView(leftSpacer)
+        headerLayout.addView(centerContainer)
+        headerLayout.addView(rightSpacer)
 
         calendarContainer.addView(headerLayout)
     }
@@ -138,7 +190,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-            setPadding(0, 0, 0, 8)
+            setPadding(0, 16, 0, 12)
         }
 
         val daysOfWeek = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -175,15 +227,15 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         val dateContainer = LinearLayout(context).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER
-            setPadding(0, 24, 0, 16)
+            setPadding(0, 16, 0, 20)
             setOnClickListener {
                 toggleCalendar()
             }
         }
 
         selectedDateText.apply {
-            textSize = 16f
-            setTypeface(null, Typeface.NORMAL)
+            textSize = 18f
+            setTypeface(null, Typeface.BOLD)
             gravity = Gravity.CENTER
             setTextColor(textPrimaryColor)
             text = formatSelectedDate()
@@ -193,6 +245,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             text = " ˄"
             textSize = 16f
             setTextColor(textSecondaryColor)
+            setPadding(6, 0, 0, 0)
         }
 
         dateContainer.addView(selectedDateText)
@@ -203,13 +256,13 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
     /** HORIZONTAL SCROLLER - Wheel Style **/
     private fun setupBottomDateScroller() {
         val scrollerContainer = FrameLayout(context).apply {
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 100)
-            setPadding(0, 0, 0, 16)
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 200)
+            setPadding(0, 8, 0, 24)
         }
 
         dateScrollLayout.orientation = LinearLayout.HORIZONTAL
         dateScrollLayout.gravity = Gravity.CENTER_VERTICAL
-        dateScrollLayout.setPadding(200, 0, 200, 0) // Padding to center first/last items
+        dateScrollLayout.setPadding(180, 0, 180, 0)
 
         bottomDateScroller.apply {
             layoutParams = FrameLayout.LayoutParams(
@@ -222,13 +275,188 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
         bottomDateScroller.addView(dateScrollLayout)
         scrollerContainer.addView(bottomDateScroller)
+        addView(scrollerContainer)
 
-        // Add scroll listener for wheel effect
-        bottomDateScroller.viewTreeObserver.addOnScrollChangedListener {
-            updateScrollerDates()
+        var isUserScrolling = false
+        var scrollerRunnable: Runnable? = null
+        var lastSnapPosition = 0
+
+        bottomDateScroller.setOnTouchListener { _, event ->
+            when (event.action) {
+                android.view.MotionEvent.ACTION_DOWN -> {
+                    isUserScrolling = true
+                    scrollerRunnable?.let { bottomDateScroller.removeCallbacks(it) }
+                    lastSnapPosition = bottomDateScroller.scrollX
+                }
+                android.view.MotionEvent.ACTION_MOVE -> {
+                    // Snap to items while scrolling for one-by-one effect
+                    val currentScrollX = bottomDateScroller.scrollX
+                    val scrollDelta = abs(currentScrollX - lastSnapPosition)
+
+                    // Snap every 82 pixels (item width)
+                    if (scrollDelta >= 82) {
+                        snapToNearestDateWhileScrolling()
+                        lastSnapPosition = bottomDateScroller.scrollX
+                    }
+                }
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
+                    isUserScrolling = false
+                    // Final snap after user stops scrolling
+                    scrollerRunnable = Runnable {
+                        snapToNearestDate()
+                    }
+                    bottomDateScroller.postDelayed(scrollerRunnable!!, 100)
+                }
+            }
+            false
         }
 
-        addView(scrollerContainer)
+        bottomDateScroller.viewTreeObserver.addOnScrollChangedListener {
+            updateScrollWheelEffect()
+        }
+
+
+    }
+
+    private fun snapToNearestDateWhileScrolling() {
+        val centerX = bottomDateScroller.scrollX + bottomDateScroller.width / 2f
+        var closestDay = selectedDay
+        var minDistance = Float.MAX_VALUE
+        var targetScrollX = bottomDateScroller.scrollX
+
+        for (i in 0 until dateScrollLayout.childCount) {
+            val child = dateScrollLayout.getChildAt(i)
+            val day = child.tag as? Int ?: continue
+            val childCenterX = (child.left + child.right) / 2f
+            val distance = abs(centerX - childCenterX)
+
+            if (distance < minDistance) {
+                minDistance = distance
+                closestDay = day
+                targetScrollX = (childCenterX - bottomDateScroller.width / 2f).toInt()
+            }
+        }
+
+        // Only update if we found a different date
+        if (closestDay != selectedDay) {
+            selectedDay = closestDay
+            selectedMonth = calendar.get(Calendar.MONTH)
+            selectedYear = calendar.get(Calendar.YEAR)
+            selectedDateText.text = formatSelectedDate()
+
+            // Update calendar without re-rendering wheel to avoid scroll jump
+            updateCalendarSelection()
+        }
+    }
+
+    private fun updateCenteredDate() {
+        val centerX = bottomDateScroller.scrollX + bottomDateScroller.width / 2f
+        var closestDay = selectedDay
+        var minDistance = Float.MAX_VALUE
+
+        for (i in 0 until dateScrollLayout.childCount) {
+            val child = dateScrollLayout.getChildAt(i)
+            val day = child.tag as? Int ?: continue
+            val childCenterX = (child.left + child.right) / 2f
+            val distance = abs(centerX - childCenterX)
+
+            if (distance < minDistance) {
+                minDistance = distance
+                closestDay = day
+            }
+        }
+
+        // Update selection if closest date changed
+        if (closestDay != selectedDay) {
+            selectedDay = closestDay
+            selectedMonth = calendar.get(Calendar.MONTH)
+            selectedYear = calendar.get(Calendar.YEAR)
+            selectedDateText.text = formatSelectedDate()
+            renderCalendar()
+        }
+    }
+
+    private fun updateCalendarSelection() {
+        // Only update calendar grid without re-rendering wheel
+        for (i in 0 until gridLayout.childCount) {
+            val child = gridLayout.getChildAt(i) as? TextView ?: continue
+            val dayText = child.text.toString().toIntOrNull() ?: continue
+
+            // Reset all backgrounds and colors first
+            if (dayText == selectedDay && isDateSelected()) {
+                child.background = createCircleDrawable(primaryColor)
+                child.setTextColor(Color.WHITE)
+                child.setTypeface(null, Typeface.BOLD)
+            } else {
+                child.background = null
+                if (child.currentTextColor == Color.WHITE) {
+                    child.setTextColor(textPrimaryColor)
+                }
+            }
+        }
+    }
+
+    private fun snapToNearestDate() {
+        val centerX = bottomDateScroller.scrollX + bottomDateScroller.width / 2f
+        var closestDay = selectedDay
+        var minDistance = Float.MAX_VALUE
+        var targetScrollX = bottomDateScroller.scrollX
+
+        for (i in 0 until dateScrollLayout.childCount) {
+            val child = dateScrollLayout.getChildAt(i)
+            val day = child.tag as? Int ?: continue
+            val childCenterX = (child.left + child.right) / 2f
+            val distance = abs(centerX - childCenterX)
+
+            if (distance < minDistance) {
+                minDistance = distance
+                closestDay = day
+                targetScrollX = (childCenterX - bottomDateScroller.width / 2f).toInt()
+            }
+        }
+
+        // Snap to the centered date
+        bottomDateScroller.smoothScrollTo(targetScrollX.coerceAtLeast(0), 0)
+
+        // Update selection
+        if (closestDay != selectedDay) {
+            selectedDay = closestDay
+            selectedMonth = calendar.get(Calendar.MONTH)
+            selectedYear = calendar.get(Calendar.YEAR)
+            selectedDateText.text = formatSelectedDate()
+            renderCalendar()
+        }
+    }
+
+    private fun updateScrollWheelEffect() {
+        val centerX = bottomDateScroller.scrollX + bottomDateScroller.width / 2f
+        val maxOffset = 80f // Maximum vertical offset for the curve
+        val visibleRange = bottomDateScroller.width / 1.5f // Wider range for smoother curve
+
+        for (i in 0 until dateScrollLayout.childCount) {
+            val child = dateScrollLayout.getChildAt(i)
+            val childCenterX = (child.left + child.right) / 2f
+            val distanceFromCenter = abs(childCenterX - centerX)
+
+            // Calculate normalized distance (0 at center, 1 at edge of visible range)
+            val normalizedDistance = (distanceFromCenter / visibleRange).coerceIn(0f, 1f)
+
+            // Parabolic curve for smooth arc effect - REVERSED (center goes up, edges go down)
+            val curveValue = normalizedDistance * normalizedDistance
+            val offsetY = -curveValue * maxOffset // Negative to reverse the curve
+
+            // Apply transformations
+            child.translationY = offsetY
+
+            // Scale effect - shrink items at the edges
+            val scale = 1f - (normalizedDistance * 0.35f)
+            child.scaleX = scale.coerceAtLeast(0.65f)
+            child.scaleY = scale.coerceAtLeast(0.65f)
+
+            // Fade effect - make edge items more transparent
+            val alpha = 1f - (normalizedDistance * 0.5f)
+            child.alpha = alpha.coerceAtLeast(0.5f)
+        }
     }
 
     /** TOGGLE CALENDAR EXPAND/COLLAPSE **/
@@ -236,35 +464,29 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         isExpanded = !isExpanded
 
         if (isExpanded) {
-            // Make visible before animation
-
-            calendarContainer.translationY = -calendarContainer.height.toFloat() // start slightly above
+            calendarContainer.translationY = -calendarContainer.height.toFloat()
             calendarContainer.visibility = View.VISIBLE
             calendarContainer.alpha = 0f
-            // Animate downwards (expand)
+
             calendarContainer.animate()
                 .translationY(0f)
                 .alpha(1f)
-                .setDuration(400)
+                .setDuration(300)
                 .start()
         } else {
-            // Animate upwards (collapse)
             calendarContainer.animate()
                 .translationY(-calendarContainer.height.toFloat())
                 .alpha(0f)
-                .setDuration(400)
+                .setDuration(300)
                 .withEndAction {
-
-                    calendarContainer.translationY = 0f // reset position
+                    calendarContainer.translationY = 0f
                     calendarContainer.visibility = View.GONE
                 }
                 .start()
         }
 
-        // Rotate arrow text
         dropdownArrow.text = if (isExpanded) " ˄" else " ˅"
     }
-
 
     /** MAIN RENDER **/
     private fun renderCalendar() {
@@ -278,7 +500,6 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         val daysInMonth = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH)
         val today = Calendar.getInstance()
 
-        // Previous month's trailing days
         val prevMonthCal = calendar.clone() as Calendar
         prevMonthCal.add(Calendar.MONTH, -1)
         val prevMonthDays = prevMonthCal.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -288,19 +509,16 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             gridLayout.addView(createDayView(day, false, today, daysInMonth))
         }
 
-        // Current month days
         for (day in 1..daysInMonth) {
             gridLayout.addView(createDayView(day, true, today, daysInMonth))
         }
 
-        // Next month's leading days
         val totalCells = firstDayOfWeek + daysInMonth
         val remainingCells = if (totalCells <= 35) 35 - totalCells else 42 - totalCells
         for (day in 1..remainingCells) {
             gridLayout.addView(createDayView(day, false, today, daysInMonth))
         }
 
-        // Update bottom scroller
         populateBottomScroller(daysInMonth)
     }
 
@@ -308,14 +526,14 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         return TextView(context).apply {
             text = String.format("%02d", day)
             gravity = Gravity.CENTER
-            textSize = 12f
+            textSize = 15f
 
             val screenWidth = context.resources.displayMetrics.widthPixels
-            val size = (screenWidth - 65) / 7
+            val size = (screenWidth - 64) / 7
             layoutParams = GridLayout.LayoutParams().apply {
                 width = size
-                height = (size * 1.0).toInt()
-                setMargins(0, 0, 0, 0)
+                height = size
+                setMargins(2, 3, 2, 3)
             }
 
             if (!isCurrentMonth) {
@@ -324,7 +542,15 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                 setTextColor(textPrimaryColor)
 
                 when {
-                    day == selectedDay && isCurrentMonthSelected() -> {
+                    day == selectedDay && isDateSelected() -> {
+                        // Create a smaller, more proportional circle
+                        val circleSize = (size * 0.7f).toInt()
+                        setPadding(
+                            (size - circleSize) / 2,
+                            (size - circleSize) / 2,
+                            (size - circleSize) / 2,
+                            (size - circleSize) / 2
+                        )
                         background = createCircleDrawable(primaryColor)
                         setTextColor(Color.WHITE)
                         setTypeface(null, Typeface.BOLD)
@@ -341,6 +567,8 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
                 setOnClickListener {
                     selectedDay = day
+                    selectedMonth = calendar.get(Calendar.MONTH)
+                    selectedYear = calendar.get(Calendar.YEAR)
                     selectedDateText.text = formatSelectedDate()
                     renderCalendar()
                     scrollToSelectedDate()
@@ -349,10 +577,9 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         }
     }
 
-    private fun isCurrentMonthSelected(): Boolean {
-        val now = Calendar.getInstance()
-        return calendar.get(Calendar.YEAR) == now.get(Calendar.YEAR) &&
-                calendar.get(Calendar.MONTH) == now.get(Calendar.MONTH)
+    private fun isDateSelected(): Boolean {
+        return calendar.get(Calendar.YEAR) == selectedYear &&
+                calendar.get(Calendar.MONTH) == selectedMonth
     }
 
     private fun createCircleDrawable(color: Int): GradientDrawable {
@@ -362,8 +589,89 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         }
     }
 
+    private fun createRingDrawable(color: Int): GradientDrawable {
+        return GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setStroke(4, color)
+            setColor(Color.TRANSPARENT)
+        }
+    }
+
+    private fun createProgressRingView(day: Int, progress: Float): FrameLayout {
+        return FrameLayout(context).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            setPadding(4, 4, 4, 4)
+
+            // Add canvas for progress ring
+            val progressView = object : View(context) {
+                private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    style = Paint.Style.STROKE
+                    strokeWidth = 5f
+                    strokeCap = Paint.Cap.ROUND
+                    color = todayColor
+                }
+
+                private val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    style = Paint.Style.STROKE
+                    strokeWidth = 5f
+                    color = Color.parseColor("#EEEEEE")
+                }
+
+                override fun onDraw(canvas: Canvas) {
+                    super.onDraw(canvas)
+                    if (width == 0 || height == 0) return
+
+                    val centerX = width / 2f
+                    val centerY = height / 2f
+                    val strokeOffset = 6f
+                    val radius = (width.coerceAtMost(height) / 2f) - strokeOffset
+
+                    val rect = RectF(
+                        centerX - radius,
+                        centerY - radius,
+                        centerX + radius,
+                        centerY + radius
+                    )
+
+                    // Draw background circle (full ring)
+                    canvas.drawCircle(centerX, centerY, radius, bgPaint)
+
+                    // Draw progress arc (starts from top, goes clockwise)
+                    if (progress > 0) {
+                        val sweepAngle = 360f * progress
+                        canvas.drawArc(rect, -90f, sweepAngle, false, progressPaint)
+                    }
+                }
+            }
+
+            addView(progressView, FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            ))
+
+            // Add date text on top
+            val dateText = TextView(context).apply {
+                text = day.toString()
+                gravity = Gravity.CENTER
+                textSize = 22f
+                setTextColor(todayColor)
+                setTypeface(null, Typeface.BOLD)
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+            addView(dateText)
+        }
+    }
+
     private fun formatSelectedDate(): String {
-        val c = calendar.clone() as Calendar
+        val c = Calendar.getInstance()
+        c.set(Calendar.YEAR, selectedYear)
+        c.set(Calendar.MONTH, selectedMonth)
         c.set(Calendar.DAY_OF_MONTH, selectedDay)
         val dayName = SimpleDateFormat("EEE", Locale.getDefault()).format(c.time)
         val monthName = SimpleDateFormat("MMM", Locale.getDefault()).format(c.time)
@@ -381,111 +689,133 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
     private fun populateBottomScroller(daysInMonth: Int) {
         dateScrollLayout.removeAllViews()
+        val today = Calendar.getInstance()
 
         for (d in 1..daysInMonth) {
             val isGoal = goalDates.contains(d)
+            val isTodayDate = isToday(today, d)
+            val progress = dateProgressMap[d] ?: 0f
 
-            val dateView = TextView(context).apply {
-                text = String.format("%02d", d)
-                gravity = Gravity.CENTER
-                textSize = 18f
-
-                tag = d
-
-                val size = 65
-                layoutParams = LinearLayout.LayoutParams(size, size).apply {
-                    setMargins(8, 0, 8, 0)
-
-
+            val dateContainer = FrameLayout(context).apply {
+                layoutParams = LinearLayout.LayoutParams(70, 70).apply {
+                    setMargins(6, 0, 6, 0)
                 }
+                tag = d
+            }
 
-                when {
-                    isGoal -> {
+            // Create the appropriate view based on conditions
+            val contentView = when {
+                d == selectedDay && isDateSelected() && progress > 0f -> {
+                    // Selected date with progress ring
+                    createProgressRingView(d, progress)
+                }
+                d == selectedDay && isDateSelected() -> {
+                    // Selected date without progress (solid blue circle)
+                    TextView(context).apply {
+                        text = d.toString()
+                        gravity = Gravity.CENTER
+                        textSize = 20f
+                        background = createCircleDrawable(primaryColor)
+                        setTextColor(Color.WHITE)
+                        setTypeface(null, Typeface.BOLD)
+                        layoutParams = FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT
+                        )
+                    }
+                }
+                isTodayDate && progress > 0f -> {
+                    // Today's date with progress ring
+                    createProgressRingView(d, progress)
+                }
+                isTodayDate -> {
+                    // Today's date without progress (orange ring)
+                    TextView(context).apply {
+                        text = d.toString()
+                        gravity = Gravity.CENTER
+                        textSize = 20f
+                        background = createRingDrawable(todayColor)
+                        setTextColor(todayColor)
+                        setTypeface(null, Typeface.BOLD)
+                        layoutParams = FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT
+                        )
+                    }
+                }
+                isGoal -> {
+                    // Goal date (green text)
+                    TextView(context).apply {
+                        text = d.toString()
+                        gravity = Gravity.CENTER
+                        textSize = 20f
                         setTextColor(goalColor)
                         setTypeface(null, Typeface.BOLD)
+                        layoutParams = FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT
+                        )
                     }
-                    else -> {
+                }
+                else -> {
+                    // Regular date
+                    TextView(context).apply {
+                        text = d.toString()
+                        gravity = Gravity.CENTER
+                        textSize = 20f
                         setTextColor(textSecondaryColor)
                         setTypeface(null, Typeface.NORMAL)
+                        layoutParams = FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT
+                        )
                     }
                 }
-
-                setOnClickListener {
-                    selectedDay = d
-                    selectedDateText.text = formatSelectedDate()
-                    renderCalendar()
-                    scrollToSelectedDate()
-                }
             }
-            dateScrollLayout.addView(dateView)
+
+            dateContainer.addView(contentView)
+            dateContainer.setOnClickListener {
+                selectedDay = d
+                selectedMonth = calendar.get(Calendar.MONTH)
+                selectedYear = calendar.get(Calendar.YEAR)
+                selectedDateText.text = formatSelectedDate()
+                renderCalendar()
+                scrollToSelectedDate()
+            }
+
+            dateScrollLayout.addView(dateContainer)
+        }
+
+        // Ensure the selected date is valid for current month
+        if (selectedDay > daysInMonth && isDateSelected()) {
+            selectedDay = daysInMonth
+            selectedDateText.text = formatSelectedDate()
         }
 
         post {
             scrollToSelectedDate()
-            updateScrollerDates()
+            // Trigger initial curve effect
+            updateScrollWheelEffect()
         }
     }
 
     private fun scrollToSelectedDate() {
         bottomDateScroller.post {
-            val selectedIndex = selectedDay - 1
-            val itemWidth = 72
-            val scrollX = selectedIndex * itemWidth - (bottomDateScroller.width / 2) + 36
-            bottomDateScroller.smoothScrollTo(scrollX.coerceAtLeast(0), 0)
-        }
-    }
+            // Find the actual child view for selected day
+            for (i in 0 until dateScrollLayout.childCount) {
+                val child = dateScrollLayout.getChildAt(i)
+                val day = child.tag as? Int ?: continue
 
-    private fun updateScrollerDates() {
-        val centerX = bottomDateScroller.scrollX + bottomDateScroller.width / 2
-        var closestDay = 1
-        var minDistance = Int.MAX_VALUE
+                if (day == selectedDay) {
+                    // Calculate scroll position to center this child
+                    val childCenterX = (child.left + child.right) / 2f
+                    val scrollerCenterX = bottomDateScroller.width / 2f
+                    val targetScrollX = (childCenterX - scrollerCenterX).toInt()
 
-        for (i in 0 until dateScrollLayout.childCount) {
-            val child = dateScrollLayout.getChildAt(i) as? TextView ?: continue
-            val day = child.tag as? Int ?: continue
-
-            val childCenterX = child.left + child.width / 2
-            val distance = abs(centerX - childCenterX)
-
-            // Scale effect based on distance from center
-            val scale = 1f - (distance / 300f).coerceAtMost(0.4f)
-            child.scaleX = scale
-            child.scaleY = scale
-
-            // Update alpha
-            child.alpha = 0.3f + (0.7f * scale)
-
-            // Check if selected
-            if (day == selectedDay) {
-                child.background = createCircleDrawable(primaryColor)
-                child.setTextColor(Color.WHITE)
-                child.setTypeface(null, Typeface.BOLD)
-            } else if (goalDates.contains(day)) {
-                child.background = null
-                child.setTextColor(goalColor)
-                child.setTypeface(null, Typeface.BOLD)
-            } else {
-                child.background = null
-                child.setTextColor(textSecondaryColor)
-                child.setTypeface(null, Typeface.NORMAL)
-            }
-
-            // Find closest to center
-            if (distance < minDistance) {
-                minDistance = distance
-                closestDay = day
-            }
-        }
-
-        // Auto-snap to closest when scrolling stops
-        if (!bottomDateScroller.isPressed && minDistance > 36) {
-            bottomDateScroller.postDelayed({
-                if (closestDay != selectedDay) {
-                    selectedDay = closestDay
-                    selectedDateText.text = formatSelectedDate()
-                    renderCalendar()
+                    bottomDateScroller.smoothScrollTo(targetScrollX.coerceAtLeast(0), 0)
+                    break
                 }
-            }, 100)
+            }
         }
     }
 
@@ -493,5 +823,68 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         goalDates.clear()
         goalDates.addAll(dates)
         renderCalendar()
+    }
+
+    fun setDateProgress(day: Int, progress: Float) {
+        dateProgressMap[day] = progress.coerceIn(0f, 1f)
+        renderCalendar()
+    }
+
+    fun setDateProgressMap(progressMap: Map<Int, Float>) {
+        dateProgressMap.clear()
+        progressMap.forEach { (day, progress) ->
+            dateProgressMap[day] = progress.coerceIn(0f, 1f)
+        }
+        renderCalendar()
+    }
+
+    fun clearDateProgress() {
+        dateProgressMap.clear()
+        renderCalendar()
+    }
+
+    /**
+     * Get the currently selected date as a Calendar instance
+     */
+    fun getSelectedDate(): Calendar {
+        return Calendar.getInstance().apply {
+            set(Calendar.YEAR, selectedYear)
+            set(Calendar.MONTH, selectedMonth)
+            set(Calendar.DAY_OF_MONTH, selectedDay)
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+    }
+
+    /**
+     * Get the selected date as a formatted string
+     */
+    fun getSelectedDateString(format: String = "yyyy-MM-dd"): String {
+        val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormat.format(getSelectedDate().time)
+    }
+
+    /**
+     * Get the selected day of month (1-31)
+     */
+    fun getSelectedDay(): Int = selectedDay
+
+    /**
+     * Get the selected month (0-11, where 0 is January)
+     */
+    fun getSelectedMonth(): Int = selectedMonth
+
+    /**
+     * Get the selected year
+     */
+    fun getSelectedYear(): Int = selectedYear
+
+    /**
+     * Get selected date components as a Triple (day, month, year)
+     */
+    fun getSelectedDateComponents(): Triple<Int, Int, Int> {
+        return Triple(selectedDay, selectedMonth, selectedYear)
     }
 }

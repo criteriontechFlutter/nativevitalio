@@ -19,7 +19,6 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -48,7 +48,6 @@ import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -216,23 +215,23 @@ class CorporateDashBoard : Fragment() {
                 ?.amount?.toFloat() ?: 0f  // convert safely to Float
 
 
-            binding.intakeWaterId.text=waterQty.toString()
+//            binding.intakeWaterId.text=waterQty.toString()
 
 
 
             val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
 
 
-            waterGoal?.let {
-                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
-
-                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
-                binding.intakeWaterId.text=waterQty.toString()
-// Now set progress
-                binding.waterproGress.setProgress(progress)
-
-
-            }
+//            waterGoal?.let {
+//                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+//
+//                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
+//                binding.intakeWaterId.text=waterQty.toString()
+//// Now set progress
+//                binding.waterproGress.setProgress(progress)
+//
+//
+//            }
 
 
         }
@@ -287,22 +286,22 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
         val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
         val sleepGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
- mn  m
+
         stepsGoal?.let {
            // binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
         }
 
-        waterGoal?.let {
-            binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
-
-
-
-
-
-        }
-        binding.waterContId.setOnClickListener(){
-            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
-        }
+//        waterGoal?.let {
+//            binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
+//
+//
+//
+//
+//
+//        }
+//        binding.waterContId.setOnClickListener(){
+//            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
+//        }
 
 
 
@@ -332,19 +331,19 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             val vitalStepsIndex = vitals.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
 //            binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
 //            binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
-            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
-            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
+//            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
+//            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
         }
 
         viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->
             val efficiencyMetric = quickMetricListList
                 ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
 
-            binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
+//            binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
 
             val sleepId = quickMetricListList
                 ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
-            binding.sleepId.text =  sleepId?.DisplayText ?: "-"
+//            binding.sleepId.text =  sleepId?.DisplayText ?: "-"
         }
 
 
@@ -395,16 +394,16 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //
 //            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
 //        }
-        binding.addvitalBtn.setOnClickListener()
-        {
-
-            findNavController().navigate(R.id.action_dashboard_to_connection )
-        }
-        binding.sleepContainerId.setOnClickListener()
-        {
-
-            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
-        }
+//        binding.addvitalBtn.setOnClickListener()
+//        {
+//
+//            findNavController().navigate(R.id.action_dashboard_to_connection )
+//        }
+//        binding.sleepContainerId.setOnClickListener()
+//        {
+//
+//            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
+//        }
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             val adapter: DashboardAdapter
@@ -426,7 +425,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                     vitalDateTime = bpSys.vitalDateTime
                 }
 
-                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
+//                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
                 finalVitalList.add(bpVital)
             }
 
