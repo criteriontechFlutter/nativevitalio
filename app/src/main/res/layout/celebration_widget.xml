@@ -5,18 +5,11 @@
     android:layout_height="match_parent"
    >
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-         app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-       >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp">
+          >
 
 
             <!-- Confetti decorations (stars and dots) -->
@@ -159,6 +152,5 @@
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </FrameLayout>
