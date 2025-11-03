@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/accelerate_decelerate"
+    android:fillAfter="true">
+
+    <!-- Move view from top (-100%) to normal position (0%) -->
+    <translate
+        android:fromYDelta="-100%"
+        android:toYDelta="0%"
+        android:duration="800" />
+
+    <!-- Add a small bounce for realism -->
+    <translate
+        android:fromYDelta="0%"
+        android:toYDelta="-5%"
+        android:startOffset="800"
+        android:duration="150" />
+
+    <translate
+        android:fromYDelta="-5%"
+        android:toYDelta="0%"
+        android:startOffset="950"
+        android:duration="150" />
+
+</set>
