@@ -7,6 +7,7 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.AudioRecord
@@ -22,6 +23,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -38,6 +40,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -613,6 +616,49 @@ binding.showId.showHideId.setOnClickListener{
             binding.StressRhythmScoreId.cardStatus6.visibility=View.GONE
 
         }
+
+        binding.stepsProgressId.ivStepsIcon.setImageResource(R.drawable.step_progress)
+        binding.sleepProgressId.ivStepsIcon.setImageResource(R.drawable.sleep_progress)
+        binding.waterProgressId.ivStepsIcon.setImageResource(R.drawable.water_progress)
+        binding.glucoseProgressId.ivStepsIcon.setImageResource(R.drawable.glucose_progress)
+        binding.bpProgressId.ivStepsIcon.setImageResource(R.drawable.bp_progress)
+        binding.medicineProgressId.ivStepsIcon.setImageResource(R.drawable.medicine_progress)
+
+
+        binding.stepsProgressId.progressSteps.progressTintList= ColorStateList.valueOf(Color.parseColor("#1281FD"))  // Blue
+        binding.sleepProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#00C67A"))  // Green
+        binding.waterProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#FEA33C"))  // Aqua
+        binding.glucoseProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#00C67A")) // Orange
+        binding.bpProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#1281FD"))     // Red
+        binding.medicineProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#FF3737")) // Purple
+
+
+        binding.stepsProgressId.progressSteps.progress=60
+        binding.sleepProgressId.progressSteps.progress=100
+        binding.waterProgressId.progressSteps.progress=30
+        binding.glucoseProgressId.progressSteps.progress=100
+        binding.bpProgressId.progressSteps.progress=50
+        binding.medicineProgressId.progressSteps.progress=10
+
+
+
+
+        binding.stepsProgressId.tvStepsValue.text="6,040"
+        binding.sleepProgressId.tvStepsValue.text="8h 14m"
+        binding.waterProgressId.tvStepsValue.text="900ml"
+        binding.glucoseProgressId.tvStepsValue.text="1/1"
+        binding.bpProgressId.tvStepsValue.text="1/2"
+        binding.medicineProgressId.tvStepsValue.text="1/7"
+
+        binding.stepsProgressId.tvStepsLabel.text="Steps 60.4%"
+        binding.sleepProgressId.tvStepsLabel.text="Sleep"
+        binding.waterProgressId.tvStepsLabel.text="Water 30%"
+        binding.glucoseProgressId.tvStepsLabel.text="Glucose 100%"
+        binding.bpProgressId.tvStepsLabel.text="Blood Pressure 50%"
+        binding.medicineProgressId.tvStepsLabel.text="Medicine 10%"
+
+
+
 viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
 
@@ -680,48 +726,80 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             layoutManager = LinearLayoutManager(requireContext(),
  LinearLayoutManager.HORIZONTAL, false)
             adapter = dailyTipAdapter
-            updateIndicators(totalIndicators)
-            // Optional: Snap to center like ViewPager
+
             PagerSnapHelper().attachToRecyclerView(this)
         }
+        setupIndicators(tips.size)
 
 
+
+        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val view = PagerSnapHelper().findSnapView(layoutManager)
+                    val position = if (view != null) layoutManager.getPosition(view) else RecyclerView.NO_POSITION
+                    if (position != RecyclerView.NO_POSITION) {
+                        setCurrentIndicator(position)
+                    }
+                }
+            }
+        })
+        celebrationFun()
+
+
+        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
+        }
     }
+
+
+    fun celebrationFun() {
+        val flingAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.fling_up_to_down)
+
+        // These are actual views (not IDs)
+        val confettiViews = listOf(
+            binding.celebrationId.confetti1,
+            binding.celebrationId.confetti2,
+            binding.celebrationId.confetti3,
+            binding.celebrationId.confetti4,
+            binding.celebrationId.confetti5,
+            binding.celebrationId.star1,
+            binding.celebrationId.star2,
+            binding.celebrationId.star3
+        )
+
+        // Start animation directly on each view
+        confettiViews.forEach { view ->
+            view.startAnimation(flingAnim)
+        }
+    }
+
     private fun setupIndicators(count: Int) {
-        val indicators = arrayOfNulls<ImageView>(count)
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         layoutParams.setMargins(6, 0, 6, 0)
 
-        for (i in indicators.indices) {
-            indicators[i] = ImageView(requireContext()).apply {
-                setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.dot_inactive
-                    )
-                )
+        binding.layoutIndicators.removeAllViews()
+
+        repeat(count) {
+            val dot = ImageView(requireContext()).apply {
+                setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dot_inactive))
                 this.layoutParams = layoutParams
             }
-            binding.layoutIndicators.addView(indicators[i])
+            binding.layoutIndicators.addView(dot)
         }
     }
 
-    private fun updateIndicators(index: Int) {
+    private fun setCurrentIndicator(index: Int) {
         val childCount = binding.layoutIndicators.childCount
         for (i in 0 until childCount) {
             val imageView = binding.layoutIndicators.getChildAt(i) as ImageView
-            if (i == index) {
-                imageView.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.drawable.dot_active)
-                )
-            } else {
-                imageView.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.drawable.dot_inactive)
-                )
-            }
+            val drawableId = if (i == index) R.drawable.dot_active else R.drawable.dot_inactive
+            imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), drawableId))
         }
     }
     private fun openNewFragment() {

@@ -58,7 +58,7 @@ class NewChallengedAdapter(
         holder.labelCurrent.text = "Current"
 
         // Reminder (using startsIn)
-        holder.reminderText.text = "Next Log post-lunch reading | Due: ${challenge.startsIn}"
+        holder.reminderText.text = "Tiny push needed — one smooth glucose day completes your streak."
 
         // Button actions
         holder.btnLogReading.setOnClickListener { onItemClick(challenge) }
