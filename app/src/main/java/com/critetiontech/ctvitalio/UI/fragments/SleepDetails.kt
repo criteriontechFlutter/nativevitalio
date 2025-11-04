@@ -73,6 +73,35 @@ class SleepDetails : Fragment() {
         binding.hr.title.text = "HR Drop"
         binding.hr.value.text = "68%"
         binding.hr.status.text = "Fair"
+
+
+
+        binding.sleepEfficiencyProgressId.sleepProgressBar.progress = 41
+        binding.sleepEfficiencyProgressId.cardTitle.text = "Sleep Efficiency"
+        binding.sleepEfficiencyProgressId.Title.text = "Need Attention"
+
+        binding.tempProgressId.sleepProgressBar.progress = 87
+        binding.tempProgressId.cardTitle.text = "Temperature"
+        binding.tempProgressId.Title.text = "Elevated"
+
+
+        binding.restfulnessProgressId.sleepProgressBar.progress = 41
+        binding.restfulnessProgressId.cardTitle.text = "Restfulness"
+        binding.restfulnessProgressId.Title.text = "Need Attention"
+
+
+        binding.totalSleepProgressId.sleepProgressBar.progress = 74
+        binding.totalSleepProgressId.cardTitle.text = "Total Sleep"
+        binding.totalSleepProgressId.Title.text = "Need Attention"
+
+        binding.hrProgress.sleepProgressBar.progress = 41
+        binding.hrProgress.cardTitle.text = "Hr Drop"
+        binding.hrProgress.Title.text = "Need Attention"
+
+        binding.restorativeSleepProgressId.sleepProgressBar.progress = 32
+        binding.restorativeSleepProgressId.cardTitle.text = "Restorative sleep"
+        binding.restorativeSleepProgressId.Title.text = "Need Attention"
+
     }
 
     @SuppressLint("SetTextI18n")
