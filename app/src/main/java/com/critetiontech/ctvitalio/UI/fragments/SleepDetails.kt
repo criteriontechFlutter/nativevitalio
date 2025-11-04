@@ -21,76 +21,62 @@ import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
 import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
 
 data class SleepEntry(val day: Int, val value: Int)
-
 class SleepDetails : Fragment() {
 
-    private lateinit var binding: FragmentSleepDetailsBinding
+    private var _binding: FragmentSleepDetailsBinding? = null
+    private val binding get() = _binding!!
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-
-        binding = FragmentSleepDetailsBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentSleepDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // ✅ avoid memory leaks
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Example dataset
+        // ✅ Example dataset
         val data = listOf(
             SleepEntry(12, 62),
             SleepEntry(13, 56),
             SleepEntry(14, 54),
             SleepEntry(15, 62),
-            SleepEntry(13, 56),
-            SleepEntry(14, 54),
+            SleepEntry(16, 58),
+            SleepEntry(17, 66)
         )
+
+        // ✅ Create bar chart
         setData(data)
-//        binding.totalSleepId.cardTitle.text = "Total Sleep"
-//        binding.totalSleepId.cardValue.text = "72%"
-//        binding.totalSleepId.cardStatus.text = "Optimal"
-//
-//        binding.timeInBedId.cardTitle.text = "Time in Bed"
-//        binding.timeInBedId.cardValue.text = "72%"
-//        binding.timeInBedId.cardStatus.text = "Optimal"
-//
-//        binding.restorativeSleepId.cardTitle.text = "Restorative Sleep  "
-//        binding.restorativeSleepId.cardValue.text = "72%"
-//        binding.restorativeSleepId.cardStatus.text = "Optimal"
-//
-//        binding.hrId.cardTitle.text = "HR DROP"
-//        binding.hrId.cardValue.text = "72%"
-//        binding.hrId.cardStatus.text = "Optimal"
 
+        // ✅ Safely set text for included layouts (ensure IDs exist)
+        binding.totalSleepIds.title.text = "Total Sleep"
+        binding.totalSleepIds.value.text = "7h 12m"
+        binding.totalSleepIds.status.text = "Optimal"
 
+        binding.timeInBedId.title.text = "Time in Bed"
+        binding.timeInBedId.value.text = "8h 02m"
+        binding.timeInBedId.status.text = "Good"
 
+        binding.restorativeSleepId.title.text = "Restorative Sleep"
+        binding.restorativeSleepId.value.text = "5h 32m"
+        binding.restorativeSleepId.status.text = "Optimal"
 
-
-
-
-//        binding.sleepEfficiencyId.cardTitle.text = "Sleep Efficiency"
-//        binding.sleepEfficiencyId.sleepProgressBar.progress = 72
-//        binding.sleepEfficiencyId.Title.text = "Optimal"
-//
-//        binding.tempId.cardTitle.text = "Temperature"
-//        binding.tempId.sleepProgressBar.progress = 72
-//        binding.tempId.Title.text = "Optimal"
-//
-//        binding.restfulnessId.cardTitle.text = "Restfulness"
-//        binding.restfulnessId.sleepProgressBar.progress = 72
-//        binding.restfulnessId.Title.text = "Optimal"
-//
-//        binding.totalSleepProgressId.cardTitle.text = "Total Sleep"
-//        binding.totalSleepProgressId.sleepProgressBar.progress = 72
-//        binding.totalSleepProgressId.Title.text = "Optimal"
+        binding.hr.title.text = "HR Drop"
+        binding.hr.value.text = "68%"
+        binding.hr.status.text = "Fair"
     }
-     @SuppressLint("SetTextI18n")
-     private fun setData(entries: List<SleepEntry>) {
+
+    @SuppressLint("SetTextI18n")
+    private fun setData(entries: List<SleepEntry>) {
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
 
@@ -100,11 +86,13 @@ class SleepDetails : Fragment() {
         binding.tvScore.text = avg.toString()
         binding.tvLabel.text = "Sleep"
 
-        binding.barsContainer.post { // ensures barsContainer has been measured
+        // Wait for layout to be measured
+        binding.barsContainer.post {
             val containerHeight = binding.barsContainer.height
 
             entries.forEach { entry ->
                 val fillHeight = (containerHeight * (entry.value / maxValue.toFloat())).toInt()
+
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
                     gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
@@ -117,11 +105,7 @@ class SleepDetails : Fragment() {
                 }
 
                 val fillView = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        4.dp,
-                        fillHeight,
-                        Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(4.dp, fillHeight, Gravity.CENTER_HORIZONTAL)
                     background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_bar_fill)
                 }
 
@@ -134,46 +118,26 @@ class SleepDetails : Fragment() {
                     gravity = Gravity.CENTER
                     background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_circle_value)
                 }
-                val bubbles = TextView(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(12.dp, 12.dp, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
-                    text = "T"
-                    setTextColor(Color.parseColor("#0A84FF"))
+
+                val baseLine = View(requireContext()).apply {
+                    layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 4.dp)
+                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_bar_fill)
+                }
+
+                val dayLabel = TextView(requireContext()).apply {
+                    layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                    text = entry.day.toString()
+                    setTextColor(Color.BLACK)
                     textSize = 12f
-                    typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_circle_value)
                 }
 
                 barContainer.addView(fillView)
                 barContainer.addView(bubble)
-                barContainer.addView(bubbles)
-
-                val dayLabel = TextView(requireContext()).apply {
-                    layoutParams = LinearLayout.LayoutParams(
-                        24.dp,
-                        24.dp
-                    )
-                    text = entry.day.toString()
-                    setTextColor(Color.BLACK)
-                    textSize = 12f
-                    gravity = Gravity.BOTTOM
-                    setPadding(0, 4.dp, 0, 0)
-                }
-
-
-                val fillViews = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
-                            ,
-                        4.dp,
-                        Gravity.CENTER_HORIZONTAL
-                    )
-                    setPadding(0, 4.dp, 0, 0)
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_bar_fill)
-                }
-
                 barLayout.addView(barContainer)
-                barLayout.addView(fillViews)
+                barLayout.addView(baseLine)
                 barLayout.addView(dayLabel)
+
                 binding.barsContainer.addView(barLayout)
             }
         }

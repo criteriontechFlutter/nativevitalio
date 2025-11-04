@@ -21,7 +21,6 @@
             android:background="@drawable/bg_sleep_card"
             android:clipToOutline="true">
 
-            <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,16 +46,13 @@
                     android:alpha="0.8" />
             </LinearLayout>
 
-            <!-- Bars container -->
             <LinearLayout
                 android:id="@+id/barsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:gravity="bottom|center_horizontal"
                 android:orientation="horizontal"
-                android:weightSum="6" >
-
-            </LinearLayout>
+                android:weightSum="6" />
         </LinearLayout>
 
         <!-- Health Summary Cards -->
@@ -85,7 +81,7 @@
                 android:layout_marginBottom="12dp">
 
                 <include
-                    android:id="@+id/totalSleepId"
+                    android:id="@+id/totalSleepIds"
                     layout="@layout/sleep_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -100,6 +96,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,49 +108,32 @@
                     android:id="@+id/restorativeSleepId"
                     layout="@layout/sleep_layout"
                     android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    tools:ignore="Suspicious0dp" />
+                    android:layout_marginEnd="8dp" />
 
                 <include
-                    android:id="@+id/hrId"
+                    android:id="@+id/hr"
                     layout="@layout/sleep_layout"
                     android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    tools:ignore="Suspicious0dp" />
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Progress Cards Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners"
-         android:orientation="vertical" >
-        <include
-            android:id="@+id/sleepEfficiencyId"
-            layout="@layout/include_progress_card" />
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:orientation="vertical">
 
-        <include
-            android:id="@+id/tempId"
-            layout="@layout/include_progress_card" />
-
-        <include
-            android:id="@+id/restfulnessId"
-            layout="@layout/include_progress_card" />
-
-        <include
-            android:id="@+id/totalSleepProgressId"
-            layout="@layout/include_progress_card" />
-
-        <include
-            android:id="@+id/hrProgress"
-            layout="@layout/include_progress_card" />
-
-        <include
-            android:id="@+id/restorativeSleepProgressId"
-            layout="@layout/include_progress_card" />
-    </LinearLayout>
+            <include android:id="@+id/sleepEfficiencyId" layout="@layout/include_progress_card" />
+            <include android:id="@+id/tempId" layout="@layout/include_progress_card" />
+            <include android:id="@+id/restfulnessId" layout="@layout/include_progress_card" />
+            <include android:id="@+id/totalSleepProgressId" layout="@layout/include_progress_card" />
+            <include android:id="@+id/hrProgress" layout="@layout/include_progress_card" />
+            <include android:id="@+id/restorativeSleepProgressId" layout="@layout/include_progress_card" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
