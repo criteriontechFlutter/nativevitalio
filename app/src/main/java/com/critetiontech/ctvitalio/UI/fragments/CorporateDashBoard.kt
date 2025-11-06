@@ -121,6 +121,10 @@ class CorporateDashBoard : Fragment() {
         pillsViewModel.getAllPatientMedication()
 
 
+        binding.notificationIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics)
+        }
+
         navItems = listOf(
             view.findViewById(R.id.nav_home),
             view.findViewById(R.id.nav_vitals),

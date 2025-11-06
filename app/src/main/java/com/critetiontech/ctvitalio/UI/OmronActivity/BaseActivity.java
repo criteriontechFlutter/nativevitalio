@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.critetiontech.ctvitalio.model.PersonalData;
 import com.critetiontech.ctvitalio.utils.sampleLog;
 import com.critetiontech.ctvitalio.utils.MyApplication;
-;
 
 import java.text.DateFormat;
 import java.text.ParseException;
