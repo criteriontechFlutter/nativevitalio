@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.PriorityActionCardBinding
 
- class DailyTipAdapter(
-    private val tips: List<DailyTip>
-) : RecyclerView.Adapter<DailyTipAdapter.TipViewHolder  >() {
+class DailyTipAdapter(
+    private val tips: List<DailyTip>,
+    private val onButtonClick: (DailyTip) -> Unit
+) : RecyclerView.Adapter<DailyTipAdapter.TipViewHolder>() {
 
     inner class TipViewHolder(val binding: PriorityActionCardBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -28,12 +29,15 @@ import com.critetiontech.ctvitalio.databinding.PriorityActionCardBinding
             tvMessage.text = tip.title
             tvDescription.text = tip.description
             btnStartSession.text = tip.buttonText
+
+            btnStartSession.setOnClickListener {
+                onButtonClick(tip)
+            }
         }
     }
 
     override fun getItemCount() = tips.size
 }
-
 data class DailyTip(
     val iconRes: Int,
     val title: String,

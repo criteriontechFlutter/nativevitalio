@@ -812,6 +812,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corners"
                     android:elevation="0dp"
+                    android:paddingTop="18dp"
                     app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
@@ -838,7 +839,7 @@
                                 android:id="@+id/energyTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="You're feeling 85% energized today ⚡"
+                                android:text="Your energy story awaits"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -847,7 +848,7 @@
                                 android:id="@+id/energySubtitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ready to take on the day!"
+                                android:text="Log your energy for today ⚡"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -855,10 +856,12 @@
                         <!-- Illustration -->
                         <ImageView
                             android:id="@+id/energyImage"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_meditation" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_meditation"
+                            android:layout_marginEnd="12dp" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1376,8 +1379,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:paddingBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:paddingBottom="10dp"
                         android:text="Today's Health Snapshot"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
@@ -1411,19 +1414,24 @@
                             android:overScrollMode="never"
                             android:scrollbars="none"/>
                         <!-- Dots Indicator -->
-                        <LinearLayout
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/layoutIndicators"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_horizontal"
-                            android:layout_marginTop="8dp"
-                            android:visibility="visible" />
+                            android:layout_gravity="center_horizontal"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:layout_marginTop="8dp" />
                         <!-- Add your next TextView *inside* the parent layout -->
 
                     </LinearLayout>
 
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
                     <TextView
                         android:id="@+id/activechalgesId"
                         android:layout_width="wrap_content"
@@ -1434,21 +1442,39 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/newChallengedRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
+
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         />
-                    <LinearLayout
+
+<!--                        <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/newChallengedRecyclerView"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="174dp"-->
+<!--                            android:clipToPadding="false"-->
+<!--                            android:clipChildren="false"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:overScrollMode="never"-->
+<!--                            android:scrollbars="none" />-->
+
+                    <!-- Dots Indicator -->
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/activechalgesDotId"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
                         android:layout_marginTop="8dp" />
 
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -47,6 +47,7 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.DailyTip
 import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
@@ -75,6 +76,7 @@ class CorporateDashBoard : Fragment() {
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
     private lateinit var dailyTipAdapter: DailyTipAdapter
+    private lateinit var indicatorAdapter: IndicatorAdapter
     private var voiceDialog: Dialog? = null
     private var snackbar: Snackbar? = null
     private val slideDelay: Long = 2100
@@ -288,6 +290,7 @@ class CorporateDashBoard : Fragment() {
 binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
+            setupActiveChallenges(list.size)
         }
 
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
@@ -390,8 +393,27 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         binding.energyCard.setOnClickListener{
             findNavController().navigate(R.id.action_dashboard_to_energyTank)
         }
-         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
-             binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
+//         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
+//
+//
+//             binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
+//
+//
+//
+//        }
+        viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
+
+            if (energy == null) {
+                binding.energyTitle.text = "Your energy story awaits"
+                binding.energySubtitle.text = "Log your energy for today ⚡"
+                binding.energyImage.setImageResource(R.drawable.emtyp_energy)
+                binding.energyid.setBackgroundResource(R.drawable.rounded_card_bg)
+            } else {
+                binding.energyTitle.text = "You're feeling $energy% energized today ⚡"
+                binding.energySubtitle.text = "Ready to take on the day!"
+                binding.energyImage.setImageResource(R.drawable.ic_meditation)
+                binding.energyid.setBackgroundResource(R.drawable.bg_energy_gradient)
+            }
         }
 
 
@@ -500,86 +522,86 @@ binding.showId.showHideId.setOnClickListener{
 
 
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
-        binding.sleepScoreId.cardTitle.text="Sleep Score"
+        binding.sleepScoreId.title.text="Sleep Score"
     //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
-        binding.sleepScoreId.cardStatus6.visibility=View.GONE
+        binding.sleepScoreId.statusCardId.visibility=View.GONE
 
 
     val totalSleep = sleepValue.QuickMetricsTiled
         ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
 
-    binding.totalSleepId.cardTitle.text="Total Sleep"
-        binding.totalSleepId.cardValue.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
+    binding.totalSleepId.title.text="Total Sleep"
+        binding.totalSleepId.value.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
 
 
     val efficiencyMetric = sleepValue.QuickMetrics
         ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
 
-        binding.sleepEfficiencyId.cardTitle.text="Sleep Efficiency"
-        binding.sleepEfficiencyId.cardValue.text= efficiencyMetric?.DisplayText.toString()
-         binding.sleepEfficiencyId.cardStatus6.visibility=View.GONE
+        binding.sleepEfficiencyId.title.text="Sleep Efficiency"
+        binding.sleepEfficiencyId.value.text= efficiencyMetric?.DisplayText.toString()
+         binding.sleepEfficiencyId.statusCardId.visibility=View.GONE
 
     val timeinBed = sleepValue.QuickMetricsTiled
         ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
-        binding.timeInBedId.cardTitle.text="Time in Bed"
-        binding.timeInBedId.cardValue.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
+        binding.timeInBedId.title.text="Time in Bed"
+        binding.timeInBedId.value.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
 
 
 
 
-        binding.fulSleepCycleId.cardTitle.text="Full Sleep Cycle"
-        binding.fulSleepCycleId.cardValue.text="_"
-         binding.fulSleepCycleId.cardStatus6.visibility=View.GONE
+        binding.fulSleepCycleId.title.text="Full Sleep Cycle"
+        binding.fulSleepCycleId.value.text="_"
+         binding.fulSleepCycleId.statusCardId.visibility=View.GONE
 
 
 
 
     val rem_sleep = sleepValue.SleepStages
         ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
-        binding.remSleepId.cardTitle.text="REM Sleep"
-        binding.remSleepId.cardValue.text= rem_sleep?.StageTimeText.toString()
-        binding.remSleepId.cardStatus6.visibility=View.GONE
+        binding.remSleepId.title.text="REM Sleep"
+        binding.remSleepId.value.text= rem_sleep?.StageTimeText.toString()
+        binding.remSleepId.statusCardId.visibility=View.GONE
 
 
     val deep_sleep = sleepValue.SleepStages
         ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
-        binding.deepSleepId.cardTitle.text="Deep Sleep"
-        binding.deepSleepId.cardValue.text=deep_sleep?.StageTimeText.toString()
-        binding.deepSleepId.cardStatus6.visibility=View.GONE
+        binding.deepSleepId.title.text="Deep Sleep"
+        binding.deepSleepId.value.text=deep_sleep?.StageTimeText.toString()
+        binding.deepSleepId.statusCardId.visibility=View.GONE
 
 
     val light_sleep = sleepValue.SleepStages
         ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
-        binding.lightSleepId.cardTitle.text="Llght Sleep"
-        binding.lightSleepId.cardValue.text=light_sleep?.StageTimeText.toString()
-        binding.lightSleepId.cardStatus6.visibility=View.GONE
+        binding.lightSleepId.title.text="Llght Sleep"
+        binding.lightSleepId.value.text=light_sleep?.StageTimeText.toString()
+        binding.lightSleepId.statusCardId.visibility=View.GONE
 
 
     val restorative = sleepValue.QuickMetricsTiled
         ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
-        binding.restorativeSleepId.cardTitle.text="Restorative Sleep"
-        binding.restorativeSleepId.cardValue.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
+        binding.restorativeSleepId.title.text="Restorative Sleep"
+        binding.restorativeSleepId.value.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
 
 
 
-        binding.movementsId.cardTitle.text="Movements"
-        binding.movementsId.cardValue.text= sleepValue.MovementGraph?.Data?.size.toString()
-         binding.movementsId.cardStatus6.visibility=View.GONE
+        binding.movementsId.title.text="Movements"
+        binding.movementsId.value.text= sleepValue.MovementGraph?.Data?.size.toString()
+         binding.movementsId.statusCardId.visibility=View.GONE
 
 
             val morningAlertness = sleepValue.MorningAlertness
                 ?.Minutes
-            binding.morningAlertnessId.cardTitle.text="Morning Alertness"
-        binding.morningAlertnessId.cardValue.text=morningAlertness
+            binding.morningAlertnessId.title.text="Morning Alertness"
+        binding.morningAlertnessId.value.text=morningAlertness
         binding.morningAlertnessId.hrId.text="mins"
-        binding.morningAlertnessId.cardStatus6.visibility=View.GONE
+        binding.morningAlertnessId.statusCardId.visibility=View.GONE
 
-        binding.tossesAndTurnsId.cardTitle.text="Tosses and Turns"
-        binding.tossesAndTurnsId.cardValue.text="_"
-        binding.tossesAndTurnsId.cardStatus6.visibility=View.GONE
+        binding.tossesAndTurnsId.title.text="Tosses and Turns"
+        binding.tossesAndTurnsId.value.text="_"
+        binding.tossesAndTurnsId.statusCardId.visibility=View.GONE
 
 
 
@@ -593,31 +615,31 @@ binding.showId.showHideId.setOnClickListener{
 
 
 
-            binding.inactiveHoursId.cardTitle.text="Inactive Time"
-            binding.inactiveHoursId.cardValue.text="_"
-            binding.inactiveHoursId.cardStatus6.visibility=View.GONE
+            binding.inactiveHoursId.title.text="Inactive Time"
+            binding.inactiveHoursId.value.text="_"
+            binding.inactiveHoursId.statusCardId.visibility=View.GONE
 
 
 
-            binding.activieHoursId.cardTitle.text="Active Hours"
-            binding.activieHoursId.cardValue.text="_"
-            binding.activieHoursId.cardStatus6.visibility=View.GONE
+            binding.activieHoursId.title.text="Active Hours"
+            binding.activieHoursId.value.text="_"
+            binding.activieHoursId.statusCardId.visibility=View.GONE
 
 
 
 
-            binding.WeeklyActiveMinutesId.cardTitle.text="Weekly Active Minutes"
-            binding.WeeklyActiveMinutesId.cardValue.text="_"
-            binding.WeeklyActiveMinutesId.cardStatus6.visibility=View.GONE
+            binding.WeeklyActiveMinutesId.title.text="Weekly Active Minutes"
+            binding.WeeklyActiveMinutesId.value.text="_"
+            binding.WeeklyActiveMinutesId.statusCardId.visibility=View.GONE
 
 
 //            Recovery
 
 
 
-            binding.StressRhythmScoreId.cardTitle.text="Stress Rhyythm Score"
-            binding.StressRhythmScoreId.cardValue.text= "_"
-            binding.StressRhythmScoreId.cardStatus6.visibility=View.GONE
+            binding.StressRhythmScoreId.title.text="Stress Rhyythm Score"
+            binding.StressRhythmScoreId.value.text= "_"
+            binding.StressRhythmScoreId.statusCardId.visibility=View.GONE
 
         }
 
@@ -667,97 +689,233 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
 
 
-    binding.StepsId.cardTitle.text="Steps"
-    binding.StepsId.cardValue.text= vitalStepsIndex?.vitalValue.toString()
-    binding.StepsId.cardStatus6.visibility=View.GONE
+    binding.StepsId.title.text="Steps"
+    binding.StepsId.value.text= vitalStepsIndex?.vitalValue.toString()
+    binding.StepsId.statusCardId.visibility=View.GONE
 
     val TemperatureBody = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
-    binding.averageBodyTempId.cardTitle.text="Average Body Temp."
-    binding.averageBodyTempId.cardValue.text=  "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
-    binding.averageBodyTempId.cardStatus6.visibility=View.GONE
+    binding.averageBodyTempId.title.text="Average Body Temp."
+    binding.averageBodyTempId.value.text=  "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
+    binding.averageBodyTempId.statusCardId.visibility=View.GONE
 
     val activeMinutes = vitalList
         ?.firstOrNull { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
-    binding.ActiveminutesId.cardTitle.text="Active Minutes"
-    binding.ActiveminutesId.cardValue.text= activeMinutes?.vitalValue.toString()
-    binding.ActiveminutesId.cardStatus6.visibility=View.GONE
+    binding.ActiveminutesId.title.text="Active Minutes"
+    binding.ActiveminutesId.value.text= activeMinutes?.vitalValue.toString()
+    binding.ActiveminutesId.statusCardId.visibility=View.GONE
     val Temperature = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
-    binding.tempDeviationId.cardTitle.text="Temperature Devoatoion"
-    binding.tempDeviationId.cardValue.text=   "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
-    binding.tempDeviationId.cardStatus6.visibility=View.GONE
+    binding.tempDeviationId.title.text="Temperature Devoatoion"
+    binding.tempDeviationId.value.text=   "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
+    binding.tempDeviationId.statusCardId.visibility=View.GONE
 
     val recoveryIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
-    binding.recoveryScoreId.cardTitle.text="Recovery Score"
-    binding.recoveryScoreId.cardValue.text= recoveryIndex?.vitalValue.toString()
-    binding.recoveryScoreId.cardStatus6.visibility=View.GONE
+    binding.recoveryScoreId.title.text="Recovery Score"
+    binding.recoveryScoreId.value.text= recoveryIndex?.vitalValue.toString()
+    binding.recoveryScoreId.statusCardId.visibility=View.GONE
 
     val HRV = vitalList
         ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
-    binding.lastNightHrvId.cardTitle.text="Last Night's HRV"
-    binding.lastNightHrvId.cardValue.text= HRV?.vitalValue.toString()
-    binding.lastNightHrvId.cardStatus6.visibility=View.GONE
+    binding.lastNightHrvId.title.text="Last Night's HRV"
+    binding.lastNightHrvId.value.text= HRV?.vitalValue.toString()
+    binding.lastNightHrvId.statusCardId.visibility=View.GONE
 
 
-    binding.SleepStageHrvId.cardTitle.text="Sleep Stage' HRV"
-    binding.SleepStageHrvId.cardValue.text=HRV?.vitalValue.toString()
-    binding.SleepStageHrvId.cardStatus6.visibility=View.GONE
+    binding.SleepStageHrvId.title.text="Sleep Stage' HRV"
+    binding.SleepStageHrvId.value.text=HRV?.vitalValue.toString()
+    binding.SleepStageHrvId.statusCardId.visibility=View.GONE
 
     val movementIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
 
-    binding.movementIndexId.cardTitle.text="Movement Index"
-    binding.movementIndexId.cardValue.text=  movementIndex?.vitalValue.toString()
-    binding.movementIndexId.cardStatus6.visibility=View.GONE
-        }
+    binding.movementIndexId.title.text="Movement Index"
+    binding.movementIndexId.value.text=  movementIndex?.vitalValue.toString()
+    binding.movementIndexId.statusCardId.visibility=View.GONE
+
+
+    val sleepValue = vitalList
+        ?.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
+    val movementValue = vitalList
+        ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
+    val recoveryValue = vitalList
+        ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+    val stressValue = vitalList
+        ?.firstOrNull { it.vitalName.equals("StressScore", ignoreCase = true) }
+
+
+    binding.sleepProgressIds.sleepValue.text = sleepValue?.vitalValue?.toInt()?.toString() ?: "--"
+    binding.sleepProgressIds.movementValue.text = movementValue?.vitalValue?.toInt()?.toString() ?: "--"
+    binding.sleepProgressIds.recoveryValue.text = recoveryValue?.vitalValue?.toInt()?.toString() ?: "--"
+    binding.sleepProgressIds.stressValue.text = stressValue?.vitalValue?.toInt()?.toString() ?: "--"
+}
 
 
 
 
 
 
-        val tips = listOf(
-            DailyTip(R.drawable.ic_breathing, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start"),
-            DailyTip(R.drawable.vitals_icon_home, "Low Sleep Detected", "Try to sleep at least 7 hours tonight.", "Improve"),
-            DailyTip(R.drawable.ic_water, "Hydration Low", "Drink 2 more glasses of water today.", "Track")
-        )
-
-        dailyTipAdapter = DailyTipAdapter(tips)
-
-        binding.recyclerSlider.apply {
-            layoutManager = LinearLayoutManager(requireContext(),
- LinearLayoutManager.HORIZONTAL, false)
-            adapter = dailyTipAdapter
-
-            PagerSnapHelper().attachToRecyclerView(this)
-        }
-        setupIndicators(tips.size)
 
 
 
-        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val view = PagerSnapHelper().findSnapView(layoutManager)
-                    val position = if (view != null) layoutManager.getPosition(view) else RecyclerView.NO_POSITION
-                    if (position != RecyclerView.NO_POSITION) {
-                        setCurrentIndicator(position)
-                    }
-                }
-            }
-        })
+//        val tips = listOf(
+//            DailyTip(R.drawable.ic_breathing, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start"),
+//            DailyTip(R.drawable.vitals_icon_home, "Low Sleep Detected", "Try to sleep at least 7 hours tonight.", "Improve"),
+//            DailyTip(R.drawable.ic_water, "Hydration Low", "Drink 2 more glasses of water today.", "Track")
+//        )
+//
+//        dailyTipAdapter = DailyTipAdapter(tips)
+//
+//        binding.recyclerSlider.apply {
+//            layoutManager = LinearLayoutManager(requireContext(),
+// LinearLayoutManager.HORIZONTAL, false)
+//            adapter = dailyTipAdapter
+//
+//            PagerSnapHelper().attachToRecyclerView(this)
+//        }
+//
+//
+//        setupIndicators(tips.size)
+//
+//
+//
+//        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
+//                    val currentPosition = layoutManager?.findFirstVisibleItemPosition() ?: 0
+//                    updateIndicators(currentPosition)
+//                }
+//            }
+//        })
+//        binding.layoutIndicators.visibility = View.VISIBLE
+
+
         celebrationFun()
+//        val tips = listOf(
+//            DailyTip(R.drawable.ic_breathing, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start"),
+//            DailyTip(R.drawable.vitals_icon_home, "Low Sleep Detected", "Try to sleep at least 7 hours tonight.", "Improve"),
+//            DailyTip(R.drawable.ic_water, "Hydration Low", "Drink 2 more glasses of water today.", "Track")
+//        )
+//
+//        dailyTipAdapter = DailyTipAdapter(tips)
+//
+//        binding.recyclerSlider.apply {
+//            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//            adapter = dailyTipAdapter
+//            PagerSnapHelper().attachToRecyclerView(this)
+//        }
+//        binding.layoutIndicators.post {
+//            setupIndicators(tips.size)
+//        }
+//// ✅ Call this AFTER setting adapter
+//        setupIndicators(tips.size)
+//
+//// ✅ Listener to update dots when page changes
+//        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
+//                    val currentPosition = layoutManager?.findFirstVisibleItemPosition() ?: 0
+//                    updateIndicators(currentPosition)
+//                }
+//            }
+//        })
 
-
+        setupRecyclerAndIndicators()
         binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
     }
 
+     private fun setupRecyclerAndIndicators() {
+        val tips = listOf(
+            DailyTip(R.drawable.start_session, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start Session"),
+            DailyTip(R.drawable.log_glucose, "No glucose reading  yet today", "Logging helps track stability.", "Log Glucose"),
+            DailyTip(R.drawable.log_glucose, "Haven't checked your BP today!", "A quick reading, keeps your heart in check.", "Log BP"),
+             DailyTip(R.drawable.log_glucose, "Hydration dropped since yesterday", " A quick refill can maintain energy.", "Add Intake"),
+
+         )
+
+        // Main tips RecyclerView
+
+
+
+
+         dailyTipAdapter = DailyTipAdapter(tips) { tip ->
+             // 👇 handle button clicks for each item
+             when (tip.title) {
+                 "Stress slightly high!" -> {
+                     // Open breathing session
+                     Toast.makeText(requireContext(), "Starting breathing exercise", Toast.LENGTH_SHORT).show()
+                 }
+                 "Low Sleep Detected" -> {
+                     // Navigate to sleep tracker
+                     Toast.makeText(requireContext(), "Improving sleep habits", Toast.LENGTH_SHORT).show()
+                 }
+                 "Hydration Low" -> {
+                     // Log water intake
+                     Toast.makeText(requireContext(), "Tracking water intake", Toast.LENGTH_SHORT).show()
+                 }
+             }
+         }
+
+
+        binding.recyclerSlider.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = dailyTipAdapter
+            PagerSnapHelper().attachToRecyclerView(this)
+        }
+
+        // Indicators RecyclerView
+        indicatorAdapter = IndicatorAdapter(tips.size)
+        binding.layoutIndicators.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = indicatorAdapter
+        }
+
+        // Scroll listener to update indicators
+        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val currentPosition = layoutManager.findFirstVisibleItemPosition()
+                    indicatorAdapter.updateSelectedPosition(currentPosition)
+                }
+            }
+        })
+    }
+
+    private fun setupActiveChallenges(sizes: Int) {
+
+        // Setup dots
+
+
+        val challengeIndicatorAdapter = IndicatorAdapter(sizes)
+        binding.activechalgesDotId.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = challengeIndicatorAdapter
+        }
+
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.newChallengedRecyclerView)
+
+        // Listen for scroll changes
+        binding.newChallengedRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val currentPosition = layoutManager.findFirstVisibleItemPosition()
+                    challengeIndicatorAdapter.updateSelectedPosition(currentPosition)
+                }
+            }
+        })
+    }
 
     fun celebrationFun() {
         val flingAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.fling_up_to_down)
@@ -777,33 +935,6 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         // Start animation directly on each view
         confettiViews.forEach { view ->
             view.startAnimation(flingAnim)
-        }
-    }
-
-    private fun setupIndicators(count: Int) {
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.setMargins(6, 0, 6, 0)
-
-        binding.layoutIndicators.removeAllViews()
-
-        repeat(count) {
-            val dot = ImageView(requireContext()).apply {
-                setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dot_inactive))
-                this.layoutParams = layoutParams
-            }
-            binding.layoutIndicators.addView(dot)
-        }
-    }
-
-    private fun setCurrentIndicator(index: Int) {
-        val childCount = binding.layoutIndicators.childCount
-        for (i in 0 until childCount) {
-            val imageView = binding.layoutIndicators.getChildAt(i) as ImageView
-            val drawableId = if (i == index) R.drawable.dot_active else R.drawable.dot_inactive
-            imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), drawableId))
         }
     }
     private fun openNewFragment() {
