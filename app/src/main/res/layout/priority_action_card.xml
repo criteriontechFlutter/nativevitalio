@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
      app:cardCornerRadius="12dp"
-    app:cardElevation="2dp" >
+    app:cardElevation="0dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#EAF4FF"
         android:padding="16dp">
 
         <!-- Card content -->
@@ -39,17 +40,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Stress slightly high!"
-                    android:textColor="#1A1A1A"
+                    android:textColor="#202529"
                     android:textStyle="bold"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="A 3-min breathing break can help you reset."
-                    android:textColor="#666666"
-                    android:textSize="13sp"/>
+                    android:textColor="#202529"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -59,17 +60,45 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="end"
-        android:orientation="vertical">
-        <Button
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:gravity="center_vertical"
+            android:background ="@drawable/rounded_card_bg"
+            android:backgroundTint="#2196F3"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="6dp"
+
+            android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivCheckFather"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:paddingRight="3dp"
+            android:src="@drawable/start_session" />
+        <TextView
             android:id="@+id/btnStartSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:drawableStart="@drawable/bg_item_player"
-            android:textSize="13sp"
-            android:backgroundTint="#2196F3"/>
+            android:textColor="@color/white"
+             android:textSize="13sp"/>
+
+        </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/btnStartSession"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Start"-->
+<!--            android:padding="0dp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:drawableStart="@drawable/check"-->
+<!--            android:textSize="13sp"-->
+<!--            android:backgroundTint="#2196F3"/>-->
     </LinearLayout>
         <!-- Dynamic slider indicator -->
         <LinearLayout
