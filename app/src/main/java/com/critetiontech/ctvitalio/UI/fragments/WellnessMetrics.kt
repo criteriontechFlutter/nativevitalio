@@ -100,6 +100,7 @@ class WellnessMetrics : Fragment() {
         val normalizedData = hourlyData.map { (it.toFloat() / maxValue) * 100 }
 
         binding.barContainer.removeAllViews()
+        binding.barContainerStress.removeAllViews()
 
         // Bar & spacing setup
         val barWidthPx = (resources.displayMetrics.density * 5).toInt()  // thin bars
@@ -126,8 +127,38 @@ class WellnessMetrics : Fragment() {
                 }
             }
 
+
+
             binding.barContainer.addView(barView)
             animateBarHeight(barView, value)
+        }
+
+        normalizedData.forEachIndexed { index, value ->
+            val barViewStress = View(requireContext()).apply {
+                background = GradientDrawable().apply {
+                    shape = GradientDrawable.RECTANGLE
+                    setColor(Color.parseColor("#546788")) // bar color
+                    cornerRadii = floatArrayOf(
+                        10f, 10f,   // top-left, top-right
+                        0f, 10f,   // bottom-right, bottom-left
+                        10f, 0f,   // (unused)
+                        0f, 10f
+                    )
+                }
+
+                layoutParams = LinearLayout.LayoutParams(
+                    barWidthPx,
+                    0
+                ).apply {
+                    setMargins(barMarginPx, 0, barMarginPx, 0)
+                }
+            }
+
+
+
+
+            binding.barContainerStress.addView(barViewStress)
+            animateBarHeight(barViewStress, value)
         }
     }
 
@@ -138,7 +169,9 @@ class WellnessMetrics : Fragment() {
     private fun animateBarHeight(view: View, targetPercent: Float) {
         view.post {
             val containerHeight = binding.barContainer.height.takeIf { it > 0 } ?: 100
+            val containerHeightStress = binding.barContainerStress.height.takeIf { it > 0 } ?: 100
             val targetHeight = (containerHeight * targetPercent / 100).toInt()
+            val targetHeightStress = (containerHeightStress * targetPercent / 100).toInt()
 
             val animator = android.animation.ValueAnimator.ofInt(0, targetHeight).apply {
                 duration = 500
@@ -147,6 +180,14 @@ class WellnessMetrics : Fragment() {
                     view.requestLayout()
                 }
             }
+            val animatorStress = android.animation.ValueAnimator.ofInt(0, targetHeightStress).apply {
+                duration = 500
+                addUpdateListener { animation ->
+                    view.layoutParams.height = animation.animatedValue as Int
+                    view.requestLayout()
+                }
+            }
             animator.start()
+            animatorStress.start()
         }}
 }

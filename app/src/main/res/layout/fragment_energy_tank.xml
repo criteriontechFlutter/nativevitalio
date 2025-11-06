@@ -6,7 +6,6 @@
     android:id="@+id/rootMoodLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="40dp"
      android:background="@color/primaryBlue">
 
     <!-- User Avatar -->
