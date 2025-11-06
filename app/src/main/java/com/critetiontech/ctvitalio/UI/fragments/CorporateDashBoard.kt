@@ -25,7 +25,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -116,7 +115,8 @@ class CorporateDashBoard : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val screenHeight = resources.displayMetrics.heightPixels
+        val halfHeight = screenHeight / 2f
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
 
@@ -388,11 +388,12 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         })
 
         binding.energyCard.setOnClickListener{
+
             findNavController().navigate(R.id.action_dashboard_to_energyTank)
         }
-        binding.energyCard.setOnClickListener{
-            findNavController().navigate(R.id.action_dashboard_to_energyTank)
-        }
+//        binding.energyCard.setOnClickListener{
+//            findNavController().navigate(R.id.action_dashboard_to_energyTank)
+//        }
 //         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
 //
 //
@@ -901,8 +902,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             adapter = challengeIndicatorAdapter
         }
 
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.newChallengedRecyclerView)
+
 
         // Listen for scroll changes
         binding.newChallengedRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -912,6 +912,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val currentPosition = layoutManager.findFirstVisibleItemPosition()
                     challengeIndicatorAdapter.updateSelectedPosition(currentPosition)
+                    val snapHelper = PagerSnapHelper()
+                    snapHelper.attachToRecyclerView(binding.newChallengedRecyclerView)
                 }
             }
         })
@@ -1153,4 +1155,30 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     fun dpToPx(dp: Int, context: Context): Int {
         return (dp * context.resources.displayMetrics.density).toInt()
     }
+
+    fun swipeDown(halfHeight: Float) {
+        binding.moodLayout.animate()
+            .translationY(0f)
+            .setDuration(500)
+            .start()
+
+        binding.contentScroll.animate()
+            .translationY(0f)
+            .setDuration(500)
+            .start()
+    }
+
+
+    fun swipeUp(halfHeight: Float) {
+        binding.moodLayout.animate()
+            .translationY(-halfHeight)
+            .setDuration(500)
+            .start()
+
+        binding.contentScroll.animate()
+            .translationY(-halfHeight)
+            .setDuration(500)
+            .start()
+    }
+
 }

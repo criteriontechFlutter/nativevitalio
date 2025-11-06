@@ -84,11 +84,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_chatBotPage_to_pillsReminder">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_chatBotPage_to_symptomHistory">
                               <value>
                                 <LayoutPositions />
@@ -200,6 +195,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_corporateDashBoard_to_medicationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
@@ -306,17 +306,17 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_medicationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_notificationFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_dashboard_to_pillsReminder">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -465,8 +465,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2027" />
-                            <option name="y" value="-1293" />
+                            <option name="x" value="-2221" />
+                            <option name="y" value="-1187" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -599,18 +599,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="pillsReminder">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-151" />
-                            <option name="y" value="328" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="reportFieldsFragment">
                     <value>
                       <LayoutPositions>
@@ -664,8 +652,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1726" />
-                            <option name="y" value="-1362" />
+                            <option name="x" value="-2032" />
+                            <option name="y" value="-1594" />
                           </Point>
                         </option>
                       </LayoutPositions>
