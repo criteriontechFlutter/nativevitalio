@@ -38,11 +38,11 @@ class NewChallengeFragment : Fragment() {
 
 
         challengesViewModel.getNewChallenge()
-        challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
+        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list,
                 onItemClick =  { challenge ->
-                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                    challengesViewModel.joinChallenge( challenge.id.toString())
                 },
                 onItemClick1 =  { challenge: NewChallengeModel ->
                     val bundle = Bundle().apply {

@@ -810,9 +810,10 @@
                     android:id="@+id/energyCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_corners"
                     android:elevation="0dp"
-                    android:paddingTop="18dp"
+
                     app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
@@ -822,6 +823,7 @@
                         android:background="@drawable/bg_energy_gradient"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
+
                          app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
