@@ -825,6 +825,9 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
+        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
+            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+        }
     }
 
      private fun setupRecyclerAndIndicators() {

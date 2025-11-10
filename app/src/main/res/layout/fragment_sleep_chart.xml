@@ -1,0 +1,81 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+     android:background="#FFFFFF">
+
+    <!-- Header: Time in Bed -->
+    <TextView
+        android:id="@+id/tvTimeInBed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time in Bed"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Duration -->
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11h 30 m"
+        android:textSize="20sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Custom Sleep Chart View -->
+    <com.critetiontech.ctvitalio.UI.view.SleepChartView
+        android:id="@+id/sleepChartView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        tools:ignore="MissingClass" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+         android:background="#FFFFFF">
+
+        <!-- Awake -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/awakeBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"  />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/greyText"
+            />
+        <!-- REM Sleep -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/remBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"  />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/greyText"/>
+        <!-- Light Sleep -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/lightBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"  />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/greyText"/>
+        <!-- Deep Sleep -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/deepBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp" />
+
+    </LinearLayout>
+</LinearLayout>

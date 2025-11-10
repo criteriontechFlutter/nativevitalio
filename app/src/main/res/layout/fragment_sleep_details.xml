@@ -5,6 +5,7 @@
     android:id="@+id/sleepChartContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     android:padding="16dp">
 
     <LinearLayout
@@ -135,5 +136,78 @@
             <include android:id="@+id/hrProgress" layout="@layout/include_progress_card" />
             <include android:id="@+id/restorativeSleepProgressId" layout="@layout/include_progress_card" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sleep Stages"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:alpha="0.8" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/sleepChartFragment"
+            android:name="com.critetiontech.ctvitalio.UI.fragments.SleepGraphFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!-- Header -->
+        <LinearLayout
+            android:id="@+id/headerRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvSleepCycleCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sleep Cycle 0"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvLegend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full / Partial"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Dynamic graph area -->
+        <LinearLayout
+            android:id="@+id/sleepGraph"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical" />
+
+        <!-- Movements -->
+        <LinearLayout
+            android:id="@+id/movementRow"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical" />
+
+        <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
+            android:id="@+id/heartRateGraph"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+             android:background="@android:color/white"
+            android:elevation="4dp" />
+        <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
+            android:id="@+id/heartRateVariablityGraph"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@android:color/white"
+            android:elevation="4dp" />
     </LinearLayout>
+
 </ScrollView>

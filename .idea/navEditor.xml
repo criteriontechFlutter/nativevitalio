@@ -84,11 +84,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_chatBotPage_to_pillsReminder">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_chatBotPage_to_symptomHistory">
                               <value>
                                 <LayoutPositions />
@@ -200,6 +195,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_corporateDashBoard_to_medicationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
@@ -306,17 +306,17 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_medicationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_notificationFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_dashboard_to_pillsReminder">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -352,6 +352,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_voiceFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_waterIntakeFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -594,18 +599,6 @@
                           <Point>
                             <option name="x" value="-828" />
                             <option name="y" value="-645" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="pillsReminder">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-151" />
-                            <option name="y" value="328" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -912,6 +905,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="waterIntakeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1642" />
+                            <option name="y" value="-1328" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

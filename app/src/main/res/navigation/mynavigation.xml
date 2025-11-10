@@ -87,6 +87,9 @@
         <action
             android:id="@+id/action_dashboard_to_medicationFragment"
             app:destination="@id/medicationFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_waterIntakeFragment"
+            app:destination="@id/waterIntakeFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -419,5 +422,9 @@
         android:id="@+id/medicationFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.MedicationFragment"
         android:label="MedicationFragment" />
+    <fragment
+        android:id="@+id/waterIntakeFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.WaterIntakeFragment"
+        android:label="WaterIntakeFragment" />
 
 </navigation>
