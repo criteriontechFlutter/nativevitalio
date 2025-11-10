@@ -115,14 +115,14 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
         // Left spacer for centering
         val leftSpacer = View(context).apply {
-            layoutParams = LinearLayout.LayoutParams(0, 1, 1f)
+            layoutParams = LayoutParams(0, 1, 1f)
         }
 
         // Center container with month and arrows
         val centerContainer = LinearLayout(context).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
+            layoutParams = LayoutParams(
                 LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT
             )
@@ -146,7 +146,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             setTypeface(null, Typeface.NORMAL)
             setTextColor(primaryColor)
             gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
+            layoutParams = LayoutParams(
                 LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT
             )
@@ -170,7 +170,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
         // Right spacer for centering
         val rightSpacer = View(context).apply {
-            layoutParams = LinearLayout.LayoutParams(0, 1, 1f)
+            layoutParams = LayoutParams(0, 1, 1f)
         }
 
         headerLayout.addView(leftSpacer)
@@ -197,7 +197,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                 textSize = 12f
                 setTextColor(textSecondaryColor)
                 gravity = Gravity.CENTER
-                layoutParams = LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
+                layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f)
             }
             weekLayout.addView(dayLabel)
         }
@@ -256,7 +256,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             setPadding(0, 8, 0, 24)
         }
 
-        dateScrollLayout.orientation = LinearLayout.HORIZONTAL
+        dateScrollLayout.orientation = HORIZONTAL
         dateScrollLayout.gravity = Gravity.CENTER_VERTICAL
         dateScrollLayout.setPadding(180, 0, 180, 0)
 
@@ -266,7 +266,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
             isHorizontalScrollBarEnabled = false
-            overScrollMode = View.OVER_SCROLL_NEVER
+            overScrollMode = OVER_SCROLL_NEVER
         }
 
         bottomDateScroller.addView(dateScrollLayout)
@@ -461,7 +461,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
 
         if (isExpanded) {
             calendarContainer.translationY = -calendarContainer.height.toFloat()
-            calendarContainer.visibility = View.VISIBLE
+            calendarContainer.visibility = VISIBLE
             calendarContainer.alpha = 0f
 
             calendarContainer.animate()
@@ -476,7 +476,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                 .setDuration(300)
                 .withEndAction {
                     calendarContainer.translationY = 0f
-                    calendarContainer.visibility = View.GONE
+                    calendarContainer.visibility = GONE
                 }
                 .start()
         }
@@ -693,7 +693,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             val progress = dateProgressMap[d] ?: 0f
 
             val dateContainer = FrameLayout(context).apply {
-                layoutParams = LinearLayout.LayoutParams(70, 70).apply {
+                layoutParams = LayoutParams(70, 70).apply {
                     setMargins(6, 0, 6, 0)
                 }
                 tag = d

@@ -10,7 +10,9 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.model.DayWiseMedicines
 import com.critetiontech.ctvitalio.model.Medicine
+import com.critetiontech.ctvitalio.model.MedicineSchedule
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
@@ -34,57 +36,67 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-     fun getAllPatientMedication( ) {
+    fun getAllPatientMedication() {
         _loading.value = true
 
         viewModelScope.launch {
             try {
-
-
                 val queryParams = mapOf(
                     "pid" to PrefsManager().getPatient()?.id.toString(),
                     "clientId" to 194
                 )
-                // This response is of type Response<ResponseBody>
+
                 val response = RetrofitInstance
-                    .createApiService( )
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getAllPatientMedication,
                         params = queryParams
                     )
+
                 _loading.value = false
+
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     Log.d("RESPONSE", "responseValue: $json")
 
-                    try {
-                        val jsonObject = JSONObject(json ?: "")
-                        val status = jsonObject.optInt("status")
-                        val message = jsonObject.optString("message")
+                    val jsonObject = JSONObject(json ?: "")
+                    val status = jsonObject.optInt("status")
+                    val message = jsonObject.optString("message")
 
-                        if (status == 1) {
-                            val responseArray = jsonObject.optJSONArray("responseValue")
+                    if (status == 1) {
+                        val responseArray = jsonObject.optJSONArray("responseValue")
 
-                            // Parse JSON array to List<Medicine>
-                            if (responseArray != null && responseArray.length() > 0) {
-                                val gson = Gson()
-                                val type = object : TypeToken<List<Medicine>>() {}.type
-                                val medicines: List<Medicine> = gson.fromJson(responseArray.toString(), type)
+                        if (responseArray != null && responseArray.length() > 0) {
+                            val gson = Gson()
+                            val type = object : TypeToken<List<MedicineSchedule>>() {}.type
+                            val schedules: List<MedicineSchedule> =
+                                gson.fromJson(responseArray.toString(), type)
 
-                                _pillList.postValue(medicines)
-                                Log.d("PILLS_LIST", "Parsed medicines: $medicines")
-                            } else {
-                                _pillList.postValue(emptyList())
-                                Log.d("PILLS_LIST", "Empty responseValue array")
+                            // Convert to day-wise grouped medicines
+                            val dayWiseList = schedules.map { schedule ->
+                                DayWiseMedicines(
+                                    dayPeriod = schedule.dayPeriod ?: "Unknown",
+                                    medicines = schedule.getMedicinesList()
+                                )
                             }
+
+                            // Flatten for adapter if you want all together
+//                            val allMedicines = dayWiseList.flatMap { it.medicines }
+                            val allMedicines = schedules.flatMap { it.getMedicinesList() }
+                            _pillList.postValue(allMedicines)
+                            // Post result to LiveData
+                            _pillList.postValue(allMedicines)
+
+                            Log.d("PILLS_LIST", "Day-wise medicines: $dayWiseList")
                         } else {
                             _pillList.postValue(emptyList())
-                            Log.d("PILLS_LIST", "No record found: $message")
+                            Log.d("PILLS_LIST", "Empty responseValue array")
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        _errorMessage.postValue("Error parsing response")
+                    } else {
+                        _pillList.postValue(emptyList())
+                        Log.d("PILLS_LIST", "No record found: $message")
                     }
+
                 } else {
                     _errorMessage.postValue("Error: ${response.code()}")
                 }
@@ -96,6 +108,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
             }
         }
     }
+
 
 
 

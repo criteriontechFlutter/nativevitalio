@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/dateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvPrevDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#9CA3AF"
+            android:text="Sat 13 Sep"
+            android:textSize="14sp"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:alpha="0.3"
+            android:paddingHorizontal="12dp" />
+
+        <TextView
+            android:id="@+id/tvCurrentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun 14 Sep"
+            android:textColor="#2563EB"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingHorizontal="12dp" />
+
+        <TextView
+            android:id="@+id/tvNextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#9CA3AF"
+            android:text="Mon 15 Sep"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textSize="14sp"
+            android:alpha="0.3"
+            android:paddingHorizontal="12dp" />
+    </LinearLayout>
+</layout>

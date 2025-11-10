@@ -32,7 +32,7 @@ class JoinedFragments : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
         challengesViewModel.getJoinedChallenge()
-        challengesViewModel.joinedChallengeList.observe(viewLifecycleOwner) { list ->
+        challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->
             joinedChallengesAdapter = JoinedChallengesAdapter(list)
             binding.joinedRecyclerView.adapter = joinedChallengesAdapter
         }
