@@ -812,8 +812,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corners"
                     android:elevation="0dp"
-                    android:paddingTop="18dp"
-                    app:cardBackgroundColor="@color/white">
+                     app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
                         android:id="@+id/energyid"
