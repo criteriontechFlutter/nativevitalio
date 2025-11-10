@@ -11,11 +11,10 @@
     <LinearLayout
         android:id="@+id/headerContainer"
         android:layout_width="0dp"
-        android:layout_height="74dp"
+        android:layout_height="wrap_content"
         android:background="@color/primaryBlue"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-         android:paddingTop="15dp"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -215,7 +214,7 @@
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/ivIllustration"
                 android:layout_width="300dp"
-                android:layout_height="130dp"
+                android:layout_height="250dp"
                 android:src="@drawable/moods"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
@@ -236,7 +235,7 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/contentScroll"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_content_white"
             android:clipToPadding="true"
@@ -429,9 +428,9 @@
 
                     <include
                         android:id="@+id/morningAlertnessId"
-
                         layout="@layout/sleep_layout"
                         android:layout_width="0dp"
+
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"/>
@@ -696,7 +695,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:paddingBottom="20dp"
-                    android:text="Active Challeges"
+                    android:text="Active Challenges"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -1404,12 +1403,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" >
-<TextView
+                         <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                          android:text="Today's Periority Action"
+                          android:text="Today's Priority Action"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
+                             android:layout_marginBottom="10dp"
                         android:textStyle="bold" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -1456,7 +1456,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         />
 
@@ -1490,9 +1489,10 @@
                         android:layout_marginTop="30dp"
                          android:text="Daily Checklist"
                         android:textColor="@android:color/black"
+                        android:layout_marginBottom="10dp"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-                    <androidx.cardview.widget.CardView
+                     <androidx.cardview.widget.CardView
                          android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                          app:cardCornerRadius="12dp"

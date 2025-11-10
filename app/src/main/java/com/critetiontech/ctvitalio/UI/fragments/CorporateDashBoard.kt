@@ -638,7 +638,7 @@ binding.showId.showHideId.setOnClickListener{
 
 
 
-            binding.StressRhythmScoreId.title.text="Stress Rhyythm Score"
+            binding.StressRhythmScoreId.title.text="Stress Rhythm Score"
             binding.StressRhythmScoreId.value.text= "_"
             binding.StressRhythmScoreId.statusCardId.visibility=View.GONE
 

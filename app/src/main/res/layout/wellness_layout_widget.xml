@@ -253,6 +253,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="--"
+                            android:textStyle="bold"
                             android:textColor="#020202"
                             android:textSize="16sp"
                              />
@@ -433,7 +434,7 @@
                             android:paddingBottom="2dp"
                             android:text="Moderate"
                             android:textColor="#EA6C00"
-                            android:textSize="9sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/recoveryValue"
