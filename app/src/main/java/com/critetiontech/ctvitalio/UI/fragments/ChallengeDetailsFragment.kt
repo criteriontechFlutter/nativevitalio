@@ -93,8 +93,8 @@ class ChallengeDetailsFragment : Fragment() {
                 ?.getPeopleJoinedList()
                 ?.any { it.empId.toString() == currentUserId } == true
             if (!hasJoined) {
-                viewModel.insertChallengeparticipants(
-                    challengesId = challenges?.id.toString()
+                viewModel.joinChallenge(
+                     challenges?.id.toString()
                 )
             }
         }
