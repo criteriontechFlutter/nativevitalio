@@ -248,11 +248,11 @@ class CorporateDashBoard : Fragment() {
 
 
 
-        challengesViewModel.newChallengeList.observe(viewLifecycleOwner) { list ->
+        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list,
                 onItemClick =  { challenge ->
-                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                    challengesViewModel.joinChallenge( challenge.id.toString())
                 },
                 onItemClick1 =  { challenge ->
                     val bundle = Bundle().apply {
@@ -265,7 +265,7 @@ class CorporateDashBoard : Fragment() {
             binding.challengedId.adapter = NewChallengedAdapter(
                 list,
                 onItemClick =  { challenge ->
-                    challengesViewModel.insertChallengeparticipants( challenge.id.toString())
+                    challengesViewModel.joinChallenge( challenge.id.toString())
                 },
                 onItemClick1 =  { challenge ->
                     val bundle = Bundle().apply {
@@ -898,242 +898,263 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
         val challengeIndicatorAdapter = IndicatorAdapter(sizes)
         binding.activechalgesDotId.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = challengeIndicatorAdapter
         }
 
 
-
         // Listen for scroll changes
-        binding.newChallengedRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        // Declare once outside listener
+        try {
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(binding.newChallengedRecyclerView)
+        }catch (e: Exception){
+
+        }
+
+
+// Now just listen for scroll idle events
+        binding.newChallengedRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val currentPosition = layoutManager.findFirstVisibleItemPosition()
                     challengeIndicatorAdapter.updateSelectedPosition(currentPosition)
-                    val snapHelper = PagerSnapHelper()
-                    snapHelper.attachToRecyclerView(binding.newChallengedRecyclerView)
                 }
             }
         })
     }
 
-    fun celebrationFun() {
-        val flingAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.fling_up_to_down)
+        fun celebrationFun() {
+            val flingAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.fling_up_to_down)
 
-        // These are actual views (not IDs)
-        val confettiViews = listOf(
-            binding.celebrationId.confetti1,
-            binding.celebrationId.confetti2,
-            binding.celebrationId.confetti3,
-            binding.celebrationId.confetti4,
-            binding.celebrationId.confetti5,
-            binding.celebrationId.star1,
-            binding.celebrationId.star2,
-            binding.celebrationId.star3
-        )
+            // These are actual views (not IDs)
+            val confettiViews = listOf(
+                binding.celebrationId.confetti1,
+                binding.celebrationId.confetti2,
+                binding.celebrationId.confetti3,
+                binding.celebrationId.confetti4,
+                binding.celebrationId.confetti5,
+                binding.celebrationId.star1,
+                binding.celebrationId.star2,
+                binding.celebrationId.star3
+            )
 
-        // Start animation directly on each view
-        confettiViews.forEach { view ->
-            view.startAnimation(flingAnim)
-        }
-    }
-    private fun openNewFragment() {
-        findNavController().navigate(R.id.moodFragment)
-    }
-
-    private fun setupBottomNav(view1: View) {
-        // Home
-        val homeItem = view1.findViewById<View>(R.id.nav_home)
-        homeItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.home)
-        homeItem.findViewById<TextView>(R.id.navText).text = "Home"
-
-        // Vitals
-        val vitalsItem =  view1.findViewById<View>(R.id.nav_vitals)
-        vitalsItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.vitals_icon_home)
-        vitalsItem.findViewById<TextView>(R.id.navText).text = "Vitals"
-
-        // Medicine
-        val medicineItem =  view1.findViewById<View>(R.id.nav_medicine)
-        medicineItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.reminders)
-        medicineItem.findViewById<TextView>(R.id.navText).text = "Medicine"
-
-        // Goals
-        val goalsItem =  view1.findViewById<View>(R.id.nav_goals)
-        goalsItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.challenges_icon)
-        goalsItem.findViewById<TextView>(R.id.navText).text = "Goals"
-    }
-
-
-
-
-    private fun handleAuthRedirectIntent(intent: Intent) {
-        val data = intent.data
-        if (data != null && data.scheme == "com.critetiontech.ctvitalio" && data.host == "callback") {
-            val accessToken = data.getQueryParameter("accessToken")
-            val refreshToken = data.getQueryParameter("refreshToken")
-            val tokenType = data.getQueryParameter("tokenType")
-            val expiry = data.getQueryParameter("expiresIn")
-
-            if (accessToken != null) {
-                Log.d("OAuth", "Received code: $accessToken and state: $tokenType")
-                Log.d("OAuth", "Received refreshToken: $refreshToken")
-                Log.d("OAuth", "Received refreshToken: $tokenType")
-                Log.d("OAuth", "Received refreshToken: $expiry")
-                viewModel.insertUltraHumanToken(accessToken,refreshToken,tokenType,expiry)
-                Toast.makeText(context, "Check$refreshToken", Toast.LENGTH_LONG)
-                exchangeCodeForToken(accessToken)
-            } else {
-                Log.e("OAuth", "No authorization code found in redirect URI")
+            // Start animation directly on each view
+            confettiViews.forEach { view ->
+                view.startAnimation(flingAnim)
             }
         }
-    }
 
-    fun onNewIntentReceived(intent: Intent){
-        handleAuthRedirectIntent(intent = intent)
-    }
+        private fun openNewFragment() {
+            findNavController().navigate(R.id.moodFragment)
+        }
 
-    private fun initializeAuth() {
-        authService = AuthorizationService(requireContext())
-        startOAuthFlow()
-    }
+        private fun setupBottomNav(view1: View) {
+            // Home
+            val homeItem = view1.findViewById<View>(R.id.nav_home)
+            homeItem.findViewById<ImageView>(R.id.navIcon).setImageResource(R.drawable.home)
+            homeItem.findViewById<TextView>(R.id.navText).text = "Home"
 
-    private fun startOAuthFlow() {
-        val authUri = "https://auth.ultrahuman.com/authorise".toUri()
-        val tokenUri = "https://partner.ultrahuman.com/oauth/token".toUri()
-        val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback".toUri()
+            // Vitals
+            val vitalsItem = view1.findViewById<View>(R.id.nav_vitals)
+            vitalsItem.findViewById<ImageView>(R.id.navIcon)
+                .setImageResource(R.drawable.vitals_icon_home)
+            vitalsItem.findViewById<TextView>(R.id.navText).text = "Vitals"
 
-        val serviceConfig = AuthorizationServiceConfiguration(authUri, tokenUri)
+            // Medicine
+            val medicineItem = view1.findViewById<View>(R.id.nav_medicine)
+            medicineItem.findViewById<ImageView>(R.id.navIcon)
+                .setImageResource(R.drawable.reminders)
+            medicineItem.findViewById<TextView>(R.id.navText).text = "Medicine"
 
-        val authRequest = AuthorizationRequest.Builder(
-            serviceConfig,
-            "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo",
-            ResponseTypeValues.CODE,
-            redirectUri
-        ).setScope("profile ring_data cgm_data ring_extended_data").build()
+            // Goals
+            val goalsItem = view1.findViewById<View>(R.id.nav_goals)
+            goalsItem.findViewById<ImageView>(R.id.navIcon)
+                .setImageResource(R.drawable.challenges_icon)
+            goalsItem.findViewById<TextView>(R.id.navText).text = "Goals"
+        }
 
-        val intent = authService!!.getAuthorizationRequestIntent(authRequest)
-        startActivity(intent)
 
-    }
+        private fun handleAuthRedirectIntent(intent: Intent) {
+            val data = intent.data
+            if (data != null && data.scheme == "com.critetiontech.ctvitalio" && data.host == "callback") {
+                val accessToken = data.getQueryParameter("accessToken")
+                val refreshToken = data.getQueryParameter("refreshToken")
+                val tokenType = data.getQueryParameter("tokenType")
+                val expiry = data.getQueryParameter("expiresIn")
 
-    private fun exchangeCodeForToken(authCode: String) {
-        val tokenUrl = "https://partner.ultrahuman.com/oauth/token"
-        val clientId = "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo"
-        val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback"
-
-        val requestBody =
-            "grant_type=authorization_code&code=$authCode&redirect_uri=$redirectUri&client_id=$clientId&state=${PrefsManager().getPatient()?.emailID}|1"
-
-        val request = Request.Builder()
-            .url(tokenUrl)
-            .addHeader("Content-Type", "application/json")
-            .post(okhttp3.RequestBody.create(null, requestBody))
-            .build()
-
-        OkHttpClient().newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                Log.e("OAuth", "Token request failed: ${e.message}")
-            }
-
-            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                response.use {
-                    val body = it.body?.string()
-                    Log.d("OAuth", "Token response: $body")
+                if (accessToken != null) {
+                    Log.d("OAuth", "Received code: $accessToken and state: $tokenType")
+                    Log.d("OAuth", "Received refreshToken: $refreshToken")
+                    Log.d("OAuth", "Received refreshToken: $tokenType")
+                    Log.d("OAuth", "Received refreshToken: $expiry")
+                    viewModel.insertUltraHumanToken(accessToken, refreshToken, tokenType, expiry)
+                    Toast.makeText(context, "Check$refreshToken", Toast.LENGTH_LONG)
+                    exchangeCodeForToken(accessToken)
+                } else {
+                    Log.e("OAuth", "No authorization code found in redirect URI")
                 }
             }
-        })
-    }
-
-    private fun setupNav() {
-        navItems.forEachIndexed { index, view ->
-            val icon = view.findViewById<ImageView>(R.id.navIcon)
-            val text = view.findViewById<TextView>(R.id.navText)
-            view.setOnClickListener {
-                text.text = tabLabels[index]
-               // icon.setBackgroundResource( tabIcons[index])
-                selectItem(index)
-            }
         }
 
-        // Default select Home
-        selectItem(0)
-    }
+        fun onNewIntentReceived(intent: Intent) {
+            handleAuthRedirectIntent(intent = intent)
+        }
 
-    private fun selectItem(index: Int) {
-        navItems.forEachIndexed { i, view ->
-            val text = view.findViewById<TextView>(R.id.navText)
-            val icon = view.findViewById<ImageView>(R.id.navIcon)
+        private fun initializeAuth() {
+            authService = AuthorizationService(requireContext())
+            startOAuthFlow()
+        }
 
-            if (i == index) {
-                view.isSelected = true
-                text.visibility = View.VISIBLE
-                icon.setColorFilter(ContextCompat.getColor(requireActivity(), android.R.color.white))
-                val fragment = when (i) {
-                    0 -> {
-                        binding.homeId.visibility=View.VISIBLE
-                        binding.challengedId.visibility=View.GONE
-                        binding.activeChalleTextId.visibility=View.GONE
+        private fun startOAuthFlow() {
+            val authUri = "https://auth.ultrahuman.com/authorise".toUri()
+            val tokenUri = "https://partner.ultrahuman.com/oauth/token".toUri()
+            val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback".toUri()
 
-                        binding.recyclerView.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.GONE
+            val serviceConfig = AuthorizationServiceConfiguration(authUri, tokenUri)
 
-                    }  1 -> {
-                        binding.homeId.visibility=View.GONE
-                        binding.challengedId.visibility=View.GONE
-                        binding.activeChalleTextId.visibility=View.GONE
+            val authRequest = AuthorizationRequest.Builder(
+                serviceConfig,
+                "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo",
+                ResponseTypeValues.CODE,
+                redirectUri
+            ).setScope("profile ring_data cgm_data ring_extended_data").build()
 
-                        binding.recyclerView.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.VISIBLE
+            val intent = authService!!.getAuthorizationRequestIntent(authRequest)
+            startActivity(intent)
 
+        }
+
+        private fun exchangeCodeForToken(authCode: String) {
+            val tokenUrl = "https://partner.ultrahuman.com/oauth/token"
+            val clientId = "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo"
+            val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback"
+
+            val requestBody =
+                "grant_type=authorization_code&code=$authCode&redirect_uri=$redirectUri&client_id=$clientId&state=${PrefsManager().getPatient()?.emailID}|1"
+
+            val request = Request.Builder()
+                .url(tokenUrl)
+                .addHeader("Content-Type", "application/json")
+                .post(okhttp3.RequestBody.create(null, requestBody))
+                .build()
+
+            OkHttpClient().newCall(request).enqueue(object : okhttp3.Callback {
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+                    Log.e("OAuth", "Token request failed: ${e.message}")
+                }
+
+                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                    response.use {
+                        val body = it.body?.string()
+                        Log.d("OAuth", "Token response: $body")
                     }
-                    2 -> {
-                        binding.recyclerView.visibility = View.VISIBLE
-                        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                }
+            })
+        }
 
-                        // Initialize adapter once with an empty list
-                        val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
-                            findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+        private fun setupNav() {
+            navItems.forEachIndexed { index, view ->
+                val icon = view.findViewById<ImageView>(R.id.navIcon)
+                val text = view.findViewById<TextView>(R.id.navText)
+                view.setOnClickListener {
+                    text.text = tabLabels[index]
+                    // icon.setBackgroundResource( tabIcons[index])
+                    selectItem(index)
+                }
+            }
+
+            // Default select Home
+            selectItem(0)
+        }
+
+        private fun selectItem(index: Int) {
+            navItems.forEachIndexed { i, view ->
+                val text = view.findViewById<TextView>(R.id.navText)
+                val icon = view.findViewById<ImageView>(R.id.navIcon)
+
+                if (i == index) {
+                    view.isSelected = true
+                    text.visibility = View.VISIBLE
+                    icon.setColorFilter(
+                        ContextCompat.getColor(
+                            requireActivity(),
+                            android.R.color.white
+                        )
+                    )
+                    val fragment = when (i) {
+                        0 -> {
+                            binding.homeId.visibility = View.VISIBLE
+                            binding.challengedId.visibility = View.GONE
+                            binding.activeChalleTextId.visibility = View.GONE
+
+                            binding.recyclerView.visibility = View.GONE
+                            binding.healthSnaps.visibility = View.GONE
+
                         }
-                        binding.recyclerView.adapter = adapter
 
-                        // Observe pill list updates
-                        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
-                            if (list.isNotEmpty()) {
-                                adapter.updateList(list) // Update existing adapter data
-                                binding.recyclerView.visibility = View.VISIBLE
-                              //  binding.tvNoData.visibility = View.GONE
-                            } else {
-                                binding.recyclerView.visibility = View.GONE
-                               // binding.tvNoData.visibility = View.VISIBLE
+                        1 -> {
+                            binding.homeId.visibility = View.GONE
+                            binding.challengedId.visibility = View.GONE
+                            binding.activeChalleTextId.visibility = View.GONE
+
+                            binding.recyclerView.visibility = View.GONE
+                            binding.healthSnaps.visibility = View.VISIBLE
+
+                        }
+
+                        2 -> {
+                            binding.recyclerView.visibility = View.VISIBLE
+                            binding.recyclerView.layoutManager =
+                                LinearLayoutManager(requireContext())
+
+                            // Initialize adapter once with an empty list
+                            val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
+                                findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
                             }
+                            binding.recyclerView.adapter = adapter
+
+                            // Observe pill list updates
+                            pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+                                if (list.isNotEmpty()) {
+                                    adapter.updateList(list) // Update existing adapter data
+                                    binding.recyclerView.visibility = View.VISIBLE
+                                    //  binding.tvNoData.visibility = View.GONE
+                                } else {
+                                    binding.recyclerView.visibility = View.GONE
+                                    // binding.tvNoData.visibility = View.VISIBLE
+                                }
+                            }
+
+                            // Hide other views
+                            binding.homeId.visibility = View.GONE
+                            binding.challengedId.visibility = View.GONE
+                            binding.activeChalleTextId.visibility = View.GONE
+                            binding.healthSnaps.visibility = View.GONE
                         }
 
-                        // Hide other views
-                        binding.homeId.visibility = View.GONE
-                        binding.challengedId.visibility = View.GONE
-                        binding.activeChalleTextId.visibility = View.GONE
-                        binding.healthSnaps.visibility = View.GONE
-                    }
+                        3 -> {
+                            binding.homeId.visibility = View.GONE
+                            binding.challengedId.visibility = View.VISIBLE
+                            binding.activeChalleTextId.visibility = View.VISIBLE
 
-                    3 -> {
-                        binding.homeId.visibility=View.GONE
-                        binding.challengedId.visibility=View.VISIBLE
-                        binding.activeChalleTextId.visibility=View.VISIBLE
+                            binding.recyclerView.visibility = View.GONE
+                            binding.healthSnaps.visibility = View.GONE
 
-                        binding.recyclerView.visibility=View.GONE
-                        binding.healthSnaps.visibility=View.GONE
-
-                    }
+                        }
 
 //                    else -> HomeFragment()
 //                    1 -> VitalsFragment()
 //                    2 -> MedicineFragment()
 //                    3 -> GoalsFragment()
-                    else -> {}
-                }
-                // Load fragment based on index
+                        else -> {}
+                    }
+                    // Load fragment based on index
 //                val fragment = when (i) {
 //                    0 -> HomeFragment()
 //                    1 -> VitalsFragment()
@@ -1145,40 +1166,18 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //                    .replace(R.id.fragmentContainer, fragment)
 //                    .commit()
 
-            } else {
-                view.isSelected = false
-                text.visibility = View.GONE
-                icon.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.blue))
+                } else {
+                    view.isSelected = false
+                    text.visibility = View.GONE
+                    icon.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.blue))
+                }
             }
         }
+
+        fun dpToPx(dp: Int, context: Context): Int {
+            return (dp * context.resources.displayMetrics.density).toInt()
+        }
+
+
+
     }
-    fun dpToPx(dp: Int, context: Context): Int {
-        return (dp * context.resources.displayMetrics.density).toInt()
-    }
-
-    fun swipeDown(halfHeight: Float) {
-        binding.moodLayout.animate()
-            .translationY(0f)
-            .setDuration(500)
-            .start()
-
-        binding.contentScroll.animate()
-            .translationY(0f)
-            .setDuration(500)
-            .start()
-    }
-
-
-    fun swipeUp(halfHeight: Float) {
-        binding.moodLayout.animate()
-            .translationY(-halfHeight)
-            .setDuration(500)
-            .start()
-
-        binding.contentScroll.animate()
-            .translationY(-halfHeight)
-            .setDuration(500)
-            .start()
-    }
-
-}
