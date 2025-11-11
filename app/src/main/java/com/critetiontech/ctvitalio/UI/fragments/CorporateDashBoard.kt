@@ -51,6 +51,7 @@ import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -1118,7 +1119,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
                             // Initialize adapter once with an empty list
                             val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
-                                findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+                                //findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+                                pillsViewModel.insertPatientMedication(selectedMedicine);
                             }
                             binding.recyclerView.adapter = adapter
 
@@ -1185,3 +1187,4 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
     }
+

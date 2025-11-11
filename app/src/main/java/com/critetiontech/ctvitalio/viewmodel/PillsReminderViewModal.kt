@@ -1,7 +1,5 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PillReminderModel
-import PillTime
 import PrefsManager
 import android.app.Application
 import android.os.Build
@@ -18,13 +16,7 @@ import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.util.Date
-import java.util.Locale
 
 class PillsReminderViewModal (application: Application) : BaseViewModel(application) {
 
@@ -72,22 +64,24 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                             val schedules: List<MedicineSchedule> =
                                 gson.fromJson(responseArray.toString(), type)
 
-                            // Convert to day-wise grouped medicines
+// Convert to day-wise grouped medicines
                             val dayWiseList = schedules.map { schedule ->
                                 DayWiseMedicines(
                                     dayPeriod = schedule.dayPeriod ?: "Unknown",
-                                    medicineData = schedule.getMedicinesList()
+                                    medicineData = schedule.medicineData
                                 )
                             }
 
-                            // Flatten for adapter if you want all together
-//                            val allMedicines = dayWiseList.flatMap { it.medicines }
-                            val allMedicines = schedules.flatMap { it.getMedicinesList() }
-                            _pillList.postValue(allMedicines)
-                            // Post result to LiveData
-                            _pillList.postValue(allMedicines)
+// ✅ Flatten and attach dayPeriod to each medicine
+                            val allMedicines = schedules.flatMap { schedule ->
+                                schedule.medicineData.map { med ->
+                                    med.copy(dayPeriod = schedule.dayPeriod ?: "Unknown")
+                                }
+                            }
 
-                            Log.d("PILLS_LIST", "Day-wise medicines: $_pillList")
+// ✅ Post final flattened list to LiveData
+                            _pillList.postValue(allMedicines)
+                            Log.d("PILLS_LIST", "Flattened medicines: ${allMedicines.size}")
                         } else {
                             _pillList.postValue(emptyList())
                             Log.d("PILLS_LIST", "Empty responseValue array")
@@ -113,56 +107,44 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
 
 
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    fun insertPatientMedication(
-//        pmID:String,
-//        prescriptionID:String,
-//        durationType:String,
-//        compareTime: String
-//    ) {
-//        _loading.value = true
-//
-//        viewModelScope.launch {
-//            try {
-//                val convertedTime = convertTo24Hour(compareTime)
-//
-//                val queryParams = mapOf(
-//                    "UhID" to PrefsManager().getPatient()?.empId.toString(),
-//                    "pmID"  to  pmID,
-//                    "intakeDateAndTime"  to    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())+" "+convertedTime,
-//
-//
-//
-//                    "prescriptionID" to prescriptionID,
-//                    "userID"  to PrefsManager().getPatient()?.id.toString(),
-//                "duration"  to  durationType ,
-//                "compareTime"  to  convertedTime
-//                )
-//
-//                // This response is of type Response<ResponseBody>
-//                val response = RetrofitInstance
-//                    .createApiService( )
-//                    .dynamicRawPost(
-//                        url = ApiEndPoint().insertPatientMedication,
-//                        body = queryParams
-//                    )
-//                getAllPatientMedication()
-//                _loading.value = false
-//                if (response.isSuccessful) {
-//                    val json = response.body()?.string()
-//                    Log.d("RESPONSE", "responseValue: $json")
-//
-//                } else {
-//                    _errorMessage.value = "Error: ${response.code()}"
-//                }
-//
-//            } catch (e: Exception) {
-//                _loading.value = false
-//                _errorMessage.value = e.message ?: "Unknown error occurred"
-//                e.printStackTrace()
-//            }
-//        }
-//    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun insertPatientMedication(
+        pmID:Medicine
+    ) {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+
+                val queryParams = mapOf(
+                    "id" to pmID.medicineIntakeId.toString(),
+                    "ScheduledDateTime"  to  pmID.scheduledDateTime.toString(),
+                )
+
+                /* This response is of type Response<ResponseBody> */
+                val response = RetrofitInstance
+                    .createApiService( )
+                    .queryDynamicRawPost(
+                        url = ApiEndPoint().insertPatientMedication,
+                        params = queryParams
+                    )
+                getAllPatientMedication()
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val json = response.body()?.string()
+                    Log.d("RESPONSE", "responseValue: $json")
+
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
 
 
 

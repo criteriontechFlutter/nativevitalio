@@ -8,10 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
