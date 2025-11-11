@@ -640,7 +640,7 @@ binding.showId.showHideId.setOnClickListener{
 
 
 
-            binding.StressRhythmScoreId.title.text="Stress Rhyythm Score"
+            binding.StressRhythmScoreId.title.text="Stress Rhythm Score"
             binding.StressRhythmScoreId.value.text= "_"
             binding.StressRhythmScoreId.statusCardId.visibility=View.GONE
 
@@ -1131,6 +1131,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
                             // Observe pill list updates
                             pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+                                Log.d("TAG", "selectItem: "+list.size.toString())
                                 if (list.isNotEmpty()) {
                                     adapter.updateList(list) // Update existing adapter data
                                     binding.recyclerView.visibility = View.VISIBLE

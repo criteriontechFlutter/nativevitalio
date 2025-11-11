@@ -53,7 +53,7 @@
                     android:id="@+id/appTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:layout_marginTop="100dp"
+
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/vitalio_logo_svg"
@@ -96,7 +96,7 @@
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/doctorsImage"
                 android:layout_width="match_parent"
-                android:layout_height="302dp"
+                android:layout_height="0dp"
                  android:src="@drawable/happygif"
                 app:layout_constraintBottom_toTopOf="@id/bottomCard"
                 app:layout_constraintEnd_toEndOf="parent"
