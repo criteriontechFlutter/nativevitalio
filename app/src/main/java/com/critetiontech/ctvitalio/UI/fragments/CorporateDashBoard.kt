@@ -752,6 +752,11 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     binding.sleepProgressIds.movementValue.text = movementValue?.vitalValue?.toInt()?.toString() ?: "--"
     binding.sleepProgressIds.recoveryValue.text = recoveryValue?.vitalValue?.toInt()?.toString() ?: "--"
     binding.sleepProgressIds.stressValue.text = stressValue?.vitalValue?.toInt()?.toString() ?: "--"
+
+//    binding.sleepProgressIds.sleepValue.text = sleepValue?.vitalValue?.toInt()?.toString() ?: "--"
+//    binding.sleepProgressIds.movementValue.text = movementValue?.vitalValue?.toInt()?.toString() ?: "--"
+//    binding.sleepProgressIds.recoveryValue.text = recoveryValue?.vitalValue?.toInt()?.toString() ?: "--"
+//    binding.sleepProgressIds.stressValue.text = stressValue?.vitalValue?.toInt()?.toString() ?: "--"
 }
 
 
