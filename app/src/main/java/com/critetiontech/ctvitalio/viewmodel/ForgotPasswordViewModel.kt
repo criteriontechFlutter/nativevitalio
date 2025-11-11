@@ -1,17 +1,11 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
 import android.app.Application
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.UI.Home
-import com.critetiontech.ctvitalio.UI.ResetPassword
-import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication

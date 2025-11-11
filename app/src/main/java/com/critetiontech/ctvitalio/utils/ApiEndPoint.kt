@@ -35,7 +35,7 @@ class ApiEndPoint {
 
 
     val getAllPatientMedication="api/EmployeeMedicineIntake/GetEmployeeMedicineIntake"
-    val insertPatientMedication="api/PatientMedication/InsertPatientMedication"
+    val insertPatientMedication="api/EmployeeMedicineIntake/InsertEmployeeMedicineIntake"
 
 
     val insertResult="api/InvestigationByPatient/InsertResult"
