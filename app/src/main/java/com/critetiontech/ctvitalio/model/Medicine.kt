@@ -8,6 +8,8 @@ data class Medicine(
     val dosageType: String?,
     val dosageStrength: Double?,
     val instructions: String?,
+    val medicineName: String?,
+    val unit: String?,
     val scheduledDateTime: String?,
     var isTaken: Int?,
     val takenDateTime: String?,
@@ -15,17 +17,17 @@ data class Medicine(
 )
 data class DayWiseMedicines(
     val dayPeriod: String,
-    val medicines: List<Medicine>
+    val medicineData: List<Medicine>
 )
 data class MedicineSchedule(
     val dayPeriod: String?,
-    val medicines: String? // Stringified JSON array
+    val medicineData: String? // Stringified JSON array
 ) {
     // Helper to parse medicines string into a List<Medicine>
     fun getMedicinesList(): List<Medicine> {
         return try {
             val type = object : TypeToken<List<Medicine>>() {}.type
-            Gson().fromJson(medicines, type)
+            Gson().fromJson(medicineData, type)
         } catch (e: Exception) {
             emptyList()
         }

@@ -57,7 +57,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
-                    Log.d("RESPONSE", "responseValue: $json")
+                    Log.d("RESPONSEMedicine", "responseValue: $json")
 
                     val jsonObject = JSONObject(json ?: "")
                     val status = jsonObject.optInt("status")
@@ -76,7 +76,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                             val dayWiseList = schedules.map { schedule ->
                                 DayWiseMedicines(
                                     dayPeriod = schedule.dayPeriod ?: "Unknown",
-                                    medicines = schedule.getMedicinesList()
+                                    medicineData = schedule.getMedicinesList()
                                 )
                             }
 
@@ -87,7 +87,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                             // Post result to LiveData
                             _pillList.postValue(allMedicines)
 
-                            Log.d("PILLS_LIST", "Day-wise medicines: $dayWiseList")
+                            Log.d("PILLS_LIST", "Day-wise medicines: $_pillList")
                         } else {
                             _pillList.postValue(emptyList())
                             Log.d("PILLS_LIST", "Empty responseValue array")

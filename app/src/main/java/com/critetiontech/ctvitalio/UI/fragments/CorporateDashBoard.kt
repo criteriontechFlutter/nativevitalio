@@ -1124,6 +1124,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
                             // Observe pill list updates
                             pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+                                Log.d("TAG", "selectItem: "+list.size.toString())
                                 if (list.isNotEmpty()) {
                                     adapter.updateList(list) // Update existing adapter data
                                     binding.recyclerView.visibility = View.VISIBLE
