@@ -45,8 +45,8 @@ class MyApplication : Application() {
         }
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val themePref = prefs.getString("theme_pref", NetworkUtils.ThemeHelper.MODE_SYSTEM)
-        NetworkUtils.ThemeHelper.applyTheme(themePref ?: NetworkUtils.ThemeHelper.MODE_SYSTEM)
+        val themePref = prefs.getString("theme_pref", NetworkUtils.ThemeHelper.MODE_LIGHT)
+        NetworkUtils.ThemeHelper.applyTheme(themePref ?: NetworkUtils.ThemeHelper.MODE_LIGHT)
 
 
         // Observe app lifecycle for open/close
