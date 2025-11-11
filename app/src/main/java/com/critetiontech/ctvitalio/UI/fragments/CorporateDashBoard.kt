@@ -134,57 +134,59 @@ class CorporateDashBoard : Fragment() {
             view.findViewById(R.id.nav_goals)
         )
         viewModel.selectedMoodId.observe(viewLifecycleOwner) { moodId ->
-            Log.d("TAG", "onViewCreated: $moodId");
-            if (moodId==null || moodId.trim()=="null") {
+            Log.d("TAG", "onViewCreated: $moodId")
+
+            if (moodId.isNullOrBlank() || moodId.equals("null", ignoreCase = true)) {
+
                 binding.ivIllustration.setImageResource(R.drawable.moods)
-                binding.tFeelingBelow.visibility=View.VISIBLE
+                binding.tFeelingBelow.visibility = View.VISIBLE
+
                 val text = "How are you feeling now?"
                 val spannable = SpannableString(text)
-
-                // Change only the word "feeling" to orange
                 val start = text.indexOf("feeling")
                 val end = start + "feeling".length
+
                 spannable.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#FFA500")), // Orange color
+                    ForegroundColorSpan(Color.parseColor("#FFA500")),
                     start,
                     end,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
 
                 binding.tFeeling.text = spannable
+
             } else {
 
-                val drawableRes = moods.find { it.id.toString() == moodId.toString() }?.emojiRes
-                val feeling = moods.find { it.id.toString() == moodId.toString() }?.name
-                binding.tFeelingBelow.visibility=View.GONE
-                binding.tFeeling.text= "Feeling $feeling"
+                val mood = moods.find { it.id.toString() == moodId.toString() }
+                if (mood != null) {
 
-                binding.tFeeling.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
+                    binding.tFeelingBelow.visibility = View.GONE
+                    binding.tFeeling.text = "Feeling ${mood.name}"
+                    binding.tFeeling.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
 
-                val params = binding.tFeeling.layoutParams as ConstraintLayout.LayoutParams
-                params.verticalBias = 0.1f  // move it down
-                binding.tFeeling.layoutParams = params
+                    (binding.tFeeling.layoutParams as ConstraintLayout.LayoutParams).apply {
+                        verticalBias = 0.1f
+                        binding.tFeeling.layoutParams = this
+                    }
 
-                if (drawableRes != null) {
-                    binding.ivIllustration.setImageResource(drawableRes)
+                    binding.ivIllustration.setImageResource(mood.emojiRes)
+                    (binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams).apply {
+                        verticalBias = -0.14f
+                        binding.ivIllustration.layoutParams = this
+                    }
 
-
-                    val params = binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams
-                    params.verticalBias = -0.14f  // move it down
-                    binding.ivIllustration.layoutParams = params
-                    val layoutParams = binding.ivIllustration.layoutParams
-                    layoutParams.width = dpToPx(374, requireContext())   // 400dp → pixels
-                    layoutParams.height = dpToPx(203, requireContext())
-                    binding.ivIllustration.layoutParams = layoutParams
-
-
+                    binding.ivIllustration.layoutParams.apply {
+                        width = dpToPx(374, requireContext())
+                        height = dpToPx(203, requireContext())
+                        binding.ivIllustration.layoutParams = this
+                    }
                 }
             }
         }
-        setupNav()
         setupBottomNav(view)
         viewModel.getMoodByPid()
         viewModel.getAllEnergyTankMaster()
+        setupNav()
 
 
 

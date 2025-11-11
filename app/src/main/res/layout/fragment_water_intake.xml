@@ -11,20 +11,22 @@
 
     <!-- Circular ring + percentage -->
     <!-- Replace com.example.widgets.WaterRingView with your custom view that draws the 60% water ring -->
+
+    <!-- Percentage center text (in case custom view doesn't draw it) -->
+
     <com.critetiontech.ctvitalio.UI.fragments.WaterRingView
         android:id="@+id/waterRing"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="Water progress ring" />
+        android:contentDescription="Water progress ring"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501" />
 
-    <!-- Percentage center text (in case custom view doesn't draw it) -->
     <TextView
         android:id="@+id/tv_percentage"
         android:layout_width="wrap_content"
