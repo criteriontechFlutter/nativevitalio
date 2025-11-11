@@ -8,6 +8,7 @@ import PrefsManager
 import QuickMetric
 import SleepValue
 import Vital
+import VitalInsight
 import VitalsResponse
 import android.app.Application
 import android.content.Context
@@ -78,6 +79,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _sleepValueList = MutableLiveData<SleepValue>()
     val sleepValueList: LiveData<SleepValue> get() = _sleepValueList
+
+    private val _vitalInsights = MutableLiveData<List<VitalInsight>?>()
+    val vitalInsights: MutableLiveData<List<VitalInsight>?> get() = _vitalInsights
     fun getVitals() {
         viewModelScope.launch {
             _loading.value = true
@@ -108,7 +112,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
-
+                    _vitalInsights.value = parsed.responseValue.vitalInsights
                     val sleepMetric243 = parsed.responseValue.sleepmetrics
                         ?.firstOrNull { it.vitalID == 243 }
 
