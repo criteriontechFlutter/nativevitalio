@@ -31,97 +31,62 @@ class TabMedicineAdapter(
         return MedicineViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: MedicineViewHolder, position: Int) {
         val medicine = medicines[position]
         val binding = holder.binding
 
         // ---- Basic Info ----
-        binding.medicineName.text = medicine.instructions ?: "-"
+        binding.medicineName.text = medicine.medicineName ?: "-"
         binding.medicineDose.text =
-            "${medicine.dosageStrength ?: 0} ${medicine.dosageType ?: ""} • ${medicine.instructions ?: ""}"
+            "${medicine.dosageStrength} ${medicine.unit} ${medicine.dosageType ?: ""} • ${medicine.instructions ?: ""}"
 
-        // ---- Parse Time ----
-        val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        val medicineTime = try { timeFormat.parse(medicine.scheduledDateTime ?: "") } catch (e: Exception) { null }
         binding.medicineTime1.text = medicine.scheduledDateTime ?: "--:--"
 
-        // ---- Determine Period ----
-        val calendar = Calendar.getInstance()
-        if (medicineTime != null) calendar.time = medicineTime
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-
-        val (period, iconRes, bgTint) = when (hour) {
-            in 5..11 -> Triple("Morning", R.drawable.morning_icon, "#E6F4FF")
-            in 12..16 -> Triple("Afternoon", R.drawable.morning_icon, "#FFF3E0")
-            in 17..20 -> Triple("Evening", R.drawable.morning_icon, "#E3F2FD")
-            else -> Triple("Night", R.drawable.morning_icon, "#ECEAFF")
+        // ---- Use API DayPeriod Directly ----
+        val period = medicine.dayPeriod ?: "Unknown"
+        val iconRes = when (period.lowercase()) {
+            "morning" -> R.drawable.morning_icon
+            "afternoon" -> R.drawable.ic_afternoon
+            "evening" -> R.drawable.morning_icon
+            "night" -> R.drawable.ic_night
+            else -> R.drawable.morning_icon
         }
 
-        // ---- Header Visibility ----
-        val showHeader = position == 0 || getPeriodForPosition(position - 1) != period
-        binding.periodSection.visibility = if (showHeader) View.VISIBLE else View.GONE
+        // ---- Show Header only when new period starts ----
+        val showHeader = position == 0 || medicines[position - 1].dayPeriod != period
+        binding.periodSection.visibility = if (showHeader) View.VISIBLE else View.INVISIBLE
         binding.periodName.text = period
         binding.periodIcon.setImageResource(iconRes)
 
         // ---- Card Background ----
-        val bgDrawable = GradientDrawable().apply {
-            cornerRadius = 30f
-            setColor(Color.parseColor("#FFFFFF"))
-        }
-        binding.medicineCard.background = bgDrawable
+//        val bgDrawable = GradientDrawable().apply {
+//            cornerRadius = 30f
+//            setColor(Color.WHITE)
+//        }
+//        binding.medicineCard.background = bgDrawable
 
-        // ---- Button States ----
-        val currentTime = Calendar.getInstance().time
-        val isUpcoming = medicineTime != null && currentTime.before(medicineTime)
-        val isPast = medicineTime != null && currentTime.after(medicineTime)
-
+        // ---- Button Styling ----
         when {
             medicine.isTaken == 1 -> {
-                styleButton(binding, "Taken", "#E6F4EA", "#1A7F37", 1)
-            }
-            isPast -> {
-                styleButton(binding, "Missed", "#FEECEC", "#D32F2F", 0)
-            }
-            isUpcoming -> {
-                styleButton(binding, "Upcoming", "#E3F2FD", "#1976D2", 0)
+                styleButton(binding, "Taken", "#E6F4EA", "#1A7F37")
             }
             else -> {
-                styleButton(binding, "Mark Taken", "#DFF2DF", "#388E3C", 0)
+                styleButton(binding, "Mark Taken", "#E6F4FF", "#1976D2")
             }
         }
 
+        // ---- Clicks ----
+        binding.medicineCard.setOnClickListener {
 
-        // ---- Click Actions ----
-        binding.medicineCard.setOnClickListener { onItemClick(medicine) }
-
+        }
         binding.btnTaken.setOnClickListener {
-            medicine.isTaken != 0
+            medicine.isTaken = 1
             notifyItemChanged(position)
+            onItemClick(medicine)
         }
     }
 
-    private fun getPeriodForPosition(position: Int): String {
-        val med = medicines[position]
-        val time = med.scheduledDateTime ?: return "Unknown"
-        return try {
-            val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-            val date = sdf.parse(time)
-            val cal = Calendar.getInstance()
-            cal.time = date ?: return "Unknown"
-            val hour = cal.get(Calendar.HOUR_OF_DAY)
-            when (hour) {
-                in 5..11 -> "Morning"
-                in 12..16 -> "Afternoon"
-                in 17..20 -> "Evening"
-                else -> "Night"
-            }
-        } catch (e: Exception) {
-            "Unknown"
-        }
-    }
-
-    private fun styleButton(binding: MedicineReminderTabPageBinding, text: String, bgColor: String, textColor: String, filled: Int) {
+    private fun styleButton(binding: MedicineReminderTabPageBinding, text: String, bgColor: String, textColor: String) {
         binding.btnTaken.text = text
         val shape = GradientDrawable().apply {
             cornerRadius = 50f

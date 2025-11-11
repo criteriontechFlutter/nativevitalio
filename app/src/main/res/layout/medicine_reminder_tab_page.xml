@@ -19,9 +19,8 @@
 
         <ImageView
             android:id="@+id/periodIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="45dp"
+            android:layout_height="58dp"
             android:src="@drawable/morning_icon" />
 
         <TextView
@@ -29,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Morning"
+            android:visibility="gone"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="#333" />
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="112 mg • Before meals"
                 android:textSize="13sp"
-                android:textColor="#555555"
+                android:textColor="#5F6471"
                 android:layout_marginTop="2dp" />
 
             <!-- Time row -->
@@ -93,7 +93,7 @@
                         android:layout_height="16dp"
                         android:src="@drawable/clock_icon"
                         android:layout_marginEnd="4dp"
-                        app:tint="#777777" />
+                        app:tint="#5F6471" />
 
                     <TextView
                         android:id="@+id/medicine_time1"
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:text="08:00 AM"
                         android:textSize="13sp"
-                        android:textColor="#444444" />
+                        android:textColor="#5F6471" />
                 </LinearLayout>
 
                 <!-- SPACE BETWEEN LEFT & RIGHT -->
