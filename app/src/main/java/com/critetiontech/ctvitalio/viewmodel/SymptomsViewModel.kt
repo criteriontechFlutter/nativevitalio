@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.ProblemWithIcon
 import com.critetiontech.ctvitalio.model.SymptomDetail

@@ -5,7 +5,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
