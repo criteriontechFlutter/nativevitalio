@@ -753,10 +753,33 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     binding.sleepProgressIds.recoveryValue.text = recoveryValue?.vitalValue?.toInt()?.toString() ?: "--"
     binding.sleepProgressIds.stressValue.text = stressValue?.vitalValue?.toInt()?.toString() ?: "--"
 
-//    binding.sleepProgressIds.sleepValue.text = sleepValue?.vitalValue?.toInt()?.toString() ?: "--"
-//    binding.sleepProgressIds.movementValue.text = movementValue?.vitalValue?.toInt()?.toString() ?: "--"
-//    binding.sleepProgressIds.recoveryValue.text = recoveryValue?.vitalValue?.toInt()?.toString() ?: "--"
-//    binding.sleepProgressIds.stressValue.text = stressValue?.vitalValue?.toInt()?.toString() ?: "--"
+
+    binding.sleepProgressIds.sleepstatusId.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+    binding.sleepProgressIds.movementstatusId.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+    binding.sleepProgressIds.recoverystatusId.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+    binding.sleepProgressIds.stressstatusId.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+
+    binding.sleepProgressIds.sleepstatusId.setBackgroundColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+    binding.sleepProgressIds.movementstatusId.setBackgroundColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+    binding.sleepProgressIds.recoverystatusId.setBackgroundColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+    binding.sleepProgressIds.stressstatusId.setBackgroundColor(
+        ContextCompat.getColor(requireContext(), R.color.primaryColor)
+    )
+
 }
 
 
