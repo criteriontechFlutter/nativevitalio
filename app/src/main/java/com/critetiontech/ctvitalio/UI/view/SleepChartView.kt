@@ -9,7 +9,8 @@ class SleepChartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr)
+{
 
     // === Paints ===
     private val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -91,10 +92,10 @@ class SleepChartView @JvmOverloads constructor(
         val labelSpacing = chartHeight / 4f
 
         // === Draw Y-axis labels ===
-        labels.forEachIndexed { index, label ->
-            val y = topMargin + index * labelSpacing + labelSpacing / 2 + 10f
-            canvas.drawText(label, 10f, y, labelPaint)
-        }
+//        labels.forEachIndexed { index, label ->
+//            val y = topMargin + index * labelSpacing + labelSpacing / 2 + 10f
+//            canvas.drawText(label, 10f, y, labelPaint)
+//        }
 
         // === Draw horizontal grid lines ===
         for (i in 0..4) {

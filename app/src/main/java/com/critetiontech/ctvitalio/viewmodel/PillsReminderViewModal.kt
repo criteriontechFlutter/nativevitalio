@@ -117,8 +117,8 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
             try {
 
                 val queryParams = mapOf(
-                    "id" to pmID.medicineIntakeId.toString(),
-                    "ScheduledDateTime"  to  pmID.scheduledDateTime.toString(),
+                    "id" to pmID.id,
+                    "ScheduledDateTime"  to  pmID.scheduledDateTime,
                 )
 
                 /* This response is of type Response<ResponseBody> */
@@ -126,7 +126,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                     .createApiService( )
                     .queryDynamicRawPost(
                         url = ApiEndPoint().insertPatientMedication,
-                        params = queryParams
+                        params = queryParams as Map<String, String>
                     )
                 getAllPatientMedication()
                 _loading.value = false
