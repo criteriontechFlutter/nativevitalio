@@ -265,6 +265,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/medicineTitleID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -1548,7 +1549,18 @@
                                 layout="@layout/health_track_progress" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-<!--                    <LinearLayout-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/medications_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:clipToPadding="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical" />
+
+                    <!--                    <LinearLayout-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:orientation="horizontal"-->
@@ -2022,11 +2034,6 @@
 <!--                    app:layout_constraintTop_toBottomOf="@id/vitals_label" />-->
 
                 <!-- Activities -->
-
-
-                    <include
-                        android:id="@+id/medications_id"
-                        layout="@layout/item_medication_reminder" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
