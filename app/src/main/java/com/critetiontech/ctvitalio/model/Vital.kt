@@ -11,7 +11,8 @@ data class VitalResponseValue(
     val allVitalAvg: List<AllVitalAvg>,
     val quickMetric: String,
     val sleepmetrics: List<SleepMetric>? ,
-    val vitalInsights: List<VitalInsight>?
+    val vitalInsights: List<VitalInsight>?,
+    val summary: List<SleepSummaryData>
 )
 data class SleepMetric(
     val uhid: String,
@@ -46,6 +47,12 @@ data class VitalInsight(
     val severityLevel: String,
     val insight: String,
     val colourCode: String
+)
+data class SleepSummaryData (
+    val title: String,
+    val state: String,
+    val stateTitle: String,
+    val score: Int
 )
 data class Vitals(
     val id: Int,
