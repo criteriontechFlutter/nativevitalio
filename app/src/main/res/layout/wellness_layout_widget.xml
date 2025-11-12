@@ -51,7 +51,7 @@
                                 android:id="@+id/wellnessScoreNumber"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="80"
+                                android:text="0"
                                 android:textColor="@android:color/black"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
@@ -116,7 +116,6 @@
                     android:layout_marginTop="8dp">
 
                     <LinearLayout
-                        android:id="@+id/sleepContainerId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -149,7 +148,7 @@
                             android:paddingTop="2dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="2dp"
-                            android:text="Moderate"
+                            android:text="-"
                             android:textColor="#EA6C00"
                             android:textSize="12sp" />
 
@@ -164,45 +163,47 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:padding ="10dp"-->
+                    <LinearLayout
+                        android:id="@+id/sleepContainerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding ="10dp"
 
-<!--                        android:background="@drawable/dashboard_rounded_corner"-->
-<!--                        android:backgroundTint="#F6F6F6"-->
-<!--                        android:orientation="horizontal">-->
+                        android:background="@drawable/dashboard_rounded_corner"
+                        android:backgroundTint="#F6F6F6"
+                        android:orientation="horizontal">
 
-<!--                        <TextView-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="8dp"-->
-<!--                            android:background="@drawable/rounded_corners"-->
-<!--                            android:backgroundTint="#F6F6F6"-->
-<!--                            android:text="Low movement today 0 small steps still move you forward."-->
-<!--                            android:textColor="#5F6471"-->
-<!--                            android:textSize="14sp" />-->
+                        <TextView
+                            android:id="@+id/sleepContainertextId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/rounded_corners"
+                            android:backgroundTint="#F6F6F6"
+                            android:text=" "
+                            android:textColor="#5F6471"
+                            android:textSize="14sp" />
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/addSleepActivityBtn"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:background="@drawable/dashboard_rounded_corner"-->
-<!--                            android:backgroundTint="#FFFFFF"-->
-<!--                            android:drawableStart="@drawable/add_vital"-->
-<!--                            android:drawableTint="#0079FF"-->
-<!--                            android:drawablePadding="4dp"-->
-<!--                            android:paddingStart="8dp"-->
-<!--                            android:paddingTop="6dp"-->
-<!--                            android:paddingEnd="8dp"-->
-<!--                            android:paddingBottom="6dp"-->
-<!--                            android:text="Add Activity"-->
-<!--                            android:textColor="#0079FF"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textStyle="bold" />-->
-<!--                    </LinearLayout>-->
+                        <TextView
+                            android:id="@+id/addSleepActivityBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dashboard_rounded_corner"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableStart="@drawable/add_vital"
+                            android:drawableTint="#0079FF"
+                            android:drawablePadding="4dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="6dp"
+                            android:text="Add Activity"
+                            android:textColor="#0079FF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- Movement Section -->
@@ -245,7 +246,7 @@
                             android:paddingTop="2dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="2dp"
-                            android:text="Excellent"
+                            android:text="-"
                             android:textColor="#00B77E"
                             android:textSize="12sp" />
 
@@ -261,45 +262,47 @@
                              />
                     </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:padding ="10dp"-->
+                    <LinearLayout
+                        android:id="@+id/movementContainerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding ="10dp"
 
-<!--                        android:background="@drawable/dashboard_rounded_corner"-->
-<!--                        android:backgroundTint="#F6F6F6"-->
-<!--                        android:orientation="horizontal">-->
+                        android:background="@drawable/dashboard_rounded_corner"
+                        android:backgroundTint="#F6F6F6"
+                        android:orientation="horizontal">
 
-<!--                        <TextView-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="8dp"-->
-<!--                            android:background="@drawable/rounded_corners"-->
-<!--                            android:backgroundTint="#F6F6F6"-->
-<!--                            android:text="Low movement today 0 small steps still move you forward."-->
-<!--                            android:textColor="#5F6471"-->
-<!--                            android:textSize="14sp" />-->
+                        <TextView
+                            android:id="@+id/movementContainertextId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/rounded_corners"
+                            android:backgroundTint="#F6F6F6"
+                            android:text=" "
+                            android:textColor="#5F6471"
+                            android:textSize="14sp" />
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/addMovementActivityBtn"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:background="@drawable/dashboard_rounded_corner"-->
-<!--                            android:backgroundTint="#FFFFFF"-->
-<!--                            android:drawableStart="@drawable/add_vital"-->
-<!--                            android:drawableTint="#0079FF"-->
-<!--                            android:drawablePadding="4dp"-->
-<!--                            android:paddingStart="8dp"-->
-<!--                            android:paddingTop="6dp"-->
-<!--                            android:paddingEnd="8dp"-->
-<!--                            android:paddingBottom="6dp"-->
-<!--                            android:text="Add Activity"-->
-<!--                            android:textColor="#0079FF"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textStyle="bold" />-->
-<!--                    </LinearLayout>-->
+                        <TextView
+                            android:id="@+id/addMovementActivityBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dashboard_rounded_corner"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableStart="@drawable/add_vital"
+                            android:drawableTint="#0079FF"
+                            android:drawablePadding="4dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="6dp"
+                            android:text="Add Activity"
+                            android:textColor="#0079FF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- Stress Section -->
@@ -342,7 +345,7 @@
                             android:paddingTop="2dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="2dp"
-                            android:text="Good"
+                            android:text="-"
                             android:textColor="#0090F6"
                             android:textSize="12sp" />
 
@@ -357,43 +360,45 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:padding ="10dp"-->
-<!--                        android:background="@drawable/dashboard_rounded_corner"-->
-<!--                        android:backgroundTint="#F6F6F6"-->
-<!--                        android:orientation="horizontal">-->
+                    <LinearLayout
+                        android:id="@+id/stressContainerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding ="10dp"
+                        android:background="@drawable/dashboard_rounded_corner"
+                        android:backgroundTint="#F6F6F6"
+                        android:orientation="horizontal">
 
-<!--                        <TextView-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="8dp"-->
-<!--                             android:backgroundTint="#F6F6F6"-->
-<!--                             android:text="Low movement today 0 small steps still move you forward."-->
-<!--                            android:textColor="#5F6471"-->
-<!--                            android:textSize="14sp" />-->
+                        <TextView
+                            android:id="@+id/stressContainertextId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                             android:backgroundTint="#F6F6F6"
+                             android:text=" "
+                            android:textColor="#5F6471"
+                            android:textSize="14sp" />
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/addStressActivityBtn"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:background="@drawable/dashboard_rounded_corner"-->
-<!--                            android:backgroundTint="#FFFFFF"-->
-<!--                            android:drawableStart="@drawable/add_vital"-->
-<!--                            android:drawableTint="#0079FF"-->
-<!--                            android:drawablePadding="4dp"-->
-<!--                            android:paddingStart="8dp"-->
-<!--                            android:paddingTop="6dp"-->
-<!--                            android:paddingEnd="8dp"-->
-<!--                            android:paddingBottom="6dp"-->
-<!--                            android:text="Add Activity"-->
-<!--                            android:textColor="#0079FF"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textStyle="bold" />-->
-<!--                    </LinearLayout>-->
+                        <TextView
+                            android:id="@+id/addStressActivityBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dashboard_rounded_corner"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableStart="@drawable/add_vital"
+                            android:drawableTint="#0079FF"
+                            android:drawablePadding="4dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="6dp"
+                            android:text="Add Activity"
+                            android:textColor="#0079FF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- Recovery Section -->
@@ -436,7 +441,7 @@
                             android:paddingTop="2dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="2dp"
-                            android:text="Moderate"
+                            android:text="-"
                             android:textColor="#EA6C00"
                             android:textSize="12sp" />
 
@@ -451,45 +456,47 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:padding ="10dp"-->
-<!--                        android:background="@drawable/rounded_button_bg"-->
-<!--                        android:backgroundTint="#F6F6F6"-->
-<!--                        android:orientation="horizontal">-->
+                    <LinearLayout
+                        android:id="@+id/recoveryContainerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding ="10dp"
+                        android:background="@drawable/rounded_button_bg"
+                        android:backgroundTint="#F6F6F6"
+                        android:orientation="horizontal">
 
-<!--                        <TextView-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="8dp"-->
-<!--                            android:background="@drawable/rounded_corners"-->
-<!--                            android:backgroundTint="#F6F6F6"-->
+                        <TextView
+                            android:id="@+id/recoveryContainertextId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/rounded_corners"
+                            android:backgroundTint="#F6F6F6"
 
-<!--                            android:text="Low movement today 0 small steps still move you forward."-->
-<!--                            android:textColor="#5F6471"-->
-<!--                            android:textSize="14sp" />-->
+                            android:text=" "
+                            android:textColor="#5F6471"
+                            android:textSize="14sp" />
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/addRecoveryActivityBtn"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:background="@drawable/dashboard_rounded_corner"-->
-<!--                            android:backgroundTint="#FFFFFF"-->
-<!--                            android:drawableStart="@drawable/add_vital"-->
-<!--                            android:drawableTint="#0079FF"-->
-<!--                            android:drawablePadding="4dp"-->
-<!--                            android:paddingStart="8dp"-->
-<!--                            android:paddingTop="6dp"-->
-<!--                            android:paddingEnd="8dp"-->
-<!--                            android:paddingBottom="6dp"-->
-<!--                            android:text="Add Activity"-->
-<!--                            android:textColor="#0079FF"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textStyle="bold" />-->
-<!--                    </LinearLayout>-->
+                        <TextView
+                            android:id="@+id/addRecoveryActivityBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dashboard_rounded_corner"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableStart="@drawable/add_vital"
+                            android:drawableTint="#0079FF"
+                            android:drawablePadding="4dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="6dp"
+                            android:text="Add Activity"
+                            android:textColor="#0079FF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
