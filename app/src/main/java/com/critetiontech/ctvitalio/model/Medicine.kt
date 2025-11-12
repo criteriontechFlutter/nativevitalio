@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 data class Medicine(
+    val id: Int?,
     val medicineIntakeId: Int?,
     val dosageType: String?,
     val dosageStrength: Double?,

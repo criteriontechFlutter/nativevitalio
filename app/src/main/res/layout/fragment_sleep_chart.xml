@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:text="Time in Bed"
         android:textSize="12sp"
+        android:paddingTop="12sp"
+        android:layout_marginLeft="12dp"
         android:textColor="#999999"
         android:layout_marginBottom="4dp" />
 
@@ -24,6 +26,7 @@
         android:text="11h 30 m"
         android:textSize="20sp"
         android:textColor="#333333"
+        android:layout_marginLeft="12dp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
 
@@ -34,7 +37,6 @@
         android:layout_height="300dp"
         tools:ignore="MissingClass" />
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
