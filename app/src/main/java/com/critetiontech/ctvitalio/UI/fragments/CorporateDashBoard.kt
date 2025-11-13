@@ -46,6 +46,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.UltraHumanActivity
 import com.critetiontech.ctvitalio.adapter.DailyTip
 import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
@@ -286,8 +287,9 @@ class CorporateDashBoard : Fragment() {
 
             binding.ringIcon.setOnClickListener {
 
-                initializeAuth()
-                handleAuthRedirectIntent(requireActivity().intent)
+                startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
+//                initializeAuth()
+//                handleAuthRedirectIntent(requireActivity().intent)
 
 
 

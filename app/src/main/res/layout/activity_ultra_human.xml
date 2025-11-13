@@ -24,7 +24,7 @@
         android:id="@+id/imgRingIcon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="60dp"
+
         android:src="@drawable/ic_ring_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,71 +79,73 @@
     <!-- Connection Icons Container -->
     <LinearLayout
         android:id="@+id/connectionContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tvDescription"
+        android:layout_marginBottom="11dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvDescription">
 
-        <!-- Vitalio Icon -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#2196F3">
+        <!--        &lt;!&ndash; Vitalio Icon &ndash;&gt;-->
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:layout_width="64dp"-->
+        <!--            android:layout_height="64dp"-->
+        <!--            app:cardCornerRadius="32dp"-->
+        <!--            app:cardElevation="4dp"-->
+        <!--            app:cardBackgroundColor="#2196F3">-->
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_vitalio_logo"
-                app:tint="#FFFFFF" />
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifRing"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ringconnectivity"
+        android:layout_gravity="center" />
 
-        </androidx.cardview.widget.CardView>
+        <!--        </androidx.cardview.widget.CardView>-->
 
-        <!-- Connecting Line -->
-        <View
-            android:layout_width="40dp"
-            android:layout_height="2dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/dotted_line" />
+        <!--        &lt;!&ndash; Connecting Line &ndash;&gt;-->
+        <!--        <View-->
+        <!--            android:layout_width="40dp"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:background="@drawable/dotted_line" />-->
 
-        <!-- Arrow Icon -->
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_right"
-            app:tint="#9CA3AF" />
+        <!--        &lt;!&ndash; Arrow Icon &ndash;&gt;-->
+        <!--        <ImageView-->
+        <!--            android:layout_width="24dp"-->
+        <!--            android:layout_height="24dp"-->
+        <!--            android:src="@drawable/ic_arrow_right"-->
+        <!--            app:tint="#9CA3AF" />-->
 
-        <!-- Connecting Line -->
-        <View
-            android:layout_width="40dp"
-            android:layout_height="2dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/dotted_line" />
+        <!--        &lt;!&ndash; Connecting Line &ndash;&gt;-->
+        <!--        <View-->
+        <!--            android:layout_width="40dp"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:background="@drawable/dotted_line" />-->
 
-        <!-- Ultrahuman Icon -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#1F2937">
+        <!--        &lt;!&ndash; Ultrahuman Icon &ndash;&gt;-->
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:layout_width="64dp"-->
+        <!--            android:layout_height="64dp"-->
+        <!--            app:cardCornerRadius="32dp"-->
+        <!--            app:cardElevation="4dp"-->
+        <!--            app:cardBackgroundColor="#1F2937">-->
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_ultrahuman_logo"
-                app:tint="#FFFFFF" />
+        <!--            <ImageView-->
+        <!--                android:layout_width="36dp"-->
+        <!--                android:layout_height="36dp"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:src="@drawable/ic_ultrahuman_logo"-->
+        <!--                app:tint="#FFFFFF" />-->
 
-        </androidx.cardview.widget.CardView>
+        <!--        </androidx.cardview.widget.CardView>-->
 
     </LinearLayout>
 
@@ -152,18 +154,19 @@
         android:id="@+id/tvInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="We're taking you to the Ultrahuman app to complete the approval. Don't worry — you'll return to Vitalio as soon as the connection is confirmed."
-        android:textSize="13sp"
-        android:textColor="#9CA3AF"
-        android:textStyle="italic"
-        android:gravity="center"
-        android:lineSpacingExtra="2dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp"
+        android:text="We're taking you to the Ultrahuman app to complete the approval. Don't worry — you'll return to Vitalio as soon as the connection is confirmed."
+        android:textColor="#9CA3AF"
+        android:textSize="13sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@id/btnContinue"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/connectionContainer" />
 
     <!-- Continue Button -->
     <com.google.android.material.button.MaterialButton
