@@ -107,7 +107,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun insertPatientMedication(
         pmID:Medicine
     ) {
@@ -124,10 +124,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                 /* This response is of type Response<ResponseBody> */
                 val response = RetrofitInstance
                     .createApiService( )
-                    .queryDynamicRawPost(
-                        url = ApiEndPoint().insertPatientMedication,
-                        params = queryParams as Map<String, String>
-                    )
+                    .queryDynamicRawPost(url = ApiEndPoint().insertPatientMedication, params = queryParams as Map<String, String>)
                 getAllPatientMedication()
                 _loading.value = false
                 if (response.isSuccessful) {
