@@ -29,7 +29,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -51,11 +50,11 @@ import com.critetiontech.ctvitalio.adapter.DailyTip
 import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
+import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.model.Medicine
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -79,6 +78,7 @@ class CorporateDashBoard : Fragment() {
     private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
+    private lateinit var medicationReminderAdapter: MedicationReminderAdapter
     private lateinit var dailyTipAdapter: DailyTipAdapter
     private lateinit var indicatorAdapter: IndicatorAdapter
     private var voiceDialog: Dialog? = null
@@ -975,7 +975,22 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
 //            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
 //        }
+
+
+        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+            // Initialize the adapter with your list and callback
+            val medicationReminderAdapter = MedicationReminderAdapter(list.toMutableList()) { medicine ->
+                // Handle Mark Taken click
+                // Example: Update database or notify ViewModel
+             }
+
+            binding.medicationsId.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = medicationReminderAdapter
+            }
+        }
     }
+
     fun setInsightText(view: TextView, insight: String?,views: LinearLayout) {
         if (insight.isNullOrBlank()) {
             views.visibility = View.GONE
@@ -1230,91 +1245,96 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         }
 
 
-        @SuppressLint("NewApi")
-        private fun selectItem(index: Int) {
-            navItems.forEachIndexed { i, view ->
-                val text = view.findViewById<TextView>(R.id.navText)
-                val icon = view.findViewById<ImageView>(R.id.navIcon)
+    private fun selectItem(index: Int) {
+        navItems.forEachIndexed { i, view ->
+            val text = view.findViewById<TextView>(R.id.navText)
+            val icon = view.findViewById<ImageView>(R.id.navIcon)
 
-                if (i == index) {
-                    view.isSelected = true
-                    text.visibility = View.VISIBLE
-                    icon.setColorFilter(
-                        ContextCompat.getColor(
-                            requireActivity(),
-                            android.R.color.white
-                        )
+            if (i == index) {
+                view.isSelected = true
+                text.visibility = View.VISIBLE
+                icon.setColorFilter(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        android.R.color.white
                     )
-                    val fragment = when (i) {
-                        0 -> {
-                            binding.homeId.visibility = View.VISIBLE
-                            binding.challengedId.visibility = View.GONE
-                            binding.activeChalleTextId.visibility = View.GONE
+                )
+                val fragment = when (i) {
+                    0 -> {
+                        binding.homeId.visibility = View.VISIBLE
+                        binding.challengedId.visibility = View.GONE
+                        binding.activeChalleTextId.visibility = View.GONE
 
-                            binding.recyclerView.visibility = View.GONE
-                            binding.healthSnaps.visibility = View.GONE
+                        binding.medicineTitleID.visibility = View.GONE
+                        binding.recyclerView.visibility = View.GONE
+                        binding.healthSnaps.visibility = View.GONE
 
+                    }
+
+                    1 -> {
+                        binding.homeId.visibility = View.GONE
+                        binding.challengedId.visibility = View.GONE
+                        binding.activeChalleTextId.visibility = View.GONE
+
+                        binding.medicineTitleID.visibility = View.GONE
+                        binding.recyclerView.visibility = View.GONE
+                        binding.healthSnaps.visibility = View.VISIBLE
+
+                    }
+
+                    2 -> {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.medicineTitleID.visibility = View.VISIBLE
+                        binding.recyclerView.layoutManager =
+                            LinearLayoutManager(requireContext())
+
+                        // Initialize adapter once with an empty list
+                        val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
+                            //findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                pillsViewModel.insertPatientMedication(selectedMedicine)
+                            };
                         }
+                        binding.recyclerView.adapter = adapter
 
-                        1 -> {
-                            binding.homeId.visibility = View.GONE
-                            binding.challengedId.visibility = View.GONE
-                            binding.activeChalleTextId.visibility = View.GONE
-
-                            binding.recyclerView.visibility = View.GONE
-                            binding.healthSnaps.visibility = View.VISIBLE
-
-                        }
-
-                        2 -> {
-                            binding.recyclerView.visibility = View.VISIBLE
-                            binding.recyclerView.layoutManager =
-                                LinearLayoutManager(requireContext())
-
-                            // Initialize adapter once with an empty list
-                            val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
-                                //findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
-                            //   pillsViewModel.insertPatientMedication(selectedMedicine);
+                        // Observe pill list updates
+                        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+                            Log.d("TAG", "selectItem: "+list.size.toString())
+                            if (list.isNotEmpty()) {
+                                adapter.updateList(list) // Update existing adapter data
+                                binding.recyclerView.visibility = View.VISIBLE
+                                //  binding.tvNoData.visibility = View.GONE
+                            } else {
+                                binding.recyclerView.visibility = View.GONE
+                                // binding.tvNoData.visibility = View.VISIBLE
                             }
-                            binding.recyclerView.adapter = adapter
-
-                            // Observe pill list updates
-                            pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
-                                Log.d("TAG", "selectItem: "+list.size.toString())
-                                if (list.isNotEmpty()) {
-                                    adapter.updateList(list) // Update existing adapter data
-                                    binding.recyclerView.visibility = View.VISIBLE
-                                    //  binding.tvNoData.visibility = View.GONE
-                                } else {
-                                    binding.recyclerView.visibility = View.GONE
-                                    // binding.tvNoData.visibility = View.VISIBLE
-                                }
-                            }
-
-                            // Hide other views
-                            binding.homeId.visibility = View.GONE
-                            binding.challengedId.visibility = View.GONE
-                            binding.activeChalleTextId.visibility = View.GONE
-                            binding.healthSnaps.visibility = View.GONE
                         }
 
-                        3 -> {
-                            binding.homeId.visibility = View.GONE
-                            binding.challengedId.visibility = View.VISIBLE
-                            binding.activeChalleTextId.visibility = View.VISIBLE
+                        // Hide other views
+                        binding.homeId.visibility = View.GONE
+                        binding.challengedId.visibility = View.GONE
+                        binding.activeChalleTextId.visibility = View.GONE
+                        binding.healthSnaps.visibility = View.GONE
+                    }
 
-                            binding.recyclerView.visibility = View.GONE
-                            binding.healthSnaps.visibility = View.GONE
+                    3 -> {
+                        binding.homeId.visibility = View.GONE
+                        binding.challengedId.visibility = View.VISIBLE
+                        binding.activeChalleTextId.visibility = View.VISIBLE
 
-                        }
+                        binding.medicineTitleID.visibility = View.GONE
+                        binding.recyclerView.visibility = View.GONE
+                        binding.healthSnaps.visibility = View.GONE
+
+                    }
 
 //                    else -> HomeFragment()
 //                    1 -> VitalsFragment()
 //                    2 -> MedicineFragment()
 //                    3 -> GoalsFragment()
-                        else -> {}
-                    }
-                    // Load fragment based on index
+                    else -> {}
+                }
+                // Load fragment based on index
 //                val fragment = when (i) {
 //                    0 -> HomeFragment()
 //                    1 -> VitalsFragment()
@@ -1326,13 +1346,13 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //                    .replace(R.id.fragmentContainer, fragment)
 //                    .commit()
 
-                } else {
-                    view.isSelected = false
-                    text.visibility = View.GONE
-                    icon.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.blue))
-                }
+            } else {
+                view.isSelected = false
+                text.visibility = View.GONE
+                icon.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.blue))
             }
         }
+    }
 
         fun dpToPx(dp: Int, context: Context): Int {
             return (dp * context.resources.displayMetrics.density).toInt()

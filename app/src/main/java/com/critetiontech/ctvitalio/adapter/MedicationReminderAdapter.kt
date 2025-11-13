@@ -5,17 +5,14 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.ItemMedicationReminderBinding
 import com.critetiontech.ctvitalio.model.Medicine
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MedicationReminderAdapter(
-    private val medicines: MutableList<Medicine>,
+    private val medicines: List<Medicine>,
     private val onMarkTaken: (Medicine) -> Unit
 ) : RecyclerView.Adapter<MedicationReminderAdapter.ReminderViewHolder>() {
 
@@ -193,9 +190,4 @@ class MedicationReminderAdapter(
 
     override fun getItemCount() = medicines.size
 
-    fun updateList(newList: List<Medicine>) {
-        medicines.clear()
-        medicines.addAll(newList)
-        notifyDataSetChanged()
-    }
 }
