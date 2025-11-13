@@ -5,15 +5,9 @@
     </declare-styleable>
 
     <declare-styleable name="CustomRoundedButton">
-        <!-- Existing attributes -->
-        <attr name="customStrokeColor" format="color" />
-        <attr name="customStrokeWidth" format="dimension" />
-
-        <!-- New gradient attributes -->
-        <attr name="useGradient" format="boolean" />
-        <attr name="gradientStartColor" format="color" />
-        <attr name="gradientEndColor" format="color" />
-        <attr name="customCornerRadius" format="dimension" />
+        <attr name="customCornerRadius" format="dimension"/>
+        <attr name="gradientStartColor" format="color"/>
+        <attr name="gradientEndColor" format="color"/>
     </declare-styleable>
 
 

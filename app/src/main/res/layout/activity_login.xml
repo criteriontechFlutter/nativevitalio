@@ -170,7 +170,7 @@
                         android:padding="12dp"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:imeOptions="actionDone"
+                        android:foreground="?attr/selectableItemBackground"
                         android:inputType="text"
                         android:textColorHint="@color/loginHintTextColor"
                         android:layout_marginTop="4dp"
@@ -201,6 +201,7 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:inputType="textPassword"
+                        android:foreground="?attr/selectableItemBackground"
                         android:imeOptions="actionDone"
                         android:textColorHint="@color/loginHintTextColor"
                         android:layout_marginTop="4dp"
@@ -228,15 +229,19 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginTop="24dp"
-                        app:strokeWidth="0dp"
-                        app:strokeColor="@color/transparent"
                         android:text="Login"
-                        android:textColor="#FFFFFF"
                         android:enabled="false"
-                        app:customStrokeWidth="0dp"
+                        android:textColor="#FFFFFF"
+
+                        app:customCornerRadius="16dp"
+                        app:gradientStartColor="@color/primaryBlue"
+                        app:gradientEndColor="@color/primaryBlue2"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/validationId" />
+
+
 
                     <!-- Terms and Privacy -->
                     <TextView
