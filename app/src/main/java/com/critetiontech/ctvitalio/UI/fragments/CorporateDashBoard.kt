@@ -29,6 +29,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -1030,6 +1031,9 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             adapter = indicatorAdapter
         }
 
+         binding.medicineTitleID.setOnClickListener {
+             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+         }
         // Scroll listener to update indicators
         binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -1225,6 +1229,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             selectItem(0)
         }
 
+
+        @SuppressLint("NewApi")
         private fun selectItem(index: Int) {
             navItems.forEachIndexed { i, view ->
                 val text = view.findViewById<TextView>(R.id.navText)
@@ -1268,7 +1274,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                             // Initialize adapter once with an empty list
                             val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
                                 //findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
-//                                pillsViewModel.insertPatientMedication(selectedMedicine);
+                            //   pillsViewModel.insertPatientMedication(selectedMedicine);
                             }
                             binding.recyclerView.adapter = adapter
 
