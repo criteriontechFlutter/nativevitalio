@@ -59,11 +59,8 @@ interface ApiService {
     suspend fun queryDynamicRawPost(
         @Url url: String,
         @HeaderMap headers: Map<String, String> = emptyMap(),
-        @QueryMap(encoded = true) params: Map<String, Any?>
+        @QueryMap(encoded = false) params: Map<String, String> = emptyMap()
     ): Response<ResponseBody>
-    // Add similar annotations for PUT, DELETE, etc.
-
-
 
 
     @Multipart

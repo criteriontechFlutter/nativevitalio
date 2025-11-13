@@ -1,11 +1,13 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import com.critetiontech.ctvitalio.R
 
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
@@ -23,6 +26,7 @@ import com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
 import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
 import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
+import java.util.Calendar
 
 data class SleepEntry(val day: Int, val value: Int)
 data class SleepSegment(val type: String, val durationWeight: Float)
@@ -46,21 +50,24 @@ class SleepDetails : Fragment() {
         _binding = null // ✅ Avoid memory leaks
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // ✅ Example dataset for bar chart
+        val calendar = Calendar.getInstance()
         val data = listOf(
-            SleepEntry(12, 62),
-            SleepEntry(13, 56),
-            SleepEntry(14, 54),
-            SleepEntry(15, 62),
-            SleepEntry(16, 58),
-            SleepEntry(17, 66)
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH), 100),
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 1, 56),
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 2, 54),
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 3, 72),
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 4, 58),
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 5, 66),
+            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH), 70)
         )
 
-        setData(data) // Build main chart
+        setData(data)// Build main chart
 
         // ✅ Example stats
         binding.totalSleepIds.title.text = "Total Sleep"
@@ -237,9 +244,9 @@ class SleepDetails : Fragment() {
     }
 
     // 🧮 Utility: convert dp to px
-    private val Int.dp get() = (this * resources.displayMetrics.density).toInt()
 
     // 📊 Chart Builder for SleepEntry data
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun setData(entries: List<SleepEntry>) {
         binding.barsContainer.removeAllViews()
@@ -255,59 +262,167 @@ class SleepDetails : Fragment() {
         binding.barsContainer.post {
             val containerHeight = binding.barsContainer.height
 
+            // Calculate maximum bar height (leaving space for bubble and labels)
+            val maxBarHeight = containerHeight - 60.dp // Space for bubble (24dp) + baseline (4dp) + label (20dp) + padding
+
             entries.forEach { entry ->
-                val fillHeight = (containerHeight * (entry.value / maxValue.toFloat())).toInt()
+                // Calculate proportional fill height based on value
+                val fillRatio = entry.value.toFloat() / maxValue.toFloat()
+                val fillHeight = (maxBarHeight * fillRatio).toInt()
 
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
                     gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
+                    layoutParams = LinearLayout.LayoutParams(
+                        0,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        1f
+                    ).apply {
+                        // Add horizontal spacing between bars
+                        marginStart = 4.dp
+                        marginEnd = 4.dp
+                    }
+                }
+
+                // Spacer to push bar to bottom
+                val spacer = View(requireContext()).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        0,
+                        1f
+                    )
                 }
 
                 val barContainer = FrameLayout(requireContext()).apply {
-                    layoutParams = LinearLayout.LayoutParams(24.dp, fillHeight)
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_bar_track)
+                    layoutParams = LinearLayout.LayoutParams(
+                        24.dp,
+                        fillHeight - 30.dp // Bar height + bubble height
+                    )
+                    setPadding(0, 0, 0, 0)
                 }
 
+                // Background track (semi-transparent white)
+                val trackView = View(requireContext()).apply {
+                    layoutParams = FrameLayout.LayoutParams(
+                        24.dp,
+                        fillHeight,
+                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+                    )
+                    background = GradientDrawable().apply {
+                        setColor(Color.parseColor("#40FFFFFF"))
+                        cornerRadius = 12.dp.toFloat()
+                    }
+                }
+
+                // Fill view (white)
                 val fillView = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(4.dp, fillHeight, Gravity.CENTER_HORIZONTAL)
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_bar_fill)
+                    layoutParams = FrameLayout.LayoutParams(
+                        4.dp,
+                        fillHeight,
+                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+                    )
+                    background = GradientDrawable().apply {
+                        setColor(Color.WHITE)
+                        cornerRadius = 2.dp.toFloat()
+                    }
                 }
 
+                // Value bubble at top of bar
                 val bubble = TextView(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(24.dp, 24.dp, Gravity.TOP or Gravity.CENTER_HORIZONTAL)
+                    layoutParams = FrameLayout.LayoutParams(
+                        24.dp,
+                        24.dp,
+                        Gravity.TOP or Gravity.CENTER_HORIZONTAL
+                    )
                     text = entry.value.toString()
                     setTextColor(Color.parseColor("#0A84FF"))
-                    textSize = 12f
+                    textSize = 11f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_circle_value)
+                    background = GradientDrawable().apply {
+                        setColor(Color.WHITE)
+                        shape = GradientDrawable.OVAL
+                    }
+                    elevation = 2.dp.toFloat()
                 }
 
-                val baseLine = View(requireContext()).apply {
-                    layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 4.dp)
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_bar_fill)
+                // Weekday bubble at bottom of bar
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DAY_OF_MONTH, -(entries.size - 1 - entries.indexOf(entry)))
+                val weekdayInitial = when (calendar.get(Calendar.DAY_OF_WEEK)) {
+                    Calendar.SUNDAY -> "S"
+                    Calendar.MONDAY -> "M"
+                    Calendar.TUESDAY -> "T"
+                    Calendar.WEDNESDAY -> "W"
+                    Calendar.THURSDAY -> "T"
+                    Calendar.FRIDAY -> "F"
+                    Calendar.SATURDAY -> "S"
+                    else -> ""
                 }
+
+                val weekdayBubble = TextView(requireContext()).apply {
+                    layoutParams = FrameLayout.LayoutParams(
+                        20.dp,
+                        20.dp,
+                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+                    )
+                    text = weekdayInitial
+                    setTextColor(Color.parseColor("#0A84FF"))
+                    textSize = 10f
+                    typeface = Typeface.DEFAULT_BOLD
+                    gravity = Gravity.CENTER
+                    background = GradientDrawable().apply {
+                        setColor(Color.WHITE)
+                        shape = GradientDrawable.OVAL
+                    }
+                    elevation = 1.dp.toFloat()
+                }
+
+                // Horizontal baseline (full width)
+                val baseLine = View(requireContext()).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        2.dp
+                    ).apply {
+                        topMargin = 6.dp
+                        bottomMargin = 6.dp
+                    }
+                    background = GradientDrawable().apply {
+                        setColor(Color.parseColor("#40FFFFFF"))
+                    }
+                }
+
+                // Date label
+                val dayMonth = "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}"
 
                 val dayLabel = TextView(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
-                    text = entry.day.toString()
-                    setTextColor(Color.BLACK)
-                    textSize = 12f
+                    text = dayMonth
+                    setTextColor(Color.parseColor("#80FFFFFF"))
+                    textSize = 10f
                     gravity = Gravity.CENTER
                 }
-
+                barContainer.addView(trackView)
                 barContainer.addView(fillView)
                 barContainer.addView(bubble)
+                barContainer.addView(weekdayBubble)
+                barLayout.addView(spacer)
                 barLayout.addView(barContainer)
                 barLayout.addView(baseLine)
                 barLayout.addView(dayLabel)
-
                 binding.barsContainer.addView(barLayout)
             }
         }
     }
+
+
+    val Int.dp: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+    // Data class
+    data class SleepEntry(val day: Int, val value: Int)
+
 }

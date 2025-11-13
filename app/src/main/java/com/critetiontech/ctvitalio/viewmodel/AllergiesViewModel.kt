@@ -216,7 +216,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
             runCatching {
                 RetrofitInstance
                     .createApiService(includeAuthHeader = true)
-                    .queryDynamicRawPost(ApiEndPoint().savePatientAllergies, params = params)
+                    .queryDynamicRawPost(ApiEndPoint().savePatientAllergies, params = params as Map<String, String>)
             }.onSuccess { response ->
                 withContext(Dispatchers.Main) {
                     _loading.value = false

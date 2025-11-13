@@ -943,7 +943,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().insertSymtoms,
-                        params = queryParams
+                        params = queryParams as Map<String, String>
                     )
 
                 _loading.value = false
