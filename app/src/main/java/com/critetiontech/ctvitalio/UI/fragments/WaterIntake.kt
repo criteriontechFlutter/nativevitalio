@@ -25,7 +25,7 @@ class WaterIntakeFragment : Fragment() {
 
         // Example: change ring dynamically
         binding.btnAddIntake.setOnClickListener {
-            binding.waterRing.setPercentage((50..100).random())
+            binding.waterRing.setFillColor((50..100).random())
         }
     }
 
