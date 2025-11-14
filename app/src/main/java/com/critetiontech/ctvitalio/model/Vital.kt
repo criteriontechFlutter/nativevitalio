@@ -77,7 +77,7 @@ data class MovementData(
 )
 data class QuickMetricsTiled(
     val Title: String,
-    val Value: String,
+    val Value: String?="",
     val Tag: String,
     val TagColor: String,
     val Type: String
