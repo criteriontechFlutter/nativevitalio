@@ -806,8 +806,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
         }
         binding.sleepProgressIds.addRecoveryActivityBtn.setOnClickListener(){
-
-            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+          // findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
         }
 
 
@@ -828,12 +828,12 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
         setupRecyclerAndIndicators()
-        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
-            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
-        }
 //        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
-//            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+//            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 //        }
+        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
+           findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+        }
 
 
         pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
