@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_dashboard_to_waterIntakeFragment"
             app:destination="@id/waterIntakeFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_newChallengeFragment"
+            app:destination="@id/newChallengeFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -400,6 +403,9 @@
         <action
             android:id="@+id/action_corporateDashBoard_to_medicationFragment"
             app:destination="@id/medicationFragment" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_newChallengeFragment"
+            app:destination="@id/newChallengeFragment" />
     </fragment>
     <fragment
         android:id="@+id/moodFragment"
@@ -426,5 +432,10 @@
         android:id="@+id/waterIntakeFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.WaterIntakeFragment"
         android:label="WaterIntakeFragment" />
+    <fragment
+        android:id="@+id/newChallengeFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.NewChallengeFragment"
+        android:label="fragment_new_challenge"
+        tools:layout="@layout/fragment_new_challenge" />
 
 </navigation>
