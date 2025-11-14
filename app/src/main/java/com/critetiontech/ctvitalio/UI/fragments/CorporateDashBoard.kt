@@ -303,6 +303,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             setupActiveChallenges(list.size)
         }
 
+
         val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
         val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
         val sleepGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
@@ -654,96 +655,56 @@ binding.showId.showHideId.setOnClickListener{
 
         }
 
-        binding.stepsProgressId.ivStepsIcon.setImageResource(R.drawable.step_progress)
-        binding.sleepProgressId.ivStepsIcon.setImageResource(R.drawable.sleep_progress)
-        binding.waterProgressId.ivStepsIcon.setImageResource(R.drawable.water_progress)
-        binding.glucoseProgressId.ivStepsIcon.setImageResource(R.drawable.glucose_progress)
-        binding.bpProgressId.ivStepsIcon.setImageResource(R.drawable.bp_progress)
-        binding.medicineProgressId.ivStepsIcon.setImageResource(R.drawable.medicine_progress)
-
-
-        binding.stepsProgressId.progressSteps.progressTintList= ColorStateList.valueOf(Color.parseColor("#1281FD"))  // Blue
-        binding.sleepProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#00C67A"))  // Green
-        binding.waterProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#FEA33C"))  // Aqua
-        binding.glucoseProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#00C67A")) // Orange
-        binding.bpProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#1281FD"))     // Red
-        binding.medicineProgressId.progressSteps.progressTintList=ColorStateList.valueOf(Color.parseColor("#FF3737")) // Purple
-
-
-        binding.stepsProgressId.progressSteps.progress=0
-        binding.sleepProgressId.progressSteps.progress=0
-        binding.waterProgressId.progressSteps.progress=0
-        binding.glucoseProgressId.progressSteps.progress=0
-        binding.bpProgressId.progressSteps.progress=0
-        binding.medicineProgressId.progressSteps.progress=0
-
-
-
-
-        binding.stepsProgressId.tvStepsValue.text="--"
-        binding.sleepProgressId.tvStepsValue.text="__h __m"
-        binding.waterProgressId.tvStepsValue.text="__ml"
-        binding.glucoseProgressId.tvStepsValue.text="-/-"
-        binding.bpProgressId.tvStepsValue.text="-/-"
-        binding.medicineProgressId.tvStepsValue.text="-/-"
-
-        binding.stepsProgressId.tvStepsLabel.text="Steps 0.0%"
-        binding.sleepProgressId.tvStepsLabel.text="Sleep"
-        binding.waterProgressId.tvStepsLabel.text="Water 0.0%"
-        binding.glucoseProgressId.tvStepsLabel.text="Glucose 0.0%"
-        binding.bpProgressId.tvStepsLabel.text="Blood Pressure 0.0%"
-        binding.medicineProgressId.tvStepsLabel.text="Medicine 0.0%"
-
 
 
 viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
 
 
-    binding.StepsId.title.text="Steps"
-    binding.StepsId.value.text= vitalStepsIndex?.vitalValue.toString()
-    binding.StepsId.statusCardId.visibility=View.GONE
+    binding.StepsId.title.text = "Steps"
+    binding.StepsId.value.text = vitalStepsIndex?.vitalValue.toString()
+    binding.StepsId.statusCardId.visibility = View.GONE
 
     val TemperatureBody = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
-    binding.averageBodyTempId.title.text="Average Body Temp."
-    binding.averageBodyTempId.value.text=  "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
-    binding.averageBodyTempId.statusCardId.visibility=View.GONE
+    binding.averageBodyTempId.title.text = "Average Body Temp."
+    binding.averageBodyTempId.value.text = "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
+    binding.averageBodyTempId.statusCardId.visibility = View.GONE
 
     val activeMinutes = vitalList
         ?.firstOrNull { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
-    binding.ActiveminutesId.title.text="Active Minutes"
-    binding.ActiveminutesId.value.text= activeMinutes?.vitalValue.toString()
-    binding.ActiveminutesId.statusCardId.visibility=View.GONE
+    binding.ActiveminutesId.title.text = "Active Minutes"
+    binding.ActiveminutesId.value.text = activeMinutes?.vitalValue.toString()
+    binding.ActiveminutesId.statusCardId.visibility = View.GONE
     val Temperature = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
-    binding.tempDeviationId.title.text="Temperature Devoatoion"
-    binding.tempDeviationId.value.text=   "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
-    binding.tempDeviationId.statusCardId.visibility=View.GONE
+    binding.tempDeviationId.title.text = "Temperature Devoatoion"
+    binding.tempDeviationId.value.text = "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
+    binding.tempDeviationId.statusCardId.visibility = View.GONE
 
     val recoveryIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
-    binding.recoveryScoreId.title.text="Recovery Score"
-    binding.recoveryScoreId.value.text= recoveryIndex?.vitalValue.toString()
-    binding.recoveryScoreId.statusCardId.visibility=View.GONE
+    binding.recoveryScoreId.title.text = "Recovery Score"
+    binding.recoveryScoreId.value.text = recoveryIndex?.vitalValue.toString()
+    binding.recoveryScoreId.statusCardId.visibility = View.GONE
 
     val HRV = vitalList
         ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
-    binding.lastNightHrvId.title.text="Last Night's HRV"
-    binding.lastNightHrvId.value.text= HRV?.vitalValue.toString()
-    binding.lastNightHrvId.statusCardId.visibility=View.GONE
+    binding.lastNightHrvId.title.text = "Last Night's HRV"
+    binding.lastNightHrvId.value.text = HRV?.vitalValue.toString()
+    binding.lastNightHrvId.statusCardId.visibility = View.GONE
 
 
-    binding.SleepStageHrvId.title.text="Sleep Stage' HRV"
-    binding.SleepStageHrvId.value.text=HRV?.vitalValue.toString()
-    binding.SleepStageHrvId.statusCardId.visibility=View.GONE
+    binding.SleepStageHrvId.title.text = "Sleep Stage' HRV"
+    binding.SleepStageHrvId.value.text = HRV?.vitalValue.toString()
+    binding.SleepStageHrvId.statusCardId.visibility = View.GONE
 
     val movementIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
 
-    binding.movementIndexId.title.text="Movement Index"
-    binding.movementIndexId.value.text=  movementIndex?.vitalValue.toString()
-    binding.movementIndexId.statusCardId.visibility=View.GONE
+    binding.movementIndexId.title.text = "Movement Index"
+    binding.movementIndexId.value.text = movementIndex?.vitalValue.toString()
+    binding.movementIndexId.statusCardId.visibility = View.GONE
 
 
     val sleepValue = vitalList
@@ -754,12 +715,25 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
     val stressValue = vitalList
         ?.firstOrNull { it.vitalName.equals("StressScore", ignoreCase = true) }
+    val sleep = sleepValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+    val stress = stressValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+    val movement = movementValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+    val recovery = recoveryValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
 
+// Call the function safely
+   val wellnessscore= calculateWellnessScore(
+        sleep = sleep.toInt(),
+        stress = stress.toInt(),
+        movement = movement.toInt(),
+        recovery = recovery.toInt()
+    )
+    binding.sleepProgressIds.wellnessScoreNumber.text=wellnessscore.toString()
 
-    binding.sleepProgressIds.sleepValue.text = sleepValue?.vitalValue?.toInt()?.toString() ?: "--"
-    binding.sleepProgressIds.movementValue.text = movementValue?.vitalValue?.toInt()?.toString() ?: "--"
-    binding.sleepProgressIds.recoveryValue.text = recoveryValue?.vitalValue?.toInt()?.toString() ?: "--"
-    binding.sleepProgressIds.stressValue.text = stressValue?.vitalValue?.toInt()?.toString() ?: "--"
+// Update UI safely
+    binding.sleepProgressIds.sleepValue.text = if (sleep > 0) sleep.toInt().toString() else "--"
+    binding.sleepProgressIds.stressValue.text = if (stress > 0) stress.toInt().toString() else "--"
+    binding.sleepProgressIds.movementValue.text = if (movement > 0) movement.toInt().toString() else "--"
+    binding.sleepProgressIds.recoveryValue.text = if (recovery > 0) recovery.toInt().toString() else "--"
 }
 
 
@@ -817,78 +791,11 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         setInsightText(binding.sleepProgressIds.stressContainertextId, StressScore?.insight,binding.sleepProgressIds.stressContainerId)
 
 
-        binding.glucoseProgressId.progressSteps.progress=50
-        binding.glucoseProgressId.tvStepsValue.text = Glucose?.vitalValue .toString()
-        binding.glucoseProgressId.tvStepsLabel.text = "Glucose "
     }
 
 
-    viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-        val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
-        val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
-
-// Get values safely
-        val sysValue = bpSys?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
-        val diaValue = bpDia?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
-
-// If both missing, show 0%, otherwise show 100%
-        val percents = if (sysValue == 0.0 && diaValue == 0.0) 0 else 100
-
-        binding.bpProgressId.progressSteps.progress=50
-        binding.bpProgressId.tvStepsValue.text = "1/1"
-        binding.bpProgressId.tvStepsLabel.text = "Blood Pressure ${percents}%"
 
 
-
-        val Steps = vitalList
-            ?.firstOrNull { it.vitalName.equals("Steps", ignoreCase = true) }
-
-        val goalSteps = 11000.0  // fixed goal
-
-        val currentSteps = Steps?.totalValue?.toString()?.toDoubleOrNull() ?: 0.0
-        val percent = if (goalSteps > 0) (currentSteps / goalSteps * 100).toInt() else 0
-
-        binding.stepsProgressId.progressSteps.progress=percent
-        binding.stepsProgressId.tvStepsValue.text = goalSteps.toString()
-        binding.stepsProgressId.tvStepsLabel.text = "Steps $percent%"
-
-    val sleepGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
-
-
-}
-
-
-    viewModel.fluidList.observe(viewLifecycleOwner) { list ->
-        val waterQty = list
-            .firstOrNull { it.id.toString() == "97694" }
-            ?.amount?.toFloat() ?: 0f  // convert safely to Float
-
-
-        val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
-
-        binding.waterProgressId.tvStepsValue.text = waterGoal .toString()
-            waterGoal?.let {
-        val progress = (waterQty * 100f) / (it.targetValue * 1000f)
-        binding.waterProgressId.tvStepsLabel.text = "Water $progress%"
-
-                binding.waterProgressId.progressSteps.progress=progress.toInt()
-    }
-
-        viewModel. sleepsummary.observe(viewLifecycleOwner) { sleepValue  ->
-
-
-            val totalSleep = sleepValue
-                ?.firstOrNull { it.title.equals("TOTAL SLEEP", ignoreCase = true) }
-
-            binding.sleepProgressId.tvStepsValue.text = "8h 00m"
-            binding.sleepProgressId.tvStepsLabel.text = "$totalSleep.%"
-
-            binding.sleepProgressId.progressSteps.progress= totalSleep?.score!!
-
-        }
-
-
-}
 
     setInsightText(binding.sleepProgressIds.sleepContainertextId, "",binding.sleepProgressIds.sleepContainerId)
     setInsightText(binding.sleepProgressIds.movementContainertextId, "",binding.sleepProgressIds.movementContainerId)
@@ -904,71 +811,6 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
 
-//        val tips = listOf(
-//            DailyTip(R.drawable.ic_breathing, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start"),
-//            DailyTip(R.drawable.vitals_icon_home, "Low Sleep Detected", "Try to sleep at least 7 hours tonight.", "Improve"),
-//            DailyTip(R.drawable.ic_water, "Hydration Low", "Drink 2 more glasses of water today.", "Track")
-//        )
-//
-//        dailyTipAdapter = DailyTipAdapter(tips)
-//
-//        binding.recyclerSlider.apply {
-//            layoutManager = LinearLayoutManager(requireContext(),
-// LinearLayoutManager.HORIZONTAL, false)
-//            adapter = dailyTipAdapter
-//
-//            PagerSnapHelper().attachToRecyclerView(this)
-//        }
-//
-//
-//        setupIndicators(tips.size)
-//
-//
-//
-//        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                    val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
-//                    val currentPosition = layoutManager?.findFirstVisibleItemPosition() ?: 0
-//                    updateIndicators(currentPosition)
-//                }
-//            }
-//        })
-//        binding.layoutIndicators.visibility = View.VISIBLE
-
-
-        celebrationFun()
-//        val tips = listOf(
-//            DailyTip(R.drawable.ic_breathing, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start"),
-//            DailyTip(R.drawable.vitals_icon_home, "Low Sleep Detected", "Try to sleep at least 7 hours tonight.", "Improve"),
-//            DailyTip(R.drawable.ic_water, "Hydration Low", "Drink 2 more glasses of water today.", "Track")
-//        )
-//
-//        dailyTipAdapter = DailyTipAdapter(tips)
-//
-//        binding.recyclerSlider.apply {
-//            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//            adapter = dailyTipAdapter
-//            PagerSnapHelper().attachToRecyclerView(this)
-//        }
-//        binding.layoutIndicators.post {
-//            setupIndicators(tips.size)
-//        }
-//// ✅ Call this AFTER setting adapter
-//        setupIndicators(tips.size)
-//
-//// ✅ Listener to update dots when page changes
-//        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                    val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
-//                    val currentPosition = layoutManager?.findFirstVisibleItemPosition() ?: 0
-//                    updateIndicators(currentPosition)
-//                }
-//            }
-//        })
 
         setupRecyclerAndIndicators()
         binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
@@ -991,7 +833,209 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                 adapter = medicationReminderAdapter
             }
         }
+
+
+
+        binding.activeChalleTextId.setOnClickListener {
+
+            findNavController().navigate(R.id.action_dashboard_to_newChallengeFragment)
+        }
+        binding.activechalgesId.setOnClickListener {
+
+            findNavController().navigate(R.id.action_dashboard_to_newChallengeFragment)
+        }
+        wellnessDataBind()
     }
+    fun calculateWellnessScore(
+        sleep: Int,
+        movement: Int,
+        stress: Int,
+        recovery: Int
+    ): Int {
+        // Step 1: Normalize all values between 0–100
+        val sleepScore = sleep.coerceIn(0, 100)
+        val movementScore = movement.coerceIn(0, 100)
+        val recoveryScore = recovery.coerceIn(0, 100)
+        val stressScore = stress.coerceIn(0, 100)
+
+        // Step 2: Invert stress (less stress = higher contribution)
+        val invertedStress = 100 - stressScore
+
+        // Step 3: Compute average baseline (using Double for precision)
+        val average = (sleepScore + movementScore + recoveryScore + invertedStress) / 4.0
+
+        // Step 4: Apply penalty if stress is high
+        val penaltyMultiplier = when {
+            stressScore > 90 -> 0.3    // severe stress → 70% penalty
+            stressScore > 75 -> 0.6    // moderate stress → 40% penalty
+            else -> 1.0
+        }
+
+        // Step 5: Apply penalty and clamp final score
+        val finalScore = (average * penaltyMultiplier).toInt().coerceIn(0, 100)
+
+        return finalScore
+    }
+    fun wellnessDataBind() {
+
+        // -------------------------------------------------------
+        // Default Icons, Colors and Initial Values
+        // -------------------------------------------------------
+
+        binding.stepsProgressId.dailyChecklistID.visibility = View.GONE
+        binding.sleepProgressId.dailyChecklistID.visibility = View.GONE
+        binding.waterProgressId.dailyChecklistID.visibility = View.GONE
+        binding.glucoseProgressId.dailyChecklistID.visibility = View.GONE
+        binding.bpProgressId.dailyChecklistID.visibility = View.GONE
+        binding.medicineProgressId.dailyChecklistID.visibility = View.GONE
+        binding.stepsProgressId.ivStepsIcon.setImageResource(R.drawable.step_progress)
+        binding.sleepProgressId.ivStepsIcon.setImageResource(R.drawable.sleep_progress)
+        binding.waterProgressId.ivStepsIcon.setImageResource(R.drawable.water_progress)
+        binding.glucoseProgressId.ivStepsIcon.setImageResource(R.drawable.glucose_progress)
+        binding.bpProgressId.ivStepsIcon.setImageResource(R.drawable.bp_progress)
+        binding.medicineProgressId.ivStepsIcon.setImageResource(R.drawable.medicine_progress)
+
+        binding.stepsProgressId.progressSteps.progressTintList = ColorStateList.valueOf(Color.parseColor("#1281FD"))
+        binding.sleepProgressId.progressSteps.progressTintList = ColorStateList.valueOf(Color.parseColor("#00C67A"))
+        binding.waterProgressId.progressSteps.progressTintList = ColorStateList.valueOf(Color.parseColor("#FEA33C"))
+        binding.glucoseProgressId.progressSteps.progressTintList = ColorStateList.valueOf(Color.parseColor("#00C67A"))
+        binding.bpProgressId.progressSteps.progressTintList = ColorStateList.valueOf(Color.parseColor("#1281FD"))
+        binding.medicineProgressId.progressSteps.progressTintList = ColorStateList.valueOf(Color.parseColor("#FF3737"))
+
+        binding.stepsProgressId.progressSteps.progress = 0
+        binding.sleepProgressId.progressSteps.progress = 0
+        binding.waterProgressId.progressSteps.progress = 0
+        binding.glucoseProgressId.progressSteps.progress = 0
+        binding.bpProgressId.progressSteps.progress = 0
+        binding.medicineProgressId.progressSteps.progress = 0
+
+        binding.stepsProgressId.tvStepsValue.text = "--"
+        binding.sleepProgressId.tvStepsValue.text = "__h __m"
+        binding.waterProgressId.tvStepsValue.text = "__ml"
+        binding.glucoseProgressId.tvStepsValue.text = "-/-"
+        binding.bpProgressId.tvStepsValue.text = "-/-"
+        binding.medicineProgressId.tvStepsValue.text = "-/-"
+
+        binding.stepsProgressId.tvStepsLabel.text = "Steps 0.0%"
+        binding.sleepProgressId.tvStepsLabel.text = "Sleep"
+        binding.waterProgressId.tvStepsLabel.text = "Water 0.0%"
+        binding.glucoseProgressId.tvStepsLabel.text = "Glucose 0.0%"
+        binding.bpProgressId.tvStepsLabel.text = "Blood Pressure 0.0%"
+        binding.medicineProgressId.tvStepsLabel.text = "Medicine 0.0%"
+
+
+        // -------------------------------------------------------
+        // VITAL LIST OBSERVER (BP + STEPS + SLEEP)
+        // -------------------------------------------------------
+        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+
+            // ---------------- BP ----------------
+            val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
+            val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+
+            val sysValue = bpSys?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
+            val diaValue = bpDia?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
+            val bpPercent = if (sysValue == 0.0 && diaValue == 0.0) 0 else 100
+
+            if (bpPercent == 0) {
+                binding.bpProgressId.dailyChecklistID.visibility = View.GONE
+                binding.bpProgressId.tvStepsValue.text = "-/-"
+                binding.bpProgressId.tvStepsLabel.text = "Blood Pressure 0%"
+            } else {
+                binding.bpProgressId.dailyChecklistID.visibility = View.VISIBLE
+                binding.bpProgressId.progressSteps.progress = bpPercent
+                binding.bpProgressId.tvStepsValue.text = "1/1"
+                binding.bpProgressId.tvStepsLabel.text = "Blood Pressure ${bpPercent}%"
+            }
+
+
+            // ---------------- STEPS ----------------
+            val steps = vitalList.firstOrNull { it.vitalName.equals("Steps", ignoreCase = true) }
+            val goalSteps = 11000.0
+            val currentSteps = steps?.totalValue?.toString()?.toDoubleOrNull() ?: 0.0
+            val stepsPercent = if (goalSteps > 0) ((currentSteps / goalSteps) * 100).toInt() else 0
+
+            if (stepsPercent == 0) {
+                binding.stepsProgressId.dailyChecklistID.visibility = View.GONE
+                binding.stepsProgressId.tvStepsValue.text = "0"
+                binding.stepsProgressId.tvStepsLabel.text = "Steps 0%"
+            } else {
+                binding.stepsProgressId.dailyChecklistID.visibility = View.VISIBLE
+                binding.stepsProgressId.progressSteps.progress = stepsPercent
+                binding.stepsProgressId.tvStepsValue.text = currentSteps.toInt().toString()
+                binding.stepsProgressId.tvStepsLabel.text = "Steps ${stepsPercent}%"
+            }
+
+
+            // ---------------- SLEEP ----------------
+            val totalSleep = vitalList.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
+            val sleepScore = totalSleep?.vitalValue?.toString()?.toIntOrNull() ?: 0
+
+            if (totalSleep?.vitalValue?.toInt()   == 0) {
+                binding.sleepProgressId.dailyChecklistID.visibility = View.GONE
+            } else {
+                binding.sleepProgressId.dailyChecklistID.visibility = View.VISIBLE
+                binding.sleepProgressId.progressSteps.progress = totalSleep?.vitalValue?.toInt() ?: 0
+            }
+
+            binding.sleepProgressId.tvStepsValue.text = "8h 00m"
+            binding.sleepProgressId.tvStepsLabel.text = "Sleep"
+            // ---------------- Glucose ----------------
+            val glucose = vitalList.firstOrNull { it.vitalName.equals("Glucose", ignoreCase = true) }
+             if (glucose?.vitalValue?.toInt()   == 0) {
+                binding.glucoseProgressId.dailyChecklistID.visibility = View.GONE
+            } else {
+                binding.glucoseProgressId.dailyChecklistID.visibility = View.VISIBLE
+                binding.glucoseProgressId.progressSteps.progress = glucose?.vitalValue?.toInt() ?: 0
+                 binding.glucoseProgressId.tvStepsValue.text = "1/1"
+                 binding.glucoseProgressId.tvStepsLabel.text = "Glucose"
+            }
+        }
+
+
+
+        // -------------------------------------------------------
+        // WATER OBSERVER
+        // -------------------------------------------------------
+        viewModel.fluidList.observe(viewLifecycleOwner) { list ->
+
+            val waterQty = list.firstOrNull { it.id == 97694 }?.amount ?: 0f
+            val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
+
+            val goalMl = (waterGoal?.targetValue ?: 0) * 1000f
+            val progress = if (goalMl > 0) (waterQty.toFloat() / goalMl) * 100f else 0f
+
+            if (progress.toDouble() == 0.0) {
+                binding.waterProgressId.dailyChecklistID.visibility = View.GONE
+            } else {
+                binding.waterProgressId.dailyChecklistID.visibility = View.VISIBLE
+                binding.waterProgressId.progressSteps.progress = progress.toInt()
+                binding.waterProgressId.tvStepsValue.text = "${waterQty} ml"
+                binding.waterProgressId.tvStepsLabel.text = "Water ${progress }%"
+            }
+        }
+
+
+        // -------------------------------------------------------
+        // MEDICINE OBSERVER
+        // -------------------------------------------------------
+        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+
+            val totalMeds = list?.size ?: 0
+            val takenMeds = list?.count { it.isTaken == 1 } ?: 0
+            val percent = if (totalMeds > 0) ((takenMeds.toFloat() / totalMeds) * 100).toInt() else 0
+
+            if (percent == 0) {
+                binding.medicineProgressId.dailyChecklistID.visibility = View.GONE
+            } else {
+                binding.medicineProgressId.dailyChecklistID.visibility = View.VISIBLE
+                binding.medicineProgressId.progressSteps.progress = percent
+                binding.medicineProgressId.tvStepsValue.text = "$takenMeds / $totalMeds taken"
+                binding.medicineProgressId.tvStepsLabel.text = "Medicine ${percent}%"
+            }
+        }
+    }
+
 
     fun setInsightText(view: TextView, insight: String?,views: LinearLayout) {
         if (insight.isNullOrBlank()) {
@@ -1102,26 +1146,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         })
     }
 
-        fun celebrationFun() {
-            val flingAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.fling_up_to_down)
 
-            // These are actual views (not IDs)
-            val confettiViews = listOf(
-                binding.celebrationId.confetti1,
-                binding.celebrationId.confetti2,
-                binding.celebrationId.confetti3,
-                binding.celebrationId.confetti4,
-                binding.celebrationId.confetti5,
-                binding.celebrationId.star1,
-                binding.celebrationId.star2,
-                binding.celebrationId.star3
-            )
-
-            // Start animation directly on each view
-            confettiViews.forEach { view ->
-                view.startAnimation(flingAnim)
-            }
-        }
 
         private fun openNewFragment() {
             findNavController().navigate(R.id.moodFragment)
