@@ -8,6 +8,39 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addActivityFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1562" />
+                            <option name="y" value="-1218" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addActivityFragment_to_bikingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addMedicineReminderFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1501" />
+                            <option name="y" value="-1052" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="allergies3">
                     <value>
                       <LayoutPositions>
@@ -15,6 +48,18 @@
                           <Point>
                             <option name="x" value="-922" />
                             <option name="y" value="-283" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="bikingFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1258" />
+                            <option name="y" value="-1313" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -205,6 +250,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_corporateDashBoard_to_newChallengeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_sleepDetails">
                               <value>
                                 <LayoutPositions />
@@ -231,6 +281,21 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboard_to_addActivityFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_addMedicineReminderFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_addMedicineReminderFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_allergies3">
                               <value>
                                 <LayoutPositions />
@@ -578,8 +643,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1202" />
-                            <option name="y" value="-1794" />
+                            <option name="x" value="-1050" />
+                            <option name="y" value="-1750" />
                           </Point>
                         </option>
                       </LayoutPositions>

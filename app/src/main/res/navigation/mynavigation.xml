@@ -93,6 +93,15 @@
         <action
             android:id="@+id/action_dashboard_to_newChallengeFragment"
             app:destination="@id/newChallengeFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_addMedicineReminderFragment"
+            app:destination="@id/addMedicineReminderFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_addMedicineReminderFragment2"
+            app:destination="@id/addMedicineReminderFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_addActivityFragment"
+            app:destination="@id/addActivityFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -427,7 +436,11 @@
     <fragment
         android:id="@+id/medicationFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.MedicationFragment"
-        android:label="MedicationFragment" />
+        android:label="MedicationFragment" >
+        <action
+            android:id="@+id/action_medicationFragment_to_addMedicineReminderFragment"
+            app:destination="@id/addMedicineReminderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/waterIntakeFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.WaterIntakeFragment"
@@ -437,5 +450,21 @@
         android:name="com.critetiontech.ctvitalio.UI.fragments.NewChallengeFragment"
         android:label="fragment_new_challenge"
         tools:layout="@layout/fragment_new_challenge" />
+    <fragment
+        android:id="@+id/addMedicineReminderFragment"
+        android:name="com.example.vitalio_pragya.fragment.AddMedicineReminderFragment"
+        android:label="AddMedicineReminderFragment" />
+    <fragment
+        android:id="@+id/addActivityFragment"
+        android:name="com.example.vitalio_pragya.AddActivityFragment"
+        android:label="AddActivityFragment" >
+        <action
+            android:id="@+id/action_addActivityFragment_to_bikingFragment"
+            app:destination="@id/bikingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bikingFragment"
+        android:name="com.example.vitalio_pragya.fragment.BikingFragment"
+        android:label="BikingFragment" />
 
 </navigation>
