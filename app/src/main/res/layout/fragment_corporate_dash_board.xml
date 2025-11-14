@@ -2457,11 +2457,15 @@
 
 
 <!--                                </LinearLayout>-->
+                    <pl.droidsonroids.gif.GifImageView
+                        android:id="@+id/doctorsImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="132dp"
+                        android:src="@drawable/celibration"  />
 
-
-                    <include
-                        android:id="@+id/celebrationId"
-                        layout="@layout/celebration_widget" />
+<!--                    <include-->
+<!--                        android:id="@+id/celebrationId"-->
+<!--                        layout="@layout/celebration_widget" />-->
 <!--                <ImageView-->
 <!--                    android:id="@+id/energy_level"-->
 <!--                    android:layout_width="match_parent"-->
