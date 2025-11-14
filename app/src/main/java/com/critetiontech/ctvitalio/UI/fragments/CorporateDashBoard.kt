@@ -857,6 +857,13 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             findNavController().navigate(R.id.action_dashboard_to_newChallengeFragment)
         }
+        binding.sleepProgressIds.SleepWelnessId.setOnClickListener {
+
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
+        }
+
+
+
         wellnessDataBind()
     }
     fun calculateWellnessScore(
@@ -937,6 +944,14 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         binding.medicineProgressId.tvStepsLabel.text = "Medicine 0.0%"
 
 
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+
+
+            val totalSleep = sleepValue.QuickMetricsTiled
+                ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+
+            binding.sleepProgressId.tvStepsValue.text = HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        }
         // -------------------------------------------------------
         // VITAL LIST OBSERVER (BP + STEPS + SLEEP)
         // -------------------------------------------------------
@@ -991,7 +1006,6 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                 binding.sleepProgressId.progressSteps.progress = totalSleep?.vitalValue?.toInt() ?: 0
             }
 
-            binding.sleepProgressId.tvStepsValue.text = "8h 00m"
             binding.sleepProgressId.tvStepsLabel.text = "Sleep"
             // ---------------- Glucose ----------------
             val glucose = vitalList.firstOrNull { it.vitalName.equals("Glucose", ignoreCase = true) }
