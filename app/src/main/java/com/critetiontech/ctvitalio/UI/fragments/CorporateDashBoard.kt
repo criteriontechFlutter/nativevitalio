@@ -459,7 +459,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                 val bpVital = Vital().apply {
                     vitalName = "Blood Pressure"
                     vitalValue = 0.0 // Optional placeholder
-                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
+                    unit = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue?.toInt()}  "
                     vitalDateTime = bpSys.vitalDateTime
                 }
 
@@ -782,7 +782,6 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         binding.sleepProgressIds.stressstatusId.setBackgroundColor(
             getColorWithOpacity(StressScore?.colourCode)
         )
-
         setInsightText(binding.sleepProgressIds.sleepContainertextId, "",binding.sleepProgressIds.sleepContainerId)
         setInsightText(binding.sleepProgressIds.movementContainertextId, MovementIndex?.insight,binding.sleepProgressIds.movementContainerId)
         setInsightText(binding.sleepProgressIds.recoveryContainertextId, RecoveryIndex?.insight,binding.sleepProgressIds.recoveryContainerId)
@@ -791,7 +790,23 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
     }
 
+        binding.sleepProgressIds.addSleepActivityBtn.setOnClickListener(){
 
+            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+
+        }
+        binding.sleepProgressIds.addMovementActivityBtn.setOnClickListener(){
+
+            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+        }
+        binding.sleepProgressIds.addStressActivityBtn.setOnClickListener(){
+            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+
+        }
+        binding.sleepProgressIds.addRecoveryActivityBtn.setOnClickListener(){
+
+            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+        }
 
 
 

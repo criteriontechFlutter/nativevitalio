@@ -99,7 +99,7 @@ data class Vital(
     val pmId: Int = 0,
     val vitalID: Int = 0,
     var vitalName: String? = null,
-    var vitalValue: Double = 0.0,
+    var vitalValue: Double? = 0.0,
     var totalValue: Double = 0.0,
     var unit: String? = null,
     var vitalDateTime: String? = null,
