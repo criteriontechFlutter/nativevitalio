@@ -316,6 +316,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_newChallengeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_notificationFragment">
                               <value>
                                 <LayoutPositions />
@@ -587,6 +592,18 @@
                           <Point>
                             <option name="x" value="-1247" />
                             <option name="y" value="-1418" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="newChallengeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-2026" />
+                            <option name="y" value="-1242" />
                           </Point>
                         </option>
                       </LayoutPositions>
