@@ -170,7 +170,7 @@ class Dashboard  : Fragment() {
                 val bpVital = Vital().apply {
                     vitalName = "Blood Pressure"
                     vitalValue = 0.0 // Optional placeholder
-                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
+                    unit = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue?.toInt()} ${bpSys.unit}"
                     vitalDateTime = bpSys.vitalDateTime
                 }
                 finalVitalList.add(bpVital)

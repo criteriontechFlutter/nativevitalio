@@ -102,7 +102,7 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 if (isBloodPressure) {
                 vital.unit.toString()
             } else {
-                vital.vitalValue.toInt().toString()
+                vital.vitalValue?.toInt().toString()
             }
         }
 

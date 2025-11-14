@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMedicationBinding
 
 import com.critetiontech.ctvitalio.utils.VitalioCalendarView
@@ -51,6 +52,11 @@ class MedicationFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+
+        _binding?.fabAdd?.setOnClickListener(){
+
+            findNavController().navigate(R.id.action_medicationFragment_to_addMedicineReminderFragment)
+        }
 
     }
 

@@ -50,7 +50,7 @@ class VitalDetailsAdapter(
             groupedVitals.add(
                 Triple(
                     "Blood Pressure",
-                    "${sys.vitalValue.toInt()}/${dias.vitalValue.toInt()} ${sys.unit}",
+                    "${sys.vitalValue?.toInt()}/${dias.vitalValue?.toInt()} ${sys.unit}",
                     sys.vitalDateTime ?: "-"
                 )
             )
@@ -72,12 +72,12 @@ class VitalDetailsAdapter(
         for ((vitalName, displayTitle) in expectedVitals) {
             val vital = vitalMap[vitalName]
             val valueText = when (vitalName) {
-                "HeartRate" -> vital?.let { "${it.vitalValue.toInt()} BPM" } ?: "-- BPM"
-                "Spo2" -> vital?.let { "${it.vitalValue.toInt()}%" } ?: "--%"
+                "HeartRate" -> vital?.let { "${it.vitalValue?.toInt()} BPM" } ?: "-- BPM"
+                "Spo2" -> vital?.let { "${it.vitalValue?.toInt()}%" } ?: "--%"
                 "Temperature" -> vital?.let { "${it.vitalValue} °F" } ?: "-- °F"
-                "RespRate" -> vital?.let { "${it.vitalValue.toInt()} /min" } ?: "-- min"
-                "RBS" -> vital?.let { "${it.vitalValue.toInt()} mg/dL" } ?: "-- mg/dL"
-                "Pulse" -> vital?.let { "${it.vitalValue.toInt()} /min" } ?: "-- /min"
+                "RespRate" -> vital?.let { "${it.vitalValue?.toInt()} /min" } ?: "-- min"
+                "RBS" -> vital?.let { "${it.vitalValue?.toInt()} mg/dL" } ?: "-- mg/dL"
+                "Pulse" -> vital?.let { "${it.vitalValue?.toInt()} /min" } ?: "-- /min"
                 "Weight" -> vital?.let { "${it.vitalValue} kg" } ?: "-- kg"
                 else -> "--"
             }
