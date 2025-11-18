@@ -22,7 +22,20 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="FullScreenBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/FullScreenBottomSheetStyle</item>
+    </style>
 
+    <style name="FullScreenBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="shapeAppearanceOverlay">@style/BottomSheetShapeStyle</item>
+    </style>
+
+    <style name="BottomSheetShapeStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+    </style>
 
     <style name="Color1SwitchStyle">
         <item name="colorControlActivated">@color/start_blue</item>

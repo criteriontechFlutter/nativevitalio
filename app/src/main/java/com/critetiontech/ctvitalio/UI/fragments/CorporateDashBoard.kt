@@ -119,7 +119,7 @@ class CorporateDashBoard : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SuspiciousIndentation")
+    @SuppressLint("SuspiciousIndentation", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val screenHeight = resources.displayMetrics.heightPixels
@@ -131,7 +131,7 @@ class CorporateDashBoard : Fragment() {
 
 
         binding.notificationIcon.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics)
+
         }
 
         navItems = listOf(
@@ -202,6 +202,13 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
         }
 
+        binding.myHealthCard.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics)
+        }
+
+        binding.goalCard.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+        }
 
 
         viewModel.getVitals()
@@ -235,7 +242,9 @@ class CorporateDashBoard : Fragment() {
 
 //            binding.intakeWaterId.text=waterQty.toString()
 
-
+binding.healthTrackId.healthGoalAchived.setOnClickListener {
+    findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+}
 
             val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
 

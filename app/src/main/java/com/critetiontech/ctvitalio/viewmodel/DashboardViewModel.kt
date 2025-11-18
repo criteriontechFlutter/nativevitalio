@@ -43,6 +43,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.core.graphics.toColorInt
 
 data class HoldSpeakSymptomDetail(
     val pdmID: Int,
@@ -223,8 +224,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private fun mapColorForFood(name: String): Int {
         return when (name.trim().lowercase()) {
-            "milk" -> Color.parseColor("#FFEB3B")
-            "water" -> Color.parseColor("#4FC3F7")
+            "milk" -> "#FFEB3B".toColorInt()
+            "water" -> "#4FC3F7".toColorInt()
             "green tea", "tea" -> Color.parseColor("#A1887F")
             "coffee" -> Color.parseColor("#795548")
             "fruit juice", "juice" -> Color.parseColor("#FF9800")

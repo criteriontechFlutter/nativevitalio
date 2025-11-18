@@ -58,8 +58,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1258" />
-                            <option name="y" value="-1313" />
+                            <option name="x" value="-1113" />
+                            <option name="y" value="-1368" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -219,8 +219,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1543" />
-                            <option name="y" value="-1491" />
+                            <option name="x" value="-2279" />
+                            <option name="y" value="-2147" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -260,6 +260,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_corporateDashBoard_to_smartGoalFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_corporateDashBoard_to_wellnessMetrics">
                               <value>
                                 <LayoutPositions />
@@ -275,8 +280,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1822" />
-                            <option name="y" value="-1006" />
+                            <option name="x" value="-2485" />
+                            <option name="y" value="-938" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -392,6 +397,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_sleepDetails">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_smartGoalFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -643,9 +653,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1050" />
-                            <option name="y" value="-1750" />
+                            <option name="x" value="-1066" />
+                            <option name="y" value="-1873" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_medicationFragment_to_addMedicineReminderFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -655,8 +674,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1247" />
-                            <option name="y" value="-1418" />
+                            <option name="x" value="-872" />
+                            <option name="y" value="-1586" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -739,8 +758,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2032" />
-                            <option name="y" value="-1594" />
+                            <option name="x" value="-1298" />
+                            <option name="y" value="-1909" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="smartGoalFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1712" />
+                            <option name="y" value="-2067" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -996,8 +1027,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1642" />
-                            <option name="y" value="-1328" />
+                            <option name="x" value="-940" />
+                            <option name="y" value="-1240" />
                           </Point>
                         </option>
                       </LayoutPositions>
