@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_dashboard_to_addActivityFragment"
             app:destination="@id/addActivityFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_smartGoalFragment"
+            app:destination="@id/smartGoalFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -415,6 +418,9 @@
         <action
             android:id="@+id/action_corporateDashBoard_to_newChallengeFragment"
             app:destination="@id/newChallengeFragment" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_smartGoalFragment"
+            app:destination="@id/smartGoalFragment" />
     </fragment>
     <fragment
         android:id="@+id/moodFragment"
@@ -466,5 +472,10 @@
         android:id="@+id/bikingFragment"
         android:name="com.example.vitalio_pragya.fragment.BikingFragment"
         android:label="BikingFragment" />
+    <fragment
+        android:id="@+id/smartGoalFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.SmartGoalFragment"
+        android:label="fragment_smart_goal"
+        tools:layout="@layout/fragment_smart_goal" />
 
 </navigation>
