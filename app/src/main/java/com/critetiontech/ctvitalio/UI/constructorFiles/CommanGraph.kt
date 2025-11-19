@@ -20,6 +20,7 @@ class HeartRateGraphView @JvmOverloads constructor(
 
     private val dataPoints = mutableListOf<HeartRatePoint>()
     private var lowestHeartRate = 56
+      var graphTile = "Heart Rate"
 
     // === AXIS CONTROL ===
     private var autoYAxis = true
@@ -163,7 +164,7 @@ class HeartRateGraphView @JvmOverloads constructor(
         val range = (maxBpmValue - minBpmValue).coerceAtLeast(1)
 
         // ==== TITLE ====
-        canvas.drawText("Lower Heart Rate", padding, 50f, titlePaint)
+        canvas.drawText(graphTile, padding, 50f, titlePaint)
         canvas.drawText("$lowestHeartRate bpm", padding, 120f, bpmPaint)
 
         // ==== Y-AXIS GRID ====

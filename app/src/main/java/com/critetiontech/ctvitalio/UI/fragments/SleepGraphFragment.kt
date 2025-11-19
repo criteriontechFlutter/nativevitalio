@@ -26,6 +26,7 @@ class SleepGraphFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        viewModel.getVitals()
         setupSleepStages(view)
 
         // The custom view will automatically draw itself
