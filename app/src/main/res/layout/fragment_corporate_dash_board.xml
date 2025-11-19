@@ -2242,221 +2242,221 @@
 
                 <!-- Water Intake -->
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingBottom="12dp"-->
-<!--                    android:text="To Be Updated"-->
-<!--                    android:textColor="@android:color/black"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textStyle="bold" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:text="To Be Updated"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginBottom="8dp"-->
-<!--                                    android:orientation="horizontal"-->
-<!--                                    android:paddingBottom="10dp"-->
-<!--                                    android:weightSum="2">-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"
+                                    android:orientation="horizontal"
+                                    android:paddingBottom="10dp"
+                                    android:weightSum="2">
 
-<!--                                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginEnd="6dp"-->
-<!--                                        android:layout_weight="1"-->
-<!--                                        android:background="@drawable/rounded_corners"-->
-<!--                                        android:padding="10dp">-->
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="6dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/rounded_corners"
+                                        android:padding="10dp">
 
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/linearLayout22"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="match_parent"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:gravity="center_vertical"-->
-<!--                                            android:orientation="horizontal"-->
-<!--                                            android:padding="16dp"-->
-<!--                                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                            app:layout_constraintEnd_toStartOf="parent"-->
-<!--                                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                                            app:layout_constraintTop_toTopOf="parent">-->
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout22"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginRight="5dp"
+                                            android:gravity="center_vertical"
+                                            android:orientation="horizontal"
+                                            android:padding="16dp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toStartOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
 
-<!--                                            <LinearLayout-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_weight="1"-->
-<!--                                                android:orientation="vertical">-->
-
-
-<!--                                                <LinearLayout-->
-<!--                                                    android:layout_width="wrap_content"-->
-<!--                                                    android:layout_height="wrap_content"-->
-<!--                                                    android:gravity="center_vertical"-->
-<!--                                                    android:orientation="horizontal">-->
-
-<!--                                                    &lt;!&ndash; Placeholder Progress Ring &ndash;&gt;-->
-<!--                                                    <ImageView-->
-<!--                                                        android:layout_width="22dp"-->
-<!--                                                        android:layout_height="22dp"-->
-<!--                                                        android:src="@drawable/water_icon" />-->
-
-<!--                                                    <TextView-->
-<!--                                                        android:layout_width="wrap_content"-->
-<!--                                                        android:layout_height="wrap_content"-->
-<!--                                                        android:layout_marginLeft="10dp"-->
-<!--                                                        android:text="Blood Pressure"-->
-<!--                                                        android:textColor="@color/bgDark"-->
-<!--                                                        android:textSize="14sp"-->
-<!--                                                        android:textStyle="bold" />-->
-<!--                                                </LinearLayout>-->
-
-<!--                                                <LinearLayout-->
-<!--                                                    android:layout_width="match_parent"-->
-<!--                                                    android:layout_height="wrap_content"-->
-<!--                                                    android:gravity="center_vertical|bottom"-->
-<!--                                                    android:orientation="horizontal">-->
-
-<!--                                                    <LinearLayout-->
-<!--                                                        android:layout_width="wrap_content"-->
-<!--                                                        android:layout_height="wrap_content"-->
-<!--                                                        android:layout_weight="1"-->
-<!--                                                        android:orientation="vertical">-->
-
-<!--                                                        <TextView-->
-<!--                                                            android:id="@+id/bpDataId"-->
-<!--                                                            android:layout_width="wrap_content"-->
-<!--                                                            android:layout_height="wrap_content"-->
-<!--                                                            android:layout_marginTop="15dp"-->
-<!--                                                            android:text="120/80"-->
-<!--                                                            android:textColor="@android:color/black"-->
-<!--                                                            android:textSize="18sp"-->
-<!--                                                            android:textStyle="bold" />-->
-
-<!--                                                        <TextView-->
-<!--                                                            android:layout_width="wrap_content"-->
-<!--                                                            android:layout_height="wrap_content"-->
-<!--                                                            android:text="mmHg"-->
-<!--                                                            android:textColor="#828691"-->
-<!--                                                            android:textSize="12sp" />-->
-
-<!--                                                    </LinearLayout>-->
-
-<!--                                                    <ImageView-->
-<!--                                                        android:id="@+id/addvitalBtn"-->
-<!--                                                        android:layout_width="wrap_content"-->
-<!--                                                        android:layout_height="wrap_content"-->
-<!--                                                        android:src="@drawable/btn"/>-->
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:orientation="vertical">
 
 
-<!--                                                </LinearLayout>-->
+                                                <LinearLayout
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center_vertical"
+                                                    android:orientation="horizontal">
+
+                                                    <!-- Placeholder Progress Ring -->
+                                                    <ImageView
+                                                        android:layout_width="22dp"
+                                                        android:layout_height="22dp"
+                                                        android:src="@drawable/water_icon" />
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginLeft="10dp"
+                                                        android:text="Blood Pressure"
+                                                        android:textColor="@color/bgDark"
+                                                        android:textSize="14sp"
+                                                        android:textStyle="bold" />
+                                                </LinearLayout>
+
+                                                <LinearLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center_vertical|bottom"
+                                                    android:orientation="horizontal">
+
+                                                    <LinearLayout
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:orientation="vertical">
+
+                                                        <TextView
+                                                            android:id="@+id/bpDataId"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginTop="15dp"
+                                                            android:text="120/80"
+                                                            android:textColor="@android:color/black"
+                                                            android:textSize="18sp"
+                                                            android:textStyle="bold" />
+
+                                                        <TextView
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="mmHg"
+                                                            android:textColor="#828691"
+                                                            android:textSize="12sp" />
+
+                                                    </LinearLayout>
+
+                                                    <ImageView
+                                                        android:id="@+id/addvitalBtn"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:src="@drawable/btn"/>
 
 
-<!--                                            </LinearLayout>-->
+                                                </LinearLayout>
 
 
-<!--                                        </LinearLayout>-->
-
-<!--                                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginEnd="6dp"-->
-<!--                                        android:layout_weight="1"-->
-<!--                                        android:background="@drawable/rounded_corners"-->
-<!--                                        android:padding="10dp">-->
-
-<!--                                        <LinearLayout-->
-<!--                                            android:id="@+id/linearLayout2233"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="match_parent"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:gravity="center_vertical"-->
-<!--                                            android:orientation="horizontal"-->
-<!--                                            android:padding="16dp"-->
-<!--                                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                            app:layout_constraintEnd_toStartOf="parent"-->
-<!--                                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                                            app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                                            <LinearLayout-->
-<!--                                                android:layout_width="wrap_content"-->
-<!--                                                android:layout_height="wrap_content"-->
-<!--                                                android:layout_weight="1"-->
-<!--                                                android:orientation="vertical">-->
+                                            </LinearLayout>
 
 
-<!--                                                <LinearLayout-->
-<!--                                                    android:layout_width="wrap_content"-->
-<!--                                                    android:layout_height="wrap_content"-->
-<!--                                                    android:gravity="center_vertical"-->
-<!--                                                    android:orientation="horizontal">-->
+                                        </LinearLayout>
 
-<!--                                                    &lt;!&ndash; Placeholder Progress Ring &ndash;&gt;-->
-<!--                                                    <ImageView-->
-<!--                                                        android:layout_width="22dp"-->
-<!--                                                        android:layout_height="22dp"-->
-<!--                                                        android:src="@drawable/glucose_icon" />-->
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--                                                    <TextView-->
-<!--                                                        android:layout_width="wrap_content"-->
-<!--                                                        android:layout_height="wrap_content"-->
-<!--                                                        android:layout_marginLeft="10dp"-->
-<!--                                                        android:text="Glucose "-->
-<!--                                                        android:textColor="@color/bgDark"-->
-<!--                                                        android:textSize="14sp"-->
-<!--                                                        android:textStyle="bold" />-->
-<!--                                                </LinearLayout>-->
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="6dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/rounded_corners"
+                                        android:padding="10dp">
 
-<!--                                                <LinearLayout-->
-<!--                                                    android:layout_width="match_parent"-->
-<!--                                                    android:layout_height="wrap_content"-->
-<!--                                                    android:gravity="center_vertical|bottom"-->
-<!--                                                    android:orientation="horizontal">-->
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout2233"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginRight="5dp"
+                                            android:gravity="center_vertical"
+                                            android:orientation="horizontal"
+                                            android:padding="16dp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toStartOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
 
-<!--                                                    <LinearLayout-->
-<!--                                                        android:layout_width="wrap_content"-->
-<!--                                                        android:layout_height="wrap_content"-->
-<!--                                                        android:layout_weight="1"-->
-<!--                                                        android:orientation="vertical">-->
-
-<!--                                                `        <TextView-->
-<!--                                                            android:layout_width="wrap_content"-->
-<!--                                                            android:layout_height="wrap_content"-->
-<!--                                                            android:layout_marginTop="15dp"-->
-<!--                                                            android:text="95"-->
-<!--                                                            android:textColor="@android:color/black"-->
-<!--                                                            android:textSize="18sp"-->
-<!--                                                            android:textStyle="bold" />-->
-
-<!--                                                        <TextView-->
-<!--                                                            android:layout_width="wrap_content"-->
-<!--                                                            android:layout_height="wrap_content"-->
-<!--                                                            android:text="mg/dL"-->
-<!--                                                            android:textColor="#828691"-->
-<!--                                                            android:textSize="12sp" />-->
-
-<!--                                                    </LinearLayout>-->
-
-<!--                                                    <ImageView-->
-<!--                                                        android:layout_width="wrap_content"-->
-<!--                                                        android:layout_height="wrap_content"-->
-<!--                                                        android:src="@drawable/btn"/>-->
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:orientation="vertical">
 
 
+                                                <LinearLayout
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center_vertical"
+                                                    android:orientation="horizontal">
+
+                                                    <!-- Placeholder Progress Ring -->
+                                                    <ImageView
+                                                        android:layout_width="22dp"
+                                                        android:layout_height="22dp"
+                                                        android:src="@drawable/glucose_icon" />
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginLeft="10dp"
+                                                        android:text="Glucose "
+                                                        android:textColor="@color/bgDark"
+                                                        android:textSize="14sp"
+                                                        android:textStyle="bold" />
+                                                </LinearLayout>
+
+                                                <LinearLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center_vertical|bottom"
+                                                    android:orientation="horizontal">
+
+                                                    <LinearLayout
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:orientation="vertical">
+
+                                                `        <TextView
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginTop="15dp"
+                                                            android:text="95"
+                                                            android:textColor="@android:color/black"
+                                                            android:textSize="18sp"
+                                                            android:textStyle="bold" />
+
+                                                        <TextView
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="mg/dL"
+                                                            android:textColor="#828691"
+                                                            android:textSize="12sp" />
+
+                                                    </LinearLayout>
+
+                                                    <ImageView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:src="@drawable/btn"/>
 
 
-<!--                                                </LinearLayout>-->
 
 
-<!--                                            </LinearLayout>-->
+                                                </LinearLayout>
 
 
-<!--                                        </LinearLayout>-->
-
-<!--                                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+                                            </LinearLayout>
 
 
-<!--                                </LinearLayout>-->
+                                        </LinearLayout>
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                </LinearLayout>
                     <pl.droidsonroids.gif.GifImageView
                         android:id="@+id/doctorsImage"
                         android:layout_width="match_parent"

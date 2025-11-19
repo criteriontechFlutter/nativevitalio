@@ -295,6 +295,12 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center_vertical" />
 
+            <TextView
+                android:text="Heart Rate "
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
                 android:id="@+id/heartRateGraph"
                 android:layout_width="match_parent"
@@ -333,8 +339,7 @@
                             android:layout_width="12dp"
                             android:layout_height="12dp"
                             android:layout_marginStart="4dp"
-                            android:tint="#2196F3"
-                            android:src="@drawable/ic_arrow_down" />
+                             android:src="@drawable/ic_arrow_down" />
                     </LinearLayout>
 
                     <TextView
@@ -379,8 +384,7 @@
                             android:layout_width="12dp"
                             android:layout_height="12dp"
                             android:layout_marginStart="4dp"
-                            android:tint="#FF0000"
-                            android:src="@drawable/ic_arrow_down" />
+                             android:src="@drawable/ic_arrow_down" />
                     </LinearLayout>
 
                     <TextView
@@ -446,6 +450,13 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <TextView
+                android:text="Heart Rate Variablity"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
                 android:id="@+id/heartRateVariablityGraph"
                 android:layout_width="match_parent"
