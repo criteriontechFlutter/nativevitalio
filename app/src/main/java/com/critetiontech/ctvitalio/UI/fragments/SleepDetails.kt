@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
 import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
@@ -114,6 +115,10 @@ class SleepDetails : Fragment() {
         // ✅ Add the dynamic sleep cycle chart
         setupSleepCycleGraph()
         hrVariability()
+
+        binding.wellnessImageArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 

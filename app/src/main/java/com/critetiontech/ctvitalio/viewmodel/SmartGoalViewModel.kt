@@ -22,6 +22,9 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
     private val _addedGoalItemList = MutableLiveData<List<GoalCategoryResponse>>()
     val vitalList: LiveData<List<GoalCategoryResponse>> get() = _addedGoalItemList
 
+    private val _allGoalList = MutableLiveData<List<GoalCategoryResponse>>()
+    val allGoalList: LiveData<List<GoalCategoryResponse>> get() = _allGoalList
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
@@ -60,6 +63,51 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
 
             } catch (e: Exception) {
                 _addedGoalItemList.value = emptyList()
+                _loading.value = false
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+
+    fun getAllGoalList() {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                val queryParams = mapOf(
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "clientId" to PrefsManager().getPatient()?.clientId.toString(),
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicGet(
+                        url = ApiEndPoint().getAllGoalListApi,
+                        params = queryParams
+                    )
+
+
+
+                if (response.isSuccessful) {
+                    _loading.value = false
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, SmartGoalResponse::class.java)
+
+                    _loading.value = false
+                    _allGoalList.value = parsed.responseValue
+
+
+                } else {
+                    _allGoalList.value = emptyList()
+                    _loading.value = false
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _allGoalList.value = emptyList()
                 _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"
