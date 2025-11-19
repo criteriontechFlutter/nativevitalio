@@ -28,6 +28,7 @@ data class SleepValue(
     val BedtimeEnd: String,
     val SleepScore: SleepScore,
     val QuickMetrics: List<QuickMetric>?,
+    val Summary: List<Summary>?,
     val QuickMetricsTiled: List<QuickMetricsTiled>?,
     val SleepStages: List<SleepStage>?,
     val MovementGraph: MovementGraph?,
@@ -53,6 +54,13 @@ data class SleepSummaryData (
     val state: String,
     val stateTitle: String,
     val score: Int
+)
+
+data class  Summary (
+    val Title: String,
+    val State: String,
+    val StateTitle: String,
+    val Score: Double
 )
 data class Vitals(
     val id: Int,
