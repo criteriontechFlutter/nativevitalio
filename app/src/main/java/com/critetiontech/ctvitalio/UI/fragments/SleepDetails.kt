@@ -240,7 +240,7 @@ private fun openSleepGraph() {
             BarEntry(5f, 130f),
             BarEntry(6f, 160f)
         )
-d
+
         val dataSet = BarDataSet(entries, "")
         dataSet.color = Color.parseColor("#EAF4FF")      // unselected
         dataSet.highLightColor = Color.parseColor("#77B7FF") // selected
