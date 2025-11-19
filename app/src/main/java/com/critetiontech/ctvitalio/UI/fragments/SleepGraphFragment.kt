@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.SleepStageBarView
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 
 class SleepGraphFragment : Fragment() {
 
+
+    private lateinit var viewModel: DashboardViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,6 +25,7 @@ class SleepGraphFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         setupSleepStages(view)
 
         // The custom view will automatically draw itself
@@ -33,10 +38,38 @@ class SleepGraphFragment : Fragment() {
         val lightBar = view.findViewById<SleepStageBarView>(R.id.lightBar)
         val deepBar = view.findViewById<SleepStageBarView>(R.id.deepBar)
 
-        // Set data for each stage
-        awakeBar.setData("Awake", "4h 57m", 43, 0xFFFFA726.toInt())
-        remBar.setData("REM Sleep", "1h 44m", 15, 0xFF64B5F6.toInt())
-        lightBar.setData("Light Sleep", "4h 15m", 37, 0xFF1976D2.toInt())
-        deepBar.setData("Deep Sleep", "35m", 5, 0xFF0D47A1.toInt())
-    }
+
+
+       viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+
+           val awake = sleepValue.SleepStages
+               ?.firstOrNull { it.Title.equals("Awake", ignoreCase = true) }
+
+           val remSleep = sleepValue.SleepStages
+               ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
+
+           val lightSleep = sleepValue.SleepStages
+               ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
+
+           val deepSleep = sleepValue.SleepStages
+               ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
+
+           // Set data for each stage
+           awake?.let {
+               awakeBar.setData("Awake", it.StageTimeText, it.Percentage.toInt(), 0xFFFFA726.toInt())
+           }
+
+           remSleep?.let {
+               remBar.setData("REM Sleep", it.StageTimeText, it.Percentage.toInt(), 0xFF64B5F6.toInt())
+           }
+
+           lightSleep?.let {
+               lightBar.setData("Light Sleep", it.StageTimeText, it.Percentage.toInt(), 0xFF1976D2.toInt())
+           }
+
+           deepSleep?.let {
+               deepBar.setData("Deep Sleep", it.StageTimeText, it.Percentage.toInt(), 0xFF0D47A1.toInt())
+           }
+       }
+}
 }
