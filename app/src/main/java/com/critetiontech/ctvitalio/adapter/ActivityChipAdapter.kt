@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.model.EmployeeActivity
 import kotlin.collections.get
 
 class ActivityChipAdapter(
-    private var activities: List<String>,
-    private val onActivityClick: (String) -> Unit
+    private var activities: List<EmployeeActivity>,
+    private val onActivityClick: (EmployeeActivity) -> Unit
 ) : RecyclerView.Adapter<ActivityChipAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,13 +26,13 @@ class ActivityChipAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val activity = activities[position]
-        holder.textView.text = activity
-        holder.itemView.setOnClickListener { onActivityClick(activity) }
+        holder.textView.text = activity.activityName.toString()
+        holder.itemView.setOnClickListener { onActivityClick( activity ) }
     }
 
     override fun getItemCount() = activities.size
 
-    fun updateList(newList: List<String>) {
+    fun updateList(newList: List<EmployeeActivity>) {
         activities = newList
         notifyDataSetChanged()
     }

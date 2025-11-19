@@ -43,6 +43,7 @@ class AddActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+   viewModel.getAllEmployeeActivity()
         // ✅ Setup Flexbox layout managers (for chips)
         val flexRecent = FlexboxLayoutManager(requireContext()).apply {
             flexDirection = FlexDirection.ROW
@@ -55,10 +56,10 @@ class AddActivityFragment : Fragment() {
 
         // ✅ Initialize adapters with click listener
         recentAdapter = ActivityChipAdapter(emptyList()) { activity ->
-            onActivitySelected(activity)
+            onActivitySelected(activity.activityName.toString())
         }
         allActivitiesAdapter = ActivityChipAdapter(emptyList()) { activity ->
-            onActivitySelected(activity)
+            onActivitySelected(activity.activityName.toString())
         }
 
         // ✅ Set adapters and layout managers
@@ -72,8 +73,8 @@ class AddActivityFragment : Fragment() {
         viewModel.recentActivities.observe(viewLifecycleOwner) { recent ->
             recentAdapter.updateList(recent)
         }
-        viewModel.filteredActivities.observe(viewLifecycleOwner) { all ->
-            allActivitiesAdapter.updateList(all)
+        viewModel.filteredActivities.observe(viewLifecycleOwner) { recent ->
+            allActivitiesAdapter.updateList(recent)
         }
 
         // ✅ Handle SearchView text

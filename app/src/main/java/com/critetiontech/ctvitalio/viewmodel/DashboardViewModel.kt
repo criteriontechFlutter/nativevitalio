@@ -8,6 +8,7 @@ import PrefsManager
 import QuickMetric
 import SleepSummaryData
 import SleepValue
+import Summary
 import Vital
 import VitalInsight
 import VitalsResponse
@@ -85,8 +86,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     val vitalInsights: MutableLiveData<List<VitalInsight>?> get() = _vitalInsights
 
 
-    private val _sleepsummary = MutableLiveData<List<SleepSummaryData>?>()
-    val  sleepsummary: MutableLiveData<List<SleepSummaryData>?> get() = _sleepsummary
+    private val _sleepsummary = MutableLiveData<List<Summary>?>()
+    val  sleepsummary: MutableLiveData<List<Summary>?> get() = _sleepsummary
 
     fun getVitals() {
         viewModelScope.launch {
@@ -100,7 +101,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                     "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
 //                    "date" to todayDate,
-                    "date" to "2025-11-12",
+                    "date" to "2025-11-18",
                     "clientId" to 194,
                 )
 
@@ -119,7 +120,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     _vitalList.value = parsed.responseValue.lastVital
                     _vitalInsights.value = parsed.responseValue.vitalInsights
-                    _sleepsummary.value = parsed.responseValue.summary
+//                    _sleepsummary.value = parsed.responseValue.summary
 
 
                     val sleepMetric243 = parsed.responseValue.sleepmetrics
@@ -136,6 +137,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                             Log.d("TAG", "Sleep Score: ${sleepValue.QuickMetrics?.size.toString()}")
                             _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+                            _sleepsummary.value = sleepValue.Summary ?: emptyList()
 
                         } catch (e: Exception) {
                             e.printStackTrace()
