@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -117,6 +118,7 @@ class Connection: Fragment() {
             "Pulse" -> "/min"
             "RBS" -> "rbs"
             "Body Weight" -> "weight"
+
             else -> null
         }
         return if (typeKey != null) allDevices.filter { it.dataType.contains(typeKey) } else allDevices
@@ -124,6 +126,7 @@ class Connection: Fragment() {
 
 
 
+    @SuppressLint("MissingInflatedId")
     private fun showManualVitalDialog(vitalType: String) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.manual_bp_dialog, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
@@ -145,6 +148,7 @@ class Connection: Fragment() {
         val rbsInput = dialogView.findViewById<EditText>(R.id.rbsInput)
         val weightInput = dialogView.findViewById<EditText>(R.id.weightInput)
         val pulseInput = dialogView.findViewById<EditText>(R.id.pulseInput)
+        val glucoseInput = dialogView.findViewById<EditText>(R.id.glucoseInput)
         val saveButton = dialogView.findViewById<Button>(R.id.saveVitalsBtn)
 
         val closeButton = dialogView.findViewById<ImageView>(R.id.closeButton)
@@ -155,6 +159,7 @@ class Connection: Fragment() {
         val spo2Container = dialogView.findViewById<LinearLayout>(R.id.spo2Container)
         val heartRateContainer = dialogView.findViewById<LinearLayout>(R.id.heartRateContainer)
         val tempContainer = dialogView.findViewById<LinearLayout>(R.id.tempContainer)
+        val glucose = dialogView.findViewById<LinearLayout>(R.id.glucoseContainer)
         val rbsContainer = dialogView.findViewById<LinearLayout>(R.id.rbsContainer)
         val weightContainer = dialogView.findViewById<LinearLayout>(R.id.weightContainer)
 
@@ -167,6 +172,7 @@ class Connection: Fragment() {
             spo2Container.visibility = View.GONE
             heartRateContainer.visibility = View.GONE
             tempContainer.visibility = View.GONE
+            glucose.visibility = View.GONE
             rbsContainer.visibility = View.GONE
             weightContainer.visibility = View.GONE
         }
@@ -211,6 +217,10 @@ class Connection: Fragment() {
             "Pulse Rate" -> {
                 title.text = "Enter Pulse Rate Value"
                 pulseContainer.visibility = View.VISIBLE
+            }
+            "Glucose" -> {
+                title.text = "Enter Glucose Value"
+                glucose.visibility = View.VISIBLE
             }
         }
 
@@ -283,6 +293,10 @@ class Connection: Fragment() {
                         "RBS" -> viewModel.insertPatientVital(findNavController(), requireContext(), rbs = rbsInput.text.toString(), positionId = positionId.toString())
                         "Pulse Rate" -> viewModel.insertPatientVital(findNavController(), requireContext(), pr = pulseInput.text.toString(), positionId = positionId.toString())
                         "Body Weight" -> viewModel.insertPatientVital(findNavController(), requireContext(), weight = weightInput.text.toString(), positionId = positionId.toString())
+                        "Glucose" -> viewModel.insertPatientVital(findNavController(), requireContext(),
+                            weight = glucoseInput.text.toString(),
+                            positionId = positionId.toString())
+
                     }
                 }
             } else {

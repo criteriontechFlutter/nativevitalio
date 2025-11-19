@@ -2326,7 +2326,7 @@
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
                                                             android:layout_marginTop="15dp"
-                                                            android:text="120/80"
+                                                            android:text="-/-"
                                                             android:textColor="@android:color/black"
                                                             android:textSize="18sp"
                                                             android:textStyle="bold" />
@@ -2438,9 +2438,11 @@
                                                     </LinearLayout>
 
                                                     <ImageView
+                                                        android:id="@+id/addGlucoseBtn"
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
-                                                        android:src="@drawable/btn"/>
+                                                        android:src="@drawable/btn"
+                                                        tools:ignore="DuplicateIds" />
 
 
 

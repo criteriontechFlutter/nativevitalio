@@ -432,11 +432,16 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //
 //            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
 //        }
-//        binding.addvitalBtn.setOnClickListener()
-//        {
-//
-//            findNavController().navigate(R.id.action_dashboard_to_connection )
-//        }
+        binding.addvitalBtn.setOnClickListener()
+        {
+
+            findNavController().navigate(R.id.action_dashboard_to_connection )
+        }
+        binding.addGlucoseBtn.setOnClickListener()
+        {
+
+            findNavController().navigate(R.id.action_dashboard_to_connection )
+        }
 //        binding.sleepContainerId.setOnClickListener()
 //        {
 //
@@ -463,7 +468,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                     vitalDateTime = bpSys.vitalDateTime
                 }
 
-//                binding.bpDataId.text = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()}  "
+                binding.bpDataId.text = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue.toString()}  "
                 finalVitalList.add(bpVital)
             }
 
