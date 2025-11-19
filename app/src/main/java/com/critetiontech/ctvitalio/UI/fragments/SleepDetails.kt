@@ -223,7 +223,7 @@ private fun openSleepGraph() {
         }
     }
 
-
+x
     private fun setupChart() {
         val alertnessMin = 70
         val height = "170 cm"
