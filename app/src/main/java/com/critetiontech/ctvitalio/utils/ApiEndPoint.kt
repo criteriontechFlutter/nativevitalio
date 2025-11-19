@@ -82,6 +82,8 @@ class ApiEndPoint {
 val insertWatch="api/WatchDetails/InsertWatchDetails"
     val getWatchDetails="api/WatchDetails/GetWatchDetails"
     val deleteWatchDetails="api/WatchDetails/DeleteWatchDetails"
+    val getAddedSmartGoalApi="api/PatientRegistration/GetEmployeeeSmartGoals"
+    val getAllGoalListApi="api/PatientRegistration/GetAllSmartGoals"
 
 
 

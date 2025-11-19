@@ -46,6 +46,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.UltraHumanActivity
 import com.critetiontech.ctvitalio.adapter.DailyTip
 import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
 import com.critetiontech.ctvitalio.adapter.DashboardAdapter
@@ -118,7 +119,7 @@ class CorporateDashBoard : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SuspiciousIndentation")
+    @SuppressLint("SuspiciousIndentation", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val screenHeight = resources.displayMetrics.heightPixels
@@ -130,7 +131,7 @@ class CorporateDashBoard : Fragment() {
 
 
         binding.notificationIcon.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics)
+
         }
 
         navItems = listOf(
@@ -201,6 +202,13 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
         }
 
+        binding.myHealthCard.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics)
+        }
+
+        binding.goalCard.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+        }
 
 
         viewModel.getVitals()
@@ -234,7 +242,9 @@ class CorporateDashBoard : Fragment() {
 
 //            binding.intakeWaterId.text=waterQty.toString()
 
-
+binding.healthTrackId.healthGoalAchived.setOnClickListener {
+    findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+}
 
             val waterGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
 
@@ -286,8 +296,9 @@ class CorporateDashBoard : Fragment() {
 
             binding.ringIcon.setOnClickListener {
 
-                initializeAuth()
-                handleAuthRedirectIntent(requireActivity().intent)
+                startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
+//                initializeAuth()
+//                handleAuthRedirectIntent(requireActivity().intent)
 
 
 
@@ -809,8 +820,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
         }
         binding.sleepProgressIds.addRecoveryActivityBtn.setOnClickListener(){
-
-            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+          // findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
         }
 
 
@@ -831,12 +842,12 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
         setupRecyclerAndIndicators()
-        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
-            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
-        }
 //        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
-//            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+//            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 //        }
+        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
+           findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+        }
 
 
         pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->

@@ -55,8 +55,6 @@ class WellnessMetrics : Fragment() {
         // Setup refresh button
         binding.centerDatePicker.onDateChanged = { calendar ->
             val formatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
-            Toast.makeText(requireContext(), "Date changed to $formatted", Toast.LENGTH_SHORT).show()
-
             // 🔄 Refresh your data here
             refreshMetricsForDate()
         }
@@ -110,7 +108,7 @@ class WellnessMetrics : Fragment() {
             val barView = View(requireContext()).apply {
                 background = GradientDrawable().apply {
                     shape = GradientDrawable.RECTANGLE
-                    setColor(Color.parseColor("#546788")) // bar color
+                    setColor("#546788".toColorInt()) // bar color
                     cornerRadii = floatArrayOf(
                         10f, 10f,   // top-left, top-right
                         0f, 10f,   // bottom-right, bottom-left
@@ -137,7 +135,7 @@ class WellnessMetrics : Fragment() {
             val barViewStress = View(requireContext()).apply {
                 background = GradientDrawable().apply {
                     shape = GradientDrawable.RECTANGLE
-                    setColor(Color.parseColor("#546788")) // bar color
+                    setColor("#546788".toColorInt()) // bar color
                     cornerRadii = floatArrayOf(
                         10f, 10f,   // top-left, top-right
                         0f, 10f,   // bottom-right, bottom-left

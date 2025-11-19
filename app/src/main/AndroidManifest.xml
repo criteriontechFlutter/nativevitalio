@@ -39,6 +39,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UI.UltraHumanActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.fragments.MedicationFragment"
             android:exported="false"
             tools:ignore="Instantiatable" />

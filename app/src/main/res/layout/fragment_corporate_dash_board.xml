@@ -7,6 +7,34 @@
     android:layout_height="match_parent"
     android:background="@color/primaryBlue">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_header_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_mood_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.38" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_margin_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp" />
+
     <!-- Gradient Blue Header -->
     <LinearLayout
         android:id="@+id/headerContainer"
@@ -26,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/primaryBlue"
-          >
+            >
 
             <!-- Avatar with Progress Ring -->
             <FrameLayout
@@ -38,7 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!-- Progress Bar (Circular) -->
-                   <ProgressBar
+                <ProgressBar
                     android:id="@+id/progress_circular"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="60dp"
