@@ -25,7 +25,7 @@ class SleepCycleView {
      */
     fun setupSleepCycleGraph(
         context: Context,
-        sleepGraphContainer: FrameLayout,
+        sleepGraphContainer: LinearLayout,
         tvSleepCycleCount: TextView,
         cyclesData: SleepCyclesData,
         timeLabels: List<TextView>? = null  // Optional: pass 5 TextViews for time labels
