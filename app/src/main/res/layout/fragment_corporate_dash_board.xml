@@ -2078,6 +2078,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal"
+                    android:id="@+id/myHealthCard"
                     android:paddingBottom="10dp"
                     android:weightSum="2">
 
@@ -2175,6 +2176,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:id="@+id/goalCard"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
                     android:weightSum="2">
@@ -2447,11 +2449,12 @@
                                                         android:layout_weight="1"
                                                         android:orientation="vertical">
 
-                                                `        <TextView
+                                                         <TextView
+                                                        android:id="@+id/glucoseDataId"
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
                                                             android:layout_marginTop="15dp"
-                                                            android:text="95"
+                                                            android:text=""
                                                             android:textColor="@android:color/black"
                                                             android:textSize="18sp"
                                                             android:textStyle="bold" />

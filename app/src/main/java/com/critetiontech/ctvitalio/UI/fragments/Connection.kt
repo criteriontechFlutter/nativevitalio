@@ -119,6 +119,7 @@ class Connection: Fragment() {
             "RBS" -> "rbs"
             "Body Weight" -> "weight"
 
+            "Glucose" -> "mg/dL"
             else -> null
         }
         return if (typeKey != null) allDevices.filter { it.dataType.contains(typeKey) } else allDevices
@@ -238,6 +239,7 @@ class Connection: Fragment() {
                 "RBS" -> validateField(rbsInput, "RBS", 40.0, 600.0)
                 "Body Weight" -> validateField(weightInput, "Weight", 1.0, 300.0)
                 "Pulse Rate" -> validateField(pulseInput, "Pulse", 30.0, 200.0)
+                "Glucose" -> validateField(glucoseInput, "Glucose", 10.0, 550.0)
                 else -> false
             }
         }
@@ -250,7 +252,8 @@ class Connection: Fragment() {
         }
 
         // Add TextWatcher to all fields
-        val fields = listOf(sysInput, diaInput, rrInput, spo2Input, heartRateInput, tempInput, rbsInput, weightInput, pulseInput)
+        val fields = listOf(sysInput, diaInput, rrInput, spo2Input, heartRateInput, tempInput,
+            rbsInput, weightInput, pulseInput, glucoseInput)
         fields.forEach { field ->
             field.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
@@ -294,7 +297,7 @@ class Connection: Fragment() {
                         "Pulse Rate" -> viewModel.insertPatientVital(findNavController(), requireContext(), pr = pulseInput.text.toString(), positionId = positionId.toString())
                         "Body Weight" -> viewModel.insertPatientVital(findNavController(), requireContext(), weight = weightInput.text.toString(), positionId = positionId.toString())
                         "Glucose" -> viewModel.insertPatientVital(findNavController(), requireContext(),
-                            weight = glucoseInput.text.toString(),
+                            glucose = glucoseInput.text.toString(),
                             positionId = positionId.toString())
 
                     }

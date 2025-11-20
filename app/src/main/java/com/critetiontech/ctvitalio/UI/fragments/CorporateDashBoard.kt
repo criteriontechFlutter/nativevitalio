@@ -450,8 +450,10 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         }
         binding.addGlucoseBtn.setOnClickListener()
         {
-
-            findNavController().navigate(R.id.action_dashboard_to_connection )
+            val bundle = Bundle().apply {
+                putString("vitalType", "Glucose")
+            }
+            findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
         }
 //        binding.sleepContainerId.setOnClickListener()
 //        {
@@ -463,6 +465,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             val adapter: DashboardAdapter
             val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
             val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
+            val Glucose = vitalList.find { it.vitalName.equals("Glucose", ignoreCase = true) }
 
             val filtered = vitalList.filterNot {
                 it.vitalName.equals("BP_Sys", ignoreCase = true) ||
@@ -480,6 +483,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                 }
 
                 binding.bpDataId.text = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue.toString()}  "
+                binding.glucoseDataId.text = Glucose?.vitalValue.toString()
                 finalVitalList.add(bpVital)
             }
 
