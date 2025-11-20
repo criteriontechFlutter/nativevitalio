@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <LinearLayout
-    android:id="@+id/dailyChecklistID"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/dailyChecklistID"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -16,7 +16,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:background="@drawable/bg_progress_track"
+            tools:ignore="UselessParent">
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="21dp"
@@ -31,6 +33,7 @@
                     android:layout_height="21dp"
                     android:max="100"
                     android:progress="10"
+
                     android:backgroundTint="@android:color/transparent"
                     android:indeterminateOnly="false"
                     android:progressDrawable="@drawable/bg_progress_fill"/>
@@ -59,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" "
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:includeFontPadding="false"/>
