@@ -35,6 +35,7 @@ data class SleepValue(
     val MorningAlertness: MorningAlertness?,
     val lastVital: List<Vital>,
     val HrGraph:HrGraph,
+    val GistObject:GistObject,
     val HrvGraph:HrvGraph
 )
 data class MorningAlertness(
