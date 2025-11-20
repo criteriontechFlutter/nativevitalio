@@ -191,7 +191,7 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/camera"
+                        android:src="@drawable/edit_camera"
                         android:contentDescription="Camera"
                         app:tint="#2B1D6D" />
 
