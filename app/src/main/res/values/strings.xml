@@ -268,5 +268,6 @@
     <string name="how_are_you_feeling_now">How are you feeling now?</string>
     <string name="activity">Activity</string>
     <string name="completions">Completions</string>
+    <string name="today_s_priority_action">Today\'s Priority Action</string>
 
 </resources>

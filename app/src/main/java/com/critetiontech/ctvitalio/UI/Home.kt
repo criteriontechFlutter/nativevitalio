@@ -73,25 +73,6 @@ class Home :  BaseActivity() {
 
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        Log.d("TAG", "onNewIntentChecking1: ")
-        // Get NavHostFragment
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.my_nav_host_fragment)
-
-        // Get the current visible fragment
-        val currentFragment = navHostFragment
-            ?.childFragmentManager
-            ?.fragments
-            ?.firstOrNull()
-        Log.d("TAG", "onNewIntentChecking: ")
-        // If it's your OAuthFragment, forward the intent
-        if (currentFragment is CorporateDashBoard) {
-
-            currentFragment.onNewIntentReceived(intent)
-        }
-    }
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val navController = findNavController(R.id.my_nav_host_fragment)

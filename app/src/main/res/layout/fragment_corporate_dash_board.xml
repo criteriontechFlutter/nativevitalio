@@ -19,21 +19,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.38" />
+        app:layout_constraintGuide_percent="-0.55" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="15dp" />
+        app:layout_constraintGuide_begin="0dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizontal_margin_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="15dp" />
+        app:layout_constraintGuide_end="0dp" />
 
     <!-- Gradient Blue Header -->
     <LinearLayout
@@ -85,7 +85,7 @@
                     android:background="@drawable/circle_dashboard_background"
                     android:padding="2dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_personal_info" />
+                    android:src="@drawable/profile" />
                 <ImageView
                     android:id="@+id/profile_badge"
                     android:layout_width="15dp"
@@ -93,9 +93,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:background="@drawable/badge_user"
                     android:gravity="center"
-
                     android:textColor="@android:color/white"
-
                     android:textStyle="bold"
                     android:elevation="4dp" />
             </FrameLayout>
@@ -210,14 +208,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.05" />
+                app:layout_constraintGuide_percent="0.06" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_illustration_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="100dp" />
+                app:layout_constraintGuide_begin="40dp" />
 
             <TextView
                 android:id="@+id/tFeeling"
@@ -257,7 +255,6 @@
                 android:layout_width="300dp"
                 android:layout_height="250dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="8dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/moods"
@@ -961,7 +958,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:text="Today's Priority Action"
+                            android:text="@string/today_s_priority_action"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -972,8 +969,6 @@
                             android:layout_height="wrap_content"
                             android:clipChildren="false"
                             android:clipToPadding="false"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
                             android:orientation="horizontal"
                             android:overScrollMode="never"
                             android:scrollbars="none" />
@@ -1054,14 +1049,16 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FFFFFF"
                         android:clickable="true"
+                        android:background="@drawable/bg_progress_track"
                         android:id="@+id/dailyCheckListCard"
                         android:focusable="true"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="24dp"
                         app:cardElevation="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_corners"
                             android:orientation="vertical"
                             android:padding="12dp">
 
@@ -1909,7 +1906,7 @@
                                                                 android:id="@+id/linearLayout2233"
                                                                 android:layout_width="match_parent"
                                                                 android:layout_height="match_parent"
-                                                                android:layout_marginRight="5dp"
+                                                                android:layout_marginEnd="5dp"
                                                                 android:gravity="center_vertical"
                                                                 android:orientation="horizontal"
                                                                 android:padding="16dp"
@@ -1919,7 +1916,7 @@
                                                                 app:layout_constraintTop_toTopOf="parent">
 
                                                                 <LinearLayout
-                                                                    android:layout_width="wrap_content"
+                                                                    android:layout_width="0dp"
                                                                     android:layout_height="wrap_content"
                                                                     android:layout_weight="1"
                                                                     android:orientation="vertical">

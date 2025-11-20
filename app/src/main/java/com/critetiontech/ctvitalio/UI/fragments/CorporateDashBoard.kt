@@ -24,7 +24,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -34,7 +33,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.ColorUtils
-import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -63,14 +61,9 @@ import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.google.android.material.snackbar.Snackbar
-import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationService
-import net.openid.appauth.AuthorizationServiceConfiguration
-import net.openid.appauth.ResponseTypeValues
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.WebSocket
-import java.io.IOException
+import androidx.core.graphics.toColorInt
 
 
 class CorporateDashBoard : Fragment() {
@@ -119,7 +112,7 @@ class CorporateDashBoard : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SuspiciousIndentation", "SetTextI18n")
+    @SuppressLint("SuspiciousIndentation", "SetTextI18n", "UseKtx")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val screenHeight = resources.displayMetrics.heightPixels
@@ -133,6 +126,8 @@ class CorporateDashBoard : Fragment() {
         binding.notificationIcon.setOnClickListener {
 
         }
+
+
 
         navItems = listOf(
             view.findViewById(R.id.nav_home),
@@ -238,6 +233,13 @@ class CorporateDashBoard : Fragment() {
             val waterQty = list
                 .firstOrNull { it.id.toString() == "97694" }
                 ?.amount?.toFloat() ?: 0f  // convert safely to Float
+
+//            binding.sleepProgressIds.dashboardAnimatedCard.setWaveColors(
+//                backgroundColor = "#DFFFE9".toColorInt(),
+//                backWaveColor = "#DFFFE9".toColorInt(),
+//                frontWaveColor = "#DFFFE9".toColorInt()
+//            )
+
 
 
 //            binding.intakeWaterId.text=waterQty.toString()
@@ -922,6 +924,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         // Default Icons, Colors and Initial Values
         // -------------------------------------------------------
 
+
         binding.stepsProgressId.dailyChecklistID.visibility = View.GONE
         binding.sleepProgressId.dailyChecklistID.visibility = View.GONE
         binding.waterProgressId.dailyChecklistID.visibility = View.GONE
@@ -963,6 +966,12 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         binding.bpProgressId.tvStepsLabel.text = "Blood Pressure 0.0%"
         binding.medicineProgressId.tvStepsLabel.text = "Medicine 0.0%"
 
+        binding.stepsProgressId.tvStepsLabel.setTextColor(Color.WHITE)
+        binding.sleepProgressId.tvStepsLabel.setTextColor(Color.WHITE)
+        binding.waterProgressId.tvStepsLabel.setTextColor(Color.WHITE)
+        binding.glucoseProgressId.tvStepsLabel.setTextColor(Color.WHITE)
+        binding.bpProgressId.tvStepsLabel.setTextColor(Color.WHITE)
+        binding.medicineProgressId.tvStepsLabel.setTextColor(Color.WHITE)
 
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
 
@@ -1222,85 +1231,6 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             goalsItem.findViewById<ImageView>(R.id.navIcon)
                 .setImageResource(R.drawable.challenges_icon)
             goalsItem.findViewById<TextView>(R.id.navText).text = "Goals"
-        }
-
-
-        private fun handleAuthRedirectIntent(intent: Intent) {
-            val data = intent.data
-            if (data != null && data.scheme == "com.critetiontech.ctvitalio" && data.host == "callback") {
-                val accessToken = data.getQueryParameter("accessToken")
-                val refreshToken = data.getQueryParameter("refreshToken")
-                val tokenType = data.getQueryParameter("tokenType")
-                val expiry = data.getQueryParameter("expiresIn")
-
-                if (accessToken != null) {
-                    Log.d("OAuth", "Received code: $accessToken and state: $tokenType")
-                    Log.d("OAuth", "Received refreshToken: $refreshToken")
-                    Log.d("OAuth", "Received refreshToken: $tokenType")
-                    Log.d("OAuth", "Received refreshToken: $expiry")
-                    viewModel.insertUltraHumanToken(accessToken, refreshToken, tokenType, expiry)
-                    Toast.makeText(context, "Check$refreshToken", Toast.LENGTH_LONG)
-                    exchangeCodeForToken(accessToken)
-                } else {
-                    Log.e("OAuth", "No authorization code found in redirect URI")
-                }
-            }
-        }
-
-        fun onNewIntentReceived(intent: Intent) {
-            handleAuthRedirectIntent(intent = intent)
-        }
-
-        private fun initializeAuth() {
-            authService = AuthorizationService(requireContext())
-            startOAuthFlow()
-        }
-
-        private fun startOAuthFlow() {
-            val authUri = "https://auth.ultrahuman.com/authorise".toUri()
-            val tokenUri = "https://partner.ultrahuman.com/oauth/token".toUri()
-            val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback".toUri()
-
-            val serviceConfig = AuthorizationServiceConfiguration(authUri, tokenUri)
-
-            val authRequest = AuthorizationRequest.Builder(
-                serviceConfig,
-                "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo",
-                ResponseTypeValues.CODE,
-                redirectUri
-            ).setScope("profile ring_data cgm_data ring_extended_data").build()
-
-            val intent = authService!!.getAuthorizationRequestIntent(authRequest)
-            startActivity(intent)
-
-        }
-
-        private fun exchangeCodeForToken(authCode: String) {
-            val tokenUrl = "https://partner.ultrahuman.com/oauth/token"
-            val clientId = "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo"
-            val redirectUri = "https://vitalioapi.medvantage.tech:5082/callback"
-
-            val requestBody =
-                "grant_type=authorization_code&code=$authCode&redirect_uri=$redirectUri&client_id=$clientId&state=${PrefsManager().getPatient()?.emailID}|1"
-
-            val request = Request.Builder()
-                .url(tokenUrl)
-                .addHeader("Content-Type", "application/json")
-                .post(okhttp3.RequestBody.create(null, requestBody))
-                .build()
-
-            OkHttpClient().newCall(request).enqueue(object : okhttp3.Callback {
-                override fun onFailure(call: okhttp3.Call, e: IOException) {
-                    Log.e("OAuth", "Token request failed: ${e.message}")
-                }
-
-                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                    response.use {
-                        val body = it.body?.string()
-                        Log.d("OAuth", "Token response: $body")
-                    }
-                }
-            })
         }
 
         private fun setupNav() {

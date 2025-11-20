@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI
 
 import PrefsManager
+import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -31,14 +32,24 @@ class UltraHumanActivity : AppCompatActivity() {
     private lateinit var viewModel: DashboardViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("UH_DEBUG", "UltraHumanActivity CREATED with intent: " + intent.data)
         binding = ActivityUltraHumanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
 
         binding.btnContinue.setOnClickListener {
             initializeAuth()
-            handleAuthRedirectIntent(this.intent)
+
         }
+
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+         binding.btnCancel.setOnClickListener {
+            onBackPressed()
+        }
+
+
 
 
 
@@ -61,7 +72,7 @@ class UltraHumanActivity : AppCompatActivity() {
                 Log.d("OAuth", "Received refreshToken: $tokenType")
                 Log.d("OAuth", "Received refreshToken: $expiry")
                 viewModel.insertUltraHumanToken(accessToken, refreshToken, tokenType, expiry)
-                Toast.makeText(this, "Check$refreshToken", Toast.LENGTH_LONG)
+                //Toast.makeText(this, "Check$refreshToken", Toast.LENGTH_LONG).show()
                 exchangeCodeForToken(accessToken)
             } else {
                 Log.e("OAuth", "No authorization code found in redirect URI")
@@ -69,8 +80,11 @@ class UltraHumanActivity : AppCompatActivity() {
         }
     }
 
-    fun onNewIntentReceived(intent: Intent) {
-        handleAuthRedirectIntent(intent = intent)
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        Log.d("TAG", "onNewIntentCheckingfdbdb1: $intent");
+        handleAuthRedirectIntent(intent)
     }
 
     private fun initializeAuth() {

@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
      app:cardCornerRadius="20dp"
     android:padding="5dp"
-    android:foregroundTint="#EAF4FF"
     android:background="@drawable/dashboard_rounded_corner"
      app:cardElevation="0dp" >
 
@@ -14,9 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-android:foregroundTint="#EAF4FF"
         android:background="@drawable/dashboard_rounded_corner"
-
         android:padding="16dp">
 
         <!-- Card content -->
