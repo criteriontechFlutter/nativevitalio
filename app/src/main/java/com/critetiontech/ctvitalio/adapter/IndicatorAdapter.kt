@@ -1,7 +1,6 @@
 package com.critetiontech.ctvitalio.adapter
 
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -19,7 +18,7 @@ class IndicatorAdapter(private val count: Int) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndicatorViewHolder {
         val imageView = ImageView(parent.context).apply {
             val size = (parent.context.resources.displayMetrics.density * 8).toInt()
-            val margin = (parent.context.resources.displayMetrics.density * 4).toInt()
+            val margin = (parent.context.resources.displayMetrics.density * 2).toInt()
             layoutParams = ViewGroup.MarginLayoutParams(size, size).apply {
                 setMargins(margin, margin, margin, margin)
             }
@@ -30,9 +29,12 @@ class IndicatorAdapter(private val count: Int) :
     override fun onBindViewHolder(holder: IndicatorViewHolder, position: Int) {
         val drawableRes =
             if (position == selectedPosition) R.drawable.dot_active else R.drawable.dot_inactive
+
+
         holder.imageView.setImageDrawable(
             ContextCompat.getDrawable(holder.imageView.context, drawableRes)
         )
+
     }
 
     override fun getItemCount() = count

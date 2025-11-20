@@ -24,6 +24,7 @@
     <color name="textGrey2">#5F6471</color>
     <color name="symptomsButton">#E2E7F0</color>
     <color name="symptomsButtonNo">#E4EEFF</color>
+    <color name="borderColor">#B7D1F8</color>
 
     <!-- Background Colors -->
     <color name="greyBG">#EDF1F6</color>

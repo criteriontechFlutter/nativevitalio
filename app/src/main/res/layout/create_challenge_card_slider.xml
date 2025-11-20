@@ -275,7 +275,7 @@
                 android:padding="12dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dashboard_rounded_corner"
-                android:backgroundTint="#EAF4FF"
+
                 android:text="Tiny push needed — one smooth glucose day completes your streak."
                 android:textSize="12sp"
                 android:textColor="#444444" />
@@ -293,20 +293,21 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_log_reading"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="Log reading"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                app:icon="@drawable/ic_log"
-                app:iconGravity="start"
-                app:iconPadding="6dp"
-                app:cornerRadius="6dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
                 android:paddingVertical="0dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
+                android:text="Log reading"
+                android:gravity="center_vertical|center_horizontal"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
                 app:backgroundTint="#007BFF"
-                android:layout_marginEnd="12dp" />
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_log"
+                app:iconGravity="start"
+                app:iconPadding="6dp" />
 
             <!-- Message Coach Button -->
 
@@ -314,22 +315,23 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_message_coach"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="Message coach"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:textColor="#007BFF"
-                app:icon="@drawable/ic_chat"
-                app:iconTint="#007BFF"
-                app:iconGravity="start"
-                app:iconPadding="6dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                android:paddingHorizontal="20dp"
                 android:paddingVertical="0dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                app:cornerRadius="6dp"
+                android:text="Message coach"
+                android:gravity="center_vertical|center_horizontal"
+                android:textAllCaps="false"
+                android:textColor="#007BFF"
+                android:textSize="14sp"
                 app:backgroundTint="@color/greyBG"
-                android:paddingHorizontal="20dp"
-                android:layout_marginEnd="12dp" />
+                app:cornerRadius="6dp"
+                app:icon="@drawable/ic_chat"
+                app:iconGravity="start"
+                app:iconPadding="6dp"
+                app:iconTint="#007BFF" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
