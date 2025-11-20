@@ -33,7 +33,9 @@ data class SleepValue(
     val SleepStages: List<SleepStage>?,
     val MovementGraph: MovementGraph?,
     val MorningAlertness: MorningAlertness?,
-    val lastVital: List<Vital>
+    val lastVital: List<Vital>,
+    val HrGraph:HrGraph,
+    val HrvGraph:HrvGraph
 )
 data class MorningAlertness(
     val Minutes: String,
@@ -224,4 +226,55 @@ data class EnergyItem(
     val clientId: Int,
     val status: Boolean,
     val createdDate: String
+)
+
+
+data class SleepCycle(
+    val startTime: String,
+    val endTime: String,
+    val cycleType: String,  // "complete", "partial", "none"
+    val color: String?
+)
+
+data class SleepCyclesData(
+    val title: String,
+    val cycles: List<SleepCycle>,
+    val fullCount: Int,
+    val partialCount: Int
+)
+
+
+data class LegendItem(
+    val title: String,
+    val color: String
+)
+data class HrGraphResponse(
+    val HrGraph: HrGraph
+)
+
+data class HrGraph(
+    val Title: String,
+    val Data: List<HrData>
+)
+
+data class HrData(
+    val Timestamp: String,
+    val Value: Double
+)
+data class GistObject(
+    val Title: String?,
+    val DetailText: String?,
+    val DetailUnitText: String?,
+    val Subtitle: String?,
+    val Avg: Int?,
+    val Min: Int?,
+    val Max: Int?
+)
+data class HrvGraphData(
+    val Timestamp: String,
+    val Value: Double
+)
+data class HrvGraph(
+    val Title: String?,
+    val Data: List<HrvGraphData>?
 )

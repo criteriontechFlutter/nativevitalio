@@ -36,6 +36,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
         hr: String? ="0",
         weight: String? ="0",
         rbs: String? = "0",
+        glucose: String? = "0",
         positionId:  String? = "0",
     ) {
         _loading.value = true
@@ -52,6 +53,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                     "vmValueHeartRate" to hr.toString(),
                     "weight" to weight.toString(),
                     "vmValueRbs" to rbs.toString(),
+                    "vmValueGlucose" to glucose.toString(),
                     "vitalTime" to SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date()),
                     "vitalDate" to SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
                     "uhid" to PrefsManager().getPatient()?.empId.toString(),

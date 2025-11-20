@@ -1,10 +1,15 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import HrData
+import HrvGraph
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import android.graphics.Canvas
 import com.critetiontech.ctvitalio.R
 
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -20,13 +25,26 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
 import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
 import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
+import com.critetiontech.ctvitalio.databinding.IncludeProgressCardBinding
+import com.critetiontech.ctvitalio.model.SleepCycleView
+import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.renderer.YAxisRenderer
+import java.nio.file.Path
+import java.time.Instant
 import java.util.Calendar
 
 data class SleepEntry(val day: Int, val value: Int)
@@ -37,6 +55,8 @@ class SleepDetails : Fragment() {
     private var _binding: FragmentSleepDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private val sleepManager = SleepCycleView()
+    private lateinit var viewModel: DashboardViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,8 +76,10 @@ class SleepDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ✅ Example dataset for bar chart
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+         // ✅ Example dataset for bar chart
         val calendar = Calendar.getInstance()
+        viewModel.getVitals()
         val data = listOf(
             SleepEntry(calendar.get(Calendar.DAY_OF_MONTH), 100),
             SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 1, 56),
@@ -88,69 +110,252 @@ class SleepDetails : Fragment() {
         binding.hr.status.text = "Fair"
 
         // ✅ Progress cards
-        binding.sleepEfficiencyProgressId.sleepProgressBar.progress = 41
-        binding.sleepEfficiencyProgressId.cardTitle.text = "Sleep Efficiency"
-        binding.sleepEfficiencyProgressId.Title.text = "Need Attention"
-
-        binding.tempProgressId.sleepProgressBar.progress = 87
-        binding.tempProgressId.cardTitle.text = "Temperature"
-        binding.tempProgressId.Title.text = "Elevated"
-
-        binding.restfulnessProgressId.sleepProgressBar.progress = 41
-        binding.restfulnessProgressId.cardTitle.text = "Restfulness"
-        binding.restfulnessProgressId.Title.text = "Need Attention"
-
-        binding.totalSleepProgressId.sleepProgressBar.progress = 74
-        binding.totalSleepProgressId.cardTitle.text = "Total Sleep"
-        binding.totalSleepProgressId.Title.text = "Need Attention"
-
-        binding.hrProgress.sleepProgressBar.progress = 41
-        binding.hrProgress.cardTitle.text = "HR Drop"
-        binding.hrProgress.Title.text = "Need Attention"
-
-        binding.restorativeSleepProgressId.sleepProgressBar.progress = 32
-        binding.restorativeSleepProgressId.cardTitle.text = "Restorative Sleep"
-        binding.restorativeSleepProgressId.Title.text = "Need Attention"
-        hr()
+        setDefaultProgress(binding.sleepEfficiencyProgressId)
+        setDefaultProgress(binding.tempProgressId)
+        setDefaultProgress(binding.restfulnessProgressId)
+        setDefaultProgress(binding.totalSleepProgressId)
+        setDefaultProgress(binding.hrProgress)
+        setDefaultProgress(binding.restorativeSleepProgressId)
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+        hrFromServerData(sleepValue.HrGraph.Data)
+        }
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+            hrVariability(sleepValue.HrvGraph )
+        }
         // ✅ Add the dynamic sleep cycle chart
         setupSleepCycleGraph()
         hrVariability()
 
-        binding.wellnessImageArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        bindContributorsData()
+        setupChart()
+openSleepGraph()
     }
 
-
-
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    private fun hr() {
-        val now = System.currentTimeMillis()
-        val points = mutableListOf<HeartRateGraphView.HeartRatePoint>()
+    private fun hrVariability(hrvGraph: HrvGraph) {
 
-        // ✅ Generate 10 dynamic random BPM points, 1 min apart
-        for (i in 0..10) {
-            points.add(
-                HeartRateGraphView.HeartRatePoint(
-                    now + i * 60_000L, // each minute
-                    (60..130).random()
-                )
+        // Convert API data → graph points
+        val points = hrvGraph.Data?.map { item ->
+            HeartRateGraphView.HeartRatePoint(
+                Instant.parse(item.Timestamp).toEpochMilli(),
+                item.Value.toInt()
             )
-        }
+        } ?: emptyList()
 
-        // ✅ Update graph with new data
-        binding.heartRateGraph.setData(points)
+        if (points.isEmpty()) return
 
-        // ✅ Set threshold line (e.g., safe HR zone)
-        binding.heartRateGraph.thresholdValue = 100
+        // 🔵 Bind data to the graph
+        binding.heartRateVariablityGraph.setData(points)
+        binding.heartRateVariablityGraph.graphTile   = "Lower Heart Rate"
 
-        // ✅ Example: fix Y-axis and time range manually
-        binding.heartRateGraph.setYAxisRange(40, 180)
-        binding.heartRateGraph.setTimeRange(now, now + 600_000L)
+        // 🔵 Optional: threshold line
+//        binding.heartRateVariablityGraph.thresholdValue = 74
 
-        // ✅ If you want to restore automatic scaling later:
-        binding.heartRateGraph.resetDynamicAxes()
+        // 🔵 Auto-calc Y range
+        val minValue = points.minOf { it.bpm } - 5
+        val maxValue = points.maxOf { it.bpm } + 5
+        binding.heartRateVariablityGraph.setYAxisRange(minValue, maxValue)
+
+        // 🔵 Time range from first to last point
+        binding.heartRateVariablityGraph.setTimeRange(
+            points.first().timestamp,
+            points.last().timestamp
+        )
+
+        // 🔵 Let graph scale dynamically again
+        binding.heartRateVariablityGraph.resetDynamicAxes()
     }
+private fun openSleepGraph() {
+    childFragmentManager.beginTransaction()
+        .replace(R.id.sleepGraph, SleepGraphFragment())
+        .commit()
+
+    }
+    private fun setDefaultProgress(card: IncludeProgressCardBinding) {
+        card.sleepProgressBar.progress = 1
+        card.cardTitle.text = "--"
+        card.Title.text = "--"
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun bindContributorsData() {
+
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+
+        val totalSleep = sleepValue.QuickMetricsTiled
+            ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+
+         binding.totalSleepIds.value .text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+            val restorative = sleepValue.QuickMetricsTiled
+                ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
+            binding.restorativeSleepId.value.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+            val timeinBed = sleepValue.QuickMetricsTiled
+                ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+             binding.timeInBedId.value.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+        }
+            viewModel.sleepsummary.observe(viewLifecycleOwner) { list ->
+                val timeinBed =list
+                    ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+                binding.timeInBedId.value.text=HtmlCompat.fromHtml (timeinBed?.Score.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY) }
+ val cardMap = mapOf(
+            "Sleep Efficiency" to binding.sleepEfficiencyProgressId,
+            "Temperature" to binding.tempProgressId,
+            "Restfulness" to binding.restfulnessProgressId,
+            "Total Sleep" to binding.totalSleepProgressId,
+            "HR Drop" to binding.hrProgress,
+            "Restorative Sleep" to binding.restorativeSleepProgressId
+        )
+
+        viewModel.sleepsummary.observe(viewLifecycleOwner) { list ->
+
+            list?.forEach { item ->
+                val card = cardMap[item.Title]
+                card?.let { c ->
+                    c.sleepProgressBar.progress = item.Score.toInt()
+                    c.cardTitle.text = item.Title
+                    c.Title.text = item.StateTitle
+                }
+            }
+        }
+    }
+
+
+    private fun setupChart() {
+        val alertnessMin = 70
+        val height = "170 cm"
+        val weight = "70 kg"
+
+        // Bind simple text values
+        binding.tvAlertnessValue.text = "$alertnessMin min"
+        val entries = listOf(
+            BarEntry(0f, 60f),
+            BarEntry(1f, 85f),
+            BarEntry(2f, 110f),
+            BarEntry(3f, 95f),
+            BarEntry(4f, 120f),
+            BarEntry(5f, 130f),
+            BarEntry(6f, 160f)
+        )
+
+        val dataSet = BarDataSet(entries, "")
+        dataSet.color = Color.parseColor("#EAF4FF")      // unselected
+        dataSet.highLightColor = Color.parseColor("#77B7FF") // selected
+        dataSet.highLightAlpha = 255
+        dataSet.valueTextColor = Color.TRANSPARENT
+
+        val barData = BarData(dataSet)
+        barData.barWidth = 0.3f
+        val maxY = 200f           // example: your chart max
+        val target20 = maxY * 0.20f
+        binding.alertnessBarChart.data = barData
+        binding.alertnessBarChart.description.isEnabled = false
+        binding.alertnessBarChart.legend.isEnabled = false
+        binding.alertnessBarChart.axisLeft.axisMinimum = 30f
+        binding.alertnessBarChart.scrollBarSize=0
+        binding.alertnessBarChart.axisRight.isEnabled = false
+        binding.alertnessBarChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        binding.alertnessBarChart.xAxis.setDrawGridLines(false)
+        binding.alertnessBarChart.axisLeft.setDrawGridLines(false)
+        binding.alertnessBarChart.rendererLeftYAxis =
+            object : YAxisRenderer(
+                binding.alertnessBarChart.viewPortHandler,
+                binding.alertnessBarChart.axisLeft,
+                binding.alertnessBarChart.getTransformer(YAxis.AxisDependency.LEFT)
+            ) {
+
+                override fun renderGridLines(c: Canvas?) {
+                    super.renderGridLines(c)
+
+                    val target = mYAxis.mAxisMaximum * 0.30f
+                    val transformer = binding.alertnessBarChart.getTransformer(YAxis.AxisDependency.LEFT)
+                    val targetY = transformer.getPixelForValues(0f, target)
+
+                    val rect = RectF(
+                        binding.alertnessBarChart.viewPortHandler.contentLeft(),
+                        targetY.y.toFloat(),
+                        binding.alertnessBarChart.viewPortHandler.contentRight(),
+                        binding.alertnessBarChart.viewPortHandler.contentBottom()
+                    )
+
+                    val paint = Paint().apply {
+                        color = Color.parseColor("#1A00D492") // light blue transparent
+                        style = Paint.Style.FILL
+                    }
+
+                    c?.drawRect(rect, paint)
+                }
+            }
+        binding.alertnessBarChart.invalidate()
+    }
+
+
+//    @SuppressLint("SetTextI18n")
+//    private fun hr() {
+//        val now = System.currentTimeMillis()
+//        val points = mutableListOf<HeartRateGraphView.HeartRatePoint>()
+//
+//        // ✅ Generate 10 dynamic random BPM points, 1 min apart
+//        for (i in 0..10) {
+//            points.add(
+//                HeartRateGraphView.HeartRatePoint(
+//                    now + i * 60_000L, // each minute
+//                    (60..130).random()
+//                )
+//            )
+//        }
+//
+//        // ✅ Update graph with new data
+//        binding.heartRateGraph.setData(points)
+//
+//        // ✅ Set threshold line (e.g., safe HR zone)
+//        binding.heartRateGraph.thresholdValue = 100
+//
+//        // ✅ Example: fix Y-axis and time range manually
+//        binding.heartRateGraph.setYAxisRange(40, 180)
+//        binding.heartRateGraph.setTimeRange(now, now + 600_000L)
+//
+//        // ✅ If you want to restore automatic scaling later:
+//        binding.heartRateGraph.resetDynamicAxes()
+//    }
+@RequiresApi(Build.VERSION_CODES.O)
+fun isoToMillis(isoDate: String): Long {
+    return Instant.parse(isoDate).toEpochMilli()
+}
+@RequiresApi(Build.VERSION_CODES.O)
+@SuppressLint("SetTextI18n")
+private fun hrFromServerData(hrList: List<HrData>) {
+
+    // Convert data to HeartRatePoint list
+    val points = hrList.map { item ->
+        HeartRateGraphView.HeartRatePoint(
+            isoToMillis(item.Timestamp),
+            item.Value.toInt()
+        )
+    }
+
+    // Set data to graph
+    binding.heartRateGraph.setData(points)
+
+    binding.heartRateVariablityGraph.graphTile   = "HRV Zone"
+    // Set threshold line
+    binding.heartRateGraph.thresholdValue = 84
+
+    // Fix Y-axis range (optional)
+    binding.heartRateGraph.setYAxisRange(40, 120)
+
+    // Fix time range (optional)
+    binding.heartRateGraph.setTimeRange(
+        points.first().timestamp,
+        points.last().timestamp
+    )
+
+    // Restore dynamic scaling later if needed
+    // binding.heartRateGraph.resetDynamicAxes()
+}
     @SuppressLint("SetTextI18n")
     private fun hrVariability() {
         val now = System.currentTimeMillis()
@@ -179,9 +384,54 @@ class SleepDetails : Fragment() {
         // ✅ If you want to restore automatic scaling later:
         binding.heartRateVariablityGraph.resetDynamicAxes()
     }
-
-    // 💤 Dynamic Sleep Cycle Section (from your "freg" function)
     private fun setupSleepCycleGraph() {
+        val sleepManager = SleepCycleView()
+        val cyclesData = sleepManager.parseFromJson()
+
+        // Create time labels programmatically
+        val timeContainer = LinearLayout(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            orientation = LinearLayout.HORIZONTAL
+        }
+
+        val timeLabels = mutableListOf<TextView>()
+        val gravities = listOf(
+            Gravity.START,
+            Gravity.CENTER,
+            Gravity.CENTER,
+            Gravity.CENTER,
+            Gravity.END
+        )
+
+        for (i in 0..4) {
+            val tv = TextView(requireContext()).apply {
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+                textSize = 11f
+                setTextColor(Color.parseColor("#999999"))
+                gravity = gravities[i]
+            }
+            timeLabels.add(tv)
+            timeContainer.addView(tv)
+        }
+
+        // Add time container below sleep graph (adjust based on your parent layout)
+        // binding.yourParentLayout.addView(timeContainer)
+
+        sleepManager.setupSleepCycleGraph(
+            context = requireContext(),
+            sleepGraphContainer = binding.sleepGraph,
+            tvSleepCycleCount = binding.tvSleepCycleCount,
+            cyclesData = cyclesData,
+            timeLabels = timeLabels
+        )
+   binding.tvLegend.text = "${cyclesData.fullCount} Full / ${cyclesData.partialCount} Partial"
+
+    }
+    // 💤 Dynamic Sleep Cycle Section (from your "freg" function)
+    private fun setupSleepCycleGrapha() {
         val sleepSegments = listOf(
             SleepSegment("full", 2f),
             SleepSegment("partial", 1f),
@@ -284,8 +534,8 @@ class SleepDetails : Fragment() {
                         1f
                     ).apply {
                         // Add horizontal spacing between bars
-                        marginStart = 4.dp
-                        marginEnd = 4.dp
+                        marginStart = 0.dp
+                        marginEnd = 0.dp
                     }
                 }
 
