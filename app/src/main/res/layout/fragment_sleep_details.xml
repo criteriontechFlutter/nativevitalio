@@ -564,7 +564,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="You've been experiencing prolonged grogginess that affects your mornings. Try adjusting your bedroom temperature, having dinner earlier, limiting the use of blackout curtains, and avoiding coffee late in the evening."
+                        android:text="@string/you_ve_been_experiencing_prolonged_grogginess_that_affects_your_mornings_try_adjusting_your_bedroom_temperature_having_dinner_earlier_limiting_the_use_of_blackout_curtains_and_avoiding_coffee_late_in_the_evening"
                         android:textColor="#666666"
                         android:textSize="14sp"
                         android:lineSpacingExtra="4dp"/>
@@ -688,7 +688,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Your movement patterns during sleep indicate slight restlessness"
+                                android:text="@string/your_movement_patterns_during_sleep_indicate_slight_restlessness"
                                 android:textColor="#424242"
                                 android:textSize="12sp"
                                 android:lineSpacingExtra="2dp"/>
@@ -721,7 +721,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Average Oxygen Saturation"
+                        android:text="@string/average_oxygen_saturation"
                         android:textColor="#333333"
                         android:textSize="16sp"
                         android:textStyle="bold"

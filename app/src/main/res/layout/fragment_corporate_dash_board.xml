@@ -240,7 +240,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_serif_pro"
-                android:text="Choose the mood that fits you best..."
+                android:text="@string/choose_the_mood_that_fits_you_best"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -905,7 +905,7 @@
                                     android:id="@+id/energyTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Your energy story awaits"
+                                    android:text="@string/your_energy_story_awaits"
                                     android:textColor="@android:color/black"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -914,7 +914,7 @@
                                     android:id="@+id/energySubtitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Log your energy for today ⚡"
+                                    android:text="@string/log_your_energy_for_today"
                                     android:textColor="@android:color/darker_gray"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -937,7 +937,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:paddingBottom="10dp"
-                        android:text="Today's Health Snapshot"
+                        android:text="@string/today_s_health_snapshot"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
