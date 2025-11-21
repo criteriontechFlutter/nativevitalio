@@ -118,9 +118,12 @@ class SleepDetails : Fragment() {
         setDefaultProgress(binding.restorativeSleepProgressId)
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
         hrFromServerData(sleepValue.HrGraph.Data)
-        }
-        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
             hrVariability(sleepValue.HrvGraph )
+            binding.tvAvgValue.text=sleepValue.GistObject.Avg.toString()
+            binding.tvMaxValue.text=sleepValue.GistObject.Max.toString()
+            binding.tvMinValue.text=sleepValue.GistObject.Min.toString()
+
+
         }
         // ✅ Add the dynamic sleep cycle chart
         setupSleepCycleGraph()
