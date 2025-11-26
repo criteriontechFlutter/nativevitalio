@@ -302,12 +302,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:drawableEnd="@drawable/arrow_right"
                         android:paddingBottom="20dp"
                         android:text="Today's Medicine"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:drawableEndCompat="@drawable/arrow_right" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view"
