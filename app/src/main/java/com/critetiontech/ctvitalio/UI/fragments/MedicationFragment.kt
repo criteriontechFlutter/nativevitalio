@@ -5,17 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMedicationBinding
 
 import com.critetiontech.ctvitalio.utils.VitalioCalendarView
+import com.critetiontech.ctvitalio.viewmodel.AddMedicineReminderViewModel
+import com.critetiontech.ctvitalio.viewmodel.MedicationViewModel
 
 
 class MedicationFragment : Fragment() {
 
     private var _binding: FragmentMedicationBinding? = null
 
+    private val viewModel: MedicationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +38,7 @@ class MedicationFragment : Fragment() {
         val calendarView = VitalioCalendarView(requireContext())
 
         _binding?.calendarContainer?.addView(calendarView)
+        viewModel.getEmployeeMedicineIntakeByDate()
 
 
 // Mark dates with different progress levels

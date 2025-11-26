@@ -1,46 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="20dp">
+    android:background="#F5F7FA"
+    android:orientation="vertical"
+    >
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:elevation="8dp"
+        android:background="@android:color/white">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:id="@+id/titleToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Medicine Reminder"
+            android:textColor="#111111"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="80dp">
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        >
 
         <!-- Toolbar -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/ivBack"
-                android:src="@drawable/ic_back"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                app:tint="#1A1A1A" />
-
-            <TextView
-                android:text="Add New Medicine Reminder"
-                android:textColor="#1A1A1A"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginStart="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
 
         <!-- Medicine Name -->
         <TextView
             android:text="Medicine Name"
-            android:textColor="#777E90"
+            android:textColor="#546788"
             android:textSize="13sp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -49,33 +73,49 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+
             android:background="@drawable/bg_field"
             android:paddingHorizontal="12dp"
             android:layout_marginTop="6dp">
 
             <EditText
                 android:id="@+id/etMedicineName"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="Search Medicine"
-                android:textColor="#1A1A1A"
-                android:textSize="15sp"
                 android:background="@null"
+                android:hint="Search Medicine"
+                android:inputType="text"
                 android:padding="0dp"
-                android:inputType="text" />
+                android:textColor="#202529"
+                android:textSize="15sp" />
 
             <ImageView
                 android:src="@drawable/ic_search"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 app:tint="#A0A0A0" />
-        </LinearLayout>
 
+        </LinearLayout>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/medicineScroll"
+            android:layout_width="match_parent"
+            android:layout_height="223dp"
+            android:visibility="gone"
+            android:overScrollMode="never" >
+
+            <LinearLayout
+                android:id="@+id/medicineContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+                />
+
+        </androidx.core.widget.NestedScrollView>
         <!-- Frequency -->
         <TextView
             android:text="Frequency"
-            android:textColor="#777E90"
+            android:textColor="#546788"
             android:textSize="13sp"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
@@ -87,88 +127,174 @@
             android:layout_height="50dp"
             android:background="@drawable/bg_field"
             android:layout_marginTop="6dp" />
+    <LinearLayout
+        android:id="@+id/containerEveryXDay"
+        android:orientation="vertical"
 
+        android:background="@drawable/bg_white_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvEveryXTitle"
+            android:text="Every 1 day"
+            android:textSize="13sp"
+            android:textColor="#777E90"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <!-- ✅ Add missing frequency containers -->
-        <LinearLayout
-            android:id="@+id/containerEveryXDay"
+
+        <LinearLayout  android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:background="@drawable/bg_field"
+             android:gravity="center_vertical">
 
-            <TextView
-                android:text="Every "
-                android:textSize="14sp"
-                android:textColor="#1A1A1A"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
+            <!-- Number Input -->
             <EditText
-                android:id="@+id/etEveryXDay"
-                android:hint="2"
+                android:id="@+id/etDays"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:inputType="number"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginHorizontal="6dp"/>
-
-            <TextView
-                android:text=" days"
-                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
                 android:textColor="#1A1A1A"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:background="@null"
+                android:layout_margin="10dp"
+                android:padding="0dp"
+                android:hint="1" />
 
+            <!-- Arrow Layout -->
+            <LinearLayout
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btnUp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_up"
+                     />
+
+                <ImageView
+                    android:id="@+id/btnDown"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_down"
+                   />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
         <LinearLayout
             android:id="@+id/containerDaysOfWeek"
             android:orientation="horizontal"
-            android:visibility="gone"
             android:gravity="center"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Select Days (Mon, Wed, Fri...)"
-                android:textColor="#1A1A1A"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:id="@+id/daySun"
+                android:text="S"
+                android:textColor="#FF3B30"
+                style="@style/DayCircleStyle" />
 
+            <TextView
+                android:id="@+id/dayMon"
+                android:text="M"
+                style="@style/DayCircleStyle" />
+
+            <TextView
+                android:id="@+id/dayTue"
+                android:text="T"
+                style="@style/DayCircleStyle" />
+
+            <TextView
+                android:id="@+id/dayWed"
+                android:text="W"
+                style="@style/DayCircleStyle" />
+
+            <TextView
+                android:id="@+id/dayThu"
+                android:text="T"
+                style="@style/DayCircleStyle" />
+
+            <TextView
+                android:id="@+id/dayFri"
+                android:text="F"
+                style="@style/DayCircleStyle" />
+
+            <TextView
+                android:id="@+id/daySat"
+                android:text="S"
+                style="@style/DayCircleStyle" />
+
+        </LinearLayout>
+        <!-- Outer container (Card style white background) -->
         <LinearLayout
             android:id="@+id/containerSpecificDates"
             android:orientation="vertical"
-            android:visibility="gone"
+android:visibility="gone"
             android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
+            android:background="@drawable/bg_white_card"
+             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Label -->
             <TextView
-                android:text="Specific date(s) of month:"
-                android:textColor="#1A1A1A"
-                android:textSize="14sp"
+                android:text="Specific date of every month"
+                android:textColor="#6B7280"
+                android:textSize="12sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/etSpecificDates"
-                android:hint="10th, 20th, 30th"
-                android:inputType="text"
-                android:background="@drawable/bg_field"
-                android:padding="10dp"
-                android:layout_marginTop="6dp"
+            <!-- Field container with calendar icon -->
+            <RelativeLayout
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etSpecificDates"
+                    android:hint="10th, 20th, 30th"
+                    android:background="@drawable/bg_field_white"
+                    android:padding="14dp"
+                    android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="text" />
+
+                <ImageView
+                    android:id="@+id/ivCalendar"
+                    android:src="@drawable/ic_calendar"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="12dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+            </RelativeLayout>
+
         </LinearLayout>
 
         <!-- Time Slot -->
+        <LinearLayout
+            android:id="@+id/containerEveryDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
         <TextView
+
+
+            android:id="@+id/tvTimeSlotTitle"
             android:text="Time Slot"
-            android:textColor="#777E90"
+            android:textColor="#546788"
             android:textSize="13sp"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
@@ -176,51 +302,83 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
             android:background="@drawable/bg_field"
-            android:paddingHorizontal="12dp"
-            android:layout_marginTop="6dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+
+            <LinearLayout
+                android:id="@+id/slotContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"  >
+
+                <!-- First Default Time Slot -->
+                <LinearLayout
+                    android:id="@+id/slotCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_field_time"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_clock"
+                        app:tint="#555555"/>
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="08:00"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="#222222"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Add Slot Button -->
+        <LinearLayout
+            android:id="@+id/btnAddSlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:padding="6dp">
 
             <ImageView
-                android:src="@drawable/ic_time"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:tint="#1976D2" />
-
-            <TextView
-                android:id="@+id/tvTime"
-                android:text="08:00"
-                android:textSize="15sp"
-                android:textColor="#1A1A1A"
-                android:layout_marginStart="10dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:text="1 tablet"
-                android:textColor="#1976D2"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_add"
+                app:tint="#1676F3" />
 
         <!-- Add Slot -->
-        <TextView
-            android:id="@+id/tvAddSlot"
-            android:text="+ Add Slot"
-            android:textColor="#1976D2"
-            android:textSize="15sp"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Slot"
+                android:textSize="15sp"
+                android:textColor="#1676F3"
+                android:layout_marginStart="6dp"/>
 
+        </LinearLayout>
+
+        </LinearLayout>
+        </LinearLayout>
         <!-- Instructions -->
         <TextView
             android:text="Instructions"
-            android:textColor="#777E90"
+            android:textColor="#546788"
             android:textSize="13sp"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
@@ -258,7 +416,7 @@
 
                 <TextView
                     android:text="Start Date"
-                    android:textColor="#777E90"
+                    android:textColor="#546788"
                     android:textSize="13sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -274,20 +432,20 @@
 
                     <EditText
                         android:id="@+id/etStartDate"
-                        android:hint="01/10/2025"
+                        android:hint="DD/MM/YYYY"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:inputType="none"
                         android:background="@null"
-                        android:textColor="#1A1A1A"
-                        android:textSize="15sp" />
+                        android:textColor="#202529"
+                        android:textSize="13sp" />
 
                     <ImageView
                         android:src="@drawable/ic_calendar"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        app:tint="#A0A0A0" />
+                        app:tint="#202529" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -304,7 +462,7 @@
 
                 <TextView
                     android:text="End Date"
-                    android:textColor="#777E90"
+                    android:textColor="#546788"
                     android:textSize="13sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -320,34 +478,40 @@
 
                     <EditText
                         android:id="@+id/etEndDate"
-                        android:hint="01/11/2025"
+                        android:hint="DD/MM/YYYY"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:inputType="none"
                         android:background="@null"
-                        android:textColor="#1A1A1A"
-                        android:textSize="15sp" />
+                        android:textColor="#202529"
+                        android:textSize="13sp" />
 
                     <ImageView
                         android:src="@drawable/ic_calendar"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        app:tint="#A0A0A0" />
+                        app:tint="#202529" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <!-- Add Medicine Button -->
-        <Button
-            android:id="@+id/addMedicine"
-            android:text="Add Medicine"
-            android:textAllCaps="false"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textColor="@android:color/white"
-            android:backgroundTint="#1976D2"
-            app:cornerRadius="12dp" />
+
     </LinearLayout>
-</ScrollView>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addMedicine"
+
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Add Medicine"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/bg_button_blue"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp" />
+    </FrameLayout>
+</LinearLayout>
