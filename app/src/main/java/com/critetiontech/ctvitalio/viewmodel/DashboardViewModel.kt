@@ -101,8 +101,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val queryParams = mapOf(
                     "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
                     "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
-                    "date" to todayDate,
-                //    "date" to "2025-11-18",
+                    //"date" to todayDate,
+                    "date" to "2025-11-24",
                     "clientId" to 194,
                 )
 
@@ -720,21 +720,15 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _patientSymptomList.value = parsed.responseValue
                     if((isFromd==true)){
-                        if (_patientSymptomList.value.isNotEmpty()) {
-                            if (navController != null) {
-                                navController.navigate(R.id.action_dashboard_to_symptomTrackerFragments)
-                            }
+                        if (_patientSymptomList.value?.isNotEmpty() == true) {
+                            navController?.navigate(R.id.action_dashboard_to_symptomTrackerFragments)
                         } else {
-                            if (navController != null) {
-                                navController.navigate(R.id.action_dashboard_to_symptomsFragment)
-                            }
+                            navController?.navigate(R.id.action_dashboard_to_symptomsFragment)
                         }
                     }
                 } else {
                     if((isFromd==true)){
-                        if (navController != null) {
-                            navController.navigate(R.id.action_dashboard_to_symptomsFragment)
-                        }
+                        navController?.navigate(R.id.action_dashboard_to_symptomsFragment)
                     }
                     _errorMessage.value = "Error: ${response.code()}"
                 }

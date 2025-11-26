@@ -10,6 +10,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.RenderEffect
+import android.graphics.Shader
 import android.graphics.Typeface
 import android.media.AudioRecord
 import android.os.Build
@@ -24,6 +26,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -64,6 +67,7 @@ import com.google.android.material.snackbar.Snackbar
 import net.openid.appauth.AuthorizationService
 import okhttp3.WebSocket
 import androidx.core.graphics.toColorInt
+import androidx.core.view.isVisible
 
 
 class CorporateDashBoard : Fragment() {
@@ -102,8 +106,10 @@ class CorporateDashBoard : Fragment() {
         MoodData(3,"Sad",   "#7DE7EE",  R.drawable.sad_mood,  "#3A7478")
 
     )
-    override fun onCreateView(
+    private var isFabOpen = false
 
+
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -119,14 +125,32 @@ class CorporateDashBoard : Fragment() {
         val halfHeight = screenHeight / 2f
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
-
         pillsViewModel.getAllPatientMedication()
-
-
         binding.notificationIcon.setOnClickListener {
 
         }
 
+
+        binding.fabIcon.setOnClickListener {
+            if (!isFabOpen) {
+                // +  →  X
+                binding.fabIcon.animate().rotation(135f).setDuration(300).start()
+                binding.fabIcon.setImageResource(R.drawable.raddimg)
+                isFabOpen = true
+                showPopup()
+            } else {
+                // X  →  +
+                binding.fabIcon.animate().rotation(0f).setDuration(300).start()
+                binding.fabIcon.setImageResource(R.drawable.raddimg)
+                isFabOpen = false
+                hidePopup()
+            }
+
+        }
+
+//        binding.blurOverlay.setOnClickListener {
+//
+//        }
 
 
         navItems = listOf(
@@ -137,46 +161,35 @@ class CorporateDashBoard : Fragment() {
         )
         viewModel.selectedMoodId.observe(viewLifecycleOwner) { moodId ->
             Log.d("TAG", "onViewCreated: $moodId")
-
             if (moodId.isNullOrBlank() || moodId.equals("null", ignoreCase = true)) {
-
                 binding.ivIllustration.setImageResource(R.drawable.moods)
                 binding.tFeelingBelow.visibility = View.VISIBLE
-
                 val text = "How are you feeling now?"
                 val spannable = SpannableString(text)
                 val start = text.indexOf("feeling")
                 val end = start + "feeling".length
-
                 spannable.setSpan(
                     ForegroundColorSpan(Color.parseColor("#FFA500")),
                     start,
                     end,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-
                 binding.tFeeling.text = spannable
-
             } else {
-
                 val mood = moods.find { it.id.toString() == moodId.toString() }
                 if (mood != null) {
-
                     binding.tFeelingBelow.visibility = View.GONE
                     binding.tFeeling.text = "Feeling ${mood.name}"
                     binding.tFeeling.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
-
                     (binding.tFeeling.layoutParams as ConstraintLayout.LayoutParams).apply {
                         verticalBias = 0.1f
                         binding.tFeeling.layoutParams = this
                     }
-
                     binding.ivIllustration.setImageResource(mood.emojiRes)
                     (binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams).apply {
                         verticalBias = -0.14f
                         binding.ivIllustration.layoutParams = this
                     }
-
                     binding.ivIllustration.layoutParams.apply {
                         width = dpToPx(374, requireContext())
                         height = dpToPx(203, requireContext())
@@ -189,9 +202,6 @@ class CorporateDashBoard : Fragment() {
         viewModel.getMoodByPid()
         viewModel.getAllEnergyTankMaster()
         setupNav()
-
-
-
         viewModel.fetchManualFluidIntake(uhid = PrefsManager().getPatient()?.empId.toString())
         binding.recyclerView.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
@@ -225,15 +235,12 @@ class CorporateDashBoard : Fragment() {
         binding.avatar.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
-
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
-
         challengesViewModel.getNewChallenge()
         viewModel.fluidList.observe(viewLifecycleOwner) { list ->
             val waterQty = list
                 .firstOrNull { it.id.toString() == "97694" }
                 ?.amount?.toFloat() ?: 0f  // convert safely to Float
-
 //            binding.sleepProgressIds.dashboardAnimatedCard.setWaveColors(
 //                backgroundColor = "#DFFFE9".toColorInt(),
 //                backWaveColor = "#DFFFE9".toColorInt(),
@@ -387,6 +394,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
         binding.ivIllustration.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_moodFragment ,null,
                 null)
+           // findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
         }
 
         binding.moodLayout.setTransitionListener(object : MotionLayout.TransitionListener {
@@ -445,6 +453,17 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //
 //            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
 //        }
+
+        binding.bpPopupId.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_connection )
+        }
+         binding.glucosePopupId.setOnClickListener {
+             val bundle = Bundle().apply {
+                 putString("vitalType", "Glucose")
+             }
+             findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+        }
+
         binding.addvitalBtn.setOnClickListener()
         {
 
@@ -606,7 +625,7 @@ binding.showId.showHideId.setOnClickListener{
 
     val light_sleep = sleepValue.SleepStages
         ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
-        binding.lightSleepId.title.text="Llght Sleep"
+        binding.lightSleepId.title.text="Light Sleep"
         binding.lightSleepId.value.text=light_sleep?.StageTimeText.toString()
         binding.lightSleepId.statusCardId.visibility=View.GONE
 
@@ -1090,6 +1109,63 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                 binding.medicineProgressId.tvStepsLabel.text = "Medicine ${percent}%"
             }
         }
+    }
+
+
+    private fun showPopup() {
+        // Apply blur effect to contentScroll only (Android 12+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val blurEffect = RenderEffect.createBlurEffect(
+                25f, 25f, Shader.TileMode.CLAMP
+            )
+            binding.contentScroll.setRenderEffect(blurEffect)
+        }
+
+        binding.blurOverlay.isVisible = true
+        binding.popupContainer.isVisible = true
+
+        // Animate blur overlay
+        binding.blurOverlay.alpha = 0f
+        binding.blurOverlay.animate()
+            .alpha(1f)
+            .setDuration(300)
+            .start()
+
+        // Animate popup with scale and fade from center
+        binding.popupContainer.alpha = 0f
+        binding.popupContainer.scaleX = 0.8f
+        binding.popupContainer.scaleY = 0.8f
+        binding.popupContainer.animate()
+            .alpha(1f)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(300)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .start()
+    }
+
+    private fun hidePopup() {
+        // Remove blur effect
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            binding.contentScroll.setRenderEffect(null)
+        }
+
+        // Animate popup out
+        binding.popupContainer.animate()
+            .alpha(0f)
+            .scaleX(0.8f)
+            .scaleY(0.8f)
+            .setDuration(250)
+            .start()
+
+        // Animate blur overlay
+        binding.blurOverlay.animate()
+            .alpha(0f)
+            .setDuration(250)
+            .withEndAction {
+                binding.blurOverlay.isVisible = false
+            }
+            .start()
     }
 
 

@@ -51,7 +51,7 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
                     .createApiService(includeAuthHeader = true)
                     .dynamicRawPost(
                         url =  ApiEndPointCorporateModule().insertMood,
-                        body = queryParams
+                        body = queryParams as Map<String, Any>
                     )
 
 

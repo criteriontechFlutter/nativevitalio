@@ -23,7 +23,7 @@
                 android:src="@drawable/ic_back"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                app:tint="#1A1A1A" />
+             />
 
             <TextView
                 android:text="Add New Medicine Reminder"

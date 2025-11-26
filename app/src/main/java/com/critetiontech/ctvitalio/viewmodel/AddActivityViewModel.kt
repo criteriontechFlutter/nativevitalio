@@ -47,7 +47,7 @@ class AddActivityViewModel(application: Application) : AndroidViewModel(applicat
         _filteredActivities.value = if (query.isEmpty()) {
             filteredActivities.value
         } else {
-            filteredActivities.value.filter { it.activityName.contains(query, ignoreCase = true) }
+            filteredActivities.value?.filter { it.activityName.contains(query, ignoreCase = true) }
         }
 
 

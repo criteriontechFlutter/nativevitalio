@@ -43,7 +43,7 @@ class AddActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-   viewModel.getAllEmployeeActivity()
+         viewModel.getAllEmployeeActivity()
         // ✅ Setup Flexbox layout managers (for chips)
         val flexRecent = FlexboxLayoutManager(requireContext()).apply {
             flexDirection = FlexDirection.ROW
@@ -73,9 +73,9 @@ class AddActivityFragment : Fragment() {
         viewModel.recentActivities.observe(viewLifecycleOwner) { recent ->
             recentAdapter.updateList(recent)
         }
-        viewModel.filteredActivities.observe(viewLifecycleOwner) { recent ->
-            allActivitiesAdapter.updateList(recent)
-        }
+//        viewModel.filteredActivities.observe(viewLifecycleOwner) { recent ->
+//            allActivitiesAdapter.updateList(recent)
+//        }
 
         // ✅ Handle SearchView text
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
