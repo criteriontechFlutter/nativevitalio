@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.core.animation)
+    implementation(libs.core)
 
 
     /*    implementation(libs.androidx.navigation.fragment.ktx)

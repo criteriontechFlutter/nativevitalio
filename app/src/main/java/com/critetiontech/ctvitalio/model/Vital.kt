@@ -279,3 +279,23 @@ data class HrvGraph(
     val Title: String?,
     val Data: List<HrvGraphData>?
 )
+data class Medicine(
+    val id: Int,
+    val medicineID: Int,
+    val medicineName: String,
+    val name: String,
+    val brandName: String,
+    val dosageFormID: Int,
+    val dosageFormName: String,
+    val shortName: String,
+    val doseStrength: Double,
+    val doseUnitID: Int,
+    val unitName: String,
+    val isAntibiotic: Int,
+    val translation: String
+)
+data class MedicineResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<Medicine>
+)
