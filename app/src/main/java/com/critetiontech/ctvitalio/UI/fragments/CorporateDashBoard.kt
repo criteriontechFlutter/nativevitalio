@@ -56,7 +56,6 @@ import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -68,6 +67,7 @@ import net.openid.appauth.AuthorizationService
 import okhttp3.WebSocket
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
+import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 
 
 class CorporateDashBoard : Fragment() {
