@@ -1,13 +1,10 @@
 package com.example.vitalio_pragya.fragment
 
 import Medicine
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -210,18 +207,20 @@ openSpecificDatePicker() }
 
         binding.addMedicine.setOnClickListener() {
 
+            viewModel.selectedMedicine.value?.id?.toInt()?.let { startdate ->
                 viewModel.addMedicine(
 
-                    medicineId = viewModel.selectedMedicine.value.id.toInt(),
-                    dosageType = viewModel.selectedMedicine.value.dosageFormName,
-                    dosageStrength = viewModel.selectedMedicine.value.doseStrength.toInt(),
-                    frequency =  viewModel.selectedMedicineName .value ,
+                    medicineId = startdate,
+                    dosageType = viewModel.selectedMedicine.value?.dosageFormName ,
+                    dosageStrength = viewModel.selectedMedicine.value!!.doseStrength.toInt(),
+                    frequency = viewModel.selectedMedicineName .value.toString(),
                     instructions =  binding.etInstructions.text.toString()  ,
                     timeSlotsJson = """[{"timeSlot":"09:30"}]""",
                     startdate =  binding.etStartDate.text.toString()  ,
                     enddate =  binding.etEndDate.text.toString()  ,
 
-                )
+                    )
+            }
 
         }
     }

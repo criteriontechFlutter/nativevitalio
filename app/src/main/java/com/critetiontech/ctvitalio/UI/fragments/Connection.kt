@@ -91,16 +91,16 @@ class Connection : Fragment() {
         }
         updateUI()
 
-// Glucose
+        // Glucose
         setupCounter(
             binding.btnPlus, binding.btnMinus,
             { glucoseValue }, { glucoseValue = it })
-// Systolic
+         // Systolic
         setupCounter(
             binding.btnPlusSystolic, binding.btnMinusSystolic,
             { systolicValue }, { systolicValue = it })
 
-// Diastolic
+        // Diastolic
         setupCounter(
             binding.btnPlusDystolic, binding.btnMinusDystolic,
             { dystolicValue }, { dystolicValue = it })

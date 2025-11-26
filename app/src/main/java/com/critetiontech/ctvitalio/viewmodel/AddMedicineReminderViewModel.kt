@@ -5,17 +5,12 @@ import MedicineResponse
 import PrefsManager
 import android.app.Application
 import android.util.Log
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.EmployeeActivityResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -99,14 +94,14 @@ var timeSlots = mutableStateListOf<String>()
         }
     }
        fun addMedicine(
-        startdate: String,
-        enddate: String,
-        timeSlotsJson: String,
-        instructions: String,
-        dosageStrength: Int,
-        frequency: String,
-        dosageType: String,
-        medicineId: Int
+           startdate: String,
+           enddate: String,
+           timeSlotsJson: String,
+           instructions: String,
+           dosageStrength: Int,
+           frequency: String,
+           dosageType: String?,
+           medicineId: Int
     ) {
         viewModelScope.launch {
             try {val formattedStartDate = convertDateFormat(startdate)
@@ -139,7 +134,7 @@ var timeSlots = mutableStateListOf<String>()
                     .createApiService(includeAuthHeader = true,  )
                     .dynamicRawPost(
                         url = "api/EmployeeMedicineIntake/InsertEmployeeMedicineIntake",
-                        body = queryParams
+                        body = queryParams as Map<String, @JvmSuppressWildcards Any>
                     )
 
                 if (response.isSuccessful) {
