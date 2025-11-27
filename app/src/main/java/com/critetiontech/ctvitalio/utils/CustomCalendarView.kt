@@ -34,7 +34,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
     private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
     private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var isExpanded = true
-
+    var onDateSelected: ((String) -> Unit)? = null
     // Pixel-perfect color scheme
     private val primaryColor = "#2196F3".toColorInt()
     private val goalColor = "#4CAF50".toColorInt()
@@ -560,7 +560,6 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                         setTypeface(null, Typeface.BOLD)
                     }
                 }
-
                 setOnClickListener {
                     selectedDay = day
                     selectedMonth = calendar.get(Calendar.MONTH)
@@ -568,7 +567,18 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                     selectedDateText.text = formatSelectedDate()
                     renderCalendar()
                     scrollToSelectedDate()
+
+                    // 🔥 Notify Fragment
+                    onDateSelected?.invoke(getSelectedDateString("yyyy-MM-dd"))
                 }
+//                setOnClickListener {
+//                    selectedDay = day
+//                    selectedMonth = calendar.get(Calendar.MONTH)
+//                    selectedYear = calendar.get(Calendar.YEAR)
+//                    selectedDateText.text = formatSelectedDate()
+//                    renderCalendar()
+//                    scrollToSelectedDate()
+//                }
             }
         }
     }

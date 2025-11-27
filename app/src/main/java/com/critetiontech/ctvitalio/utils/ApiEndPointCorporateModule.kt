@@ -18,4 +18,5 @@ class ApiEndPointCorporateModule {
 
     val getAllEmployeeActivity="api/EmployeeActivity/GetAllEmployeeActivity"
     val insertEmployeeActivity="api/EmployeeActivity/InsertEmployeeActivity"
+    val getAllActivityMaster="api/ActivityMaster/GetAllActivityMaster"
 }

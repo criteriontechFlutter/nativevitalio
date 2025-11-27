@@ -900,7 +900,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         }
         binding.sleepProgressIds.SleepWelnessId.setOnClickListener {
 
-            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
+            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
         }
 
 

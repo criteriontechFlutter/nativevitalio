@@ -299,3 +299,31 @@ data class MedicineResponse(
     val message: String,
     val responseValue: List<Medicine>
 )
+data class MedicineIntakeResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: MedicineResponseValue
+)
+
+data class MedicineResponseValue(
+    val loggedMedicines: List<LoggedMedicine>,
+    val allMedicines: List<AllMedicine>
+)
+
+data class LoggedMedicine(
+    val medicineId: Int,
+    val medicineName: String,
+    val unit: String,
+    val dosageType: String,
+    val doseDate: String,
+    val doseStatus: String,
+    val isTaken: Int,
+    val takenDateTime: String? = null
+)
+
+data class AllMedicine(
+    val medicineId: Int,
+    val medicineName: String,
+    val unit: String,
+    val dosageType: String
+)

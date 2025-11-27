@@ -1,70 +1,90 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import AllMedicine
+import Medicine
+import android.R
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+ import com.critetiontech.ctvitalio.adapter.LoggedMedicineAdapter
+import com.critetiontech.ctvitalio.adapter.MedicineAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentMedicationBinding
-
 import com.critetiontech.ctvitalio.utils.VitalioCalendarView
-import com.critetiontech.ctvitalio.viewmodel.AddMedicineReminderViewModel
 import com.critetiontech.ctvitalio.viewmodel.MedicationViewModel
-
+import org.json.JSONObject
 
 class MedicationFragment : Fragment() {
 
     private var _binding: FragmentMedicationBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: MedicationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMedicationBinding.inflate(inflater, container, false)
-        return _binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       // _binding?.calendarContainer?.background = ContextCompat.getDrawable(requireContext(), R.drawable.bottom_curve_bg)
-
-        // Create and add custom calendar view
+        // Create Calendar UI
         val calendarView = VitalioCalendarView(requireContext())
+        binding.calendarContainer.addView(calendarView)
 
-        _binding?.calendarContainer?.addView(calendarView)
-        viewModel.getEmployeeMedicineIntakeByDate()
+        // RecyclerViews Setup
+        binding.rvMedicines.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.rvLoggedMedicines.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
-// Mark dates with different progress levels
-        calendarView.setDateProgressMap(mapOf(
-            10 to 0.25f,  // 25% complete
-            14 to 0.75f,  // 75% complete
-            20 to 1.0f    // 100% complete
-        ))
 
-// Update single date progress
-        calendarView.setDateProgress(14, 0.85f) // Update to 85%
-        // Highlight specific goal dates
-        calendarView.setGoalDates(listOf(8, 9, 10, 13, 15))
+        val today = calendarView.getSelectedDateString("yyyy-MM-dd")
+        viewModel.getEmployeeMedicineIntakeByDate(today)
 
-        _binding?.backIV?.setOnClickListener {
-            findNavController().popBackStack()
+        // 🔥 Listen Date Click from Calendar -> Run API
+        calendarView.onDateSelected = { date ->
+            viewModel.getEmployeeMedicineIntakeByDate(date)
         }
 
+        // Observe both lists
+        observeMedicationData()
+        observeMedicationLoggedData()
 
-        _binding?.fabAdd?.setOnClickListener(){
-
-            findNavController().navigate(R.id.action_medicationFragment_to_addMedicineReminderFragment)
+        binding.fabAdd.setOnClickListener {
+            findNavController().navigate(
+                com.critetiontech.ctvitalio.R.id.action_medicationFragment_to_addMedicineReminderFragment
+            )
         }
-
     }
 
+    private fun observeMedicationData() {
+        viewModel.allMedicineListLiveData.observe(viewLifecycleOwner) { list ->
+            binding.rvMedicines.adapter = MedicineAdapter(requireContext(), list)
+        }
+    }
+
+    private fun observeMedicationLoggedData() {
+        viewModel.employeeMedicineIntakeLiveData.observe(viewLifecycleOwner) { list ->
+            binding.rvLoggedMedicines.adapter = LoggedMedicineAdapter(list)
+            Toast.makeText(requireContext(), "Logs for Selected Day: ${list.size}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
-
-
