@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,10 @@ import com.critetiontech.ctvitalio.databinding.ItemMedicineBinding
 import com.critetiontech.ctvitalio.databinding.MedicineReminderScheduleDialogueBinding
 import com.critetiontech.ctvitalio.viewmodel.AddMedicineReminderViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.text.SimpleDateFormat
 import java.util.*
+
+
 class AddMedicineReminderFragment : Fragment() {
 
     private var _binding: FragmentAddMedicineReminderBinding? = null
@@ -32,18 +36,10 @@ class AddMedicineReminderFragment : Fragment() {
 
     private val viewModel: AddMedicineReminderViewModel by viewModels()
 
-    private val Min_Days = 1
-    private val Max_Days = 30
     private val maxSlots = 5
+    private val weekIDs = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")  // SUN=7, MON=1 ...
 
-    private var isUpdating = false
-    private lateinit var daysList: List<TextView>
-    private var selectedDay: TextView? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddMedicineReminderBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,378 +47,380 @@ class AddMedicineReminderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupUI()
-        observeMedicineList()
-        /** ADD TIME SLOT event **/
-        binding.btnAddSlot.setOnClickListener {
-            addTimeSlotField()
+        setupFrequencyUI()
+        setupDatePickers()
+        observeMedicine()
+
+        // Default first slot
+        addTimeSlotView("08:00")
+
+        binding.btnAddSlot.setOnClickListener { addTimeSlotView("08:00") }
+
+        binding.addMedicine.setOnClickListener {
+
+            if (binding.etMedicineName.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(),"Select Medicine First",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (binding.etStartDate.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(),"Please select Start Date",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (binding.etEndDate.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(),"Please select End Date",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 🔥 Validate Start Date must be <= End date
+            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+            val start = formatter.parse(binding.etStartDate.text.toString())
+            val end = formatter.parse(binding.etEndDate.text.toString())
+
+            if (start.after(end)) {
+                Toast.makeText(requireContext(),"End Date must be greater than Start Date",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 🔥 If validation success → API Call
+            viewModel.addMedicineFinal(
+                startDate = binding.etStartDate.text.toString(),
+                endDate   = binding.etEndDate.text.toString(),
+                instructions = binding.etInstructions.text.toString()
+            )
+
+            clearUI()       // after API reset fields
+            showSuccessDialog()
         }
 
-        /** SPECIFIC DATES UI CLICK **/
-        binding.containerSpecificDates.setOnClickListener {
-openSpecificDatePicker() }
-        binding.ivCalendar.setOnClickListener { openSpecificDatePicker() }
-        binding.etSpecificDates.apply {
-            isFocusable = false
-            isClickable = true
-            setOnClickListener { openSpecificDatePicker() }
-        }
     }
 
-    // 🕒 Add Time Slot System
-    private fun addTimeSlotField() {
+    // --------------------------------------------------------------------
+    // 🔥 Time Slot Handling
+    // --------------------------------------------------------------------
+    private fun addTimeSlotView(time: String) {
 
-        if (viewModel.timeSlots.size >= maxSlots) {
-            Toast.makeText(requireContext(), "Max 5 time slots allowed", Toast.LENGTH_SHORT).show()
-            return
+        if (viewModel.timeSlots.size >= maxSlots) return
+
+        viewModel.addTimeSlot(time)
+
+        val slot = layoutInflater.inflate(R.layout.item_time_slot, binding.slotContainer, false)
+        val tv = slot.findViewById<TextView>(R.id.tvTimeDynamic)
+        val deleteBtn = slot.findViewById<ImageView>(R.id.btnDeleteSlot)
+
+        tv.text = time
+
+        /** Click to open Time Picker */
+        tv.setOnClickListener {
+            showTimePicker(tv) { newTime ->
+                tv.text = newTime
+                val idx = binding.slotContainer.indexOfChild(slot)
+                viewModel.updateTimeSlot(idx, newTime)
+            }
         }
 
-        val index = viewModel.timeSlots.size
-        viewModel.addTimeSlot("08:00")
-
-        val newSlot = layoutInflater.inflate(R.layout.item_time_slot, binding.slotContainer, false)
-        val tvTime = newSlot.findViewById<TextView>(R.id.tvTimeDynamic)
-        val deleteBtn = newSlot.findViewById<ImageView>(R.id.btnDeleteSlot)
-
-        tvTime.text = viewModel.timeSlots[index]
-
-        tvTime.setOnClickListener {
-            showTimePicker(tvTime) { t -> viewModel.updateTimeSlot(index, t) }
-        }
-
+        /** Delete Slot (only if more than 1 slot exists) */
         deleteBtn.setOnClickListener {
-            binding.slotContainer.removeView(newSlot)
-            viewModel.removeTimeSlot(index)
-            refreshTimeSlots()
+            if (viewModel.timeSlots.size > 1) {       // <-- IMPORTANT
+                binding.slotContainer.removeView(slot)
+                val idx = binding.slotContainer.indexOfChild(slot)
+                viewModel.removeTimeSlot(idx)
+                refreshSlots()
+            } else {
+                Toast.makeText(requireContext(),"At least one time is required!",Toast.LENGTH_SHORT).show()
+            }
         }
 
-        binding.slotContainer.addView(newSlot)
+        /** 🔥 Hide delete if only one slot exists */
+        deleteBtn.visibility = if (viewModel.timeSlots.size <= 1) View.GONE else View.VISIBLE
+
+        binding.slotContainer.addView(slot)
+    }
+    private fun clearUI() {
+
+        binding.etMedicineName.text.clear()
+        binding.etInstructions.text.clear()
+        binding.etStartDate.text.clear()
+        binding.etEndDate.text.clear()
+        binding.etSpecificDates.text.clear()
+        binding.etDays.setText("1")     // reset x day input
+
+        // reset dropdown
+        binding.spFrequency.setSelection(0)
+
+        // Reset Week buttons
+        val weekViews = listOf(binding.daySun,binding.dayMon,binding.dayTue,binding.dayWed,
+            binding.dayThu,binding.dayFri,binding.daySat)
+
+        weekViews.forEach {
+            it.isSelected = false
+            it.setBackgroundResource(R.drawable.bg_day_unselected)
+            it.setTextColor(Color.BLACK)
+        }
+
+        // reset time slot view → keep only one default
+        binding.slotContainer.removeAllViews()
+        addTimeSlotView("08:00")
+
+        Log.e("RESET_UI", "All visible UI fields reset successfully!")
     }
 
-    private fun refreshTimeSlots() {
+    private fun refreshSlots() {
+
         viewModel.timeSlots.clear()
+
+        // ⛔ Rebuild slot list
         for (i in 0 until binding.slotContainer.childCount) {
             val slotView = binding.slotContainer.getChildAt(i)
-            val tv = slotView.findViewById<TextView>(R.id.tvTimeDynamic)
-            viewModel.timeSlots.add(tv.text.toString())
-        }
-    }
-
-    private fun showTimePicker(textView: TextView, result: (String) -> Unit) {
-        val calendar = Calendar.getInstance()
-        TimePickerDialog(
-            requireContext(),
-            { _, h, m ->
-                val time = "%02d:%02d".format(h, m)
-                textView.text = time
-                result(time)
-            },
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
-            true
-        ).show()
-    }
-
-    // 📅 Specific Month Date picker
-    private fun openSpecificDatePicker() {
-        val calendar = Calendar.getInstance()
-        val listener = DatePickerDialog.OnDateSetListener { _, _, _, d ->
-            val formatted = formatDay(d)
-            viewModel.addSpecificDate(formatted)
-            updateSpecificDatesUI()
+            val timeStr = slotView.findViewById<TextView>(R.id.tvTimeDynamic).text.toString()
+            viewModel.timeSlots.add(timeStr)
         }
 
-        DatePickerDialog(
-            requireContext(), listener,
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
+        // 🔥 Reassign listeners with new index map
+        for (i in 0 until binding.slotContainer.childCount) {
 
-    private fun updateSpecificDatesUI() {
-        binding.etSpecificDates.setText(viewModel.selectedMonthDays.joinToString(", "))
-    }
+            val slotView = binding.slotContainer.getChildAt(i)
+            val tv  = slotView.findViewById<TextView>(R.id.tvTimeDynamic)
+            val del = slotView.findViewById<ImageView>(R.id.btnDeleteSlot)
 
-    private fun formatDay(day: Int): String =
-        when {
-            day % 10 == 1 && day != 11 -> "${day}st"
-            day % 10 == 2 && day != 12 -> "${day}nd"
-            day % 10 == 3 && day != 13 -> "${day}rd"
-            else -> "${day}th"
-        }
-
-    // 🔍 Medicine Search DropDown
-    private fun observeMedicineList() {
-        viewModel.medicineLiveData.observe(viewLifecycleOwner) { showMedicineDropDown(it) }
-    }
-
-    private fun showMedicineDropDown(list: List<Medicine>) {
-        val scroll = binding.medicineScroll
-        val container = binding.medicineContainer
-        container.removeAllViews()
-
-        if (list.isEmpty()) {
-            collapse(scroll)
-            return
-        }
-
-        expand(scroll)
-
-        list.forEach { medicine ->
-            val itemBinding = ItemMedicineBinding.inflate(layoutInflater)
-            itemBinding.tvMedicineName.text = medicine.name
-
-            itemBinding.root.setOnClickListener {
-                binding.etMedicineName.setText(medicine.name)
-                viewModel.updateSelectedMedicine(medicine  )
-                collapse(scroll)
+            /** ⏱ Update time slot on click */
+            tv.setOnClickListener {
+                showTimePicker(tv) { newTime ->
+                    tv.text = newTime
+                    viewModel.updateTimeSlot(i, newTime)
+                }
             }
 
-            container.addView(itemBinding.root)
+            /** ❌ Remove slot safely */
+            del.setOnClickListener {
+                binding.slotContainer.removeViewAt(i)  // <-- FIX
+                viewModel.removeTimeSlot(i)            // <-- FIX
+                refreshSlots()                         // <-- Refresh indexes again
+            }
+
+            /** 🔵 Show delete only if NOT "Every day" */
+            del.visibility = if ( viewModel.selectedFrequency== "Every day") View.GONE else View.VISIBLE
         }
     }
 
-    // 🧠 UI Setup
-    private fun setupUI() {
-        setupFrequencyDropdown()
-        setupDaySelection()
-        setupDatePickers()
-        setupTimePicker()
-        setDaysValue(1)
 
-        binding.btnUp.setOnClickListener { increaseDays() }
-        binding.btnDown.setOnClickListener { decreaseDays() }
-
-        binding.etMedicineName.addTextChangedListener { text ->
-            if (!text.isNullOrEmpty()) {
-                val currentName = viewModel.selectedMedicine.value?.medicineName
-
-                if (!text.isNullOrEmpty() && text.toString() != currentName) {
- viewModel.getBrandList(text.toString())
-                }
-            } else collapse(binding.medicineScroll)
-        }
-
-        binding.addMedicine.setOnClickListener { showMedicineDialog() }
-
-
-
-        binding.addMedicine.setOnClickListener() {
-
-                viewModel.addMedicine(
-
-                    medicineId = viewModel.selectedMedicine.value.id.toInt(),
-                    dosageType = viewModel.selectedMedicine.value.dosageFormName,
-                    dosageStrength = viewModel.selectedMedicine.value.doseStrength.toInt(),
-                    frequency =  viewModel.selectedMedicineName .value ,
-                    instructions =  binding.etInstructions.text.toString()  ,
-                    timeSlotsJson = """[{"timeSlot":"09:30"}]""",
-                    startdate =  binding.etStartDate.text.toString()  ,
-                    enddate =  binding.etEndDate.text.toString()  ,
-
-                )
-
-        }
+    private fun showTimePicker(tv:TextView, cb:(String)->Unit){
+        val c=Calendar.getInstance()
+        TimePickerDialog(requireContext(),{_,h,m->
+            val t="%02d:%02d".format(h,m)
+            cb(t)
+        },
+            c.get(Calendar.HOUR_OF_DAY),
+            c.get(Calendar.MINUTE), true).show()
     }
-    private fun setupFrequencyDropdown() {
 
-        val frequencies = arrayOf(
-            "Every day",
-            "Every x day",
-            "Every week",
-            "Every month",
-            "As Needed"
-        )
+    // --------------------------------------------------------------------
+    // 🔥 Frequency Selection — FINAL WORKING LOGIC
+    // --------------------------------------------------------------------
+    private fun setupFrequencyUI() {
 
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, frequencies)
-        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
-        binding.spFrequency.adapter = adapter
+        val freqList = listOf("Every day","Every x day","Every week","Every month","As Needed")
+        binding.spFrequency.adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, freqList)
 
         binding.spFrequency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-val selectedName = parent?.getItemAtPosition(position).toString()
-                viewModel.updateSelectedMedicineName(selectedName)    // save to v
-                clearDaySelection()
-                hideAllFrequencyContainers()
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-                when (position) {
-                    0 -> { // Every day
+                val selected = parent?.getItemAtPosition(position).toString()
+                viewModel.setFrequency(selected)
+
+                binding.containerEveryXDay.visibility = View.GONE
+                binding.weekLayout.visibility = View.GONE
+                binding.containerSpecificDates.visibility = View.GONE
+
+                // Always keep one time field visible
+                resetToSingleTimeSlot("08:00")
+
+                when (selected) {
+
+                    /** 🔵 EVERY DAY → one slot only, delete hidden */
+                    "Every day" -> {
                         binding.containerEveryDay.visibility = View.VISIBLE
+                        binding.slotContainer.visibility = View.VISIBLE
+                        binding.btnAddSlot.visibility = View.GONE
                     }
-                    1 -> { // Every x day
+
+                    /** 🟢 EVERY X DAY */
+                    "Every x day" -> {
+
                         binding.containerEveryXDay.visibility = View.VISIBLE
+                        binding.containerEveryDay.visibility = View.VISIBLE
+                        binding.slotContainer.visibility = View.VISIBLE
+                        binding.btnAddSlot.visibility = View.GONE
+
+                        // Set initial value
+                        val current = viewModel.everyXDayValue
+                        binding.etDays.setText(current.toString())
+                        binding.tvEveryXTitle.text = "Every $current day(s)"
+
+                        binding.btnUp.setOnClickListener {
+                            val x = (binding.etDays.text.toString().toIntOrNull() ?: 1) + 1
+                            binding.etDays.setText(x.toString())
+                            viewModel.updateEveryXDay(x)
+                            binding.tvEveryXTitle.text = "Every $x day(s)"
+                        }
+
+                        binding.btnDown.setOnClickListener {
+                            val x = (binding.etDays.text.toString().toIntOrNull() ?: 1) - 1
+                            if(x >= 1) {
+                                binding.etDays.setText(x.toString())
+                                viewModel.updateEveryXDay(x)
+                                binding.tvEveryXTitle.text = "Every $x day(s)"
+                            }
+                        }
+
+                        binding.etDays.addTextChangedListener {
+                            val x = it.toString().toIntOrNull() ?: 1
+                            viewModel.updateEveryXDay(x)
+                            binding.tvEveryXTitle.text = "Every $x day(s)"
+                        }
                     }
-                    2 -> { // Every week
-                        binding.containerDaysOfWeek.visibility = View.VISIBLE
+
+                    /** 🟡 EVERY WEEK */
+                    "Every week" -> {
+                        binding.containerEveryDay.visibility = View.VISIBLE
+                        binding.slotContainer.visibility = View.VISIBLE
+                        binding.btnAddSlot.visibility = View.GONE
+                        setupWeekSelection()
                     }
-                    3 -> { // Every month
-                        binding.containerSpecificDates.visibility = View.VISIBLE
+
+                    /** 🟣 EVERY MONTH */
+                    "Every month" -> {
+                        binding.containerEveryDay.visibility = View.VISIBLE
+                        binding.slotContainer.visibility = View.VISIBLE
+                        binding.btnAddSlot.visibility = View.GONE
+                        showMonthPicker()
                     }
-                    4 -> { // As Needed — no UI inputs required
-                        // all containers hidden
+
+                    /** ⚪ AS NEEDED → COMPLETELY HIDE SLOT UI */
+                    "As Needed" -> {
+                        binding.containerEveryDay.visibility = View.GONE
+                        binding.slotContainer.visibility = View.GONE
+                        binding.btnAddSlot.visibility = View.GONE
                     }
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
-    private fun clearDaySelection() {
-        selectedDay = null
+    private fun resetToSingleTimeSlot(defaultTime:String) {
+        binding.slotContainer.removeAllViews()
+        viewModel.timeSlots.clear()
 
-        daysList.forEach { tv ->
-            tv.setBackgroundResource(R.drawable.bg_day_unselected)
-
-            tv.setTextColor(
-                if (tv.id == R.id.daySun)
-                    Color.RED
-                else
-                    Color.GRAY
-            )
-        }
-    }
-    private fun hideAllFrequencyContainers() {
-        binding.containerEveryDay.visibility = View.GONE
-        binding.containerEveryXDay.visibility = View.GONE
-        binding.containerDaysOfWeek.visibility = View.GONE
-        binding.containerSpecificDates.visibility = View.GONE
-    }
-    // 🔔 Expand Collapse animation
-    private fun expand(view: View) {
-        view.measure(
-            View.MeasureSpec.makeMeasureSpec(binding.root.width, View.MeasureSpec.EXACTLY),
-            View.MeasureSpec.UNSPECIFIED
-        )
-        val targetHeight = view.measuredHeight
-        view.layoutParams.height = 0
-        view.alpha = 0f
-        view.visibility = View.VISIBLE
-
-        val animation = object : Animation() {
-            override fun applyTransformation(interpolated: Float, t: Transformation?) {
-                view.layoutParams.height =
-                    if (interpolated == 1f) ViewGroup.LayoutParams.WRAP_CONTENT
-                    else (targetHeight * interpolated).toInt()
-                view.alpha = interpolated
-                view.requestLayout()
-            }
-        }
-        animation.duration = 200
-        view.startAnimation(animation)
+        addTimeSlotView(defaultTime)  // always one visible
+        binding.btnAddSlot.visibility = View.GONE   // remove add button for all frequencies
     }
 
-    private fun collapse(view: View) {
-        val initialHeight = view.measuredHeight
-        val animation = object : Animation() {
-            override fun applyTransformation(interpolated: Float, t: Transformation?) {
-                if (interpolated == 1f) view.visibility = View.GONE
-                else {
-                    view.layoutParams.height =
-                        initialHeight - (initialHeight * interpolated).toInt()
-                    view.alpha = 1 - interpolated
-                    view.requestLayout()
-                }
-            }
-        }
-        animation.duration = 200
-        view.startAnimation(animation)
-    }
+    private fun setupWeekSelection() {
 
-    // 📆 Start/End Date Picker
-    private fun setupDatePickers() {
-        val calendar = Calendar.getInstance()
-        val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-            val date = "%02d/%02d/%04d".format(d, m + 1, y)
-            if (binding.etStartDate.isFocused)
-                binding.etStartDate.setText(date)
-            else
-                binding.etEndDate.setText(date)
-        }
+        binding.weekLayout.visibility = View.VISIBLE
 
-        binding.etStartDate.setOnClickListener {
-            DatePickerDialog(requireContext(), listener,
-                calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH]
-            ).show()
-        }
-        binding.etEndDate.setOnClickListener {
-            DatePickerDialog(requireContext(), listener,
-                calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH]
-            ).show()
-        }
-    }
+        val days = listOf(binding.daySun,binding.dayMon,binding.dayTue,binding.dayWed,
+            binding.dayThu,binding.dayFri,binding.daySat)
 
-    private fun setupTimePicker() {
-        binding.tvTime.setOnClickListener {
-            val cal = Calendar.getInstance()
-            TimePickerDialog(
-                requireContext(),
-                { _, h, m -> binding.tvTime.text = "%02d:%02d".format(h, m) },
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
-                true
-            ).show()
-        }
-    }
+        days.forEachIndexed { i, tv ->
 
-    // 📅 Weekly Selection
-    private fun setupDaySelection() {
-        daysList = listOf(
-            binding.daySun, binding.dayMon, binding.dayTue,
-            binding.dayWed, binding.dayThu, binding.dayFri, binding.daySat
-        )
-
-        daysList.forEach { tv ->
             tv.setOnClickListener {
-                selectedDay?.apply {
-                    setBackgroundResource(R.drawable.bg_day_unselected)
-                    setTextColor(if (id == R.id.daySun) Color.RED else Color.GRAY)
+
+                // 🔹 First unselect all
+                days.forEach { d ->
+                    d.isSelected = false
+                    d.setBackgroundResource(R.drawable.bg_day_unselected)
+                    d.setTextColor(Color.BLACK)
                 }
+
+                // 🔹 Select only clicked one
+                tv.isSelected = true
                 tv.setBackgroundResource(R.drawable.bg_day_selected)
                 tv.setTextColor(Color.WHITE)
-                selectedDay = tv
+
+                // 🔹 Store only ONE weekId
+                viewModel.selectedWeekDays.clear()
+                viewModel.setWeekDay(weekIDs[i])
             }
         }
     }
 
-    private fun increaseDays() =
-        setDaysValue((binding.etDays.text.toString().toIntOrNull() ?: 1) + 1)
-
-    private fun decreaseDays() =
-        setDaysValue((binding.etDays.text.toString().toIntOrNull() ?: 1) - 1)
-
-    private fun setDaysValue(value: Int) {
-        val safeValue = value.coerceIn(Min_Days, Max_Days)
-        binding.etDays.setText(safeValue.toString())
-        binding.etDays.setSelection(binding.etDays.length())
-        binding.tvEveryXTitle.text = "Every $safeValue day${if (safeValue > 1) "s" else ""}"
+    private fun showMonthPicker(){
+        binding.containerSpecificDates.visibility = View.VISIBLE
+        binding.ivCalendar.setOnClickListener {
+            DatePickerDialog(requireContext(),{_,_,_,day->
+                val s = when { day%10==1&&day!=11->"st"; day%10==2&&day!=12->"nd"; day%10==3&&day!=13->"rd"; else->"th" }
+                viewModel.addSpecificDate("$day$s")
+                binding.etSpecificDates.setText(viewModel.selectedMonthDays.joinToString(", "))
+            },2025,0,1).show()
+        }
     }
 
-    // Bottom sheet dialog after Add Medicine
-    private fun showMedicineDialog() {
-        val dialogBinding = MedicineReminderScheduleDialogueBinding.inflate(layoutInflater)
-        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-        dialog.setContentView(dialogBinding.root)
+    // --------------------------------------------------------------------
+    // 🔥 Medicine Search Dropdown
+    // --------------------------------------------------------------------
+    private fun observeMedicine(){
+        binding.etMedicineName.addTextChangedListener {
+            if(it.isNullOrEmpty()) binding.medicineScroll.visibility=View.GONE
+            else viewModel.getBrandList(it.toString())
+        }
+
+        viewModel.medicineLiveData.observe(viewLifecycleOwner){ list ->
+            binding.medicineContainer.removeAllViews()
+            if(list.isEmpty()) return@observe
+
+            binding.medicineScroll.visibility=View.VISIBLE
+            list.forEach { med->
+                val item = ItemMedicineBinding.inflate(layoutInflater)
+                item.tvMedicineName.text = med.name
+                item.root.setOnClickListener{
+                    binding.etMedicineName.setText(med.name)
+                    viewModel.updateSelectedMedicine(med)
+                    binding.medicineScroll.visibility = View.GONE
+                }
+                binding.medicineContainer.addView(item.root)
+            }
+        }
+    }
+
+    // --------------------------------------------------------------------
+    // 🔥 Date Pickers
+    // --------------------------------------------------------------------
+    private fun setupDatePickers(){
+        val dp = DatePickerDialog.OnDateSetListener { _,y,m,d ->
+            val date="%02d/%02d/%04d".format(d,m+1,y)
+            if(binding.etStartDate.isFocused) binding.etStartDate.setText(date)
+            else binding.etEndDate.setText(date)
+        }
+
+        binding.etStartDate.setOnClickListener{
+            val c=Calendar.getInstance()
+            DatePickerDialog(requireContext(),dp,c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show()
+        }
+        binding.etEndDate.setOnClickListener{
+            val c=Calendar.getInstance()
+            DatePickerDialog(requireContext(),dp,c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show()
+        }
+    }
+
+    // --------------------------------------------------------------------
+    // SUCCESS POPUP
+    // --------------------------------------------------------------------
+    private fun showSuccessDialog(){
+        val d = MedicineReminderScheduleDialogueBinding.inflate(layoutInflater)
+        val dialog=BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme)
+        dialog.setContentView(d.root)
         dialog.setCancelable(false)
-
-        Glide.with(this)
-            .asGif()
-            .load(R.drawable.medicine_reminder)
-            .into(dialogBinding.medicineReminder)
-
-        dialogBinding.closeButton.setOnClickListener { dialog.dismiss() }
-        dialogBinding.btnAddMore.setOnClickListener { dialog.dismiss() }
-
+        Glide.with(this).asGif().load(R.drawable.medicine_reminder).into(d.medicineReminder)
+        d.closeButton.setOnClickListener { dialog.dismiss() }
+        d.btnAddMore.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 
     override fun onDestroyView() {
+        _binding=null
         super.onDestroyView()
-        _binding = null
     }
 }
