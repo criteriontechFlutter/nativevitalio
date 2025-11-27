@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.adapter.EmployeeActivityAdapter
+import com.critetiontech.ctvitalio.adapter.MasterActivityAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentAddActivityBinding
 import com.example.vitalio_pragya.adapter.ActivityChipAdapter
 import com.example.vitalio_pragya.fragment.BikingFragment
@@ -18,24 +20,18 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 
+
 class AddActivityFragment : Fragment() {
 
-    // ✅ ViewBinding setup
     private var _binding: FragmentAddActivityBinding? = null
     private val binding get() = _binding!!
 
-    // ✅ Adapters for both RecyclerViews
-    private lateinit var recentAdapter: ActivityChipAdapter
-    private lateinit var allActivitiesAdapter: ActivityChipAdapter
+    private lateinit var employeeAdapter: EmployeeActivityAdapter
+    private lateinit var masterAdapter: MasterActivityAdapter
 
-    // ✅ ViewModel for logic
     private val viewModel: AddActivityViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddActivityBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,71 +39,65 @@ class AddActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-   viewModel.getAllEmployeeActivity()
-        // ✅ Setup Flexbox layout managers (for chips)
-        val flexRecent = FlexboxLayoutManager(requireContext()).apply {
-            flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.FLEX_START
-        }
-        val flexAll = FlexboxLayoutManager(requireContext()).apply {
-            flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.FLEX_START
-        }
+        viewModel.getAllEmployeeActivity()
+        viewModel.getAllActivityMaster()
 
-        // ✅ Initialize adapters with click listener
-        recentAdapter = ActivityChipAdapter(emptyList()) { activity ->
-            onActivitySelected(activity.activityName.toString())
-        }
-        allActivitiesAdapter = ActivityChipAdapter(emptyList()) { activity ->
-            onActivitySelected(activity.activityName.toString())
-        }
+        setRecyclerViews()
+        observeData()
+        setupSearch()
 
-        // ✅ Set adapters and layout managers
-        binding.recentRecyclerView.layoutManager = flexRecent
-        binding.recentRecyclerView.adapter = recentAdapter
+        binding.backButton.setOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+    }
 
-        binding.allActivitiesRecyclerView.layoutManager = flexAll
-        binding.allActivitiesRecyclerView.adapter = allActivitiesAdapter
+    private fun setRecyclerViews() {
 
-        // ✅ Observe ViewModel LiveData
-        viewModel.recentActivities.observe(viewLifecycleOwner) { recent ->
-            recentAdapter.updateList(recent)
-        }
-        viewModel.filteredActivities.observe(viewLifecycleOwner) { recent ->
-            allActivitiesAdapter.updateList(recent)
+        binding.recentRecyclerView.layoutManager = flexLayout()
+        binding.allActivitiesRecyclerView.layoutManager = flexLayout()
+
+        employeeAdapter = EmployeeActivityAdapter(emptyList()) { onActivitySelected(it.activityName,it.id,) }
+        masterAdapter = MasterActivityAdapter(emptyList()) { onActivitySelected(it.activityName,it.id,) }
+
+        binding.recentRecyclerView.adapter = employeeAdapter
+        binding.allActivitiesRecyclerView.adapter = masterAdapter
+    }
+
+    private fun observeData() {
+        viewModel.employeeActivityList.observe(viewLifecycleOwner) {
+            employeeAdapter.updateList(it)
         }
 
-        // ✅ Handle SearchView text
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.filterActivities(query.orEmpty())
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.filterActivities(newText.orEmpty())
-                return true
-            }
-        })
-
-        // ✅ Back button handling
-        binding.backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+        viewModel.activityMasterList.observe(viewLifecycleOwner) {
+            masterAdapter.updateList(it)
         }
     }
 
-    /**
-     * Handles when an activity chip is selected
-     */
-    private fun onActivitySelected(activity: String) {
-        if (activity.equals("Biking", ignoreCase = true)) {
+    private fun setupSearch() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?) = true.apply { filter(query) }
+            override fun onQueryTextChange(newText: String?) = true.apply { filter(newText) }
+        })
+    }
 
-            findNavController().navigate(R.id.action_addActivityFragment_to_bikingFragment)
+    private fun filter(search: String?) {
+        val list = viewModel.activityMasterList.value ?: return
+        masterAdapter.updateList(list.filter { it.activityName.contains(search ?: "", true) })
+    }
+
+    private fun flexLayout() = FlexboxLayoutManager(requireContext()).apply {
+        flexDirection = FlexDirection.ROW
+        justifyContent = JustifyContent.FLEX_START
+    }
+
+    private fun onActivitySelected(name: String,Id: Int) {
+        val bundle = Bundle().apply {
+            putString("activityName", name)
+            putInt("activityId", Id)  // Later dynamic from list
         }
+        findNavController().navigate(R.id.action_addActivityFragment_to_bikingFragment,bundle)
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 }

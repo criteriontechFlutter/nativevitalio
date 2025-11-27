@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -55,7 +56,14 @@ app:layout_constraintTop_toBottomOf="@+id/appHeader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/calendarContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp">
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -80,7 +88,6 @@ app:layout_constraintTop_toBottomOf="@+id/appHeader"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,96 +95,12 @@ app:layout_constraintTop_toBottomOf="@+id/appHeader"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- First Logged Medicine -->
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLoggedMedicines"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Thyroxin"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/clock_icon"
-                        app:tint="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="08:00 AM"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_check"
-                        app:tint="#2ECC71" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Second Logged Medicine -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Bilatop 40"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/clock_icon"
-                        app:tint="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="08:30 AM"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_check"
-                        app:tint="#2ECC71" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:nestedScrollingEnabled="true" />
         </LinearLayout>
 
         <!-- Your Medications -->
@@ -191,52 +114,12 @@ app:layout_constraintTop_toBottomOf="@+id/appHeader"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMedicines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- Each medication item -->
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_medicine_item"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/pill"
-                        app:tint="#5A9DFD" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lisinopril"
-                        android:textColor="#000000"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tablet"
-                        android:textColor="#888888"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <!-- Repeat more medicine items as needed -->
-            </LinearLayout>
-        </HorizontalScrollView>
-
+            android:padding="8dp"
+            android:orientation="horizontal" />
         <!-- Drug Interaction Section -->
         <TextView
             android:layout_width="wrap_content"
@@ -296,24 +179,23 @@ app:layout_constraintTop_toBottomOf="@+id/appHeader"
                 android:text="Thyroid levels can slightly affect how your body responds to BP medicine. Monitor blood pressure regularly."
                 android:textColor="#666666"
                 android:textSize="13sp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="24dp"
+                android:src="@drawable/raddimg"
+
+                app:backgroundTint="@color/primaryBlue"
+                app:tint="@android:color/white"
+                tools:ignore="MissingConstraints,NotSibling" />
+
+
         </LinearLayout>
     </LinearLayout>
-
+</androidx.core.widget.NestedScrollView>
         <!-- Floating Add Button -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
-        android:src="@drawable/raddimg"
-
-        app:backgroundTint="@color/primaryBlue"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
