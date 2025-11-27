@@ -1,20 +1,16 @@
 package com.critetiontech.ctvitalio.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.ItemGoalBinding
 import com.critetiontech.ctvitalio.databinding.ItemSavedgoalHeaderBinding
-import com.critetiontech.ctvitalio.model.GoalCategoryResponse
 import com.critetiontech.ctvitalio.model.GoalItem
 
-class GoalsAdapter(private var items: List<Any>) :
+class GoalsAdapter(private var items: List<Any>,private var isAllGoal: Boolean) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -49,13 +45,15 @@ class GoalsAdapter(private var items: List<Any>) :
                     parent,
                     false
                 )
-                GoalViewHolder(binding)
+                GoalViewHolder(binding,isAllGoal)
             }
         }
     }
 
-    fun updateData(newItems: List<Any>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newItems: List<Any>, isAllGoal: Boolean) {
         items = newItems
+        this@GoalsAdapter.isAllGoal = isAllGoal
         notifyDataSetChanged()
     }
 
@@ -79,13 +77,16 @@ class GoalsAdapter(private var items: List<Any>) :
         }
     }
 
-    class GoalViewHolder(private val binding: ItemGoalBinding) :
+    class GoalViewHolder(private val binding: ItemGoalBinding,private val isAllGoal: Boolean) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(goal: GoalItem) {
 
             binding.tvTitle.text = goal.goalName
-            binding.tvProgress.text = "${goal.isActive}/${goal.targetValue}"
+           // binding.tvProgress.text = "${goal.isActive}/${goal.targetValue}"
+            binding.tvProgress.text =
+                if (isAllGoal) goal.description else "${goal.isActive}/${goal.targetValue}"
+
 
             val color = ContextCompat.getColor(
                 binding.root.context,
