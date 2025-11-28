@@ -60,8 +60,10 @@ class BikingFragment : Fragment() {
         binding.saveButton.setOnClickListener { viewModel.insertEmployeeActivity(activityId,startTime,endTime) }
 
         viewModel.activityInsertSuccess.observe(viewLifecycleOwner) {
-            if (it) showSuccessDialog()
-            else Toast.makeText(requireContext(),"Failed! Try again.",Toast.LENGTH_SHORT).show()
+            if (it) {
+                showSuccessDialog()
+
+            } else Toast.makeText(requireContext(),"Failed! Try again.",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -84,7 +86,9 @@ class BikingFragment : Fragment() {
         dialog.setCancelable(false)
 
         Glide.with(this).asGif().load(R.drawable.sucesses_dia).into(view.findViewById(R.id.successIcon))
-        view.findViewById<Button>(R.id.okButton).setOnClickListener { dialog.dismiss() }
+        view.findViewById<Button>(R.id.okButton).setOnClickListener { dialog.dismiss()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         view.findViewById<ImageView>(R.id.closeButton).setOnClickListener { dialog.dismiss() }
 
         dialog.show()

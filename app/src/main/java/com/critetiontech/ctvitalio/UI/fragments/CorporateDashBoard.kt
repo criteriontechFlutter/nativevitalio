@@ -68,6 +68,8 @@ import okhttp3.WebSocket
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 
 
 class CorporateDashBoard : Fragment() {
@@ -130,6 +132,9 @@ class CorporateDashBoard : Fragment() {
 
         }
 
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         binding.fabIcon.setOnClickListener {
             if (!isFabOpen) {
@@ -306,9 +311,7 @@ binding.healthTrackId.healthGoalAchived.setOnClickListener {
             binding.ringIcon.setOnClickListener {
 
                 startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
-//                initializeAuth()
-//                handleAuthRedirectIntent(requireActivity().intent)
-
+//
 
 
 
@@ -464,18 +467,28 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
              findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
         }
 
-        binding.addvitalBtn.setOnClickListener()
-        {
+           binding.popupActivityId.setOnClickListener {
+               findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+        }
 
-            findNavController().navigate(R.id.action_dashboard_to_connection )
+
+        binding.popupAddMedicineId.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_addMedicineReminderFragment)
         }
-        binding.addGlucoseBtn.setOnClickListener()
-        {
-            val bundle = Bundle().apply {
-                putString("vitalType", "Glucose")
-            }
-            findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-        }
+
+
+//        binding.addvitalBtn.setOnClickListener()
+//        {
+//
+//            findNavController().navigate(R.id.action_dashboard_to_connection )
+//        }
+//        binding.addGlucoseBtn.setOnClickListener()
+//        {
+//            val bundle = Bundle().apply {
+//                putString("vitalType", "Glucose")
+//            }
+//            findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+//        }
 //        binding.sleepContainerId.setOnClickListener()
 //        {
 //
@@ -503,8 +516,8 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
                     vitalDateTime = bpSys.vitalDateTime
                 }
 
-                binding.bpDataId.text = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue.toString()}  "
-                binding.glucoseDataId.text = Glucose?.vitalValue.toString()
+//                binding.bpDataId.text = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue.toString()}  "
+//                binding.glucoseDataId.text = Glucose?.vitalValue.toString()
                 finalVitalList.add(bpVital)
             }
 
@@ -663,7 +676,7 @@ binding.showId.showHideId.setOnClickListener{
 
 
 //            Activity
-
+            Glide.with(this).asGif().load(R.raw.celebrate).into(binding.celebrationId.trophyIcon)
 
 
             binding.inactiveHoursId.title.text="Inactive Time"
@@ -833,20 +846,20 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
         binding.sleepProgressIds.addSleepActivityBtn.setOnClickListener(){
 
-            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 
         }
         binding.sleepProgressIds.addMovementActivityBtn.setOnClickListener(){
 
-            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
         binding.sleepProgressIds.addStressActivityBtn.setOnClickListener(){
-            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 
         }
         binding.sleepProgressIds.addRecoveryActivityBtn.setOnClickListener(){
-            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
-          // findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
+
         }
 
 
@@ -900,7 +913,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         }
         binding.sleepProgressIds.SleepWelnessId.setOnClickListener {
 
-            findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
 
 

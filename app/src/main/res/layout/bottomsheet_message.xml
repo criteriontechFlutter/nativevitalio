@@ -17,7 +17,7 @@
         app:tint="#000" />
 
     <!-- Icon -->
-    <com.airbnb.lottie.LottieAnimationView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/lottieAnim"
         android:layout_width="110dp"
         android:layout_height="110dp"

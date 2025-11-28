@@ -10,6 +10,7 @@ import android.view.View
 import android.content.Context
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.BottomsheetMessageBinding
 import com.critetiontech.ctvitalio.model.HapticType
@@ -72,10 +73,7 @@ class GlobalMessageBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Play Lottie animation
-        binding.lottieAnim.setAnimation(R.raw.happy)
-        binding.lottieAnim.playAnimation()
-
+        Glide.with(this).asGif().load(R.raw.ic_success_anim).into(binding.lottieAnim)
         // Trigger haptic vibration
         vibrate(haptic)
 

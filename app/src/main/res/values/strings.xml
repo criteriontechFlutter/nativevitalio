@@ -277,5 +277,8 @@
     <string name="your_movement_patterns_during_sleep_indicate_slight_restlessness">Your movement patterns during sleep indicate slight restlessness</string>
     <string name="average_oxygen_saturation">Average Oxygen Saturation</string>
     <string name="glucose">Glucose</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="medicine">Medicine</string>
+    <string name="sleep_stages">Sleep Stages</string>
 
 </resources>
