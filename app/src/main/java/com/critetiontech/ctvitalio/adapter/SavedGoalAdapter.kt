@@ -81,11 +81,17 @@ class GoalsAdapter(private var items: List<Any>,private var isAllGoal: Boolean) 
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(goal: GoalItem) {
-
-            binding.tvTitle.text = goal.goalName
+             binding.isGoal=isAllGoal
+             binding.isActive=goal.isActive
+              goal.goalName.also { binding.tvTitle.text = it }
            // binding.tvProgress.text = "${goal.isActive}/${goal.targetValue}"
-            binding.tvProgress.text =
-                if (isAllGoal) goal.description else "${goal.isActive}/${goal.targetValue}"
+
+                if (isAllGoal) {
+                    binding.tvProgress.text =  goal.description
+
+                } else {
+                    "${goal.isActive}/${goal.targetValue}".also { binding.tvProgress.text = it }
+                }
 
 
             val color = ContextCompat.getColor(

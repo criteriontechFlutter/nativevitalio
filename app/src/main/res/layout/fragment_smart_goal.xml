@@ -90,6 +90,7 @@
         android:clipToPadding="false"
         android:focusable="false"
         android:clickable="false"
+
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

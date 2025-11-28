@@ -76,7 +76,7 @@ class SmartGoalFragment : Fragment() {
                         finalList.addAll(category.goals)       // Add its goals
                     }
                     showFullScreenBottomSheet(requireContext(),finalList)
-//                    adapter.updateData(finalList)
+                    adapter.updateData(finalList, isAllGoal = true)
                 }
             }
 

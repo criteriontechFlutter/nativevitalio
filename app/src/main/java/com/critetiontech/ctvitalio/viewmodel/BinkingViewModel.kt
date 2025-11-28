@@ -20,6 +20,9 @@ class BinkingViewModel(application: Application) : AndroidViewModel(application)
 
     private val _activityInsertSuccess = MutableLiveData<Boolean>()
     val activityInsertSuccess: LiveData<Boolean> = _activityInsertSuccess
+
+
+
     fun insertEmployeeActivity(activityId: Int, startTime: String, endTime: String) {
         viewModelScope.launch {
             try {
