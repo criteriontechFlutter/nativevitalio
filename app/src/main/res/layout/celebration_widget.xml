@@ -13,94 +13,94 @@
 
 
             <!-- Confetti decorations (stars and dots) -->
-            <TextView
-                android:id="@+id/confetti1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:text="●"
-                android:textColor="#93C5FD"
-                android:textSize="12sp"
-                android:alpha="0.8"/>
+<!--            <TextView-->
+<!--                android:id="@+id/confetti1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="●"-->
+<!--                android:textColor="#93C5FD"-->
+<!--                android:textSize="12sp"-->
+<!--                android:alpha="0.8"/>-->
 
-            <TextView
-                android:id="@+id/confetti2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="15dp"
-                android:text="●"
-                android:textColor="#EC4899"
-                android:textSize="10sp"
-                android:alpha="0.8"/>
+<!--            <TextView-->
+<!--                android:id="@+id/confetti2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:text="●"-->
+<!--                android:textColor="#EC4899"-->
+<!--                android:textSize="10sp"-->
+<!--                android:alpha="0.8"/>-->
 
-            <TextView
-                android:id="@+id/star1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="5dp"
-                android:text="✨"
-                android:textSize="16sp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/star1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_marginStart="50dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:text="✨"-->
+<!--                android:textSize="16sp"/>-->
 
-            <TextView
-                android:id="@+id/star2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginTop="20dp"
-                android:text="⭐"
-                android:textSize="14sp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/star2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginEnd="50dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:text="⭐"-->
+<!--                android:textSize="14sp"/>-->
 
-            <TextView
-                android:id="@+id/confetti3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="80dp"
-                android:layout_marginTop="8dp"
-                android:text="●"
-                android:textColor="#FBBF24"
-                android:textSize="8sp"
-                android:alpha="0.8"/>
+<!--            <TextView-->
+<!--                android:id="@+id/confetti3"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginEnd="80dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:text="●"-->
+<!--                android:textColor="#FBBF24"-->
+<!--                android:textSize="8sp"-->
+<!--                android:alpha="0.8"/>-->
 
-            <TextView
-                android:id="@+id/confetti4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="25dp"
-                android:text="■"
-                android:textColor="#6366F1"
-                android:textSize="10sp"
-                android:alpha="0.8"/>
+<!--            <TextView-->
+<!--                android:id="@+id/confetti4"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_marginStart="80dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:text="■"-->
+<!--                android:textColor="#6366F1"-->
+<!--                android:textSize="10sp"-->
+<!--                android:alpha="0.8"/>-->
 
-            <TextView
-                android:id="@+id/confetti5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:text="●"
-                android:textColor="#10B981"
-                android:textSize="9sp"
-                android:alpha="0.8"/>
+<!--            <TextView-->
+<!--                android:id="@+id/confetti5"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                android:text="●"-->
+<!--                android:textColor="#10B981"-->
+<!--                android:textSize="9sp"-->
+<!--                android:alpha="0.8"/>-->
 
-            <TextView
-                android:id="@+id/star3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="35dp"
-                android:text="✨"
-                android:textSize="14sp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/star3"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginTop="35dp"-->
+<!--                android:text="✨"-->
+<!--                android:textSize="14sp"/>-->
 
             <!-- Trophy Icon -->
             <ImageView
@@ -112,43 +112,43 @@
                 android:src="@drawable/achivement"
                 android:contentDescription="Trophy"/>
 
-            <!-- Emoji -->
-            <TextView
-                android:id="@+id/emojiCelebration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/trophyIcon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:text="🎉"
-                android:textSize="24sp"/>
+<!--            &lt;!&ndash; Emoji &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/emojiCelebration"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/trophyIcon"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:text="🎉"-->
+<!--                android:textSize="24sp"/>-->
 
-            <!-- Message Text -->
-            <TextView
-                android:id="@+id/streakMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/emojiCelebration"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:text="You're on a 5-day streak!"
-                android:textColor="#2563EB"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+<!--            &lt;!&ndash; Message Text &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/streakMessage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/emojiCelebration"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:text="You're on a 5-day streak!"-->
+<!--                android:textColor="#2563EB"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:gravity="center"/>-->
 
-            <TextView
-                android:id="@+id/energyMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/streakMessage"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="4dp"
-                android:text="Energy levels rising."
-                android:textColor="#2563EB"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+<!--            <TextView-->
+<!--                android:id="@+id/energyMessage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/streakMessage"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:text="Energy levels rising."-->
+<!--                android:textColor="#2563EB"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:gravity="center"/>-->
 
         </RelativeLayout>
 

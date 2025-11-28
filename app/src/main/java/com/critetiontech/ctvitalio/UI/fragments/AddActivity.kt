@@ -1,5 +1,6 @@
 package com.example.vitalio_pragya
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,9 +73,10 @@ class AddActivityFragment : Fragment() {
     }
 
     private fun setupSearch() {
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?) = true.apply { filter(query) }
-            override fun onQueryTextChange(newText: String?) = true.apply { filter(newText) }
+            override fun onQueryTextSubmit(query: String?) = true
+            override fun onQueryTextChange(newText: String?) = true
         })
     }
 

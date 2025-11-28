@@ -14,33 +14,17 @@
 
     <!-- Percentage center text (in case custom view doesn't draw it) -->
 
-    <com.critetiontech.ctvitalio.UI.fragments.WaterRingView
-        android:id="@+id/waterRing"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="Water progress ring"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.501" />
-
-    <TextView
-        android:id="@+id/tv_percentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="60%"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#262626"
-        app:layout_constraintStart_toStartOf="@id/waterRing"
-        app:layout_constraintEnd_toEndOf="@id/waterRing"
-        app:layout_constraintTop_toTopOf="@id/waterRing"
-        app:layout_constraintBottom_toBottomOf="@id/waterRing" />
 
     <!-- Right column with main numbers and details -->
+
+    <com.critetiontech.ctvitalio.UI.fragments.WaterRingWaveView
+        android:id="@+id/waterRing"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:contentDescription="Water progress ring"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/rightColumn"
         android:layout_width="0dp"

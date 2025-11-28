@@ -29,12 +29,15 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
 import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
 import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
 import com.critetiontech.ctvitalio.databinding.IncludeProgressCardBinding
 import com.critetiontech.ctvitalio.model.SleepCycleView
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.github.mikephil.charting.components.XAxis
@@ -77,6 +80,9 @@ class SleepDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
          // ✅ Example dataset for bar chart
         val calendar = Calendar.getInstance()
         viewModel.getVitals()
@@ -92,22 +98,9 @@ class SleepDetails : Fragment() {
 
         setData(data)// Build main chart
 
-        // ✅ Example stats
-        binding.totalSleepIds.title.text = "Total Sleep"
-        binding.totalSleepIds.value.text = "7h 12m"
-        binding.totalSleepIds.status.text = "Optimal"
-
-        binding.timeInBedId.title.text = "Time in Bed"
-        binding.timeInBedId.value.text = "8h 02m"
-        binding.timeInBedId.status.text = "Good"
-
-        binding.restorativeSleepId.title.text = "Restorative Sleep"
-        binding.restorativeSleepId.value.text = "5h 32m"
-        binding.restorativeSleepId.status.text = "Optimal"
-
-        binding.hr.title.text = "HR Drop"
-        binding.hr.value.text = "68%"
-        binding.hr.status.text = "Fair"
+        binding.wellnessImageArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         // ✅ Progress cards
         setDefaultProgress(binding.sleepEfficiencyProgressId)

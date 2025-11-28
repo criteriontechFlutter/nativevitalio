@@ -18,6 +18,7 @@ import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentAddMedicineReminderBinding
@@ -55,6 +56,10 @@ class AddMedicineReminderFragment : Fragment() {
         addTimeSlotView("08:00")
 
         binding.btnAddSlot.setOnClickListener { addTimeSlotView("08:00") }
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.addMedicine.setOnClickListener {
 

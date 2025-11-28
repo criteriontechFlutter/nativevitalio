@@ -1,177 +1,146 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import android.R.attr.centerY
+import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
+import android.graphics.Shader
+import android.graphics.Typeface
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
-import androidx.core.graphics.toColorInt
+import android.view.animation.LinearInterpolator
+import androidx.core.content.ContextCompat
+import com.critetiontech.ctvitalio.R
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sin
 
-class WaterRingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class WaterRingWaveView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : View(context, attrs) {
 
-    private var volumeChangeListener: OnVolumeChangeListener? = null
-    private var progress = 0f
-    private var waveOffset = 0f
-
-    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
-        color = "#E2E8F0".toColorInt()
-    }
-
-    private val waterPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
-    }
-
-    private val innerCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
-        color = Color.WHITE
-    }
-
-    private var fillColor = "#3B82F6".toColorInt()
-    private var minMl = 0
-    private var maxMl = 500
+    private val ringPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val wavePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val blurPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     private val wavePath = Path()
     private val clipPath = Path()
 
+    private var waveOffset = 0f
+    private var fillFraction = 0f
+
+    private var ringWidth = dp(50f)
+    private var waveHeight = dp(18f)
+
+    init {
+        // Blue gradient ring
+        ringPaint.style = Paint.Style.STROKE
+        ringPaint.strokeWidth = ringWidth
+        ringPaint.shader = LinearGradient(
+            0f, 0f, 0f, 600f,
+            Color.parseColor("#A4D6FF"),
+            Color.parseColor("#1A85FF"),
+            Shader.TileMode.CLAMP
+        )
+
+        // Water wave color
+        wavePaint.color = Color.parseColor("#1A85FF")
+        wavePaint.style = Paint.Style.FILL
+
+        // Blur inner area
+        blurPaint.color = Color.parseColor("#80FFFFFF")
+
+        // Center percentage text
+        textPaint.color = Color.parseColor("#1A1A1A")
+        textPaint.textSize = sp(26f)
+        textPaint.textAlign = Paint.Align.CENTER
+
+        startWaveAnimation()
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val centerX = width / 2f
-        val centerY = height / 2f
-        val radius = minOf(width, height) / 2f - 20f
+        val w = width.toFloat()
+        val h = height.toFloat()
+        val radius = min(w, h) / 2f
+        val cx = w / 2f
+        val cy = h / 2f
 
-        // Draw background circle
-        canvas.drawCircle(centerX, centerY, radius, circlePaint)
+        // ✓ Draw ring
+        canvas.drawCircle(cx, cy, radius - ringWidth / 2, ringPaint)
 
-        // Create circular clip path
+        // ✓ Clip to inner circle (where wave will be drawn)
+        val innerRadius = radius - ringWidth
         clipPath.reset()
-        clipPath.addCircle(centerX, centerY, radius, Path.Direction.CW)
+        clipPath.addCircle(cx, cy, innerRadius, Path.Direction.CW)
 
-        // Save canvas state and apply clip
         canvas.save()
         canvas.clipPath(clipPath)
 
-        // Calculate water level
-        val waterHeight = radius * 2 * progress
-        val waterY = centerY + radius - waterHeight
+        // ✓ Fill inner with frosted white
+        canvas.drawCircle(cx, cy, innerRadius, blurPaint)
 
-        // Draw water with wave effect
-        waterPaint.color = fillColor
-        drawWater(canvas, centerX, waterY, radius)
+        // ---- WAVE DRAWING ----
+        wavePath.reset()
+
+        val waveTop = cy + innerRadius * (1 - fillFraction)
+
+        val waveWidth = w * 1.5f
+
+        wavePath.moveTo(-waveWidth + waveOffset, waveTop)
+
+        val step = waveWidth / 2
+
+        wavePath.quadTo(
+            -waveWidth * 0.5f + waveOffset, waveTop - waveHeight,
+            waveOffset, waveTop
+        )
+
+        wavePath.quadTo(
+            waveWidth * 0.5f + waveOffset, waveTop + waveHeight,
+            waveWidth + waveOffset, waveTop
+        )
+
+        wavePath.lineTo(waveWidth, h)
+        wavePath.lineTo(0f, h)
+        wavePath.close()
+
+        canvas.drawPath(wavePath, wavePaint)
 
         canvas.restore()
 
-        // Draw inner circle that doesn't get filled
-        val innerRadius = radius * 0.3f // 30% of outer radius
-        canvas.drawCircle(centerX, centerY, innerRadius, innerCirclePaint)
-
-        // Draw centered percentage text
-        val filledMl = getFilledMl()
-        val percentText = "${(progress * 100).toInt()}%"
-        val mlText = "$filledMl ml / $maxMl ml"
-
-        val percentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#334155")
-            textSize = 72f
-            textAlign = Paint.Align.CENTER
-            isFakeBoldText = true
-        }
-
-        val mlPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#64748B")
-            textSize = 28f
-            textAlign = Paint.Align.CENTER
-        }
-
-        // Draw percentage
-        val percentBounds = Rect()
-        percentPaint.getTextBounds(percentText, 0, percentText.length, percentBounds)
-        canvas.drawText(percentText, centerX, centerY + percentBounds.height() / 2f, percentPaint)
-
-        // Draw ml text below
-        canvas.drawText(mlText, centerX, centerY + percentBounds.height() + 40f, mlPaint)
-
-        // Animate wave
-        waveOffset += 0.05f
-        if (waveOffset > 2 * Math.PI) waveOffset = 0f
-        postInvalidateOnAnimation()
+        // ---- DRAW % TEXT ----
+        val centerY = cy - (textPaint.descent() + textPaint.ascent()) / 2
+        canvas.drawText("${(fillFraction * 100).toInt()}%", cx, centerY, textPaint)
     }
 
-    private fun drawWater(canvas: Canvas, centerX: Float, waterY: Float, radius: Float) {
-        wavePath.reset()
-
-        val waveAmplitude = 15f
-        val waveLength = radius * 0.8f
-        val startX = centerX - radius
-        val endX = centerX + radius
-
-        wavePath.moveTo(startX, waterY)
-
-        // Create wave effect
-        var x = startX
-        while (x <= endX) {
-            val relativeX = x - startX
-            val angle = (relativeX / waveLength * 2 * Math.PI + waveOffset).toFloat()
-            val y = waterY + sin(angle.toDouble()).toFloat() * waveAmplitude
-            wavePath.lineTo(x, y)
-            x += 5f
+    private fun startWaveAnimation() {
+        ValueAnimator.ofFloat(0f, width.toFloat()).apply {
+            duration = 1800
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.RESTART
+            interpolator = LinearInterpolator()
+            addUpdateListener {
+                waveOffset = it.animatedValue as Float
+                invalidate()
+            }
+            start()
         }
-
-        // Complete the path to fill the bottom
-        wavePath.lineTo(endX, centerY + radius)
-        wavePath.lineTo(startX, centerY + radius)
-        wavePath.close()
-
-        canvas.drawPath(wavePath, waterPaint)
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN || event.action == MotionEvent.ACTION_MOVE) {
-            val centerY = height / 2f
-            val radius = minOf(width, height) / 2f - 20f
-
-            // Calculate progress based on vertical touch position
-            val touchY = event.y
-            val topY = centerY - radius
-            val bottomY = centerY + radius
-
-            progress = ((bottomY - touchY) / (radius * 2)).coerceIn(0f, 1f)
-
-            volumeChangeListener?.onVolumeChanged(getFilledMl(), progress)
-            invalidate()
-        }
-        return true
-    }
-
-    fun setVolumeRange(min: Int, max: Int) {
-        minMl = min
-        maxMl = max
+    fun setLevel(percent: Float) {
+        fillFraction = percent.coerceIn(0f, 1f)
         invalidate()
     }
 
-    fun setFillColor(color: Int) {
-        fillColor = color
-        invalidate()
-    }
-
-    fun setProgress(value: Float) {
-        progress = value.coerceIn(0f, 1f)
-        volumeChangeListener?.onVolumeChanged(getFilledMl(), progress)
-        invalidate()
-    }
-
-    fun setOnVolumeChangeListener(listener: OnVolumeChangeListener) {
-        this.volumeChangeListener = listener
-    }
-
-    fun getFilledMl(): Int {
-        return (minMl + progress * (maxMl - minMl)).toInt()
-    }
-
-    interface OnVolumeChangeListener {
-        fun onVolumeChanged(filledMl: Int, progress: Float)
-    }
+    private fun dp(v: Float) = v * resources.displayMetrics.density
+    private fun sp(v: Float) = v * resources.displayMetrics.scaledDensity
 }

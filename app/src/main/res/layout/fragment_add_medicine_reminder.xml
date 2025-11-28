@@ -474,7 +474,7 @@ android:visibility="gone"
 
     </ScrollView>
 
-    <Button
+    <com.critetiontech.ctvitalio.utils.CustomRoundedButton
         android:id="@+id/addMedicine"
 
         android:layout_width="match_parent"
@@ -482,7 +482,7 @@ android:visibility="gone"
         android:text="Add Medicine"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:background="@drawable/bg_button_blue"
+        android:backgroundTint="@color/primaryBlue"
         android:layout_gravity="bottom"
         android:layout_margin="20dp" />
     </FrameLayout>

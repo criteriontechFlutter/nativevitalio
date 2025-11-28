@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,9 +25,19 @@ class WaterIntakeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Example: change ring dynamically
-        binding.btnAddIntake.setOnClickListener {
-            binding.waterRing.setFillColor((50..100).random())
-        }
+
+        binding.waterRing.setLevel(25f) // animates to 50%
+//
+//// tweak visuals to match the video:
+//        binding.waterRing.setColors(Color.parseColor("#D1F4FF"), Color.parseColor("#2DA6FF"))
+//        binding.waterRing.setWaveAmplitude(0.02f, 0.05f)   // back, front amplitude fractions
+//        binding.waterRing.setWavelengthFactor(1.8f)
+//        binding.waterRing.setPhaseDuration(1500L)
+//        binding.waterRing.setRingThicknessDp(10f)
+//        binding.waterRing.setPercentTextSp(26f)
+//
+//// stop wave if you want
+//        binding.waterRing.setWaveRunning(true)
     }
 
     override fun onDestroyView() {

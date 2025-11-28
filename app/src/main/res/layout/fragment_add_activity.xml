@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Activity"
+                android:text="@string/add_activity"
                 android:textSize="18sp"
                 android:textColor="#111"
                 android:textStyle="bold"
@@ -56,8 +56,9 @@
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/search_background"
+                android:background="@drawable/rounded_corners"
                 app:iconifiedByDefault="false"
+
                 app:queryHint="Search activity"
                 android:layout_marginBottom="16dp" />
 
@@ -73,14 +74,15 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="24dp"
+                android:background="@drawable/bg_progress_track"
                 app:cardElevation="0dp"
                 android:layout_marginBottom="18dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recentRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="232dp"
+                    android:layout_height="wrap_content"
                     android:padding="12dp"
                     android:scrollbars="none" />
             </androidx.cardview.widget.CardView>

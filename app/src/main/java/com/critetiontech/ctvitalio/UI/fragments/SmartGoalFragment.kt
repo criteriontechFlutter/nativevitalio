@@ -1,22 +1,19 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.GoalsAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
 import com.critetiontech.ctvitalio.databinding.FragmentSmartGoalBinding
-import com.critetiontech.ctvitalio.databinding.FragmentSymptomHistoryBinding
-import com.critetiontech.ctvitalio.model.GoalItem
 import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -46,6 +43,7 @@ class SmartGoalFragment : Fragment() {
         setupRecyclerView()
 
         viewModel.getAddedSmartGoal()
+        viewModel.getAllGoalList()
 
         viewModel.vitalList.observe(viewLifecycleOwner) { categoryList ->
             if (!categoryList.isNullOrEmpty()) {
@@ -57,46 +55,74 @@ class SmartGoalFragment : Fragment() {
                     finalList.addAll(category.goals)       // Add its goals
                 }
 
-                adapter.updateData(finalList)
+                adapter.updateData(finalList,isAllGoal=false)
             }
         }
+
+
 
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
         }
 
         binding.btnAdd.setOnClickListener {
-            showFullScreenBottomSheet(requireContext())
+            viewModel.allGoalList.observe(viewLifecycleOwner) { categoryList ->
+                if (!categoryList.isNullOrEmpty()) {
+
+                    val finalList = mutableListOf<Any>()
+
+                    categoryList.forEach { category ->
+                        finalList.add(category.categoryName)   // Add header
+                        finalList.addAll(category.goals)       // Add its goals
+                    }
+                    showFullScreenBottomSheet(requireContext(),finalList)
+                    adapter.updateData(finalList, isAllGoal = true)
+                }
+            }
+
         }
     }
 
     private fun setupRecyclerView() {
-        adapter = GoalsAdapter(emptyList())
+        adapter = GoalsAdapter(emptyList(),false)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
 
-    fun showFullScreenBottomSheet(context: Context) {
+    fun showFullScreenBottomSheet(context: Context, finalList: MutableList<Any>) {
         val dialog = BottomSheetDialog(context, R.style.FullScreenBottomSheetDialog)
         val view = LayoutInflater.from(context).inflate(R.layout.set_goal_layout, null)
 
         dialog.setContentView(view)
 
-        // FULL SCREEN
         val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         bottomSheet?.let {
+
+            // Make layout full height
+            it.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+
             val behavior = BottomSheetBehavior.from(it)
-            behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels
+            behavior.skipCollapsed = true
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+            // Prevent hide on drag
+            behavior.isDraggable = false
         }
 
-        // 🔥 BIND RECYCLER VIEW HERE
+        // Recycler
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val backIV = view.findViewById<ImageView>(R.id.wellnessImageArrow)
+        backIV.setOnClickListener {
+            dialog.dismiss()
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = GoalsAdapter(emptyList())
+        adapter = GoalsAdapter(finalList,true)
+        adapter.updateData(finalList,isAllGoal=false)
         recyclerView.adapter = adapter
 
         dialog.show()
     }
+
 
 }

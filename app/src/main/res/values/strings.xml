@@ -269,5 +269,16 @@
     <string name="activity">Activity</string>
     <string name="completions">Completions</string>
     <string name="today_s_priority_action">Today\'s Priority Action</string>
+    <string name="choose_the_mood_that_fits_you_best">Choose the mood that fits you best...</string>
+    <string name="your_energy_story_awaits">Your energy story awaits</string>
+    <string name="log_your_energy_for_today">Log your energy for today ⚡</string>
+    <string name="today_s_health_snapshot">Today\'s Health Snapshot</string>
+    <string name="you_ve_been_experiencing_prolonged_grogginess_that_affects_your_mornings_try_adjusting_your_bedroom_temperature_having_dinner_earlier_limiting_the_use_of_blackout_curtains_and_avoiding_coffee_late_in_the_evening">You\'ve been experiencing prolonged grogginess that affects your mornings. Try adjusting your bedroom temperature, having dinner earlier, limiting the use of blackout curtains, and avoiding coffee late in the evening.</string>
+    <string name="your_movement_patterns_during_sleep_indicate_slight_restlessness">Your movement patterns during sleep indicate slight restlessness</string>
+    <string name="average_oxygen_saturation">Average Oxygen Saturation</string>
+    <string name="glucose">Glucose</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="medicine">Medicine</string>
+    <string name="sleep_stages">Sleep Stages</string>
 
 </resources>

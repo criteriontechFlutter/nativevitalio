@@ -7,18 +7,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.model.HapticType
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import sealedClass.UiEvent
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class ConnectionViewModel (application: Application) : BaseViewModel(application) {
 
-
+    private val _events = MutableSharedFlow<UiEvent>()
+    val events = _events
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
@@ -74,8 +79,16 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
 
                 if (response.isSuccessful) {
                     _loading.value = false
-                    ToastUtils.showSuccessPopup(requireContext,"Vital Added Successfully!")
-                    navController.popBackStack()
+                    _events.emit(
+                        UiEvent.ShowBottomSheet(
+                            icon = R.raw.ic_success_anim,
+                            title = "Glucose Logged Successfully",
+                            message = "Your latest reading has been recorded.",
+                            buttonText = "OK",
+                            hapticType = HapticType.LIGHT
+                        ))
+//                    ToastUtils.showSuccessPopup(requireContext,"Vital Added Successfully!")
+//                    navController.popBackStack()
 
                 } else {
                     _loading.value = false
@@ -87,6 +100,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
             }
+
         }
     }
 

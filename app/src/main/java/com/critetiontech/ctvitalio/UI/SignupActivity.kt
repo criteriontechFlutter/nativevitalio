@@ -118,7 +118,7 @@ class SignupActivity : AppCompatActivity() {
 
 
 
-            updateProgress(progressViewModel.progress.value,step )
+//            updateProgress(progressViewModel.progress.value,step )
         }
 
         // Back button listener to go back based on progress
@@ -141,20 +141,20 @@ class SignupActivity : AppCompatActivity() {
                 if (progressViewModel.pageNo.value == 11) {
 
                 }
-                else  if(progressViewModel.pageNo.value> 0){
+                else progressViewModel.pageNo.value?.let {
+                    if(it> 0){
 
-                val navHostFragment = supportFragmentManager
-                    .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-                val navController = navHostFragment.navController
-                navController.popBackStack()
+                        val navHostFragment = supportFragmentManager
+                            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                        val navController = navHostFragment.navController
+                        navController.popBackStack()
 
-                    backbtnFun()
-                }
-
-                 else{
-                    val intent = Intent(this@SignupActivity, Login::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                        backbtnFun()
+                    } else{
+                        val intent = Intent(this@SignupActivity, Login::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
                 }
             }
         })

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F7F9FB"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryBlueLight"
         android:elevation="5dp"
+        android:backgroundTint="@color/white"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +36,7 @@
                 android:id="@+id/wellnessImageArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_cross_goal" />
 
             <TextView
                 android:id="@+id/wellnessText"
@@ -56,7 +57,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:clickable="false"
         android:clipToPadding="false"
