@@ -193,7 +193,7 @@
         </LinearLayout>
     </LinearLayout>
         <LinearLayout
-            android:id="@+id/containerDaysOfWeek"
+            android:id="@+id/weekLayout"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="8dp"
@@ -315,35 +315,7 @@ android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="5dp"  >
-
-                <!-- First Default Time Slot -->
-                <LinearLayout
-                    android:id="@+id/slotCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_field_time"
-                    android:paddingHorizontal="12dp"
-                    android:layout_marginTop="10dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_clock"
-                        app:tint="#555555"/>
-
-                    <TextView
-                        android:id="@+id/tvTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="08:00"
-                        android:textSize="15sp"
-                        android:layout_marginStart="10dp"
-                        android:textColor="#222222"/>
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_marginTop="10dp" />
 
             <!-- Add Slot Button -->
         <LinearLayout
