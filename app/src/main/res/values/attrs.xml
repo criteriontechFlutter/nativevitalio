@@ -21,5 +21,7 @@
             <attr name="textSize" format="dimension" />
         </declare-styleable>
 
-
+        <declare-styleable name="WaveLiquidProgressView">
+            <attr name="wavePercent" format="integer"/>
+        </declare-styleable>
 </resources>
