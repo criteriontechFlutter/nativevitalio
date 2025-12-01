@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dayItem"
+    android:layout_width="35dp"
+    android:layout_height="80dp"
+    android:gravity="center"
+    android:orientation="vertical"
+     android:layout_marginHorizontal="6dp"
+    android:background="@drawable/bg_week_container">
+
+    <TextView
+        android:id="@+id/dayLabel"
+        android:text="S"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primaryBlue"
+android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+    <ImageView
+        android:id="@+id/checkId"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:src="@drawable/rounded_check" />
+</LinearLayout>
