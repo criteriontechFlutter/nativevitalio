@@ -67,7 +67,7 @@ class CompletionScreen : Fragment() {
         for (i in 0 until dotsContainer.childCount) {
             val dot = dotsContainer.getChildAt(i)
 
-            // Jump animation
+            // Jump animator
             val jumpAnim = ObjectAnimator.ofFloat(dot, "translationY", 0f, -20f).apply {
                 duration = 300
                 repeatMode = ObjectAnimator.REVERSE
@@ -75,7 +75,7 @@ class CompletionScreen : Fragment() {
                 startDelay = i * 100L
             }
 
-            // Color animation
+            // Color animator
             val colorAnim = ValueAnimator.ofObject(ArgbEvaluator(), originalColor, activeColor, originalColor).apply {
                 duration = 600
                 repeatCount = ValueAnimator.INFINITE

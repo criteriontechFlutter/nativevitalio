@@ -75,7 +75,7 @@ class MovementIndexViewModel : ViewModel() {
     }
 
     /**
-     * Update progress value with animation
+     * Update progress value with animator
      */
     private fun updateProgressValue(newValue: Int) {
         val currentValue = progress.value?.toIntOrNull() ?: 0

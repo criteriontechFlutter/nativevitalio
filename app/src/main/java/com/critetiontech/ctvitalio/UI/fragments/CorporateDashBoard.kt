@@ -67,6 +67,7 @@ import net.openid.appauth.AuthorizationService
 import okhttp3.WebSocket
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
@@ -536,12 +537,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //            binding.vitalsSlider.adapter = adapter
 
         }
-//        binding.swipeRefreshLayout.setOnRefreshListener {
-//            Handler().postDelayed({
-//                 viewModel.getVitals()
-//                binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
-//            }, 2000)
-//        }
+        initializeSwipeRefresh()
 
 // Vertical orientation
 
@@ -950,6 +946,48 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
         return finalScore
     }
+
+
+    private fun initializeSwipeRefresh() {
+
+
+        // Configure SwipeRefreshLayout colors and size
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.primaryBlue)
+        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white)
+        binding.swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT)
+
+        // Set refresh listener
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            performRefresh()
+        }
+
+        // Optional: Configure distance to trigger refresh
+        binding.swipeRefreshLayout.setDistanceToTriggerSync(200)
+    }
+
+    private fun performRefresh() {
+        // Show custom loader
+        showCustomLoader(true)
+
+        // Simulate network call with delay
+        Handler(Looper.getMainLooper()).postDelayed({
+            // Your actual refresh logic here
+            refreshDashboardData()
+
+            // Hide custom loader and refresh indicator
+            showCustomLoader(false)
+            binding.swipeRefreshLayout.isRefreshing = false
+
+        }, 2000) // 2 second delay - replace with actual API call
+    }
+
+    private fun showCustomLoader(show: Boolean) {
+        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun refreshDashboardData() {
+       viewModel.getVitals()
+    }
     fun wellnessDataBind() {
 
         // -------------------------------------------------------
@@ -1039,9 +1077,9 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
             // ---------------- STEPS ----------------
-            val steps = vitalList.firstOrNull { it.vitalName.equals("Steps", ignoreCase = true) }
+            val steps = vitalList.firstOrNull { it.vitalName.equals("TotalSteps", ignoreCase = true) }
             val goalSteps = 11000.0
-            val currentSteps = steps?.totalValue?.toString()?.toDoubleOrNull() ?: 0.0
+            val currentSteps = steps?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
             val stepsPercent = if (goalSteps > 0) ((currentSteps / goalSteps) * 100).toInt() else 0
 
             if (stepsPercent == 0) {
@@ -1057,8 +1095,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
             // ---------------- SLEEP ----------------
-            val totalSleep = vitalList.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
-            val sleepScore = totalSleep?.vitalValue?.toString()?.toIntOrNull() ?: 0
+            val totalSleep = vitalList.firstOrNull { it.vitalName.equals("SleepScore", ignoreCase = true) }
+            val sleepScore = totalSleep?.vmValueText?.toString()?.toIntOrNull() ?: 0
 
             if (totalSleep?.vitalValue?.toInt()   == 0) {
                 binding.sleepProgressId.dailyChecklistID.visibility = View.GONE

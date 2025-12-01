@@ -5,7 +5,7 @@
     <color name="primaryColor">#007AFF</color>
     <color name="primaryBlue">#0079FF</color>
     <color name="primaryBlue2">#0C73BB</color>
-    <color name="primaryBlueLight">#F5F8FC</color>
+    <color name="primaryBlueLight">#FFFFFF</color>
 
     <!-- Accent Colors -->
     <color name="skyBlue">#05BAC9</color>

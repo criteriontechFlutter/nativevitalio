@@ -124,7 +124,7 @@ class WaveView @JvmOverloads constructor(
         // Clean up any existing animations
         cancelAllAnimations()
 
-        // Drop animation phase
+        // Drop animator phase
         val dropBack = ObjectAnimator.ofFloat(this, "offsetBack", -120f, 0f).apply {
             duration = 500
             interpolator = DecelerateInterpolator()
@@ -135,7 +135,7 @@ class WaveView @JvmOverloads constructor(
             interpolator = DecelerateInterpolator()
         }
 
-        // Float animation phase
+        // Float animator phase
         floatBackAnimator = ValueAnimator.ofFloat(-20f, 20f).apply {
             duration = 4500
             repeatCount = ValueAnimator.INFINITE
