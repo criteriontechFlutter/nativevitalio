@@ -135,10 +135,10 @@ class SmartGoalFragment : Fragment() {
         },
         onPinClick = { goal ->
            viewModel.updateUserData(context  ,
-                   categoryId =  goal.id,
+                   categoryId =  goal.goalId.toString(),
             goalId = goal.goalId,
-               targetValue =  goal.goalId,
-            unit =  goal.goalId,
+               targetValue =  "100",
+            unit = " ",
 
                )
         }
