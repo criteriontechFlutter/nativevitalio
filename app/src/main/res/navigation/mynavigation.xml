@@ -488,6 +488,14 @@
         android:id="@+id/smartGoalFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SmartGoalFragment"
         android:label="fragment_smart_goal"
-        tools:layout="@layout/fragment_smart_goal" />
+        tools:layout="@layout/fragment_smart_goal" >
+        <action
+            android:id="@+id/action_smartGoalFragment_to_setGoal"
+            app:destination="@id/setGoal" />
+    </fragment>
+    <fragment
+        android:id="@+id/setGoal"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.SetGoal"
+        android:label="SetGoal" />
 
 </navigation>

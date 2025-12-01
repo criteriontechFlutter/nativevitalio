@@ -717,6 +717,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="setGoal">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1276" />
+                            <option name="y" value="-2196" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="settingsFragmentVitalio">
                     <value>
                       <LayoutPositions>

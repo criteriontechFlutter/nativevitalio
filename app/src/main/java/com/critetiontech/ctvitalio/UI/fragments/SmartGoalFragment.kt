@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -84,7 +85,15 @@ class SmartGoalFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = GoalsAdapter(emptyList(),false)
+          adapter = GoalsAdapter(emptyList(),  isAllGoal = true,
+            onGoalClick = { goal ->
+                Toast.makeText(requireContext(), "Clicked on: ${goal.goalName}", Toast.LENGTH_SHORT).show()
+            },
+            onPinClick = { goal ->
+                Toast.makeText(requireContext(), "Pinned: ${goal.goalName}", Toast.LENGTH_SHORT).show()
+            }
+        )
+
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
@@ -117,7 +126,24 @@ class SmartGoalFragment : Fragment() {
         }
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = GoalsAdapter(finalList,true)
+         adapter = GoalsAdapter(finalList, isAllGoal = true,
+        onGoalClick = { goal ->
+            findNavController().navigate(
+                 R.id.action_smartGoalFragment_to_setGoal
+            )
+            dialog.dismiss()
+        },
+        onPinClick = { goal ->
+           viewModel.updateUserData(context  ,
+                   categoryId =  goal.id,
+            goalId = goal.goalId,
+               targetValue =  goal.goalId,
+            unit =  goal.goalId,
+
+               )
+        }
+        )
+
         adapter.updateData(finalList,isAllGoal=false)
         recyclerView.adapter = adapter
 

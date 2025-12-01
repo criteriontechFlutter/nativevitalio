@@ -10,8 +10,12 @@ import com.critetiontech.ctvitalio.databinding.ItemGoalBinding
 import com.critetiontech.ctvitalio.databinding.ItemSavedgoalHeaderBinding
 import com.critetiontech.ctvitalio.model.GoalItem
 
-class GoalsAdapter(private var items: List<Any>,private var isAllGoal: Boolean) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GoalsAdapter(
+    private var items: List<Any>,
+    private var isAllGoal: Boolean,
+    private val onGoalClick: (GoalItem) -> Unit,       // ← item click
+    private val onPinClick: (GoalItem) -> Unit? = {}   // ← optional pin click
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_HEADER = 0
@@ -26,84 +30,81 @@ class GoalsAdapter(private var items: List<Any>,private var isAllGoal: Boolean) 
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        return when (viewType) {
-
-            TYPE_HEADER -> {
-                val binding = ItemSavedgoalHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        when (viewType) {
+            TYPE_HEADER -> HeaderViewHolder(
+                ItemSavedgoalHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
                 )
-                HeaderViewHolder(binding)
-            }
-
-            else -> {
-                val binding = ItemGoalBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                GoalViewHolder(binding,isAllGoal)
-            }
+            )
+            else -> GoalViewHolder(
+                ItemGoalBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                ),
+                isAllGoal,
+                onGoalClick,
+                onPinClick
+            )
         }
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newItems: List<Any>, isAllGoal: Boolean) {
         items = newItems
-        this@GoalsAdapter.isAllGoal = isAllGoal
+        this.isAllGoal = isAllGoal
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         when (val item = items[position]) {
             is String -> (holder as HeaderViewHolder).bind(item)
             is GoalItem -> (holder as GoalViewHolder).bind(item)
         }
     }
 
-    // ----------------- VIEW HOLDERS -----------------
+    /* ---------------- View Holders ---------------- */
 
     class HeaderViewHolder(private val binding: ItemSavedgoalHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(categoryName: String) {
             binding.tvHeader.text = categoryName
         }
     }
 
-    class GoalViewHolder(private val binding: ItemGoalBinding,private val isAllGoal: Boolean) :
-        RecyclerView.ViewHolder(binding.root) {
+    class GoalViewHolder(
+        private val binding: ItemGoalBinding,
+        private val isAllGoal: Boolean,
+        private val onGoalClick: (GoalItem) -> Unit,
+        private val onPinClick: (GoalItem) -> Unit?
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(goal: GoalItem) {
-             binding.isGoal=isAllGoal
-             binding.isActive=goal.isActive
-              goal.goalName.also { binding.tvTitle.text = it }
-           // binding.tvProgress.text = "${goal.isActive}/${goal.targetValue}"
 
-                if (isAllGoal) {
-                    binding.tvProgress.text =  goal.description
+            binding.isGoal = isAllGoal
+            binding.isActive = goal.isActive
+            binding.tvTitle.text = goal.goalName
 
-                } else {
-                    "${goal.isActive}/${goal.targetValue}".also { binding.tvProgress.text = it }
-                }
-
+            binding.tvProgress.text = if (isAllGoal) goal.description
+            else "${goal.isActive}/${goal.targetValue}"
 
             val color = ContextCompat.getColor(
                 binding.root.context,
                 if (goal.isPinned == 1) R.color.blue else R.color.greyText
             )
+
             binding.progressView.setProgress(65f)
             binding.progressView.setProgressColor("#1281FD")
-            binding.progressView.setRemainingColor("#D0D0D0") // grey
-
+            binding.progressView.setRemainingColor("#D0D0D0")
 
             binding.ivPin.setColorFilter(color)
+
+            /* CLICK HANDLERS */
+            binding.root.setOnClickListener { onGoalClick(goal) } // whole item click
+
+            binding.centerIcon.setOnClickListener {                   // pin click
+                onPinClick?.invoke(goal)
+            }
         }
     }
 }
