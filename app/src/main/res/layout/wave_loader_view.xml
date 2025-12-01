@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/waveLoader"
+    android:layout_width="220dp"
+    android:layout_height="220dp"
+    android:background="@drawable/fluidpot">
+
+    <!-- WATER LAYER -->
+    <ImageView
+        android:id="@+id/waveImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fluidwater"
+        android:scaleType="centerCrop"
+        android:translationY="90dp"/>
+
+    <!-- INNER PERCENTAGE CIRCLE -->
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:src="@drawable/fluidper"/>
+
+    <!-- TEXT VALUE -->
+    <TextView
+        android:id="@+id/txtPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="60%"
+        android:textSize="28sp"
+        android:textColor="#5A646D"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+</FrameLayout>

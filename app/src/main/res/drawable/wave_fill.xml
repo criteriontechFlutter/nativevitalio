@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="328dp"
+    android:height="328dp"
+    android:viewportWidth="328"
+    android:viewportHeight="328">
+
+    <group
+        android:name="waveGroup"
+        android:translateX="0">
+
+        <clip-path android:pathData="M164,0A164,164 0 1,1 164,328A164,164 0 1,1 164,0Z" />
+
+        <!-- Wave pattern, long so it can move smoothly -->
+        <path
+            android:name="wavePath"
+            android:pathData="M-328,250 C-200,220 -70,280 80,250 C230,220 350,280 480,250 V 328 H -328 Z"
+            android:fillColor="#0A76E9"/>
+    </group>
+
+</vector>
