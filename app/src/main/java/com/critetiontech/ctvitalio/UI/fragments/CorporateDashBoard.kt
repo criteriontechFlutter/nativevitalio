@@ -1090,7 +1090,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
                 binding.stepsProgressId.dailyChecklistID.visibility = View.VISIBLE
                 binding.stepsProgressId.progressSteps.progress = stepsPercent
                 binding.stepsProgressId.tvStepsValue.text = currentSteps.toInt().toString()
-                binding.stepsProgressId.tvStepsLabel.text = "Steps ${stepsPercent}%"
+                binding.stepsProgressId.tvStepsLabel.text = "Steps $stepsPercent%"
             }
 
 
