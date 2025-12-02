@@ -149,7 +149,11 @@ class drawer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         drawerViewModel = ViewModelProvider(this)[DrawerViewModel::class.java]
-
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.white,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
         setupObservers()
         setupListeners()
         initDrawerLayout()

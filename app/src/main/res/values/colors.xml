@@ -71,6 +71,13 @@
     <color name="terms_color">#828691</color>
     <color name="purple_200">#FFBB86FC</color>
 
+    <color name="stressed">#FFA4BA</color>
+    <color name="happy">#9ABDFF</color>
+    <color name="sad">#7DE7EE</color>
+    <color name="good">#F9C825</color>
+    <color name="spectacular">#FFA4BA</color>
+    <color name="upset">#88A7FF</color>
+
 
     <color name="dullBlack">#2D3344FF</color>
     <color name="greyDark">#616161FF</color>

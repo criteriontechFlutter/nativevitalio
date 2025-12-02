@@ -33,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.UI.OmronActivity.OmronConnectedDeviceList
 import com.critetiontech.ctvitalio.adapter.ConnectionAdapter
 import com.critetiontech.ctvitalio.common.GlobalMessageBottomSheet
@@ -66,7 +67,11 @@ class Connection : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.white,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
         val vitalType = arguments?.getString("vitalType") ?: "Blood Pressure"
         binding.vitalType = vitalType;
         viewModel = ViewModelProvider(this)[ConnectionViewModel::class.java]

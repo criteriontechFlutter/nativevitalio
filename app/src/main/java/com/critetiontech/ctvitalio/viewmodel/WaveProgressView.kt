@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.critetiontech.ctvitalio.R
 import kotlin.math.sin
+import androidx.core.graphics.toColorInt
 
 class WaveLiquidProgressView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
@@ -28,40 +29,40 @@ class WaveLiquidProgressView(context: Context, attrs: AttributeSet?) : View(cont
         setLayerType(LAYER_TYPE_SOFTWARE, null)
 
         // get XML attribute app:wavePercent="XX"
-        attrs?.let {
-            val t = context.obtainStyledAttributes(it, R.styleable.WaveLiquidProgressView)
-            progress = t.getInt(R.styleable.WaveLiquidProgressView_wavePercent, 60).toFloat()
-            animatedProgress = progress
-            t.recycle()
-        }
+//        attrs?.let {
+//            val t = context.obtainStyledAttributes(it, R.styleable.WaveLiquidProgressView)
+//            progress = t.getInt(R.styleable.WaveLiquidProgressView_wavePercent, 60).toFloat()
+//            animatedProgress = progress
+//            t.recycle()
+//        }
 
         // ================================
         // ✔ WAVE PAINT (ExACT smooth blue)
         // ================================
         wavePaint1.shader = LinearGradient(
             0f, 0f, 0f, 1000f,
-            Color.parseColor("#5ABAFE"),
-            Color.parseColor("#0A76E9"),
+            "#5ABAFE".toColorInt(),
+            "#0A76E9".toColorInt(),
             Shader.TileMode.CLAMP
         )
         wavePaint2.shader = LinearGradient(
             0f, 0f, 0f, 1000f,
-            Color.parseColor("#5ABAFE"),
-            Color.parseColor("#0A76E9"),
+            "#5ABAFE".toColorInt(),
+            "#0A76E9".toColorInt(),
             Shader.TileMode.CLAMP
         )
 
         // ================================
         // ✔ INNER SOFT WHITE CIRCLE
         // ================================
-        innerPaint.color = Color.parseColor("#F8FAFF")
-        innerPaint.setShadowLayer(35f,0f,0f,Color.parseColor("#30000000"))
+        innerPaint.color = "#F8FAFF".toColorInt()
+        innerPaint.setShadowLayer(35f,0f,0f, "#30000000".toColorInt())
 
         // ================================
         // ✔ CENTER TEXT
         // ================================
         textPaint.apply {
-            color = Color.parseColor("#4A5568")
+            color = "#4A5568".toColorInt()
             textSize = 60f
             textAlign = Paint.Align.CENTER
             isFakeBoldText = true
@@ -79,9 +80,9 @@ class WaveLiquidProgressView(context: Context, attrs: AttributeSet?) : View(cont
         val outerGradient = RadialGradient(
             cx, cy, radius,
             intArrayOf(
-                Color.parseColor("#FFFFFF"),
-                Color.parseColor("#D6D6D6"),
-                Color.parseColor("#BEBEBE")
+                "#FFFFFF".toColorInt(),
+                "#D6D6D6".toColorInt(),
+                "#BEBEBE".toColorInt()
             ),
             floatArrayOf(0.15f, 0.55f, 1f),
             Shader.TileMode.CLAMP

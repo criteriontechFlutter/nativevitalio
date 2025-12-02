@@ -25,10 +25,12 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.databinding.FragmentMoodBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
+import androidx.core.graphics.toColorInt
 
 class MoodFragment : Fragment() {
     private lateinit var binding: FragmentMoodBinding
@@ -61,7 +63,13 @@ class MoodFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[MoodViewModel::class.java]
 
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.stressed,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
 
+            binding.rootMoodLayout.transitionToEnd()
 
         viewModel.onMoodClicked("5")
         // Make it behave like pager (one item per swipe)
@@ -116,21 +124,37 @@ class MoodFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val position = layoutManager.findFirstCompletelyVisibleItemPosition()
+
                     if (position != RecyclerView.NO_POSITION) {
+
                         val mood = viewModel.moodsLiveData.value?.get(position)
-
                         viewModel.onMoodClicked(mood?.id.toString())
-                        val color = moods.find { it.id.toString()  == mood?.id.toString() }?.color
 
+                        val colorHex = moods.find { it.id.toString() == mood?.id.toString() }?.color
+                        val targetColor = colorHex?.toColorInt() ?: Color.WHITE
 
-                        // Animate background
-                        val currentColor = (binding.rootMoodLayout.background as? ColorDrawable)?.color ?: Color.WHITE
-                        ValueAnimator.ofObject(ArgbEvaluator(), currentColor, Color.parseColor(color)).apply {
+                        // Current bg color
+                        val currentColor =
+                            (binding.rootMoodLayout.background as? ColorDrawable)?.color ?: Color.WHITE
+
+                        ValueAnimator.ofObject(ArgbEvaluator(), currentColor, targetColor).apply {
                             duration = 500
                             addUpdateListener { animator ->
-                                binding.rootMoodLayout.setBackgroundColor(animator.animatedValue as Int)
+
+                                val animatedColor = animator.animatedValue as Int
+
+                                // Update layout background
+                                binding.rootMoodLayout.setBackgroundColor(animatedColor)
+
+                                // Update status bar with CURRENT animated color
+                                (requireActivity() as? BaseActivity)?.setSystemBarsColorInt(
+                                    statusColorInt = animatedColor,
+                                    navColorInt = ContextCompat.getColor(requireContext(), R.color.white),
+                                    lightIcons = true
+                                )
                             }
                             start()
                         }
@@ -138,6 +162,7 @@ class MoodFragment : Fragment() {
                 }
             }
         })
+
     }
 
 }

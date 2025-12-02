@@ -68,6 +68,7 @@ import okhttp3.WebSocket
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
@@ -132,7 +133,11 @@ class CorporateDashBoard : Fragment() {
         binding.notificationIcon.setOnClickListener {
 
         }
-
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.primaryBlue,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }

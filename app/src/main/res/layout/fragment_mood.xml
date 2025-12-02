@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.motion.widget.MotionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#FFA4BA"
+    app:layoutDescription="@xml/mood_scene"
     android:layout_height="match_parent"
     android:id="@+id/rootMoodLayout"
     android:padding="0dp">
@@ -72,10 +73,10 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="16dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="100dp"
                 android:contentDescription="@string/back"
-                android:src="@drawable/ic_arrow_left"
+                android:src="@drawable/mood_back_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -148,10 +149,11 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginRight="46dp"
                 android:gravity="center"
-                android:text="How are you feeling today?"
+                android:text="@string/how_are_you_feeling_today"
                 android:textColor="#664F00"
                 android:textSize="36sp"
-                android:textStyle="bold|italic"
+                android:textStyle="italic"
+                android:fontFamily="@font/source_serif_pro"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userName2" />
@@ -208,4 +210,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
