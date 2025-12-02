@@ -18,5 +18,5 @@ data class GoalItem(
     val description: String,
     val targetValue: String,
     val isActive: Int,
-    val isPinned: Int
+    var isPinned: Int
 )

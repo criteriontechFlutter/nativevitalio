@@ -248,8 +248,7 @@ class AddMedicineReminderFragment : Fragment() {
                     "Every day" -> {
                         binding.containerEveryDay.visibility = View.VISIBLE
                         binding.slotContainer.visibility = View.VISIBLE
-                        binding.btnAddSlot.visibility = View.GONE
-                    }
+                     }
 
                     /** 🟢 EVERY X DAY */
                     "Every x day" -> {
@@ -319,7 +318,12 @@ class AddMedicineReminderFragment : Fragment() {
         viewModel.timeSlots.clear()
 
         addTimeSlotView(defaultTime)  // always one visible
-        binding.btnAddSlot.visibility = View.GONE   // remove add button for all frequencies
+        binding.btnAddSlot.visibility =
+            when (viewModel.selectedFrequency) {
+                "Every day" -> View.VISIBLE
+                "As Needed" -> View.GONE
+                else -> View.GONE
+            }  // // remove add button for all frequencies
     }
 
     private fun setupWeekSelection() {
