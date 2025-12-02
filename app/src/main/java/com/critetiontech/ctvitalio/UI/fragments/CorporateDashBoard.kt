@@ -1080,7 +1080,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             val steps = vitalList.firstOrNull { it.vitalName.equals("TotalSteps", ignoreCase = true) }
             val goalSteps = 11000.0
             val currentSteps = steps?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
-            val stepsPercent = if (goalSteps > 0) ((currentSteps / goalSteps) * 100).toInt() else 0
+            val stepsPercent = ((currentSteps / goalSteps) * 100).toInt()
 
             if (stepsPercent == 0) {
                 binding.stepsProgressId.dailyChecklistID.visibility = View.GONE
