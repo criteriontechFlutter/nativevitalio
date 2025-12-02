@@ -12,9 +12,10 @@
         android:id="@+id/dayLabel"
         android:text="Set Your Daily Steps Goal"
         android:textSize="16sp"
+        android:gravity="start"
         android:textStyle="bold"
         android:paddingBottom="14dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <!-- WEEK SELECTOR ROW -->
@@ -31,6 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/selectAllDaysId"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginHorizontal="16dp"
@@ -38,9 +40,9 @@
          android:gravity="center_horizontal"
         android:background="@drawable/bg_card_white"
         android:orientation="horizontal" >
-        <ImageButton
-            android:layout_width="13dp"
-            android:layout_height="13dp"
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/rounded_circle" />
 
         <TextView
@@ -81,12 +83,12 @@
                 android:src="@drawable/ic_minus" />
 
             <TextView
-                android:id="@+id/tvGlucoseValue"
+                android:id="@+id/tvStepsValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="24dp"
-                android:text="110"
+                android:text=" 0"
                 android:gravity="center"
                 android:textSize="36sp"
                 android:textStyle="bold"
@@ -129,5 +131,17 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="24dp"
+        android:text="Save "
+        android:textColor="#000000"
+        android:textSize="13sp"        android:background="@drawable/container_gradient"
+        android:gravity="center"
+
+    android:textStyle="bold" />
 
 </LinearLayout>
