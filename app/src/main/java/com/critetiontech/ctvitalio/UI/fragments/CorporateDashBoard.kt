@@ -1085,7 +1085,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             if (stepsPercent == 0) {
                 binding.stepsProgressId.dailyChecklistID.visibility = View.GONE
                 binding.stepsProgressId.tvStepsValue.text = "0"
-                binding.stepsProgressId.tvStepsLabel.text = "Steps 0%"
+                "Steps 0%".also { binding.stepsProgressId.tvStepsLabel.text = it }
             } else {
                 binding.stepsProgressId.dailyChecklistID.visibility = View.VISIBLE
                 binding.stepsProgressId.progressSteps.progress = stepsPercent
