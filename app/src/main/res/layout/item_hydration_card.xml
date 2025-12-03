@@ -3,9 +3,10 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-     card_view:cardCornerRadius="16dp"
+    xmlns:app="http://schemas.android.com/tools"
+    card_view:cardCornerRadius="16dp"
     card_view:cardElevation="0dp"
-     android:background="@drawable/bg_card_white">
+    android:background="@drawable/bg_card_white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,52 +58,87 @@
         <!-- CONTROLLER ROW -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:layout_marginTop="12dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="4dp">
 
-            <ImageButton
-                android:id="@+id/btnMinus"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@drawable/bg_circle_light"
-                android:src="@drawable/ic_minus" />
-
-            <TextView
-                android:id="@+id/tvAmount"
+            <!-- QUANTITY CONTROLS -->
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="200 ml"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/btnPlus"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@drawable/bg_circle_light"
-                android:src="@drawable/ic_add" />
+                <!-- MINUS BUTTON -->
+                <ImageButton
+                    android:id="@+id/btnMinus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_circle_light"
+                    android:src="@drawable/ic_arrow_left"
+                    android:padding="8dp"
+                    android:contentDescription="minus"
+                    card_view:tint="@color/greyText" />
+
+                <!-- VALUE TEXT -->
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:text="200 ml"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/primaryBlue" />
+
+                <!-- PLUS BUTTON -->
+                <ImageButton
+                    android:id="@+id/btnPlus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_circle_light"
+                    android:src="@drawable/ic_arrow_right"
+                    android:padding="8dp"
+                    android:contentDescription="plus"
+                    card_view:tint="@color/greyText" />
+            </LinearLayout>
 
 
-            <!-- ADD BUTTON -->
-            <TextView
+            <!-- ADD INTAKE BUTTON -->
+            <LinearLayout
                 android:id="@+id/btnAddIntake"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:paddingHorizontal="18dp"
-                android:gravity="center"
-                android:text="Add Intake"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_primary_button"
-                android:layout_gravity="center_vertical"/>
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:backgroundTint="@color/primaryBlue"
+                android:background="@drawable/rounded_corners"
+                android:layout_marginStart="12dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_action_add"
+                    android:layout_marginEnd="6dp"
+                    card_view:tint="@android:color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Intake"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+
         </LinearLayout>
+
 
     </LinearLayout>
 
