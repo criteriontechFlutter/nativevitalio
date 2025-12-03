@@ -112,9 +112,9 @@ class SleepDetails : Fragment() {
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
         hrFromServerData(sleepValue.HrGraph.Data)
             hrVariability(sleepValue.HrvGraph )
-            binding.tvAvgValue.text=sleepValue.GistObject.Avg.toString()
-            binding.tvMaxValue.text=sleepValue.GistObject.Max.toString()
-            binding.tvMinValue.text=sleepValue.GistObject.Min.toString()
+           // binding.tvAvgValue.text=sleepValue.GistObject.Avg.toString()
+//            binding.tvMaxValue.text=sleepValue.GistObject.Max.toString()
+//            binding.tvMinValue.text=sleepValue.GistObject.Min.toString()
 
 
         }
@@ -124,7 +124,7 @@ class SleepDetails : Fragment() {
 
         bindContributorsData()
         setupChart()
-openSleepGraph()
+        openSleepGraph()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -253,15 +253,18 @@
 
                 <pl.droidsonroids.gif.GifImageView
                     android:id="@+id/ivIllustration"
-                    android:layout_width="300dp"
+                    android:layout_width="400dp"
                     android:layout_height="250dp"
                     android:layout_marginStart="20dp"
                     android:adjustViewBounds="true"
+                    android:layout_marginEnd="20dp"
                     android:scaleType="fitCenter"
+                    android:foregroundGravity="center_horizontal"
                     android:src="@drawable/moods"
+                    android:layout_marginBottom="80dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_max="140dp"
+                    app:layout_constraintHeight_max="160dp"
                     app:layout_constraintHeight_min="80dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
@@ -274,7 +277,7 @@
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="-150dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,7 +287,7 @@
                 android:id="@+id/contentScroll"
                 android:layout_width="match_parent"
                 android:layout_height="750dp"
-                android:layout_marginBottom="-150dp"
+
                 android:background="@drawable/bg_content_white"
                 android:elevation="8dp"
                 android:padding="16dp"
@@ -1051,7 +1054,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
                             android:layout_marginBottom="10dp"
-                            android:text="Daily Checklist"
+                            android:text="@string/daily_checklist"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
                             android:textStyle="bold" />
