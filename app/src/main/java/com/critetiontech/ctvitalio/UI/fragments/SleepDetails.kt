@@ -197,16 +197,16 @@ private fun openSleepGraph() {
                 val timeinBed =list
                     ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
                 binding.timeInBedId.value.text=HtmlCompat.fromHtml (timeinBed?.Score.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY) }
- val cardMap = mapOf(
+              val cardMap = mapOf(
             "Sleep Efficiency" to binding.sleepEfficiencyProgressId,
             "Temperature" to binding.tempProgressId,
             "Restfulness" to binding.restfulnessProgressId,
             "Total Sleep" to binding.totalSleepProgressId,
             "HR Drop" to binding.hrProgress,
             "Restorative Sleep" to binding.restorativeSleepProgressId
-        )
+             )
 
-        viewModel.sleepsummary.observe(viewLifecycleOwner) { list ->
+            viewModel.sleepsummary.observe(viewLifecycleOwner) { list ->
 
             list?.forEach { item ->
                 val card = cardMap[item.Title]
