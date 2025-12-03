@@ -1102,6 +1102,9 @@
                             android:paddingBottom="8dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+                        <include
+                            android:id="@+id/hydration_card_id"
+                            layout="@layout/item_hydration_card" />
                         <!--                    <LinearLayout-->
                         <!--                    android:layout_width="match_parent"-->
                         <!--                    android:layout_height="wrap_content"-->
