@@ -1062,7 +1062,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                             TODO("VERSION.SDK_INT < S")
                         }
 
-                        val result = "last drink was $hours hr $minutes min ago"
+                         val result = "last drink was $hours hr ago"
                         _lastDrinkInfo.value = result
                     } else {
                         _lastDrinkInfo.value = "No drink data"
