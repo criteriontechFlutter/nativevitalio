@@ -105,9 +105,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val todayDate = sdf.format(Date())
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
-                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
-                    "date" to todayDate,
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+//                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
+//                    "date" to todayDate,
                    // "date" to "2025-11-24",
                     "clientId" to 194,
                 )
