@@ -328,3 +328,18 @@ data class AllMedicine(
     val unit: String,
     val dosageType: String
 )
+data class FluidResponse(
+    val status: Int,
+    val message: String,
+    val responseValue: List<FluidItem>
+)
+data class FluidItem(
+    val id: Int,
+    val pid: Int,
+    val intakeDate: String,
+    val intakeTime: String,
+    val fluidType: String,
+    val quantity: Double,
+    val remarks: String,
+    val clientId: Int
+)

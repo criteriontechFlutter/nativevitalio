@@ -355,7 +355,6 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 
 
 
-        viewModel.fluidIntake(requireContext() , "245", "414")
         viewModel.getFoodIntake()
         val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
         binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
@@ -916,11 +915,66 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
-
-
-
+        initHydrationControls()
+        updateProgress(consumed =  2, target =  22, unit =  "ml")
+        updateHydrationTitle( 3)
         wellnessDataBind()
     }
+@SuppressLint("SuspiciousIndentation")
+private fun initHydrationControls() {
+      var currentAmount = 200
+      val unit = "ml"
+    viewModel.getDailyEmployeeFluidIntake()
+        // PLUS
+
+        binding.hydrationCardId.btnPlus.setOnClickListener {
+            currentAmount += 50
+            binding.hydrationCardId.tvAmount.text = "$currentAmount $unit"
+        }
+
+        // MINUS
+        binding.hydrationCardId.btnMinus.setOnClickListener {
+            if (currentAmount > 0) {
+                currentAmount -= 50
+                binding.hydrationCardId.tvAmount.text = "$currentAmount $unit"
+            }
+        }
+
+        // ADD
+        binding.hydrationCardId.btnAddIntake.setOnClickListener {
+
+            viewModel.fluidIntake(requireContext() , currentAmount.toString(), currentAmount.toString())
+
+        }
+    }
+private fun updateHydrationTitle(lastDrinkHours: Int) {
+
+    viewModel.lastDrinkInfo.observe(viewLifecycleOwner) { lastDrinkInfo  ->
+     binding.hydrationCardId.tvHydrationTitle.text =
+            "Hydration due - ${ lastDrinkInfo} ."
+
+    }
+    }
+private fun updateProgress(consumed: Int, target: Int, unit: String) {
+    val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
+
+    viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue  ->
+        val goal = goalEntry?.targetValue?.times(1000)    // safe
+        val remaining = goal?.minus(totalValue)
+
+        if(totalValue< remaining!!){
+            binding.hydrationCardId.tvHydrationProgress.text =
+                "${totalValue} $unit consumed — $remaining $unit to go"
+        }
+        else{
+
+            binding.hydrationCardId.tvHydrationProgress.text =
+                "${totalValue} $unit consumed — targed $goal $unit "
+        }
+    }
+     binding.hydrationCardId.tvHydrationProgress.setTextColor(Color.parseColor("#808C9A"))
+
+}
     fun calculateWellnessScore(
         sleep: Int,
         movement: Int,

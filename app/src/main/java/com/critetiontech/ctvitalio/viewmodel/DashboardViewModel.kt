@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.viewmodel
 
 import EnergyResponse
+import FluidResponse
 import MoodResponse
 import PillReminderModel
 import PillTime
@@ -18,6 +19,7 @@ import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -45,6 +47,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.core.graphics.toColorInt
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 data class HoldSpeakSymptomDetail(
     val pdmID: Int,
@@ -965,39 +971,102 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 _loading.value = true
-                val currentDateTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                val currentDate : String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    .format(Date())
+                val currentTime: String = SimpleDateFormat("HH:mm", Locale.getDefault())
                     .format(Date())
 
                 val user = PrefsManager().getPatient()
                 val body = mapOf(
-                    "givenQuanitityInGram" to "0",
-                    "uhid" to user?.empId.orEmpty(),
-                    "foodId" to foodId,
-                    "pmId" to "0",
-                    "givenFoodQuantity" to givenFoodQuantity,
-                    "givenFoodDate" to currentDateTime, // e.g. "2025-04-23 12:15"
-                    "givenFoodUnitID" to "27",
-                    "recommendedUserID" to "0",
-                    "jsonData" to "",
-                    "fromDate" to currentDateTime,
-                    "isGiven" to "0",
-                    "entryType" to "N",
-                    "isFrom" to "0",
-                    "dietID" to "0",
-                    "userID" to "99"
+                    "pid" to user?.id.toString(),
+                    "clientId" to  user?.clientId.toString(),
+                    "intakeDate" to currentDate,
+                    "intakeTime" to currentTime,
+                    "fluidType" to "water",
+                    "quantity" to givenFoodQuantity,
+                    "remarks" to " Feeling Thristy",
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService()
                     .dynamicRawPost(
-                        url = ApiEndPoint().insertFoodIntake,
+                        url = "api/EmployeeFluidIntake/InsertEmployeeFluidIntake",
                         body = body
                     )
 
                 _loading.value = false
 
                 if (response.isSuccessful) {
+                    getDailyEmployeeFluidIntake()
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
 
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+    private val _totalQuantity = MutableLiveData<Int>()
+    val totalQuantity: LiveData<Int> get() = _totalQuantity
+    private val _lastDrinkInfo = MutableLiveData<String>()
+    val lastDrinkInfo: LiveData<String> get() = _lastDrinkInfo
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun  getDailyEmployeeFluidIntake( ) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+
+                val user = PrefsManager().getPatient()
+                val body = mapOf(
+                    "pid" to user?.id.toString(),
+                    "clientId" to  user?.clientId.toString(),
+                )
+
+                val response = RetrofitInstance
+                    .createApiService()
+                    .dynamicGet(
+                        url = "api/EmployeeFluidIntake/GetDailyEmployeeFluidIntake",
+                        params = body
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+
+
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, FluidResponse::class.java)
+
+                    // ⭐ SAFE total quantity
+                    val totalQty = (parsed.responseValue ?: emptyList()).sumOf { it.quantity } .roundToInt()
+                    _totalQuantity.value = totalQty
+
+                    Log.e("VoicePost", "totalQty: ${totalQty}")
+                    // ⭐ SAFE last drink
+                    val lastDrink = (parsed.responseValue ?: emptyList()).lastOrNull()
+                    val lastDrinkTime = lastDrink?.intakeTime ?: "Unknown"
+
+                    if (lastDrink != null) {
+                        val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+                        val lastTime = LocalTime.parse(lastDrinkTime, formatter)
+                        val now = LocalTime.now()
+
+                        val diff = Duration.between(lastTime, now)
+                        val hours = diff.toHours()
+                        val minutes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            diff.toMinutesPart()
+                        } else {
+                            TODO("VERSION.SDK_INT < S")
+                        }
+
+                         val result = "last drink was $hours hr ago"
+                        _lastDrinkInfo.value = result
+                    } else {
+                        _lastDrinkInfo.value = "No drink data"
+                    }
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }

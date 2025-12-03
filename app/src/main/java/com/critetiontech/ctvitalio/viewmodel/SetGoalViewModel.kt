@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
 import java.io.File
 
 class SetGoalViewModel (application: Application) : BaseViewModel(application) {
@@ -26,118 +27,73 @@ class SetGoalViewModel (application: Application) : BaseViewModel(application) {
     val updateSuccess: LiveData<Boolean> = _updateSuccess
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-    fun updateUserData(
-        requireContext: Context,
-        filePath: Uri? = null,
-        categoryId:String,
-        goalId: String,
-        targetValue:String,
-        unit:String,
-    ) {
-        _loading.value = true
-        viewModelScope.launch {
-            _updateSuccess.postValue(false)
-            try {
-                val patient = PrefsManager().getPatient() ?: return@launch
-                val parts = mutableListOf<MultipartBody.Part>()
-                fun partFromField(key: String, value: String): MultipartBody.Part {
-                    Log.d("UpdateProfile", "Field: $key = $value")
-                    return MultipartBody.Part.createFormData(key, value)
-                }
-                val employeeGoalsJson = """
-    [
-      {
-        "pid": ${patient.id},
-        "categoryId": $categoryId,
-        "goalId": $goalId,
-        "targetValue": $targetValue,
-        "unit": "steps"
-      }
-    ]
-""".trimIndent()
-                val goalWeeksJson = selectedDays.joinToString(
-                    prefix = "[",
-                    postfix = "]"
-                ) { """{"dayId":${it + 1}}""" }
-                parts += partFromField("Pid", patient.id.toString())
-                parts += partFromField("PatientName", patient.patientName)
-                parts += partFromField("EmailID", patient.emailID)
-                parts += partFromField("GenderId",  patient.genderId.toString())
-                parts += partFromField("BloodGroupId", patient.bloodGroupId.toString())
-                parts += partFromField("Height",patient.height.toString())
-                parts += partFromField("Weight", patient.weight.toString())
-                parts += partFromField("Dob",  patient.dob.toString())
-                parts += partFromField("Zip",  patient.zip.toString())
-                parts += partFromField("AgeUnitId", "1")
-                parts += partFromField("Age",  patient.age.toString())
-                parts += partFromField("Address",  patient.address.toString())
-                parts += partFromField("MobileNo",   patient.mobileNo.toString())
-                parts += partFromField("CountryId",   patient.countryId.toString())
-                parts += partFromField("StateId",   patient.stateId.toString())
-                parts += partFromField("CityId",   patient.cityId.toString())
-                parts += partFromField("UserId", "99")
-                parts += partFromField("EmployeeGoalsJson", employeeGoalsJson)
-                parts += partFromField("GoalWeeksJson", goalWeeksJson)
-                // Add file if present
-                if (filePath != null) {
-                    filePath.path?.takeIf { it.isEmpty() }?.let {
-                        val file = File(it)
-                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
 
+fun updateUserData(
+    requireContext: Context,
+    categoryId: String,
+    goalId: String,
+    targetValue: String,
+    unit: String
+) {
+    _loading.value = true
 
-                        val filePart =
+    viewModelScope.launch {
+        try {
+            val patient = PrefsManager().getPatient() ?: return@launch
 
-                            MultipartBody.Part.createFormData("FormFile",
-                                PrefsManager().getPatient()?.profileUrl, requestFile)
+            /** ---------------- GOALWEEKS JSON ---------------- **/
+            val goalWeeksJson = selectedDays.joinToString(
+                prefix = "[",
+                postfix = "]"
+            ) { """{"dayId":${it + 1}}""" }
 
+            /** ---------------- PARAMS ---------------- **/
+            val params = mapOf(
+                "pid" to patient.id.toString(),
+                "vmId" to patient.id.toString(),
+                "userId" to "99",
+                "clientId" to "194",
+                "categoryId" to categoryId,
+                "goalId" to goalId,
+                "targetValue" to targetValue,
+                "unit" to unit,
+                "goalWeeksJson" to goalWeeksJson
+            )
 
-                        parts += filePart
-                        Log.d("UpdateProfile", "File attached: ${file.name}")
-                    }
-                }
+            /** ---------------- API CALL ---------------- **/
+            val response = RetrofitInstance
+                .createApiService(includeAuthHeader = true)
+                .dynamicRawPost(
+                    url = "api/EmployeeGoals/InsertEmployeeGoals",
+                    body = params
+                )
 
-                // Print final parts for debug
-                parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
-                    val bodyString = try {
-                        val buffer = okio.Buffer()
-                        part.body.writeTo(buffer)
-                        buffer.readUtf8()
-                    } catch (e: Exception) {
-                        "Binary or file content"
-                    }
-                    val dispositionHeader = part.headers?.get("Content-Disposition")
-                    val nameRegex = Regex("name=\"(.*?)\"")
-                    val fieldName = nameRegex.find(dispositionHeader ?: "")?.groupValues?.getOrNull(1) ?: "unknown"
+            /** ---------------- HANDLE RESPONSE ---------------- **/
 
-                    Log.d("UpdateProfile", "Field: $fieldName = $bodyString")
-                }
-                // API Call
-                val response = RetrofitInstance
-                    .createApiService(
-                        includeAuthHeader=true)
-                    .dynamicMultipartPut(
-                        url = ApiEndPoint().updatePatient,
-                        parts = parts
-                    )
+            val raw = response.body()?.string()
+                ?: response.errorBody()?.string()
+                ?: ""
 
-                if (response.isSuccessful) {
-                    _updateSuccess.postValue(true)
-                    ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
+            val json = JSONObject(raw)
+            val status = json.optInt("status")
+            val message = json.optString("responseValue")
 
-
-                } else {
-                    _updateSuccess.postValue(false)
-                    Log.e("UpdateProfile", "Update failed. Code: ${response.code()}")
-                    _errorMessage.postValue("Error: ${response.code()}")
-                }
-
-            } catch (e: Exception) {
-                Log.e("UpdateProfile", "Exception: ${e.message}", e)
-                _errorMessage.postValue(e.message ?: "Unknown error")
-            } finally {
-                _loading.postValue(false)
+            if (status == 1) {
+                // BUSINESS SUCCESS
+                ToastUtils.showSuccessPopup(requireContext, message)
+                _updateSuccess.postValue(true)
+            } else {
+                // BUSINESS FAILURE ("Goal already exists !!" etc.)
+                ToastUtils.showFailure(requireContext, message)
+                _updateSuccess.postValue(false)
             }
         }
+        catch (e: Exception) {
+            _errorMessage.postValue(e.message ?: "Unknown error")
+        }
+        finally {
+            _loading.postValue(false)
+        }
     }
+}
 }
