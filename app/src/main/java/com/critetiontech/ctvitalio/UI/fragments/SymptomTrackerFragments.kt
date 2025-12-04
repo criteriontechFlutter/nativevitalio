@@ -20,7 +20,6 @@ class SymptomTrackerFragments : Fragment() {
 
     private lateinit var binding: FragmentSymptomTrackerFragmentsBinding
     private val viewModel: SymptomsTrackerViewModel by viewModels()
-
     private val symptomList = mutableListOf<SymptomDetail>()
     private var currentIndex = 0
 
@@ -34,14 +33,11 @@ class SymptomTrackerFragments : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recyclerViewSymptoms.layoutManager = LinearLayoutManager(requireContext())
-
         observeViewModel()
         viewModel.getSymptoms()
-
         binding.historyText.setOnClickListener(){
             findNavController().navigate(R.id.action_symptomTrackerFragments_to_symptomHistory)
         }
-
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }

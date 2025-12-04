@@ -27,6 +27,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -67,6 +68,8 @@ import net.openid.appauth.AuthorizationService
 import okhttp3.WebSocket
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
@@ -132,9 +135,16 @@ class CorporateDashBoard : Fragment() {
 
         }
 
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
-        }
+
+        animatePageLoad()
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.primaryBlue,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
+//        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+//            if (isLoading) showLoading() else hideLoading()
+//        }
 
         binding.fabIcon.setOnClickListener {
             if (!isFabOpen) {
@@ -535,12 +545,7 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //            binding.vitalsSlider.adapter = adapter
 
         }
-//        binding.swipeRefreshLayout.setOnRefreshListener {
-//            Handler().postDelayed({
-//                 viewModel.getVitals()
-//                binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
-//            }, 2000)
-//        }
+        initializeSwipeRefresh()
 
 // Vertical orientation
 
@@ -946,7 +951,36 @@ private fun initHydrationControls() {
 
         }
     }
-private fun updateHydrationTitle(lastDrinkHours: Int) {
+
+    private fun animatePageLoad() {
+
+        // Slide constraintLayout from top
+        binding.constraintLayout.apply {
+            translationY = -300f  // start above screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(1200)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+
+        // Slide swipeRefreshLayout from bottom
+        binding.swipeRefreshLayout.apply {
+            translationY = 700f  // start below screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(1200)
+                .setStartDelay(250)  // slight stagger looks smooth
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+    }
+
+    private fun updateHydrationTitle(lastDrinkHours: Int) {
 
     viewModel.lastDrinkInfo.observe(viewLifecycleOwner) { lastDrinkInfo  ->
      binding.hydrationCardId.tvHydrationTitle.text =
@@ -1003,6 +1037,48 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
         val finalScore = (average * penaltyMultiplier).toInt().coerceIn(0, 100)
 
         return finalScore
+    }
+
+
+    private fun initializeSwipeRefresh() {
+
+
+        // Configure SwipeRefreshLayout colors and size
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.primaryBlue)
+        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white)
+        binding.swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT)
+
+        // Set refresh listener
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            performRefresh()
+        }
+
+        // Optional: Configure distance to trigger refresh
+        binding.swipeRefreshLayout.setDistanceToTriggerSync(200)
+    }
+
+    private fun performRefresh() {
+        // Show custom loader
+        showCustomLoader(true)
+
+        // Simulate network call with delay
+        Handler(Looper.getMainLooper()).postDelayed({
+            // Your actual refresh logic here
+            refreshDashboardData()
+
+            // Hide custom loader and refresh indicator
+            showCustomLoader(false)
+            binding.swipeRefreshLayout.isRefreshing = false
+
+        }, 2000) // 2 second delay - replace with actual API call
+    }
+
+    private fun showCustomLoader(show: Boolean) {
+        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun refreshDashboardData() {
+       viewModel.getVitals()
     }
     fun wellnessDataBind() {
 
@@ -1093,26 +1169,26 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
 
 
             // ---------------- STEPS ----------------
-            val steps = vitalList.firstOrNull { it.vitalName.equals("Steps", ignoreCase = true) }
+            val steps = vitalList.firstOrNull { it.vitalName.equals("TotalSteps", ignoreCase = true) }
             val goalSteps = 11000.0
-            val currentSteps = steps?.totalValue?.toString()?.toDoubleOrNull() ?: 0.0
-            val stepsPercent = if (goalSteps > 0) ((currentSteps / goalSteps) * 100).toInt() else 0
+            val currentSteps = steps?.vitalValue?.toString()?.toDoubleOrNull() ?: 0.0
+            val stepsPercent = ((currentSteps / goalSteps) * 100).toInt()
 
             if (stepsPercent == 0) {
                 binding.stepsProgressId.dailyChecklistID.visibility = View.GONE
                 binding.stepsProgressId.tvStepsValue.text = "0"
-                binding.stepsProgressId.tvStepsLabel.text = "Steps 0%"
+                "Steps 0%".also { binding.stepsProgressId.tvStepsLabel.text = it }
             } else {
                 binding.stepsProgressId.dailyChecklistID.visibility = View.VISIBLE
                 binding.stepsProgressId.progressSteps.progress = stepsPercent
                 binding.stepsProgressId.tvStepsValue.text = currentSteps.toInt().toString()
-                binding.stepsProgressId.tvStepsLabel.text = "Steps ${stepsPercent}%"
+                binding.stepsProgressId.tvStepsLabel.text = "Steps $stepsPercent%"
             }
 
 
             // ---------------- SLEEP ----------------
-            val totalSleep = vitalList.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
-            val sleepScore = totalSleep?.vitalValue?.toString()?.toIntOrNull() ?: 0
+            val totalSleep = vitalList.firstOrNull { it.vitalName.equals("SleepScore", ignoreCase = true) }
+            val sleepScore = totalSleep?.vmValueText?.toString()?.toIntOrNull() ?: 0
 
             if (totalSleep?.vitalValue?.toInt()   == 0) {
                 binding.sleepProgressId.dailyChecklistID.visibility = View.GONE

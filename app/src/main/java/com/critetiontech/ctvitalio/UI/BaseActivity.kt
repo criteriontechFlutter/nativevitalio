@@ -20,7 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * Set status and navigation bar colors dynamically
      */
-    protected fun setSystemBarsColor(statusBarColor: Int, navBarColor: Int, lightIcons: Boolean = true) {
+    fun setSystemBarsColor(statusBarColor: Int, navBarColor: Int, lightIcons: Boolean = true) {
         // Set colors
         window.statusBarColor = ContextCompat.getColor(this, statusBarColor)
         window.navigationBarColor = ContextCompat.getColor(this, navBarColor)
@@ -30,4 +30,14 @@ abstract class BaseActivity : AppCompatActivity() {
         insetsController.isAppearanceLightStatusBars = lightIcons
         insetsController.isAppearanceLightNavigationBars = lightIcons
     }
+
+    fun setSystemBarsColorInt(statusColorInt: Int, navColorInt: Int, lightIcons: Boolean = true) {
+        window.statusBarColor = statusColorInt
+        window.navigationBarColor = navColorInt
+
+        val insetsController = WindowInsetsControllerCompat(window, window.decorView)
+        insetsController.isAppearanceLightStatusBars = lightIcons
+        insetsController.isAppearanceLightNavigationBars = lightIcons
+    }
+
 }

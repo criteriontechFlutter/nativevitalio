@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene 
+<MotionScene
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
@@ -9,7 +9,7 @@
         motion:duration="150">
 
         <OnSwipe
-            motion:touchAnchorId="@id/contentScroll"
+            motion:touchAnchorId="@id/swipeRefreshLayout"
             motion:touchAnchorSide="top"
             motion:dragDirection="dragUp"
             motion:maxVelocity="2"
@@ -31,7 +31,7 @@
                 motion:layout_constraintEnd_toEndOf="parent" />
         </Constraint>
 
-        <Constraint android:id="@+id/contentScroll">
+        <Constraint android:id="@+id/swipeRefreshLayout">
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="1200dp"
@@ -56,7 +56,7 @@
                 motion:layout_constraintEnd_toEndOf="parent" />
         </Constraint>
 
-        <Constraint android:id="@+id/contentScroll">
+        <Constraint android:id="@+id/swipeRefreshLayout">
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

@@ -111,6 +111,7 @@ data class Vital(
     val vitalID: Int = 0,
     var vitalName: String? = null,
     var vitalValue: Double? = 0.0,
+    var vmValueText: String? = "--",
     var totalValue: Double = 0.0,
     var unit: String? = null,
     var vitalDateTime: String? = null,

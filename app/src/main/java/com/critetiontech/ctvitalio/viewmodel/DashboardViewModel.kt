@@ -7,7 +7,6 @@ import PillReminderModel
 import PillTime
 import PrefsManager
 import QuickMetric
-import SleepSummaryData
 import SleepValue
 import Summary
 import Vital
@@ -19,7 +18,6 @@ import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -105,9 +103,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val todayDate = sdf.format(Date())
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
-                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
-                    "date" to todayDate,
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+//                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
+//                    "date" to todayDate,
                    // "date" to "2025-11-24",
                     "clientId" to 194,
                 )
@@ -1013,7 +1011,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     val totalQuantity: LiveData<Int> get() = _totalQuantity
     private val _lastDrinkInfo = MutableLiveData<String>()
     val lastDrinkInfo: LiveData<String> get() = _lastDrinkInfo
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun  getDailyEmployeeFluidIntake( ) {
         viewModelScope.launch {
             try {

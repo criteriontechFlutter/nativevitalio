@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -35,6 +36,7 @@ import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.utils.ImagePickerUtil
@@ -149,7 +151,11 @@ class drawer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         drawerViewModel = ViewModelProvider(this)[DrawerViewModel::class.java]
-
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.white,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
         setupObservers()
         setupListeners()
         initDrawerLayout()

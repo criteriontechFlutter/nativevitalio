@@ -95,29 +95,27 @@
                 <LinearLayout
                     android:id="@+id/btnMarkTaken"
                     android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="10dp"
-
-                    android:backgroundTint="#007BFF"
+                    android:layout_height="30dp"
                     android:background="@drawable/rounded_card_bg"
-                    >
+                    android:backgroundTint="#007BFF"
+                    android:gravity="center_vertical"
+
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
 
                     <ImageView
                         android:id="@+id/ivCheckMother"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        android:src="@drawable/check_white"
-                      />
+                        android:src="@drawable/check_white" />
 
                     <TextView
                         android:id="@+id/btnText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="6dp"
                         android:text="Mark Taken"
                         android:textColor="#FFFFFF"
-                        android:paddingStart="6dp"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
