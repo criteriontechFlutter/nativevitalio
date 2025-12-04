@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -59,8 +61,56 @@ class WellnessMetrics : Fragment() {
             refreshMetricsForDate()
         }
 
+        // 1. Set arc thickness
+        binding .dyRecovery.setProgressAnimated(65f, "Moderate")
 
+         buildCaffeineBars(binding.caffeineBarGraph)
     }
+private fun buildCaffeineBars(container: LinearLayout) {
+
+        container.removeAllViews()
+
+        val totalBars = 4 // good smooth slope
+        val maxHeight = 48   // dp
+        val minHeight = 8    // dp
+
+        // Gradient color sequence EXACTLY matching screenshot
+        val colors = listOf(
+            "#F2C200", // yellow
+            "#6DC778", // green
+            "#30C7B3", // aqua
+            "#88EBD8", // mint
+            "#FF8E7C", // orange-red
+            "#FF6B6B", // red
+            "#E8E6E6", // pale gray
+            "#E0E0E0"  // lighter end
+        )
+
+        for (i in 0 until totalBars) {
+
+            // height decreases nicely
+            val ratio = i / totalBars.toFloat()
+            val height = maxHeight - ((maxHeight - minHeight) * ratio)
+
+            val bar = View(container.context)
+            bar.layoutParams = LinearLayout.LayoutParams(
+                dp(2),
+                dp(height)
+            ).apply {
+                marginEnd = dp(2)
+            }
+
+            // Smooth gradient through whole SLIDER
+            val colorIndex = ((ratio * (colors.size - 1))).toInt()
+            bar.setBackgroundColor(Color.parseColor(colors[colorIndex]))
+
+            container.addView(bar)
+        }
+    }
+
+    // helper
+    private fun dp(value: Number): Int =
+        (value.toFloat() * Resources.getSystem().displayMetrics.density).toInt()
 
     private fun observeMovementData() {
         // Instead of real API data, generate dummy hourly data
