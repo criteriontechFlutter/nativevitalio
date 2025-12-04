@@ -27,6 +27,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -133,14 +134,17 @@ class CorporateDashBoard : Fragment() {
         binding.notificationIcon.setOnClickListener {
 
         }
+
+
+        animatePageLoad()
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.primaryBlue,
             navBarColor = R.color.white,
             lightIcons = true
         )
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
-        }
+//        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+//            if (isLoading) showLoading() else hideLoading()
+//        }
 
         binding.fabIcon.setOnClickListener {
             if (!isFabOpen) {
@@ -947,7 +951,36 @@ private fun initHydrationControls() {
 
         }
     }
-private fun updateHydrationTitle(lastDrinkHours: Int) {
+
+    private fun animatePageLoad() {
+
+        // Slide constraintLayout from top
+        binding.constraintLayout.apply {
+            translationY = -300f  // start above screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(1200)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+
+        // Slide swipeRefreshLayout from bottom
+        binding.swipeRefreshLayout.apply {
+            translationY = 700f  // start below screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(1200)
+                .setStartDelay(250)  // slight stagger looks smooth
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+    }
+
+    private fun updateHydrationTitle(lastDrinkHours: Int) {
 
     viewModel.lastDrinkInfo.observe(viewLifecycleOwner) { lastDrinkInfo  ->
      binding.hydrationCardId.tvHydrationTitle.text =
