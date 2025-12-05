@@ -57,7 +57,7 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
 
                 if (response.isSuccessful) {
                     _loading.value = false
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+
 
 
                 } else {

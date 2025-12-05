@@ -1,31 +1,20 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import PrefsManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.adapter.WatchAdapter
 import com.critetiontech.ctvitalio.viewmodel.ConnectSmartWatchViewModel
-import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentConnectSmartWatchBinding
-import com.critetiontech.ctvitalio.model.WatchModel
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
-import java.util.Random
 
 
 class ConnectSmartWatchFragment : Fragment() {

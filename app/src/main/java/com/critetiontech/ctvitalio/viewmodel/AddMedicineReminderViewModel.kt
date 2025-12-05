@@ -5,17 +5,10 @@ import MedicineResponse
 import PrefsManager
 import android.app.Application
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.EmployeeActivityResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -25,7 +18,7 @@ import java.util.Locale
 class AddMedicineReminderViewModel(application: Application) : AndroidViewModel(application) {
 
     /** ---------------- Live Data ---------------- **/
-    val selectedMedicine = MutableLiveData<Medicine>()
+    val selectedMedicine = MutableLiveData<Medicine???>()
     val selectedMedicineName = MutableLiveData<String>()
     val medicineLiveData = MutableLiveData<List<Medicine>>()
     var selectedFrequency = ""

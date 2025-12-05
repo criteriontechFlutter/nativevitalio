@@ -113,6 +113,7 @@ class MoodFragment : Fragment() {
             .into(binding.userAvatar)
         binding.selectMoodButton.setOnClickListener{
             viewModel.insertMood(requireContext())
+            findNavController().popBackStack()
         }
         var greetings= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ToastUtils.getSimpleGreeting()
