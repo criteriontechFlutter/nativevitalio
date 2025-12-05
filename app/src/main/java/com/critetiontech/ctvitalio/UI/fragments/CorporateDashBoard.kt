@@ -955,25 +955,70 @@ private fun initHydrationControls() {
     private fun animatePageLoad() {
 
         // Slide constraintLayout from top
-        binding.constraintLayout.apply {
-            translationY = -300f  // start above screen
+//        binding.constraintLayout.apply {
+//            translationY = -300f  // start above screen
+//            alpha = 0f
+//            animate()
+//                .translationY(0f)
+//                .alpha(1f)
+//                .setDuration(1200)
+//                .setInterpolator(DecelerateInterpolator())
+//                .start()
+//        }
+
+        // Slide swipeRefreshLayout from bottom
+        binding.tFeeling.apply {
+            translationY = 700f  // start below screen
             alpha = 0f
             animate()
                 .translationY(0f)
                 .alpha(1f)
-                .setDuration(1200)
+                .setDuration(1400)
+                .setStartDelay(250)  // slight stagger looks smooth
                 .setInterpolator(DecelerateInterpolator())
                 .start()
         }
-
-        // Slide swipeRefreshLayout from bottom
+        binding.tFeelingBelow.apply {
+            translationY = 700f  // start below screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(1900)
+                .setStartDelay(250)  // slight stagger looks smooth
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+        binding.ivIllustration.apply {
+            translationY = 700f  // start below screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(2700)
+                .setStartDelay(250)  // slight stagger looks smooth
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
         binding.swipeRefreshLayout.apply {
             translationY = 700f  // start below screen
             alpha = 0f
             animate()
                 .translationY(0f)
                 .alpha(1f)
-                .setDuration(1200)
+                .setDuration(2100)
+                .setStartDelay(250)  // slight stagger looks smooth
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+
+        binding.constraintLayout.apply {
+            translationY = 700f  // start below screen
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(2100)
                 .setStartDelay(250)  // slight stagger looks smooth
                 .setInterpolator(DecelerateInterpolator())
                 .start()

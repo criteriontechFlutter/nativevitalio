@@ -33,28 +33,28 @@ import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
 import androidx.core.graphics.toColorInt
 
 class MoodFragment : Fragment() {
-    private lateinit var binding: FragmentMoodBinding
-    private var currentMoodIndex = 0
-    private lateinit var gestureDetector: GestureDetector
-    private lateinit var moodAdapter: MoodAdapter
+
+    private var _binding: FragmentMoodBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var viewModel: MoodViewModel
+    private lateinit var moodAdapter: MoodAdapter
+    private var colorAnimator: ValueAnimator? = null
 
     private val moods = listOf(
-        MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
-        MoodData(6,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
-        MoodData(1, "Stressed", "#FF9459",  R.drawable.stressed_mood, "#782E04"),
-        MoodData(2,"Happy", "#9ABDFF",  R.drawable.happy_mood,"#505D87"),
-        MoodData(4,"Good", "#F9C825",  R.drawable.good_mood, "#664F00"),
-        MoodData(3,"Sad",   "#7DE7EE",  R.drawable.sad_mood,  "#3A7478"),
+        MoodData(5, "Spectacular", "#FFA4BA", R.drawable.spectulor_mood, "#611829"),
+        MoodData(6, "Upset", "#88A7FF", R.drawable.upset_mood, "#2A4089"),
+        MoodData(1, "Stressed", "#FF9459", R.drawable.stressed_mood, "#782E04"),
+        MoodData(2, "Happy", "#9ABDFF", R.drawable.happy_mood, "#505D87"),
+        MoodData(4, "Good", "#F9C825", R.drawable.good_mood, "#664F00"),
+        MoodData(3, "Sad", "#7DE7EE", R.drawable.sad_mood, "#3A7478")
     )
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMoodBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentMoodBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,107 +63,123 @@ class MoodFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[MoodViewModel::class.java]
 
+        // Default system UI color
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.stressed,
             navBarColor = R.color.white,
             lightIcons = true
         )
 
-            binding.rootMoodLayout.transitionToEnd()
+        binding.rootMoodLayout.transitionToEnd()
 
-        viewModel.onMoodClicked("5")
-        // Make it behave like pager (one item per swipe)
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.moodEmoji)
-        sharedElementEnterTransition =
-            TransitionInflater.from(requireContext())
-                .inflateTransition(R.transition.change_image_transform)
-        sharedElementReturnTransition =
-            TransitionInflater.from(requireContext())
-                .inflateTransition(R.transition.change_image_transform)
-        // Listen for page change
-        viewModel.getMoodByPid()
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack()
+        setupRecyclerView()
+        observeViewModel()
+        setClickListeners()
+        setUserInfo()
+    }
+
+    private fun setupRecyclerView() {
+        moodAdapter = MoodAdapter(emptyList())
+        binding.moodEmoji.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            adapter = moodAdapter
+            PagerSnapHelper().attachToRecyclerView(this)
         }
 
-        viewModel.moodsLiveData.observe(viewLifecycleOwner) { moodsFromApi ->
-            val moodDataList = moodsFromApi.map { apiMood ->
-                val drawableRes = moods.find { it.id == apiMood.id }?.emojiRes
-                val color = moods.find { it.id == apiMood.id }?.color
+        // Scroll listener for background color animation
+        binding.moodEmoji.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != RecyclerView.SCROLL_STATE_IDLE) return
 
-                    Mood (
-                        id = apiMood.id,
-                        label = apiMood.label,
-                        color =color?: "#FFA4BA",
-                        emojiRes = drawableRes ?: R.drawable.spectulor_mood,
-                        description = apiMood.description,
-                    )
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val position = layoutManager.findFirstCompletelyVisibleItemPosition()
+
+                if (position == RecyclerView.NO_POSITION) return
+
+                val moodList = viewModel.moodsLiveData.value ?: return
+                if (position !in moodList.indices) return
+
+                val mood = moodList[position]
+                viewModel.onMoodClicked(mood.id.toString())
+
+                val localMood = moods.find { it.id == mood.id }
+                val targetColorHex = localMood?.color ?: "#FFFFFF"
+                val targetColor = runCatching { targetColorHex.toColorInt() }.getOrDefault(Color.WHITE)
+
+                val currentColor =
+                    (binding.rootMoodLayout.background as? ColorDrawable)?.color ?: Color.WHITE
+
+                colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), currentColor, targetColor).apply {
+                    duration = 500
+
+                    addUpdateListener { animator ->
+                        if (view == null || !isAdded) return@addUpdateListener   // prevents crash
+
+                        val animatedColor = animator.animatedValue as Int
+                        binding.rootMoodLayout.setBackgroundColor(animatedColor)
+
+                        (activity as? BaseActivity)?.setSystemBarsColorInt(
+                            statusColorInt = animatedColor,
+                            navColorInt = ContextCompat.getColor(requireContext(), R.color.white),
+                            lightIcons = true
+                        )
+                    }
+
+                    start()
+                }
 
             }
+        })
+    }
 
-            val adapter = MoodAdapter(moodDataList)
-            binding.moodEmoji.adapter = adapter
+    private fun observeViewModel() {
+        viewModel.getMoodByPid()
+
+        viewModel.moodsLiveData.observe(viewLifecycleOwner) { apiMoods ->
+            if (apiMoods.isNullOrEmpty()) return@observe
+
+            val mapped = apiMoods.map { api ->
+                val localMood = moods.find { it.id == api.id }
+                Mood(
+                    id = api.id,
+                    label = api.label,
+                    color = localMood?.color ?: "#FFA4BA",
+                    emojiRes = localMood?.emojiRes ?: R.drawable.spectulor_mood,
+                    description = api.description
+                )
+            }
+
+            moodAdapter.updateList(mapped)
         }
-        binding.userName2.text =   PrefsManager().getPatient()?.patientName ?: ""
-        Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+    }
+
+    private fun setUserInfo() {
+        binding.userName2.text = PrefsManager().getPatient()?.patientName ?: ""
+
+        Glide.with(this)
+            .load("http://182.156.200.177:5082/" + (PrefsManager().getPatient()?.imageURL ?: ""))
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.userAvatar)
-        binding.selectMoodButton.setOnClickListener{
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.userName.text = ToastUtils.getSimpleGreeting()
+        }
+    }
+
+    private fun setClickListeners() {
+        binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+        binding.selectMoodButton.setOnClickListener {
             viewModel.insertMood(requireContext())
             findNavController().popBackStack()
         }
-        var greetings= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ToastUtils.getSimpleGreeting()
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        };
-        binding.userName.text=greetings
-        binding.moodEmoji.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val position = layoutManager.findFirstCompletelyVisibleItemPosition()
-
-                    if (position != RecyclerView.NO_POSITION) {
-
-                        val mood = viewModel.moodsLiveData.value?.get(position)
-                        viewModel.onMoodClicked(mood?.id.toString())
-
-                        val colorHex = moods.find { it.id.toString() == mood?.id.toString() }?.color
-                        val targetColor = colorHex?.toColorInt() ?: Color.WHITE
-
-                        // Current bg color
-                        val currentColor =
-                            (binding.rootMoodLayout.background as? ColorDrawable)?.color ?: Color.WHITE
-
-                        ValueAnimator.ofObject(ArgbEvaluator(), currentColor, targetColor).apply {
-                            duration = 500
-                            addUpdateListener { animator ->
-
-                                val animatedColor = animator.animatedValue as Int
-
-                                // Update layout background
-                                binding.rootMoodLayout.setBackgroundColor(animatedColor)
-
-                                // Update status bar with CURRENT animated color
-                                (requireActivity() as? BaseActivity)?.setSystemBarsColorInt(
-                                    statusColorInt = animatedColor,
-                                    navColorInt = ContextCompat.getColor(requireContext(), R.color.white),
-                                    lightIcons = true
-                                )
-                            }
-                            start()
-                        }
-                    }
-                }
-            }
-        })
-
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        colorAnimator?.cancel()
+        colorAnimator = null
+        _binding = null
+    }
 }
