@@ -62,7 +62,7 @@
 
                                 <TextView
                                     android:id="@+id/wellnessScoreNumber"
-                                    android:text="58"
+                                    android:text="--"
                                     android:textSize="32sp"
                                     android:textStyle="bold"
                                     android:textColor="#000" android:layout_height="wrap_content" android:layout_width="match_parent"/>

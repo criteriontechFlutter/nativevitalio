@@ -94,10 +94,10 @@ class RulerSeekBar @JvmOverloads constructor(
         /* TICKS */
         for (i in minValue..124) {
 
-            val x = (i - minValue) * stepWidth
+            val x = (i - minValue ) * stepWidth
 
             val isSelected = i == currentValue
-            val isMajor = (i - 9) % 10 == 0
+            val isMajor = (i ) % 10 == 0
 
             val paint = when {
                 isSelected -> selectedPaint
@@ -128,23 +128,22 @@ class RulerSeekBar @JvmOverloads constructor(
                     height * 0.82f,
                     textPaint
                 )
-
-                // small line above number (upper line)
-                val lineWidth = 10f * dp
                 canvas.drawLine(
-                    7f,
-                    height * 0.78f,
-                    7f  ,
-                    height * 0.78f,
-                    majorTickPaint
+                    x,
+                    height * 0.82f,
+                    x,
+                    height * 0.82f  ,
+                    paint
                 )
+                // small line above number (upper line)
+
             }
         }
         }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
-                val stepWidth = width.toFloat() / (maxValue - minValue)
+                val stepWidth = width.toFloat() / (56)
                 val index = (event.x / stepWidth).toInt() + minValue
 
                 if (index in minValue..maxValue) {

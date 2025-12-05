@@ -775,15 +775,17 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     val stress = stressValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
     val movement = movementValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
     val recovery = recoveryValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
-
+    val WellnessScore = vitalList
+        ?.firstOrNull { it.vitalName.equals("Wellness Score", ignoreCase = true) }
+    binding.sleepProgressIds.wellnessScoreNumber.text= WellnessScore?.vitalValue?.toString()
 // Call the function safely
-   val wellnessscore= calculateWellnessScore(
-        sleep = sleep.toInt(),
-        stress = stress.toInt(),
-        movement = movement.toInt(),
-        recovery = recovery.toInt()
-    )
-    binding.sleepProgressIds.wellnessScoreNumber.text=wellnessscore.toString()
+//   val wellnessscore= calculateWellnessScore(
+//        sleep = sleep.toInt(),
+//        stress = stress.toInt(),
+//        movement = movement.toInt(),
+//        recovery = recovery.toInt()
+//    )
+//    binding.sleepProgressIds.wellnessScoreNumber.text=wellnessscore.toString()
 
 // Update UI safely
     binding.sleepProgressIds.sleepValue.text = if (sleep > 0) sleep.toInt().toString() else "--"
