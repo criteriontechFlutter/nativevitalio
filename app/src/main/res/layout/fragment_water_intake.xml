@@ -1,165 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_water_intake_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="@android:color/white"
-    tools:context=".UI.fragments.WaterIntakeFragment">
+    android:fillViewport="true"
+    android:background="@android:color/white">
 
-    <!-- Circular ring + percentage -->
-    <!-- Replace com.example.widgets.WaterRingView with your custom view that draws the 60% water ring -->
-
-    <!-- Percentage center text (in case custom view doesn't draw it) -->
-
-
-    <!-- Right column with main numbers and details -->
-
-    <com.critetiontech.ctvitalio.UI.fragments.WaterRingWaveView
-        android:id="@+id/waterRing"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:contentDescription="Water progress ring"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/rightColumn"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_water_intake_root"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/waterRing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/waterRing"
-        android:paddingStart="12dp"
-        android:paddingEnd="8dp">
+        android:padding="20dp"
+        tools:context=".UI.fragments.WaterIntakeFragment">
+
+
+        <!-- ===================== -->
+        <!-- WATER RING HALF VIEW -->
+        <!-- ===================== -->
+
+        <FrameLayout
+            android:id="@+id/waterRingContainer"
+            android:layout_width="84dp"
+            android:layout_height="242dp"
+            android:clipToPadding="true"
+            android:clipToOutline="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.critetiontech.ctvitalio.UI.fragments.WaterRingWaveView
+                android:id="@+id/waterRing"
+                android:layout_width="168dp"
+                android:layout_height="242dp"
+                android:translationX="-84dp" />
+        </FrameLayout>
+
+
+
+        <!-- ===================== -->
+        <!-- RIGHT STATS -->
+        <!-- ===================== -->
+
+        <LinearLayout
+            android:id="@+id/rightColumn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintStart_toEndOf="@id/waterRingContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/waterRingContainer">
+
+            <TextView
+                android:id="@+id/tv_total_ml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1100 ml"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#1976D2" />
+
+            <TextView
+                android:id="@+id/tv_goal_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal 3000 ml"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
+                android:textColor="#8A8A8A" />
+
+            <TextView
+                android:id="@+id/tv_daily_avg_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100%"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:textColor="#262626" />
+
+            <TextView
+                android:id="@+id/tv_avg_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1100 ml\nAverage Volume"
+                android:textSize="12sp"
+                android:layout_marginTop="6dp"
+                android:textColor="#8A8A8A" />
+
+        </LinearLayout>
+
+
+
+        <!-- ===================== -->
+        <!-- SELECT GLASS SIZE -->
+        <!-- ===================== -->
 
         <TextView
-            android:id="@+id/tv_total_ml"
+            android:id="@+id/tv_select_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1100 ml"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#1976D2" />
-
-        <TextView
-            android:id="@+id/tv_goal_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Goal 3000 ml"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp"
-            android:textColor="#8A8A8A" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_daily_avg_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100%"
+            android:text="Select Your Glass Size"
             android:textSize="14sp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@id/waterRingContainer"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_sizes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            app:singleSelection="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_select_label">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_custom"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✎"
+                android:textSize="14sp"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_150"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="150 ml"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_250"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="250 ml"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_300"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="300 ml"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_400"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400 ml"
+                android:checkable="true" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+
+
+        <!-- ===================== -->
+        <!-- ADD BUTTON -->
+        <!-- ===================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_intake"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:text="Add Intake"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/rounded_coner_pc"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup_sizes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+        <!-- ===================== -->
+        <!-- WATER INTAKE LOG -->
+        <!-- ===================== -->
+
+        <TextView
+            android:id="@+id/tv_water_intake_log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Water Intake Log"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="26dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_add_intake"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        <!-- ===================== -->
+        <!-- BAR CHART -->
+        <!-- ===================== -->
+
+        <LinearLayout
+            android:id="@+id/chartContainer"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_card_bg"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_water_intake_log"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/waterBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+
+        <!-- ===================== -->
+        <!-- TODAY RECORD -->
+        <!-- ===================== -->
+
+        <TextView
+            android:id="@+id/tv_today_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today's Record"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
-            android:textColor="#262626" />
+            app:layout_constraintTop_toBottomOf="@id/chartContainer"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_avg_volume"
-            android:layout_width="wrap_content"
+
+
+        <!-- ===================== -->
+        <!-- RECORDS LIST -->
+        <!-- ===================== -->
+
+        <LinearLayout
+            android:id="@+id/listContainer"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="1100 ml\nAverage Volume"
-            android:textSize="12sp"
-            android:layout_marginTop="6dp"
-            android:textColor="#8A8A8A" />
+            android:orientation="vertical"
+            android:background="@drawable/rounded_card_bg"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_today_record"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_records"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false" />
 
-    <!-- 'Select Your Glass Size' label -->
-    <TextView
-        android:id="@+id/tv_select_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Your Glass Size"
-        android:textSize="14sp"
-        android:textColor="#444444"
-        app:layout_constraintTop_toBottomOf="@id/waterRing"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="18dp" />
+            <LinearLayout
+                android:id="@+id/emptyView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-    <!-- Glass size segmented buttons (ChipGroup) -->
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup_sizes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        app:singleSelection="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_select_label">
+                <include layout="@layout/view_empty_water_log" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_custom"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="✎"
-            android:textSize="14sp"
-            android:checkable="true" />
+            </LinearLayout>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_150"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="150 ml"
-            android:checkable="true" />
+        </LinearLayout>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_250"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="250 ml"
-            android:checkable="true" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_300"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="300 ml"
-            android:checkable="true" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_400"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="400 ml"
-            android:checkable="true" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <!-- Add Intake button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_intake"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:text="Add Intake"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:cornerRadius="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chipGroup_sizes"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
