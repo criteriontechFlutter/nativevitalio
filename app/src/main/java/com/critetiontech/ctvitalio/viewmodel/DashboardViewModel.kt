@@ -691,7 +691,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                     for (key in fluidMap.keys) {
                                         val value = fluidValue.optDouble(key, 0.0)
                                         if (value > 0.0) {
-                                            fluidIntake(context, fluidMap[key]!!, value.toString())
+                                            fluidIntake(  value.toString())
                                         }
                                     }
                                 }
@@ -982,7 +982,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-    fun fluidIntake(context: Context, foodId: String, givenFoodQuantity: String) {
+    fun fluidIntake(  givenFoodQuantity: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true

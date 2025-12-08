@@ -946,10 +946,14 @@ private fun initHydrationControls() {
             }
         }
 
+    binding.hydrationCardId.mainId.setOnClickListener {
+
+        findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+    }
         // ADD
         binding.hydrationCardId.btnAddIntake.setOnClickListener {
 
-            viewModel.fluidIntake(requireContext() , currentAmount.toString(), currentAmount.toString())
+            viewModel.fluidIntake(  currentAmount.toString())
 
         }
     }
