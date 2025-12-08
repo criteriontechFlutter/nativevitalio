@@ -669,6 +669,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="mindfulnessFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1820" />
+                            <option name="y" value="-2398" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="moodFragment">
                     <value>
                       <LayoutPositions>
@@ -785,6 +797,15 @@
                             <option name="x" value="-1539" />
                             <option name="y" value="-2120" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_smartGoalFragment_to_setGoal">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

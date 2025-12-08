@@ -1655,6 +1655,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="6dp"
+                                android:id="@+id/mindfulness"
                                 android:layout_weight="1"
                                 android:background="@drawable/rounded_corners"
                                 android:padding="10dp">

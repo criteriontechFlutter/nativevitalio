@@ -63,7 +63,7 @@ class AddMedicineReminderViewModel(application: Application) : AndroidViewModel(
         val body = mutableMapOf<String, Any>(
             "pid"            to PrefsManager().getPatient()?.id.toString(),
             "clientId"       to PrefsManager().getPatient()?.clientId.toString(),
-            "medicineId"     to selectedMedicine.value!!.id,
+            "medicineId"     to selectedMedicine.value!!.medicineID,
             "dosageType"     to selectedMedicine.value!!.dosageFormName,
             "dosageStrength" to selectedMedicine.value!!.doseStrength,
             "instructions"   to instructions,

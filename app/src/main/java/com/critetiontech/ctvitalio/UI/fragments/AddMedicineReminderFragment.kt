@@ -36,6 +36,7 @@ class AddMedicineReminderFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AddMedicineReminderViewModel by viewModels()
+    private lateinit var medicineWatcher: TextWatcher
 
     private val maxSlots = 5
     private val weekIDs = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")  // SUN=7, MON=1 ...
@@ -84,9 +85,11 @@ class AddMedicineReminderFragment : Fragment() {
             val start = formatter.parse(binding.etStartDate.text.toString())
             val end = formatter.parse(binding.etEndDate.text.toString())
 
-            if (start.after(end)) {
-                Toast.makeText(requireContext(),"End Date must be greater than Start Date",Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            if (start != null) {
+                if (start.after(end)) {
+                    Toast.makeText(requireContext(),"End Date must be greater than Start Date",Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
 
             // 🔥 If validation success → API Call
@@ -370,29 +373,41 @@ class AddMedicineReminderFragment : Fragment() {
     // --------------------------------------------------------------------
     // 🔥 Medicine Search Dropdown
     // --------------------------------------------------------------------
-    private fun observeMedicine(){
-        binding.etMedicineName.addTextChangedListener {
-            if(it.isNullOrEmpty()) binding.medicineScroll.visibility=View.GONE
+    private fun observeMedicine() {
+
+        medicineWatcher = binding.etMedicineName.addTextChangedListener {
+            if (it.isNullOrEmpty()) binding.medicineScroll.visibility = View.GONE
             else viewModel.getBrandList(it.toString())
         }
 
-        viewModel.medicineLiveData.observe(viewLifecycleOwner){ list ->
+        viewModel.medicineLiveData.observe(viewLifecycleOwner) { list ->
             binding.medicineContainer.removeAllViews()
-            if(list.isEmpty()) return@observe
+            if (list.isEmpty()) return@observe
 
-            binding.medicineScroll.visibility=View.VISIBLE
-            list.forEach { med->
+            binding.medicineScroll.visibility = View.VISIBLE
+            list.forEach { med ->
                 val item = ItemMedicineBinding.inflate(layoutInflater)
                 item.tvMedicineName.text = med.name
-                item.root.setOnClickListener{
+
+                item.root.setOnClickListener {
+                    // 🚫 Remove watcher before setting text
+                    binding.etMedicineName.removeTextChangedListener(medicineWatcher)
+
                     binding.etMedicineName.setText(med.name)
+                    binding.etMedicineName.setSelection(med.name.length)
+
+                    // Add watcher back
+                    binding.etMedicineName.addTextChangedListener(medicineWatcher)
+
                     viewModel.updateSelectedMedicine(med)
                     binding.medicineScroll.visibility = View.GONE
                 }
+
                 binding.medicineContainer.addView(item.root)
             }
         }
     }
+
 
     // --------------------------------------------------------------------
     // 🔥 Date Pickers

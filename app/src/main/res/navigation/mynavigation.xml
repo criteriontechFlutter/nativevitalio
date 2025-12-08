@@ -113,6 +113,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_out_right"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dashboard_to_mindfulnessFragment"
+            app:destination="@id/mindfulnessFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -433,6 +436,9 @@
             app:exitAnim="@animator/nav_default_exit_anim"
             app:popEnterAnim="@animator/nav_default_pop_enter_anim"
             app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_corporateDashBoard_to_mindfulnessFragment"
+            app:destination="@id/mindfulnessFragment" />
     </fragment>
     <fragment
         android:id="@+id/moodFragment"
@@ -497,5 +503,10 @@
         android:id="@+id/setGoal"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SetGoal"
         android:label="SetGoal" />
+    <fragment
+        android:id="@+id/mindfulnessFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.MindfulnessFragment"
+        android:label="fragment_mindfullness"
+        tools:layout="@layout/fragment_mindfullness" />
 
 </navigation>

@@ -230,6 +230,10 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
         }
 
+        binding.mindfulness.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_mindfulnessFragment)
+        }
+
 
         viewModel.getVitals()
         viewModel.isConnected.observe(viewLifecycleOwner) { isConnected ->
@@ -1059,36 +1063,6 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
      binding.hydrationCardId.tvHydrationProgress.setTextColor(Color.parseColor("#808C9A"))
 
 }
-    fun calculateWellnessScore(
-        sleep: Int,
-        movement: Int,
-        stress: Int,
-        recovery: Int
-    ): Int {
-        // Step 1: Normalize all values between 0–100
-        val sleepScore = sleep.coerceIn(0, 100)
-        val movementScore = movement.coerceIn(0, 100)
-        val recoveryScore = recovery.coerceIn(0, 100)
-        val stressScore = stress.coerceIn(0, 100)
-
-        // Step 2: Invert stress (less stress = higher contribution)
-        val invertedStress = 100 - stressScore
-
-        // Step 3: Compute average baseline (using Double for precision)
-        val average = (sleepScore + movementScore + recoveryScore + invertedStress) / 4.0
-
-        // Step 4: Apply penalty if stress is high
-        val penaltyMultiplier = when {
-            stressScore > 90 -> 0.3    // severe stress → 70% penalty
-            stressScore > 75 -> 0.6    // moderate stress → 40% penalty
-            else -> 1.0
-        }
-
-        // Step 5: Apply penalty and clamp final score
-        val finalScore = (average * penaltyMultiplier).toInt().coerceIn(0, 100)
-
-        return finalScore
-    }
 
 
     private fun initializeSwipeRefresh() {
