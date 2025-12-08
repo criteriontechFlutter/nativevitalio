@@ -73,6 +73,13 @@ class Connection : Fragment() {
             lightIcons = true
         )
         val vitalType = arguments?.getString("vitalType") ?: "Blood Pressure"
+
+
+        when (vitalType) {
+            "Blood Pressure" -> binding.toolbar.title="Add Blood Pressure "
+
+            "Glucose" ->  binding.toolbar.title="Add Glucose Level "
+        }
         binding.vitalType = vitalType;
         viewModel = ViewModelProvider(this)[ConnectionViewModel::class.java]
         lifecycleScope.launchWhenStarted {
