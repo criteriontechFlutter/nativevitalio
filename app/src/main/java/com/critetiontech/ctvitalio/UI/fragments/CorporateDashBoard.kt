@@ -937,6 +937,11 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         updateProgress(consumed =  2, target =  22, unit =  "ml")
         updateHydrationTitle( 3)
 //        wellnessDataBind()
+
+
+binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
+    findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+}
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             updateSummaryChecklist(vitalList)
             bindSummaryCard(vitalList)
