@@ -79,6 +79,7 @@ import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlin.math.roundToInt
 
 
 class CorporateDashBoard : Fragment() {
@@ -791,7 +792,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     val recovery = recoveryValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
     val WellnessScore = vitalList
         ?.firstOrNull { it.vitalName.equals("Wellness Score", ignoreCase = true) }
-    binding.sleepProgressIds.wellnessScoreNumber.text= WellnessScore?.vitalValue?.toString()
+    binding.sleepProgressIds.wellnessScoreNumber.text= WellnessScore?.vitalValue?.roundToInt().toString()
 // Call the function safely
 //   val wellnessscore= calculateWellnessScore(
 //        sleep = sleep.toInt(),
