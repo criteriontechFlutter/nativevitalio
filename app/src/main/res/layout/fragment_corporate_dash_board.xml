@@ -1076,35 +1076,46 @@
                                 android:background="@drawable/rounded_corners"
                                 android:orientation="vertical"
                                 android:padding="12dp">
+                                <LinearLayout
+                                    android:id="@+id/checklistContainer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/rounded_corners"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
 
-                                <include
-                                    android:id="@+id/steps_progress_id"
-                                    layout="@layout/daily_checklist_wedget" />
+                                <!--                    <include-->
+                                <!--                        android:id="@+id/steps_progress_id"-->
+                                <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-                                <include
-                                    android:id="@+id/sleep_progress_id"
-                                    layout="@layout/daily_checklist_wedget" />
+                                <!--                    <include-->
+                                <!--                        android:id="@+id/sleep_progress_id"-->
+                                <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-                                <include
-                                    android:id="@+id/water_progress_id"
-                                    layout="@layout/daily_checklist_wedget" />
+                                <!--                    <include-->
+                                <!--                        android:id="@+id/water_progress_id"-->
+                                <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-                                <include
-                                    android:id="@+id/glucose_progress_id"
-                                    layout="@layout/daily_checklist_wedget" />
+                                <!--                    <include-->
+                                <!--                        android:id="@+id/glucose_progress_id"-->
+                                <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-                                <include
-                                    android:id="@+id/bp_progress_id"
-                                    layout="@layout/daily_checklist_wedget" />
+                                <!--                    <include-->
+                                <!--                        android:id="@+id/bp_progress_id"-->
+                                <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-                                <include
-                                    android:id="@+id/medicine_progress_id"
-                                    layout="@layout/daily_checklist_wedget" />
+                                <!--                    <include-->
+                                <!--                        android:id="@+id/medicine_progress_id"-->
+                                <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-                                <include
-                                    android:id="@+id/health_track_Id"
-                                    layout="@layout/health_track_progress" />
                             </LinearLayout>
+<!--                        <include-->
+<!--                            android:id="@+id/health_track_Id"-->
+<!--                            layout="@layout/health_track_progress" />-->
+                                <include
+                                android:id="@+id/healthGoalAchived"
+                                layout="@layout/health_goal_achived" />
+                    </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
                         <androidx.recyclerview.widget.RecyclerView

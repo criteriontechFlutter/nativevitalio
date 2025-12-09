@@ -255,7 +255,7 @@ class Home : Fragment() {
         }
 
         binding.sleepProgressIds.SleepWelnessId.setOnClickListener {
-            findNavController().navigate(R.id.action_new_corporate_dashboard_to_sleepDetails)
+            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
     }
 

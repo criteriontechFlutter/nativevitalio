@@ -246,9 +246,9 @@
 <!--                        android:id="@+id/medicine_progress_id"-->
 <!--                        layout="@layout/daily_checklist_wedget" />-->
 
-<!--                    <include-->
-<!--                        android:id="@+id/health_track_Id"-->
-<!--                        layout="@layout/health_track_progress" />-->
+                    <include
+                        android:id="@+id/health_track_Id"
+                        layout="@layout/health_track_progress" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

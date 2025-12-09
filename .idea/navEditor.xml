@@ -381,6 +381,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_mindfulnessFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
@@ -776,8 +781,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-3078" />
-                            <option name="y" value="-2133" />
+                            <option name="x" value="-3282" />
+                            <option name="y" value="-2042" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -793,6 +798,11 @@
                               </value>
                             </entry>
                             <entry key="action_new_corporate_dashboard_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_new_corporate_dashboard_to_drawer4">
                               <value>
                                 <LayoutPositions />
                               </value>
