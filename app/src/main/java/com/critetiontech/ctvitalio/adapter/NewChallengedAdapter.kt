@@ -20,20 +20,20 @@ import com.critetiontech.ctvitalio.databinding.NewChallengedJoinedBinding
 import com.critetiontech.ctvitalio.model.NewChallengeModel
 import java.util.Random
 class NewChallengedAdapter(
-    private val challenges: List<NewChallengeModel>,
-    private val onItemClick: (NewChallengeModel) -> Unit,   // For insertChallengeparticipants
-    private val onItemClick1: (NewChallengeModel) -> Unit   // For navigating to details
+    private val challenges: MutableList<NewChallengeModel>,
+    private val onJoinClick: (NewChallengeModel) -> Unit,
+    private val onDetailsClick: (NewChallengeModel) -> Unit
 ) : RecyclerView.Adapter<NewChallengedAdapter.ChallengeViewHolder>() {
 
     inner class ChallengeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val cardViewid: CardView = view.findViewById(R.id.cardViewid)
+        val cardViewId: CardView = view.findViewById(R.id.cardViewid)
         val iconGoal: ImageView = view.findViewById(R.id.iconGoal)
         val titleText: TextView = view.findViewById(R.id.titleText)
         val subtitleText: TextView = view.findViewById(R.id.subtitleText)
-          val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+        val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         val labelPercent: TextView = view.findViewById(R.id.labelPercent)
         val labelCurrent: TextView = view.findViewById(R.id.labelCurrent)
-         val reminderText: TextView = view.findViewById(R.id.reminderText)
+        val reminderText: TextView = view.findViewById(R.id.reminderText)
         val btnLogReading: Button = view.findViewById(R.id.btn_log_reading)
         val btnMessageCoach: Button = view.findViewById(R.id.btn_message_coach)
     }
@@ -47,31 +47,28 @@ class NewChallengedAdapter(
     override fun onBindViewHolder(holder: ChallengeViewHolder, position: Int) {
         val challenge = challenges[position]
 
-        // Bind model data
         holder.titleText.text = challenge.title
-        holder.subtitleText.text = "w/Coach Sarah | 7 day"
-         val progress = (challenge.rewardPoints % 100)
+        holder.subtitleText.text = "w/Coach Sarah | 7 Day"
 
-        // Fake progress (you can replace with real logic)
+        val progress = challenge.rewardPoints % 100
         holder.progressBar.progress = progress
         holder.labelPercent.text = "$progress%"
         holder.labelCurrent.text = "Current"
 
-        // Reminder (using startsIn)
-        holder.reminderText.text = "Tiny push needed — one smooth glucose day completes your streak."
+        holder.reminderText.text =
+            "Tiny push needed — one smooth glucose day completes your streak."
 
-        // Button actions
-        holder.btnLogReading.setOnClickListener { onItemClick(challenge) }
-        holder.cardViewid.setOnClickListener { onItemClick1(challenge) }
-
-//        holder.itemView.setOnClickListener {
-//            onItemClick1(item)
-//        }
-        // Whole card click (optional: same as details)
-        holder.itemView.setOnClickListener { onItemClick1(challenge) }
+        holder.btnLogReading.setOnClickListener { onJoinClick(challenge) }
+        holder.cardViewId.setOnClickListener { onDetailsClick(challenge) }
     }
 
     override fun getItemCount(): Int = challenges.size
+
+    fun updateList(newList: List<NewChallengeModel>) {
+        challenges.clear()
+        challenges.addAll(newList.toMutableList())  // <-- Fix mismatch
+        notifyDataSetChanged()
+    }
 }
 //class NewChallengedAdapter (
 //    private val items: List<NewChallengeModel>,

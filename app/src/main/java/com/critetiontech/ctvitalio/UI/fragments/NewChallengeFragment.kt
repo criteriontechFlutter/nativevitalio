@@ -40,11 +40,11 @@ class NewChallengeFragment : Fragment() {
         challengesViewModel.getNewChallenge()
         challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
-                list,
-                onItemClick =  { challenge ->
+                list.toMutableList(),
+                onJoinClick  =  { challenge ->
                     challengesViewModel.joinChallenge( challenge.id.toString())
                 },
-                onItemClick1 =  { challenge: NewChallengeModel ->
+                onDetailsClick  =  { challenge: NewChallengeModel ->
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge )
                     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mynavigation"
-    app:startDestination="@id/dashboard">
+    app:startDestination="@id/new_corporate_dashboard">
 
     <fragment
         android:id="@+id/dashboard"
@@ -113,6 +113,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_out_right"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dashboard_to_new_corporate_dashboard"
+            app:destination="@id/new_corporate_dashboard" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -497,5 +500,82 @@
         android:id="@+id/setGoal"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SetGoal"
         android:label="SetGoal" />
+    <fragment
+        android:id="@+id/new_corporate_dashboard"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.dashboard_pages.new_corporate_dashboard"
+        android:label="new_corporate_dashboard" >
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_energyTank"
+            app:destination="@id/energyTank" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_smartGoalFragment"
+            app:destination="@id/smartGoalFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_medicationFragment"
+            app:destination="@id/medicationFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_sleepDetails"
+            app:destination="@id/sleepDetails" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_moodFragment"
+            app:destination="@id/moodFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_challenges"
+            app:destination="@id/challenges" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_connection"
+            app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_wellnessMetrics"
+            app:destination="@id/newChallengeFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_waterIntakeFragment"
+            app:destination="@id/newChallengeFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_newChallengeFragment"
+            app:destination="@id/newChallengeFragment" />
+        <action
+            android:id="@+id/action_new_corporate_dashboard_to_drawer4"
+            app:destination="@id/drawer4" />
+    </fragment>
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.dashboard_pages.Home"
+        android:label="Home" >
+        <action
+            android:id="@+id/action_home2_to_medicationFragment"
+            app:destination="@id/medicationFragment" />
+        <action
+            android:id="@+id/action_home2_to_moodFragment"
+            app:destination="@id/moodFragment" />
+        <action
+            android:id="@+id/action_home2_to_connection"
+            app:destination="@id/connection" />
+        <action
+            android:id="@+id/action_home2_to_wellnessMetrics"
+            app:destination="@id/wellnessMetrics" />
+        <action
+            android:id="@+id/action_home2_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_home2_to_challengeDetailsFragment2"
+            app:destination="@id/challengeDetailsFragment" />
+        <action
+            android:id="@+id/action_home2_to_sleepDetails"
+            app:destination="@id/sleepDetails" />
+        <action
+            android:id="@+id/action_home2_to_newChallengeFragment"
+            app:destination="@id/newChallengeFragment" />
+        <action
+            android:id="@+id/action_home2_to_smartGoalFragment"
+            app:destination="@id/smartGoalFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+    </fragment>
 
 </navigation>

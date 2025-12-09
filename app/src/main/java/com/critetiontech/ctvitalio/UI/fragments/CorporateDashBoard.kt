@@ -135,7 +135,11 @@ class CorporateDashBoard : Fragment() {
 
         }
 
+        binding.headerContainer.setOnClickListener {
 
+            findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
+
+        }
         animatePageLoad()
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.primaryBlue,
@@ -292,11 +296,11 @@ binding.healthTrackId.healthGoalAchived.setOnClickListener {
 
         challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
-                list,
-                onItemClick =  { challenge ->
+                list.toMutableList(),
+                onJoinClick  =  { challenge ->
                     challengesViewModel.joinChallenge( challenge.id.toString())
                 },
-                onItemClick1 =  { challenge ->
+                onDetailsClick  =  { challenge ->
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge)
                     }
@@ -305,11 +309,11 @@ binding.healthTrackId.healthGoalAchived.setOnClickListener {
                 }
             )
             binding.challengedId.adapter = NewChallengedAdapter(
-                list,
-                onItemClick =  { challenge ->
+                list.toMutableList(),
+                onJoinClick =  { challenge ->
                     challengesViewModel.joinChallenge( challenge.id.toString())
                 },
-                onItemClick1 =  { challenge ->
+                onDetailsClick =  { challenge ->
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge)
                     }
@@ -590,9 +594,9 @@ binding.showId.showHideId.setOnClickListener{
 
 
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
-        binding.sleepScoreId.title.text="Sleep Score"
-    //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
-        binding.sleepScoreId.statusCardId.visibility=View.GONE
+            binding.sleepScoreId.title.text = "Sleep Score"
+            //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
+            binding.sleepScoreId.statusCardId.visibility = View.GONE
 
 
     val totalSleep = sleepValue.QuickMetricsTiled
@@ -733,7 +737,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     binding.ActiveminutesId.value.text = activeMinutes?.vitalValue.toString()
     binding.ActiveminutesId.statusCardId.visibility = View.GONE
     val Temperature = vitalList
-        ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
+        ?.firstOrNull { it.vitalName.equals("TemperatureTemperature", ignoreCase = true) }
     binding.tempDeviationId.title.text = "Temperature Devoatoion"
     binding.tempDeviationId.value.text = "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
     binding.tempDeviationId.statusCardId.visibility = View.GONE
@@ -752,7 +756,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
     binding.SleepStageHrvId.title.text = "Sleep Stage' HRV"
-    binding.SleepStageHrvId.value.text = HRV?.vitalValue.toString()
+    binding.SleepStageHrvId.value.text = HRV?.toString()
     binding.SleepStageHrvId.statusCardId.visibility = View.GONE
 
     val movementIndex = vitalList

@@ -118,6 +118,12 @@ data class Vital(
     val userId: Int = 0,
     val rowId: Int = 0
 )
+data class SleepVital(
+    val Title: String,
+    val State: String,
+    val StateTitle: String,
+    val Score: Double
+)
 data class QuickMetric(
     val Title: String,
     val DisplayText: String,
