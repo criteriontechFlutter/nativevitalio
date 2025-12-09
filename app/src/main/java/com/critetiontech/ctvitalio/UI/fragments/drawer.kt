@@ -73,7 +73,7 @@ class drawer : Fragment() {
             val finalUri = compressedUri ?: result.uriContent
 
             drawerViewModel.updateUserData(requireContext(), finalUri)
-            binding.userImage.setImageURI(finalUri)
+           // binding.userImage.setImageURI(finalUri)
         } else {
             Toast.makeText(requireContext(), result.error?.message ?: "Cropping failed", Toast.LENGTH_SHORT).show()
             Log.e("CropError", "Cropping failed", result.error)
@@ -162,7 +162,7 @@ class drawer : Fragment() {
 
         val patient = PrefsManager().getPatient()
         binding.userName.text = patient?.patientName ?: ""
-        binding.userUhid.text = patient?.uhID ?: ""
+        binding.userUhid.text = patient?.mobileNo ?: ""
 
         Glide.with(MyApplication.appContext)
             .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
