@@ -59,6 +59,8 @@ class SmartGoalFragment : Fragment() {
             }
         }
 
+
+
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -90,10 +92,16 @@ class SmartGoalFragment : Fragment() {
             emptyList(),
             isAllGoal = true,
             onGoalClick = { goal, category ->
-                Toast.makeText(requireContext(), "Clicked: ${goal.goalName}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Clicked: ${goal.goalName}", Toast.LENGTH_SHORT).show()
             },
             onPinClick = { goal, category ->
-                Toast.makeText(requireContext(), "Pinned: ${goal.goalName}", Toast.LENGTH_SHORT).show()
+                if (category != null) {
+                    viewModel.updatePinStatus(
+                        goal.id,
+                        goal.isPinned
+                    )
+                }
+
             }
         )
 

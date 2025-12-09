@@ -17,8 +17,12 @@ import com.critetiontech.ctvitalio.model.MovementIndexViewModel
  import java.text.SimpleDateFormat
 import java.util.Locale
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.view.ViewGroup as AndroidViewGroup
 import android.graphics.drawable.GradientDrawable
+import com.critetiontech.ctvitalio.model.SleepSummary
+import com.critetiontech.ctvitalio.model.WellnessItem
+import com.critetiontech.ctvitalio.model.getLatestVital
 
 class WellnessMetrics : Fragment() {
 
@@ -38,6 +42,11 @@ class WellnessMetrics : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[MovementIndexViewModel::class.java]
+        viewModel.getWellnessData()
+
+        binding.vm=viewModel
+
+        observeVitals()
 
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -47,7 +56,7 @@ class WellnessMetrics : Fragment() {
         observeMovementData()
         viewModel.loadInitialData()
 
-        binding.circularProgress.setProgress(55.0F)
+       //
         binding.dyRecovery.setProgressAnimated(65f, "Moderate")
 
         // Date change refresh
@@ -79,6 +88,45 @@ class WellnessMetrics : Fragment() {
         binding.tvCardioValue.text = binding.rulerSeekBar.currentValue.toString()
     }
 
+    private fun observeVitals() {
+        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->
+            val movement = viewModel.getLatestVital(list, "MovementIndex")?.vmValue
+
+            movement?.let {
+                binding.circularProgress.setProgress(it.toFloat())
+            }
+
+            binding.stressScore = viewModel.getLatestVital(list, "StressScore")?.vmValue.toString()
+            binding.brainClear =
+                viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue.toString()
+            binding.sleepCycles =
+                viewModel.getLatestVital(list, "SleepCycles")?.vmValueText.orEmpty()
+            binding.totalSleep = viewModel.getLatestVital(list, "TotalSleep")?.vmValueText.orEmpty()
+            binding.restingHR =
+                viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
+            binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
+
+            val summary = buildSleepSummary(list)
+
+            binding.tvSleepStart.text = summary.sleepStart
+            binding.tvSleepEnd.text = summary.sleepEnd
+
+            binding.tvSleepDuration.text = summary.totalSleep
+            binding.tvSleepCycles.text = "${summary.sleepCycles} Full"
+
+            // Timeline bar weights
+            binding.sleepBarGreen.layoutParams =
+                (binding.sleepBarGreen.layoutParams as LinearLayout.LayoutParams)
+                    .apply { weight = summary.durationPercent }
+
+            binding.sleepBarGray.layoutParams =
+                (binding.sleepBarGray.layoutParams as LinearLayout.LayoutParams)
+                    .apply {
+                        weight = 1 - summary.durationPercent
+
+                    }
+
+        }}
     private fun observeMovementData() {
         val dummyData = generateDummyHourlyData()
         updateHourlyChart(dummyData)
@@ -105,6 +153,55 @@ class WellnessMetrics : Fragment() {
         }
         return list
     }
+
+    fun buildSleepSummary(list: List<WellnessItem>): SleepSummary {
+
+        val startRaw = latestText(list, "TimeInBed")      // ISO time
+        val endRaw = latestText(list, "BedTimeOut")       // ISO time
+        val totalSleep = latestText(list, "TotalSleep")   // "7h 30m"
+        val sleepCycles = latestText(list, "SleepCycles") // "4"
+
+        val startFormatted = startRaw.toReadableTime()
+        val endFormatted = endRaw.toReadableTime()
+
+        val percent = calculateSleepPercentage(totalSleep)
+
+        return SleepSummary(
+            sleepStart = startFormatted,
+            sleepEnd = endFormatted,
+            totalSleep = totalSleep,
+            sleepCycles = sleepCycles,
+            durationPercent = percent
+        )
+    }
+
+
+    fun calculateSleepPercentage(text: String): Float {
+
+        val hours = Regex("(\\d+)h").find(text)?.groupValues?.get(1)?.toIntOrNull() ?: 0
+        val minutes = Regex("(\\d+)m").find(text)?.groupValues?.get(1)?.toIntOrNull() ?: 0
+
+        val total = (hours * 60 + minutes).toFloat()
+        return (total / (8 * 60))  // assume 8h benchmark
+    }
+
+
+    @SuppressLint("NewApi")
+    fun String.toReadableTime(): String {
+        return try {
+            val input = java.time.OffsetDateTime.parse(this)
+            val formatter = java.time.format.DateTimeFormatter.ofPattern("hh:mm a")
+            input.toLocalDateTime().format(formatter)
+        } catch (e: Exception) {
+            this
+        }
+    }
+
+    fun latestText(list: List<WellnessItem>, vital: String): String {
+        return getLatestVital(list, vital)?.vmValueText ?: ""
+    }
+
+
 
     private fun updateHourlyChart(hourlyData: List<Int>) {
         if (hourlyData.isEmpty()) return

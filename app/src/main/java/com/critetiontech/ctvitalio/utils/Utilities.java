@@ -104,4 +104,8 @@ public class Utilities {
         textView.getPaint().setShader(linearGradient);
     }
 
+
+
+
+
 }

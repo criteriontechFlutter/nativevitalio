@@ -1,10 +1,14 @@
 package com.critetiontech.ctvitalio.model
 
+import PrefsManager
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ArcProgressView
 import com.critetiontech.ctvitalio.utils.CircularProgressView
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -19,16 +23,23 @@ class MovementIndexViewModel : ViewModel() {
         val achievementText: String = "You achieved 1/2 movement goals"
     )
 
+    private val _wellnessMetricList = MutableLiveData<List<WellnessItem>>()
+    val wellnessMetrics: LiveData<List<WellnessItem>> get() = _wellnessMetricList
+
+
     // LiveData
     val movementData = MutableLiveData<MovementData>()
     val progress = MutableLiveData<String>()
     val calories = MutableLiveData<String>()
     val steps = MutableLiveData<String>()
     val achievementText = MutableLiveData<String>()
-    val isLoading = MutableLiveData<Boolean>()
 
     private var updateJob: kotlinx.coroutines.Job? = null
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
     /**
      * Load initial data
      */
@@ -37,12 +48,63 @@ class MovementIndexViewModel : ViewModel() {
         startPeriodicUpdates()
     }
 
+
+    fun getWellnessData() {
+        _loading.value = true
+
+        viewModelScope.launch {
+            try {
+                val queryParams = mapOf(
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "clientId" to PrefsManager().getPatient()?.clientId.toString()
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicGet(
+                        url = "api/UltrahumanVitals/GetWellnessDataByPid",
+                        params = queryParams
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    val json = response.body()?.string()
+
+                    val parsed = Gson().fromJson(json, WellnessResponse::class.java)
+
+                    // Store API response
+                    _wellnessMetricList.value = parsed.responseValue
+
+                } else {
+                    _wellnessMetricList.value = emptyList()
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _wellnessMetricList.value = emptyList()
+                _errorMessage.value = e.message ?: "Unknown error"
+            }
+        }
+    }
+    fun getLatestVital(vitalList: List<WellnessItem>, vitalName: String): Reading? {
+        val vital = vitalList.firstOrNull {
+            it.vitalName.equals(vitalName, ignoreCase = true)
+        } ?: return null
+
+        val readings = vital.decodedReadings()
+        if (readings.isEmpty()) return null
+
+        return readings.maxByOrNull { it.vitalDateTime }
+    }
+
+
     /**
      * Fetch movement data from API or local source
      */
     fun fetchMovementData() {
         viewModelScope.launch {
-            isLoading.value = true
+            _loading.value = true
             try {
                 // Simulate API delay
                 delay(300)
@@ -56,9 +118,9 @@ class MovementIndexViewModel : ViewModel() {
                 )
 
                 updateMovementData(data)
-                isLoading.value = false
+                _loading.value = false
             } catch (e: Exception) {
-                isLoading.value = false
+                _loading.value = false
                 e.printStackTrace()
             }
         }

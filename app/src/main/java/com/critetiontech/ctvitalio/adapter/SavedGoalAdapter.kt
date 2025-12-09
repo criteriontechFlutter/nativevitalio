@@ -134,7 +134,7 @@ class GoalsAdapter(
             binding.ivPin.setColorFilter(pinColor)
 
             /* Progress view */
-            binding.progressView.setProgress(65f)
+            binding.progressView.setProgress(0f)
             binding.progressView.setProgressColor("#1281FD")
             binding.progressView.setRemainingColor("#D0D0D0")
 
@@ -146,20 +146,21 @@ class GoalsAdapter(
 
 
             /* ----------------------- PIN CLICK ------------------------ */
-            binding.centerIcon.setOnClickListener {
+            binding.ivPin.setOnClickListener {
 
                 // Toggle pin state
-                goal.isPinned = if (goal.isPinned == 1) 0 else 1
+
 
                 // Update pin UI
-                val newColor = ContextCompat.getColor(
-                    binding.root.context,
-                    if (goal.isPinned == 1) R.color.blue else R.color.greyText
-                )
-                binding.ivPin.setColorFilter(newColor)
+//                val newColor = ContextCompat.getColor(
+//                    binding.root.context,
+//                    if (goal.isPinned == 1) R.color.blue else R.color.greyText
+//                )
+//                binding.ivPin.setColorFilter(newColor)
 
                 // Return updated data
                 onPinClick(goal, category)
+                //goal.isPinned = if (goal.isPinned == 1) 0 else 1
             }
         }
     }

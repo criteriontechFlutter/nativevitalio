@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.databinding.ItemMoodBinding
 
-class MoodAdapter(private val moods: List<Mood> ) :
+class MoodAdapter(private var moods: List<Mood> ) :
     RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
 
     inner class MoodViewHolder(val binding: ItemMoodBinding) :
@@ -31,7 +31,14 @@ class MoodAdapter(private val moods: List<Mood> ) :
     }
 
     override fun getItemCount(): Int = moods.size
+
+    fun updateList(newList: List<Mood>) {
+        this.moods = newList
+        this.notifyDataSetChanged()
+    }
 }
+
+
 
 data class MoodData(
     val id: Int,

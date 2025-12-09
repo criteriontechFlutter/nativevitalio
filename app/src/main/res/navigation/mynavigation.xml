@@ -116,6 +116,9 @@
         <action
             android:id="@+id/action_dashboard_to_new_corporate_dashboard"
             app:destination="@id/new_corporate_dashboard" />
+        <action
+            android:id="@+id/action_dashboard_to_mindfulnessFragment"
+            app:destination="@id/mindfulnessFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -500,6 +503,11 @@
         android:id="@+id/setGoal"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SetGoal"
         android:label="SetGoal" />
+    <fragment
+        android:id="@+id/mindfulnessFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.MindfulnessFragment"
+        android:label="fragment_mindfullness"
+        tools:layout="@layout/fragment_mindfullness" />
     <fragment
         android:id="@+id/new_corporate_dashboard"
         android:name="com.critetiontech.ctvitalio.UI.fragments.dashboard_pages.new_corporate_dashboard"

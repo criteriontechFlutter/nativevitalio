@@ -11,6 +11,7 @@ import SleepValue
 import Summary
 import Vital
 import VitalInsight
+import VitalResponseValue
 import VitalsResponse
 import android.app.Application
 import android.content.Context
@@ -45,6 +46,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.core.graphics.toColorInt
+import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
+import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -61,7 +64,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _vitalList = MutableLiveData<List<Vital>>()
     val vitalList: LiveData<List<Vital>> get() = _vitalList
-
+    private val dao = AppDatabase.getDB(application).vitalsDao()
     private val _quickMetricList = MutableLiveData<List<QuickMetric>>()
     val  quickMetricListList: LiveData<List<QuickMetric>> get() = _quickMetricList
     private val _dietList = MutableLiveData<List<DietItemModel>>()
@@ -97,16 +100,16 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     fun getVitals() {
         viewModelScope.launch {
             _loading.value = true
-            try {
-                val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val todayDate = sdf.format(Date())
+            // 1️⃣ Load from local first
+            val localVitals = loadVitalsFromLocal()
+            localVitals?.let { entity ->
+                loadVitalsFromLocal(entity)
+            }
+
+            try {
                 val queryParams = mapOf(
                     "pid" to PrefsManager().getPatient()?.id.toString(),
-//                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
-//                    "date" to todayDate,
-                   // "date" to "2025-11-24",
                     "clientId" to 194,
                 )
 
@@ -117,56 +120,70 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         params = queryParams
                     )
 
-
-
                 if (response.isSuccessful) {
-                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
+
+                    // Update UI from API
                     _vitalList.value = parsed.responseValue.lastVital
                     _vitalInsights.value = parsed.responseValue.vitalInsights
-//                    _sleepsummary.value = parsed.responseValue.summary
 
+                    // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
+                    saveVitalsToLocal(parsed.responseValue)
 
+                    // Continue sleep metric logic
                     val sleepMetric243 = parsed.responseValue.sleepmetrics
                         ?.firstOrNull { it.vitalID == 243 }
 
                     sleepMetric243?.vitalValue?.let { vitalValueJson ->
-                        try {
-                            val cleanedJson = vitalValueJson
-                                .trim('"')                  // remove starting/ending quotes
-                                .replace("\\\"", "\"")      // unescape quotes
+                        val cleanedJson = vitalValueJson.trim('"')
+                            .replace("\\\"", "\"")
 
-                            val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
-                            _sleepValueList.value = Gson().fromJson(cleanedJson, SleepValue::class.java)
+                        val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
 
-                            Log.d("TAG", "Sleep Score: ${sleepValue.QuickMetrics?.size.toString()}")
-                            _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
-                            _sleepsummary.value = sleepValue.Summary ?: emptyList()
-
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            _quickMetricList.value = emptyList()
-                        }
-                    } ?: run {
-                        // fallback if no vitalID=243 found
-                        _quickMetricList.value = emptyList()
+                        _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+                        _sleepsummary.value = sleepValue.Summary ?: emptyList()
                     }
 
+                    _loading.value = false
                 } else {
-                    _vitalList.value = emptyList()
-                        _loading.value = false
+                    _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
-                _vitalList.value = emptyList()
-                _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"
-                e.printStackTrace()
             }
         }
+    }
+
+
+    suspend fun saveVitalsToLocal(responseValue: VitalResponseValue) {
+        val entity = VitalsEntity(
+            id = 1,
+            lastVitalJson = Gson().toJson(responseValue.lastVital),
+            insightsJson = Gson().toJson(responseValue.vitalInsights),
+            sleepMetricJson = Gson().toJson(responseValue.sleepmetrics),
+        )
+        dao.insertVitals(entity)
+    }
+
+    suspend fun loadVitalsFromLocal(): VitalsEntity? {
+        return dao.getVitals()
+    }
+    private fun loadVitalsFromLocal(entity: VitalsEntity) {
+        val vitalListType = object : TypeToken<List<Vital>>() {}.type
+        val insightListType = object : TypeToken<List<VitalInsight>>() {}.type
+        val quickMetricListType = object : TypeToken<List<QuickMetric>>() {}.type
+
+        val lastVital: List<Vital> = Gson().fromJson(entity.lastVitalJson, vitalListType)
+        val insights: List<VitalInsight> = Gson().fromJson(entity.insightsJson, insightListType)
+        val quickMetrics: List<QuickMetric> = Gson().fromJson(entity.sleepMetricJson, quickMetricListType)
+
+        _vitalList.value = lastVital
+        _vitalInsights.value = insights
+        _quickMetricList.value = quickMetrics
     }
 
 

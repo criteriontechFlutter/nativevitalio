@@ -4,6 +4,10 @@ package com.critetiontech.ctvitalio.utils
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.GradientDrawable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.StyleSpan
 import android.view.Gravity
 import android.view.View
 import android.view.ViewOutlineProvider
@@ -33,7 +37,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
     private var selectedDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
     private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
     private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
-    private var isExpanded = true
+    private var isExpanded = false
     var onDateSelected: ((String) -> Unit)? = null
     // Pixel-perfect color scheme
     private val primaryColor = "#2196F3".toColorInt()
@@ -223,18 +227,16 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         val dateContainer = LinearLayout(context).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER
-            setPadding(0, 16, 0, 20)
+            setPadding(0, 16, 0, 16)
             setOnClickListener {
                 toggleCalendar()
             }
         }
 
         selectedDateText.apply {
-            textSize = 18f
-            setTypeface(null, Typeface.BOLD)
             gravity = Gravity.CENTER
             setTextColor(textPrimaryColor)
-            text = formatSelectedDate()
+            text = formatSelectedDateStyled()
         }
 
         dropdownArrow = TextView(context).apply {
@@ -248,6 +250,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         dateContainer.addView(dropdownArrow)
         addView(dateContainer)
     }
+
 
     /** HORIZONTAL SCROLLER - Wheel Style **/
     private fun setupBottomDateScroller() {
@@ -338,7 +341,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             selectedDay = closestDay
             selectedMonth = calendar.get(Calendar.MONTH)
             selectedYear = calendar.get(Calendar.YEAR)
-            selectedDateText.text = formatSelectedDate()
+            selectedDateText.text = formatSelectedDateStyled()
 
             // Update calendar without re-rendering wheel to avoid scroll jump
             updateCalendarSelection()
@@ -367,7 +370,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             selectedDay = closestDay
             selectedMonth = calendar.get(Calendar.MONTH)
             selectedYear = calendar.get(Calendar.YEAR)
-            selectedDateText.text = formatSelectedDate()
+            selectedDateText.text = formatSelectedDateStyled()
             renderCalendar()
         }
     }
@@ -419,7 +422,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
             selectedDay = closestDay
             selectedMonth = calendar.get(Calendar.MONTH)
             selectedYear = calendar.get(Calendar.YEAR)
-            selectedDateText.text = formatSelectedDate()
+            selectedDateText.text = formatSelectedDateStyled()
             renderCalendar()
         }
     }
@@ -564,7 +567,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                     selectedDay = day
                     selectedMonth = calendar.get(Calendar.MONTH)
                     selectedYear = calendar.get(Calendar.YEAR)
-                    selectedDateText.text = formatSelectedDate()
+                    selectedDateText.text = formatSelectedDateStyled()
                     renderCalendar()
                     scrollToSelectedDate()
 
@@ -681,8 +684,50 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         c.set(Calendar.DAY_OF_MONTH, selectedDay)
         val dayName = SimpleDateFormat("EEE", Locale.getDefault()).format(c.time)
         val monthName = SimpleDateFormat("MMM", Locale.getDefault()).format(c.time)
-        return "$dayName • $selectedDay • $monthName"
+        return "$dayName •  $selectedDay  • $monthName"
     }
+
+    private fun formatSelectedDateStyled(): SpannableStringBuilder {
+        val c = Calendar.getInstance().apply {
+            set(Calendar.YEAR, selectedYear)
+            set(Calendar.MONTH, selectedMonth)
+            set(Calendar.DAY_OF_MONTH, selectedDay)
+        }
+
+        val dayName = SimpleDateFormat("EEE", Locale.getDefault()).format(c.time)
+        val monthName = SimpleDateFormat("MMM", Locale.getDefault()).format(c.time)
+        val dot = "  •  "
+
+        val builder = SpannableStringBuilder()
+
+        fun appendStyled(text: String, sizeSp: Float, style: Int) {
+            val start = builder.length
+            builder.append(text)
+            builder.setSpan(
+                AbsoluteSizeSpan(sizeSp.toInt(), true),
+                start,
+                builder.length,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
+            builder.setSpan(
+                StyleSpan(style),
+                start,
+                builder.length,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
+        }
+
+        appendStyled(dayName, 14f, Typeface.NORMAL,)
+        builder.append(dot)
+
+        appendStyled(selectedDay.toString(), 22f, Typeface.BOLD)
+        builder.append(dot)
+
+        appendStyled(monthName, 14f, Typeface.NORMAL)
+
+        return builder
+    }
+
 
     private fun getMonthYearString(): String =
         SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(calendar.time)
@@ -784,7 +829,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
                 selectedDay = d
                 selectedMonth = calendar.get(Calendar.MONTH)
                 selectedYear = calendar.get(Calendar.YEAR)
-                selectedDateText.text = formatSelectedDate()
+                selectedDateText.text = formatSelectedDateStyled()
                 renderCalendar()
                 scrollToSelectedDate()
             }
@@ -795,7 +840,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         // Ensure the selected date is valid for current month
         if (selectedDay > daysInMonth && isDateSelected()) {
             selectedDay = daysInMonth
-            selectedDateText.text = formatSelectedDate()
+            selectedDateText.text = formatSelectedDateStyled()
         }
 
         post {
@@ -894,3 +939,6 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
         return Triple(selectedDay, selectedMonth, selectedYear)
     }
 }
+
+
+

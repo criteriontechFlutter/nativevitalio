@@ -19,6 +19,7 @@ import com.critetiontech.ctvitalio.R
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
+import androidx.core.graphics.toColorInt
 
 class WaterRingWaveView @JvmOverloads constructor(
     context: Context,
@@ -45,20 +46,20 @@ class WaterRingWaveView @JvmOverloads constructor(
         ringPaint.strokeWidth = ringWidth
         ringPaint.shader = LinearGradient(
             0f, 0f, 0f, 600f,
-            Color.parseColor("#A4D6FF"),
-            Color.parseColor("#1A85FF"),
+            "#A4D6FF".toColorInt(),
+            "#1A85FF".toColorInt(),
             Shader.TileMode.CLAMP
         )
 
         // Water wave color
-        wavePaint.color = Color.parseColor("#1A85FF")
+        wavePaint.color = "#1A85FF".toColorInt()
         wavePaint.style = Paint.Style.FILL
 
         // Blur inner area
-        blurPaint.color = Color.parseColor("#80FFFFFF")
+        blurPaint.color = "#80FFFFFF".toColorInt()
 
         // Center percentage text
-        textPaint.color = Color.parseColor("#1A1A1A")
+        textPaint.color = "#1A1A1A".toColorInt()
         textPaint.textSize = sp(26f)
         textPaint.textAlign = Paint.Align.CENTER
 
