@@ -25,8 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.UltraHumanActivity
-import com.critetiontech.ctvitalio.adapter.DailyTip
-import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
+ import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
 import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
 import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
@@ -82,8 +81,7 @@ class Home : Fragment() {
 
         initViewModels()
         initNavigationClicks()
-        setupTipsSlider()
-        setupMedicationList()
+         setupMedicationList()
 
         observeVitals()
         observeVitalInsights()
@@ -159,62 +157,6 @@ class Home : Fragment() {
     /** ---------------------- */
     /** TIPS SLIDER            */
     /** ---------------------- */
-    private fun setupTipsSlider() {
-
-        val tips = listOf(
-            DailyTip(
-                R.drawable.start_session,
-                "Stress slightly high!",
-                "A 3-min breathing break can help you reset.",
-                "Start Session"
-            ),
-            DailyTip(
-                R.drawable.log_glucose,
-                "No glucose reading yet today",
-                "Logging helps track stability.",
-                "Log Glucose"
-            ),
-            DailyTip(
-                R.drawable.log_glucose,
-                "Haven't checked your BP today!",
-                "A quick reading keeps your heart in check.",
-                "Log BP"
-            ),
-            DailyTip(
-                R.drawable.log_glucose,
-                "Hydration dropped since yesterday",
-                "A refill can maintain energy.",
-                "Add Intake"
-            ),
-        )
-
-        dailyTipAdapter = DailyTipAdapter(tips) { tip ->
-            Toast.makeText(requireContext(), "Clicked: ${tip.title}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.recyclerSlider.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = dailyTipAdapter
-            PagerSnapHelper().attachToRecyclerView(this)
-        }
-
-        indicatorAdapter = IndicatorAdapter(tips.size)
-        binding.layoutIndicators.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = indicatorAdapter
-        }
-
-        binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(rv: RecyclerView, state: Int) {
-                if (state == RecyclerView.SCROLL_STATE_IDLE) {
-                    val lm = rv.layoutManager as LinearLayoutManager
-                    indicatorAdapter.updateSelectedPosition(lm.findFirstVisibleItemPosition())
-                }
-            }
-        })
-    }
 
 
     /** ---------------------- */

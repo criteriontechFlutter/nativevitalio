@@ -8,27 +8,29 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.PriorityActionCardBinding
 
 class DailyTipAdapter(
-    private val tips: List<DailyTip>,
-    private val onButtonClick: (DailyTip) -> Unit
+    private var tips: List<PriorityAction>,
+    private val onButtonClick: (PriorityAction) -> Unit
 ) : RecyclerView.Adapter<DailyTipAdapter.TipViewHolder>() {
 
-    inner class TipViewHolder(val binding: PriorityActionCardBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class TipViewHolder(val binding: PriorityActionCardBinding)
+        : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TipViewHolder {
         val binding = PriorityActionCardBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
         return TipViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TipViewHolder, position: Int) {
         val tip = tips[position]
+
         holder.binding.apply {
-            ivIcon.setImageResource(tip.iconRes)
             tvMessage.text = tip.title
-            tvDescription.text = tip.description
-            btnStartSession.text = tip.buttonText
+            tvDescription.text = tip.message
+            btnStartSession.text = tip.actionId  // Button label
 
             btnStartSession.setOnClickListener {
                 onButtonClick(tip)
@@ -36,11 +38,19 @@ class DailyTipAdapter(
         }
     }
 
-    override fun getItemCount() = tips.size
+    override fun getItemCount(): Int = tips.size
+
+    fun updateData(newList: List<PriorityAction>) {
+        tips = newList
+        notifyDataSetChanged()
+    }
 }
-data class DailyTip(
-    val iconRes: Int,
+
+data class PriorityAction(
+    val actionId: String,
     val title: String,
-    val description: String,
-    val buttonText: String
+    val message: String
+)
+data class PriorityActionWrapper(
+    val actions: String   // JSON string containing an array of PriorityAction
 )
