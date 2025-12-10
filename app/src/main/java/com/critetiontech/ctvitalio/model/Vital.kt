@@ -1,3 +1,6 @@
+import com.critetiontech.ctvitalio.adapter.PriorityAction
+import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
+
 // Main Response
 data class VitalsResponse(
     val status: Int,
@@ -10,8 +13,10 @@ data class VitalResponseValue(
     val lastVital: List<Vital>,
     val allVitalAvg: List<AllVitalAvg>,
     val quickMetric: String,
-    val sleepmetrics: List<SleepMetric>? ,
-    val vitalInsights: List<VitalInsight>?,
+    val sleepmetrics: List<SleepMetric>?,
+    val vitalInsights: List<VitalInsightWrapper>?,
+    val priorityAction: List<PriorityActionWrapper>?,
+    val dailyCheckList: List<DailyCheckListWrapper>?,
     val summary: List<SleepSummaryData>
 )
 data class SleepMetric(
@@ -41,7 +46,12 @@ data class SleepValue(
 data class MorningAlertness(
     val Minutes: String,
 )
-
+data class QuickMetricsTile(
+    val Title: String,
+    val Value: String,
+    val Tag: String?,
+    val TagColor: String?
+)
 data class VitalInsight(
     val vitalID: Int,
     val vitalValue: Double,
@@ -91,8 +101,8 @@ data class QuickMetricsTiled(
     val Value: String?="",
     val Tag: String,
     val TagColor: String,
-    val Type: String
-)
+    val Type: String,
+ )
 data class SleepStage(
     val Title: String,
     val Type: String,
@@ -349,3 +359,105 @@ data class FluidItem(
     val remarks: String,
     val clientId: Int
 )
+
+   data class DailyCheckListWrapper(
+    val pid: Int,
+    val dailyChecklist: String
+)
+
+data class DailyCheckItem(
+    val vmId: Int,
+    val goalId: Int,
+    val isPinned: Int,
+    val targetValue: String,
+    val vitalValue: Double,
+    val totalFluid_L: Double,
+    val isGoalAchieved: Int,
+    val goalName: String,
+    val unit: String
+)
+data class InsightJson(
+    val date: String,
+    val wellnessScore: Int,
+    val colorCode: String,
+    val wellnessMessage: String,
+    val wellnessStatus: String,
+    val scores: InsightScores,
+    val insights: InsightSections
+)
+
+data class InsightScores(
+    val sleepScore: Double,
+    val recoveryScore: Double,
+    val movementScore: Double,
+    val stressScore: Double
+)
+data class VitalInsightWrapper(
+    val pid: Int,
+    val insightDate: String,
+    val insightJson: String     // IMPORTANT: Keep this as String
+)
+data class InsightSections(
+    val sleep: SleepInsight,
+    val recovery: RecoveryInsight,
+    val movement: MovementInsight,
+    val stress: StressInsight
+)
+data class StressInsight(
+    val level: String,
+    val message: String,
+    val data: StressData,
+    val score: Double,
+    val colorCode: String
+)
+
+data class StressData(
+    val level: String
+)
+data class SleepInsight(
+    val quality: String,
+    val message: String,
+    val data: SleepInsightData,
+    val score: Double,
+    val colorCode: String
+)
+
+data class SleepInsightData(
+    val duration_minutes: Int?,
+    val efficiency: Int?,
+    val deepSleepMinutes: Int?,
+    val remSleepMinutes: Int?
+)
+data class RecoveryInsight(
+    val status: String,
+    val message: String,
+    val data: RecoveryData,
+    val score: Double,
+    val colorCode: String
+)
+
+data class RecoveryData(
+    val hrv: Double?,
+    val hrv_avg: Double?,
+    val resting_hr: Double?
+)
+data class MovementInsight(
+    val progress: String,
+    val message: String,
+    val data: MovementDataa,
+    val score: Double,
+    val calories_burned: Int,
+    val active_minutes: Int,
+    val colorCode: String
+)
+
+data class MovementDataa(
+    val steps: Int,
+    val goal_steps: Int,
+    val active_minutes: Int,
+    val calories_burned: Int
+)
+
+
+
+

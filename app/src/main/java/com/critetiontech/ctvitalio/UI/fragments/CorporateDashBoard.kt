@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import DailyCheckItem
 import MoodData
 import PrefsManager
 import SleepValue
@@ -34,6 +35,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -51,9 +53,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.UltraHumanActivity
-import com.critetiontech.ctvitalio.adapter.DailyTip
-import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
-import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+ import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
 import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
@@ -72,6 +72,8 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.critetiontech.ctvitalio.UI.BaseActivity
+import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
+import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
@@ -778,21 +780,21 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     binding.movementIndexId.statusCardId.visibility = View.GONE
 
 
-    val sleepValue = vitalList
-        ?.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
-    val movementValue = vitalList
-        ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
-    val recoveryValue = vitalList
-        ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
-    val stressValue = vitalList
-        ?.firstOrNull { it.vitalName.equals("StressScore", ignoreCase = true) }
-    val sleep = sleepValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
-    val stress = stressValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
-    val movement = movementValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
-    val recovery = recoveryValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
-    val WellnessScore = vitalList
-        ?.firstOrNull { it.vitalName.equals("Wellness Score", ignoreCase = true) }
-    binding.sleepProgressIds.wellnessScoreNumber.text= WellnessScore?.vitalValue?.roundToInt().toString()
+//    val sleepValue = vitalList
+//        ?.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
+//    val movementValue = vitalList
+//        ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
+//    val recoveryValue = vitalList
+//        ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
+//    val stressValue = vitalList
+//        ?.firstOrNull { it.vitalName.equals("StressScore", ignoreCase = true) }
+//    val sleep = sleepValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+//    val stress = stressValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+//    val movement = movementValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+//    val recovery = recoveryValue?.vitalValue?.toString()?.toFloatOrNull() ?: 0f
+//    val WellnessScore = vitalList
+//        ?.firstOrNull { it.vitalName.equals("Wellness Score", ignoreCase = true) }
+//    binding.sleepProgressIds.wellnessScoreNumber.text= WellnessScore?.vitalValue?.roundToInt().toString()
 // Call the function safely
 //   val wellnessscore= calculateWellnessScore(
 //        sleep = sleep.toInt(),
@@ -803,10 +805,10 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //    binding.sleepProgressIds.wellnessScoreNumber.text=wellnessscore.toString()
 
 // Update UI safely
-    binding.sleepProgressIds.sleepValue.text = if (sleep > 0) sleep.toInt().toString() else "--"
-    binding.sleepProgressIds.stressValue.text = if (stress > 0) stress.toInt().toString() else "--"
-    binding.sleepProgressIds.movementValue.text = if (movement > 0) movement.toInt().toString() else "--"
-    binding.sleepProgressIds.recoveryValue.text = if (recovery > 0) recovery.toInt().toString() else "--"
+//    binding.sleepProgressIds.sleepValue.text = if (sleep > 0) sleep.toInt().toString() else "--"
+//    binding.sleepProgressIds.stressValue.text = if (stress > 0) stress.toInt().toString() else "--"
+//    binding.sleepProgressIds.movementValue.text = if (movement > 0) movement.toInt().toString() else "--"
+//    binding.sleepProgressIds.recoveryValue.text = if (recovery > 0) recovery.toInt().toString() else "--"
 }
 
 
@@ -945,11 +947,13 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
     findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
 }
-        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-            updateSummaryChecklist(vitalList)
-            bindSummaryCard(vitalList)
+        viewModel.dailyCheckList.observe(viewLifecycleOwner) { list ->
+            if (list.isNotEmpty()) {
+                bindDailyChecklistSummary(list)
+                bindDailyChecklistGoals(list)
+                bindDailyChecklistProgress(list)
+            }
         }
-
 
 
         observeVitalList()
@@ -962,10 +966,78 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             binding.viewAllSleepDataaId.visibility=View.GONE
             binding.showId.showHideId.visibility=View.VISIBLE
         }
+         wellnessDataBind()
     }
 
+    private fun wellnessDataBind() {
+
+        viewModel.insightWrapperList.observe(viewLifecycleOwner) { insight ->
+
+            insight ?: return@observe
+
+            // =======================
+            // SLEEP SECTION
+            // =======================
+            val sleep = insight.insights.sleep
+            val sleepColor = Color.parseColor(sleep.colorCode)
+
+            binding.sleepProgressIds.sleepstatusId.text = sleep.quality
+            binding.sleepProgressIds.sleepValue.text = sleep.score.toInt().toString()
+            binding.sleepProgressIds.sleepContainertextId.text = sleep.message
+
+            binding.sleepProgressIds.sleepstatusId.setTextColor(sleepColor)
+            binding.sleepProgressIds.sleepstatusId.backgroundTintList =
+                ColorStateList.valueOf(sleepColor.withAlpha(0.15f))
 
 
+            // =======================
+            // MOVEMENT SECTION
+            // =======================
+            val movement = insight.insights.movement
+            val movementColor = Color.parseColor(movement.colorCode)
+
+            binding.sleepProgressIds.movementstatusId.text = movement.progress
+            binding.sleepProgressIds.movementValue.text = movement.score.toInt().toString()
+            binding.sleepProgressIds.movementContainertextId.text = movement.message
+
+            binding.sleepProgressIds.movementstatusId.setTextColor(movementColor)
+            binding.sleepProgressIds.movementstatusId.backgroundTintList =
+                ColorStateList.valueOf(movementColor.withAlpha(0.15f))
+
+
+            // =======================
+            // STRESS SECTION
+            // =======================
+            val stress = insight.insights.stress
+            val stressColor = Color.parseColor(stress.colorCode)
+
+            binding.sleepProgressIds.stressstatusId.text = stress.level
+            binding.sleepProgressIds.stressValue.text = stress.score.toInt().toString()
+            binding.sleepProgressIds.stressContainertextId.text = stress.message
+
+            binding.sleepProgressIds.stressstatusId.setTextColor(stressColor)
+            binding.sleepProgressIds.stressstatusId.backgroundTintList =
+                ColorStateList.valueOf(stressColor.withAlpha(0.15f))
+
+
+            // =======================
+            // RECOVERY SECTION
+            // =======================
+            val recovery = insight.insights.recovery
+            val recoveryColor = Color.parseColor(recovery.colorCode)
+
+            binding.sleepProgressIds.recoverystatusId.text = recovery.status
+            binding.sleepProgressIds.recoveryValue.text = recovery.score.toInt().toString()
+            binding.sleepProgressIds.recoveryContainertextId.text = recovery.message
+
+            binding.sleepProgressIds.recoverystatusId.setTextColor(recoveryColor)
+            binding.sleepProgressIds.recoverystatusId.backgroundTintList =
+                ColorStateList.valueOf(recoveryColor.withAlpha(0.15f))
+        }
+    }fun Int.withAlpha(alpha: Float): Int {
+        val a = (alpha * 255).toInt().coerceIn(0, 255)
+        return (this and 0x00FFFFFF) or (a shl 24)
+    }
     private fun observeVitalList() {
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
@@ -1053,35 +1125,6 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
 
     fun Vital?.toText(): String =
         this?.vitalValue?.toInt()?.toString() ?: "--"
-    private fun bindSummaryCard(vitals: List<Vital>) {
-
-        val summaryVital = vitals.find { it.vitalName == "Summary" } ?: return
-        val json = summaryVital.vmValueText ?: return
-
-        val type = object : TypeToken<List<SleepVital>>() {}.type
-        val sleepList: List<SleepVital> = Gson().fromJson(json, type)
-
-        // Count summary values
-        val totalGoals = sleepList.size
-        val achievedGoals = sleepList.count { it.State == "good" || it.State == "optimal" }
-        val percentage = ((achievedGoals.toDouble() / totalGoals) * 100).toInt()
-
-        binding.healthGoalAchived.apply {
-
-            title.text = when {
-                percentage == 100 -> "Excellent!"
-                percentage >= 50 -> "Nice start!"
-                percentage > 0 -> "Keep going!"
-                else -> "Let's begin!"
-            }
-
-            subtitle.text = "$achievedGoals of $totalGoals goals achieved"
-            tvPercentage.text = "$percentage%"
-            progressBar.progress = percentage
-        }
-
-        bindIndividualGoals(sleepList)
-    }
     private fun bindIndividualGoals(sleepList: List<SleepVital>) {
 
         binding.healthGoalAchived.goalsContainer.removeAllViews()
@@ -1116,38 +1159,79 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             binding.healthGoalAchived.goalsContainer.addView(goalView)
         }
     }
-    private fun updateSummaryChecklist(vitals: List<Vital>) {
+    private fun bindDailyChecklistSummary(list: List<DailyCheckItem>) {
+
+        val totalGoals = list.size
+        val achievedGoals = list.count { it.isGoalAchieved == 1 }
+        val percentage = ((achievedGoals.toDouble() / totalGoals) * 100).toInt()
+
+        binding.healthGoalAchived.apply {
+
+            title.text = when {
+                percentage == 100 -> "Excellent!"
+                percentage >= 50 -> "Nice start!"
+                percentage > 0 -> "Keep going!"
+                else -> "Let's begin!"
+            }
+
+            subtitle.text = "$achievedGoals of $totalGoals goals achieved"
+            tvPercentage.text = "$percentage%"
+            progressBar.progress = percentage
+        }
+    }
+    private fun bindDailyChecklistGoals(list: List<DailyCheckItem>) {
+
+        binding.healthGoalAchived.goalsContainer.removeAllViews()
+
+        list.forEach { item ->
+
+            val view = layoutInflater.inflate(
+                R.layout.goal_item,
+                binding.healthGoalAchived.goalsContainer,
+                false
+            )
+
+            val icon = view.findViewById<ImageView>(R.id.goalIcon)
+            val label = view.findViewById<TextView>(R.id.goalLabel)
+
+            label.text = item.goalName
+
+            if (item.isGoalAchieved == 1) {
+                icon.setImageResource(R.drawable.check_green)
+                label.setTextColor(Color.parseColor("#1A1A1A"))
+            } else {
+                icon.setImageResource(R.drawable.check_grey)
+                label.setTextColor(Color.parseColor("#AAAAAA"))
+            }
+
+            binding.healthGoalAchived.goalsContainer.addView(view)
+        }
+    }
+    private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
         binding.checklistContainer.removeAllViews()
 
-        val summaryVital = vitals.find { it.vitalName == "Summary" }
-        val json = summaryVital?.vmValueText ?: return
-        if (json.isEmpty()) return
-
-        val listType = object : TypeToken<List<SleepVital>>() {}.type
-        val sleepList: List<SleepVital> = Gson().fromJson(json, listType)
-
-        sleepList.forEach { item ->
+        list.forEach { item ->
 
             val itemBinding = DailyChecklistWedgetBinding.inflate(
                 layoutInflater, binding.checklistContainer, false
             )
 
-            itemBinding.progressSteps.progress = item.Score.toInt()
-            itemBinding.tvStepsLabel.text = item.Title
-            itemBinding.tvStepsValue.text = item.Score.toInt().toString()
+            val progress = ((item.vitalValue / item.targetValue.toInt()) * 100).toInt()
+            itemBinding.progressSteps.progress = progress
 
-            when (item.State) {
-                "good" -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
-                "optimal" -> itemBinding.ivStepsIcon.setColorFilter(Color.BLUE)
-                "warning" -> itemBinding.ivStepsIcon.setColorFilter(Color.RED)
+            itemBinding.tvStepsLabel.text ="${item.goalName} $progress"
+            itemBinding.tvStepsValue.text = "${item.vitalValue.toInt()} / ${item.targetValue}"
+
+            when (item.isGoalAchieved) {
+                1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
+                0 -> itemBinding.ivStepsIcon.setColorFilter(Color.RED)
             }
 
             binding.checklistContainer.addView(itemBinding.root)
         }
     }
-
-
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("SuspiciousIndentation")
 private fun initHydrationControls() {
       var currentAmount = 200
@@ -1563,39 +1647,12 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
             view.text = insight
         }
     }
+    private fun setupRecyclerAndIndicators() {
 
-     private fun setupRecyclerAndIndicators() {
-        val tips = listOf(
-            DailyTip(R.drawable.start_session, "Stress slightly high!", "A 3-min breathing break can help you reset.", "Start Session"),
-            DailyTip(R.drawable.log_glucose, "No glucose reading  yet today", "Logging helps track stability.", "Log Glucose"),
-            DailyTip(R.drawable.log_glucose, "Haven't checked your BP today!", "A quick reading, keeps your heart in check.", "Log BP"),
-             DailyTip(R.drawable.log_glucose, "Hydration dropped since yesterday", " A quick refill can maintain energy.", "Add Intake"),
-
-         )
-
-        // Main tips RecyclerView
-
-
-
-
-         dailyTipAdapter = DailyTipAdapter(tips) { tip ->
-             // 👇 handle button clicks for each item
-             when (tip.title) {
-                 "Stress slightly high!" -> {
-                     // Open breathing session
-                     Toast.makeText(requireContext(), "Starting breathing exercise", Toast.LENGTH_SHORT).show()
-                 }
-                 "Low Sleep Detected" -> {
-                     // Navigate to sleep tracker
-                     Toast.makeText(requireContext(), "Improving sleep habits", Toast.LENGTH_SHORT).show()
-                 }
-                 "Hydration Low" -> {
-                     // Log water intake
-                     Toast.makeText(requireContext(), "Tracking water intake", Toast.LENGTH_SHORT).show()
-                 }
-             }
-         }
-
+        // Create adapter once
+        dailyTipAdapter = DailyTipAdapter(emptyList()) { tip ->
+            handleTipAction(tip)
+        }
 
         binding.recyclerSlider.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -1603,29 +1660,54 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
             PagerSnapHelper().attachToRecyclerView(this)
         }
 
-        // Indicators RecyclerView
-        indicatorAdapter = IndicatorAdapter(tips.size)
+        // Create indicators once
+        indicatorAdapter = IndicatorAdapter(0)
         binding.layoutIndicators.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = indicatorAdapter
         }
 
-         binding.medicineTitleID.setOnClickListener {
-             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
-         }
-        // Scroll listener to update indicators
+        // Observe LiveData and update WITHOUT recreating adapters
+        viewModel.priorityAction.observe(viewLifecycleOwner) { tipsOrNull ->
+            val tips = tipsOrNull ?: emptyList()
+
+            // update list
+            dailyTipAdapter.updateData(tips)
+
+            // update indicator count
+            indicatorAdapter.setItemCount(tips.size)
+        }
+
+        // Scroll listener stays valid
         binding.recyclerSlider.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+            override fun onScrollStateChanged(rv: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(rv, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val currentPosition = layoutManager.findFirstVisibleItemPosition()
-                    indicatorAdapter.updateSelectedPosition(currentPosition)
+                    val lm = rv.layoutManager as LinearLayoutManager
+                    val pos = lm.findFirstVisibleItemPosition()
+                    indicatorAdapter.updateSelectedPosition(pos)
                 }
             }
         })
     }
+    private fun handleTipAction(tip: PriorityAction) {
+        when (tip.actionId) {
 
+            "Start Session" -> {
+                // breathing exercise
+                Toast.makeText(requireContext(), "Starting breathing exercise", Toast.LENGTH_SHORT).show()
+            }
+
+            "Add Intake" -> {
+
+                findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+            }
+
+            else -> {
+                Toast.makeText(requireContext(), "Action not implemented", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
     private fun setupActiveChallenges(sizes: Int) {
 
         // Setup dots

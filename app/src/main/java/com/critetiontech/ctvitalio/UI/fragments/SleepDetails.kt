@@ -35,6 +35,7 @@ import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
 import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
 import com.critetiontech.ctvitalio.databinding.IncludeProgressCardBinding
+import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.model.SleepCycleView
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
@@ -125,8 +126,100 @@ class SleepDetails : Fragment() {
         bindContributorsData()
         setupChart()
         openSleepGraph()
-    }
 
+
+        viewModel.quickMetricsTiledList.observe(viewLifecycleOwner) { tiles ->
+
+            // TOTAL SLEEP
+            tiles.firstOrNull { it.Title.equals("TOTAL SLEEP", true) }?.let {
+                bindContributorCard(binding.totalSleepIds, it.Title, it.Value, it.Tag, it.TagColor)
+            }
+
+            // TIME IN BED
+            tiles.firstOrNull { it.Title.equals("TIME IN BED", true) }?.let {
+                bindContributorCard(binding.timeInBedId, it.Title, it.Value, it.Tag, it.TagColor)
+            }
+
+            // RESTORATIVE SLEEP
+            tiles.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", true) }?.let {
+                bindContributorCard(binding.restorativeSleepId, it.Title, it.Value, it.Tag, it.TagColor)
+            }
+
+            // HR DROP
+            tiles.firstOrNull { it.Title.equals("HR DROP", true) }?.let {
+                bindContributorCard(binding.hr, it.Title, it.Value, it.Tag, it.TagColor)
+            }
+        }
+
+
+
+
+
+
+val cardMap = mapOf(
+            "Sleep Efficiency" to binding.sleepEfficiencyProgressId,
+            "Temperature" to binding.tempProgressId,
+            "Restfulness" to binding.restfulnessProgressId,
+            "Total Sleep" to binding.totalSleepProgressId,
+            "HR Drop" to binding.hrProgress,
+            "Restorative Sleep" to binding.restorativeSleepProgressId
+        )
+
+        viewModel.sleepsummary.observe(viewLifecycleOwner) { list ->
+            list?.forEach { item ->
+                val card = cardMap[item.Title]
+                if (card != null) {
+                    bindProgressCard(
+                        card,
+                        item.Title,          // LEFT LABEL
+                        item.StateTitle,     // RIGHT STATUS
+                        item.Score.toInt()   // PROGRESS
+                    )
+                }
+            }
+        }
+    }
+private fun bindProgressCard(
+        card: IncludeProgressCardBinding,
+        title: String,
+        stateTitle: String,
+        score: Int
+    ) {
+        card.cardTitle.text = title                  // Left text
+        card.Title.text = stateTitle                 // Right text
+        card.sleepProgressBar.progress = score       // Progress bar
+    }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun bindContributorCard(
+        layout: SleepLayoutBinding,
+        title: String?,
+        value: String?,
+        tag: String?,
+        tagColor: String?
+    ) {
+        layout.title.text = title ?: "--"
+
+        layout.value.text = HtmlCompat.fromHtml(
+            value ?: "--",
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+
+        // If no tag/status exists in layout, stop here
+        val statusView = layout.status ?: return
+
+        if (tag != null && tagColor != null) {
+            statusView.text = tag
+
+            val color = Color.parseColor("#$tagColor")
+            statusView.setTextColor(color)
+
+            val bg = statusView.background as? GradientDrawable
+            bg?.setColor(color.withAlpha(0.15f))
+        }
+    }fun Int.withAlpha(alpha: Float): Int {
+        val a = (alpha * 255).toInt().coerceIn(0, 255)
+        return (this and 0x00FFFFFF) or (a shl 24)
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun hrVariability(hrvGraph: HrvGraph) {

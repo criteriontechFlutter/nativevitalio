@@ -1,12 +1,17 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import DailyCheckItem
+import DailyCheckListWrapper
 import EnergyResponse
 import FluidResponse
+import InsightJson
+import InsightSections
 import MoodResponse
 import PillReminderModel
 import PillTime
 import PrefsManager
 import QuickMetric
+import QuickMetricsTiled
 import SleepValue
 import Summary
 import Vital
@@ -19,6 +24,7 @@ import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,6 +54,8 @@ import java.util.Locale
 import androidx.core.graphics.toColorInt
 import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
 import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
+import com.critetiontech.ctvitalio.adapter.PriorityAction
+import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -96,7 +104,14 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _sleepsummary = MutableLiveData<List<Summary>?>()
     val  sleepsummary: MutableLiveData<List<Summary>?> get() = _sleepsummary
-
+    private val _quickMetricsTiledList = MutableLiveData<List<QuickMetricsTiled>>()
+    val quickMetricsTiledList: LiveData<List<QuickMetricsTiled>> = _quickMetricsTiledList
+    private val _priorityAction = MutableLiveData<List<PriorityAction>?>()
+    val  priorityAction: MutableLiveData<List<PriorityAction>?> get() = _priorityAction
+    private val _dailyCheckList = MutableLiveData<List<DailyCheckItem>>()
+    val dailyCheckList: LiveData<List<DailyCheckItem>> = _dailyCheckList
+    private val _insightWrapperList = MutableLiveData< InsightJson? >()
+    val insightWrapperList: MutableLiveData<InsightJson?> =  _insightWrapperList
     fun getVitals() {
         viewModelScope.launch {
             _loading.value = true
@@ -123,15 +138,23 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
-
                     // Update UI from API
                     _vitalList.value = parsed.responseValue.lastVital
-                    _vitalInsights.value = parsed.responseValue.vitalInsights
-
-                    // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
+//                    _vitalInsights.value = parsed.responseValue.vitalInsights
+                    val decoded = decodePriorityAction(parsed.responseValue.priorityAction)
+                    _priorityAction.value = decoded                // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
                     saveVitalsToLocal(parsed.responseValue)
+                    _dailyCheckList.value = decodeDailyCheckList(parsed.responseValue.dailyCheckList)
+                    val jsonString = parsed.responseValue.vitalInsights
+                        ?.firstOrNull()
+                        ?.insightJson
+                            // stop if nothing found
 
-                    // Continue sleep metric logic
+                    val decodedInsight = jsonString?.let { decodeInsightJson(it) }
+
+                    if (decodedInsight != null) {
+                        _insightWrapperList.value = decodedInsight
+                    }
                     val sleepMetric243 = parsed.responseValue.sleepmetrics
                         ?.firstOrNull { it.vitalID == 243 }
 
@@ -142,6 +165,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
 
                         _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+                        _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled ?: emptyList()
                         _sleepsummary.value = sleepValue.Summary ?: emptyList()
                     }
 
@@ -157,7 +181,30 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             }
         }
     }
+    fun decodeInsightJson(jsonString: String): InsightJson {
+        val gson = Gson()
+        return gson.fromJson(jsonString, InsightJson::class.java)
+    }
+       fun decodeDailyCheckList(wrapperList: List<DailyCheckListWrapper>?): List<DailyCheckItem> {
+        if (wrapperList.isNullOrEmpty()) return emptyList()
 
+        val gson = Gson()
+        val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
+
+        val jsonString = wrapperList[0].dailyChecklist
+        return gson.fromJson(jsonString, listType)
+    }
+    fun decodePriorityAction(wrapperList: List<PriorityActionWrapper>?): List<PriorityAction> {
+        if (wrapperList.isNullOrEmpty()) return emptyList()
+
+        val gson = Gson()
+        val listType = object : TypeToken<List<PriorityAction>>() {}.type
+
+        // The backend ALWAYS sends a STRING containing a JSON array
+        val jsonString = wrapperList[0].actions
+
+        return gson.fromJson(jsonString, listType)
+    }
 
     suspend fun saveVitalsToLocal(responseValue: VitalResponseValue) {
         val entity = VitalsEntity(
@@ -1029,6 +1076,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     private val _lastDrinkInfo = MutableLiveData<String>()
     val lastDrinkInfo: LiveData<String> get() = _lastDrinkInfo
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun  getDailyEmployeeFluidIntake( ) {
         viewModelScope.launch {
             try {
