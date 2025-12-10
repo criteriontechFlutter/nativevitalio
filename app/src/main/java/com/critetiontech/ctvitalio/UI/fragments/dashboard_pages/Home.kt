@@ -412,7 +412,7 @@ class Home : Fragment() {
     private fun updateProgress() {
 
         val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
-        val goal = goalEntry?.targetValue?.times(1000) ?: 0
+        val goal = goalEntry?.targetValue ?: 0
 
         viewModel.totalQuantity.observe(viewLifecycleOwner) { total ->
 

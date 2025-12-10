@@ -1349,7 +1349,7 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
     val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
 
     viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue  ->
-        val goal = goalEntry?.targetValue?.times(1000)    // safe
+        val goal = goalEntry?.targetValue    // safe
         val remaining = goal?.minus(totalValue)
 
         if(totalValue< remaining!!){
