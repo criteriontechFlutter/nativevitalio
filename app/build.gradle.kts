@@ -85,7 +85,7 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.core.animation)
     implementation(libs.core)
-
+    implementation(libs.androidx.tools.core)
 
 
     /*    implementation(libs.androidx.navigation.fragment.ktx)

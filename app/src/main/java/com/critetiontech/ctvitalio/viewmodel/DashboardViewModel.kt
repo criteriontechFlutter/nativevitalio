@@ -163,7 +163,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                             .replace("\\\"", "\"")
 
                         val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
-
+                        _sleepValueList.value = sleepValue
                         _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
                         _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled ?: emptyList()
                         _sleepsummary.value = sleepValue.Summary ?: emptyList()

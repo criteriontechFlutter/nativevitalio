@@ -9,8 +9,15 @@ class SleepChartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr)
-{
+) : View(context, attrs, defStyleAttr) {
+
+    // Dynamic sleep stage data
+    private var chartStages: List<Int> = emptyList()
+
+    fun setSleepStages(stages: List<Int>) {
+        chartStages = stages
+        invalidate()
+    }
 
     // === Paints ===
     private val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -24,29 +31,28 @@ class SleepChartView @JvmOverloads constructor(
     }
 
     private val awakePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFFFFA726.toInt() // Orange
+        color = 0xFFFFA726.toInt()
     }
 
     private val remPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF64B5F6.toInt() // Light Blue
+        color = 0xFF64B5F6.toInt()
     }
 
     private val lightPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF1976D2.toInt() // Blue
+        color = 0xFF1976D2.toInt()
     }
 
     private val deepPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF0D47A1.toInt() // Dark Blue
+        color = 0xFF0D47A1.toInt()
     }
 
     private val gridPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFFE0E0E0.toInt() // light gray grid lines
+        color = 0xFFE0E0E0.toInt()
         strokeWidth = 1f
     }
 
-    // Border around entire graph
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFFBDBDBD.toInt()   // slightly darker gray for border
+        color = 0xFFBDBDBD.toInt()
         strokeWidth = 2f
         style = Paint.Style.STROKE
     }
@@ -64,24 +70,16 @@ class SleepChartView @JvmOverloads constructor(
         alpha = 200
     }
 
-    // === Sleep Data ===
-    private val sleepData = listOf(
-        3, 3, 1, 0, 0, 1, 1, 1, 0, 0,
-        1, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-        1, 1, 2, 1, 1, 1, 1, 1, 0, 0,
-        3, 3, 1, 1, 0, 0
-    )
-
-    private val labels = listOf("Awake", "REM", "Light", "Deep")
     private val timeLabels = listOf("2 AM", "5 AM", "8 AM", "11 AM")
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        if (chartStages.isEmpty()) return
+
         val width = width.toFloat()
         val height = height.toFloat()
 
-        // Chart margins
         val leftMargin = 100f
         val rightMargin = 40f
         val topMargin = 40f
@@ -91,26 +89,19 @@ class SleepChartView @JvmOverloads constructor(
         val chartHeight = height - topMargin - bottomMargin
         val labelSpacing = chartHeight / 4f
 
-        // === Draw Y-axis labels ===
-//        labels.forEachIndexed { index, label ->
-//            val y = topMargin + index * labelSpacing + labelSpacing / 2 + 10f
-//            canvas.drawText(label, 10f, y, labelPaint)
-//        }
-
-        // === Draw horizontal grid lines ===
+        // Grid
         for (i in 0..4) {
             val y = topMargin + i * labelSpacing
             canvas.drawLine(leftMargin, y, leftMargin + chartWidth, y, gridPaint)
         }
 
-        // === Draw border around graph area ===
-        val borderRect = RectF(leftMargin, topMargin, leftMargin + chartWidth, topMargin + chartHeight)
-        canvas.drawRect(borderRect, borderPaint)
+        // Border
+        canvas.drawRect(
+            RectF(leftMargin, topMargin, leftMargin + chartWidth, topMargin + chartHeight),
+            borderPaint
+        )
 
-        // === Bar setup ===
-        val barWidth = chartWidth / sleepData.size
-        val barSpacing = 0f
-        val actualBarWidth = barWidth - barSpacing
+        val barWidth = chartWidth / chartStages.size
         val barHeight = labelSpacing * 0.6f
         val cornerRadius = 6f
 
@@ -118,19 +109,17 @@ class SleepChartView @JvmOverloads constructor(
         var lastX = 0f
         var lastY = 0f
 
-        // === Draw sleep bars and connecting line ===
-        sleepData.forEachIndexed { index, stage ->
-            val fillPaint: Paint
-            val ringColor: Int
+        chartStages.forEachIndexed { index, stage ->
 
-            when (stage) {
-                0 -> { fillPaint = deepPaint; ringColor = deepPaint.color }
-                1 -> { fillPaint = lightPaint; ringColor = lightPaint.color }
-                2 -> { fillPaint = remPaint; ringColor = remPaint.color }
-                else -> { fillPaint = awakePaint; ringColor = awakePaint.color }
+            val paint = when (stage) {
+                0 -> deepPaint
+                1 -> lightPaint
+                2 -> remPaint
+                else -> awakePaint
             }
 
             val x = leftMargin + index * barWidth
+
             val y = when (stage) {
                 0 -> topMargin + 3 * labelSpacing + (labelSpacing - barHeight) / 2
                 1 -> topMargin + 2 * labelSpacing + (labelSpacing - barHeight) / 2
@@ -138,17 +127,15 @@ class SleepChartView @JvmOverloads constructor(
                 else -> topMargin + (labelSpacing - barHeight) / 2
             }
 
-            val rect = RectF(x, y, x + actualBarWidth, y + barHeight)
-            canvas.drawRoundRect(rect, cornerRadius, cornerRadius, fillPaint)
+            val rect = RectF(x, y, x + barWidth, y + barHeight)
+            canvas.drawRoundRect(rect, cornerRadius, cornerRadius, paint)
 
-            val midX = x + actualBarWidth / 2
+            val midX = x + barWidth / 2
             val midY = y + barHeight / 2
 
-            // 🔹 Draw outline ring around midpoint (not filled)
-            ringPaint.color = ringColor
+            ringPaint.color = paint.color
             canvas.drawCircle(midX, midY, 5f, ringPaint)
 
-            // Build smooth connecting path
             if (index == 0) {
                 path.moveTo(midX, midY)
             } else {
@@ -160,23 +147,19 @@ class SleepChartView @JvmOverloads constructor(
             lastY = midY
         }
 
-        // === Draw smooth connecting line ===
         canvas.drawPath(path, linePaint)
 
-        // === Draw X-axis time labels ===
         val timeSpacing = chartWidth / (timeLabels.size - 1)
-        timeLabels.forEachIndexed { index, time ->
-            val x = leftMargin + index * timeSpacing
-            val textWidth = timePaint.measureText(time)
-            canvas.drawText(time, x - textWidth / 2, height - 20f, timePaint)
+        timeLabels.forEachIndexed { i, t ->
+            val tx = leftMargin + i * timeSpacing
+            val tw = timePaint.measureText(t)
+            canvas.drawText(t, tx - tw / 2, height - 20f, timePaint)
         }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val desiredWidth = 800
-        val desiredHeight = 350
-        val width = resolveSize(desiredWidth, widthMeasureSpec)
-        val height = resolveSize(desiredHeight, heightMeasureSpec)
+        val width = resolveSize(800, widthMeasureSpec)
+        val height = resolveSize(350, heightMeasureSpec)
         setMeasuredDimension(width, height)
     }
 }
