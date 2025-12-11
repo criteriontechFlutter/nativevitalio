@@ -30,6 +30,7 @@ lifecycleRuntimeKtx = "2.9.0"
 firebaseFirestoreKtx = "25.1.4"
 workRuntimeKtx = "2.10.3"
 coreAnimation = "1.0.0"
+toolsCore = "1.0.0-alpha13"
 
 
 [libraries]
@@ -66,6 +67,7 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 androidx-core-animation = { group = "androidx.core", name = "core-animation", version.ref = "coreAnimation" }
 core = { group = "androidx.core", name = "core", version.ref = "core" }
+androidx-tools-core = { group = "androidx.privacysandbox.tools", name = "tools-core", version.ref = "toolsCore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

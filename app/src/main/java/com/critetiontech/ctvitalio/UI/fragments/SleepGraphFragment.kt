@@ -1,76 +1,115 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.privacysandbox.tools.core.model.Type
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.SleepStageBarView
+import com.critetiontech.ctvitalio.databinding.FragmentSleepChartBinding
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 
 class SleepGraphFragment : Fragment() {
 
 
+
+    private var _binding: FragmentSleepChartBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var viewModel: DashboardViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sleep_chart, container, false)
+    ): View {
+        _binding = FragmentSleepChartBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+
         viewModel.getVitals()
-        setupSleepStages(view)
 
-        // The custom view will automatically draw itself
-        // No additional setup needed
+        observeSleepStages()
+        observeSleepData()
     }
-   private fun setupSleepStages(view: View) {
-        // Find views
-        val awakeBar = view.findViewById<SleepStageBarView>(R.id.awakeBar)
-        val remBar = view.findViewById<SleepStageBarView>(R.id.remBar)
-        val lightBar = view.findViewById<SleepStageBarView>(R.id.lightBar)
-        val deepBar = view.findViewById<SleepStageBarView>(R.id.deepBar)
+
+    private fun observeSleepData() {
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+
+            val stageList = sleepValue.SleepStages ?: return@observe
+
+            val chartData = stageList.map {
+                when (it.Type.lowercase()) {
+                    "deep_sleep" -> 0
+                    "light_sleep" -> 1
+                    "rem_sleep" -> 2
+                    else -> 3
+                }
+            }
+            binding.sleepChartView.setSleepStages(chartData)
+        }
+    }
 
 
+    private fun observeSleepStages() {
 
-       viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
 
-           val awake = sleepValue.SleepStages
-               ?.firstOrNull { it.Title.equals("Awake", ignoreCase = true) }
+            val stages = sleepValue.SleepStages ?: return@observe
 
-           val remSleep = sleepValue.SleepStages
-               ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
+            val awake = stages.find { it.Type.equals("awake", true) }
+            val rem = stages.find { it.Type.equals("rem_sleep", true) }
+            val light = stages.find { it.Type.equals("light_sleep", true) }
+            val deep = stages.find { it.Type.equals("deep_sleep", true) }
 
-           val lightSleep = sleepValue.SleepStages
-               ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
+            awake?.let {
+                binding.awakeBar.setData(
+                    name = it.Title,
+                    durationText = it.StageTimeText,
+                    percent = it.Percentage,
+                    color = Color.parseColor("#FFA726")
+                )
+            }
 
-           val deepSleep = sleepValue.SleepStages
-               ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
+            rem?.let {
+                binding.remBar.setData(
+                    name = it.Title,
+                    durationText = it.StageTimeText,
+                    percent = it.Percentage,
+                    color = Color.parseColor("#64B5F6")
+                )
+            }
 
-           // Set data for each stage
-           awake?.let {
-               awakeBar.setData("Awake", it.StageTimeText, it.Percentage.toInt(), 0xFFFFA726.toInt())
-           }
+            light?.let {
+                binding.lightBar.setData(
+                    name = it.Title,
+                    durationText = it.StageTimeText,
+                    percent = it.Percentage,
+                    color = Color.parseColor("#1976D2")
+                )
+            }
 
-           remSleep?.let {
-               remBar.setData("REM Sleep", it.StageTimeText, it.Percentage.toInt(), 0xFF64B5F6.toInt())
-           }
-
-           lightSleep?.let {
-               lightBar.setData("Light Sleep", it.StageTimeText, it.Percentage.toInt(), 0xFF1976D2.toInt())
-           }
-
-           deepSleep?.let {
-               deepBar.setData("Deep Sleep", it.StageTimeText, it.Percentage.toInt(), 0xFF0D47A1.toInt())
-           }
-       }
-}
+            deep?.let {
+                binding.deepBar.setData(
+                    name = it.Title,
+                    durationText = it.StageTimeText,
+                    percent = it.Percentage,
+                    color = Color.parseColor("#0D47A1")
+                )
+            }
+        }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

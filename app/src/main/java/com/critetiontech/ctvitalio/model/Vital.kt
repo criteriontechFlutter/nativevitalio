@@ -103,6 +103,7 @@ data class QuickMetricsTiled(
     val TagColor: String,
     val Type: String,
  )
+
 data class SleepStage(
     val Title: String,
     val Type: String,
@@ -110,6 +111,17 @@ data class SleepStage(
     val StageTimeText: String,
     val StageTime: Int
 )
+data class SleepValueList(
+    val SleepStages: SleepStages?
+)
+
+data class SleepStages(
+    val awake: SleepStage?,
+    val rem_sleep: SleepStage?,
+    val light_sleep: SleepStage?,
+    val deep_sleep: SleepStage?
+)
+
 //data class SleepDetails(
 //    val Score: Int,
 //    val QuickMetrics: List<QuickMetric>?
