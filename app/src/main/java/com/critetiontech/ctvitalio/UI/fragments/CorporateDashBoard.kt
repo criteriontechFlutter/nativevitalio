@@ -974,7 +974,8 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         viewModel.insightWrapperList.observe(viewLifecycleOwner) { insight ->
 
             insight ?: return@observe
-
+            binding.sleepProgressIds.wellnessScoreNumber.text=insight.wellnessScore.toString()
+            binding.sleepProgressIds.wellnessDescriptions.text=insight.wellnessMessage.toString()
             // =======================
             // SLEEP SECTION
             // =======================
