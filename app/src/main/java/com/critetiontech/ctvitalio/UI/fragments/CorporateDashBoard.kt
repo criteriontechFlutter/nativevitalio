@@ -1148,11 +1148,11 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             when (item.State.lowercase()) {
                 "good", "optimal" -> {
                     icon.setImageResource(R.drawable.check_green)
-                    label.setTextColor(Color.parseColor("#1A1A1A"))
+                    label.setTextColor("#1A1A1A".toColorInt())
                 }
                 else -> {
                     icon.setImageResource(R.drawable.check_grey)
-                    label.setTextColor(Color.parseColor("#AAAAAA"))
+                    label.setTextColor("#AAAAAA".toColorInt())
                 }
             }
 
