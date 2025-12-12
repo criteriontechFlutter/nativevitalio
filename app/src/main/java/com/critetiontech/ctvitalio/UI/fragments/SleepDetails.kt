@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 
 import HrData
 import HrvGraph
+import MorningAlertness
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.Canvas
@@ -14,6 +15,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +48,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.renderer.YAxisRenderer
 import java.nio.file.Path
 import java.time.Instant
@@ -111,7 +114,7 @@ class SleepDetails : Fragment() {
         setDefaultProgress(binding.hrProgress)
         setDefaultProgress(binding.restorativeSleepProgressId)
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
-        hrFromServerData(sleepValue.HrGraph.Data)
+        sleepValue.HrGraph.Data?.let { hrFromServerData(it) }
             hrVariability(sleepValue.HrvGraph )
            // binding.tvAvgValue.text=sleepValue.GistObject.Avg.toString()
 //            binding.tvMaxValue.text=sleepValue.GistObject.Max.toString()
@@ -124,7 +127,14 @@ class SleepDetails : Fragment() {
         hrVariability()
 
         bindContributorsData()
-        setupChart()
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+
+            sleepValue.MorningAlertness?.let { alertness ->
+                bindMorningAlertness(alertness)
+                binding.tvAlertnessValue.text = "${alertness.Avg ?: 0} min"
+            }
+
+        }
         openSleepGraph()
 
 
@@ -150,10 +160,24 @@ class SleepDetails : Fragment() {
                 bindContributorCard(binding.hr, it.Title, it.Value, it.Tag, it.TagColor)
             }
         }
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
 
+            val hrGraph = sleepValue.HrGraph
+            val gist = hrGraph?.GistObject
 
+            val avgBpm = gist?.Avg ?: 0
+            val minBpm = gist?.Min ?: 0
+            val maxBpm = gist?.Max ?: 0
 
+            Log.d("GIST_DATA", "Avg=$avgBpm  Min=$minBpm  Max=$maxBpm")
+            Log.d("FULL_GIST", "GIST OBJECT = $gist")
 
+            Log.d("GIST_DATA", "Avg=$avgBpm  Min=$minBpm  Max=$maxBpm")
+
+            binding.tvAvgValue.text = "$avgBpm bpm"
+            binding.tvMinValue.text = "$minBpm bpm"
+            binding.tvMaxValue.text = "$maxBpm bpm"
+        }
 
 
 val cardMap = mapOf(
@@ -178,8 +202,26 @@ val cardMap = mapOf(
                 }
             }
         }
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+
+            val avgOxygen = sleepValue.OxygenSaturation?.Avg ?: 0
+            val minOxygen = sleepValue.OxygenSaturation?.Min ?: 0
+
+            bindOxygenData(avgOxygen, minOxygen,  )
+        }
     }
-private fun bindProgressCard(
+     private fun bindOxygenData(oxygenValue: Int?, sleepHours: Int?) {
+
+        val percentage = oxygenValue ?: 0
+        val hours = sleepHours ?: 0
+
+        binding.tvOxygenValue.text = "$percentage%"
+        binding.tvOxygenDuration.text = "During $hours hrs sleep"
+
+        binding.oxygenProgress.progress = percentage
+    }
+
+    private fun bindProgressCard(
         card: IncludeProgressCardBinding,
         title: String,
         stateTitle: String,
@@ -313,76 +355,54 @@ private fun openSleepGraph() {
     }
 
 
-    private fun setupChart() {
-        val alertnessMin = 70
-        val height = "170 cm"
-        val weight = "70 kg"
+    private fun bindMorningAlertness(alertness: MorningAlertness) {
 
-        // Bind simple text values
-        binding.tvAlertnessValue.text = "$alertnessMin min"
-        val entries = listOf(
-            BarEntry(0f, 60f),
-            BarEntry(1f, 85f),
-            BarEntry(2f, 110f),
-            BarEntry(3f, 95f),
-            BarEntry(4f, 120f),
-            BarEntry(5f, 130f),
-            BarEntry(6f, 160f)
-        )
+        val chart = binding.alertnessBarChart
 
-        val dataSet = BarDataSet(entries, "")
-        dataSet.color = Color.parseColor("#EAF4FF")      // unselected
-        dataSet.highLightColor = Color.parseColor("#77B7FF") // selected
-        dataSet.highLightAlpha = 255
-        dataSet.valueTextColor = Color.TRANSPARENT
+        val values = alertness.Values ?: emptyList()
+        if (values.isEmpty()) return
+
+        // Create bar entries: X = day index, Y = alertness score
+        val entries = values.mapIndexed { index, v ->
+            BarEntry(index.toFloat(), v.toFloat())
+        }
+
+        val dataSet = BarDataSet(entries, "Morning Alertness").apply {
+            color = Color.parseColor("#1976D2")
+            valueTextColor = Color.BLACK
+            valueTextSize = 10f
+        }
 
         val barData = BarData(dataSet)
-        barData.barWidth = 0.3f
-        val maxY = 200f           // example: your chart max
-        val target20 = maxY * 0.20f
-        binding.alertnessBarChart.data = barData
-        binding.alertnessBarChart.description.isEnabled = false
-        binding.alertnessBarChart.legend.isEnabled = false
-        binding.alertnessBarChart.axisLeft.axisMinimum = 30f
-        binding.alertnessBarChart.scrollBarSize=0
-        binding.alertnessBarChart.axisRight.isEnabled = false
-        binding.alertnessBarChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        binding.alertnessBarChart.xAxis.setDrawGridLines(false)
-        binding.alertnessBarChart.axisLeft.setDrawGridLines(false)
-        binding.alertnessBarChart.rendererLeftYAxis =
-            object : YAxisRenderer(
-                binding.alertnessBarChart.viewPortHandler,
-                binding.alertnessBarChart.axisLeft,
-                binding.alertnessBarChart.getTransformer(YAxis.AxisDependency.LEFT)
-            ) {
+        barData.barWidth = 0.4f
+        chart.data = barData
 
-                override fun renderGridLines(c: Canvas?) {
-                    super.renderGridLines(c)
+        // X-axis labels → show last 7 days: Mon Tue Wed Thu...
+        val dayLabels = listOf("M","T","W","T","F","S","S")
+        chart.xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(dayLabels)
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f
+            textSize = 12f
+            setDrawGridLines(false)
+        }
 
-                    val target = mYAxis.mAxisMaximum * 0.30f
-                    val transformer = binding.alertnessBarChart.getTransformer(YAxis.AxisDependency.LEFT)
-                    val targetY = transformer.getPixelForValues(0f, target)
+        chart.axisLeft.apply {
+            axisMinimum = 0f
+            axisMaximum = 100f
+            textSize = 12f
+        }
+        chart.axisRight.isEnabled = false
 
-                    val rect = RectF(
-                        binding.alertnessBarChart.viewPortHandler.contentLeft(),
-                        targetY.y.toFloat(),
-                        binding.alertnessBarChart.viewPortHandler.contentRight(),
-                        binding.alertnessBarChart.viewPortHandler.contentBottom()
-                    )
+        chart.description.isEnabled = false
+        chart.legend.isEnabled = false
+        chart.animateY(900)
 
-                    val paint = Paint().apply {
-                        color = Color.parseColor("#1A00D492") // light blue transparent
-                        style = Paint.Style.FILL
-                    }
-
-                    c?.drawRect(rect, paint)
-                }
-            }
-        binding.alertnessBarChart.invalidate()
+        chart.invalidate()
     }
 
 
-//    @SuppressLint("SetTextI18n")
+    //    @SuppressLint("SetTextI18n")
 //    private fun hr() {
 //        val now = System.currentTimeMillis()
 //        val points = mutableListOf<HeartRateGraphView.HeartRatePoint>()

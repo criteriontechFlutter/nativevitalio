@@ -39,12 +39,24 @@ data class SleepValue(
     val MovementGraph: MovementGraph?,
     val MorningAlertness: MorningAlertness?,
     val lastVital: List<Vital>,
-    val HrGraph:HrGraph,
-    val GistObject:GistObject,
-    val HrvGraph:HrvGraph
+    val HrGraph: HrGraph,
+    val GistObject: GistObject,
+    val HrvGraph: HrvGraph,
+
+    // ⭐ Add these:
+    val OxygenSaturation: OxygenSaturation?,
+    val TotalSleepHours: Int?
+)
+data class OxygenSaturation(
+    val Avg: Int?,
+    val Min: Int?,
+    val Max: Int?
 )
 data class MorningAlertness(
     val Minutes: String,
+    val Title: String?,
+    val Avg: Int?,
+    val Values: List<Int>? = emptyList()
 )
 data class QuickMetricsTile(
     val Title: String,
@@ -281,12 +293,12 @@ data class LegendItem(
 data class HrGraphResponse(
     val HrGraph: HrGraph
 )
-
 data class HrGraph(
-    val Title: String,
-    val Data: List<HrData>
+    val Title: String?,
+    val Data: List<HrData>?,
+    val Unit: String?,
+    val GistObject: GistObject?
 )
-
 data class HrData(
     val Timestamp: String,
     val Value: Double
