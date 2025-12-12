@@ -332,7 +332,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:gravity="center"
-                            android:text='@{String.valueOf(stressScore)}'
+                            android:text='@{stressScore != null ? String.valueOf(Math.round(Double.parseDouble(stressScore))) : "0"}'
                             android:id="@+id/stresScoretv"
                             android:textColor="#1A1A2E"
                             android:textStyle="bold"
@@ -346,7 +346,7 @@
                             android:text="Peak performance"
                             android:textColor="#2E4B43"
                             android:textSize="14sp"
-                            android:layout_marginTop="2dp" />8
+                            android:layout_marginTop="2dp" />
 
 
                         <LinearLayout
@@ -773,7 +773,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_weight="1"
-                            android:text="You achieved 2/4 sleep goals"
+                            android:text="@string/you_achieved_2_4_sleep_goals"
                             android:textColor="#1A1A2E"
                             android:textSize="13sp" />
 
@@ -1348,12 +1348,12 @@
                         android:src="@drawable/wm_brain" />
 
                     <TextView
-                        android:id="@+id/score"
+                        android:id="@+id/Brainscore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="92"
+                        android:text='@{brainClear != null ? String.valueOf(Math.round(Double.parseDouble(brainClear))) : "0"}'
                         android:textColor="#000"
                         android:textSize="48sp"
                         android:textStyle="bold" />
@@ -1362,7 +1362,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/score"
+                        android:layout_below="@id/Brainscore"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_coner_pc"
@@ -1389,50 +1389,50 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#ECF3FF">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="16dp"-->
+<!--                app:cardCornerRadius="22dp"-->
+<!--                app:cardElevation="0dp"-->
+<!--                app:cardBackgroundColor="#ECF3FF">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:gravity="center_horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="20dp"-->
+<!--                    android:gravity="center_horizontal">-->
 
-                    <!-- Value -->
-                    <TextView
-                        android:id="@+id/tvCardioValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="32"
-                        android:textSize="42sp"
-                        android:textStyle="bold"
-                        android:textColor="#1A1A2E" />
+<!--                    &lt;!&ndash; Value &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvCardioValue"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="32"-->
+<!--                        android:textSize="42sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#1A1A2E" />-->
 
-                    <!-- Label -->
-                    <TextView
-                        android:id="@+id/tvCardioLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Cardio Age"
-                        android:textSize="16sp"
-                        android:textColor="#2E4B60" />
+<!--                    &lt;!&ndash; Label &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvCardioLabel"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="Cardio Age"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="#2E4B60" />-->
 
-                    <!-- Ticks + slider -->
-                    <com.critetiontech.ctvitalio.utils.RulerSeekBar
-                        android:id="@+id/rulerSeekBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp"
-                        android:padding="8dp" />
-                </LinearLayout>
+<!--                    &lt;!&ndash; Ticks + slider &ndash;&gt;-->
+<!--                    <com.critetiontech.ctvitalio.utils.RulerSeekBar-->
+<!--                        android:id="@+id/rulerSeekBar"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="90dp"-->
+<!--                        android:padding="8dp" />-->
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
     </ScrollView>
 </layout>

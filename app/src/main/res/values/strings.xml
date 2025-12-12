@@ -282,5 +282,6 @@
     <string name="sleep_stages">Sleep Stages</string>
     <string name="how_are_you_feeling_today">How are you feeling today?</string>
     <string name="daily_checklist">Daily Checklist</string>
+    <string name="you_achieved_2_4_sleep_goals">You achieved 2/4 sleep goals</string>
 
 </resources>

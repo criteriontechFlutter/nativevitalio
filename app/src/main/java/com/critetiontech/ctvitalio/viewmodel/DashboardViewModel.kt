@@ -296,9 +296,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         return when (name.trim().lowercase()) {
             "milk" -> "#FFEB3B".toColorInt()
             "water" -> "#4FC3F7".toColorInt()
-            "green tea", "tea" -> Color.parseColor("#A1887F")
-            "coffee" -> Color.parseColor("#795548")
-            "fruit juice", "juice" -> Color.parseColor("#FF9800")
+            "green tea", "tea" -> "#A1887F".toColorInt()
+            "coffee" -> "#795548".toColorInt()
+            "fruit juice", "juice" -> "#FF9800".toColorInt()
             else -> Color.LTGRAY
         }}
 

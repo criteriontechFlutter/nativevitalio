@@ -32,7 +32,6 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -77,11 +76,6 @@ import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlin.math.roundToInt
 
 
 class CorporateDashBoard : Fragment() {
@@ -929,7 +923,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         }
         initHydrationControls()
         updateProgress(consumed =  2, target =  22, unit =  "ml")
-        updateHydrationTitle( 3)
+        updateHydrationTitle()
 //        wellnessDataBind()
 
 
@@ -1157,11 +1151,11 @@ fun Int.withAlpha(alpha: Float): Int {
             when (item.State.lowercase()) {
                 "good", "optimal" -> {
                     icon.setImageResource(R.drawable.check_green)
-                    label.setTextColor(Color.parseColor("#1A1A1A"))
+                    label.setTextColor("#1A1A1A".toColorInt())
                 }
                 else -> {
                     icon.setImageResource(R.drawable.check_grey)
-                    label.setTextColor(Color.parseColor("#AAAAAA"))
+                    label.setTextColor("#AAAAAA".toColorInt())
                 }
             }
 
@@ -1208,10 +1202,10 @@ fun Int.withAlpha(alpha: Float): Int {
 
             if (item.isGoalAchieved == 1) {
                 icon.setImageResource(R.drawable.check_green)
-                label.setTextColor(Color.parseColor("#1A1A1A"))
+                label.setTextColor("#1A1A1A".toColorInt())
             } else {
                 icon.setImageResource(R.drawable.check_grey)
-                label.setTextColor(Color.parseColor("#AAAAAA"))
+                label.setTextColor("#AAAAAA".toColorInt())
             }
 
             binding.healthGoalAchived.goalsContainer.addView(view)
@@ -1347,11 +1341,11 @@ private fun initHydrationControls() {
         }
     }
 
-    private fun updateHydrationTitle(lastDrinkHours: Int) {
+    private fun updateHydrationTitle() {
 
     viewModel.lastDrinkInfo.observe(viewLifecycleOwner) { lastDrinkInfo  ->
      binding.hydrationCardId.tvHydrationTitle.text =
-            "Hydration due - ${ lastDrinkInfo} ."
+            "Hydration due - $lastDrinkInfo ."
 
     }
     }
