@@ -55,7 +55,7 @@ class SleepStageBarView @JvmOverloads constructor(
         canvas.drawText(stageName, 0f, 30f, labelPaint)
 
         // Draw duration and percentage
-        val durationText = "$duration/ $percentage%"
+        val durationText = "$duration "
         canvas.drawText(durationText, width, 30f, durationPaint)
 
         // Draw bars

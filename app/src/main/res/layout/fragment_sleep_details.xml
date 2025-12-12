@@ -401,7 +401,7 @@
                          android:gravity="center_horizontal">
                     <TextView
                         android:id="@+id/tvMinValue"
-                        android:text=" "
+                        android:text="0 "
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="#333333"
@@ -726,18 +726,19 @@
             app:elevation="0dp">
 
             <LinearLayout
+                android:id="@+id/oxygenContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Header -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp">
 
                     <TextView
+                        android:id="@+id/tvOxygenHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/average_oxygen_saturation"
@@ -747,6 +748,7 @@
                         android:layout_alignParentStart="true"/>
 
                     <ImageView
+                        android:id="@+id/ivOxygenInfo"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@android:drawable/ic_dialog_info"
@@ -755,7 +757,6 @@
                         app:tint="#BBBBBB"/>
                 </RelativeLayout>
 
-                <!-- Oxygen Data -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -769,6 +770,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvOxygenLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Oxygen Saturation"
@@ -777,6 +779,7 @@
                             android:layout_marginBottom="4dp"/>
 
                         <TextView
+                            android:id="@+id/tvOxygenValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="86%"
@@ -786,6 +789,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvOxygenDuration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="During 7 hrs sleep"
@@ -793,8 +797,8 @@
                         android:textSize="12sp"/>
                 </LinearLayout>
 
-                <!-- Progress Bar -->
                 <ProgressBar
+                    android:id="@+id/oxygenProgress"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:layout_marginTop="16dp"
