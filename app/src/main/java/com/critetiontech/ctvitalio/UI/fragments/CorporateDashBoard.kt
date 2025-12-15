@@ -143,6 +143,7 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
 
         }
+        binding.progressCircler.animateProgress(10f)
         animatePageLoad()
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.primaryBlue,
