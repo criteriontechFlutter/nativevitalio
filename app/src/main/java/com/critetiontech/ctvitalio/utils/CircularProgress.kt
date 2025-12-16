@@ -1,193 +1,177 @@
 package com.critetiontech.ctvitalio.utils
 
+
+
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.RectF
-import android.graphics.Typeface
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.critetiontech.ctvitalio.R
+import android.view.animation.DecelerateInterpolator
+import androidx.core.graphics.toColorInt
+import kotlin.math.cos
 import kotlin.math.min
+import kotlin.math.sin
+
 
 class CircularProgressView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+    context: Context, attrs: AttributeSet? = null
+) : View(context, attrs) {
 
-    // Paint objects for drawing
-    private val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    // Progress properties
-    private var progress = 0f
-    private var maxProgress = 100f
-    private var currentProgress = 0f
-
-    // Visual properties
-    private var strokeWidth = 24f
-    private var progressColor = Color.parseColor("#0DB46C") // Green color
-    private var backgroundColor = Color.parseColor("#E5E7EB") // Light gray
-    private var textColor = Color.parseColor("#1F2937") // Dark gray
-    private var textSize = 48f
-
-    // Drawing bounds
-    private val bounds = RectF()
-
-    // Animation
-    private var animator: ValueAnimator? = null
-    private val animationDuration = 1000L // 1 second
-
-    init {
-        setupPaints()
-        setupCustomAttributes(attrs)
-    }
-
-    private fun setupPaints() {
-        // Background circle paint
-        backgroundPaint.apply {
-            style = Paint.Style.STROKE
-            strokeWidth = this@CircularProgressView.strokeWidth
-            color = backgroundColor
-            strokeCap = Paint.Cap.ROUND
-        }
-
-        // Progress arc paint
-        progressPaint.apply {
-            style = Paint.Style.STROKE
-            strokeWidth = this@CircularProgressView.strokeWidth
-            color = progressColor
-            strokeCap = Paint.Cap.ROUND
-        }
-
-        // Text paint
-        textPaint.apply {
-            textAlign = Paint.Align.CENTER
-            textSize = this@CircularProgressView.textSize
-            color = textColor
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        }
-    }
-
-    private fun setupCustomAttributes(attrs: AttributeSet?) {
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(it, R.styleable.CircularProgressView, 0, 0)
-
-            progress = typedArray.getFloat(R.styleable.CircularProgressView_progress, 0f)
-            maxProgress = typedArray.getFloat(R.styleable.CircularProgressView_maxProgress, 100f)
-            strokeWidth = typedArray.getDimension(R.styleable.CircularProgressView_strokeWidth, 24f)
-            progressColor = typedArray.getColor(R.styleable.CircularProgressView_progressColor, progressColor)
-            backgroundColor = typedArray.getColor(R.styleable.CircularProgressView_backgroundColor, backgroundColor)
-            textColor = typedArray.getColor(R.styleable.CircularProgressView_textColor, textColor)
-            textSize = typedArray.getDimension(R.styleable.CircularProgressView_textSize, 48f)
-
-            typedArray.recycle()
-            setupPaints()
-        }
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-
-        val size = min(w, h)
-        val padding = (strokeWidth / 2).toInt()
-
-        bounds.set(
-            padding.toFloat(),
-            padding.toFloat(),
-            (size - padding).toFloat(),
-            (size - padding).toFloat()
-        )
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
-        // Draw background circle
-        canvas.drawCircle(
-            bounds.centerX(),
-            bounds.centerY(),
-            bounds.width() / 2 - strokeWidth / 2,
-            backgroundPaint
-        )
-
-        // Draw progress arc
-        val sweepAngle = (currentProgress / maxProgress) * 360f
-        canvas.drawArc(bounds, -90f, sweepAngle, false, progressPaint)
-
-        // Draw progress text
-        val progressText = "${currentProgress.toInt()}%"
-        val textBounds = Rect()
-        textPaint.getTextBounds(progressText, 0, progressText.length, textBounds)
-
-        canvas.drawText(
-            progressText,
-            bounds.centerX(),
-            bounds.centerY() + textBounds.height() / 2,
-            textPaint
-        )
-    }
-
-    // Public methods to control the progress
-    fun setProgress(progress: Float, animate: Boolean = true) {
-        val clampedProgress = progress.coerceIn(0f, maxProgress)
-
-        if (animate) {
-            animateProgress(this.progress, clampedProgress)
-        } else {
-            currentProgress = clampedProgress
+    // ---------------------------------------------------------
+    // Public progress value (0–100)
+    // ---------------------------------------------------------
+    var progress = 0f
+        set(value) {
+            field = value.coerceIn(0f, 100f)
             invalidate()
         }
 
-        this.progress = clampedProgress
+    // ---------------------------------------------------------
+    // Stroke sizes (adjust here)
+    // ---------------------------------------------------------
+    private val trackStroke = 12f            // thin grey ring
+    private val progressStroke = 12f         // thin green ring
+    private val capMultiplier = 0.55f        // knob size multiplier
+
+    // ---------------------------------------------------------
+    // Colors
+    // ---------------------------------------------------------
+    private val trackColor = "#E5E7EB".toColorInt()
+    private val progressColor = "#1EC35A".toColorInt()
+
+    // ---------------------------------------------------------
+    // Paint objects
+    // ---------------------------------------------------------
+    private val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = trackColor
+        style = Paint.Style.STROKE
+        strokeWidth = trackStroke
+        strokeCap = Paint.Cap.ROUND
     }
 
-    fun getProgress(): Float = progress
-
-    fun setMaxProgress(maxProgress: Float) {
-        this.maxProgress = maxProgress
-        invalidate()
+    private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = progressColor
+        style = Paint.Style.STROKE
+        strokeWidth = progressStroke
+        strokeCap = Paint.Cap.ROUND
     }
 
-    fun setProgressColor(color: Int) {
-        progressColor = color
-        progressPaint.color = color
-        invalidate()
+    private val capPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = progressColor
+        style = Paint.Style.FILL
     }
 
-    override fun setBackgroundColor(color: Int) {
-        backgroundColor = color
-        backgroundPaint.color = color
-        invalidate()
-    }
+    // Arc rectangle bounds
+    private val rect = RectF()
 
-    fun setStrokeWidth(width: Float) {
-        strokeWidth = width
-        backgroundPaint.strokeWidth = width
-        progressPaint.strokeWidth = width
-        invalidate()
-    }
+    // Start angle for bottom-left
+    private val startAngle = -225f
 
-    private fun animateProgress(from: Float, to: Float) {
-        animator?.cancel()
+    // Cached center & radius
+    private var centerX = 0f
+    private var centerY = 0f
+    private var radius = 0f
 
-        animator = ValueAnimator.ofFloat(from, to).apply {
-            duration = animationDuration
-            addUpdateListener { animation ->
-                currentProgress = animation.animatedValue as Float
-                invalidate()
-            }
-            start()
+
+    // ---------------------------------------------------------
+    // Animate progress smoothly
+    // ---------------------------------------------------------
+    fun animateProgress(toValue: Float, duration: Long = 1000L) {
+        val animator = ValueAnimator.ofFloat(progress, toValue.coerceIn(0f, 100f))
+        animator.duration = duration
+        animator.interpolator = DecelerateInterpolator()
+        animator.addUpdateListener {
+            progress = it.animatedValue as Float
         }
+        animator.start()
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        animator?.cancel()
+
+    // ---------------------------------------------------------
+    // Ensures perfect circle layout
+    // ---------------------------------------------------------
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val size = min(
+            MeasureSpec.getSize(widthMeasureSpec),
+            MeasureSpec.getSize(heightMeasureSpec)
+        )
+        setMeasuredDimension(size, size)
+    }
+
+
+    // ---------------------------------------------------------
+    // Compute bounds on layout
+    // ---------------------------------------------------------
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        centerX = w / 2f
+        centerY = h / 2f
+
+        radius = (min(w, h) / 2f) - progressStroke
+
+        rect.set(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius
+        )
+    }
+
+
+    // ---------------------------------------------------------
+    // Draw everything
+    // ---------------------------------------------------------
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        // 1️⃣ Draw thin grey track
+        canvas.drawOval(rect, trackPaint)
+
+        // 2️⃣ Draw green progress arc
+        val sweep = (progress / 100f) * 360f
+        if (sweep > 0) {
+            canvas.drawArc(rect, startAngle, sweep, false, progressPaint)
+        }
+
+        // 3️⃣ Draw green start cap
+        drawStartCap(canvas)
+
+        // 4️⃣ Optional: Draw end cap (disabled)
+        // drawEndCap(canvas, sweep)
+    }
+
+
+    // ---------------------------------------------------------
+    // Draw thick knob at start
+    // ---------------------------------------------------------
+    private fun drawStartCap(canvas: Canvas) {
+        val capRadius = progressStroke * capMultiplier
+
+        val rad = Math.toRadians(startAngle.toDouble())
+        val cx = (centerX + radius * cos(rad)).toFloat()
+        val cy = (centerY + radius * sin(rad)).toFloat()
+
+        canvas.drawCircle(cx, cy, capRadius, capPaint)
+    }
+
+
+    // ---------------------------------------------------------
+    // OPTIONAL: End Cap
+    // ---------------------------------------------------------
+    private fun drawEndCap(canvas: Canvas, sweep: Float) {
+        if (sweep <= 0f) return
+
+        val capRadius = progressStroke * capMultiplier
+
+        val endAngle = startAngle + sweep
+        val rad = Math.toRadians(endAngle.toDouble())
+
+        val ex = (centerX + radius * cos(rad)).toFloat()
+        val ey = (centerY + radius * sin(rad)).toFloat()
+
+        canvas.drawCircle(ex, ey, capRadius, capPaint)
     }
 }
+
+
+
