@@ -8,7 +8,6 @@ import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
-
 class HeartRateGraphView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -19,8 +18,13 @@ class HeartRateGraphView @JvmOverloads constructor(
     data class HeartRatePoint(val timestamp: Long, val bpm: Int)
 
     private val dataPoints = mutableListOf<HeartRatePoint>()
-    private var lowestHeartRate = 56
-      var graphTile = "Heart Rate"
+
+    /** USER–CONTROLLED UI TEXT ELEMENTS */
+    private var graphTitle: String = "Heart Rate"
+    private var graphDisplayValue: String = "--"
+    private var graphUnit: String = "bpm"
+
+    private var lowestHeartRate = 0
 
     // === AXIS CONTROL ===
     private var autoYAxis = true
@@ -38,15 +42,13 @@ class HeartRateGraphView @JvmOverloads constructor(
     var numberOfTimeLabels = 5
     var thresholdValue: Int? = null
 
-    // === STYLE & VISUALS ===
+    // === STYLE ===
     var showGradient = true
 
-    val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#E91E63") // pink line
+    private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.parseColor("#E91E63")
         strokeWidth = 5f
         style = Paint.Style.STROKE
-        strokeJoin = Paint.Join.ROUND
-        strokeCap = Paint.Cap.ROUND
     }
 
     private val thresholdPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -66,7 +68,7 @@ class HeartRateGraphView @JvmOverloads constructor(
         typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
     }
 
-    private val bpmPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val valuePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.parseColor("#212121")
         textSize = 64f
         typeface = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD)
@@ -77,13 +79,40 @@ class HeartRateGraphView @JvmOverloads constructor(
         strokeWidth = 1.2f
     }
 
-
     private val path = Path()
     private val fillPath = Path()
     private val padding = 80f
     private val topPadding = 180f
 
-    // === PUBLIC API ===
+    // -------------------------------------------------------------------
+    // PUBLIC API FOR USER DYNAMIC CONTROL
+    // -------------------------------------------------------------------
+
+    /** Sets graph title dynamically */
+    fun setTitle(title: String) {
+        this.graphTitle = title
+        invalidate()
+    }
+
+    /** Sets dynamic value + unit for header */
+    fun setValue(value: Number, unit: String) {
+        this.graphDisplayValue = value.toString()
+        this.graphUnit = unit
+        invalidate()
+    }
+
+    /** Sets title + value + unit at once (optional utility) */
+    fun bindHeader(title: String, value: Number, unit: String) {
+        this.graphTitle = title
+        this.graphDisplayValue = value.toString()
+        this.graphUnit = unit
+        invalidate()
+    }
+
+    // -------------------------------------------------------------------
+    // GRAPH DATA CONTROL
+    // -------------------------------------------------------------------
+
     fun setData(points: List<HeartRatePoint>) {
         dataPoints.clear()
         dataPoints.addAll(points)
@@ -123,7 +152,10 @@ class HeartRateGraphView @JvmOverloads constructor(
         invalidate()
     }
 
-    // === INTERNAL HELPERS ===
+    // -------------------------------------------------------------------
+    // INTERNAL RANGE CALCULATIONS
+    // -------------------------------------------------------------------
+
     private fun updateDynamicRanges() {
         if (dataPoints.isEmpty()) return
 
@@ -144,6 +176,7 @@ class HeartRateGraphView @JvmOverloads constructor(
         yAxisGridLines.clear()
         val range = maxBpmValue - minBpmValue
         val step = max(10, range / 4)
+
         var value = (minBpmValue / 10f).roundToInt() * 10
         while (value <= maxBpmValue) {
             yAxisGridLines.add(value)
@@ -151,7 +184,10 @@ class HeartRateGraphView @JvmOverloads constructor(
         }
     }
 
-    // === DRAWING ===
+    // -------------------------------------------------------------------
+    // DRAWING ENGINE
+    // -------------------------------------------------------------------
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (dataPoints.isEmpty()) return
@@ -160,48 +196,49 @@ class HeartRateGraphView @JvmOverloads constructor(
         val graphHeight = height - topPadding - padding
         val minTime = startTime ?: dataPoints.minOf { it.timestamp }
         val maxTime = endTime ?: dataPoints.maxOf { it.timestamp }
-        val timeRange = (maxTime - minTime).coerceAtLeast(1L)
+        val timeRange = (maxTime - minTime).coerceAtLeast(1)
         val range = (maxBpmValue - minBpmValue).coerceAtLeast(1)
 
-        // ==== TITLE ====
-        canvas.drawText(graphTile, padding, 50f, titlePaint)
-        canvas.drawText("$lowestHeartRate bpm", padding, 120f, bpmPaint)
+        // ---- TITLE ----
+        canvas.drawText(graphTitle, padding, 50f, titlePaint)
 
-        // ==== Y-AXIS GRID ====
+        // ---- VALUE + UNIT ----
+        canvas.drawText("$graphDisplayValue $graphUnit", padding, 120f, valuePaint)
+
+        // ---- GRID LINES ----
         yAxisGridLines.forEach { bpm ->
-            if (bpm in minBpmValue..maxBpmValue) {
-                val y = topPadding + graphHeight - ((bpm - minBpmValue).toFloat() / range * graphHeight)
-                canvas.drawLine(padding, y, width - padding, y, gridPaint)
-                canvas.drawText(bpm.toString(), 20f, y + 10f, textPaint)
-            }
+            val y = topPadding + graphHeight - ((bpm - minBpmValue).toFloat() / range * graphHeight)
+            canvas.drawLine(padding, y, width - padding, y, gridPaint)
+            canvas.drawText(bpm.toString(), 20f, y + 10f, textPaint)
         }
 
-        // ==== THRESHOLD LINE ====
+        // ---- THRESHOLD ----
         thresholdValue?.let {
             val y = topPadding + graphHeight - ((it - minBpmValue).toFloat() / range * graphHeight)
             canvas.drawLine(padding, y, width - padding, y, thresholdPaint)
         }
 
-        // ==== X-AXIS LABELS ====
+        // ---- X LABELS ----
         val labelCount = numberOfTimeLabels.coerceAtMost(dataPoints.size)
         val timeStep = if (labelCount > 1) timeRange / (labelCount - 1) else 1L
+
         for (i in 0 until labelCount) {
             val timestamp = minTime + i * timeStep
             val x = padding + (i.toFloat() / (labelCount - 1)) * graphWidth
             val label = timeFormat.format(Date(timestamp))
-            val tw = textPaint.measureText(label)
-            canvas.drawText(label, x - tw / 2, height - 30f, textPaint)
+            canvas.drawText(label, x - textPaint.measureText(label) / 2, height - 30f, textPaint)
         }
 
-        // ==== GRAPH LINE (SMOOTH CURVE) ====
-        val sortedPoints = dataPoints.sortedBy { it.timestamp }
+        // ---- CURVE ----
+        val sorted = dataPoints.sortedBy { it.timestamp }
         path.reset()
         fillPath.reset()
 
-        if (sortedPoints.size > 1) {
-            for (i in 0 until sortedPoints.size - 1) {
-                val p1 = sortedPoints[i]
-                val p2 = sortedPoints[i + 1]
+        if (sorted.size > 1) {
+            for (i in 0 until sorted.size - 1) {
+
+                val p1 = sorted[i]
+                val p2 = sorted[i + 1]
 
                 val x1 = padding + ((p1.timestamp - minTime).toFloat() / timeRange) * graphWidth
                 val y1 = topPadding + graphHeight - ((p1.bpm - minBpmValue).toFloat() / range * graphHeight)
@@ -216,7 +253,7 @@ class HeartRateGraphView @JvmOverloads constructor(
             }
         }
 
-        // Gradient fill below line
+        // ---- GRADIENT ----
         if (showGradient) {
             fillPath.addPath(path)
             fillPath.lineTo(padding + graphWidth, topPadding + graphHeight)
@@ -230,27 +267,19 @@ class HeartRateGraphView @JvmOverloads constructor(
                     Color.TRANSPARENT,
                     Shader.TileMode.CLAMP
                 )
-                style = Paint.Style.FILL
             }
+
             canvas.drawPath(fillPath, gradientPaint)
         }
 
-        // Draw main line
+        // ---- FINAL CURVE DRAW ----
         canvas.drawPath(path, linePaint)
-
-        // Optional debug points
-//        sortedPoints.forEach { p ->
-//            val x = padding + ((p.timestamp - minTime).toFloat() / timeRange) * graphWidth
-//            val y = topPadding + graphHeight - ((p.bpm - minBpmValue).toFloat() / range * graphHeight)
-//            canvas.drawCircle(x, y, 4f, debugPointPaint)
-//        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val desiredWidth = 900
-        val desiredHeight = 550
-        val w = resolveSize(desiredWidth, widthMeasureSpec)
-        val h = resolveSize(desiredHeight, heightMeasureSpec)
-        setMeasuredDimension(w, h)
+        setMeasuredDimension(
+            resolveSize(900, widthMeasureSpec),
+            resolveSize(550, heightMeasureSpec)
+        )
     }
 }

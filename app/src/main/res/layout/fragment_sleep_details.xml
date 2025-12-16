@@ -530,7 +530,8 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="7 Days Average"
+                    android:id="@+id/tvAlertnessSubtitle"
+                    android:text=" "
                     android:textSize="12sp"
                     android:textColor="#777"
                     android:layout_width="wrap_content"
@@ -641,11 +642,12 @@
 
                 <!-- Blue Info Box -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTossTurns"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp"
+                    android:layout_marginTop="12dp"
+                    app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:elevation="0dp"
                     app:cardBackgroundColor="#B3E5FC">
 
                     <LinearLayout
@@ -655,13 +657,13 @@
                         android:gravity="center_vertical"
                         android:padding="16dp">
 
-                        <!-- Icon -->
+                        <!-- Image -->
                         <ImageView
+                            android:id="@+id/imgTurnsIcon"
                             android:layout_width="160dp"
                             android:layout_height="60dp"
                             android:src="@drawable/sleepturns"
-                            android:layout_marginEnd="16dp"
-                            />
+                            android:layout_marginEnd="16dp" />
 
                         <!-- Text Content -->
                         <LinearLayout
@@ -677,14 +679,16 @@
                                 android:layout_marginBottom="4dp">
 
                                 <TextView
+                                    android:id="@+id/tvTurnsCount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="08"
+                                    android:text="00"
                                     android:textColor="#1565C0"
                                     android:textSize="28sp"
                                     android:textStyle="bold"/>
 
                                 <TextView
+                                    android:id="@+id/tvTurnsLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Turns"
@@ -695,9 +699,10 @@
                                     android:layout_marginBottom="4dp"/>
 
                                 <TextView
+                                    android:id="@+id/tvTurnsDuration"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="During 7 hrs sleep"
+                                    android:text="During X hrs sleep"
                                     android:textColor="#1565C0"
                                     android:textSize="11sp"
                                     android:layout_marginStart="8dp"
@@ -705,13 +710,15 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tvTurnsDescription"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/your_movement_patterns_during_sleep_indicate_slight_restlessness"
                                 android:textColor="#424242"
                                 android:textSize="12sp"
-                                android:lineSpacingExtra="2dp"/>
+                                android:lineSpacingExtra="2dp"
+                                android:text="Your movement patterns during sleep indicate slight restlessness"/>
                         </LinearLayout>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -803,7 +810,7 @@
                     android:layout_height="8dp"
                     android:layout_marginTop="16dp"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:progress="86"
+                    android:progress="0"
                     android:progressTint="#4CAF50"
                     android:progressBackgroundTint="#E0E0E0"/>
             </LinearLayout>
@@ -812,6 +819,26 @@
     </LinearLayout>
     </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/_16sdp"
+        android:background="#F7F9FB"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:text="Skin Temprature"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
+            android:id="@+id/skinTempId"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@android:color/white"
+            android:elevation="4dp" />
+    </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

@@ -84,6 +84,7 @@
 
                 <!-- Movement Index Card -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/movementIndexId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:elevation="0dp"
