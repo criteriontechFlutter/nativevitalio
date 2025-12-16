@@ -972,10 +972,10 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // SLEEP SECTION
             // =======================
             val sleep = insight.insights.sleep
-            val sleepColor = Color.parseColor(sleep.colorCode)
+            val sleepColor = sleep.colorCode.toColorInt()
 
             wellness.sleepstatusId.text = sleep.quality
-            wellness.sleepValue.text = sleep.score.toInt().toString()
+            wellness.sleepValue.text =insight.scores.sleepScore.toString().toInt().toString()
             wellness.sleepContainertextId.setTextOrHide(sleep.message)
 
             wellness.sleepstatusId.setTextColor(sleepColor)
@@ -987,7 +987,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // MOVEMENT SECTION
             // =======================
             val movement = insight.insights.movement
-            val movementColor = Color.parseColor(movement.colorCode)
+            val movementColor = movement.colorCode.toColorInt()
 
             wellness.movementstatusId.text = movement.progress
             wellness.movementValue.text = movement.score.toInt().toString()
