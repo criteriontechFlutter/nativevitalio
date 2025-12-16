@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.privacysandbox.tools.core.model.Type
 import com.critetiontech.ctvitalio.R
@@ -62,6 +63,15 @@ class SleepGraphFragment : Fragment() {
 
     private fun observeSleepStages() {
 
+
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+
+            val timeinBed = sleepValue.QuickMetricsTiled
+                ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+            binding.tvDuration .text=
+                HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+        }
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
 
             val stages = sleepValue.SleepStages ?: return@observe

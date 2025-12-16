@@ -18,6 +18,7 @@ import java.util.Locale
 import android.animation.ValueAnimator
 import android.view.ViewGroup as AndroidViewGroup
 import android.graphics.drawable.GradientDrawable
+import com.critetiontech.ctvitalio.R
 
 
 class WellnessMetrics : Fragment() {
@@ -67,6 +68,10 @@ class WellnessMetrics : Fragment() {
         )
         binding.caffeineBarGraph.addView(caffeineBars)
 
+        // Date change refresh
+        binding.movementIndexId.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_movemenetIndex  )
+        }
 //        // RulerSeekBar: Cardio Age
 //        binding.rulerSeekBar.apply {
 //            minValue = 12

@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_dashboard_to_mindfulnessFragment"
             app:destination="@id/mindfulnessFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_movemenetIndex"
+            app:destination="@id/movemenetIndex" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -452,7 +455,11 @@
     <fragment
         android:id="@+id/wellnessMetrics"
         android:name="com.critetiontech.ctvitalio.UI.fragments.WellnessMetrics"
-        android:label="WellnessMetrics" />
+        android:label="WellnessMetrics" >
+        <action
+            android:id="@+id/action_wellnessMetrics_to_movemenetIndex"
+            app:destination="@id/movemenetIndex" />
+    </fragment>
     <fragment
         android:id="@+id/sleepDetails"
         android:name="com.critetiontech.ctvitalio.UI.fragments.SleepDetails"
@@ -585,5 +592,10 @@
             app:popEnterAnim="@animator/nav_default_pop_enter_anim"
             app:popExitAnim="@animator/nav_default_pop_exit_anim" />
     </fragment>
+    <fragment
+        android:id="@+id/movemenetIndex"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex"
+        android:label="fragment_movemenet_index"
+        tools:layout="@layout/fragment_movemenet_index" />
 
 </navigation>

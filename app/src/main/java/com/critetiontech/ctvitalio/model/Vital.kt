@@ -42,10 +42,36 @@ data class SleepValue(
     val HrGraph: HrGraph,
     val GistObject: GistObject,
     val HrvGraph: HrvGraph,
-
+    val Spo2: Spo2? ,
     // ⭐ Add these:
     val OxygenSaturation: OxygenSaturation?,
+   val TossTurn: TossTurn?, val TempGraph: TempGraph?,
     val TotalSleepHours: Int?
+)
+
+data class TempGraph(
+    val Title: String?,
+    val Data: List<TempData>?,
+    val GistObject: TempGist?
+)
+
+data class TempData(
+    val Timestamp: String,
+    val Value: Double
+)
+
+data class TempGist(
+    val Title: String?,
+    val Avg: Double?,
+    val Min: Double?,
+    val Max: Double?
+)
+
+data class TossTurn(
+    val Title: String?,
+    val Subtitle: String?,
+    val Value: Int?,
+    val IsBeta: Boolean?
 )
 data class OxygenSaturation(
     val Avg: Int?,
@@ -80,7 +106,11 @@ data class SleepSummaryData (
     val stateTitle: String,
     val score: Int
 )
-
+data class Spo2(
+    val Title: String,
+    val Value: Int,
+    val IsBeta: Boolean
+)
 data class  Summary (
     val Title: String,
     val State: String,

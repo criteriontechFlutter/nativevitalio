@@ -952,75 +952,71 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         }
          wellnessDataBind()
     }
-
     private fun wellnessDataBind() {
 
         viewModel.insightWrapperList.observe(viewLifecycleOwner) { insight ->
-
             insight ?: return@observe
 
             val wellness = binding.sleepProgressIds
 
             // =======================
-            // HEADER SECTION
+            // HEADER
             // =======================
             wellness.wellnessScoreNumber.text = insight.wellnessScore.toString()
             wellness.wellnessDescriptions.text = insight.wellnessMessage
 
+            val scores = insight.scores
 
             // =======================
-            // SLEEP SECTION
+            // SLEEP
             // =======================
             val sleep = insight.insights.sleep
-            val sleepColor = sleep.colorCode.toColorInt()
+            val sleepColor = Color.parseColor(sleep.colorCode)
 
             wellness.sleepstatusId.text = sleep.quality
-            wellness.sleepValue.text =insight.scores.sleepScore.toString().toInt().toString()
+            wellness.sleepValue.text = scores.sleepScore.toInt().toString()
             wellness.sleepContainertextId.setTextOrHide(sleep.message)
 
             wellness.sleepstatusId.setTextColor(sleepColor)
             wellness.sleepstatusId.backgroundTintList =
                 ColorStateList.valueOf(sleepColor.withAlpha(0.15f))
 
-
             // =======================
-            // MOVEMENT SECTION
+            // MOVEMENT
             // =======================
             val movement = insight.insights.movement
-            val movementColor = movement.colorCode.toColorInt()
+            val movementColor = Color.parseColor(movement.colorCode)
 
             wellness.movementstatusId.text = movement.progress
-            wellness.movementValue.text = movement.score.toInt().toString()
+            wellness.movementValue.text = scores.movementScore.toInt().toString()
             wellness.movementContainertextId.setTextOrHide(movement.message)
 
             wellness.movementstatusId.setTextColor(movementColor)
             wellness.movementstatusId.backgroundTintList =
                 ColorStateList.valueOf(movementColor.withAlpha(0.15f))
 
-
             // =======================
-            // STRESS SECTION
+            // STRESS
             // =======================
             val stress = insight.insights.stress
             val stressColor = Color.parseColor(stress.colorCode)
 
             wellness.stressstatusId.text = stress.level
-            wellness.stressValue.text = stress.score.toInt().toString()
+            wellness.stressValue.text = scores.stressScore.toInt().toString()
             wellness.stressContainertextId.setTextOrHide(stress.message)
 
             wellness.stressstatusId.setTextColor(stressColor)
             wellness.stressstatusId.backgroundTintList =
                 ColorStateList.valueOf(stressColor.withAlpha(0.15f))
 
-
             // =======================
-            // RECOVERY SECTION
+            // RECOVERY
             // =======================
             val recovery = insight.insights.recovery
             val recoveryColor = Color.parseColor(recovery.colorCode)
 
             wellness.recoverystatusId.text = recovery.status
-            wellness.recoveryValue.text = recovery.score.toInt().toString()
+            wellness.recoveryValue.text = scores.recoveryScore.toInt().toString()
             wellness.recoveryContainertextId.setTextOrHide(recovery.message)
 
             wellness.recoverystatusId.setTextColor(recoveryColor)
@@ -1028,7 +1024,6 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
                 ColorStateList.valueOf(recoveryColor.withAlpha(0.15f))
         }
     }
-
 
     fun TextView.setTextOrHide(value: String?) {
         if (value.isNullOrBlank()) {

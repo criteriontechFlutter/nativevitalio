@@ -391,6 +391,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_movemenetIndex">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_newChallengeFragment">
                               <value>
                                 <LayoutPositions />
@@ -759,6 +764,18 @@
                           <Point>
                             <option name="x" value="-872" />
                             <option name="y" value="-1586" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="movemenetIndex">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-2657" />
+                            <option name="y" value="-1281" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -1231,8 +1248,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1739" />
-                            <option name="y" value="-1415" />
+                            <option name="x" value="-2059" />
+                            <option name="y" value="-1547" />
                           </Point>
                         </option>
                       </LayoutPositions>
