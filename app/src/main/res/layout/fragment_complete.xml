@@ -67,7 +67,7 @@
         android:id="@+id/loadingProgress"
         android:layout_width="0dp"
         android:layout_height="@dimen/_5sdp"
-        android:src="@drawable/loader"
+        android:src="@drawable/bg_loader_dialog"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/completionCard"
         app:layout_constraintStart_toStartOf="parent"

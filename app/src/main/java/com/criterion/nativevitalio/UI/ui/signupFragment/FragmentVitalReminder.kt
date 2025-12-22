@@ -25,8 +25,8 @@ class FragmentVitalReminder : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentVitalReminder_to_fluidFragment2)
-        }
+//        binding.btnNext.setOnClickListener {
+//            findNavController().navigate(R.id.action_fragmentVitalReminder_to_fluidFragment2)
+//        }
     }
 }

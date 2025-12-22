@@ -25,8 +25,8 @@ class FragmentFluidIntake : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_fluidFragment2_to_fragmentComplete)
-        }
+//        binding.btnNext.setOnClickListener {
+//            findNavController().navigate(R.id.fragment_c)
+//        }
     }
 }

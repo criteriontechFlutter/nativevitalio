@@ -26,6 +26,7 @@ class FluidAmountBottomSheet(
         binding.seekBar.post {
             binding.seekBar.progress = amount
             animateDroplet(amount)
+
         }
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {

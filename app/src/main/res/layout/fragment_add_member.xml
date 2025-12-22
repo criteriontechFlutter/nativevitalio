@@ -79,7 +79,7 @@
             android:gravity="center"
             android:paddingStart="@dimen/_10sdp"
             android:paddingEnd="@dimen/_10sdp"
-            android:text="@string/receive_access"
+            android:text="Receive Access"
             android:textAlignment="center"
             android:textColor="@color/loginHintTextColor"
             android:textSize="@dimen/_12ssp"/>

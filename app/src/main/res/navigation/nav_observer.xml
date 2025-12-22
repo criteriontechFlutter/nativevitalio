@@ -33,11 +33,6 @@
         android:label="fragment_vitals"
         tools:layout="@layout/fragment_vitals" />
     <fragment
-        android:id="@+id/otherDetailsFragment3"
-        android:name="com.criterion.nativevitalio.UI.ui.observer.OtherDetailsFragment"
-        android:label="OtherDetailsFragment"
-        tools:layout="@layout/fragment_other_details"/>
-    <fragment
         android:id="@+id/fluidIntakeObserverFragment"
         android:name="com.criterion.nativevitalio.UI.ui.observer.FluidIntakeObserverFragment"
         android:label="fragment_fluid_intake2"
