@@ -72,6 +72,15 @@ class WellnessMetrics : Fragment() {
         binding.movementIndexId.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_movemenetIndex  )
         }
+        binding.stressRhythmId.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_stressRhythm  )
+        }
+        binding.dynamicRecovery.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_dynamicRecovery  )
+        }
+        binding.brainWasteClearance.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
+        }
 //        // RulerSeekBar: Cardio Age
 //        binding.rulerSeekBar.apply {
 //            minValue = 12
@@ -92,8 +101,10 @@ class WellnessMetrics : Fragment() {
                 binding.dyRecovery.setProgress(it.toFloat())
             }
 
-            binding.stressScore = viewModel.getLatestVital(list, "StressScore")?.vmValue.toString()
-            binding.brainClear = viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue.toString()
+            binding.stressScore =
+                viewModel.getLatestVital(list, "StressScore")?.vmValue ?: "0"
+            binding.brainClear =
+                viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
            // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
           //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
 

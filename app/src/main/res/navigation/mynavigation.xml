@@ -459,6 +459,15 @@
         <action
             android:id="@+id/action_wellnessMetrics_to_movemenetIndex"
             app:destination="@id/movemenetIndex" />
+        <action
+            android:id="@+id/action_wellnessMetrics_to_stressRhythm"
+            app:destination="@id/stressRhythm" />
+        <action
+            android:id="@+id/action_wellnessMetrics_to_brainWasteClearance"
+            app:destination="@id/brainWasteClearance" />
+        <action
+            android:id="@+id/action_wellnessMetrics_to_dynamicRecovery"
+            app:destination="@id/dynamicRecovery" />
     </fragment>
     <fragment
         android:id="@+id/sleepDetails"
@@ -597,5 +606,19 @@
         android:name="com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex"
         android:label="fragment_movemenet_index"
         tools:layout="@layout/fragment_movemenet_index" />
+    <fragment
+        android:id="@+id/stressRhythm"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.StressRhythm"
+        android:label="StressRhythm" />
+    <fragment
+        android:id="@+id/brainWasteClearance"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BrainWasteClearance"
+        android:label="fragment_brain_waste_clearance"
+        tools:layout="@layout/fragment_brain_waste_clearance" />
+    <fragment
+        android:id="@+id/dynamicRecovery"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.DynamicRecovery"
+        android:label="fragment_dynamic_recovery"
+        tools:layout="@layout/fragment_dynamic_recovery" />
 
 </navigation>

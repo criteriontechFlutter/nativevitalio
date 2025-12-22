@@ -280,6 +280,7 @@
 
                 <!-- Movement Index Card -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/stressRhythmId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:elevation="0dp"
@@ -790,6 +791,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/dynamicRecovery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
@@ -979,6 +981,7 @@
 
                     <!-- HEADER -->
                     <LinearLayout
+                        android:src="@drawable/ic_coffee_blue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -1290,6 +1293,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/brainWasteClearance"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:layout_margin="16dp"

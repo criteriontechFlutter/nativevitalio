@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
@@ -17,6 +18,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
 import java.util.Calendar
@@ -66,10 +68,62 @@ class MovemenetIndex : Fragment() {
                 65,
                 value =65
             ),
+            SleepEntry(
+                65,
+                value =65
+            ),
+            SleepEntry(
+                65,
+                value =65
+            ),
         )
+        val stressHourlyData = listOf(
+            10, 8, 6, 5, 7, 12,
+            25, 40, 60, 55, 45, 30,
+            20, 25, 35, 50, 65, 70,
+            55, 40, 30, 20, 15, 10
+        )
+
 
         setData(entries)
     }
+
+
+    fun renderHourlyStressChart(
+        context: Context,
+        barContainer: LinearLayout,
+        hourlyStress: List<Int>
+    ) {
+        barContainer.removeAllViews()
+        if (hourlyStress.isEmpty()) return
+
+        val maxValue = hourlyStress.maxOrNull() ?: 1
+        val maxHeightPx = barContainer.height.takeIf { it > 0 }
+            ?: (50 * context.resources.displayMetrics.density).toInt()
+
+        hourlyStress.forEach { value ->
+            val barHeight =
+                ((value.toFloat() / maxValue) * maxHeightPx)
+                    .toInt()
+                    .coerceAtLeast(2)
+
+            val barView = View(context).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    (6 * context.resources.displayMetrics.density).toInt(),
+                    barHeight
+                ).apply {
+                    marginEnd = (3 * context.resources.displayMetrics.density).toInt()
+                }
+                background = GradientDrawable().apply {
+                    setColor(Color.parseColor("#546788")) // stress color
+                    cornerRadius = 3f
+                }
+            }
+
+            barContainer.addView(barView)
+        }
+    }
+
     // --------------------------------------------------
     // Chart Builder
     // --------------------------------------------------
