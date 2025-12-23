@@ -780,6 +780,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //    val movementValue = vitalList
 //        ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
 //    val recoveryValue = vitalList
+    
 //        ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
 //    val stressValue = vitalList
 //        ?.firstOrNull { it.vitalName.equals("StressScore", ignoreCase = true) }
