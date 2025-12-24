@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
 
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="12dp"
-    android:background="@drawable/bg_progress_track"
-    android:layout_marginBottom="10dp">
+        <variable
+            name="movementIndex"
+            type="String" />
+
+        <variable
+            name="sleepIndex"
+            type="String" />
+        <variable
+            name="recoveryIndex"
+            type="String" />
+
+        <variable
+            name="stressIndex"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_progress_track"
+        android:layout_marginBottom="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mainCardView"
@@ -25,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_progress_track"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <!-- Wellness Score Header Section -->
 
@@ -65,7 +85,9 @@
                                     android:text="--"
                                     android:textSize="32sp"
                                     android:textStyle="bold"
-                                    android:textColor="#000" android:layout_height="wrap_content" android:layout_width="match_parent"/>
+                                    android:textColor="#000"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent" />
 
                                 <TextView
                                     android:id="@+id/attentionBadges"
@@ -78,7 +100,9 @@
                                     android:text="Need Attention"
                                     android:textColor="#EA6C00"
                                     android:textSize="10sp"
-                                    android:textStyle="bold" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                                    android:textStyle="bold"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content" />
                             </LinearLayout>
 
                             <TextView
@@ -87,424 +111,443 @@
                                 android:text="Wellness Score"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
-                                android:textColor="#000" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                                android:textColor="#000"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content" />
 
                             <TextView
                                 android:id="@+id/wellnessDescriptions"
                                 android:layout_marginTop="8dp"
                                 android:textColor="#4E3131"
                                 android:textSize="14sp"
+
                                 android:lineSpacingMultiplier="1.3"
-                                android:text="@string/mild_imbalance_due_to_elevated_stress"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-  </LinearLayout>
+                                android:text="@string/mild_imbalance_due_to_elevated_stress"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content" />
+                        </LinearLayout>
                     </FrameLayout>
 
                 </androidx.cardview.widget.CardView>
 
 
                 <!-- Sleep Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/dashboard_rounded_corner"
-                android:padding ="18dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="8dp">
+                    android:backgroundTint="@color/white"
+                    android:background="@drawable/dashboard_rounded_corner"
+                    android:padding="18dp">
 
                     <LinearLayout
-                        android:id="@+id/SleepWelnessId"
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp">
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/sleep_icon"
-                             android:contentDescription="Sleep icon" />
+                        <LinearLayout
+                            android:id="@+id/SleepWelnessId"
 
-                        <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="5dp"
-                            android:text="Sleep"
-                            android:textColor="#020202"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/sleepstatusId"
-                            android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/sleep_icon"
+                                android:contentDescription="Sleep icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Sleep"
+                                android:textColor="#202529"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/sleepstatusId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#FFEDDD"
+                                android:paddingStart="5dp"
+                                android:paddingTop="2dp"
+                                android:paddingEnd="5dp"
+                                android:paddingBottom="2dp"
+                                android:text="-"
+                                android:textStyle="bold"
+                                android:textColor="#EA6C00"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/sleepValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="--"
+                                android:textColor="#020202"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/sleepContainerId"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#FFEDDD"
-                            android:paddingStart="5dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="5dp"
-                            android:paddingBottom="2dp"
-                            android:text="-"
-                            android:textColor="#EA6C00"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/sleepValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="--"
-                            android:textColor="#020202"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/sleepContainerId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
-
-                        android:background="@drawable/dashboard_rounded_corner"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/sleepContainertextId"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/rounded_corners"
+                            android:layout_marginTop="8dp"
+                            android:padding="10dp"
+                            app:visibleIfNotEmpty="@{sleepIndex}"
+                            android:background="@drawable/wellness_layout_rounding"
                             android:backgroundTint="#F6F6F6"
-                            android:text=" "
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/addSleepActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/sleepContainertextId"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/lato"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#F6F6F6"
+                                android:text=" "
+                                android:textColor="#5F6471"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/addSleepActivityBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/wellness_layout_rounding"
+                                android:backgroundTint="#FFFFFF"
+                                android:drawableStart="@drawable/add_vital"
+                                android:drawableTint="#0079FF"
+                                android:drawablePadding="4dp"
+                                android:visibility="gone"
+                                android:paddingStart="8dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="6dp"
+                                android:text="Add Activity"
+                                android:textColor="#0079FF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <!-- Movement Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="12dp">
-
+                    <!-- Movement Section -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:layout_marginTop="12dp">
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/movement_icon"
-                            android:contentDescription="Movement icon" />
-
-                        <TextView
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="5dp"
-                            android:text="Movement"
-                            android:textColor="#020202"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/movementstatusId"
-                            android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/movement_icon"
+                                android:contentDescription="Movement icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Movement"
+                                android:textColor="#202529"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/movementstatusId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#D5FFF2"
+                                android:paddingStart="5dp"
+                                android:paddingTop="2dp"
+                                android:paddingEnd="5dp"
+                                android:paddingBottom="2dp"
+                                android:text="-"
+                                android:textStyle="bold"
+                                android:textColor="#00B77E"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/movementValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="--"
+                                android:textStyle="bold"
+                                android:textColor="#020202"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/movementContainerId"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#D5FFF2"
-                            android:paddingStart="5dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="5dp"
-                            android:paddingBottom="2dp"
-                            android:text="-"
-                            android:textColor="#00B77E"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/movementValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="--"
-                            android:textStyle="bold"
-                            android:textColor="#020202"
-                            android:textSize="16sp"
-                             />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/movementContainerId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
-
-                        android:background="@drawable/dashboard_rounded_corner"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/movementContainertextId"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/rounded_corners"
+                            android:layout_marginTop="8dp"
+                            android:padding="10dp"
+                            app:visibleIfNotEmpty="@{movementIndex}"
+                            android:background="@drawable/wellness_layout_rounding"
                             android:backgroundTint="#F6F6F6"
-                            android:text=" "
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/addMovementActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/movementContainertextId"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#F6F6F6"
+                                android:text=" "
+                                android:textColor="#5F6471"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/addMovementActivityBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/wellness_layout_rounding"
+                                android:backgroundTint="#FFFFFF"
+                                android:drawableStart="@drawable/add_vital"
+                                android:drawableTint="#0079FF"
+                                android:drawablePadding="4dp"
+                                android:visibility="gone"
+                                android:paddingStart="8dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="6dp"
+                                android:text="Add Activity"
+                                android:textColor="#0079FF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <!-- Stress Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="12dp">
-
+                    <!-- Stress Section -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:layout_marginTop="12dp">
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/stress_icon"
-                            android:contentDescription="Stress icon" />
-
-                        <TextView
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="5dp"
-                            android:text="Stress"
-                            android:textColor="#020202"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/stressstatusId"
-                            android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/stress_icon"
+                                android:contentDescription="Stress icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Stress"
+                                android:textColor="#202529"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/stressstatusId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#E2F3FF"
+                                android:paddingStart="5dp"
+                                android:paddingTop="2dp"
+                                android:paddingEnd="5dp"
+                                android:paddingBottom="2dp"
+                                android:text="-"
+                                android:textStyle="bold"
+                                android:textColor="#0090F6"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/stressValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="--"
+                                android:textColor="#020202"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/stressContainerId"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#E2F3FF"
-                            android:paddingStart="5dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="5dp"
-                            android:paddingBottom="2dp"
-                            android:text="-"
-                            android:textColor="#0090F6"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/stressValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="--"
-                            android:textColor="#020202"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/stressContainerId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
-                        android:background="@drawable/dashboard_rounded_corner"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/stressContainertextId"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                             android:backgroundTint="#F6F6F6"
-                             android:text=" "
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/addStressActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Recovery Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/rcovery_icon"
-                            android:contentDescription="Recovery icon" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="5dp"
-                            android:text="Recovery"
-                            android:textColor="#020202"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/recoverystatusId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#FFEDDD"
-                            android:paddingStart="5dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="5dp"
-                            android:paddingBottom="2dp"
-                            android:text="-"
-                            android:textColor="#EA6C00"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/recoveryValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="--"
-                            android:textColor="#020202"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recoveryContainerId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding ="10dp"
-                        android:background="@drawable/rounded_button_bg"
-                        android:backgroundTint="#F6F6F6"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/recoveryContainertextId"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/rounded_corners"
+                            android:layout_marginTop="8dp"
+                            android:padding="10dp"
+                            app:visibleIfNotEmpty="@{movementIndex}"
+                            android:background="@drawable/wellness_layout_rounding"
                             android:backgroundTint="#F6F6F6"
+                            android:orientation="horizontal">
 
-                            android:text=" "
-                            android:textColor="#5F6471"
-                            android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/stressContainertextId"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/lato"
+                                android:backgroundTint="#F6F6F6"
+                                android:text=" "
+                                android:textColor="#5F6471"
+                                android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/addRecoveryActivityBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dashboard_rounded_corner"
-                            android:backgroundTint="#FFFFFF"
-                            android:drawableStart="@drawable/add_vital"
-                            android:drawableTint="#0079FF"
-                            android:drawablePadding="4dp"
-                            android:paddingStart="8dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="6dp"
-                            android:text="Add Activity"
-                            android:textColor="#0079FF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/addStressActivityBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/wellness_layout_rounding"
+                                android:backgroundTint="#FFFFFF"
+                                android:drawableStart="@drawable/add_vital"
+                                android:drawableTint="#0079FF"
+                                android:drawablePadding="4dp"
+                                android:paddingStart="8dp"
+                                android:visibility="gone"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="6dp"
+                                android:text="Add Activity"
+                                android:textColor="#0079FF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-            </LinearLayout>
+                    <!-- Recovery Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/rcovery_icon"
+                                android:contentDescription="Recovery icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Recovery"
+                                android:textColor="#202529"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/recoverystatusId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#FFEDDD"
+                                android:paddingStart="5dp"
+                                android:paddingTop="2dp"
+                                android:paddingEnd="5dp"
+                                android:paddingBottom="2dp"
+                                android:text="-"
+                                android:textStyle="bold"
+                                android:textColor="#EA6C00"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/recoveryValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="--"
+                                android:textColor="#020202"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/recoveryContainerId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:padding="10dp"
+                            app:visibleIfNotEmpty="@{recoveryIndex}"
+                            android:background="@drawable/wellness_layout_rounding"
+                            android:backgroundTint="#F6F6F6"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/recoveryContainertextId"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/rounded_corners"
+                                android:backgroundTint="#F6F6F6"
+                                android:fontFamily="@font/lato"
+                                android:text=" "
+                                android:textColor="#5F6471"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/addRecoveryActivityBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/wellness_layout_rounding"
+                                android:backgroundTint="#FFFFFF"
+                                android:drawableStart="@drawable/add_vital"
+                                android:drawableTint="#0079FF"
+                                android:drawablePadding="4dp"
+                                android:paddingStart="8dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="8dp"
+                                android:visibility="gone"
+                                android:paddingBottom="6dp"
+                                android:text="Add Activity"
+                                android:textColor="#0079FF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

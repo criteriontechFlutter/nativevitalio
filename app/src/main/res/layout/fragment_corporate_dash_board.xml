@@ -1051,7 +1051,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
-                            <androidx.cardview.widget.CardView
+                            <RelativeLayout
                                 android:id="@+id/dailyCheckListCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1073,7 +1073,7 @@
                                         android:id="@+id/checklistContainer"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:background="@drawable/rounded_corners"
+
                                         android:orientation="vertical"
                                         android:padding="12dp">
 
@@ -1109,7 +1109,7 @@
                                         android:id="@+id/healthGoalAchived"
                                         layout="@layout/health_goal_achived" />
                                 </LinearLayout>
-                            </androidx.cardview.widget.CardView>
+                            </RelativeLayout>
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/medications_id"

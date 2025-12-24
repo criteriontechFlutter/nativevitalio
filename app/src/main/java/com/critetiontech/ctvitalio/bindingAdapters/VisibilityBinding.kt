@@ -32,3 +32,9 @@ fun setGoalIcon(view: ImageView, isGoal: Boolean?, isActive: Int?) {
         else -> view.setImageResource(R.drawable.step_progress) // fallback
     }
 }
+
+@BindingAdapter("visibleIfNotEmpty")
+fun visibleIfNotEmpty(view: View, value: String?) {
+    view.visibility =
+        if (!value.isNullOrBlank()) View.VISIBLE else View.GONE
+}

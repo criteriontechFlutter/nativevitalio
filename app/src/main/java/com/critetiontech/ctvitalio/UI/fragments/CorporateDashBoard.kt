@@ -591,9 +591,9 @@ binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
 //        binding.recyclerMedicines.adapter = adapter
         var isBoxVisible = false
         binding.viewAllSleepDataaId.visibility=View.GONE
-binding.showId.showHideId.setOnClickListener{
-    binding.viewAllSleepDataaId.visibility=View.VISIBLE
-    binding.showId.showHideId.visibility=View.GONE
+        binding.showId.showHideId.setOnClickListener{
+        binding.viewAllSleepDataaId.visibility=View.VISIBLE
+        binding.showId.showHideId.visibility=View.GONE
 }
         binding.hideId.showHideId.setOnClickListener{
             binding.viewAllSleepDataaId.visibility=View.GONE
@@ -626,13 +626,14 @@ binding.showId.showHideId.setOnClickListener{
         ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
         binding.timeInBedId.title.text="Time in Bed"
         binding.timeInBedId.value.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-//        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
+       //binding.timeInBedId.statusCardId.id= timeinBed?.Tag.toString()
 
 
-
+            val sleepCyclers = sleepValue.QuickMetricsTiled
+                ?.firstOrNull { it.Title.equals("Sleep Cycles", ignoreCase = true) }
 
         binding.fulSleepCycleId.title.text="Full Sleep Cycle"
-        binding.fulSleepCycleId.value.text="_"
+        binding.fulSleepCycleId.value.text=sleepCyclers?.Value
          binding.fulSleepCycleId.statusCardId.visibility=View.GONE
 
 
@@ -953,6 +954,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         }
          wellnessDataBind()
     }
+    @SuppressLint("UseKtx")
     private fun wellnessDataBind() {
 
         viewModel.insightWrapperList.observe(viewLifecycleOwner) { insight ->
@@ -973,7 +975,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // =======================
             val sleep = insight.insights.sleep
             val sleepColor = Color.parseColor(sleep.colorCode)
-
+             wellness.sleepIndex=sleep.message;
             wellness.sleepstatusId.text = sleep.quality
             wellness.sleepValue.text = scores.sleepScore.toInt().toString()
             wellness.sleepContainertextId.setTextOrHide(sleep.message)
@@ -986,8 +988,8 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // MOVEMENT
             // =======================
             val movement = insight.insights.movement
-            val movementColor = Color.parseColor(movement.colorCode)
-
+            val movementColor = movement.colorCode.toColorInt()
+             wellness.movementIndex=movement.message;
             wellness.movementstatusId.text = movement.progress
             wellness.movementValue.text = scores.movementScore.toInt().toString()
             wellness.movementContainertextId.setTextOrHide(movement.message)
@@ -1001,11 +1003,10 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // =======================
             val stress = insight.insights.stress
             val stressColor = Color.parseColor(stress.colorCode)
-
+             wellness.stressIndex=stress.message
             wellness.stressstatusId.text = stress.level
             wellness.stressValue.text = scores.stressScore.toInt().toString()
             wellness.stressContainertextId.setTextOrHide(stress.message)
-
             wellness.stressstatusId.setTextColor(stressColor)
             wellness.stressstatusId.backgroundTintList =
                 ColorStateList.valueOf(stressColor.withAlpha(0.15f))
@@ -1015,7 +1016,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // =======================
             val recovery = insight.insights.recovery
             val recoveryColor = Color.parseColor(recovery.colorCode)
-
+            wellness.recoveryIndex=recovery.message
             wellness.recoverystatusId.text = recovery.status
             wellness.recoveryValue.text = scores.recoveryScore.toInt().toString()
             wellness.recoveryContainertextId.setTextOrHide(recovery.message)
@@ -1049,17 +1050,14 @@ fun Int.withAlpha(alpha: Float): Int {
             updateCard(binding.restorativeSleepId, "Restorative Sleep", vitalList.getVital("RestorativeSleep"))
             updateCard(binding.morningAlertnessId, "Morning Alertness", vitalList.getVital("MorningAlertness"))
             updateCard(binding.tossesAndTurnsId, "Tosses and Turns", vitalList.getVital("TossTurn"))
-
             updateCard(binding.averageBodyTempId, "Temperature", vitalList.getVital("Temperature"))
             updateCard(binding.activieHoursId, "Active Hours", vitalList.getVital("ActiveHours"))
-            updateCard(binding.StepsId, "Steps", vitalList.getVital("Steps"))
+            updateCard(binding.StepsId, "Steps", vitalList.getVital("TotalSteps"))
             updateCard(binding.ActiveminutesId, "Active Minutes", vitalList.getVital("ActiveMinutes"))
-
             updateCard(binding.recoveryScoreId, "Recovery Index", vitalList.getVital("RecoveryIndex"))
             updateCard(binding.lastNightHrvId, "Last Night's HRV", vitalList.getVital("HRV"))
             updateCard(binding.SleepStageHrvId, "Sleep Stage HRV", vitalList.getVital("HRV"))
             updateCard(binding.StressRhythmScoreId, "Stress Rhythm Score", vitalList.getVital("StressScore"))
-
             // Temperature Deviation (special formatting)
             val temp = vitalList.getVital("Temperature")?.vitalValue ?: 0.0
             binding.tempDeviationId.title.text = "Temperature Deviation"
@@ -1126,40 +1124,7 @@ fun Int.withAlpha(alpha: Float): Int {
 
     fun Vital?.toText(): String =
         this?.vitalValue?.toInt()?.toString() ?: "--"
-    private fun bindIndividualGoals(sleepList: List<SleepVital>) {
 
-        binding.healthGoalAchived.goalsContainer.removeAllViews()
-
-        sleepList.forEach { item ->
-
-            val goalView = layoutInflater.inflate(
-                R.layout.goal_item,
-                binding.healthGoalAchived.goalsContainer,
-                false
-            )
-
-            val icon = goalView.findViewById<ImageView>(R.id.goalIcon)
-            val label = goalView.findViewById<TextView>(R.id.goalLabel)
-
-            // Set Label
-            label.text = item.Title
-
-            // Set Icon Based on State
-            when (item.State.lowercase()) {
-                "good", "optimal" -> {
-                    icon.setImageResource(R.drawable.check_green)
-                    label.setTextColor("#1A1A1A".toColorInt())
-                }
-                else -> {
-                    icon.setImageResource(R.drawable.check_grey)
-                    label.setTextColor("#AAAAAA".toColorInt())
-                }
-            }
-
-            // Add the goal view
-            binding.healthGoalAchived.goalsContainer.addView(goalView)
-        }
-    }
     private fun bindDailyChecklistSummary(list: List<DailyCheckItem>) {
 
         val totalGoals = list.size
@@ -1221,8 +1186,12 @@ fun Int.withAlpha(alpha: Float): Int {
             val progress = ((item.vitalValue / item.targetValue.toInt()) * 100).toInt()
             itemBinding.progressSteps.progress = progress
 
-            itemBinding.tvStepsLabel.text ="${item.goalName} $progress"
-            itemBinding.tvStepsValue.text = "${item.vitalValue.toInt()} / ${item.targetValue}"
+            itemBinding.tvStepsLabel.apply {
+                text = "${item.goalName} $progress"
+                setTextColor(Color.WHITE)
+            }
+
+            "${item.vitalValue.toInt()} / ${item.targetValue}".also { itemBinding.tvStepsValue.text = it }
 
             when (item.isGoalAchieved) {
                 1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
