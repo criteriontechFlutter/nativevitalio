@@ -117,10 +117,10 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             _loading.value = true
 
             // 1️⃣ Load from local first
-            val localVitals = loadVitalsFromLocal()
-            localVitals?.let { entity ->
-                loadVitalsFromLocal(entity)
-            }
+//            val localVitals = loadVitalsFromLocal()
+//            localVitals?.let { entity ->
+//                loadVitalsFromLocal(entity)
+//            }
 
             try {
                 val queryParams = mapOf(
@@ -143,7 +143,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 //                    _vitalInsights.value = parsed.responseValue.vitalInsights
                     val decoded = decodePriorityAction(parsed.responseValue.priorityAction)
                     _priorityAction.value = decoded                // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
-                    saveVitalsToLocal(parsed.responseValue)
+//                    saveVitalsToLocal(parsed.responseValue)
                     _dailyCheckList.value = decodeDailyCheckList(parsed.responseValue.dailyCheckList)
                     val jsonString = parsed.responseValue.vitalInsights
                         ?.firstOrNull()
