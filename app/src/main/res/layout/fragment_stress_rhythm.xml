@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".UI.fragments.MovemenetIndex">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Sleep Chart Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/bg_sleep_card"
+            android:clipToOutline="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tvScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sleep"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/barsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="7" />
+        </LinearLayout>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+
+        <!-- Awake -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/awakeBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"  />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/greyText"
+            />
+        <!-- REM Sleep -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/remBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"  />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/greyText"/>
+        <!-- Light Sleep -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/lightBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"  />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/greyText"/>
+        <!-- Deep Sleep -->
+        <com.critetiontech.ctvitalio.UI.SleepStageBarView
+            android:id="@+id/deepBar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp" />
+
+    </LinearLayout>
+     </LinearLayout>
+</ScrollView>

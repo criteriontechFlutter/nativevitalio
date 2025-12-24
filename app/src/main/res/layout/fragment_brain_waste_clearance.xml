@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.fragments.BrainWasteClearance">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+        android:orientation="vertical">
+        <include android:id="@+id/sleepEfficiencyProgressId" layout="@layout/include_progress_card" />
+        <include android:id="@+id/tempProgressId" layout="@layout/include_progress_card" />
+        <include android:id="@+id/restfulnessProgressId" layout="@layout/include_progress_card" />
+        <include android:id="@+id/totalSleepProgressId" layout="@layout/include_progress_card" />
+        <include android:id="@+id/hrProgress" layout="@layout/include_progress_card" />
+        <include android:id="@+id/restorativeSleepProgressId" layout="@layout/include_progress_card" />
+    </LinearLayout>
+
+
+</FrameLayout>

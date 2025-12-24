@@ -1,7 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
@@ -18,15 +17,19 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
+import com.critetiontech.ctvitalio.databinding.FragmentStressBinding
+import com.critetiontech.ctvitalio.databinding.FragmentStressRhythmBinding
 import java.util.Calendar
 
+class StressRhythm : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
 
-class MovemenetIndex : Fragment() {
 
-    private var _binding: FragmentMovemenetIndexBinding? = null
+    private var _binding: FragmentStressRhythmBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,18 +37,13 @@ class MovemenetIndex : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMovemenetIndexBinding.inflate(inflater, container, false)
+        _binding = FragmentStressRhythmBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Sample data (last 7 days)
         val entries = listOf(
             SleepEntry(
@@ -77,56 +75,9 @@ class MovemenetIndex : Fragment() {
                 value =65
             ),
         )
-        val stressHourlyData = listOf(
-            10, 8, 6, 5, 7, 12,
-            25, 40, 60, 55, 45, 30,
-            20, 25, 35, 50, 65, 70,
-            55, 40, 30, 20, 15, 10
-        )
 
-
-        setData(entries)
+    setData(entries)
     }
-
-
-    fun renderHourlyStressChart(
-        context: Context,
-        barContainer: LinearLayout,
-        hourlyStress: List<Int>
-    ) {
-        barContainer.removeAllViews()
-        if (hourlyStress.isEmpty()) return
-
-        val maxValue = hourlyStress.maxOrNull() ?: 1
-        val maxHeightPx = barContainer.height.takeIf { it > 0 }
-            ?: (50 * context.resources.displayMetrics.density).toInt()
-
-        hourlyStress.forEach { value ->
-            val barHeight =
-                ((value.toFloat() / maxValue) * maxHeightPx)
-                    .toInt()
-                    .coerceAtLeast(2)
-
-            val barView = View(context).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    (6 * context.resources.displayMetrics.density).toInt(),
-                    barHeight
-                ).apply {
-                    marginEnd = (3 * context.resources.displayMetrics.density).toInt()
-                }
-                background = GradientDrawable().apply {
-                    setColor(Color.parseColor("#546788")) // stress color
-                    cornerRadius = 3f
-                }
-            }
-
-            barContainer.addView(barView)
-        }
-    }
-
-    // --------------------------------------------------
-    // Chart Builder
-    // --------------------------------------------------
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun setData(entries: List<SleepEntry>) {
@@ -282,8 +233,7 @@ class MovemenetIndex : Fragment() {
         }
     }
 
-
-val Int.dp: Int
+    val Int.dp: Int
         get() = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             this.toFloat(),

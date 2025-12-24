@@ -121,8 +121,306 @@
             </LinearLayout>
 
         </LinearLayout>
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp" >-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="16dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvStepsTitle"-->
+<!--                    android:text="Steps"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#6B7280"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvStepsValue"-->
+<!--                    android:text="4716 / 11000"-->
+<!--                    android:textSize="28sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/hourlyChartSteps"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingHorizontal="8dp"-->
+<!--                    android:paddingVertical="12dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/barContainerSteps"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="bottom"-->
+<!--                        android:weightSum="24" />-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:alpha="0.1"-->
+<!--                        android:background="#546788" />-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="start"-->
+<!--                            android:text="12 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="6 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="12 PM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="6 PM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:text="12 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+<!--        </androidx.cardview.widget.CardView>-->
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" >-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="16dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCaloriesTitle"-->
+<!--                    android:text="Total Calories (Active + Resting)"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#6B7280"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCaloriesValue"-->
+<!--                    android:text="1800 kcal"-->
+<!--                    android:textSize="28sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/hourlyChartCalories"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingHorizontal="8dp"-->
+<!--                    android:paddingVertical="12dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/barContainerCalories"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="bottom"-->
+<!--                        android:weightSum="24" />-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:alpha="0.1"-->
+<!--                        android:background="#546788" />-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="start"-->
+<!--                            android:text="12 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="6 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="12 PM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="6 PM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:text="12 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"-->
+<!--                            android:layout_height="wrap_content" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--        </androidx.cardview.widget.CardView>-->
 
 
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp">-->
 
+<!--            <TextView-->
+<!--                android:text="Active + Resting"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="16dp">-->
+
+<!--                <TextView-->
+<!--                    android:text="Activity"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="#6B7280"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--                <TextView-->
+<!--                    android:text="1800 kcal"-->
+<!--                    android:textSize="28sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingHorizontal="8dp"-->
+<!--                    android:paddingVertical="12dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="bottom"-->
+<!--                        android:weightSum="24" />-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:alpha="0.1"-->
+<!--                        android:background="#546788" />-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="start"-->
+<!--                            android:text="12 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="6 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="12 PM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="6 PM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"  android:layout_height="wrap_content"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:text="12 AM"-->
+<!--                            android:textColor="#666666"-->
+<!--                            android:textSize="10sp"-->
+<!--                            android:layout_height="wrap_content" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--        </androidx.cardview.widget.CardView>-->
     </LinearLayout>
 </ScrollView>
