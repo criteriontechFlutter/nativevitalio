@@ -1,6 +1,8 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.PopupWindow
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.GoalsAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSmartGoalBinding
+import com.critetiontech.ctvitalio.databinding.LayoutGoalMenuBinding
+import com.critetiontech.ctvitalio.utils.GoalMenuHandler
 import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -92,7 +96,8 @@ class SmartGoalFragment : Fragment() {
             emptyList(),
             isAllGoal = true,
             onGoalClick = { goal, category ->
-//                Toast.makeText(requireContext(), "Clicked: ${goal.goalName}", Toast.LENGTH_SHORT).show()
+
+
             },
             onPinClick = { goal, category ->
                 if (category != null) {
@@ -102,12 +107,73 @@ class SmartGoalFragment : Fragment() {
                     )
                 }
 
-            }
+            },
+            onThreeDotClick = { goal, category,ivMenu ->
+                val binding = LayoutGoalMenuBinding.inflate(layoutInflater)
+
+                val popupWindow = PopupWindow(
+                    binding.root,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    true
+                )
+
+                binding.handler = GoalMenuHandler(
+                    onEditClick = {
+                        popupWindow.dismiss()
+                        // Edit logic
+                    },
+                    onRemoveClick = {
+                        viewModel.removeGoal(goal)
+                        popupWindow.dismiss()
+                        // Remove logic
+                    }
+                )
+
+                popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                popupWindow.elevation = 12f
+                popupWindow.animationStyle = R.style.PopupFadeScaleAnimation
+
+                showPopupAligned(popupWindow, ivMenu)
+
+
+            },
         )
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
+
+
+    fun showPopupAligned(
+        popupWindow: PopupWindow,
+        anchor: View,
+        yOffsetDp: Int = 8
+    ) {
+        val location = IntArray(2)
+        anchor.getLocationOnScreen(location)
+
+        val screenWidth = anchor.resources.displayMetrics.widthPixels
+        popupWindow.contentView.measure(
+            View.MeasureSpec.UNSPECIFIED,
+            View.MeasureSpec.UNSPECIFIED
+        )
+        val popupWidth = popupWindow.contentView.measuredWidth
+
+        val anchorCenterX = location[0] + anchor.width / 2
+        val halfPopup = popupWidth / 2
+
+
+        val xOffset = (-120).dpToPx(anchor)  // move left
+        val yOffset = (8).dpToPx(anchor)
+        popupWindow.showAsDropDown(anchor, xOffset, yOffset)
+    }
+
+
+    fun Int.dpToPx(view: View): Int {
+        return (this * view.resources.displayMetrics.density).toInt()
+    }
+
 
     /* ------------------------------------------------------------- */
     /* FULL SCREEN BOTTOM SHEET                                      */
@@ -145,7 +211,8 @@ class SmartGoalFragment : Fragment() {
                     Log.d("SmartGoal", "Selected categoryId = ${category?.categoryId}")
 
                     putString("categoryId", (category?.categoryId ?: 0).toString()) // ✔ FIXED
-                    putString("goalId", goal.goalId.toString())
+                    putString("goalId", goal.goalId.toString()) // ✔ FIXED
+                    putString("vmID", goal.vmId.toString())
                 }
 
                 findNavController().navigate(
@@ -159,6 +226,9 @@ class SmartGoalFragment : Fragment() {
             /* -------------------- CLICK: PIN -------------------- */
             onPinClick = { goal, category ->
 
+            },
+            onThreeDotClick = { goal, category,ivMenu ->
+
             }
         )
 
@@ -168,3 +238,5 @@ class SmartGoalFragment : Fragment() {
         dialog.show()
     }
 }
+
+

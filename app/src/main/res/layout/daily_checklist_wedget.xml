@@ -50,10 +50,10 @@
                     <!-- Medicine Icon (white) -->
                     <ImageView
                         android:id="@+id/ivStepsIcon"
-                        android:layout_width="14dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="14dp"
-                        android:src="@drawable/medicine"
                         android:layout_marginEnd="6dp"
+                        android:src="@drawable/medicine"
                         app:tint="#FFFFFF" />
 
                     <!-- Medicine text (white) -->

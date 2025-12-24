@@ -64,7 +64,10 @@
         <item name="android:layout_height">35dp</item>
         <item name="android:textSize">15dp</item>
     </style>
-
+    <style name="PopupFadeScaleAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
 
     <style name="StyledInput">
         <item name="android:layout_width">match_parent</item>

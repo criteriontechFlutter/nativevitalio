@@ -86,6 +86,7 @@ val insertWatch="api/WatchDetails/InsertWatchDetails"
     val getAddedSmartGoalApi="api/EmployeeGoals/GetEmployeeeSmartGoals"
     val getAllGoalListApi="api/EmployeeGoals/GetAllSmartGoals"
     val updateGoalPinStatus="api/PatientRegistration/EmployeePinAudit"
+    val deleteEmployeeGoal="api/PatientRegistration/DeleteEmployeeGoal"
 
 
 

@@ -2,25 +2,19 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import PrefsManager
 import android.app.Application
-import android.content.Context
-import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.GoalCategoryResponse
+import com.critetiontech.ctvitalio.model.GoalItem
 import com.critetiontech.ctvitalio.model.SmartGoalResponse
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
 
 class SmartGoalViewModel (application: Application) : BaseViewModel(application) {
 
@@ -150,6 +144,42 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                     getAddedSmartGoal()
                     val json = response.body()?.string()
                     Toast.makeText(MyApplication.appContext,"Pin status updated successfully", Toast.LENGTH_LONG).show()
+
+                } else {
+                    _errorMessage.value = "Error Code: ${response.code()}"
+                }
+
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unexpected error"
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    fun removeGoal(goal: GoalItem) {
+
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                val queryParams = mapOf(
+                    "id" to goal.id.toString(),
+                )
+
+                val response = RetrofitInstance
+                    .createApiService(includeAuthHeader = true)
+                    .dynamicDelete(
+                        url = ApiEndPoint().deleteEmployeeGoal,
+                        params = queryParams,
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+                    getAddedSmartGoal()
+                    val json = response.body()?.string()
+                    Toast.makeText(MyApplication.appContext,"Goal Deleted successfully!", Toast.LENGTH_LONG).show()
 
                 } else {
                     _errorMessage.value = "Error Code: ${response.code()}"

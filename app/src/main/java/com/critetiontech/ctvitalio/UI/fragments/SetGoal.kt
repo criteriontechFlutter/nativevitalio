@@ -1,7 +1,5 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,14 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewbinding.ViewBinding
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentSetGoalBinding
 import com.critetiontech.ctvitalio.viewmodel.SetGoalViewModel
-import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
 import java.util.Calendar
 
 class SetGoal : Fragment() {
@@ -76,25 +71,27 @@ class SetGoal : Fragment() {
         binding.btnMinus.setOnClickListener {
             val value = binding.tvStepsValue.text.toString().toInt()
             if (value > 0) {
-                binding.tvStepsValue.text = (value - 1).toString()
+                binding.tvStepsValue.text = (value - 500).toString()
             }
         }
 
         binding.btnPlus.setOnClickListener {
             val value = binding.tvStepsValue.text.toString().toInt()
-            binding.tvStepsValue.text = (value + 1).toString()
+            binding.tvStepsValue.text = (value + 500).toString()
         }
 
         binding.btnSave.setOnClickListener {
             val categoryId = arguments?.getString("categoryId")
             val goalId = arguments?.getString("goalId")
+            val vmId = arguments?.getString("vmID")
 
             viewModel.updateUserData(
                 requireContext(),
                 categoryId = categoryId.toString(),
                 goalId = goalId.toString(),
                 targetValue = binding.tvStepsValue.text.toString(),
-                unit = " "
+                unit = " ",
+                vmId
             )
         }
     }

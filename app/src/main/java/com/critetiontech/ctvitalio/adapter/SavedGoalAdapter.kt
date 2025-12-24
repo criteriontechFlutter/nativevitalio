@@ -2,6 +2,7 @@ package com.critetiontech.ctvitalio.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,8 @@ class GoalsAdapter(
     private var items: List<Any>,
     private var isAllGoal: Boolean,
     private val onGoalClick: (GoalItem, GoalCategoryResponse?) -> Unit,
-    private val onPinClick: (GoalItem, GoalCategoryResponse?) -> Unit
+    private val onPinClick: (GoalItem, GoalCategoryResponse?) -> Unit,
+    private val onThreeDotClick: (GoalItem, GoalCategoryResponse?,anchorView: View) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -50,7 +52,8 @@ class GoalsAdapter(
                 ItemGoalBinding.inflate(inflater, parent, false),
                 isAllGoal,
                 onGoalClick,
-                onPinClick
+                onPinClick,
+                onThreeDotClick
             )
         }
     }
@@ -110,7 +113,8 @@ class GoalsAdapter(
         private val binding: ItemGoalBinding,
         private val isAllGoal: Boolean,
         private val onGoalClick: (GoalItem, GoalCategoryResponse?) -> Unit,
-        private val onPinClick: (GoalItem, GoalCategoryResponse?) -> Unit
+        private val onPinClick: (GoalItem, GoalCategoryResponse?) -> Unit,
+        private val onThreeDotClick: (GoalItem, GoalCategoryResponse?,anchorView: View) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(goal: GoalItem, category: GoalCategoryResponse?) {
@@ -142,6 +146,11 @@ class GoalsAdapter(
             /* ----------------------- ITEM CLICK ----------------------- */
             binding.root.setOnClickListener {
                 onGoalClick(goal, category)
+            }
+
+
+            binding.ivMenu.setOnClickListener {
+                onThreeDotClick(goal, category,binding.ivMenu)
             }
 
 
