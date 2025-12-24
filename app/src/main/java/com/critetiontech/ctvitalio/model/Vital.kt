@@ -174,6 +174,8 @@ data class Vital(
     val pmId: Int = 0,
     val vitalID: Int = 0,
     var vitalName: String? = null,
+    var colourCode: String? = null,
+    var severityLevel: String? ="-",
     var vitalValue: Double? = 0.0,
     var vmValueText: String? = "--",
     var totalValue: Double = 0.0,
