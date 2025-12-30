@@ -88,11 +88,16 @@ class Connection : Fragment() {
                     is UiEvent.ShowBottomSheet -> {
                         GlobalMessageBottomSheet(
                             iconRes = event.icon,
-                            title = event.title,
+                            title = if (vitalType == "Glucose") {
+                                "Glucose Logged Successfully!"
+                            } else {
+                                "Blood Pressure Logged Successfully!"
+                            },
                             message = event.message,
                             buttonText = event.buttonText,
                             haptic = event.hapticType
                         ).show(parentFragmentManager, "msg")
+
                     }
                 }
             }
