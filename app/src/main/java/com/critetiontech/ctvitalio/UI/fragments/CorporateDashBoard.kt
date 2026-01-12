@@ -140,7 +140,7 @@ class CorporateDashBoard : Fragment() {
 
         binding.headerContainer.setOnClickListener {
 
-            findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
+           // findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
 
         }
         binding.progressCircler.animateProgress(10f)
@@ -961,15 +961,14 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             val wellness = binding.sleepProgressIds
             val wellnessStatus = insight.wellnessStatus.toIntOrNull() ?: 0
 
-            when (wellnessStatus) {
+            when (insight.wellnessScore) {
                 in 90..100 -> {
                     wellness.dashboardAnimatedCard.setDefaultWaveColors(
                         backgroundColor = "#DFFFE9".toColorInt(),
-                        backWaveColor = "#BEEFD1".toColorInt(),
-                        frontWaveColor = "#8FD9AE".toColorInt()
+                        backWaveColor =   "#BEEFD1".toColorInt(),
+                        frontWaveColor =  "#8FD9AE".toColorInt()
                     )
                 }
-
                 in 80..89 -> {
                     wellness.dashboardAnimatedCard.setDefaultWaveColors(
                         backgroundColor = "#CAE3FF".toColorInt(),

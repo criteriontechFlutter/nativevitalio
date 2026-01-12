@@ -80,6 +80,7 @@ class WaveView @JvmOverloads constructor(
         cornerRadii[2] = cornerRadius // top-right x
         cornerRadii[3] = cornerRadius // top-right y
         // bottom corners remain 0f
+        setDefaultWaveColors()
     }
 
     override fun onAttachedToWindow() {

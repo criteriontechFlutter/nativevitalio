@@ -84,13 +84,14 @@ class SetGoal : Fragment() {
             val categoryId = arguments?.getString("categoryId")
             val goalId = arguments?.getString("goalId")
             val vmId = arguments?.getString("vmID")
+            val unit = arguments?.getString("unit")
 
             viewModel.updateUserData(
                 requireContext(),
                 categoryId = categoryId.toString(),
                 goalId = goalId.toString(),
                 targetValue = binding.tvStepsValue.text.toString(),
-                unit = " ",
+                unit = unit.toString(),
                 vmId
             )
         }
