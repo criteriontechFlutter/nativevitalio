@@ -403,21 +403,26 @@ class SleepDetails : Fragment() {
 
             binding.totalSleepIds.title.text = "Total Sleep"
             binding.totalSleepIds.value.text = totalSleep?.vmValueText.toString()
+            binding.totalSleepIds.status.text = totalSleep?.severityLevel.toString()
+
 
             val restorative = sleepValue
                 ?.firstOrNull { it.vitalName.equals("RestorativeSleep", ignoreCase = true) }
             // original code used '==' in one spot; kept as-is (no logic edits)
             binding.restorativeSleepId.title.text  ="Restorative Sleep"
             binding.restorativeSleepId.value.text  =restorative?.vmValueText.toString()
+            binding.restorativeSleepId.status.text  =restorative?.severityLevel.toString()
 
             val timeinBed = sleepValue
                 ?.firstOrNull { it.vitalName.equals("TimeInBed", ignoreCase = true) }
             binding.timeInBedId.title.text ="Time In Bed"
             binding.timeInBedId.value.text =timeinBed?.vmValueText.toString()
+            binding.timeInBedId.status.text =timeinBed?.severityLevel.toString()
             val hr = sleepValue
                 ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
             binding.hr.title.text ="HR Drop"
             binding.hr.value.text =hr?.vmValueText.toString()
+            binding.hr.status.text =hr?.severityLevel.toString()
             Log.d("EfficiencyEfficiencyEfficiency", viewModel.sleepsummary.value.toString())
         }
 
