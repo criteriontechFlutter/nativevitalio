@@ -81,14 +81,17 @@ class WellnessMetrics : Fragment() {
         binding.brainWasteClearance.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
+            binding.sleepBarGreen.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
+        }
+
 //        // RulerSeekBar: Cardio Age
-//        binding.rulerSeekBar.apply {
-//            minValue = 12
-//            currentValue = 32
-//
-//        }
-//        binding.tvCardioValue.text = binding.rulerSeekBar.currentValue.toString()
-    }
+        binding.rulerSeekBar.apply {
+            minValue = 12
+            currentValue = 32
+
+        }
+     }
 
     private fun observeVitals() {
         viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->

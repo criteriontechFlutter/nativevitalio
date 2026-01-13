@@ -1158,9 +1158,8 @@
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
-                app:cardCornerRadius="22dp"
+                android:layout_height="wrap_content"
+                 app:cardCornerRadius="22dp"
                 app:cardUseCompatPadding="true"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="#E9FDF5">
@@ -1199,7 +1198,11 @@
                             android:layout_height="20dp"
                             android:src="@drawable/ic_arrow_right" />
                     </LinearLayout>
-
+                    <com.critetiontech.ctvitalio.utils.StepProgressView
+                        android:id="@+id/stepProgressView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"/>
                     <!-- Timeline Bar -->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1258,6 +1261,12 @@
                             android:background="@drawable/bg_gray_round" />
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="#E9FDF5">
 
                     <!-- Main Value -->
                     <TextView
@@ -1289,6 +1298,7 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+        </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -1394,50 +1404,50 @@
 
             </androidx.cardview.widget.CardView>
 
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="16dp"-->
-<!--                app:cardCornerRadius="22dp"-->
-<!--                app:cardElevation="0dp"-->
-<!--                app:cardBackgroundColor="#ECF3FF">-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#ECF3FF">
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:padding="20dp"-->
-<!--                    android:gravity="center_horizontal">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center_horizontal">
 
-<!--                    &lt;!&ndash; Value &ndash;&gt;-->
-<!--                    <TextView-->
-<!--                        android:id="@+id/tvCardioValue"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="32"-->
-<!--                        android:textSize="42sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textColor="#1A1A2E" />-->
+                    <!-- Value -->
+                    <TextView
+                        android:id="@+id/tvCardioValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="32"
+                        android:textSize="42sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A2E" />
 
-<!--                    &lt;!&ndash; Label &ndash;&gt;-->
-<!--                    <TextView-->
-<!--                        android:id="@+id/tvCardioLabel"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:text="Cardio Age"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textColor="#2E4B60" />-->
+                    <!-- Label -->
+                    <TextView
+                        android:id="@+id/tvCardioLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Cardio Age"
+                        android:textSize="16sp"
+                        android:textColor="#2E4B60" />
 
-<!--                    &lt;!&ndash; Ticks + slider &ndash;&gt;-->
-<!--                    <com.critetiontech.ctvitalio.utils.RulerSeekBar-->
-<!--                        android:id="@+id/rulerSeekBar"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="90dp"-->
-<!--                        android:padding="8dp" />-->
-<!--                </LinearLayout>-->
+                    <!-- Ticks + slider -->
+                    <com.critetiontech.ctvitalio.utils.RulerSeekBar
+                        android:id="@+id/rulerSeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:padding="8dp" />
+                </LinearLayout>
 
-<!--            </androidx.cardview.widget.CardView>-->
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
 </layout>
