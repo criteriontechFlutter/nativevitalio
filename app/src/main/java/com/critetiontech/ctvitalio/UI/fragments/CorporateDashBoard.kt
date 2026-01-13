@@ -40,7 +40,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.toColorInt
 import androidx.core.text.HtmlCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -48,16 +50,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.UI.UltraHumanActivity
- import com.critetiontech.ctvitalio.adapter.DashboardAdapter
+import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
+import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
 import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
+import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
+import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
+import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
@@ -67,15 +76,6 @@ import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.google.android.material.snackbar.Snackbar
 import net.openid.appauth.AuthorizationService
 import okhttp3.WebSocket
-import androidx.core.graphics.toColorInt
-import androidx.core.view.isVisible
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.critetiontech.ctvitalio.UI.BaseActivity
-import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
-import com.critetiontech.ctvitalio.adapter.PriorityAction
-import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
-import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 
 
 class CorporateDashBoard : Fragment() {
@@ -140,7 +140,7 @@ class CorporateDashBoard : Fragment() {
 
         binding.headerContainer.setOnClickListener {
 
-            findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
+           // findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
 
         }
         binding.progressCircler.animateProgress(10f)
@@ -959,6 +959,40 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             insight ?: return@observe
 
             val wellness = binding.sleepProgressIds
+            val wellnessStatus = insight.wellnessStatus.toIntOrNull() ?: 0
+
+            when (insight.wellnessScore) {
+                in 90..100 -> {
+                    wellness.dashboardAnimatedCard.setDefaultWaveColors(
+                        backgroundColor = "#DFFFE9".toColorInt(),
+                        backWaveColor =   "#BEEFD1".toColorInt(),
+                        frontWaveColor =  "#8FD9AE".toColorInt()
+                    )
+                }
+                in 80..89 -> {
+                    wellness.dashboardAnimatedCard.setDefaultWaveColors(
+                        backgroundColor = "#CAE3FF".toColorInt(),
+                        backWaveColor = "#A9CCF5".toColorInt(),
+                        frontWaveColor = "#7FB1E8".toColorInt()
+                    )
+                }
+
+                in 60..79 -> {
+                    wellness.dashboardAnimatedCard.setDefaultWaveColors(
+                        backgroundColor = "#FFDFB2".toColorInt(),
+                        backWaveColor = "#F5C98A".toColorInt(),
+                        frontWaveColor = "#E8B25F".toColorInt()
+                    )
+                }
+
+                else -> {
+                    wellness.dashboardAnimatedCard.setDefaultWaveColors(
+                        backgroundColor = "#FFD4D4".toColorInt(),
+                        backWaveColor = "#F2B7B7".toColorInt(),
+                        frontWaveColor = "#E68F8F".toColorInt()
+                    )
+                }
+            }
 
             // =======================
             // HEADER
@@ -972,12 +1006,11 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // SLEEP
             // =======================
             val sleep = insight.insights.sleep
-            val sleepColor = Color.parseColor(sleep.colorCode)
-             wellness.sleepIndex=sleep.message;
+            val sleepColor = sleep.colorCode.toColorInt()
+            wellness.sleepIndex = sleep.message
             wellness.sleepstatusId.text = sleep.quality
             wellness.sleepValue.text = scores.sleepScore.toInt().toString()
             wellness.sleepContainertextId.setTextOrHide(sleep.message)
-
             wellness.sleepstatusId.setTextColor(sleepColor)
             wellness.sleepstatusId.backgroundTintList =
                 ColorStateList.valueOf(sleepColor.withAlpha(0.15f))
@@ -987,11 +1020,10 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // =======================
             val movement = insight.insights.movement
             val movementColor = movement.colorCode.toColorInt()
-             wellness.movementIndex=movement.message;
+            wellness.movementIndex = movement.message
             wellness.movementstatusId.text = movement.progress
             wellness.movementValue.text = scores.movementScore.toInt().toString()
             wellness.movementContainertextId.setTextOrHide(movement.message)
-
             wellness.movementstatusId.setTextColor(movementColor)
             wellness.movementstatusId.backgroundTintList =
                 ColorStateList.valueOf(movementColor.withAlpha(0.15f))
@@ -1000,8 +1032,8 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // STRESS
             // =======================
             val stress = insight.insights.stress
-            val stressColor = Color.parseColor(stress.colorCode)
-             wellness.stressIndex=stress.message
+            val stressColor = stress.colorCode.toColorInt()
+            wellness.stressIndex = stress.message
             wellness.stressstatusId.text = stress.level
             wellness.stressValue.text = scores.stressScore.toInt().toString()
             wellness.stressContainertextId.setTextOrHide(stress.message)
@@ -1013,17 +1045,17 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // RECOVERY
             // =======================
             val recovery = insight.insights.recovery
-            val recoveryColor = Color.parseColor(recovery.colorCode)
-            wellness.recoveryIndex=recovery.message
+            val recoveryColor = recovery.colorCode.toColorInt()
+            wellness.recoveryIndex = recovery.message
             wellness.recoverystatusId.text = recovery.status
             wellness.recoveryValue.text = scores.recoveryScore.toInt().toString()
             wellness.recoveryContainertextId.setTextOrHide(recovery.message)
-
             wellness.recoverystatusId.setTextColor(recoveryColor)
             wellness.recoverystatusId.backgroundTintList =
                 ColorStateList.valueOf(recoveryColor.withAlpha(0.15f))
         }
     }
+
 
     fun TextView.setTextOrHide(value: String?) {
         if (value.isNullOrBlank()) {

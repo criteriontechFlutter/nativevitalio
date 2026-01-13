@@ -209,10 +209,10 @@ class SmartGoalFragment : Fragment() {
                 val bundle = Bundle().apply {
 
                     Log.d("SmartGoal", "Selected categoryId = ${category?.categoryId}")
-
                     putString("categoryId", (category?.categoryId ?: 0).toString()) // ✔ FIXED
                     putString("goalId", goal.goalId.toString()) // ✔ FIXED
                     putString("vmID", goal.vmId.toString())
+                    putString("unit", goal.unit.toString())
                 }
 
                 findNavController().navigate(

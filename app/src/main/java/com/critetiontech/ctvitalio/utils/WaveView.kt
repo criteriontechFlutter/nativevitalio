@@ -16,13 +16,14 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.addListener
-
+import androidx.core.graphics.toColorInt
 
 
 class WaveView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
+
 ) : View(context, attrs, defStyleAttr) {
 
     // Wave offsets
@@ -62,12 +63,16 @@ class WaveView @JvmOverloads constructor(
 
     // Pending colors flag
     private var hasPendingColorUpdate = false
+    private var defaultBackgroundColor = "#FDEEEE".toColorInt()
+    private var defaultBackWaveColor = "#F6D9D9".toColorInt()
+    private var defaultFrontWaveColor = "#F3CACA".toColorInt()
+
 
     init {
         // Default colors
-        paintBackground.color = Color.parseColor("#FDEEEE")
-        paintBack.color = Color.parseColor("#F6D9D9")
-        paintFront.color = Color.parseColor("#F3CACA")
+        paintBackground.color = defaultBackgroundColor
+        paintBack.color = defaultBackWaveColor
+        paintFront.color = defaultFrontWaveColor
 
         // Set corner radii once
         cornerRadii[0] = cornerRadius // top-left x
@@ -75,6 +80,7 @@ class WaveView @JvmOverloads constructor(
         cornerRadii[2] = cornerRadius // top-right x
         cornerRadii[3] = cornerRadius // top-right y
         // bottom corners remain 0f
+        setDefaultWaveColors()
     }
 
     override fun onAttachedToWindow() {
@@ -95,6 +101,34 @@ class WaveView @JvmOverloads constructor(
             resumeAnimations()
         }
     }
+    /**
+     * Update default colors dynamically.
+     * If any color is null, existing default will be retained.
+     */
+    fun setDefaultWaveColors(
+        backgroundColor: Int? = null,
+        backWaveColor: Int? = null,
+        frontWaveColor: Int? = null
+    ) {
+        backgroundColor?.let {
+            defaultBackgroundColor = it
+            paintBackground.color = it
+        }
+
+        backWaveColor?.let {
+            defaultBackWaveColor = it
+            paintBack.color = it
+        }
+
+        frontWaveColor?.let {
+            defaultFrontWaveColor = it
+            paintFront.color = it
+        }
+
+        invalidate()
+        postInvalidateOnAnimation()
+    }
+
 
     /**
      * Set wave colors dynamically

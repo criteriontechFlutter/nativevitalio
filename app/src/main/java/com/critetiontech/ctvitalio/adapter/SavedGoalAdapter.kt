@@ -127,7 +127,8 @@ class GoalsAdapter(
             binding.tvProgress.text = if (isAllGoal) {
                 goal.description
             } else {
-                "${goal.isActive}/${goal.targetValue}"
+                safeGoalText(goal.vmValue, goal.targetValue)
+
             }
 
             /* Pin color */
@@ -137,8 +138,24 @@ class GoalsAdapter(
             )
             binding.ivPin.setColorFilter(pinColor)
 
-            /* Progress view */
-            binding.progressView.setProgress(0f)
+            try {
+                /* Progress view */
+                val current = goal.vmValue.toFloatOrNull() ?: 0f
+                val target = goal.targetValue.toFloatOrNull() ?: 0f
+
+                val progressPercent = if (target > 0f) {
+                    ((current / target) * 100f).coerceIn(0f, 100f)
+                } else {
+                    0f
+                }
+
+                binding.progressView.setProgress(progressPercent)
+            }catch (e: Exception){
+
+            }
+
+
+
             binding.progressView.setProgressColor("#1281FD")
             binding.progressView.setRemainingColor("#D0D0D0")
 
@@ -172,5 +189,13 @@ class GoalsAdapter(
                 //goal.isPinned = if (goal.isPinned == 1) 0 else 1
             }
         }
+
+
+        fun safeGoalText(vmValue: String?, targetValue: String): String {
+            val current = vmValue?.toFloatOrNull()?.let { Math.round(it) } ?: 0
+            val target = targetValue ?: 0
+            return "$current/$target"
+        }
+
     }
 }

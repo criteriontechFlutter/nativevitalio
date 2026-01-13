@@ -177,7 +177,7 @@ class SleepDetails : Fragment() {
         // Gist HR values
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
             val hrGraph = sleepValue.HrGraph
-            val gist = hrGraph?.GistObject
+            val gist = hrGraph.GistObject
 
             val avgBpm = gist?.Avg ?: 0
             val minBpm = gist?.Min ?: 0
