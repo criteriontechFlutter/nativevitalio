@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green">#2ED85A</color>
+    <color name="grey">#C6E3DE</color>
+    <color name="line_color">#D3EDEB</color>
 
     <!-- Primary Colors -->
     <color name="primaryColor">#007AFF</color>

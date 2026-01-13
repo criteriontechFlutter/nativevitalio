@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F7F9FB"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:elevation="5dp"
+        android:background="@color/primaryBlueLight"
+        android:orientation="vertical">
+
+        <!-- Header: Arrow + Text -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdgeLength="@dimen/_14sdp"
+            android:elevation="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="0dp">
+
+            <ImageView
+                android:id="@+id/wellnessImageArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/wellnessText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Brain Waste Clearance"
+                android:textSize="18sp"
+                android:paddingStart="16dp"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="16dp"
     tools:context=".UI.fragments.BrainWasteClearance">
 
 
@@ -20,4 +66,4 @@
     </LinearLayout>
 
 
-</FrameLayout>
+</FrameLayout>    </LinearLayout>

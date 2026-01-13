@@ -19,6 +19,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
 import java.util.Calendar
@@ -84,8 +85,11 @@ class MovemenetIndex : Fragment() {
             55, 40, 30, 20, 15, 10
         )
 
-
         setData(entries)
+ binding.wellnessImageArrow.setOnClickListener {
+
+            findNavController().popBackStack()
+        }
     }
 
 
@@ -122,6 +126,10 @@ class MovemenetIndex : Fragment() {
 
             barContainer.addView(barView)
         }
+
+
+
+
     }
 
     // --------------------------------------------------

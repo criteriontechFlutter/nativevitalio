@@ -17,6 +17,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
 import com.critetiontech.ctvitalio.databinding.FragmentStressBinding
@@ -77,6 +78,12 @@ class StressRhythm : Fragment() {
         )
 
     setData(entries)
+
+
+        binding.wellnessImageArrow.setOnClickListener {
+
+            findNavController().popBackStack()
+        }
     }
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
