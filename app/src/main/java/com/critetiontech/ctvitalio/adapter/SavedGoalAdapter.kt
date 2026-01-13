@@ -193,7 +193,7 @@ class GoalsAdapter(
 
         fun safeGoalText(vmValue: String?, targetValue: String): String {
             val current = vmValue?.toFloatOrNull()?.let { Math.round(it) } ?: 0
-            val target = targetValue ?: 0
+            val target = targetValue
             return "$current/$target"
         }
 
