@@ -1204,63 +1204,63 @@
                         android:layout_height="wrap_content"
                         android:padding="16dp"/>
                     <!-- Timeline Bar -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="28dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#E9FDF5">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="28dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:background="#E9FDF5">-->
 
-                        <!-- Red block -->
-                        <View
-                            android:layout_width="24dp"
-                            android:layout_height="14dp"
-                            android:layout_marginEnd="6dp"
-                            android:background="@drawable/bg_red_round" />
+<!--                        &lt;!&ndash; Red block &ndash;&gt;-->
+<!--                        <View-->
+<!--                            android:layout_width="24dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_marginEnd="6dp"-->
+<!--                            android:background="@drawable/bg_red_round" />-->
 
-                        <!-- Green block -->
-                        <View
-                            android:layout_width="24dp"
-                            android:layout_height="22dp"
-                            android:layout_marginEnd="6dp"
-                            android:background="@drawable/bg_green_round" />
+<!--                        &lt;!&ndash; Green block &ndash;&gt;-->
+<!--                        <View-->
+<!--                            android:layout_width="24dp"-->
+<!--                            android:layout_height="22dp"-->
+<!--                            android:layout_marginEnd="6dp"-->
+<!--                            android:background="@drawable/bg_green_round" />-->
 
-                        <!-- Repeating pale blocks -->
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="22dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="6dp"
-                            android:background="@drawable/bg_gray_round" />
+<!--                        &lt;!&ndash; Repeating pale blocks &ndash;&gt;-->
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="22dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="6dp"-->
+<!--                            android:background="@drawable/bg_gray_round" />-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="22dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="6dp"
-                            android:background="@drawable/bg_gray_round" />
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="22dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="6dp"-->
+<!--                            android:background="@drawable/bg_gray_round" />-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="22dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="6dp"
-                            android:background="@drawable/bg_gray_round" />
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="22dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="6dp"-->
+<!--                            android:background="@drawable/bg_gray_round" />-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="22dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="6dp"
-                            android:background="@drawable/bg_gray_round" />
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="22dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginEnd="6dp"-->
+<!--                            android:background="@drawable/bg_gray_round" />-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="22dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_gray_round" />
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="22dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="@drawable/bg_gray_round" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
