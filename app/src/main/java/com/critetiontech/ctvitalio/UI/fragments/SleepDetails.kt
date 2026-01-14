@@ -282,7 +282,7 @@ class SleepDetails : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun bindTossTurns(turns: Int, sleepHours: Int, desc: String) {
 
-        binding.tvTurnsCount.text = String.format("%02d", turns)   // 08
+        String.format("%02d", turns).also { binding.tvTurnsCount.text = it }   // 08
         binding.tvTurnsDuration.text = "During $sleepHours hrs sleep"
         binding.tvTurnsDescription.text = desc
 
