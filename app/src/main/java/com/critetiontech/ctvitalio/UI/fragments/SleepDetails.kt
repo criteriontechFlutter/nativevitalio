@@ -65,6 +65,7 @@ import java.time.Duration
 import java.time.Instant
 import java.util.Calendar
 import kotlin.getValue
+import androidx.core.graphics.toColorInt
 
 // -------------------------------------------
 // Data Classes
@@ -318,8 +319,8 @@ class SleepDetails : Fragment() {
         val percentage = oxygenValue ?: 0
         val hours = sleepHours ?: 0
 
-        binding.tvOxygenValue.text = "$percentage%"
-        binding.tvOxygenDuration.text = "During $hours hrs sleep"
+        "$percentage%".also { binding.tvOxygenValue.text = it }
+        "During $hours hrs sleep".also { binding.tvOxygenDuration.text = it }
         binding.oxygenProgress.progress = percentage
     }
 
@@ -350,12 +351,12 @@ class SleepDetails : Fragment() {
         )
 
         // If no tag/status exists in layout, stop here
-        val statusView = layout.status ?: return
+        val statusView = layout.status
 
         if (tag != null && tagColor != null) {
             statusView.text = tag
 
-            val color = Color.parseColor("#$tagColor")
+            val color = "#$tagColor".toColorInt()
             statusView.setTextColor(color)
 
             val bg = statusView.background as? GradientDrawable
@@ -401,7 +402,7 @@ class SleepDetails : Fragment() {
             val totalSleep = sleepValue
                 ?.firstOrNull { it.vitalName.equals("TotalSleep", ignoreCase = true) }
 
-            binding.totalSleepIds.title.text = "Total Sleep"
+            "Total Sleep".also { binding.totalSleepIds.title.text = it }
             binding.totalSleepIds.value.text = totalSleep?.vmValueText.toString()
             binding.totalSleepIds.status.text = totalSleep?.severityLevel.toString()
 
@@ -409,18 +410,18 @@ class SleepDetails : Fragment() {
             val restorative = sleepValue
                 ?.firstOrNull { it.vitalName.equals("RestorativeSleep", ignoreCase = true) }
             // original code used '==' in one spot; kept as-is (no logic edits)
-            binding.restorativeSleepId.title.text  ="Restorative Sleep"
+            "Restorative Sleep".also { binding.restorativeSleepId.title.text = it }
             binding.restorativeSleepId.value.text  =restorative?.vmValueText.toString()
             binding.restorativeSleepId.status.text  =restorative?.severityLevel.toString()
 
             val timeinBed = sleepValue
                 ?.firstOrNull { it.vitalName.equals("TimeInBed", ignoreCase = true) }
-            binding.timeInBedId.title.text ="Time In Bed"
+            "Time In Bed".also { binding.timeInBedId.title.text = it }
             binding.timeInBedId.value.text =timeinBed?.vmValueText.toString()
             binding.timeInBedId.status.text =timeinBed?.severityLevel.toString()
             val hr = sleepValue
                 ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
-            binding.hr.title.text ="HR Drop"
+            "HR Drop".also { binding.hr.title.text = it }
             binding.hr.value.text =hr?.vmValueText.toString()
             binding.hr.status.text =hr?.severityLevel.toString()
             Log.d("EfficiencyEfficiencyEfficiency", viewModel.sleepsummary.value.toString())
@@ -477,7 +478,7 @@ class SleepDetails : Fragment() {
         }
 
         val dataSet = BarDataSet(entries, "Morning Alertness").apply {
-            color = Color.parseColor("#1976D2")
+            "#1976D2".toColorInt().also { color = it }
             valueTextColor = Color.BLACK
             valueTextSize = 10f
         }
@@ -639,7 +640,7 @@ class SleepDetails : Fragment() {
                 layoutParams =
                     LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 textSize = 11f
-                setTextColor(Color.parseColor("#999999"))
+                setTextColor("#999999".toColorInt())
                 gravity = gravities[i]
             }
             timeLabels.add(tv)
@@ -656,7 +657,7 @@ class SleepDetails : Fragment() {
             cyclesData = cyclesData,
             timeLabels = timeLabels
         )
-        binding.tvLegend.text = "${cyclesData.fullCount} Full / ${cyclesData.partialCount} Partial"
+        "${cyclesData.fullCount} Full / ${cyclesData.partialCount} Partial".also { binding.tvLegend.text = it }
     }
 
     // -------------------------------------------
@@ -674,7 +675,7 @@ class SleepDetails : Fragment() {
         val movements =
             listOf(true, false, true, true, false, true, false, false, true, true)
 
-        binding.tvSleepCycleCount.text = "Sleep Cycle ${sleepSegments.size}"
+        "Sleep Cycle ${sleepSegments.size}".also { binding.tvSleepCycleCount.text = it }
 
         binding.sleepGraph.removeAllViews()
         binding.movementRow.removeAllViews()
@@ -726,7 +727,7 @@ class SleepDetails : Fragment() {
     private fun createBarDrawable(startColor: String, endColor: String): GradientDrawable {
         return GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(Color.parseColor(startColor), Color.parseColor(endColor))
+            intArrayOf(startColor.toColorInt(), endColor.toColorInt())
         ).apply {
             cornerRadius = 8.dp.toFloat()
         }
@@ -798,7 +799,7 @@ class SleepDetails : Fragment() {
                         Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
                     )
                     background = GradientDrawable().apply {
-                        setColor(Color.parseColor("#40FFFFFF"))
+                        setColor("#40FFFFFF".toColorInt())
                         cornerRadius = 12.dp.toFloat()
                     }
                 }
@@ -824,7 +825,7 @@ class SleepDetails : Fragment() {
                         Gravity.TOP or Gravity.CENTER_HORIZONTAL
                     )
                     text = entry.value.toString()
-                    setTextColor(Color.parseColor("#0A84FF"))
+                    setTextColor("#0A84FF".toColorInt())
                     textSize = 11f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
@@ -856,7 +857,7 @@ class SleepDetails : Fragment() {
                         Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
                     )
                     text = weekdayInitial
-                    setTextColor(Color.parseColor("#0A84FF"))
+                    setTextColor("#0A84FF".toColorInt())
                     textSize = 10f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
@@ -890,7 +891,7 @@ class SleepDetails : Fragment() {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
                     text = dayMonth
-                    setTextColor(Color.parseColor("#80FFFFFF"))
+                    setTextColor("#80FFFFFF".toColorInt())
                     textSize = 10f
                     gravity = Gravity.CENTER
                 }
