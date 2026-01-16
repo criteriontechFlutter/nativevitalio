@@ -1,5 +1,6 @@
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
+import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
 
 // Main Response
 data class VitalsResponse(
@@ -16,6 +17,7 @@ data class VitalResponseValue(
     val sleepmetrics: List<SleepMetric>?,
     val vitalInsights: List<VitalInsightWrapper>?,
     val priorityAction: List<PriorityActionWrapper>?,
+    val activeChallenges: List<DashboardActiveChallengesWrapper>?,
     val dailyCheckList: List<DailyCheckListWrapper>?,
     val summary: List<SleepSummaryData>
 )

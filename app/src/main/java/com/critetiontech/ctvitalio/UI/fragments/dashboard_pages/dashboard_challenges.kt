@@ -48,16 +48,16 @@ class dashboard_challenges : Fragment() {
     }
     private fun observeChallenges() {
         challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
-            binding.newChallengedRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = NewChallengedAdapter(list.toMutableList(), { challenge ->
-                    challengesViewModel.joinChallenge(challenge.id.toString())
-                }, { challenge ->
-                    val bundle = Bundle().apply { putSerializable("challenges", challenge) }
-                    findNavController().navigate(R.id.action_home2_to_challengeDetailsFragment, bundle)
-                })
-                PagerSnapHelper().attachToRecyclerView(this)
-            }
+//            binding.newChallengedRecyclerView.apply {
+//                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//                adapter = NewChallengedAdapter(list.toMutableList(), { challenge ->
+//                    challengesViewModel.joinChallenge(challenge.id.toString())
+//                }, { challenge ->
+//                    val bundle = Bundle().apply { putSerializable("challenges", challenge) }
+//                    findNavController().navigate(R.id.action_home2_to_challengeDetailsFragment, bundle)
+//                })
+//                PagerSnapHelper().attachToRecyclerView(this)
+//            }
             binding.activeChalleTextId.text = "Active Challenges (${list.size})"
         }
     }

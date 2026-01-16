@@ -263,7 +263,7 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_drawer4)
         }
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
-        challengesViewModel.getNewChallenge()
+      //  challengesViewModel.getNewChallenge()
         viewModel.fluidList.observe(viewLifecycleOwner) { list ->
             val waterQty = list
                 .firstOrNull { it.id.toString() == "97694" }
@@ -302,11 +302,11 @@ class CorporateDashBoard : Fragment() {
 
 
 
-        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
+        viewModel.activeChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.id.toString())
+                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
                 },
                 onDetailsClick  =  { challenge ->
                     val bundle = Bundle().apply {
@@ -319,7 +319,7 @@ class CorporateDashBoard : Fragment() {
             binding.challengedId.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.id.toString())
+                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
                 },
                 onDetailsClick =  { challenge ->
                     val bundle = Bundle().apply {
@@ -340,7 +340,7 @@ class CorporateDashBoard : Fragment() {
             }
 
 
-binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
             setupActiveChallenges(list.size)
@@ -1246,25 +1246,44 @@ fun Int.withAlpha(alpha: Float): Int {
         list.forEach { item ->
 
             val itemBinding = DailyChecklistWedgetBinding.inflate(
-                layoutInflater, binding.checklistContainer, false
+                layoutInflater,
+                binding.checklistContainer,
+                false
             )
 
-            val progress = ((item.vitalValue / item.targetValue.toInt()) * 100).toInt()
-            itemBinding.progressSteps.progress = progress
+            val progress =
+                ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
 
-            "${item.goalName} ".also {
-                itemBinding.tvStepsLabel.text = it
-                itemBinding.tvStepsLabel.setTextColor(resources.getColor(R.color.white))
-            }
-            itemBinding.tvStepsValue.text = "${item.vitalValue.toInt()} / ${item.targetValue}"
+            itemBinding.progressSteps.progress = 40
+
+            itemBinding.tvStepsLabel.text = item.goalName
+            itemBinding.tvStepsValue.text =
+                "${item.vitalValue.toInt()} / ${item.targetValue}"
 
             when (item.isGoalAchieved) {
                 1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
                 0 -> itemBinding.ivStepsIcon.setColorFilter(Color.RED)
             }
 
+            // 🔥 IMPORTANT PART
+            itemBinding.progressSteps.post {
+
+                val progressBarWidth = itemBinding.progressSteps.width
+                val filledWidth = progressBarWidth * progress / 100f
+
+                val labelX =
+                    itemBinding.tvStepsLabel.x + (itemBinding.tvStepsLabel.width / 2f)
+
+                if (filledWidth >= labelX) {
+                    itemBinding.tvStepsLabel.setTextColor(Color.WHITE)
+                } else {
+                    itemBinding.tvStepsLabel.setTextColor(Color.BLACK)
+                }
+            }
+
             binding.checklistContainer.addView(itemBinding.root)
         }
+
     }
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("SuspiciousIndentation")
@@ -1571,8 +1590,7 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
 
         val challengeIndicatorAdapter = IndicatorAdapter(sizes)
         binding.activechalgesDotId.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = challengeIndicatorAdapter
         }
 
