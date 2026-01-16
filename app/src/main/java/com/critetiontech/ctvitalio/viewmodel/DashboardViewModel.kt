@@ -56,6 +56,8 @@ import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
 import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
+import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
+import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -108,8 +110,12 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     val quickMetricsTiledList: LiveData<List<QuickMetricsTiled>> = _quickMetricsTiledList
     private val _priorityAction = MutableLiveData<List<PriorityAction>?>()
     val  priorityAction: MutableLiveData<List<PriorityAction>?> get() = _priorityAction
+
     private val _dailyCheckList = MutableLiveData<List<DailyCheckItem>>()
     val dailyCheckList: LiveData<List<DailyCheckItem>> = _dailyCheckList
+
+    private val _activeChallenges = MutableLiveData<List<DashboardActiveChallenges>>()
+    val activeChallenges: LiveData<List<DashboardActiveChallenges>> = _activeChallenges
     private val _insightWrapperList = MutableLiveData< InsightJson? >()
     val insightWrapperList: MutableLiveData<InsightJson?> =  _insightWrapperList
     fun getVitals() {
@@ -145,6 +151,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     _priorityAction.value = decoded                // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
 //                    saveVitalsToLocal(parsed.responseValue)
                     _dailyCheckList.value = decodeDailyCheckList(parsed.responseValue.dailyCheckList)
+                    _activeChallenges.value = decodeDashboardActiveChallenges(parsed.responseValue.activeChallenges)
                     val jsonString = parsed.responseValue.vitalInsights
                         ?.firstOrNull()
                         ?.insightJson
@@ -192,6 +199,17 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
 
         val jsonString = wrapperList[0].dailyChecklist
+        return gson.fromJson(jsonString, listType)
+    }
+
+
+    fun decodeDashboardActiveChallenges(wrapperList: List<DashboardActiveChallengesWrapper>?): List<DashboardActiveChallenges> {
+        if (wrapperList.isNullOrEmpty()) return emptyList()
+
+        val gson = Gson()
+        val listType = object : TypeToken<List<DashboardActiveChallenges>>() {}.type
+
+        val jsonString = wrapperList[0].challenges
         return gson.fromJson(jsonString, listType)
     }
     fun decodePriorityAction(wrapperList: List<PriorityActionWrapper>?): List<PriorityAction> {

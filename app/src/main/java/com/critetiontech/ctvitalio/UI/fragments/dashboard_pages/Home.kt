@@ -319,17 +319,17 @@ class Home : Fragment() {
             binding.newChallengedRecyclerView.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = NewChallengedAdapter(
-                    list.toMutableList(),
-                    { challenge -> challengesViewModel.joinChallenge(challenge.id.toString()) },
-                    { challenge ->
-                        val bundle = Bundle().apply { putSerializable("challenges", challenge) }
-                        findNavController().navigate(
-                            R.id.action_home2_to_challengeDetailsFragment,
-                            bundle
-                        )
-                    }
-                )
+//                adapter = NewChallengedAdapter(
+//                    list.toMutableList(),
+//                    { challenge -> challengesViewModel.joinChallenge(challenge.id.toString()) },
+//                    { challenge ->
+//                        val bundle = Bundle().apply { putSerializable("challenges", challenge) }
+//                        findNavController().navigate(
+//                            R.id.action_home2_to_challengeDetailsFragment,
+//                            bundle
+//                        )
+//                    }
+//                )
                 PagerSnapHelper().attachToRecyclerView(this)
             }
 

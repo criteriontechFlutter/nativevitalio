@@ -102,11 +102,11 @@ class Dashboard  : Fragment() {
 
 
         challengesViewModel.getNewChallenge()
-        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
+        viewModel.activeChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.id.toString())
+                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
                 },
                 onDetailsClick  =  { challenge ->
                     val bundle = Bundle().apply {
