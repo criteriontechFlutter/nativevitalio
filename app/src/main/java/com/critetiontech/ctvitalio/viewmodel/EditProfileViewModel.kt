@@ -269,7 +269,7 @@ class EditProfileViewModel :ViewModel() {
                     _updateSuccess.postValue(true)
                     ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
 
-
+                    getPatientDetailsByUHID( )
                 } else {
                     _updateSuccess.postValue(false)
                     Log.e("UpdateProfile", "Update failed. Code: ${response.code()}")
@@ -292,7 +292,7 @@ class EditProfileViewModel :ViewModel() {
 
                 val queryParams = mapOf(
                     "mobileNo" to "",
-                    "uhid" to PrefsManager().getPatient()?.empId.toString(),
+                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
                     "ClientId" to 194
                 )
 

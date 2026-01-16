@@ -161,6 +161,7 @@ class EditProfile : Fragment() {
                     return@setOnClickListener
                 }
             }
+            val patient = PrefsManager().getPatient()
             // 3. Call ViewModel if all fields are valid
             viewModel.updateUserData(
                 requireContext(),
@@ -173,11 +174,20 @@ class EditProfile : Fragment() {
 
 
                chronicData=  Gson().toJson(viewModel.selectedDiseaseList.value ?: emptyList<Map<String, String>>()),
-                street=address,
-                zipCode=  PrefsManager().getPatient()?.zip.toString(),
-                countryId = viewModel.selectedCountryId.value?.toString().orEmpty(),
-                stateId = viewModel.selectedStateId.value?.toString().orEmpty(),
-                cityId = viewModel.selectedCityId.value?.toString().orEmpty(),
+//                street=address,
+//                zipCode=  PrefsManager().getPatient()?.zip.toString(),
+//
+//                countryId = viewModel.selectedCountryId.value?.toString().orEmpty(),
+//                stateId = viewModel.selectedStateId.value?.toString().orEmpty(),
+//                cityId = viewModel.selectedCityId.value?.toString().orEmpty(),
+
+                street= patient?.address.toString(),
+                zipCode=  patient?.zip.toString(),
+
+                countryId =patient?.countryId.toString(),
+                stateId = patient?.stateId.toString(),
+                cityId = patient?.cityId.toString(),
+
                 weight = binding.weight.text.toString(),
                 height = binding.height.text.toString(),
                 bgId = selectedBloodGroup?.id?.toString().orEmpty()
