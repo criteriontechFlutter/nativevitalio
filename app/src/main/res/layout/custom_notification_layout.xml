@@ -103,13 +103,5 @@
 
     </LinearLayout>
 
-    <!-- Priority indicator -->
-    <View
-        android:id="@+id/priority_indicator"
-        android:layout_width="3dp"
-        android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:layout_marginStart="8dp"
-        android:visibility="gone" />
 
 </LinearLayout>
