@@ -170,7 +170,7 @@ class EditProfile : Fragment() {
                 phone = binding.mobileNo.text.toString(),
                 email = binding.email.text.toString(),
                 dob = convertedDob,
-                genderId = genderId,
+                genderId =  patient?.genderId.toString(),
 
 
                chronicData=  Gson().toJson(viewModel.selectedDiseaseList.value ?: emptyList<Map<String, String>>()),
@@ -190,7 +190,7 @@ class EditProfile : Fragment() {
 
                 weight = binding.weight.text.toString(),
                 height = binding.height.text.toString(),
-                bgId = selectedBloodGroup?.id?.toString().orEmpty()
+                bgId = patient?.bloodGroupId.toString(),
             )
         }
     }
@@ -415,7 +415,7 @@ class EditProfile : Fragment() {
 
     private fun bindPatientData() {
         prefsManager.getPatient()?.let { patient ->
-            val nameParts = patient.patientName.trim().split("\\s+".toRegex())
+            val nameParts = patient.patientName .trim().split("\\s+".toRegex())
             val firstName = nameParts.firstOrNull() ?: ""
             val lastName = if (nameParts.size > 1) nameParts.subList(1, nameParts.size).joinToString(" ") else ""
 

@@ -268,8 +268,15 @@ class EditProfileViewModel :ViewModel() {
                 if (response.isSuccessful) {
                     _updateSuccess.postValue(true)
                     ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
+                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
+                    parsed.let {
 
-                    getPatientDetailsByUHID( )
+                        PrefsManager().savePatient(it.responseValue.first())
+
+                    }
+
                 } else {
                     _updateSuccess.postValue(false)
                     Log.e("UpdateProfile", "Update failed. Code: ${response.code()}")
@@ -292,7 +299,7 @@ class EditProfileViewModel :ViewModel() {
 
                 val queryParams = mapOf(
                     "mobileNo" to "",
-                    "uhid" to PrefsManager().getPatient()?.uhID.toString(),
+                    "uhid" to PrefsManager().getPatient()?.empId.toString(),
                     "ClientId" to 194
                 )
 
