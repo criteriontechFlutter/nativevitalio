@@ -180,9 +180,9 @@ class Login : BaseActivity() {
         val prefs = PrefsManager().getPatient()
         val name = prefs?.patientName ?: "User"
 
-        val firstLogin = false
+        val isFirstLogin = (prefs?.isFirstLoginCompleted ?: 1) == 0
 
-        if (firstLogin) {
+        if (isFirstLogin) {
             ConfirmUpdateDialog(
                 title = "Login Successful",
                 message = "Hello $name, welcome to Vitalio.\nLet's secure your account with a new password.",

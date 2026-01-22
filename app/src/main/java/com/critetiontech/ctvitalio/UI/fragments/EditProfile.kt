@@ -5,6 +5,7 @@ import PrefsManager
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +33,8 @@ import com.critetiontech.ctvitalio.viewmodel.EditProfileViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.Period
 import java.util.Calendar
 import java.util.Locale
 
@@ -69,6 +73,7 @@ class EditProfile : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -148,6 +153,7 @@ class EditProfile : Fragment() {
                 rawDob
             }
 
+
             if( binding.email.text.toString().isNotEmpty()){
                 if (isValidEmail(binding.email.text.toString())) {
                     // Proceed with form submission
@@ -169,7 +175,7 @@ class EditProfile : Fragment() {
                 name = name,
                 phone = binding.mobileNo.text.toString(),
                 email = binding.email.text.toString(),
-                dob = convertedDob,
+                dob = convertedDob.toString(),
                 genderId =  patient?.genderId.toString(),
 
 
@@ -202,7 +208,12 @@ class EditProfile : Fragment() {
 
 
     private var selectedBloodGroup: BloodGroup? = null
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun calculateAge(dob: String): Int {
+        val birthDate = LocalDate.parse(dob)   // yyyy-MM-dd
+        val currentDate = LocalDate.now()
+        return Period.between(birthDate, currentDate).years
+    }
     fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
                 && email.lowercase().endsWith(".com")
@@ -422,7 +433,7 @@ class EditProfile : Fragment() {
             binding.firstNameField.setText(firstName)
             binding.lastNameField.setText(lastName)
             // Format date before showing
-            val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
             val displayFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) // Example: 20 May 2025
 
             val formattedDob = try {

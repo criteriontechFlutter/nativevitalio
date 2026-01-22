@@ -34,7 +34,7 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
 
             _loginSuccess.postValue(false)
 
-            try {
+//            try {
                 val queryParams = mapOf(
                     // "mobileNo" to mo,
 
@@ -56,7 +56,7 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
 
                     _loginSuccess.postValue(true)
 //                    val responseBodyString = response.body()?.string()
-//                    Log.d("RESPONSE", "phoneOrUHID3"+responseBodyString.toString())
+                    Log.d("RESPONSE", "phoneOrUHID3 "+response.body()?.string().toString())
                 } else {
 
                     _loginSuccess.postValue(false)
@@ -64,11 +64,11 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
                     _errorMessage.value = "Error: ${response.code()}"
                 }
 
-            } catch (e: Exception) {
-                _loading.value = false
-                _errorMessage.value = e.message ?: "Unknown error occurred"
-                e.printStackTrace()
-            }
+//            } catch (e: Exception) {
+//                _loading.value = false
+//                _errorMessage.value = e.message ?: "Unknown error occurred"
+//                e.printStackTrace()
+//            }
         }
     }
 }

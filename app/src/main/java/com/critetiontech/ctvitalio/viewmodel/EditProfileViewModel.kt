@@ -5,8 +5,10 @@ import PrefsManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,6 +33,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.Period
 import java.util.Date
 import java.util.Locale
 
@@ -155,6 +159,7 @@ class EditProfileViewModel :ViewModel() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun updateUserData(
         requireContext: Context,
         filePath: Uri? = null,
@@ -190,18 +195,23 @@ class EditProfileViewModel :ViewModel() {
                     Log.d("UpdateProfile", "Field: $key = $value")
                     return MultipartBody.Part.createFormData(key, value)
                 }
-
+                val age = try {
+                    val birthDate = LocalDate.parse(dob)
+                    Period.between(birthDate, LocalDate.now()).years
+                } catch (e: Exception) {
+                    0 // fallback if conversion fails
+                }
                 parts += partFromField("Pid", patient.id.toString())
                 parts += partFromField("PatientName",name)
                 parts += partFromField("EmailID", email)
                 parts += partFromField("GenderId",  genderId.toString())
                 parts += partFromField("BloodGroupId", bgId)
-                parts += partFromField("Height","%.2f".format(height.toDoubleOrNull() ?: 0.0))
-                parts += partFromField("Weight", "%.2f".format(weight.toDoubleOrNull() ?: 0.0))
+                parts += partFromField("Height", (height.toDoubleOrNull()?.toInt() ?: 0).toString())
+                parts += partFromField("Weight", (weight.toDoubleOrNull()?.toInt() ?: 0).toString())
                 parts += partFromField("Dob",  dob)
                 parts += partFromField("Zip",   zipCode)
                 parts += partFromField("AgeUnitId", "1")
-                parts += partFromField("Age", patient.age)
+                parts += partFromField("Age", age.toString())
                 parts += partFromField("Address", street)
                 parts += partFromField("MobileNo",  phone)
                 parts += partFromField("CountryId",  countryId.split(".")[0])
