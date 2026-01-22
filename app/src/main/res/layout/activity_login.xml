@@ -133,7 +133,6 @@
                         android:layout_height="wrap_content"
                         android:text="Login "
                         android:textColor="@color/bgDark"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,6 +169,7 @@
                         android:padding="12dp"
                         android:maxLines="1"
                         android:singleLine="true"
+                        android:focusable="true"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:textColorHint="@color/loginHintTextColor"
