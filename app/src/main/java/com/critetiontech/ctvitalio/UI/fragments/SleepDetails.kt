@@ -9,6 +9,7 @@ import SleepValue
 import TempGraph
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Canvas
 import com.critetiontech.ctvitalio.R
@@ -406,7 +407,6 @@ class SleepDetails : Fragment() {
             binding.totalSleepIds.value.text = totalSleep?.vmValueText.toString()
             binding.totalSleepIds.status.text = totalSleep?.severityLevel.toString()
 
-
             val restorative = sleepValue
                 ?.firstOrNull { it.vitalName.equals("RestorativeSleep", ignoreCase = true) }
             // original code used '==' in one spot; kept as-is (no logic edits)
@@ -414,17 +414,35 @@ class SleepDetails : Fragment() {
             binding.restorativeSleepId.value.text  =restorative?.vmValueText.toString()
             binding.restorativeSleepId.status.text  =restorative?.severityLevel.toString()
 
+
+
             val timeinBed = sleepValue
                 ?.firstOrNull { it.vitalName.equals("TimeInBed", ignoreCase = true) }
             "Time In Bed".also { binding.timeInBedId.title.text = it }
             binding.timeInBedId.value.text =timeinBed?.vmValueText.toString()
             binding.timeInBedId.status.text =timeinBed?.severityLevel.toString()
+
+
             val hr = sleepValue
                 ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
             "HR Drop".also { binding.hr.title.text = it }
             binding.hr.value.text =hr?.vmValueText.toString()
             binding.hr.status.text =hr?.severityLevel.toString()
             Log.d("EfficiencyEfficiencyEfficiency", viewModel.sleepsummary.value.toString())
+
+
+
+            binding.totalSleepIds.statusCardId.setCardTintHex(totalSleep?.colourCode)
+            binding.totalSleepIds.status.setStatusTextColorHex(totalSleep?.colourCode)
+
+            binding.restorativeSleepId.statusCardId.setCardTintHex(restorative?.colourCode)
+            binding.restorativeSleepId.status.setStatusTextColorHex(restorative?.colourCode)
+
+            binding.timeInBedId.statusCardId.setCardTintHex(timeinBed?.colourCode)
+            binding.timeInBedId.status.setStatusTextColorHex(timeinBed?.colourCode)
+
+            binding.hr.statusCardId.setCardTintHex(hr?.colourCode)
+            binding.hr.status.setStatusTextColorHex(hr?.colourCode)
         }
 
         val cardMap = mapOf(
@@ -450,6 +468,21 @@ class SleepDetails : Fragment() {
                 }
             }
         }
+    }
+    private fun View.setCardTintHex(hex: String?) {
+        val color = hex?.toColorInt() ?: Color.WHITE
+        backgroundTintList = ColorStateList.valueOf(color)
+    }private fun String.toColorInt(): Int {
+        return Color.parseColor(this)
+    }
+    private fun TextView.setStatusTextColorHex(hex: String?) {
+        val color = hex?.toColorInt() ?: Color.WHITE
+
+        val darkness = 1 - (0.299 * Color.red(color) +
+                0.587 * Color.green(color) +
+                0.114 * Color.blue(color)) / 255
+
+        setTextColor(if (darkness < 0.5) Color.BLACK else Color.WHITE)
     }
     @SuppressLint("SetTextI18n")
     private fun bindMorningAlertnessCard(alertness: MorningAlertness) {

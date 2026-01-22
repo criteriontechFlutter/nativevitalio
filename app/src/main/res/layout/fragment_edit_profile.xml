@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    android:background="@color/backgroundColor"
+    android:background="@color/white"
     android:fillViewport="true"
     android:windowSoftInputMode="adjustPan"
     android:isScrollContainer="true"

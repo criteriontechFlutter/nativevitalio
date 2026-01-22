@@ -998,6 +998,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // HEADER
             // =======================
             wellness.wellnessScoreNumber.text = insight.wellnessScore.toString()
+            binding.progressCircler.animateProgress(insight.wellnessScore.toFloat())
             wellness.wellnessDescriptions.text = insight.wellnessMessage
 
             val scores = insight.scores

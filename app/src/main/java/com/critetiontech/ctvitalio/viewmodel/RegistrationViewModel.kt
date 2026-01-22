@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
@@ -160,20 +161,24 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
 
                 // Add file if present
                 if (filePath != null) {
-                    filePath.path?.takeIf { it.isEmpty() }?.let {
-                        val file = File(it)
-                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                    val resolver = requireContext.contentResolver
+                    val inputStream = resolver.openInputStream(filePath)
 
+                    if (inputStream != null) {
+                        val bytes = inputStream.readBytes()
+                        val requestBody = bytes.toRequestBody("image/*".toMediaTypeOrNull())
 
-                        val filePart =
-
-                            MultipartBody.Part.createFormData("FormFile",
-                                PrefsManager().getPatient()?.profileUrl, requestFile)
-
-
-                        parts += filePart
-                        Log.d("UpdateProfile", "File attached: ${file.name}")
+                        val part = MultipartBody.Part.createFormData(
+                            "FormFile",
+                            "profile.jpg",
+                            requestBody
+                        )
+                        parts += part
+                    } else {
+                        Log.e("Upload", "Failed to open inputStream")
                     }
+                } else {
+                    // send old profile URL here
                 }
 
                 // Print final parts for debug
@@ -204,7 +209,14 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                 if (response.isSuccessful) {
                     _updateSuccess.postValue(true)
                     ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
+                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
+                    parsed.let {
 
+                        PrefsManager().savePatient(it.responseValue.first())
+
+                    }
 
                 } else {
                     _updateSuccess.postValue(false)
