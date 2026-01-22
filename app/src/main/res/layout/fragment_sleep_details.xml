@@ -4,210 +4,841 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sleepChartContainer"
     android:layout_width="match_parent"
+    android:background="#F7F9FB"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    android:padding="16dp">
+   >
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Sleep Chart Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="16dp"
-            android:background="@drawable/bg_sleep_card"
-            android:clipToOutline="true">
+
+            android:elevation="5dp"
+            android:background="@color/primaryBlueLight"
+            android:orientation="vertical">
+
+            <!-- Header: Arrow + Text -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdgeLength="@dimen/_14sdp"
+                android:elevation="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="0dp">
+
+                <ImageView
+                    android:id="@+id/wellnessImageArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:id="@+id/wellnessText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sleep Details"
+                    android:textSize="18sp"
+                    android:paddingStart="16dp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_16sdp"
+            android:background="#F7F9FB"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Sleep Chart Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@drawable/bg_sleep_card"
+                android:clipToOutline="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sleep"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:alpha="0.8" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/barsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:gravity="bottom|center_horizontal"
+                    android:orientation="horizontal"
+                    android:weightSum="6" />
+            </LinearLayout>
+
+            <!-- Health Summary Cards -->
+            <LinearLayout
+                android:id="@+id/healthSnaps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="Contributors"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <include
+                        android:id="@+id/totalSleepIds"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp" />
+
+                    <include
+                        android:id="@+id/timeInBedId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <include
+                        android:id="@+id/restorativeSleepId"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp" />
+
+                    <include
+                        android:id="@+id/hr"
+                        layout="@layout/sleep_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corners"
+                android:orientation="vertical">
+                <include android:id="@+id/sleepEfficiencyProgressId" layout="@layout/include_progress_card" />
+                <include android:id="@+id/tempProgressId" layout="@layout/include_progress_card" />
+                <include android:id="@+id/restfulnessProgressId" layout="@layout/include_progress_card" />
+                <include android:id="@+id/totalSleepProgressId" layout="@layout/include_progress_card" />
+                <include android:id="@+id/hrProgress" layout="@layout/include_progress_card" />
+                <include android:id="@+id/restorativeSleepProgressId" layout="@layout/include_progress_card" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep_stages"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:alpha="0.8" />
+               <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/sleepChartFragment"
+                android:name="com.critetiontech.ctvitalio.UI.fragments.SleepGraphFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <!-- Header -->
+            <LinearLayout
+                android:id="@+id/headerRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvSleepCycleCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sleep Cycle 0"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvLegend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Full / Partial"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Dynamic graph area -->
+            <LinearLayout
+                android:id="@+id/sleepGraph"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/tvTime1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:gravity="start" />
+
+                <TextView
+                    android:id="@+id/tvTime2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvTime3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvTime4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvTime5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textColor="@color/black"
+                    android:gravity="end" />
+            </LinearLayout>
+            <!-- Movements -->
+            <LinearLayout
+                android:id="@+id/movementRow"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:text="Heart Rate "
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
+                android:id="@+id/heartRateGraph"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@android:color/white"
+                android:elevation="4dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <!-- AVG -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Avg"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginStart="4dp"
+                             android:src="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tvAvgValue"
+                        android:text=" "
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="bpm"
+                        android:textSize="12sp"
+                        android:textColor="#888888"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                </LinearLayout>
+
+                <!-- MIN -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Min"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginStart="4dp"
+                             android:src="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                         android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tvMinValue"
+                        android:text="0 "
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="bpm"
+                        android:textSize="12sp"
+                        android:textColor="#888888"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                </LinearLayout>
+
+                <!-- MAX -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Max"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginStart="4dp"
+                            android:src="@drawable/arrow_right_grey" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tvMaxValue"
+                        android:text=" "
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="bpm"
+                        android:textSize="12sp"
+                        android:textColor="#888888"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:text="Heart Rate Variablity"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
+                android:id="@+id/heartRateVariablityGraph"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                 android:background="@android:color/white"
+                android:elevation="4dp" />
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="12dp">
+                android:padding="16dp">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Morning Alertness"
+                        android:textSize="14sp"
+                        android:textColor="#666"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvAlertnessValue"
+                        android:text="70 min"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvScore"
+                    android:id="@+id/tvAlertnessSubtitle"
+                    android:text=" "
+                    android:textSize="12sp"
+                    android:textColor="#777"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_vertical" />
 
-                <TextView
-                    android:id="@+id/tvLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sleep"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:alpha="0.8" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/barsContainer"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:gravity="bottom|center_horizontal"
-                android:orientation="horizontal"
-                android:weightSum="6" />
-        </LinearLayout>
+                android:layout_height="8dp" />
 
-        <!-- Health Summary Cards -->
-        <LinearLayout
-            android:id="@+id/healthSnaps"
+            <!-- Bar Chart -->
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/alertnessBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="#FFF5F5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Slow Mornings?"
+                        android:textColor="#E57373"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/you_ve_been_experiencing_prolonged_grogginess_that_affects_your_mornings_try_adjusting_your_bedroom_temperature_having_dinner_earlier_limiting_the_use_of_blackout_curtains_and_avoiding_coffee_late_in_the_evening"
+                        android:textColor="#666666"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="4dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
+        </LinearLayout>
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!-- Slow Mornings Card -->
+
+        <!-- Tosses and Turns Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:paddingBottom="20dp"
-                android:text="Sleep"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:elevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <include
-                    android:id="@+id/totalSleepIds"
-                    layout="@layout/sleep_layout"
-                    android:layout_width="0dp"
+                <!-- Header -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_marginBottom="12dp">
 
-                <include
-                    android:id="@+id/timeInBedId"
-                    layout="@layout/sleep_layout"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tosses and turns during sleep"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentStart="true"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_dialog_info"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:tint="#BBBBBB"/>
+                </RelativeLayout>
+
+                <!-- Blue Info Box -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTossTurns"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp" />
+                    android:layout_marginTop="12dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#B3E5FC">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <!-- Image -->
+                        <ImageView
+                            android:id="@+id/imgTurnsIcon"
+                            android:layout_width="160dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/sleepturns"
+                            android:layout_marginEnd="16dp" />
+
+                        <!-- Text Content -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="4dp">
+
+                                <TextView
+                                    android:id="@+id/tvTurnsCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="00"
+                                    android:textColor="#1565C0"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/tvTurnsLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Turns"
+                                    android:textColor="#1565C0"
+                                    android:textSize="12sp"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginBottom="4dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvTurnsDuration"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="During X hrs sleep"
+                                    android:textColor="#1565C0"
+                                    android:textSize="11sp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_gravity="center_vertical"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvTurnsDescription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="#424242"
+                                android:textSize="12sp"
+                                android:lineSpacingExtra="2dp"
+                                android:text="Your movement patterns during sleep indicate slight restlessness"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <include
-                    android:id="@+id/restorativeSleepId"
-                    layout="@layout/sleep_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp" />
-
-                <include
-                    android:id="@+id/hr"
-                    layout="@layout/sleep_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-         <LinearLayout
+        <!-- Average Oxygen Saturation Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corners"
-            android:orientation="vertical">
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:elevation="0dp">
 
-            <include android:id="@+id/sleepEfficiencyProgressId" layout="@layout/include_progress_card" />
-            <include android:id="@+id/tempProgressId" layout="@layout/include_progress_card" />
-            <include android:id="@+id/restfulnessProgressId" layout="@layout/include_progress_card" />
-            <include android:id="@+id/totalSleepProgressId" layout="@layout/include_progress_card" />
-            <include android:id="@+id/hrProgress" layout="@layout/include_progress_card" />
-            <include android:id="@+id/restorativeSleepProgressId" layout="@layout/include_progress_card" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/oxygenContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/tvOxygenHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_oxygen_saturation"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentStart="true"/>
+
+                    <ImageView
+                        android:id="@+id/ivOxygenInfo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_dialog_info"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:tint="#BBBBBB"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvOxygenLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Oxygen Saturation"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvOxygenValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="86%"
+                            android:textColor="#333333"
+                            android:textSize="32sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvOxygenDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="During 7 hrs sleep"
+                        android:textColor="#999999"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/oxygenProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="16dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progress="0"
+                    android:progressTint="#4CAF50"
+                    android:progressBackgroundTint="#E0E0E0"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+    </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/_16sdp"
+        android:background="#F7F9FB"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <TextView
+            android:text="Skin Temprature"
+            android:textSize="14sp"
+            android:textColor="#666"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sleep Stages"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:alpha="0.8" />
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/sleepChartFragment"
-            android:name="com.critetiontech.ctvitalio.UI.fragments.SleepGraphFragment"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <!-- Header -->
-        <LinearLayout
-            android:id="@+id/headerRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tvSleepCycleCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sleep Cycle 0"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/tvLegend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Full / Partial"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <!-- Dynamic graph area -->
-        <LinearLayout
-            android:id="@+id/sleepGraph"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical" />
-
-        <!-- Movements -->
-        <LinearLayout
-            android:id="@+id/movementRow"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical" />
-
         <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
-            android:id="@+id/heartRateGraph"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-             android:background="@android:color/white"
-            android:elevation="4dp" />
-        <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
-            android:id="@+id/heartRateVariablityGraph"
+            android:id="@+id/skinTempId"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@android:color/white"
             android:elevation="4dp" />
+    </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

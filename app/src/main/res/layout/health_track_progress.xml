@@ -2,198 +2,200 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
-    android:gravity="center" >
+    android:id="@+id/healthGoalAchived"
+    android:gravity="center">
 
 
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F5F5F5"
+            android:padding="10dp" />
+
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="end"
+            android:src="@drawable/arrow_right_grey" />
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/iconGoal"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/mark" />
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Nice start!"
+            android:textColor="@color/primaryBlue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="3 of 7 goals achieved"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <!-- Percentage -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="43%"
+            android:textColor="#666666"
+            android:textSize="13sp" />
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="12dp"
+            android:max="100"
+            android:progress="43"
+            android:progressDrawable="@drawable/progress_bar_custom" />
+
+        <!-- Goals Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-    >
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="5">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:padding="10dp"
-                android:background="#F5F5F5" />
-            <ImageView
-                 android:layout_width="23dp"
-                android:layout_height="23dp"
-                 android:layout_gravity="end"
-                android:src="@drawable/arrow_right_grey" />
-            <!-- Icon -->
-            <ImageView
-                android:id="@+id/iconGoal"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="6dp"
-                android:src="@drawable/mark" />
-            <!-- Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Nice start!"
-                android:textColor="@color/primaryBlue"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!-- Subtitle -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="3 of 7 goals achieved"
-                android:textColor="#666666"
-                android:textSize="14sp" />
-
-            <!-- Percentage -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="43%"
-                android:textColor="#666666"
-                android:textSize="13sp" />
-
-            <!-- Progress Bar -->
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:layout_marginTop="12dp"
-                android:max="100"
-                android:progress="43"
-                android:progressDrawable="@drawable/progress_bar_custom" />
-
-            <!-- Goals Row -->
+            <!-- Goal 1: Sleep -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:weightSum="5" >
+                android:paddingHorizontal="4dp">
 
-                <!-- Goal 1: Sleep -->
-                <LinearLayout
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/check_green" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                     android:paddingHorizontal="4dp">
+                    android:text="Sleep"
+                    android:textColor="#1A1A1A"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/check_green" />
+            <!-- Goal 2: Glucose -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sleep"
-                        android:textColor="#1A1A1A"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/check_green" />
 
-                <!-- Goal 2: Glucose -->
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                     android:paddingHorizontal="4dp">
+                    android:text="Glucose"
+                    android:textColor="#1A1A1A"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/check_green" />
+            <!-- Goal 3: Early Awake -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Glucose"
-                        android:textColor="#1A1A1A"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/check_green" />
 
-                <!-- Goal 3: Early Awake -->
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                     android:paddingHorizontal="4dp">
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="Early Awake"
+                    android:textColor="#1A1A1A"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/check_green" />
+            <!-- Goal 4: Water -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:text="Early Awake"
-                        android:textColor="#1A1A1A"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/check_green" />
 
-                <!-- Goal 4: Water -->
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                     android:paddingHorizontal="4dp">
+                    android:text="Water"
+                    android:textColor="#AAAAAA"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/check_green" />
+            <!-- Goal 5: Steps -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Water"
-                        android:textColor="#AAAAAA"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/check_grey" />
 
-                <!-- Goal 5: Steps -->
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                     android:paddingHorizontal="4dp">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/check_grey" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Steps"
-                        android:textColor="#AAAAAA"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
+                    android:text="Steps"
+                    android:textColor="#AAAAAA"
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

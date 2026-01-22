@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="180dp"
+    android:viewportWidth="400"
+    android:viewportHeight="180">
+
+    <!-- Light Pink Background -->
+    <path
+        android:fillColor="#FFD4D4"
+        android:pathData="M0,0 L400,0 L400,160 C270,190 140,110 0,150 Z"/>
+</vector>

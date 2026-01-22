@@ -17,10 +17,10 @@ class LogUploadWorker(appContext: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         val payload = inputData.getString("logs") ?: return Result.success()
         Log.d("workerMessage", "🚀 Payload: $payload")
-        if (!isNetworkAvailable()) {
-            Log.e("LogUploadWorker", "No internet. Skipping upload.")
-            return Result.retry() // or Result.success() if you want to drop logs
-        }
+//        if (!isNetworkAvailable()) {
+//            Log.e("LogUploadWorker", "No internet. Skipping upload.")
+//            return Result.retry() // or Result.success() if you want to drop logs
+//        }
         return try {
             val client = OkHttpClient()
             val mediaType = "application/json".toMediaType()

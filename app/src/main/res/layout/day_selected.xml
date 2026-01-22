@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="35dp"
+    android:layout_height="85dp"
+     android:orientation="vertical"
+    android:gravity="center"
+    android:padding="6dp"
+    android:background="@drawable/bg_day_selected">
+
+    <TextView
+        android:id="@+id/txtDay"
+        android:text="M"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#0044CC"
+ android:layout_height="wrap_content"
+ android:layout_width="wrap_content"/>
+
+    <ImageView
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_check"
+        />
+</LinearLayout>

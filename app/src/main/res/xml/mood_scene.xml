@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- START SET -->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@id/userAvatar"
+            android:alpha="0"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:translationY="40dp"/>
+
+        <Constraint android:id="@id/userName"
+            android:alpha="0"
+            android:translationY="40dp"/>
+
+        <Constraint android:id="@id/userName2"
+            android:alpha="0"
+            android:translationY="40dp"/>
+
+        <Constraint android:id="@id/questionText"
+            android:alpha="0"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:translationY="30dp"/>
+
+        <Constraint android:id="@id/moodEmoji"
+            android:alpha="0"
+            android:translationY="80dp"/>
+
+        <Constraint android:id="@id/selectMoodButton"
+            android:alpha="0"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:translationY="100dp"/>
+    </ConstraintSet>
+
+    <!-- END SET -->
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@id/userAvatar"
+            android:alpha="1"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:translationY="0dp"/>
+
+        <Constraint android:id="@id/userName"
+            android:alpha="1"
+            android:translationY="0dp"/>
+
+        <Constraint android:id="@id/userName2"
+            android:alpha="1"
+            android:translationY="0dp"/>
+
+        <Constraint android:id="@id/questionText"
+            android:alpha="1"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:translationY="0dp"/>
+
+        <Constraint android:id="@id/moodEmoji"
+            android:alpha="1"
+            android:translationY="0dp"/>
+
+        <Constraint android:id="@id/selectMoodButton"
+            android:alpha="1"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:translationY="0dp"/>
+    </ConstraintSet>
+
+    <!-- TRANSITION -->
+    <Transition
+        android:id="@+id/transition"
+        app:constraintSetStart="@id/start"
+        app:constraintSetEnd="@id/end"
+        app:duration="900">
+    </Transition>
+
+</MotionScene>

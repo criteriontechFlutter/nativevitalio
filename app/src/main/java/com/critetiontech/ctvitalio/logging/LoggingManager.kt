@@ -56,6 +56,7 @@ object LoggingManager {
 
         val root = JSONObject().apply {
             put("deviceToken", PrefsManager().getDeviceToken().toString())
+            put("pid", PrefsManager().getPatient()?.id.toString())
             put("appVersion", APP_VERSION)
             put("logs", JSONArray(logsToSend))
         }

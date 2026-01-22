@@ -1,15 +1,22 @@
 package com.critetiontech.ctvitalio.viewmodel
 
+import DailyCheckItem
+import DailyCheckListWrapper
 import EnergyResponse
+import FluidResponse
+import InsightJson
+import InsightSections
 import MoodResponse
 import PillReminderModel
 import PillTime
 import PrefsManager
 import QuickMetric
-import SleepSummaryData
+import QuickMetricsTiled
 import SleepValue
+import Summary
 import Vital
 import VitalInsight
+import VitalResponseValue
 import VitalsResponse
 import android.app.Application
 import android.content.Context
@@ -17,6 +24,7 @@ import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -43,6 +51,17 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.core.graphics.toColorInt
+import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
+import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
+import com.critetiontech.ctvitalio.adapter.PriorityAction
+import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
+import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
+import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 data class HoldSpeakSymptomDetail(
     val pdmID: Int,
@@ -55,7 +74,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _vitalList = MutableLiveData<List<Vital>>()
     val vitalList: LiveData<List<Vital>> get() = _vitalList
-
+    private val dao = AppDatabase.getDB(application).vitalsDao()
     private val _quickMetricList = MutableLiveData<List<QuickMetric>>()
     val  quickMetricListList: LiveData<List<QuickMetric>> get() = _quickMetricList
     private val _dietList = MutableLiveData<List<DietItemModel>>()
@@ -85,22 +104,33 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
     val vitalInsights: MutableLiveData<List<VitalInsight>?> get() = _vitalInsights
 
 
-    private val _sleepsummary = MutableLiveData<List<SleepSummaryData>?>()
-    val  sleepsummary: MutableLiveData<List<SleepSummaryData>?> get() = _sleepsummary
+    private val _sleepsummary = MutableLiveData<List<Summary>?>()
+    val  sleepsummary: MutableLiveData<List<Summary>?> get() = _sleepsummary
+    private val _quickMetricsTiledList = MutableLiveData<List<QuickMetricsTiled>>()
+    val quickMetricsTiledList: LiveData<List<QuickMetricsTiled>> = _quickMetricsTiledList
+    private val _priorityAction = MutableLiveData<List<PriorityAction>?>()
+    val  priorityAction: MutableLiveData<List<PriorityAction>?> get() = _priorityAction
 
+    private val _dailyCheckList = MutableLiveData<List<DailyCheckItem>>()
+    val dailyCheckList: LiveData<List<DailyCheckItem>> = _dailyCheckList
+
+    private val _activeChallenges = MutableLiveData<List<DashboardActiveChallenges>>()
+    val activeChallenges: LiveData<List<DashboardActiveChallenges>> = _activeChallenges
+    private val _insightWrapperList = MutableLiveData< InsightJson? >()
+    val insightWrapperList: MutableLiveData<InsightJson?> =  _insightWrapperList
     fun getVitals() {
         viewModelScope.launch {
             _loading.value = true
-            try {
-                val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
 
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val todayDate = sdf.format(Date())
+            // 1️⃣ Load from local first
+//            val localVitals = loadVitalsFromLocal()
+//            localVitals?.let { entity ->
+//                loadVitalsFromLocal(entity)
+//            }
+
+            try {
                 val queryParams = mapOf(
-                    "uhID" to PrefsManager().getPatient()?.empId.orEmpty(),
-                    "emailId" to PrefsManager().getPatient()?.emailID.orEmpty(),
-                    "date" to todayDate,
-                   // "date" to "2025-10-26",
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
                     "clientId" to 194,
                 )
 
@@ -111,55 +141,114 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         params = queryParams
                     )
 
-
-
                 if (response.isSuccessful) {
-                    _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
+                    // Update UI from API
                     _vitalList.value = parsed.responseValue.lastVital
-                    _vitalInsights.value = parsed.responseValue.vitalInsights
-                    _sleepsummary.value = parsed.responseValue.summary
+//                    _vitalInsights.value = parsed.responseValue.vitalInsights
+                    val decoded = decodePriorityAction(parsed.responseValue.priorityAction)
+                    _priorityAction.value = decoded                // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
+//                    saveVitalsToLocal(parsed.responseValue)
+                    _dailyCheckList.value = decodeDailyCheckList(parsed.responseValue.dailyCheckList)
+                    _activeChallenges.value = decodeDashboardActiveChallenges(parsed.responseValue.activeChallenges)
+                    val jsonString = parsed.responseValue.vitalInsights
+                        ?.firstOrNull()
+                        ?.insightJson
+                            // stop if nothing found
 
+                    val decodedInsight = jsonString?.let { decodeInsightJson(it) }
 
+                    if (decodedInsight != null) {
+                        _insightWrapperList.value = decodedInsight
+                    }
                     val sleepMetric243 = parsed.responseValue.sleepmetrics
                         ?.firstOrNull { it.vitalID == 243 }
 
                     sleepMetric243?.vitalValue?.let { vitalValueJson ->
-                        try {
-                            val cleanedJson = vitalValueJson
-                                .trim('"')                  // remove starting/ending quotes
-                                .replace("\\\"", "\"")      // unescape quotes
+                        val cleanedJson = vitalValueJson.trim('"')
+                            .replace("\\\"", "\"")
 
-                            val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
-                            _sleepValueList.value = Gson().fromJson(cleanedJson, SleepValue::class.java)
-
-                            Log.d("TAG", "Sleep Score: ${sleepValue.QuickMetrics?.size.toString()}")
-                            _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
-
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            _quickMetricList.value = emptyList()
-                        }
-                    } ?: run {
-                        // fallback if no vitalID=243 found
-                        _quickMetricList.value = emptyList()
+                        val sleepValue = Gson().fromJson(cleanedJson, SleepValue::class.java)
+                        _sleepValueList.value = sleepValue
+                        _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+                        _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled ?: emptyList()
+                        _sleepsummary.value = sleepValue.Summary ?: emptyList()
                     }
 
+                    _loading.value = false
                 } else {
-                    _vitalList.value = emptyList()
-                        _loading.value = false
+                    _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
-                _vitalList.value = emptyList()
-                _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"
-                e.printStackTrace()
             }
         }
+    }
+    fun decodeInsightJson(jsonString: String): InsightJson {
+        val gson = Gson()
+        return gson.fromJson(jsonString, InsightJson::class.java)
+    }
+       fun decodeDailyCheckList(wrapperList: List<DailyCheckListWrapper>?): List<DailyCheckItem> {
+        if (wrapperList.isNullOrEmpty()) return emptyList()
+
+        val gson = Gson()
+        val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
+
+        val jsonString = wrapperList[0].dailyChecklist
+        return gson.fromJson(jsonString, listType)
+    }
+
+
+    fun decodeDashboardActiveChallenges(wrapperList: List<DashboardActiveChallengesWrapper>?): List<DashboardActiveChallenges> {
+        if (wrapperList.isNullOrEmpty()) return emptyList()
+
+        val gson = Gson()
+        val listType = object : TypeToken<List<DashboardActiveChallenges>>() {}.type
+
+        val jsonString = wrapperList[0].challenges
+        return gson.fromJson(jsonString, listType)
+    }
+    fun decodePriorityAction(wrapperList: List<PriorityActionWrapper>?): List<PriorityAction> {
+        if (wrapperList.isNullOrEmpty()) return emptyList()
+
+        val gson = Gson()
+        val listType = object : TypeToken<List<PriorityAction>>() {}.type
+
+        // The backend ALWAYS sends a STRING containing a JSON array
+        val jsonString = wrapperList[0].actions
+
+        return gson.fromJson(jsonString, listType)
+    }
+
+    suspend fun saveVitalsToLocal(responseValue: VitalResponseValue) {
+        val entity = VitalsEntity(
+            id = 1,
+            lastVitalJson = Gson().toJson(responseValue.lastVital),
+            insightsJson = Gson().toJson(responseValue.vitalInsights),
+            sleepMetricJson = Gson().toJson(responseValue.sleepmetrics),
+        )
+        dao.insertVitals(entity)
+    }
+
+    suspend fun loadVitalsFromLocal(): VitalsEntity? {
+        return dao.getVitals()
+    }
+    private fun loadVitalsFromLocal(entity: VitalsEntity) {
+        val vitalListType = object : TypeToken<List<Vital>>() {}.type
+        val insightListType = object : TypeToken<List<VitalInsight>>() {}.type
+        val quickMetricListType = object : TypeToken<List<QuickMetric>>() {}.type
+
+        val lastVital: List<Vital> = Gson().fromJson(entity.lastVitalJson, vitalListType)
+        val insights: List<VitalInsight> = Gson().fromJson(entity.insightsJson, insightListType)
+        val quickMetrics: List<QuickMetric> = Gson().fromJson(entity.sleepMetricJson, quickMetricListType)
+
+        _vitalList.value = lastVital
+        _vitalInsights.value = insights
+        _quickMetricList.value = quickMetrics
     }
 
 
@@ -223,11 +312,11 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private fun mapColorForFood(name: String): Int {
         return when (name.trim().lowercase()) {
-            "milk" -> Color.parseColor("#FFEB3B")
-            "water" -> Color.parseColor("#4FC3F7")
-            "green tea", "tea" -> Color.parseColor("#A1887F")
-            "coffee" -> Color.parseColor("#795548")
-            "fruit juice", "juice" -> Color.parseColor("#FF9800")
+            "milk" -> "#FFEB3B".toColorInt()
+            "water" -> "#4FC3F7".toColorInt()
+            "green tea", "tea" -> "#A1887F".toColorInt()
+            "coffee" -> "#795548".toColorInt()
+            "fruit juice", "juice" -> "#FF9800".toColorInt()
             else -> Color.LTGRAY
         }}
 
@@ -667,7 +756,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                     for (key in fluidMap.keys) {
                                         val value = fluidValue.optDouble(key, 0.0)
                                         if (value > 0.0) {
-                                            fluidIntake(context, fluidMap[key]!!, value.toString())
+                                            fluidIntake(  value.toString())
                                         }
                                     }
                                 }
@@ -717,21 +806,15 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val parsed = Gson().fromJson(json, SymptomResponse::class.java)
                     _patientSymptomList.value = parsed.responseValue
                     if((isFromd==true)){
-                        if (_patientSymptomList.value.isNotEmpty()) {
-                            if (navController != null) {
-                                navController.navigate(R.id.action_dashboard_to_symptomTrackerFragments)
-                            }
+                        if (_patientSymptomList.value?.isNotEmpty() == true) {
+                            navController?.navigate(R.id.action_dashboard_to_symptomTrackerFragments)
                         } else {
-                            if (navController != null) {
-                                navController.navigate(R.id.action_dashboard_to_symptomsFragment)
-                            }
+                            navController?.navigate(R.id.action_dashboard_to_symptomsFragment)
                         }
                     }
                 } else {
                     if((isFromd==true)){
-                        if (navController != null) {
-                            navController.navigate(R.id.action_dashboard_to_symptomsFragment)
-                        }
+                        navController?.navigate(R.id.action_dashboard_to_symptomsFragment)
                     }
                     _errorMessage.value = "Error: ${response.code()}"
                 }
@@ -943,7 +1026,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().insertSymtoms,
-                        params = queryParams
+                        params = queryParams as Map<String, String>
                     )
 
                 _loading.value = false
@@ -964,43 +1047,107 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-    fun fluidIntake(context: Context, foodId: String, givenFoodQuantity: String) {
+    fun fluidIntake(  givenFoodQuantity: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true
-                val currentDateTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                val currentDate : String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    .format(Date())
+                val currentTime: String = SimpleDateFormat("HH:mm", Locale.getDefault())
                     .format(Date())
 
                 val user = PrefsManager().getPatient()
                 val body = mapOf(
-                    "givenQuanitityInGram" to "0",
-                    "uhid" to user?.empId.orEmpty(),
-                    "foodId" to foodId,
-                    "pmId" to "0",
-                    "givenFoodQuantity" to givenFoodQuantity,
-                    "givenFoodDate" to currentDateTime, // e.g. "2025-04-23 12:15"
-                    "givenFoodUnitID" to "27",
-                    "recommendedUserID" to "0",
-                    "jsonData" to "",
-                    "fromDate" to currentDateTime,
-                    "isGiven" to "0",
-                    "entryType" to "N",
-                    "isFrom" to "0",
-                    "dietID" to "0",
-                    "userID" to "99"
+                    "pid" to user?.id.toString(),
+                    "clientId" to  user?.clientId.toString(),
+                    "intakeDate" to currentDate,
+                    "intakeTime" to currentTime,
+                    "fluidType" to "water",
+                    "quantity" to givenFoodQuantity,
+                    "remarks" to " Feeling Thristy",
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService()
                     .dynamicRawPost(
-                        url = ApiEndPoint().insertFoodIntake,
+                        url = "api/EmployeeFluidIntake/InsertEmployeeFluidIntake",
                         body = body
                     )
 
                 _loading.value = false
 
                 if (response.isSuccessful) {
+                    getDailyEmployeeFluidIntake()
+                } else {
+                    _errorMessage.value = "Error: ${response.code()}"
+                }
 
+            } catch (e: Exception) {
+                _loading.value = false
+                _errorMessage.value = e.message ?: "Unknown error occurred"
+                e.printStackTrace()
+            }
+        }
+    }
+    private val _totalQuantity = MutableLiveData<Int>()
+    val totalQuantity: LiveData<Int> get() = _totalQuantity
+    private val _lastDrinkInfo = MutableLiveData<String>()
+    val lastDrinkInfo: LiveData<String> get() = _lastDrinkInfo
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun  getDailyEmployeeFluidIntake( ) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+
+                val user = PrefsManager().getPatient()
+                val body = mapOf(
+                    "pid" to user?.id.toString(),
+                    "clientId" to  user?.clientId.toString(),
+                )
+
+                val response = RetrofitInstance
+                    .createApiService()
+                    .dynamicGet(
+                        url = "api/EmployeeFluidIntake/GetDailyEmployeeFluidIntake",
+                        params = body
+                    )
+
+                _loading.value = false
+
+                if (response.isSuccessful) {
+
+
+                    val json = response.body()?.string()
+                    val parsed = Gson().fromJson(json, FluidResponse::class.java)
+
+                    // ⭐ SAFE total quantity
+                    val totalQty = (parsed.responseValue ?: emptyList()).sumOf { it.quantity } .roundToInt()
+                    _totalQuantity.value = totalQty
+
+                    Log.e("VoicePost", "totalQty: ${totalQty}")
+                    // ⭐ SAFE last drink
+                    val lastDrink = (parsed.responseValue ?: emptyList()).lastOrNull()
+                    val lastDrinkTime = lastDrink?.intakeTime ?: "Unknown"
+
+                    if (lastDrink != null) {
+                        val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+                        val lastTime = LocalTime.parse(lastDrinkTime, formatter)
+                        val now = LocalTime.now()
+
+                        val diff = Duration.between(lastTime, now)
+                        val hours = diff.toHours()
+                        val minutes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            diff.toMinutesPart()
+                        } else {
+                            TODO("VERSION.SDK_INT < S")
+                        }
+
+                         val result = "last drink was $hours hr ago"
+                        _lastDrinkInfo.value = result
+                    } else {
+                        _lastDrinkInfo.value = "No drink data"
+                    }
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }

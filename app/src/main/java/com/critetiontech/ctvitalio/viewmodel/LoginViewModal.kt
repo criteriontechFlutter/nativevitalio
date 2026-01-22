@@ -21,6 +21,7 @@ import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -43,19 +44,44 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
 
-
-    fun corporateEmployeeLogin(context:Context, username: String, password: String,) {
+    fun corporateEmployeeLogin(
+        context: Context,
+        username: String,
+        password: String
+    ) {
         _loading.value = true
+        _loginSuccess.postValue(false)
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+
+                if (!task.isSuccessful) {
+                    Log.w("FCM", "Fetching FCM token failed", task.exception)
+                    _loading.value = false
+                    return@addOnCompleteListener
+                }
+
+                val deviceToken = task.result
+                Log.d("FCM", "FCM Registration Token: $deviceToken")
+
+                // ✅ Call API ONLY after token is available
+                loginWithToken(username, password, deviceToken)
+            }
+    }
+
+    private fun loginWithToken(
+        username: String,
+        password: String,
+        deviceToken: String
+    ) {
         viewModelScope.launch {
-            _loginSuccess.postValue(false)
             try {
                 val queryParams = mapOf(
-                    // "mobileNo" to mo,
                     "username" to username,
-                   "password" to  password
+                    "password" to password,
+                    "deviceToken" to deviceToken
                 )
 
-                // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
                     .createApiService()
                     .dynamicRawPost(
@@ -63,35 +89,32 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                         body = queryParams
                     )
 
-
                 if (response.isSuccessful) {
                     _loginSuccess.postValue(true)
-                    _loading.value = false
+
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
-                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
-                    parsed.let {
+                    val parsed =
+                        Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
 
-                        PrefsManager().savePatient(it.responseValue.first())
-
+                    parsed.responseValue.firstOrNull()?.let {
+                        PrefsManager().savePatient(it)
                     }
 
-                 } else {
-                    _loginSuccess.postValue(false)
+                } else {
                     val errorMsg = parseErrorMessage(response.errorBody())
                     ToastUtils.showFailure(MyApplication.appContext, errorMsg)
-                    _loading.value = false
-                    _errorMessage.value = "Error: ${response.code()}"
+                    _loginSuccess.postValue(false)
                 }
 
             } catch (e: Exception) {
-                _loading.value = false
                 _errorMessage.value = e.message ?: "Unknown error occurred"
                 e.printStackTrace()
+            } finally {
+                _loading.value = false
             }
         }
     }
-
 
     fun logoutFromApp(uhid: String, deviceToken: String) {
         _loading.value = true

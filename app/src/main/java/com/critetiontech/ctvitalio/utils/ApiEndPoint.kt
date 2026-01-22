@@ -61,7 +61,8 @@ class ApiEndPoint {
 
 
 
-    val getPatientLastVital="api/UltrahumanVitals/GetUltrahumanVitals"
+    //val getPatientLastVital="api/UltrahumanVitals/GetUltrahumanVitals"
+    val getPatientLastVital="api/UltrahumanVitals/GetUltrahumanVitalsByPid"
     val insertPatientVital="api/PatientVital/InsertPatientVital"
     val insertApisToken="api/APITokens/InsertAPITokens"
     val getEmergencyContact="api/EmergencyContact/GetEmergencyContactByPid"
@@ -82,6 +83,10 @@ class ApiEndPoint {
 val insertWatch="api/WatchDetails/InsertWatchDetails"
     val getWatchDetails="api/WatchDetails/GetWatchDetails"
     val deleteWatchDetails="api/WatchDetails/DeleteWatchDetails"
+    val getAddedSmartGoalApi="api/EmployeeGoals/GetEmployeeeSmartGoals"
+    val getAllGoalListApi="api/EmployeeGoals/GetAllSmartGoals"
+    val updateGoalPinStatus="api/PatientRegistration/EmployeePinAudit"
+    val deleteEmployeeGoal="api/PatientRegistration/DeleteEmployeeGoal"
 
 
 

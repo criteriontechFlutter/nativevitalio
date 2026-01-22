@@ -224,7 +224,7 @@
                     android:id="@+id/noFluid"
                     android:layout_gravity="center"/>
 
-                <!-- Glass animation/graphic -->
+                <!-- Glass animator/graphic -->
                 <com.critetiontech.ctvitalio.utils.GreenTea
                     android:layout_width="230dp"
                     android:layout_height="230dp"

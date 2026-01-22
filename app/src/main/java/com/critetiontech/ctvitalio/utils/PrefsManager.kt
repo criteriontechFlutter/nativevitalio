@@ -74,6 +74,7 @@ data class Patient(
 data class EmployeeGoal(
     val pid: Int,
     val vmId: Int,
+    val goalId: Int,
     val vitalName: String,
     val targetValue: Int,
     val unit: String

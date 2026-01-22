@@ -39,6 +39,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UI.UltraHumanActivity"
+            android:launchMode="singleTop"
+            android:exported="true" >
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="callback"
+                    android:scheme="${appAuthRedirectScheme}" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".UI.fragments.MedicationFragment"
             android:exported="false"
             tools:ignore="Instantiatable" />
@@ -70,18 +87,9 @@
         <activity
             android:name=".UI.Home"
             android:exported="true"
-            android:launchMode="singleTask"
+
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="callback"
-                    android:scheme="${appAuthRedirectScheme}" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".UI.Login"

@@ -38,22 +38,22 @@ class NewChallengeFragment : Fragment() {
 
 
         challengesViewModel.getNewChallenge()
-        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
-            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
-                list,
-                onItemClick =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.id.toString())
-                },
-                onItemClick1 =  { challenge: NewChallengeModel ->
-                    val bundle = Bundle().apply {
-                        putSerializable("challenges", challenge )
-                    }
-                    findNavController().navigate(R.id.action_challenges_to_challengeDetailsFragment, bundle)
-
-                }
-            )
-
-        }
+//        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
+//            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
+//                list.toMutableList(),
+//                onJoinClick  =  { challenge ->
+//                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+//                },
+//                onDetailsClick  =  { challenge: NewChallengeModel ->
+//                    val bundle = Bundle().apply {
+//                        putSerializable("challenges", challenge )
+//                    }
+//                    findNavController().navigate(R.id.action_challenges_to_challengeDetailsFragment, bundle)
+//
+//                }
+//            )
+//
+//        }
 
     }
 

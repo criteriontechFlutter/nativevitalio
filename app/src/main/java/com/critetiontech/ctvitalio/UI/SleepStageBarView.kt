@@ -39,8 +39,7 @@ class SleepStageBarView @JvmOverloads constructor(
     fun setData(name: String, durationText: String, percent: Int, color: Int) {
         stageName = name
         duration = durationText
-        percentage = percent
-        barColor = color
+         barColor = color
         filledBars = (totalBars * percent / 100f).toInt().coerceAtMost(totalBars)
         filledBarPaint.color = color
         invalidate()
@@ -56,13 +55,13 @@ class SleepStageBarView @JvmOverloads constructor(
         canvas.drawText(stageName, 0f, 30f, labelPaint)
 
         // Draw duration and percentage
-        val durationText = "$duration/ $percentage%"
+        val durationText = "$duration "
         canvas.drawText(durationText, width, 30f, durationPaint)
 
         // Draw bars
         val barTop = 45f
-        val barHeight = 35f
-        val barWidth = 10f
+        val barHeight = 108f
+        val barWidth = 18f
         val barSpacing = 6f
         val cornerRadius = 3f
 

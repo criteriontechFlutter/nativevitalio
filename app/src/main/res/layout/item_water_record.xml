@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!-- Row Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <!-- Amount -->
+        <TextView
+            android:id="@+id/txtAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:text="250"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textStyle="bold" />
+
+        <!-- Amount unit (ml smaller, gray) -->
+        <TextView
+            android:id="@+id/txtUnit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+            android:text="ml"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:layout_marginStart="4dp" />
+
+        <!-- Time -->
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="08:10 AM"
+            android:textSize="12sp"
+            android:textColor="#777777"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Delete Icon -->
+        <ImageView
+            android:id="@+id/btnDelete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/symbols_delete"
+            />
+
+    </LinearLayout>
+
+    <!-- Bottom Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EFEFEF" />
+
+</LinearLayout>

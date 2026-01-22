@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="24dp"
     android:layout_marginVertical="6dp"
-     android:backgroundTint="@android:color/white"
+  android:background="@drawable/bg_progress_track"
     app:cardElevation="0dp"
     android:elevation="0dp">
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:background="@drawable/bg_progress_track"
         android:gravity="center_vertical">
 
         <!-- Left Section -->
@@ -94,29 +95,27 @@
                 <LinearLayout
                     android:id="@+id/btnMarkTaken"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="6dp"
-                    android:backgroundTint="#007BFF"
+                    android:layout_height="30dp"
                     android:background="@drawable/rounded_card_bg"
-                    android:layout_marginStart="8dp">
+                    android:backgroundTint="#007BFF"
+                    android:gravity="center_vertical"
+
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
 
                     <ImageView
                         android:id="@+id/ivCheckMother"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        android:src="@drawable/check_white"
-                      />
+                        android:src="@drawable/check_white" />
 
                     <TextView
                         android:id="@+id/btnText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="6dp"
                         android:text="Mark Taken"
                         android:textColor="#FFFFFF"
-                        android:paddingStart="6dp"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.ChallengesAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 import com.critetiontech.ctvitalio.databinding.FragmentChallengesBinding

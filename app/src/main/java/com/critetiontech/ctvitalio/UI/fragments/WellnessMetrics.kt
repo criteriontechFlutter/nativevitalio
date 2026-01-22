@@ -1,193 +1,198 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
+import DosageChartView
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
-import android.widget.Toast
+import androidx.core.graphics.toColorInt
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.databinding.FragmentWellnessMetricsBinding
 import com.critetiontech.ctvitalio.model.MovementIndexViewModel
-import java.text.SimpleDateFormat
+ import java.text.SimpleDateFormat
 import java.util.Locale
-import androidx.core.graphics.toColorInt
+import android.animation.ValueAnimator
+import android.view.ViewGroup as AndroidViewGroup
+import android.graphics.drawable.GradientDrawable
+import com.critetiontech.ctvitalio.R
+
 
 class WellnessMetrics : Fragment() {
 
     private lateinit var binding: FragmentWellnessMetricsBinding
     private lateinit var viewModel: MovementIndexViewModel
 
-
-
-
     override fun onCreateView(
-
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = FragmentWellnessMetricsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Initialize ViewModel
+
         viewModel = ViewModelProvider(this)[MovementIndexViewModel::class.java]
+
+
+        binding.vm=viewModel
+        observeVitals()
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
         }
 
 
-        // Observe LiveData
-        observeMovementData()
 
-        // Load initial data
-        viewModel.loadInitialData()
-
-        binding.circularProgress.setProgress(55.0F)
-
-        // Setup refresh button
+        // Date change refresh
         binding.centerDatePicker.onDateChanged = { calendar ->
-            val formatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
-            Toast.makeText(requireContext(), "Date changed to $formatted", Toast.LENGTH_SHORT).show()
-
-            // 🔄 Refresh your data here
-            refreshMetricsForDate()
+            val formatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                .format(calendar.time)
+            // Use 'formatted' if needed for API calls
+            refreshMetricsForDate(formatted)
         }
 
+        // Caffeine/bar graph using DosageChartView.createBarsOnly()
+        val dosageChart = DosageChartView(requireContext())
+        val caffeineBars = dosageChart.createBarsOnly(
+            values = listOf(
+                0.8f, 0.7f, 0.6f, 0.8f,
+                0.4f, 0.3f, 0.8f, 0.1f
+            ),
+            color = 0xFF26BD78.toInt()
+        )
+        binding.caffeineBarGraph.addView(caffeineBars)
 
-    }
+        // Date change refresh
+        binding.movementIndexId.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_movemenetIndex  )
+        }
+        binding.stressRhythmId.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_stressRhythm  )
+        }
+        binding.dynamicRecovery.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_dynamicRecovery  )
+        }
+        binding.brainWasteClearance.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
+        }
+            binding.sleepBarGreen.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
+        }
 
-    private fun observeMovementData() {
-        // Instead of real API data, generate dummy hourly data
-        val dummyData = generateDummyHourlyData()
-        updateHourlyChart(dummyData)
-        viewModel.updateCircularProgress(binding.circularProgress)
-    }
+//        // RulerSeekBar: Cardio Age
+        binding.rulerSeekBar.apply {
+            minValue = 12
+            currentValue = 32
 
+        }
+     }
 
-    private fun refreshMetricsForDate() {
-        // When date changes, regenerate dummy data
-        val newData = generateDummyHourlyData()
-        updateHourlyChart(newData)
-    }
-
-    private fun generateDummyHourlyData(): List<Int> {
-        val list = mutableListOf<Int>()
-        for (hour in 0 until 24) {
-            val value = when (hour) {
-                in 6..8 -> (40..60).random()   // early morning
-                in 9..12 -> (70..100).random() // peak activity
-                in 13..16 -> (40..70).random() // afternoon
-                in 17..20 -> (30..60).random() // evening
-                in 20..24 -> (0..10).random() // evening
-                else -> (5..25).random()       // night hours
+    private fun observeVitals() {
+        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->
+            val movement = viewModel.getLatestVital(list, "MovementIndex")?.vmValue
+            val dynamicRecovery = viewModel.getLatestVital(list, "RecoveryIndex")?.vmValue
+            movement?.let {
+                binding.circularProgress.setProgress(it.toFloat())
             }
-            list.add(value)
-        }
-        return list
+            dynamicRecovery?.let {
+                binding.dyRecovery.setProgress(it.toFloat())
+            }
+
+            binding.stressScore =
+                viewModel.getLatestVital(list, "StressScore")?.vmValue ?: "0"
+            binding.brainClear =
+                viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
+           // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
+          //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
+
+
+
+
+
+        }}
+
+
+    private fun refreshMetricsForDate(formatted: String) {
+        viewModel.getWellnessData(formatted)
+
     }
+
+
+
+
+
+
+
     private fun updateHourlyChart(hourlyData: List<Int>) {
         if (hourlyData.isEmpty()) return
 
         val maxValue = hourlyData.maxOrNull() ?: 1
-        val normalizedData = hourlyData.map { (it.toFloat() / maxValue) * 100 }
+        val normalizedData = hourlyData.map { (it.toFloat() / maxValue) * 100f }
 
         binding.barContainer.removeAllViews()
         binding.barContainerStress.removeAllViews()
 
-        // Bar & spacing setup
-        val barWidthPx = (resources.displayMetrics.density * 5).toInt()  // thin bars
-        val barMarginPx = (resources.displayMetrics.density * 1.5f).toInt()
+        val density = resources.displayMetrics.density
+        val barWidthPx = (density * 5).toInt()
+        val barMarginPx = (density * 1.5f).toInt()
 
-        normalizedData.forEachIndexed { index, value ->
-            val barView = View(requireContext()).apply {
-                background = GradientDrawable().apply {
-                    shape = GradientDrawable.RECTANGLE
-                    setColor(Color.parseColor("#546788")) // bar color
-                    cornerRadii = floatArrayOf(
-                        10f, 10f,   // top-left, top-right
-                        0f, 10f,   // bottom-right, bottom-left
-                        10f, 0f,   // (unused)
-                        0f, 10f
-                    )
-                }
-
-                layoutParams = LinearLayout.LayoutParams(
-                    barWidthPx,
-                    0
-                ).apply {
-                    setMargins(barMarginPx, 0, barMarginPx, 0)
-                }
-            }
-
-
-
+        normalizedData.forEach { value ->
+            val barView = createHourlyBar(barWidthPx, barMarginPx)
             binding.barContainer.addView(barView)
-            animateBarHeight(barView, value)
+            animateBarHeight(barView, value, binding.barContainer)
         }
 
-        normalizedData.forEachIndexed { index, value ->
-            val barViewStress = View(requireContext()).apply {
-                background = GradientDrawable().apply {
-                    shape = GradientDrawable.RECTANGLE
-                    setColor(Color.parseColor("#546788")) // bar color
-                    cornerRadii = floatArrayOf(
-                        10f, 10f,   // top-left, top-right
-                        0f, 10f,   // bottom-right, bottom-left
-                        10f, 0f,   // (unused)
-                        0f, 10f
-                    )
-                }
-
-                layoutParams = LinearLayout.LayoutParams(
-                    barWidthPx,
-                    0
-                ).apply {
-                    setMargins(barMarginPx, 0, barMarginPx, 0)
-                }
-            }
-
-
-
-
+        normalizedData.forEach { value ->
+            val barViewStress = createHourlyBar(barWidthPx, barMarginPx)
             binding.barContainerStress.addView(barViewStress)
-            animateBarHeight(barViewStress, value)
+            animateBarHeight(barViewStress, value, binding.barContainerStress)
         }
     }
 
+    private fun createHourlyBar(barWidthPx: Int, barMarginPx: Int): View {
+        return View(requireContext()).apply {
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                setColor("#546788".toColorInt())
+                cornerRadii = floatArrayOf(
+                    10f, 10f,  // top-left
+                    10f, 10f,  // top-right
+                    0f, 0f,    // bottom-right
+                    0f, 0f     // bottom-left
+                )
+            }
+
+            layoutParams = LinearLayout.LayoutParams(
+                barWidthPx,
+                0
+            ).apply {
+                setMargins(barMarginPx, 0, barMarginPx, 0)
+            }
+        }
+    }
 
     /**
-     * Animate bar height from 0 to target height
+     * Animate bar height from 0 to target height inside its container.
      */
-    private fun animateBarHeight(view: View, targetPercent: Float) {
+    private fun animateBarHeight(view: View, targetPercent: Float, container: AndroidViewGroup) {
         view.post {
-            val containerHeight = binding.barContainer.height.takeIf { it > 0 } ?: 100
-            val containerHeightStress = binding.barContainerStress.height.takeIf { it > 0 } ?: 100
-            val targetHeight = (containerHeight * targetPercent / 100).toInt()
-            val targetHeightStress = (containerHeightStress * targetPercent / 100).toInt()
+            val containerHeight = container.height.takeIf { it > 0 } ?: 120
+            val targetHeight = (containerHeight * targetPercent / 100f).toInt()
 
-            val animator = android.animation.ValueAnimator.ofInt(0, targetHeight).apply {
-                duration = 500
+            ValueAnimator.ofInt(0, targetHeight).apply {
+                duration = 600
+                interpolator = AccelerateDecelerateInterpolator()
                 addUpdateListener { animation ->
                     view.layoutParams.height = animation.animatedValue as Int
                     view.requestLayout()
                 }
-            }
-            val animatorStress = android.animation.ValueAnimator.ofInt(0, targetHeightStress).apply {
-                duration = 500
-                addUpdateListener { animation ->
-                    view.layoutParams.height = animation.animatedValue as Int
-                    view.requestLayout()
-                }
-            }
-            animator.start()
-            animatorStress.start()
-        }}
+            }.start()
+        }
+    }
 }

@@ -5,6 +5,7 @@ import PrefsManager
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -176,6 +177,7 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
                 parts += partFromField("UserId", "99")
 
 
+                Log.d("UpdateProfile", "File attached: ${filePath}")
 //                parts += partFromField("ChoronicDiseasesJson", chronicData)
 //                parts += partFromField("FamilyDiseaseJson", familyDiseaseJson)
 //                parts += partFromField("EmployeeGoalsJson",EmployeeGoalsJson  )
@@ -185,20 +187,24 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
 
                 // Add file if present
                 if (filePath != null) {
-                    filePath.path?.takeIf { it.isEmpty() }?.let {
-                        val file = File(it)
-                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                    val resolver = requireContext.contentResolver
+                    val inputStream = resolver.openInputStream(filePath)
 
+                    if (inputStream != null) {
+                        val bytes = inputStream.readBytes()
+                        val requestBody = bytes.toRequestBody("image/*".toMediaTypeOrNull())
 
-                        val filePart =
-
-                            MultipartBody.Part.createFormData("FormFile",
-                                PrefsManager().getPatient()?.profileUrl, requestFile)
-
-
-                        parts += filePart
-                        Log.d("UpdateProfile", "File attached: ${file.name}")
+                        val part = MultipartBody.Part.createFormData(
+                            "FormFile",
+                            "profile.jpg",
+                            requestBody
+                        )
+                        parts += part
+                    } else {
+                        Log.e("Upload", "Failed to open inputStream")
                     }
+                } else {
+                    // send old profile URL here
                 }
 
                 // Print final parts for debug
@@ -229,8 +235,14 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
                 if (response.isSuccessful) {
                     _updateSuccess.postValue(true)
                     ToastUtils.showSuccessPopup(requireContext,"Profile updated successfully!")
-                    getPatientDetailsByUHID()
+                    val responseBodyString = response.body()?.string()
+                    val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
+                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
+                    parsed.let {
 
+                        PrefsManager().savePatient(it.responseValue.first())
+
+                    }
                 } else {
                     _updateSuccess.postValue(false)
                     Log.e("UpdateProfile", "Update failed. Code: ${response.code()}")

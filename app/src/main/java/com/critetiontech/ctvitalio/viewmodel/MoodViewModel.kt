@@ -51,13 +51,13 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
                     .createApiService(includeAuthHeader = true)
                     .dynamicRawPost(
                         url =  ApiEndPointCorporateModule().insertMood,
-                        body = queryParams
+                        body = queryParams as Map<String, Any>
                     )
 
 
                 if (response.isSuccessful) {
                     _loading.value = false
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+
 
 
                 } else {

@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -35,6 +36,7 @@ import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.utils.ImagePickerUtil
@@ -71,7 +73,7 @@ class drawer : Fragment() {
             val finalUri = compressedUri ?: result.uriContent
 
             drawerViewModel.updateUserData(requireContext(), finalUri)
-            binding.userImage.setImageURI(finalUri)
+           // binding.userImage.setImageURI(finalUri)
         } else {
             Toast.makeText(requireContext(), result.error?.message ?: "Cropping failed", Toast.LENGTH_SHORT).show()
             Log.e("CropError", "Cropping failed", result.error)
@@ -149,14 +151,18 @@ class drawer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         drawerViewModel = ViewModelProvider(this)[DrawerViewModel::class.java]
-
+        (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+            statusBarColor = R.color.white,
+            navBarColor = R.color.white,
+            lightIcons = true
+        )
         setupObservers()
         setupListeners()
         initDrawerLayout()
 
         val patient = PrefsManager().getPatient()
         binding.userName.text = patient?.patientName ?: ""
-        binding.userUhid.text = patient?.uhID ?: ""
+        binding.userUhid.text = patient?.mobileNo ?: ""
 
         Glide.with(MyApplication.appContext)
             .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())

@@ -102,13 +102,13 @@ class Dashboard  : Fragment() {
 
 
         challengesViewModel.getNewChallenge()
-        challengesViewModel.newChallenges.observe(viewLifecycleOwner) { list ->
+        viewModel.activeChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
-                list,
-                onItemClick =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.id.toString())
+                list.toMutableList(),
+                onJoinClick  =  { challenge ->
+                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
                 },
-                onItemClick1 =  { challenge ->
+                onDetailsClick  =  { challenge ->
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge)
                     }
@@ -170,7 +170,7 @@ class Dashboard  : Fragment() {
                 val bpVital = Vital().apply {
                     vitalName = "Blood Pressure"
                     vitalValue = 0.0 // Optional placeholder
-                    unit = "${bpSys.vitalValue.toInt()}/${bpDia.vitalValue.toInt()} ${bpSys.unit}"
+                    unit = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue?.toInt()} ${bpSys.unit}"
                     vitalDateTime = bpSys.vitalDateTime
                 }
                 finalVitalList.add(bpVital)

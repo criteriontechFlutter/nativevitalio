@@ -25,7 +25,6 @@ class Home :  BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSystemBarsColor(
@@ -33,13 +32,11 @@ class Home :  BaseActivity() {
             navBarColor = android.R.color.white,
             lightIcons = true
         )
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val now = System.currentTimeMillis()
-
             // 🔹 log when leaving previous screen
             lastScreen?.let { screen ->
                 val duration = now - screenEnterTime
@@ -53,7 +50,6 @@ class Home :  BaseActivity() {
                     )
                 )
             }
-
             // 🔹 log entering new screen
             val screenName = destination.label?.toString() ?: destination.id.toString()
             LoggingManager.logEvent(
@@ -64,33 +60,10 @@ class Home :  BaseActivity() {
                     "deviceModel" to Build.MODEL
                 )
             )
-
             lastScreen = screenName
             screenEnterTime = now
         }
 
-
-
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        Log.d("TAG", "onNewIntentChecking1: ")
-        // Get NavHostFragment
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.my_nav_host_fragment)
-
-        // Get the current visible fragment
-        val currentFragment = navHostFragment
-            ?.childFragmentManager
-            ?.fragments
-            ?.firstOrNull()
-        Log.d("TAG", "onNewIntentChecking: ")
-        // If it's your OAuthFragment, forward the intent
-        if (currentFragment is CorporateDashBoard) {
-
-            currentFragment.onNewIntentReceived(intent)
-        }
     }
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
@@ -110,7 +83,6 @@ class Home :  BaseActivity() {
             super.onBackPressed()
         }
     }
-
     private fun showExitSnackbar() {
         backPressSnackbar = Snackbar.make(
             findViewById(android.R.id.content),

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green">#2ED85A</color>
+    <color name="grey">#C6E3DE</color>
+    <color name="line_color">#D3EDEB</color>
 
     <!-- Primary Colors -->
     <color name="primaryColor">#007AFF</color>
     <color name="primaryBlue">#0079FF</color>
     <color name="primaryBlue2">#0C73BB</color>
-    <color name="primaryBlueLight">#F5F8FC</color>
+    <color name="primaryBlueLight">#FFFFFF</color>
 
     <!-- Accent Colors -->
     <color name="skyBlue">#05BAC9</color>
@@ -24,6 +27,7 @@
     <color name="textGrey2">#5F6471</color>
     <color name="symptomsButton">#E2E7F0</color>
     <color name="symptomsButtonNo">#E4EEFF</color>
+    <color name="borderColor">#B7D1F8</color>
 
     <!-- Background Colors -->
     <color name="greyBG">#EDF1F6</color>
@@ -69,6 +73,13 @@
     <color name="edt_bg">#EDF1F6</color>
     <color name="terms_color">#828691</color>
     <color name="purple_200">#FFBB86FC</color>
+
+    <color name="stressed">#FFA4BA</color>
+    <color name="happy">#9ABDFF</color>
+    <color name="sad">#7DE7EE</color>
+    <color name="good">#F9C825</color>
+    <color name="spectacular">#FFA4BA</color>
+    <color name="upset">#88A7FF</color>
 
 
     <color name="dullBlack">#2D3344FF</color>

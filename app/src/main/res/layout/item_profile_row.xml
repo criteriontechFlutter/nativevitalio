@@ -33,7 +33,6 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Title"
-
                 android:textSize="13dp"
                 android:textColor="@color/textColor" />
 

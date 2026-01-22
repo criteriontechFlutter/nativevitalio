@@ -102,7 +102,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                 var mo = ""
                 var uhidVal = ""
 
-                if (uhid.toLowerCase().contains("uhid")) {
+                if (uhid.contains("uhid")) {
                     uhidVal = uhid
                 } else {
                     mo = uhid
