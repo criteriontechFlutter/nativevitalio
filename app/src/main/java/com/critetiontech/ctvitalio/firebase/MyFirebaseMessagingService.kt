@@ -101,7 +101,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 enableVibration(true)
                 setShowBadge(true)
             }
-
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }

@@ -30,7 +30,7 @@ class CircularProgressView @JvmOverloads constructor(
     // ---------------------------------------------------------
     // Stroke sizes (adjust here)
     // ---------------------------------------------------------
-    private val trackStroke = 15f            // thin grey ring
+    private val trackStroke = 10F            // thin grey ring
     private val progressStroke = 15f         // thin green ring
     private val capMultiplier = 0.55f        // knob size multiplier
 

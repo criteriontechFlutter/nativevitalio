@@ -19,6 +19,7 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.NewChallengedJoinedBinding
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
 import com.critetiontech.ctvitalio.model.NewChallengeModel
+import com.critetiontech.ctvitalio.utils.MyApplication
 import java.util.Random
 class NewChallengedAdapter(
     private val challenges: MutableList<DashboardActiveChallenges>,
@@ -37,6 +38,26 @@ class NewChallengedAdapter(
         val reminderText: TextView = view.findViewById(R.id.reminderText)
         val btnLogReading: Button = view.findViewById(R.id.btn_log_reading)
         val btnMessageCoach: Button = view.findViewById(R.id.btn_message_coach)
+
+        val tvMonday: TextView = view.findViewById(R.id.tvMonday)
+        val tvTuesday: TextView = view.findViewById(R.id.tvTuesday)
+        val tvWednesday: TextView = view.findViewById(R.id.tvWednesday)
+        val tvThursday: TextView = view.findViewById(R.id.tvThursday)
+        val tvFriday: TextView = view.findViewById(R.id.tvFriday)
+        val tvFire: TextView = view.findViewById(R.id.tvFireIcon)
+        val tvSaturday: TextView = view.findViewById(R.id.tvSaturday)
+
+        val dayViews by lazy {
+            listOf(
+                tvMonday,
+                tvTuesday,
+                tvWednesday,
+                tvThursday,
+                tvFriday,
+                tvFire,
+                tvSaturday
+            )
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeViewHolder {
@@ -47,14 +68,18 @@ class NewChallengedAdapter(
 
     override fun onBindViewHolder(holder: ChallengeViewHolder, position: Int) {
         val challenge = challenges[position]
+        bindStreakDays(
+            streakDays = challenge.streakDays,
+            dayViews = holder.dayViews,
 
+        )
         holder.titleText.text = challenge.title
         holder.subtitleText.text = "${challenge.duration} days"
 
        // val progress = challenge.rewardPoints % 100
-         holder.progressBar.progress = 86
+         holder.progressBar.progress = challenge.progress
 //        holder.labelPercent.text = "$progress%"
-        holder.labelCurrent.text = "Progress 86 %"
+        holder.labelCurrent.text = "Progress ${challenge.progress} %"
 
         holder.reminderText.text =
             "Tiny push needed — one smooth glucose day completes your streak."
@@ -70,4 +95,72 @@ class NewChallengedAdapter(
         challenges.addAll(newList.toMutableList())  // <-- Fix mismatch
         notifyDataSetChanged()
     }
+
+    private fun getTodayKey(): String {
+        return when (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK)) {
+            java.util.Calendar.MONDAY -> "M"
+            java.util.Calendar.TUESDAY -> "T"
+            java.util.Calendar.WEDNESDAY -> "W"
+            java.util.Calendar.THURSDAY -> "T"
+            java.util.Calendar.FRIDAY -> "F"
+            java.util.Calendar.SATURDAY -> "S"
+            else -> "" // Sunday ignored in your UI
+        }
+    }
+    private fun createDayBg(color: String): GradientDrawable {
+        return GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 20f
+            setColor(Color.parseColor(color))
+        }
+    }
+
+
+    private fun bindStreakDays(
+        streakDays: String?,
+        dayViews: List<TextView>
+    ) {
+        // Reset all
+        dayViews.forEach {
+            it.setTextColor(Color.parseColor("#999999"))
+            it.background = null
+            it.textSize = 14f
+        }
+
+        if (streakDays.isNullOrEmpty()) return
+
+        val activeDays = streakDays.split(",").map { it.trim().uppercase() }
+        val todayKey = getTodayKey()
+
+        val dayMap = listOf("M", "T", "W", "T", "F", "🔥", "S")
+
+        // 🔥 Last streak index (fire should represent this)
+        val lastStreakIndex = activeDays.size - 1
+
+        dayViews.forEachIndexed { index, textView ->
+            val dayKey = dayMap[index]
+
+            // 1️⃣ Highlight streak days
+            if (dayKey != "🔥" && activeDays.contains(dayKey)) {
+                textView.setTextColor(Color.parseColor("#FF6B35"))
+                textView.background = createDayBg("#FFE5D9")
+
+                // 2️⃣ Highlight current day
+                if (dayKey == todayKey) {
+                    textView.setTextColor(Color.parseColor("#E65100")) // darker
+                    textView.textSize = 16f
+                }
+            }
+
+            // 3️⃣ Fire highlights LAST streak day
+            if (dayKey == "🔥" && index == 5 && lastStreakIndex >= 0) {
+                val fireView = textView
+                fireView.background = createDayBg("#FFE5D9")
+                fireView.setTextColor(Color.parseColor("#FF6B35"))
+                fireView.textSize = 18f
+            }
+        }
+    }
+
+
 }

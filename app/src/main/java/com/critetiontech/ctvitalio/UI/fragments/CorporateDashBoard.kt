@@ -8,7 +8,6 @@ import SleepVital
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -41,7 +40,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
-import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -69,6 +67,9 @@ import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.critetiontech.ctvitalio.utils.applyStatusStyle
+import com.critetiontech.ctvitalio.utils.bindVitalView
+import com.critetiontech.ctvitalio.utils.bindVitalViewVitalValue
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
@@ -87,7 +88,6 @@ class CorporateDashBoard : Fragment() {
     private lateinit var medicationReminderAdapter: MedicationReminderAdapter
     private lateinit var dailyTipAdapter: DailyTipAdapter
     private lateinit var indicatorAdapter: IndicatorAdapter
-    private var voiceDialog: Dialog? = null
     private var snackbar: Snackbar? = null
     private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
@@ -601,154 +601,385 @@ binding.showId.showHideId.setOnClickListener{
         }
 
 
-        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
-            binding.sleepScoreId.title.text = "Sleep Score"
-            //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
-            binding.sleepScoreId.statusCardId.visibility = View.VISIBLE
+//        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
+//            binding.sleepScoreId.title.text = "Sleep Score"
+//            //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
+//            binding.sleepScoreId.statusCardId.visibility = View.VISIBLE
+//
+//
+//    val totalSleep = sleepValue.QuickMetricsTiled
+//        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
+//
+//    binding.totalSleepId.title.text="Total Sleep"
+//        binding.totalSleepId.value.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+////         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
+//
+//
+//    val efficiencyMetric = sleepValue.QuickMetrics
+//        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
+//
+//        binding.sleepEfficiencyId.title.text="Sleep Efficiency"
+//        binding.sleepEfficiencyId.value.text= efficiencyMetric?.DisplayText.toString()
+//         binding.sleepEfficiencyId.statusCardId.visibility=View.VISIBLE
+//
+//    val timeinBed = sleepValue.QuickMetricsTiled
+//        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
+//        binding.timeInBedId.title.text="Time in Bed"
+//        binding.timeInBedId.value.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+////        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
+//
+//
+//
+//
+//        binding.fulSleepCycleId.title.text="Full Sleep Cycle"
+//        binding.fulSleepCycleId.value.text="_"
+//         binding.fulSleepCycleId.statusCardId.visibility=View.VISIBLE
+//
+//
+//
+//
+//    val rem_sleep = sleepValue.SleepStages
+//        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
+//        binding.remSleepId.title.text="REM Sleep"
+//        binding.remSleepId.value.text= rem_sleep?.StageTimeText.toString()
+//        binding.remSleepId.statusCardId.visibility=View.VISIBLE
+//
+//
+//    val deep_sleep = sleepValue.SleepStages
+//        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
+//        binding.deepSleepId.title.text="Deep Sleep"
+//        binding.deepSleepId.value.text=deep_sleep?.StageTimeText.toString()
+//        binding.deepSleepId.statusCardId.visibility=View.VISIBLE
+//
+//
+//    val light_sleep = sleepValue.SleepStages
+//        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
+//        binding.lightSleepId.title.text="Light Sleep"
+//        binding.lightSleepId.value.text=light_sleep?.StageTimeText.toString()
+//        binding.lightSleepId.statusCardId.visibility=View.VISIBLE
+//
+//
+//    val restorative = sleepValue.QuickMetricsTiled
+//        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
+//        binding.restorativeSleepId.title.text="Restorative Sleep"
+//        binding.restorativeSleepId.value.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+////         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
+//
+//
+//
+//        binding.movementsId.title.text="Movements"
+//        binding.movementsId.value.text= sleepValue.MovementGraph?.Data?.size.toString()
+//         binding.movementsId.statusCardId.visibility=View.VISIBLE
+//
+//
+//            val morningAlertness = sleepValue.MorningAlertness
+//                ?.Minutes
+//            binding.morningAlertnessId.title.text="Morning Alertness"
+//        binding.morningAlertnessId.value.text=morningAlertness
+//        binding.morningAlertnessId.hrId.text="mins"
+//        binding.morningAlertnessId.statusCardId.visibility=View.VISIBLE
+//
+//
+//
+//        binding.tossesAndTurnsId.title.text="Tosses and Turns"
+//        binding.tossesAndTurnsId.value.text="_"
+//        binding.tossesAndTurnsId.statusCardId.visibility=View.VISIBLE
+//
+//
+//
+//
+//            binding.hideId.cardTitlse.text="Hide"
+//
+//
+//
+//
+////            Activity
+//            Glide.with(this).asGif().load(R.raw.celebrate).into(binding.celebrationId.trophyIcon)
+//
+//
+//            binding.inactiveHoursId.title.text="Inactive Time"
+//            binding.inactiveHoursId.value.text="_"
+//            binding.inactiveHoursId.statusCardId.visibility=View.VISIBLE
+//
+//
+//
+//            binding.activieHoursId.title.text="Active Hours"
+//            binding.activieHoursId.value.text="_"
+//            binding.activieHoursId.statusCardId.visibility=View.VISIBLE
+//
+//
+//
+//
+//            binding.WeeklyActiveMinutesId.title.text="Weekly Active Minutes"
+//            binding.WeeklyActiveMinutesId.value.text="_"
+//            binding.WeeklyActiveMinutesId.statusCardId.visibility=View.VISIBLE
+//
+//
+////            Recovery
+//
+//
+//
+//            binding.StressRhythmScoreId.title.text="Stress Rhythm Score"
+//            binding.StressRhythmScoreId.value.text= "_"
+//            binding.StressRhythmScoreId.statusCardId.visibility=View.VISIBLE\
 
 
-    val totalSleep = sleepValue.QuickMetricsTiled
-        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
-
-    binding.totalSleepId.title.text="Total Sleep"
-        binding.totalSleepId.value.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-//         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
-
-
-    val efficiencyMetric = sleepValue.QuickMetrics
-        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
-
-        binding.sleepEfficiencyId.title.text="Sleep Efficiency"
-        binding.sleepEfficiencyId.value.text= efficiencyMetric?.DisplayText.toString()
-         binding.sleepEfficiencyId.statusCardId.visibility=View.VISIBLE
-
-    val timeinBed = sleepValue.QuickMetricsTiled
-        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
-        binding.timeInBedId.title.text="Time in Bed"
-        binding.timeInBedId.value.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-//        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
-
-
-
-
-        binding.fulSleepCycleId.title.text="Full Sleep Cycle"
-        binding.fulSleepCycleId.value.text="_"
-         binding.fulSleepCycleId.statusCardId.visibility=View.VISIBLE
-
-
-
-
-    val rem_sleep = sleepValue.SleepStages
-        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
-        binding.remSleepId.title.text="REM Sleep"
-        binding.remSleepId.value.text= rem_sleep?.StageTimeText.toString()
-        binding.remSleepId.statusCardId.visibility=View.VISIBLE
-
-
-    val deep_sleep = sleepValue.SleepStages
-        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
-        binding.deepSleepId.title.text="Deep Sleep"
-        binding.deepSleepId.value.text=deep_sleep?.StageTimeText.toString()
-        binding.deepSleepId.statusCardId.visibility=View.VISIBLE
-
-
-    val light_sleep = sleepValue.SleepStages
-        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
-        binding.lightSleepId.title.text="Light Sleep"
-        binding.lightSleepId.value.text=light_sleep?.StageTimeText.toString()
-        binding.lightSleepId.statusCardId.visibility=View.VISIBLE
-
-
-    val restorative = sleepValue.QuickMetricsTiled
-        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
-        binding.restorativeSleepId.title.text="Restorative Sleep"
-        binding.restorativeSleepId.value.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-//         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
-
-
-
-        binding.movementsId.title.text="Movements"
-        binding.movementsId.value.text= sleepValue.MovementGraph?.Data?.size.toString()
-         binding.movementsId.statusCardId.visibility=View.VISIBLE
-
-
-            val morningAlertness = sleepValue.MorningAlertness
-                ?.Minutes
-            binding.morningAlertnessId.title.text="Morning Alertness"
-        binding.morningAlertnessId.value.text=morningAlertness
-        binding.morningAlertnessId.hrId.text="mins"
-        binding.morningAlertnessId.statusCardId.visibility=View.VISIBLE
-
-        binding.tossesAndTurnsId.title.text="Tosses and Turns"
-        binding.tossesAndTurnsId.value.text="_"
-        binding.tossesAndTurnsId.statusCardId.visibility=View.VISIBLE
-
-
-
-
-            binding.hideId.cardTitlse.text="Hide"
-
-
-
-
-//            Activity
-            Glide.with(this).asGif().load(R.raw.celebrate).into(binding.celebrationId.trophyIcon)
-
-
-            binding.inactiveHoursId.title.text="Inactive Time"
-            binding.inactiveHoursId.value.text="_"
-            binding.inactiveHoursId.statusCardId.visibility=View.VISIBLE
-
-
-
-            binding.activieHoursId.title.text="Active Hours"
-            binding.activieHoursId.value.text="_"
-            binding.activieHoursId.statusCardId.visibility=View.VISIBLE
-
-
-
-
-            binding.WeeklyActiveMinutesId.title.text="Weekly Active Minutes"
-            binding.WeeklyActiveMinutesId.value.text="_"
-            binding.WeeklyActiveMinutesId.statusCardId.visibility=View.VISIBLE
-
-
-//            Recovery
-
-
-
-            binding.StressRhythmScoreId.title.text="Stress Rhythm Score"
-            binding.StressRhythmScoreId.value.text= "_"
-            binding.StressRhythmScoreId.statusCardId.visibility=View.VISIBLE
-
-        }
+//        }
 
 
 
 viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     val vitalStepsIndex = vitalList.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
-
-
     binding.StepsId.title.text = "Steps"
     binding.StepsId.value.text = vitalStepsIndex?.vitalValue.toString()
     binding.StepsId.statusCardId.visibility = View.VISIBLE
+    binding.StepsId.status.applyStatusStyle(
+        rawColor = vitalStepsIndex?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.StepsId.status.text = vitalStepsIndex?.severityLevel.toString()
+
+
+    val totalSleepIndex = vitalList.find { it.vitalName.equals("TotalSleep", ignoreCase = true) }
+    binding.totalSleepId.title.text = "Total Sleep"
+    binding.totalSleepId.value.text = totalSleepIndex?.vmValueText.toString()
+    binding.totalSleepId.statusCardId.visibility = View.VISIBLE
+    binding.totalSleepId.status.applyStatusStyle(
+        rawColor = totalSleepIndex?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.totalSleepId.status.text = totalSleepIndex?.severityLevel.toString()
+
+
+    val sleepEfficiency = vitalList.find { it.vitalName.equals("Sleep efficiency", ignoreCase = true) }
+    binding.sleepEfficiencyId.title.text = "Sleep Efficiency"
+    binding.sleepEfficiencyId.value.text = sleepEfficiency?.vmValueText.toString()
+    binding.sleepEfficiencyId.statusCardId.visibility = View.VISIBLE
+    binding.sleepEfficiencyId.status.applyStatusStyle(
+        rawColor = sleepEfficiency?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.sleepEfficiencyId.status.text = sleepEfficiency?.severityLevel.toString()
+
+
+
+    val timeinBedIndex = vitalList.find {
+        it.vitalName.equals("TimeInBed", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Time in Bed",
+        vital = timeinBedIndex,
+        titleView = binding.timeInBedId.title,
+        valueView = binding.timeInBedId.value,
+        statusView = binding.timeInBedId.status,
+        statusCardView = binding.timeInBedId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+    val sleepCycleIndex = vitalList.find {
+        it.vitalName.equals("SleepCycles", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Full Sleep Cycle",
+        vital = sleepCycleIndex,
+        titleView = binding.fulSleepCycleId.title,
+        valueView = binding.fulSleepCycleId.value,
+        statusView = binding.fulSleepCycleId.status,
+        statusCardView = binding.fulSleepCycleId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+    val RemSleepIndex = vitalList.find {
+        it.vitalName.equals("REM Sleep", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "REM Sleep",
+        vital = RemSleepIndex,
+        titleView = binding.remSleepId.title,
+        valueView = binding.remSleepId.value,
+        statusView = binding.remSleepId.status,
+        statusCardView = binding.remSleepId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+    val deepsleepIndex = vitalList.find {
+        it.vitalName.equals("Deep Sleep", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Deep Sleep",
+        vital = deepsleepIndex,
+        titleView = binding.deepSleepId.title,
+        valueView = binding.deepSleepId.value,
+        statusView = binding.deepSleepId.status,
+        statusCardView = binding.deepSleepId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+
+    val awakeIndex = vitalList.find {
+        it.vitalName.equals("Awake", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Awake",
+        vital = awakeIndex,
+        titleView = binding.awakeSleepId.title,
+        valueView = binding.awakeSleepId.value,
+        statusView = binding.awakeSleepId.status,
+        statusCardView = binding.awakeSleepId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+    val lightSleepIndex = vitalList.find {
+        it.vitalName.equals("Light Sleep", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Light Sleep",
+        vital = lightSleepIndex,
+        titleView = binding.lightSleepId.title,
+        valueView = binding.lightSleepId.value,
+        statusView = binding.lightSleepId.status,
+        statusCardView = binding.lightSleepId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+
+    val restorativeSleepIndex = vitalList.find {
+        it.vitalName.equals("RestorativeSleep", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Restorative Sleep",
+        vital = restorativeSleepIndex,
+        titleView = binding.restorativeSleepId.title,
+        valueView = binding.restorativeSleepId.value,
+        statusView = binding.restorativeSleepId.status,
+        statusCardView = binding.restorativeSleepId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+    val activeHoursIndex = vitalList.find {
+        it.vitalName.equals("ActiveHours", ignoreCase = true)
+    }
+    bindVitalViewVitalValue(
+        vitalName = "Active Hours",
+        vital = activeHoursIndex,
+        titleView = binding.activieHoursId.title,
+        valueView = binding.activieHoursId.value,
+        statusView = binding.activieHoursId.status,
+        statusCardView = binding.activieHoursId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+//    val timeinBedIndex = vitalList.find {
+//        it.vitalName.equals("TimeInBed", ignoreCase = true)
+//    }
+//    bindVitalView(
+//        vitalName = "Movements",
+//        vital = timeinBedIndex,
+//        titleView = binding.timeInBedId.title,
+//        valueView = binding.timeInBedId.value,
+//        statusView = binding.timeInBedId.status,
+//        statusCardView = binding.timeInBedId.statusCardId,
+//        getPastelColor = ::getPastelColor
+//    )
+
+
+    val morningalertnessId = vitalList.find {
+        it.vitalName.equals("Morningalertness", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Morning Alertness",
+        vital = morningalertnessId,
+        titleView = binding.morningAlertnessId.title,
+        valueView = binding.morningAlertnessId.value,
+        statusView = binding.morningAlertnessId.status,
+        statusCardView = binding.morningAlertnessId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+
+    val tossandTurnIndex = vitalList.find {
+        it.vitalName.equals("TossTurn", ignoreCase = true)
+    }
+    bindVitalView(
+        vitalName = "Tosses and Turn",
+        vital = tossandTurnIndex,
+        titleView = binding.tossesAndTurnsId.title,
+        valueView = binding.tossesAndTurnsId.value,
+        statusView = binding.tossesAndTurnsId.status,
+        statusCardView = binding.tossesAndTurnsId.statusCardId,
+        getPastelColor = ::getPastelColor
+    )
+
+//    val timeinBedIndex = vitalList.find {
+//        it.vitalName.equals("TimeInBed", ignoreCase = true)
+//    }
+//    bindVitalView(
+//        vitalName = "Avg Body Temp",
+//        vital = timeinBedIndex,
+//        titleView = binding.averageBodyTempId.title,
+//        valueView = binding.averageBodyTempId.value,
+//        statusView = binding.averageBodyTempId.status,
+//        statusCardView = binding.averageBodyTempId.statusCardId,
+//        getPastelColor = ::getPastelColor
+//    )
+
+
+
+
+
+
+
+
+    val sleepScoreIndex = vitalList.find { it.vitalName.equals("SleepScore", ignoreCase = true) }
+    binding.sleepScoreId.title.text = "Sleep Score"
+    binding.sleepScoreId.value.text = sleepScoreIndex?.vmValueText.toString()
+    binding.sleepScoreId.statusCardId.visibility = View.VISIBLE
+    binding.sleepScoreId.status.applyStatusStyle(
+        rawColor = sleepScoreIndex?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.sleepScoreId.status.text = sleepScoreIndex?.severityLevel.toString()
+
+
+
+
 
     val TemperatureBody = vitalList
         ?.firstOrNull { it.vitalName.equals("Temperature", ignoreCase = true) }
     binding.averageBodyTempId.title.text = "Average Body Temp."
-    binding.averageBodyTempId.value.text = "${"%.1f".format(TemperatureBody?.vitalValue ?: 0.0)}"
+    binding.averageBodyTempId.value.text = "%.1f".format(TemperatureBody?.vitalValue ?: 0.0)
     binding.averageBodyTempId.statusCardId.visibility = View.VISIBLE
+
+    binding.averageBodyTempId.status.applyStatusStyle(
+        rawColor = TemperatureBody?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.averageBodyTempId.status.text = TemperatureBody?.severityLevel.toString()
 
     val activeMinutes = vitalList
         ?.firstOrNull { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
     binding.ActiveminutesId.title.text = "Active Minutes"
     binding.ActiveminutesId.value.text = activeMinutes?.vitalValue.toString()
     binding.ActiveminutesId.statusCardId.visibility = View.VISIBLE
+
+    binding.ActiveminutesId.status.applyStatusStyle(
+        rawColor = activeMinutes?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.ActiveminutesId.status.text = activeMinutes?.severityLevel.toString()
+
+
+
     val Temperature = vitalList
-        ?.firstOrNull { it.vitalName.equals("TemperatureTemperature", ignoreCase = true) }
-    binding.tempDeviationId.title.text = "Temperature Devoatoion"
+        ?.firstOrNull { it.vitalName.equals("TemperatureDeviation", ignoreCase = true) }
+    binding.tempDeviationId.title.text = "Temperature Deviation"
     binding.tempDeviationId.value.text = "${"%.1f".format(Temperature?.vitalValue ?: 0.0)}"
     binding.tempDeviationId.statusCardId.visibility = View.VISIBLE
+    binding.tempDeviationId.status.applyStatusStyle(
+        rawColor = Temperature?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.tempDeviationId.status.text = Temperature?.severityLevel.toString()
+
 
     val recoveryIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
@@ -756,24 +987,44 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
     binding.recoveryScoreId.value.text = recoveryIndex?.vitalValue.toString()
     binding.recoveryScoreId.statusCardId.visibility = View.VISIBLE
 
+    binding.recoveryScoreId.status.applyStatusStyle(
+        rawColor = recoveryIndex?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.recoveryScoreId.status.text = recoveryIndex?.severityLevel.toString()
+
     val HRV = vitalList
         ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
     binding.lastNightHrvId.title.text = "Last Night's HRV"
     binding.lastNightHrvId.value.text = HRV?.vitalValue.toString()
     binding.lastNightHrvId.statusCardId.visibility = View.VISIBLE
+    binding.lastNightHrvId.status.applyStatusStyle(
+        rawColor = HRV?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.lastNightHrvId.status.text = HRV?.severityLevel.toString()
+
 
 
     binding.SleepStageHrvId.title.text = "Sleep Stage' HRV"
-    binding.SleepStageHrvId.value.text = HRV?.toString()
+    binding.SleepStageHrvId.value.text = HRV?.vitalValue.toString()
     binding.SleepStageHrvId.statusCardId.visibility = View.VISIBLE
-
+    binding.SleepStageHrvId.status.applyStatusStyle(
+        rawColor = HRV?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.SleepStageHrvId.status.text = HRV?.severityLevel.toString()
     val movementIndex = vitalList
         ?.firstOrNull { it.vitalName.equals("MovementIndex", ignoreCase = true) }
 
     binding.movementIndexId.title.text = "Movement Index"
     binding.movementIndexId.value.text = movementIndex?.vitalValue.toString()
     binding.movementIndexId.statusCardId.visibility = View.VISIBLE
-
+    binding.movementIndexId.status.applyStatusStyle(
+        rawColor = movementIndex?.vitalColor,
+        getPastelColor = ::getPastelColor
+    )
+    binding.movementIndexId.status.text = movementIndex?.severityLevel.toString()
 
 //    val sleepValue = vitalList
 //        ?.firstOrNull { it.vitalName.equals("Sleep Score", ignoreCase = true) }
@@ -841,6 +1092,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             val alpha = (alphaPercent / 100f * 255).toInt()
             return ColorUtils.setAlphaComponent(color, alpha)
         }
+
 
         // Background colors with 74% opacity
 //        binding.sleepProgressIds.sleepstatusId.setBackgroundColor(
@@ -941,8 +1193,8 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         }
 
 
-        observeVitalList()
-        observeSleepValues()
+//        observeVitalList()
+//        observeSleepValues()
         binding.showId.showHideId.setOnClickListener{
             binding.viewAllSleepDataaId.visibility=View.VISIBLE
             binding.showId.showHideId.visibility=View.GONE
@@ -952,6 +1204,20 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             binding.showId.showHideId.visibility=View.VISIBLE
         }
          wellnessDataBind()
+    }
+    private fun dpToPx(dp: Float): Float {
+        return dp * resources.displayMetrics.density
+    }
+    fun getPastelColor(hexColor: String): Int {
+        val color = Color.parseColor(hexColor)
+        val hsv = FloatArray(3)
+        Color.colorToHSV(color, hsv)
+
+        // Reduce saturation & increase brightness
+        hsv[1] *= 0.35f   // saturation
+        hsv[2] = 1.0f    // brightness
+
+        return Color.HSVToColor(hsv)
     }
     private fun wellnessDataBind() {
 
@@ -1071,63 +1337,63 @@ fun Int.withAlpha(alpha: Float): Int {
         val a = (alpha * 255).toInt().coerceIn(0, 255)
         return (this and 0x00FFFFFF) or (a shl 24)
     }
-    private fun observeVitalList() {
-        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-
-            updateCard(binding.sleepScoreId, "Sleep Score", vitalList.getVital("SleepScore"))
-            updateCard(binding.totalSleepId, "Total Sleep", vitalList.getVital("TotalSleep"))
-            updateCard(binding.timeInBedId, "Time In Bed", vitalList.getVital("TimeInBed"))
-            updateCard(binding.fulSleepCycleId, "Sleep Cycles", vitalList.getVital("SleepCycles"))
-            updateCard(binding.restorativeSleepId, "Restorative Sleep", vitalList.getVital("RestorativeSleep"))
-            updateCard(binding.morningAlertnessId, "Morning Alertness", vitalList.getVital("MorningAlertness"))
-            updateCard(binding.tossesAndTurnsId, "Tosses and Turns", vitalList.getVital("TossTurn"))
-            updateCard(binding.averageBodyTempId, "Temperature", vitalList.getVital("Temperature"))
-            updateCard(binding.activieHoursId, "Active Hours", vitalList.getVital("ActiveHours"))
-            updateCard(binding.StepsId, "Steps", vitalList.getVital("TotalSteps"))
-            updateCard(binding.ActiveminutesId, "Active Minutes", vitalList.getVital("ActiveMinutes"))
-            updateCard(binding.recoveryScoreId, "Recovery Index", vitalList.getVital("RecoveryIndex"))
-            updateCard(binding.lastNightHrvId, "Last Night's HRV", vitalList.getVital("HRV"))
-            updateCard(binding.SleepStageHrvId, "Sleep Stage HRV", vitalList.getVital("HRV"))
-            updateCard(binding.StressRhythmScoreId, "Stress Rhythm Score", vitalList.getVital("StressScore"))
-            // Temperature Deviation (special formatting)
-            val temp = vitalList.getVital("Temperature")?.vitalValue ?: 0.0
-            binding.tempDeviationId.title.text = "Temperature Deviation"
-            binding.tempDeviationId.value.text = "%.1f".format(temp)
-            binding.tempDeviationId.statusCardId.visibility = View.VISIBLE
-
-            updateCard(binding.movementsId, "Movement Index", vitalList.getVital("MovementIndex"))
-        }
-    }
+//    private fun observeVitalList() {
+//        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+//
+//            updateCard(binding.sleepScoreId, "Sleep Score", vitalList.getVital("SleepScore"))
+//            updateCard(binding.totalSleepId, "Total Sleep", vitalList.getVital("TotalSleep"))
+//            updateCard(binding.timeInBedId, "Time In Bed", vitalList.getVital("TimeInBed"))
+//            updateCard(binding.fulSleepCycleId, "Sleep Cycles", vitalList.getVital("SleepCycles"))
+//            updateCard(binding.restorativeSleepId, "Restorative Sleep", vitalList.getVital("RestorativeSleep"))
+//            updateCard(binding.morningAlertnessId, "Morning Alertness", vitalList.getVital("MorningAlertness"))
+//            updateCard(binding.tossesAndTurnsId, "Tosses and Turns", vitalList.getVital("TossTurn"))
+//            updateCard(binding.averageBodyTempId, "Temperature", vitalList.getVital("Temperature"))
+//            updateCard(binding.activieHoursId, "Active Hours", vitalList.getVital("ActiveHours"))
+//            updateCard(binding.StepsId, "Steps", vitalList.getVital("TotalSteps"))
+//            updateCard(binding.ActiveminutesId, "Active Minutes", vitalList.getVital("ActiveMinutes"))
+//            updateCard(binding.recoveryScoreId, "Recovery Index", vitalList.getVital("RecoveryIndex"))
+//            updateCard(binding.lastNightHrvId, "Last Night's HRV", vitalList.getVital("HRV"))
+//            updateCard(binding.SleepStageHrvId, "Sleep Stage HRV", vitalList.getVital("HRV"))
+//            updateCard(binding.StressRhythmScoreId, "Stress Rhythm Score", vitalList.getVital("StressScore"))
+//            // Temperature Deviation (special formatting)
+//            val temp = vitalList.getVital("Temperature")?.vitalValue ?: 0.0
+//            binding.tempDeviationId.title.text = "Temperature Deviation"
+//            binding.tempDeviationId.value.text = "%.1f".format(temp)
+//            binding.tempDeviationId.statusCardId.visibility = View.VISIBLE
+//
+//            updateCard(binding.movementsId, "Movement Index", vitalList.getVital("MovementIndex"))
+//        }
+//    }
 
     // ---------------------------------------------------------------------
     //  OBSERVE: SLEEP VALUE DETAILS
     // ---------------------------------------------------------------------
-    private fun observeSleepValues() {
-        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
-
-            val efficiency = sleepValue.QuickMetrics
-                ?.firstOrNull { it.Title.equals("EFFICIENCY", true) }
-
-            binding.sleepEfficiencyId.title.text = "Sleep Efficiency"
-            binding.sleepEfficiencyId.value.text = efficiency?.DisplayText ?: "--"
-            binding.sleepEfficiencyId.statusCardId.visibility = View.VISIBLE
-
-
-            updateStage(binding.remSleepId, "REM Sleep", sleepValue, "REM Sleep")
-            updateStage(binding.deepSleepId, "Deep Sleep", sleepValue, "Deep Sleep")
-            updateStage(binding.lightSleepId, "Light Sleep", sleepValue, "Light Sleep")
-
-
-            binding.movementsId.title.text = "Movements"
-            binding.movementsId.value.text = sleepValue.MovementGraph?.Data?.size.toString()
-            binding.movementsId.statusCardId.visibility = View.VISIBLE
-
-
-            binding.inactiveHoursId.title.text = "Inactive Time"
-            binding.inactiveHoursId.value.text = "_"
-            binding.inactiveHoursId.statusCardId.visibility = View.VISIBLE
-        }
-    }
+//    private fun observeSleepValues() {
+//        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+//
+//            val efficiency = sleepValue.QuickMetrics
+//                ?.firstOrNull { it.Title.equals("EFFICIENCY", true) }
+//
+//            binding.sleepEfficiencyId.title.text = "Sleep Efficiency"
+//            binding.sleepEfficiencyId.value.text = efficiency?.DisplayText ?: "--"
+//            binding.sleepEfficiencyId.statusCardId.visibility = View.VISIBLE
+//
+//
+//            updateStage(binding.remSleepId, "REM Sleep", sleepValue, "REM Sleep")
+//            updateStage(binding.deepSleepId, "Deep Sleep", sleepValue, "Deep Sleep")
+//            updateStage(binding.lightSleepId, "Light Sleep", sleepValue, "Light Sleep")
+//
+//
+//            binding.movementsId.title.text = "Movements"
+//            binding.movementsId.value.text = sleepValue.MovementGraph?.Data?.size.toString()
+//            binding.movementsId.statusCardId.visibility = View.VISIBLE
+//
+//
+//            binding.inactiveHoursId.title.text = "Inactive Time"
+//            binding.inactiveHoursId.value.text = "_"
+//            binding.inactiveHoursId.statusCardId.visibility = View.VISIBLE
+//        }
+//    }
 
     private fun updateCard(card: SleepLayoutBinding, title: String, vital: Vital?) {
         card.title.text = title
@@ -1711,9 +1977,13 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
                         binding.recyclerView.layoutManager =
                             LinearLayoutManager(requireContext())
 
+                        binding.medicineTitleID.setOnClickListener {
+                            findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+                        }
+
                         // Initialize adapter once with an empty list
                         val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
-                            //findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 pillsViewModel.insertPatientMedication(selectedMedicine)
                             };

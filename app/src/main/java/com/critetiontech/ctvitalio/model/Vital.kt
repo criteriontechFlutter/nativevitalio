@@ -179,6 +179,7 @@ data class Vital(
     var vitalName: String? = null,
     var colourCode: String? = null,
     var severityLevel: String? ="-",
+    var vitalColor: String? ="-",
     var vitalValue: Double? = 0.0,
     var vmValueText: String? = "--",
     var totalValue: Double = 0.0,
