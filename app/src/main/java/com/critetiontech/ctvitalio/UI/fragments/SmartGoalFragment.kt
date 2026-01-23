@@ -54,6 +54,7 @@ class SmartGoalFragment : Fragment() {
 
                 val finalList = mutableListOf<Any>()
 
+
                 categoryList.forEach { category ->
                     finalList.add(category)             // ✔ Add full category object
                     finalList.addAll(category.goals)    // ✔ Add goals
@@ -68,6 +69,8 @@ class SmartGoalFragment : Fragment() {
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+
+
 
         /* --------------------- ADD NEW GOALS BUTTON --------------------- */
         binding.btnAdd.setOnClickListener {
@@ -233,6 +236,7 @@ class SmartGoalFragment : Fragment() {
         )
 
         adapter.updateData(finalList, isAllGoal = false)
+        binding.centerIcon.text=finalList.size.toString()
         recyclerView.adapter = adapter
 
         dialog.show()
