@@ -8,6 +8,7 @@ data class DashboardActiveChallenges(
     val description: String,
     val duration: Int,
     val streakDay: Int,
+    val progress: Int,
     val streakDays: String,
     val streakMessage: String?
 ) : Serializable

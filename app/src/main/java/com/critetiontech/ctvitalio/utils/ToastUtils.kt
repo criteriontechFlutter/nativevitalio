@@ -1,15 +1,19 @@
 package com.critetiontech.ctvitalio.utils
 
+import Vital
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -79,6 +83,93 @@ object ToastUtils {
         toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 100)
         toast.show()
     }
+}
+
+fun TextView.applyStatusStyle(
+    rawColor: String?,
+    getPastelColor: (String) -> Int,
+    cornerRadiusDp: Float = 12f,
+    paddingHorizontalDp: Float = 10f,
+    paddingVerticalDp: Float = 4f
+) {
+    if (rawColor.isNullOrEmpty()) return
+
+    val colorCode = if (rawColor.startsWith("#")) rawColor else "#$rawColor"
+
+    val backgroundColor = getPastelColor(colorCode)
+
+    val drawable = GradientDrawable().apply {
+        shape = GradientDrawable.RECTANGLE
+        setColor(backgroundColor)
+        cornerRadius = dpToPx(cornerRadiusDp)
+    }
+
+    setTextColor(Color.parseColor(colorCode))
+    background = drawable
+    setPadding(
+        dpToPx(paddingHorizontalDp).toInt(),
+        dpToPx(paddingVerticalDp).toInt(),
+        dpToPx(paddingHorizontalDp).toInt(),
+        dpToPx(paddingVerticalDp).toInt()
+    )
+}
+fun dpToPx(dp: Float): Float {
+    return dp * Resources.getSystem().displayMetrics.density
+}
+
+fun bindVitalView(
+    vitalName: String,
+    vital:  Vital?, // replace with your actual model class
+    titleView: TextView,
+    valueView: TextView,
+    statusView: TextView,
+    statusCardView: View,
+    getPastelColor: (String) -> Int
+) {
+    titleView.text = vitalName
+    valueView.text = vital?.vmValueText.orEmpty()
+
+    if (!vital?.severityLevel.isNullOrEmpty()) {
+        statusCardView.visibility = View.VISIBLE
+
+        statusView.applyStatusStyle(
+            rawColor = vital.vitalColor,
+            getPastelColor = getPastelColor
+        )
+        statusView.text = vital.severityLevel
+    } else {
+        statusCardView.visibility = View.GONE
+    }
+
+
+}
+
+
+fun bindVitalViewVitalValue(
+    vitalName: String,
+    vital:  Vital?, // replace with your actual model class
+    titleView: TextView,
+    valueView: TextView,
+    statusView: TextView,
+    statusCardView: View,
+    getPastelColor: (String) -> Int
+) {
+    titleView.text = vitalName
+    valueView.text = vital?.vitalValue.toString()
+
+    if (!vital?.severityLevel.isNullOrEmpty()) {
+        statusCardView.visibility = View.VISIBLE
+
+        statusView.applyStatusStyle(
+            rawColor = vital.vitalColor,
+            getPastelColor = getPastelColor
+        )
+        statusView.text = vital.severityLevel
+    } else {
+        statusCardView.visibility = View.GONE
+    }
+
+
 }
 
 object ErrorUtils {

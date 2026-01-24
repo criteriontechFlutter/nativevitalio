@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Title"
+            android:text=""
             android:textColor="#828691"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -77,20 +77,18 @@
     <LinearLayout
         android:id="@+id/statusCardId"
         android:layout_width="wrap_content"
-        android:layout_height="22dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/greyBG"
-        android:paddingVertical="4dp"
-        android:layout_marginTop="6dp">
+     >
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/greyBG"
+            android:layout_height="wrap_content"
+            android:minHeight="22dp"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="1dp"
             android:text=""
             android:textSize="10sp"
             android:textStyle="bold"
