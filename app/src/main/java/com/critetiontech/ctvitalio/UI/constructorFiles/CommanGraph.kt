@@ -40,7 +40,7 @@ class HeartRateGraphView @JvmOverloads constructor(
     var yAxisGridLines = mutableListOf<Int>()
     var timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     var numberOfTimeLabels = 5
-     var thresholdValue: Int? = null
+    var thresholdValue: Int? = null
 
     // === STYLE ===
     var showGradient = true
@@ -225,15 +225,8 @@ class HeartRateGraphView @JvmOverloads constructor(
         for (i in 0 until labelCount) {
             val timestamp = minTime + i * timeStep
             val x = padding + (i.toFloat() / (labelCount - 1)) * graphWidth
-
-            val label =timestamp.toString()
-
-            canvas.drawText(
-                label,
-                x - textPaint.measureText(label) / 2,
-                height - 30f,
-                textPaint
-            )
+            val label = timeFormat.format(Date(timestamp))
+            canvas.drawText(label, x - textPaint.measureText(label) / 2, height - 30f, textPaint)
         }
 
         // ---- CURVE ----

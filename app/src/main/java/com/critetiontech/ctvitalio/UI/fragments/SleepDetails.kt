@@ -67,6 +67,8 @@ import java.time.Instant
 import java.util.Calendar
 import kotlin.getValue
 import androidx.core.graphics.toColorInt
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 // -------------------------------------------
 // Data Classes
@@ -153,7 +155,6 @@ class SleepDetails : Fragment() {
         }
         // Setup sleep-cycle graph
         setupSleepCycleGraph()
-        hrVariability() // dummy generator-based HRV for initial display
 
         // Contributors
 
@@ -259,13 +260,17 @@ class SleepDetails : Fragment() {
 
         if (tempGraph == null || tempGraph.Data.isNullOrEmpty()) return
 
-        val points = tempGraph.Data.map {
+         val points = tempGraph.Data.map {
+            val millis = LocalDateTime.parse(it.Timestamp)
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
+
             HeartRateGraphView.HeartRatePoint(
-                Instant.parse(it.Timestamp).toEpochMilli(),
+                millis,
                 it.Value.toInt()
             )
         }
-
         val avg = points.map { it.bpm }.average()
 
         binding.skinTempId.apply {
@@ -549,9 +554,15 @@ class SleepDetails : Fragment() {
     // -------------------------------------------
     @RequiresApi(Build.VERSION_CODES.O)
     fun isoToMillis(isoDate: String): Long {
-        return Instant.parse(isoDate).toEpochMilli()
+        return try {
+            Instant.parse(isoDate).toEpochMilli()
+        } catch (_: Exception) {
+            LocalDateTime.parse(isoDate)
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
+        }
     }
-
     // -------------------------------------------
     // HR from server data (binds to heartRateGraph)
     // -------------------------------------------
@@ -589,8 +600,13 @@ class SleepDetails : Fragment() {
         if (hrvGraph == null || hrvGraph.Data.isNullOrEmpty()) return
 
         val points = hrvGraph.Data.map {
+            val millis = LocalDateTime.parse(it.Timestamp)
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
+
             HeartRateGraphView.HeartRatePoint(
-                Instant.parse(it.Timestamp).toEpochMilli(),
+                millis,
                 it.Value.toInt()
             )
         }
@@ -614,34 +630,6 @@ class SleepDetails : Fragment() {
     // -------------------------------------------
     // Dummy HR Variability (generator)
     // -------------------------------------------
-    @SuppressLint("SetTextI18n")
-    private fun hrVariability() {
-        val now = System.currentTimeMillis()
-        val points = mutableListOf<HeartRateGraphView.HeartRatePoint>()
-
-        // Generate 10 dynamic random BPM points, 1 min apart
-        for (i in 0..10) {
-            points.add(
-                HeartRateGraphView.HeartRatePoint(
-                    now + i * 60_000L, // each minute
-                    (60..90).random()
-                )
-            )
-        }
-
-        // Update graph with new data
-        binding.heartRateVariablityGraph.setData(points)
-
-        // Set threshold line (e.g., safe HR zone)
-        binding.heartRateVariablityGraph.thresholdValue = 74
-
-        // Example: fix Y-axis and time range manually
-        binding.heartRateVariablityGraph.setYAxisRange(40, 90)
-        binding.heartRateVariablityGraph.setTimeRange(now, now + 600_000L)
-
-        // If you want to restore automatic scaling later:
-        binding.heartRateVariablityGraph.resetDynamicAxes()
-    }
 
     // -------------------------------------------
     // Sleep cycle graph setup (uses SleepCycleView.parseFromJson)
