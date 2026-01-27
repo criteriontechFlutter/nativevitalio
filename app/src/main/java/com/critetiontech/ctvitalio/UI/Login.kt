@@ -188,7 +188,9 @@ class Login : BaseActivity() {
                 message = "Hello $name, welcome to Vitalio.\nLet's secure your account with a new password.",
                 btnText = "Change Password",
                 onConfirm = {
-                    startActivity(Intent(this, ResetPassword::class.java))
+                    val intent = Intent(this, ResetPassword::class.java)
+                    intent.putExtra("oldPassword", binding.passField.text.toString())
+                    startActivity(intent)
                 }
             ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
         } else {

@@ -52,21 +52,22 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         _loading.value = true
         _loginSuccess.postValue(false)
 
-        FirebaseMessaging.getInstance().token
-            .addOnCompleteListener { task ->
-
-                if (!task.isSuccessful) {
-                    Log.w("FCM", "Fetching FCM token failed", task.exception)
-                    _loading.value = false
-                    return@addOnCompleteListener
-                }
-
-                val deviceToken = task.result
-                Log.d("FCM", "FCM Registration Token: $deviceToken")
-
-                // ✅ Call API ONLY after token is available
-                loginWithToken(username, password, deviceToken)
-            }
+//        FirebaseMessaging.getInstance().token
+//            .addOnCompleteListener { task ->
+//
+//                if (!task.isSuccessful) {
+//                    Log.w("FCM", "Fetching FCM token failed", task.exception)
+//                    _loading.value = false
+//                    return@addOnCompleteListener
+//                }
+//
+//                val deviceToken = task.result
+//                Log.d("FCM", "FCM Registration Token: $deviceToken")
+//
+//                // ✅ Call API ONLY after token is available
+//
+//            }
+        loginWithToken(username, password, "deviceToken")
     }
 
     private fun loginWithToken(

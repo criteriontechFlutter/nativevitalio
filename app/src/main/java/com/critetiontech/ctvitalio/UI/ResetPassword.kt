@@ -8,19 +8,12 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
-import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
 import com.critetiontech.ctvitalio.databinding.ActivityResetPasswordBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.ForgotPasswordViewModel
 import com.critetiontech.ctvitalio.viewmodel.ResetPasswordViewModel
 
 class ResetPassword : AppCompatActivity() {
@@ -109,8 +102,11 @@ class ResetPassword : AppCompatActivity() {
         }
 
         binding.submitBtn.setOnClickListener(){
+            val oldPassword = intent.getStringExtra("oldPassword")
+
             viewModel.resetPassword(
                 context = context,
+                oldPassword,
                 newPassword = binding.inputField.text.toString(),
                 confirmNewPassword = binding.confirmPasswordField.text.toString(),
             )

@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentSetGoalBinding
+import com.critetiontech.ctvitalio.model.UnitConfig
 import com.critetiontech.ctvitalio.viewmodel.SetGoalViewModel
 import java.util.Calendar
 
@@ -38,6 +39,8 @@ class SetGoal : Fragment() {
         initDefaultSelectedDay()
         setupWeekSelector()
         setupClicks()
+
+        binding.unitLabel.text=arguments?.getString("unit")
     }
 
     /** ----------------------------------------------------------
@@ -69,16 +72,13 @@ class SetGoal : Fragment() {
         }
 
         binding.btnMinus.setOnClickListener {
-            val value = binding.tvStepsValue.text.toString().toInt()
-            if (value > 0) {
-                binding.tvStepsValue.text = (value - 500).toString()
-            }
+            updateTargetValue(isIncrement = false)
         }
 
         binding.btnPlus.setOnClickListener {
-            val value = binding.tvStepsValue.text.toString().toInt()
-            binding.tvStepsValue.text = (value + 500).toString()
+            updateTargetValue(isIncrement = true)
         }
+
 
         binding.btnSave.setOnClickListener {
             val categoryId = arguments?.getString("categoryId")
@@ -154,4 +154,78 @@ class SetGoal : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun updateTargetValue(isIncrement: Boolean) {
+
+        val unit = arguments?.getString("unit")
+        val config = getUnitConfig(unit)
+
+        val currentValue =
+            binding.tvStepsValue.text.toString().toDoubleOrNull() ?: 0.0
+
+        val newValue = if (isIncrement) {
+            currentValue + config.step
+        } else {
+            currentValue - config.step
+        }
+
+        // validation
+        if (newValue < config.min) return
+        if (config.max != null && newValue > config.max) return
+
+        binding.tvStepsValue.text =
+            if (config.allowDecimal) {
+                String.format("%.1f", newValue)
+            } else {
+                newValue.toInt().toString()
+            }
+    }
+
+    private fun getUnitConfig(unit: String?): UnitConfig {
+        return when (unit?.lowercase()) {
+
+            "steps" -> UnitConfig(
+                step = 500.0,
+                min = 0.0,
+                allowDecimal = false
+            )
+
+            "liters", "ltr", "liter" -> UnitConfig(
+                step = 1.0,
+                min = 0.0,
+                max = 10.0,
+                allowDecimal = false
+            )
+
+            "minutes" -> UnitConfig(
+                step = 5.0,
+                min = 0.0,
+                max = 300.0,
+                allowDecimal = false
+            )
+
+            "hours" -> UnitConfig(
+                step = 0.5,
+                min = 0.0,
+                max = 24.0,
+                allowDecimal = true
+            )
+
+            "times/day", "count", "cycles" -> UnitConfig(
+                step = 1.0,
+                min = 0.0,
+                allowDecimal = false
+            )
+
+            "time" -> UnitConfig(
+                step = 1.0, // handled separately (HH:mm)
+                allowDecimal = false
+            )
+
+            else -> UnitConfig(
+                step = 1.0
+            )
+        }
+    }
+
 }
