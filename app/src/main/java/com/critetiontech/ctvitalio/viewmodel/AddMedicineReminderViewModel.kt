@@ -83,6 +83,13 @@ class AddMedicineReminderViewModel(application: Application) : AndroidViewModel(
                 body["monthDates"] = ""
                 body["weekDays"] = "[]"
             }
+            /** 🔵 EVERY DAY */
+            "Every day" -> {
+                body["frequency"] = "Every day"
+                body["frequencyValue"] = everyXDayValue   // <----- FINAL ANSWER
+                body["monthDates"] = ""
+                body["weekDays"] = "[]"
+            }
 
             /** 🟢 EVERY X DAY */
             "Every x day" -> {

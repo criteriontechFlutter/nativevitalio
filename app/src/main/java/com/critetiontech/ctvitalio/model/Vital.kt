@@ -29,6 +29,9 @@ data class SleepMetric(
     val vitalName: String,
     val vitalValue: String?
 )
+
+
+
 data class SleepValue(
     val Score: Int,
     val Title: String,
