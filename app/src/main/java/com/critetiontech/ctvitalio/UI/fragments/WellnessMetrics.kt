@@ -80,6 +80,9 @@ class WellnessMetrics : Fragment() {
         binding.dynamicRecovery.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_dynamicRecovery  )
         }
+        binding.sleepContainerId.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_sleepDetails  )
+        }
          binding.brainWasteClearance.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
