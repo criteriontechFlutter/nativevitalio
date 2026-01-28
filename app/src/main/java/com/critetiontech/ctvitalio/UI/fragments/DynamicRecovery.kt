@@ -113,7 +113,7 @@ class DynamicRecovery : Fragment() {
         val avg = entries.map { it.value }.average().toInt()
 
         binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "Movement Index"
+        binding.tvLabel.text = "Dynamic Recovery"
 
         binding.barsContainer.post {
 

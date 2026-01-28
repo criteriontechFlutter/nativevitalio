@@ -115,7 +115,7 @@ class StressRhythm : Fragment() {
         val avg = entries.map { it.value }.average().toInt()
 
         binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "Movement Index"
+        binding.tvLabel.text = "Stress Rhythm Score  "
 
         binding.barsContainer.post {
 

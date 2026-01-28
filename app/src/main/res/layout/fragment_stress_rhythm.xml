@@ -86,10 +86,10 @@
                     android:id="@+id/tvLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sleep"
+                    android:alpha="0.8"
+                    android:text="Stress Rhythm Score  "
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:alpha="0.8" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
