@@ -14,13 +14,16 @@ object RetrofitInstance {
 
 
     //Vitalio Static Development Server
-    const val DEFAULT_BASE_URL = "http://182.156.200.177:5082/"
-    const val DEFAULT_BASE_URL_7096 = "http://182.156.200.177:5096/"
-    const val DEFAULT_BASE_URL_7082 = "http://182.156.200.177:5082/"
-    const val DEFAULT_BASE_URL_7083 = "http://182.156.200.177:5083/"
-    const val DEFAULT_BASE_URL_5119 = "http://182.156.200.177:5119/"
-    const val DEFAULT_BASE_URL_5090 = "http://182.156.200.177:5090/"
-    const val DEFAULT_BASE_URL_5100 = "http://182.156.200.177:5100/"
+
+    const val StaggingbaseUrl="https://demo.vitalio.care"
+    const val DevelopmentbaseUrl="http://182.156.200.177"
+    const val DEFAULT_BASE_URL = "${StaggingbaseUrl}:5082/"
+    const val DEFAULT_BASE_URL_7096 = "${StaggingbaseUrl}:5096/"
+    const val DEFAULT_BASE_URL_7082 = "${StaggingbaseUrl}:5082/"
+    const val DEFAULT_BASE_URL_7083 = "${StaggingbaseUrl}:5083/"
+    const val DEFAULT_BASE_URL_5119 = "${StaggingbaseUrl}:5119/"
+    const val DEFAULT_BASE_URL_5090 = "${StaggingbaseUrl}:5090/"
+    const val DEFAULT_BASE_URL_5100 = "${StaggingbaseUrl}:5100/"
     const val  shopright = "http://food.shopright.ai:3478/api/"
     val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"
     val holdSpeakWsUrl ="ws://182.156.200.177:8002/listen?token="
