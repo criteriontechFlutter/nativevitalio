@@ -15,8 +15,8 @@ object RetrofitInstance {
 
     //Vitalio Static Development Server
 
-    const val StaggingbaseUrl="https://demo.vitalio.care"
-    const val DevelopmentbaseUrl="http://182.156.200.177"
+  //  const val StaggingbaseUrl="https://demo.vitalio.care"
+    const val StaggingbaseUrl="http://182.156.200.177"
     const val DEFAULT_BASE_URL = "${StaggingbaseUrl}:5082/"
     const val DEFAULT_BASE_URL_7096 = "${StaggingbaseUrl}:5096/"
     const val DEFAULT_BASE_URL_7082 = "${StaggingbaseUrl}:5082/"
