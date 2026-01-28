@@ -86,7 +86,7 @@
                     android:id="@+id/tvLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sleep"
+                    android:text="Dynamic Recovery"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:alpha="0.8" />

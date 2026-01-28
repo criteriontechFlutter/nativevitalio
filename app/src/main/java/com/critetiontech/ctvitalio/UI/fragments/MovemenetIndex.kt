@@ -78,7 +78,7 @@ class MovemenetIndex : Fragment() {
 
             binding.totalSleepIds.title.text="Steps"
             binding.totalSleepIds.value.text=" "
-            binding.totalSleepIds.status.text="Steps"
+            binding.totalSleepIds.status.text=""
 
 
 
@@ -87,7 +87,7 @@ class MovemenetIndex : Fragment() {
             }
             binding.inactiveTimeId.title.text="Inactive Time"
             binding.inactiveTimeId.value.text= movementIndexVital?.vmValue?.toSafeIntFromDecimal().toString()
-            binding.inactiveTimeId.status.text="Steps"
+            binding.inactiveTimeId.status.text=  ""
 
 
             val activeHours = response.vitals.firstOrNull {
@@ -95,7 +95,7 @@ class MovemenetIndex : Fragment() {
             }
             binding.activeHrId.title.text="Active Hours  "
             binding.activeHrId.value.text= activeHours?.vmValue?.toSafeIntFromDecimal().toString()
-            binding.activeHrId.status.text="Steps"
+            binding.activeHrId.status.text=""
 
 
             val activeMinutes = response.vitals.firstOrNull {
@@ -103,7 +103,7 @@ class MovemenetIndex : Fragment() {
             }
             binding.activeMinId.title.text="Active Mins"
             binding.activeMinId.value.text= activeMinutes?.vmValue?.toSafeIntFromDecimal().toString()
-            binding.activeMinId.status.text="Steps"
+            binding.activeMinId.status.text=""
 
 
         }

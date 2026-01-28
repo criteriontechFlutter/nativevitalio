@@ -116,15 +116,17 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
         viewModelScope.launch {
             try {
 
+                Log.d("RESPONSE", "responseValue: ${pmID.scheduledDateTime}")
+
                 val queryParams = mapOf(
-                    "id" to pmID.id,
-                    "ScheduledDateTime"  to  pmID.scheduledDateTime,
+                    "ScheduledDateTime"  to  pmID.scheduledDateTime.toString(),
+                    "id" to pmID.id.toString(),
                 )
 
                 /* This response is of type Response<ResponseBody> */
                 val response = RetrofitInstance
-                    .createApiService( )
-                    .queryDynamicRawPost(url = ApiEndPoint().insertPatientMedication, params = queryParams as Map<String, String>)
+                    .createApiService( includeAuthHeader = true)
+                    .dynamicRawPost(url = ApiEndPoint().insertPatientMedication, body = queryParams    )
                 getAllPatientMedication()
                 _loading.value = false
                 if (response.isSuccessful) {

@@ -65,47 +65,47 @@
             android:orientation="vertical">
 
             <!-- Sleep Chart Card -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="@drawable/bg_sleep_card"
-                android:clipToOutline="true">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="16dp"-->
+<!--                android:background="@drawable/bg_sleep_card"-->
+<!--                android:clipToOutline="true">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="12dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingBottom="12dp">-->
 
-                    <TextView
-                        android:id="@+id/tvScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@android:color/white"
-                        android:textSize="32sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvScore"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="0"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:textSize="32sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:id="@+id/tvLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sleep"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        android:alpha="0.8" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvLabel"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Sleep"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:alpha="0.8" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:id="@+id/barsContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:gravity="bottom|center_horizontal"
-                    android:orientation="horizontal"
-                    android:weightSum="6" />
-            </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/barsContainer"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="250dp"-->
+<!--                    android:gravity="bottom|center_horizontal"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:weightSum="6" />-->
+<!--            </LinearLayout>-->
 
             <!-- Health Summary Cards -->
             <LinearLayout
