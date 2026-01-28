@@ -19,9 +19,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
+import com.critetiontech.ctvitalio.model.MovementIndexViewModel
 import java.util.Calendar
 
 
@@ -29,7 +31,16 @@ class MovemenetIndex : Fragment() {
 
     private var _binding: FragmentMovemenetIndexBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var viewModel: MovementIndexViewModel
+    private val weekOrder = mapOf(
+        "Sunday" to 0,
+        "Monday" to 1,
+        "Tuesday" to 2,
+        "Wednesday" to 3,
+        "Thursday" to 4,
+        "Friday" to 5,
+        "Saturday" to 6
+    )
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,52 +58,69 @@ class MovemenetIndex : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Sample data (last 7 days)
-        val entries = listOf(
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-        )
-        val stressHourlyData = listOf(
-            10, 8, 6, 5, 7, 12,
-            25, 40, 60, 55, 45, 30,
-            20, 25, 35, 50, 65, 70,
-            55, 40, 30, 20, 15, 10
-        )
+        viewModel = ViewModelProvider(this)[MovementIndexViewModel::class.java]
 
-        setData(entries)
- binding.wellnessImageArrow.setOnClickListener {
+        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { response ->
+
+            val entries = response.movementIndexWeek.map {
+                MovementEntrys(
+                    date = it.date,
+                    dayName = it.dayName,
+                    value = it.vmValue.toInt()
+                )
+            }
+
+            val sortedEntries = entries.sortedBy { weekOrder[it.dayName] ?: 0 }
+
+            setData(sortedEntries)
+
+
+
+            binding.totalSleepIds.title.text="Steps"
+            binding.totalSleepIds.value.text=" "
+            binding.totalSleepIds.status.text="Steps"
+
+
+
+            val movementIndexVital = response.vitals.firstOrNull {
+                it.vitalName.equals("MovementIndex", ignoreCase = true)
+            }
+            binding.inactiveTimeId.title.text="Inactive Time"
+            binding.inactiveTimeId.value.text= movementIndexVital?.vmValue?.toSafeIntFromDecimal().toString()
+            binding.inactiveTimeId.status.text="Steps"
+
+
+            val activeHours = response.vitals.firstOrNull {
+                it.vitalName.equals("ActiveHours", ignoreCase = true)
+            }
+            binding.activeHrId.title.text="Active Hours  "
+            binding.activeHrId.value.text= activeHours?.vmValue?.toSafeIntFromDecimal().toString()
+            binding.activeHrId.status.text="Steps"
+
+
+            val activeMinutes = response.vitals.firstOrNull {
+                it.vitalName.equals("ActiveMinutes", ignoreCase = true)
+            }
+            binding.activeMinId.title.text="Active Mins"
+            binding.activeMinId.value.text= activeMinutes?.vmValue?.toSafeIntFromDecimal().toString()
+            binding.activeMinId.status.text="Steps"
+
+
+        }
+
+
+        // Sample data (last 7 days)
+
+
+  binding.wellnessImageArrow.setOnClickListener {
 
             findNavController().popBackStack()
         }
     }
 
-
+    fun String?.toSafeIntFromDecimal(default: Int = 0): Int {
+        return this?.toDoubleOrNull()?.toInt() ?: default
+    }
     fun renderHourlyStressChart(
         context: Context,
         barContainer: LinearLayout,
@@ -137,7 +165,7 @@ class MovemenetIndex : Fragment() {
     // --------------------------------------------------
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    private fun setData(entries: List<SleepEntry>) {
+    private fun setData(entries: List<MovementEntrys>) {
 
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
@@ -146,14 +174,14 @@ class MovemenetIndex : Fragment() {
         val avg = entries.map { it.value }.average().toInt()
 
         binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "Sleep"
+        binding.tvLabel.text = "Movement Index"
 
         binding.barsContainer.post {
 
             val containerHeight = binding.barsContainer.height
             val maxBarHeight = containerHeight - 60.dp
 
-            entries.forEachIndexed { index, entry ->
+            entries.forEachIndexed { _, entry ->
 
                 val fillRatio = entry.value.toFloat() / maxValue.toFloat()
                 val fillHeight = (maxBarHeight * fillRatio).toInt()
@@ -225,19 +253,8 @@ class MovemenetIndex : Fragment() {
                     elevation = 2.dp.toFloat()
                 }
 
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.DAY_OF_MONTH, -(entries.size - 1 - index))
-
-                val weekdayInitial = when (calendar.get(Calendar.DAY_OF_WEEK)) {
-                    Calendar.SUNDAY -> "S"
-                    Calendar.MONDAY -> "M"
-                    Calendar.TUESDAY -> "T"
-                    Calendar.WEDNESDAY -> "W"
-                    Calendar.THURSDAY -> "T"
-                    Calendar.FRIDAY -> "F"
-                    Calendar.SATURDAY -> "S"
-                    else -> ""
-                }
+                // --- weekday initial from API (S,M,T,W,T,F,S)
+                val weekdayInitial = entry.dayName.first().toString()
 
                 val weekdayBubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
@@ -257,6 +274,15 @@ class MovemenetIndex : Fragment() {
                     elevation = 1.dp.toFloat()
                 }
 
+                // --- convert YYYY-MM-DD into dd/MM
+                val parts = entry.date.split("-")
+                val dayLabel = TextView(requireContext()).apply {
+                    text = "${parts[2]}/${parts[1]}"
+                    setTextColor(Color.parseColor("#80FFFFFF"))
+                    textSize = 10f
+                    gravity = Gravity.CENTER
+                }
+
                 val baseLine = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -266,13 +292,6 @@ class MovemenetIndex : Fragment() {
                         bottomMargin = 6.dp
                     }
                     setBackgroundColor(Color.parseColor("#40FFFFFF"))
-                }
-
-                val dayLabel = TextView(requireContext()).apply {
-                    text = "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}"
-                    setTextColor(Color.parseColor("#80FFFFFF"))
-                    textSize = 10f
-                    gravity = Gravity.CENTER
                 }
 
                 barContainer.addView(trackView)
@@ -290,7 +309,11 @@ class MovemenetIndex : Fragment() {
         }
     }
 
-
+    data class MovementEntrys(
+        val date: String,       // "2026-01-25"
+        val dayName: String,    // "Sunday"
+        val value: Int          // vmValue
+    )
 val Int.dp: Int
         get() = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

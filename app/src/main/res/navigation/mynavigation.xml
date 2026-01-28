@@ -468,6 +468,9 @@
         <action
             android:id="@+id/action_wellnessMetrics_to_dynamicRecovery"
             app:destination="@id/dynamicRecovery" />
+        <action
+            android:id="@+id/action_wellnessMetrics_to_sleepDetails"
+            app:destination="@id/sleepDetails" />
     </fragment>
     <fragment
         android:id="@+id/sleepDetails"
