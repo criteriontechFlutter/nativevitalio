@@ -19,6 +19,8 @@ import android.animation.ValueAnimator
 import android.view.ViewGroup as AndroidViewGroup
 import android.graphics.drawable.GradientDrawable
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.model.MovementIndexResponseValue
+import com.critetiontech.ctvitalio.model.VitalItem
 
 
 class WellnessMetrics : Fragment() {
@@ -78,9 +80,6 @@ class WellnessMetrics : Fragment() {
         binding.dynamicRecovery.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_dynamicRecovery  )
         }
-        binding.sleepContainerId.setOnClickListener()  {
-            findNavController().navigate(R.id.action_wellnessMetrics_to_sleepDetails  )
-        }
          binding.brainWasteClearance.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
@@ -97,31 +96,33 @@ class WellnessMetrics : Fragment() {
      }
 
     private fun observeVitals() {
-//        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->
-//            val movement = viewModel.getLatestVital(list, "MovementIndex")?.vmValue
-//            val dynamicRecovery = viewModel.getLatestVital(list, "RecoveryIndex")?.vmValue
-//            movement?.let {
-//                binding.circularProgress.setProgress(it.toFloat())
-//            }
-//            dynamicRecovery?.let {
-//                binding.dyRecovery.setProgress(it.toFloat())
-//            }
-//            binding.stressScore =
-//                viewModel.getLatestVital(list, "StressScore")?.vmValue ?: "0"
-//            binding.brainClear =
-//                viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
-//           // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
-//          //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
-//
-//
-//
-//
-//
-//        }
+        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->
+            val movement = getLatestVital(list, "MovementIndex")?.vmValue
+            val dynamicRecovery =  getLatestVital(list, "RecoveryIndex")?.vmValue
+            movement?.let {
+                binding.circularProgress.setProgress(it.toFloat())
+            }
+            dynamicRecovery?.let {
+                binding.dyRecovery.setProgress(it.toFloat())
+            }
+            binding.stressScore =
+                getLatestVital(list, "StressScore")?.vmValue ?: "0"
+            binding.brainClear =
+                 getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
+           // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
+          //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
 
+
+
+
+
+        }}
+
+    fun getLatestVital(metrics: MovementIndexResponseValue, name: String): VitalItem? {
+        return metrics.vitals.firstOrNull {
+            it.vitalName.equals(name, ignoreCase = true)
+        }
     }
-
-
     private fun refreshMetricsForDate(formatted: String) {
         viewModel.getWellnessData(formatted)
 
