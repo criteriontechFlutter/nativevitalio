@@ -928,8 +928,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             // Initialize the adapter with your list and callback
             val medicationReminderAdapter = MedicationReminderAdapter(list.toMutableList()) { medicine ->
                 // Handle Mark Taken click
-                // Example: Update database or notify ViewModel
-             }
+
+                pillsViewModel.insertPatientMedication(medicine)             }
 
             binding.medicationsId.apply {
                 layoutManager = LinearLayoutManager(requireContext())
