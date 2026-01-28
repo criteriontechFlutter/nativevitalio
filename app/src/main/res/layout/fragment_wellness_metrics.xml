@@ -479,6 +479,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/sleepContainerId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
@@ -965,195 +966,195 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                android:backgroundTint="#E6F4FF">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="12dp"-->
+<!--                app:cardCornerRadius="16dp"-->
+<!--                app:cardElevation="0dp"-->
+<!--                android:backgroundTint="#E6F4FF">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="18dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="18dp">-->
 
-                    <!-- HEADER -->
-                    <LinearLayout
-                        android:src="@drawable/ic_coffee_blue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+<!--                    &lt;!&ndash; HEADER &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:src="@drawable/ic_coffee_blue"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:src="@drawable/ic_coffee_blue" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="28dp"-->
+<!--                            android:layout_height="28dp"-->
+<!--                            android:src="@drawable/ic_coffee_blue" />-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="10dp"
-                            android:text="Caffeine Window"
-                            android:textSize="14sp"
-                            android:textColor="#1A1A2E"
-                            android:textStyle="bold" />
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:text="Caffeine Window"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textColor="#1A1A2E"-->
+<!--                            android:textStyle="bold" />-->
 
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:src="@drawable/arrow_right"
-                            app:tint="#BBBBBB" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="12dp"-->
+<!--                            android:layout_height="12dp"-->
+<!--                            android:src="@drawable/arrow_right"-->
+<!--                            app:tint="#BBBBBB" />-->
 
-                    </LinearLayout>
-
-
-                    <!-- TIME MARKERS -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="6dp"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_coffee_cup"
-                            app:tint="#54C78A" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="11:03 am"
-                            android:textSize="11sp"
-                            android:textColor="#4CAF50" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:alpha="0.2"
-                            android:layout_weight="1"
-                            android:background="#4CAF50"
-                            android:layout_marginHorizontal="6dp" />
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_warning"
-                            app:tint="#FF6666" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="04:38 pm"
-                            android:textSize="11sp"
-                            android:textColor="#FF6666" />
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
 
-                    <!-- BAR GRAPH -->
-                    <LinearLayout
-                        android:id="@+id/caffeineBarGraph"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal"
-                        android:gravity="bottom"
-                        android:paddingVertical="6dp"
-                        android:paddingHorizontal="4dp" />
+<!--                    &lt;!&ndash; TIME MARKERS &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:paddingTop="10dp"-->
+<!--                        android:paddingBottom="6dp"-->
+<!--                        android:gravity="center_vertical">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="16dp"-->
+<!--                            android:layout_height="16dp"-->
+<!--                            android:src="@drawable/ic_coffee_cup"-->
+<!--                            app:tint="#54C78A" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="6dp"-->
+<!--                            android:text="11:03 am"-->
+<!--                            android:textSize="11sp"-->
+<!--                            android:textColor="#4CAF50" />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:alpha="0.2"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="#4CAF50"-->
+<!--                            android:layout_marginHorizontal="6dp" />-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="16dp"-->
+<!--                            android:layout_height="16dp"-->
+<!--                            android:src="@drawable/ic_warning"-->
+<!--                            app:tint="#FF6666" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="6dp"-->
+<!--                            android:text="04:38 pm"-->
+<!--                            android:textSize="11sp"-->
+<!--                            android:textColor="#FF6666" />-->
+<!--                    </LinearLayout>-->
 
 
-                    <!-- X AXIS LABELS -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingTop="6dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="0 mg"
-                            android:textSize="9sp"
-                            android:gravity="center"
-                            android:textColor="#666" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="400 mg"
-                            android:textSize="9sp"
-                            android:gravity="center"
-                            android:textColor="#666" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="300 mg"
-                            android:textSize="9sp"
-                            android:gravity="center"
-                            android:textColor="#666" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="200 mg"
-                            android:textSize="9sp"
-                            android:gravity="center"
-                            android:textColor="#666" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="100 mg"
-                            android:textSize="9sp"
-                            android:gravity="center"
-                            android:textColor="#666" />
-                    </LinearLayout>
+<!--                    &lt;!&ndash; BAR GRAPH &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/caffeineBarGraph"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="70dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="bottom"-->
+<!--                        android:paddingVertical="6dp"-->
+<!--                        android:paddingHorizontal="4dp" />-->
 
 
-                    <!-- EDUCATION BOX -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/bg_blue_pill"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="18dp"
-                        android:layout_marginTop="18dp">
+<!--                    &lt;!&ndash; X AXIS LABELS &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:paddingTop="6dp">-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Let Your Body Wake Up Naturally"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:textColor="#EAF3FF" />
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="0 mg"-->
+<!--                            android:textSize="9sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:textColor="#666" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Delay your morning caffeine to let natural alertness rise and maintain steady focus all day."
-                            android:textSize="11sp"
-                            android:textColor="#C5D7E8" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="400 mg"-->
+<!--                            android:textSize="9sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:textColor="#666" />-->
 
-                </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="300 mg"-->
+<!--                            android:textSize="9sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:textColor="#666" />-->
 
-            </androidx.cardview.widget.CardView>
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="200 mg"-->
+<!--                            android:textSize="9sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:textColor="#666" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="100 mg"-->
+<!--                            android:textSize="9sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:textColor="#666" />-->
+<!--                    </LinearLayout>-->
+
+
+<!--                    &lt;!&ndash; EDUCATION BOX &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:background="@drawable/bg_blue_pill"-->
+<!--                        android:paddingHorizontal="16dp"-->
+<!--                        android:paddingVertical="18dp"-->
+<!--                        android:layout_marginTop="18dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Let Your Body Wake Up Naturally"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:textColor="#EAF3FF" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="4dp"-->
+<!--                            android:text="Delay your morning caffeine to let natural alertness rise and maintain steady focus all day."-->
+<!--                            android:textSize="11sp"-->
+<!--                            android:textColor="#C5D7E8" />-->
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"

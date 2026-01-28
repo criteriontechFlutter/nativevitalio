@@ -66,7 +66,7 @@ class WellnessMetrics : Fragment() {
             ),
             color = 0xFF26BD78.toInt()
         )
-        binding.caffeineBarGraph.addView(caffeineBars)
+//        binding.caffeineBarGraph.addView(caffeineBars)
 
         // Date change refresh
         binding.movementIndexId.setOnClickListener()  {
@@ -78,7 +78,10 @@ class WellnessMetrics : Fragment() {
         binding.dynamicRecovery.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_dynamicRecovery  )
         }
-        binding.brainWasteClearance.setOnClickListener()  {
+        binding.sleepContainerId.setOnClickListener()  {
+            findNavController().navigate(R.id.action_wellnessMetrics_to_sleepDetails  )
+        }
+         binding.brainWasteClearance.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
             binding.sleepBarGreen.setOnClickListener()  {
@@ -94,28 +97,29 @@ class WellnessMetrics : Fragment() {
      }
 
     private fun observeVitals() {
-        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->
-            val movement = viewModel.getLatestVital(list, "MovementIndex")?.vmValue
-            val dynamicRecovery = viewModel.getLatestVital(list, "RecoveryIndex")?.vmValue
-            movement?.let {
-                binding.circularProgress.setProgress(it.toFloat())
-            }
-            dynamicRecovery?.let {
-                binding.dyRecovery.setProgress(it.toFloat())
-            }
+//        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { list ->
+//            val movement = viewModel.getLatestVital(list, "MovementIndex")?.vmValue
+//            val dynamicRecovery = viewModel.getLatestVital(list, "RecoveryIndex")?.vmValue
+//            movement?.let {
+//                binding.circularProgress.setProgress(it.toFloat())
+//            }
+//            dynamicRecovery?.let {
+//                binding.dyRecovery.setProgress(it.toFloat())
+//            }
+//            binding.stressScore =
+//                viewModel.getLatestVital(list, "StressScore")?.vmValue ?: "0"
+//            binding.brainClear =
+//                viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
+//           // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
+//          //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
+//
+//
+//
+//
+//
+//        }
 
-            binding.stressScore =
-                viewModel.getLatestVital(list, "StressScore")?.vmValue ?: "0"
-            binding.brainClear =
-                viewModel.getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
-           // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
-          //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
-
-
-
-
-
-        }}
+    }
 
 
     private fun refreshMetricsForDate(formatted: String) {

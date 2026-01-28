@@ -73,7 +73,11 @@ import java.time.ZoneId
 // -------------------------------------------
 // Data Classes
 // -------------------------------------------
-data class SleepEntry(val day: Int, val value: Int)
+data class SleepEntry(
+    val date: String,
+    val dayName: String,
+    val value: Int
+)
 data class SleepSegment(val type: String, val durationWeight: Float)
 
 // -------------------------------------------
@@ -120,17 +124,7 @@ class SleepDetails : Fragment() {
 
         // Example dataset for bar chart
         val calendar = Calendar.getInstance()
-        val data = listOf(
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH), 100),
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 1, 56),
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 2, 54),
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 3, 72),
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 4, 58),
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH) + 5, 66),
-            SleepEntry(calendar.get(Calendar.DAY_OF_MONTH), 70)
-        )
 
-        setData(data) // Build main chart
 
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
