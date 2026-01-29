@@ -23,18 +23,22 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-
 class WaterIntakeFragment : Fragment() {
-
 
     private var _binding: FragmentWaterIntakeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: WaterRecordAdapter
     private val viewModel: WaterIntakeViewModel by viewModels()
-    private   val dashboardViewModel: DashboardViewModel by viewModels()
+    private val dashboardViewModel: DashboardViewModel by viewModels()
+
+    private lateinit var adapter: WaterRecordAdapter
+
+    private var selectedGlassSize = 0 // ml
+    private val dailyGoalMl = 3000f   // goal
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWaterIntakeBinding.inflate(inflater, container, false)
@@ -43,57 +47,77 @@ class WaterIntakeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAddIntake.setOnClickListener()  {val ml = getSelectedSizeMl()
-            dashboardViewModel.fluidIntake(  ml.toString())
-            viewModel.GetDailyEmployeeFluidIntake()
-            viewModel.GetEmployeeMedicineIntakeByDate()
 
-        }
         /** ----------------------------
-         * 1️⃣ Initialize Adapter FIRST
+         * RecyclerView
          * ---------------------------- */
         adapter = WaterRecordAdapter(mutableListOf()) { item ->
-             viewModel.deleteEmployeeFluidIntake(item.id.toString())
+            viewModel.deleteEmployeeFluidIntake(item.id.toString())
         }
 
-        binding.rvRecords.adapter = adapter
         binding.rvRecords.layoutManager = LinearLayoutManager(requireContext())
-
-        /** ----------------------------
-         * 2️⃣ Empty State (Safe Now)
-         * ---------------------------- */
+        binding.rvRecords.adapter = adapter
         updateEmptyState()
 
         /** ----------------------------
-         * 3️⃣ Recycler LiveData Binding
+         * LiveData
          * ---------------------------- */
-        viewModel.dailyRecords.observe(viewLifecycleOwner) { list ->
-            adapter.updateData(list)
+        viewModel.dailyRecords.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
             updateEmptyState()
         }
 
-        /** ----------------------------
-         * 4️⃣ Chart LiveData Binding
-         * ---------------------------- */
-        viewModel.chartRecords.observe(viewLifecycleOwner) { list ->
-            setupWaterChart(list)
+        viewModel.chartRecords.observe(viewLifecycleOwner) {
+            setupWaterChart(it)
         }
 
         /** ----------------------------
-         * 5️⃣ Fire API Calls LAST
+         * API Calls
          * ---------------------------- */
         viewModel.GetDailyEmployeeFluidIntake()
         viewModel.GetEmployeeMedicineIntakeByDate()
 
         /** ----------------------------
-         * 6️⃣ Animate Water Ring
+         * Default Water Ring
          * ---------------------------- */
-        binding.waterRing.setLevel(25f)
+        binding.waterRing.setLevelSmooth(0.0f, 1000)
+
+        /** ----------------------------
+         * Chip Selection
+         * ---------------------------- */
+        binding.chipGroupSizes.setOnCheckedChangeListener { _, checkedId ->
+
+            selectedGlassSize = when (checkedId) {
+                R.id.chip_150 -> 150
+                R.id.chip_250 -> 250
+                R.id.chip_300 -> 300
+                R.id.chip_400 -> 400
+                R.id.chip_custom -> 0
+                else -> 0
+            }
+
+            val level =
+                (selectedGlassSize / dailyGoalMl).coerceIn(0f, 1f)
+
+            binding.waterRing.setLevelSmooth(level, 1500)
+        }
+
+        /** ----------------------------
+         * Add Intake Button
+         * ---------------------------- */
+        binding.btnAddIntake.setOnClickListener {
+
+            if (selectedGlassSize == 0) return@setOnClickListener
+
+            dashboardViewModel.fluidIntake(selectedGlassSize.toString())
+            viewModel.GetDailyEmployeeFluidIntake()
+            viewModel.GetEmployeeMedicineIntakeByDate()
+        }
     }
 
-    /** --------------------------------------
-     * Empty State Toggle
-     * -------------------------------------- */
+    /** ----------------------------
+     * Empty State
+     * ---------------------------- */
     private fun updateEmptyState() {
         if (!::adapter.isInitialized || adapter.itemCount == 0) {
             binding.rvRecords.visibility = View.GONE
@@ -103,82 +127,74 @@ class WaterIntakeFragment : Fragment() {
             binding.emptyView.visibility = View.GONE
         }
     }
-    private fun getSelectedSizeMl(): Int? {
-        val chipId = binding.chipGroupSizes.checkedChipId
-        if (chipId == View.NO_ID) return null
 
-        val chip = binding.chipGroupSizes.findViewById<com.google.android.material.chip.Chip>(chipId)
-        val text = chip.text.toString()
-
-        // handle custom chip
-        if (text == "✎") {
-            return null
-        }
-
-        return text.replace("ml", "").trim().toIntOrNull()
-    }
-    /** --------------------------------------
-     * Bar Chart Setup (MPAndroidChart)
-     * -------------------------------------- */
+    /** ----------------------------
+     * Bar Chart
+     * ---------------------------- */
     private fun setupWaterChart(data: List<FluidChartData>) {
 
         val chart = binding.waterBarChart
+        val days = 7
 
-        if (data.isEmpty()) {
-            chart.clear()
-            return
+        // ---- Build last 7 dates (old → today)
+        val calendar = java.util.Calendar.getInstance()
+        val dateList = mutableListOf<String>()
+
+        for (i in days - 1 downTo 0) {
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.add(java.util.Calendar.DAY_OF_YEAR, -i)
+            val day = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+            dateList.add(day.toString())
         }
 
-        /** 🔹 Convert ml → L (BarEntry) */
-        val entries = data.mapIndexed { i, v ->
-            BarEntry(i.toFloat(), v.qty / 1000f)
+        // ---- Map API data by date (last 2 digits)
+        val dataMap = data.associateBy { it.date.takeLast(2) }
+
+        // ---- Entries (missing days = 0)
+        val entries = dateList.mapIndexed { index, day ->
+            val qty = dataMap[day]?.qty ?: 0f
+            BarEntry(index.toFloat(), qty / 1000f)
         }
 
-        /** 🔹 Colors */
+        // ---- Colors
         val normal = Color.parseColor("#E3EEF7")
         val highlight = Color.parseColor("#28D27D")
 
-        val colors = MutableList(entries.size) { normal }
-        colors[entries.size - 1] = highlight
+        val colors = MutableList(days) { normal }
+        colors[days - 1] = highlight // today
 
-        /** 🔹 DataSet */
         val dataSet = BarDataSet(entries, "").apply {
             setDrawValues(false)
             this.colors = colors
         }
 
         chart.data = BarData(dataSet).apply {
-            barWidth = 0.50f
+            barWidth = 0.5f
         }
 
-        /** 🔹 X-Axis labels (last 2 digits of date) */
-        val labels = data.map { it.date.takeLast(2) }
-
+        // ---- X Axis
         chart.xAxis.apply {
-            valueFormatter = IndexAxisValueFormatter(labels)
+            valueFormatter = IndexAxisValueFormatter(dateList)
             position = XAxis.XAxisPosition.BOTTOM
-            textSize = 10f
-            textColor = Color.parseColor("#95A5B2")
-            setDrawAxisLine(false)
             setDrawGridLines(false)
-            granularity = 1f
+            setDrawAxisLine(false)
+            textSize = 10f
         }
 
-        /** 🔹 Y-Axis */
+        // ---- Y Axis
         chart.axisLeft.apply {
             axisMinimum = 0f
-            textSize = 10f
-            textColor = Color.parseColor("#95A5B2")
-            gridColor = Color.parseColor("#E8EEF3")
             setDrawGridLines(true)
         }
 
         chart.axisRight.isEnabled = false
-        chart.description.isEnabled = false
         chart.legend.isEnabled = false
-        chart.animateY(600)
+        chart.description.isEnabled = false
+
+        chart.animateY(700)
         chart.invalidate()
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
