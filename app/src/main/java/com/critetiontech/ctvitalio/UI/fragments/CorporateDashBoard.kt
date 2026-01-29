@@ -1042,6 +1042,11 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             wellness.wellnessScoreNumber.text = insight.wellnessScore.toString()
             binding.progressCircler.animateProgress(insight.wellnessScore.toFloat())
             wellness.wellnessDescriptions.text = insight.wellnessMessage
+            wellness.attentionBadges.text= insight.wellnessStatus
+            wellness.attentionBadges.setTextColor(
+                Color.parseColor(insight.colorCode)
+            )
+
 
             val scores = insight.scores
 
@@ -1300,8 +1305,7 @@ fun Int.withAlpha(alpha: Float): Int {
             itemBinding.progressSteps.progress = 40
 
             itemBinding.tvStepsLabel.text = item.goalName
-            itemBinding.tvStepsValue.text =
-                "${item.vitalValue.toInt()} / ${item.targetValue}"
+            "${item.vitalValue.toInt()} / ${item.targetValue}".also { itemBinding.tvStepsValue.text = it }
 
             when (item.isGoalAchieved) {
                 1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
@@ -1619,6 +1623,19 @@ private fun updateProgress(unit: String) {
             "Add Intake" -> {
 
                 findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+            }
+            "Log Glucose" -> {
+
+                val bundle = Bundle().apply {
+                    putString("vitalType", "Glucose")
+                }
+                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
+            }
+
+            "Log BP" -> {
+
+
+                findNavController().navigate(R.id.action_dashboard_to_connection)
             }
 
             else -> {
