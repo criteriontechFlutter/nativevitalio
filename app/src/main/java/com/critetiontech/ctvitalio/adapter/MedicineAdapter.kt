@@ -36,12 +36,12 @@ class MedicineAdapter(
 
     private fun setMedicineIcon(imageView: ImageView, type: String?) {
         when (type?.trim()?.lowercase(Locale.getDefault())) {
-            "tablet", "tablets" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.table)
-            "capsule", "capsules" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.softgelcapsule)
+            "tablet", "tablets" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.tablet_2)
+            "capsule", "capsules" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.capsule)
             "syrup" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.syrup)
-            "injection" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.injection)
-            "drops" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.tube)
-            else -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.table) // default
+            "injection" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.syringe)
+            "drops" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.ointment)
+            else -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.tablet_2) // default
         }
     }
 

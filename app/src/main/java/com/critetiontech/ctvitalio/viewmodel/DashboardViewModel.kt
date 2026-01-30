@@ -1047,7 +1047,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-    fun fluidIntake(  givenFoodQuantity: String) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun fluidIntake(givenFoodQuantity: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true
