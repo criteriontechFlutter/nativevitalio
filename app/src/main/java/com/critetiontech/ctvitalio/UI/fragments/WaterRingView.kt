@@ -39,7 +39,8 @@ class WaterRingWaveView @JvmOverloads constructor(
 
     // State
     private var waveOffset = 0f
-    private var fillFraction = 0f
+    var fillFraction = 0f
+    var perData = "0"
     private var lastTouchY = 0f
 
     // Sizes
@@ -139,7 +140,7 @@ class WaterRingWaveView @JvmOverloads constructor(
 
         // Center percentage text
         val textY = cy - (textPaint.descent() + textPaint.ascent()) / 2
-        canvas.drawText("${(fillFraction * 100).toInt()}%", cx, textY, textPaint)
+        canvas.drawText("  ${perData}%", cx, textY, textPaint)
     }
 
     // ---------- SLIDE TO FILL ----------

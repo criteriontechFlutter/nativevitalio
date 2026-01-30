@@ -8,7 +8,13 @@
     android:background="@drawable/bg_medicine_item"
     android:gravity="center"
     android:orientation="vertical">
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_bg_light"
+        android:gravity="center"
+        android:padding="8dp"
+        android:orientation="vertical">
     <ImageView
         android:id="@+id/ivIcon"
         android:layout_width="40dp"
@@ -17,6 +23,8 @@
         android:layout_marginBottom="8dp"
         app:tint="#5A9DFD" />
 
+
+    </LinearLayout>
     <TextView
         android:id="@+id/tvMedName"
         android:textSize="13sp"
