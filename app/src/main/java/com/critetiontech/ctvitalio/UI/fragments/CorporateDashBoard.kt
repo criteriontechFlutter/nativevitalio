@@ -1472,8 +1472,8 @@ private fun updateProgress(unit: String) {
 
 
         // Configure SwipeRefreshLayout colors and size
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.primaryBlue)
-        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white)
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.white)
+        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.black)
         binding.swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT)
 
         // Set refresh listener
@@ -1487,7 +1487,7 @@ private fun updateProgress(unit: String) {
 
     private fun performRefresh() {
         // Show custom loader
-        showCustomLoader(true)
+      //  showCustomLoader(true)
 
         // Simulate network call with delay
         Handler(Looper.getMainLooper()).postDelayed({
@@ -1495,15 +1495,15 @@ private fun updateProgress(unit: String) {
             refreshDashboardData()
 
             // Hide custom loader and refresh indicator
-            showCustomLoader(false)
+           // showCustomLoader(true)
             binding.swipeRefreshLayout.isRefreshing = false
 
         }, 2000) // 2 second delay - replace with actual API call
     }
 
-    private fun showCustomLoader(show: Boolean) {
-        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
-    }
+//    private fun showCustomLoader(show: Boolean) {
+//        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+//    }
 
     private fun refreshDashboardData() {
        viewModel.getVitals()

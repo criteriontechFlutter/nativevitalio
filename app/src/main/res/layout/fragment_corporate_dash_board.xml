@@ -53,7 +53,7 @@
             <!-- Top Row: Avatar + Greeting + Icons -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:background="@color/primaryBlue">
 
                 <!-- Avatar with Progress Ring -->
@@ -165,6 +165,8 @@
                     android:id="@+id/ring_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:contentDescription="TODO"
+                    android:importantForAccessibility="no"
                     android:padding="6dp"
                     android:src="@drawable/ring"
                     app:layout_constraintBottom_toBottomOf="@+id/greeting_container"
@@ -275,6 +277,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout">
+
+
 
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/contentScroll"
@@ -2031,53 +2035,7 @@
                 </androidx.core.widget.NestedScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <FrameLayout
-                android:id="@+id/customLoaderContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#80FFFFFF"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <!-- Custom Swipe Loader Animation -->
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/custom_loader_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ProgressBar
-                            android:id="@+id/customProgressBar"
-                            style="?android:attr/progressBarStyle"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:indeterminate="true"
-                            android:indeterminateTint="@color/primaryBlue"
-                            android:indeterminateTintMode="src_in" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/loaderText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Refreshing..."
-                        android:textColor="@color/primaryBlue"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </FrameLayout>
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
