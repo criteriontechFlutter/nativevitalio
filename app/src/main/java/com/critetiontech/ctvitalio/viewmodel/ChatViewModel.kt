@@ -16,7 +16,6 @@ import com.critetiontech.ctvitalio.model.BotMessage
 import com.critetiontech.ctvitalio.model.ChatMessage
 import com.critetiontech.ctvitalio.model.ChatResponse
 import com.critetiontech.ctvitalio.model.ChatResponseRepo
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson
@@ -134,7 +133,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
         _loading.value = true
         viewModelScope.launch {
             try {
-                val patient = PrefsManager().getPatient() ?: return@launch
+                PrefsManager().getPatient() ?: return@launch
                 val parts = mutableListOf<MultipartBody.Part>()
                 fun partFromField(key: String, value: String): MultipartBody.Part {
                     Log.d("sentMessage", "Field: $key = $value")
@@ -172,7 +171,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
 
                 // Print final parts for debug
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    part.headers?.toString() ?: "No Headers"
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -189,7 +188,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
                 // API Call
                 val response = RetrofitInstance
                     .createApiService5100(
-                        includeAuthHeader=true)
+                        )
                     .dynamicMultipartPost(
                         url = ApiEndPoint().sentMessageChat,
                         parts = parts

@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.EmergencyContact
 import com.critetiontech.ctvitalio.model.EmergencyContactResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -43,7 +42,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicDelete(
                         url = ApiEndPoint().deleteEmergency,
                         params = queryParams
@@ -78,7 +77,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getEmergencyContact,
                         params = queryParams
@@ -113,7 +112,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
         _loading.value = true
         viewModelScope.launch {
             try {
-                val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
+                PrefsManager().getPatient()?.uhID.orEmpty()
 
                 val requestBody = mapOf(
                     "id" to 0,

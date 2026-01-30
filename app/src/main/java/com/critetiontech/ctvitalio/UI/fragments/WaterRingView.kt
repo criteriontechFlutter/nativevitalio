@@ -98,7 +98,7 @@ class WaterRingWaveView @JvmOverloads constructor(
 
         wavePath.moveTo(-waveWidth + waveOffset, waveTop)
 
-        val step = waveWidth / 2
+        waveWidth / 2
 
         wavePath.quadTo(
             -waveWidth * 0.5f + waveOffset, waveTop - waveHeight,

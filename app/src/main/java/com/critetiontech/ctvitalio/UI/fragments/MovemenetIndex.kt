@@ -78,7 +78,7 @@ class MovemenetIndex : Fragment() {
                 value =65
             ),
         )
-        val stressHourlyData = listOf(
+        listOf(
             10, 8, 6, 5, 7, 12,
             25, 40, 60, 55, 45, 30,
             20, 25, 35, 50, 65, 70,

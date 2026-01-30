@@ -20,7 +20,6 @@ import com.critetiontech.ctvitalio.model.BloodGroup
 import com.critetiontech.ctvitalio.model.CityModel
 import com.critetiontech.ctvitalio.model.Problem
 import com.critetiontech.ctvitalio.model.StateModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
@@ -128,7 +127,7 @@ class EditProfileViewModel :ViewModel() {
 //                // API Call
 //                val response = RetrofitInstance
 //                    .createApiService(
-//                        includeAuthHeader=true)
+//                        )
 //                    .dynamicMultipartPut(
 //                        url = ApiEndPoint().updatePatient,
 //                        parts = parts
@@ -252,7 +251,7 @@ class EditProfileViewModel :ViewModel() {
 
                 // Print final parts for debug
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    part.headers?.toString() ?: "No Headers"
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -269,7 +268,7 @@ class EditProfileViewModel :ViewModel() {
                 // API Call
                 val response = RetrofitInstance
                     .createApiService(
-                        includeAuthHeader=true)
+                        )
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
                         parts = parts
@@ -411,8 +410,7 @@ class EditProfileViewModel :ViewModel() {
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService7082( )
-                    .dynamicGet(
+                    .createApiService().dynamicGet(
                         url = ApiEndPoint().getProblemList,
                         params = queryParams
                     )

@@ -12,7 +12,7 @@ class FluidIntakeRangeAdapter (
     private val items: List<FluidSummaryItem>,
 ) : RecyclerView.Adapter<FluidIntakeRangeAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: FluidHistoryItemLayoutBinding) :
+    class ViewHolder(val binding: FluidHistoryItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

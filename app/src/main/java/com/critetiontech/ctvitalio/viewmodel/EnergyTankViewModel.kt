@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import kotlinx.coroutines.launch
 
@@ -38,7 +37,7 @@ class EnergyTankViewModel(application: Application) : BaseViewModel(application)
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url =  ApiEndPointCorporateModule().insertEnergyTankMaster,
                         body = queryParams

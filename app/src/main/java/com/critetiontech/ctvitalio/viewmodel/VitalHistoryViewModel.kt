@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.BloodPressureReading
 import com.critetiontech.ctvitalio.model.VitalResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -59,7 +58,7 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                     val parsed = Gson().fromJson<VitalResponse>(responseBodyString, type)
                     val patientGraph = parsed.responseValue.patientGraph
 
-                    val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
                     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
                     val outputTimeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
 

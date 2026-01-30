@@ -14,7 +14,6 @@ import com.critetiontech.ctvitalio.model.ActivityModel
 import com.critetiontech.ctvitalio.model.ActivityResponse
 import com.critetiontech.ctvitalio.model.EmployeeActivity
 import com.critetiontech.ctvitalio.model.EmployeeActivityResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
 import kotlinx.coroutines.launch

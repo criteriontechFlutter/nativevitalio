@@ -180,7 +180,7 @@ class SetYourOwnGoal : Fragment() {
             }
         }
 
-        binding.btnNext.setOnClickListener(){
+        binding.btnNext.setOnClickListener {
             ConfirmUpdateDialog(
                 title = "All Done! Your Profile is Ready",
                 message = "Welcome aboard!\nLet's take you to your dashboard.",

@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.adapter.WaterRecord
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -34,7 +33,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                     "clientId" to PrefsManager().getPatient()?.clientId.toString()
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicGet(
                         url = "/api/EmployeeFluidIntake/GetDailyEmployeeFluidIntake",
                         params = params
@@ -86,7 +85,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                     "toDate" to "2025-12-04" ,
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicGet(
                         url = "api/EmployeeFluidIntake/EmployeeFluidIntakeByDateRange",
                         params = params
@@ -130,7 +129,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                     "id" to id.toString(),
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicDelete(
                         url = "api/EmployeeFluidIntake/DeleteEmployeeFluidIntake",
                         params = params

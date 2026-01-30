@@ -10,7 +10,6 @@ import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.AllergyGroup
 import com.critetiontech.ctvitalio.model.AllergyHistoryItem
 import com.critetiontech.ctvitalio.model.AllergyTypeItem
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -50,7 +49,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().patientAllergies,
                         params = queryParams
@@ -106,7 +105,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = false)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getHistorySubCategoryMasterById,
                         params = mapOf("CategoryId" to 23)
@@ -151,7 +150,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicDelete(
                         url = ApiEndPoint().deletePatientAllergies,
                         params = params
@@ -215,7 +214,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
         CoroutineScope(Dispatchers.IO).launch {
             runCatching {
                 RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .queryDynamicRawPost(ApiEndPoint().savePatientAllergies, params = params as Map<String, String>)
             }.onSuccess { response ->
                 withContext(Dispatchers.Main) {

@@ -11,7 +11,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -37,7 +36,7 @@ class MedicationViewModel(application: Application) : AndroidViewModel(applicati
                     "clientId" to PrefsManager().getPatient()?.clientId.toString()
                 )
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true,  )
+                    .createApiService( )
                     .dynamicGet(
                         url = "api/EmployeeMedicineIntake/GetEmployeeMedicineIntakeByDate",
                         params = queryParams

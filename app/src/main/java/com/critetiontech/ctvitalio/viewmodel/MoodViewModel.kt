@@ -12,7 +12,6 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
@@ -48,7 +47,7 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url =  ApiEndPointCorporateModule().insertMood,
                         body = queryParams as Map<String, Any>
@@ -84,7 +83,7 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url =  ApiEndPointCorporateModule().getAllMoods,
                         params = emptyMap()

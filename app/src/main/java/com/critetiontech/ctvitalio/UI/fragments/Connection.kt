@@ -80,7 +80,7 @@ class Connection : Fragment() {
 
             "Glucose" ->  binding.toolbar.title="Add Glucose Level "
         }
-        binding.vitalType = vitalType;
+        binding.vitalType = vitalType
         viewModel = ViewModelProvider(this)[ConnectionViewModel::class.java]
         lifecycleScope.launchWhenStarted {
             viewModel.events.collect { event ->

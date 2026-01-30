@@ -6,7 +6,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -56,7 +55,7 @@ fun updateUserData(
 
             /** ---------------- API CALL ---------------- **/
             val response = RetrofitInstance
-                .createApiService(includeAuthHeader = true)
+                .createApiService()
                 .dynamicRawPost(
                     url = "api/EmployeeGoals/InsertEmployeeGoals",
                     body = params

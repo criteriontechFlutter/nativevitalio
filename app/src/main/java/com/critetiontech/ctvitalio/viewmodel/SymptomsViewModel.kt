@@ -13,7 +13,6 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.ProblemWithIcon
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -57,7 +56,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().getSymptoms,
                         params = queryParams
@@ -94,9 +93,6 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                 val response = RetrofitInstance
                     .createApiService(
                         overrideBaseUrl = ApiEndPoint().digiDoctorBaseUrl,
-                        additionalHeaders = mapOf(
-                            "Content-Type" to "application/json; charset=UTF-8"
-                        )
                     )
                     .dynamicRawPost(
                         url = ApiEndPoint().getProblemsWithIcon,
@@ -134,9 +130,6 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                 val response = RetrofitInstance
                     .createApiService(
                         overrideBaseUrl = ApiEndPoint().digiDoctorBaseUrl,
-                        additionalHeaders = mapOf(
-                            "Content-Type" to "application/json; charset=UTF-8"
-                        )
                     )
                     .dynamicRawPost(
                         url = ApiEndPoint().getAllSuggestedProblem,
@@ -149,7 +142,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                     _loading.value = false
                     val json = response.body()?.string()
                     val parsed = Gson().fromJson(json, SymptomApiResponse::class.java)
-                    val symptomsList: List<ProblemWithIcon> = parsed.responseValue
+                    parsed.responseValue
                     _moreSymptomList.value = parsed.responseValue
                 } else {
                     _loading.value = false
@@ -179,9 +172,6 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
                 val response = RetrofitInstance
                     .createApiService(
                         overrideBaseUrl = ApiEndPoint().digiDoctorBaseUrl,
-                        additionalHeaders = mapOf(
-                            "Content-Type" to "application/json; charset=UTF-8"
-                        )
                     )
                     .dynamicRawPost(
                         url = ApiEndPoint().getAllProblems,

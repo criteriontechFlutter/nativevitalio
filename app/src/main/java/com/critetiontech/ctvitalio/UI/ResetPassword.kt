@@ -108,7 +108,7 @@ class ResetPassword : AppCompatActivity() {
             }
         }
 
-        binding.submitBtn.setOnClickListener(){
+        binding.submitBtn.setOnClickListener {
             viewModel.resetPassword(
                 context = context,
                 newPassword = binding.inputField.text.toString(),

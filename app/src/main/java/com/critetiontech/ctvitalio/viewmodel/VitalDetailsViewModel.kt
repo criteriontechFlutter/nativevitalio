@@ -7,7 +7,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -32,7 +31,7 @@ class VitalDetailsViewModel(application: Application) : BaseViewModel(applicatio
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getPatientLastVital, // ✅ Update to correct endpoint
                         params = queryParams

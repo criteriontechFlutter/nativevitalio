@@ -12,7 +12,6 @@ import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.ResetPassword
 import com.critetiontech.ctvitalio.model.OtpResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson

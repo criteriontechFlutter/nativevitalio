@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.model.BaseResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson
@@ -100,7 +99,7 @@ class DrawerViewModel : ViewModel() {
 //                // API Call
 //                val response = RetrofitInstance
 //                    .createApiService(
-//                        includeAuthHeader=true)
+//                        )
 //                    .dynamicMultipartPut(
 //                        url = ApiEndPoint().updatePatient,
 //                        headers = generateAuthHeaderMap(true),
@@ -209,7 +208,7 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
 
                 // Print final parts for debug
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    part.headers?.toString() ?: "No Headers"
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -226,7 +225,7 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
                 // API Call
                 val response = RetrofitInstance
                     .createApiService(
-                        includeAuthHeader=true)
+                        )
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
                         parts = parts

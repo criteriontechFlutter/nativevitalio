@@ -21,7 +21,7 @@ fun generateAuthHeaderMap(
 ): Map<String, String>  {
 
     val prefsManager = PrefsManager( )
-    val patient = prefsManager.getPatient()
+    prefsManager.getPatient()
 
 //    val accessToken = patient?.token
 //    val userId = patient?.id

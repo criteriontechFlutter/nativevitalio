@@ -110,8 +110,8 @@ class SleepCycleView {
         return GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
             intArrayOf(
-                android.graphics.Color.parseColor(startColor),
-                android.graphics.Color.parseColor(endColor)
+                Color.parseColor(startColor),
+                Color.parseColor(endColor)
             )
         ).apply {
             cornerRadius = 4.dp.toFloat()
@@ -141,10 +141,10 @@ class SleepCycleView {
      * Lighten a hex color for gradient effect
      */
     private fun lightenColor(hexColor: String): String {
-        val color = android.graphics.Color.parseColor(hexColor)
-        val r = (android.graphics.Color.red(color) * 1.3).toInt().coerceAtMost(255)
-        val g = (android.graphics.Color.green(color) * 1.3).toInt().coerceAtMost(255)
-        val b = (android.graphics.Color.blue(color) * 1.3).toInt().coerceAtMost(255)
+        val color = Color.parseColor(hexColor)
+        val r = (Color.red(color) * 1.3).toInt().coerceAtMost(255)
+        val g = (Color.green(color) * 1.3).toInt().coerceAtMost(255)
+        val b = (Color.blue(color) * 1.3).toInt().coerceAtMost(255)
         return String.format("#%02X%02X%02X", r, g, b)
     }
 

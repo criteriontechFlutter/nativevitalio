@@ -21,7 +21,7 @@ class ToTakeAdapter(
     private val onItemClick: (PillReminderModel) -> Unit
 ) : RecyclerView.Adapter<ToTakeAdapter.ToTakeViewHolder>() {
 
-    inner class ToTakeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ToTakeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val medName: TextView = itemView.findViewById(R.id.medName)
         val quantity: TextView = itemView.findViewById(R.id.quantityBadge)
         val instruction: TextView = itemView.findViewById(R.id.medInstruction)

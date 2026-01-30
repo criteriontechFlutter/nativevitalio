@@ -23,7 +23,7 @@ class EyeExerciseAdapter : ListAdapter<EyeExercise, EyeExerciseAdapter.EyeExerci
         holder.bind(getItem(position))
     }
 
-    inner class EyeExerciseViewHolder(private val binding: ItemEyeExerciseBinding) :
+    class EyeExerciseViewHolder(private val binding: ItemEyeExerciseBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(exercise: EyeExercise) {
             binding.apply {

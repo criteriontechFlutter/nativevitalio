@@ -7,7 +7,6 @@ import androidx.lifecycle.*
 import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.JoinedChallenge
 import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
@@ -36,7 +35,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
     // endregion
 
     private val gson = Gson()
-    private val apiService = RetrofitInstance.createApiService(includeAuthHeader = true)
+    private val apiService = RetrofitInstance.createApiService()
     private val prefs = PrefsManager()
 
     /**

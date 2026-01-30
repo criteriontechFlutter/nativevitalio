@@ -40,7 +40,7 @@ class PillReminderAdapter(
         notifyDataSetChanged()
     }
 
-    inner class PillViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class PillViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvDrugName: TextView = view.findViewById(R.id.tvDrugName)
         val tvDoseFrequency: TextView = view.findViewById(R.id.tvDoseFrequency)
         val rowScrollView: SyncedHorizontalScrollView = view.findViewById(R.id.rowScrollView)

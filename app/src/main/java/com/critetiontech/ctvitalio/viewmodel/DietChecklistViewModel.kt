@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -45,7 +44,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096(includeAuthHeader=true)
+                    .createApiService7096()
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams

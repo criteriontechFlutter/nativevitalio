@@ -11,7 +11,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.R
  import com.critetiontech.ctvitalio.model.WatchModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
@@ -44,9 +43,9 @@ class ConnectSmartWatchViewModel (application: Application) : BaseViewModel(appl
                 "model" to   watchdata.getString("model")    ,
                 "userId" to  PrefsManager().getPatient()?.userId.toString(),
                 "clientId" to PrefsManager().getPatient()?.clientId.toString(),
-        );
+        )
 
-        val response = RetrofitInstance
+                    val response = RetrofitInstance
             .createApiService( )
             .dynamicRawPost(
                 url = ApiEndPoint().insertWatch,
@@ -118,7 +117,7 @@ fun saveUser(
                     if (data.optInt("status") == 0) {
                         _watchList.value = emptyList()
                     } else {
-                        val jsonArray = data.optJSONArray("responseValue") ?: JSONArray()
+                        data.optJSONArray("responseValue") ?: JSONArray()
                         val watchList: List<WatchModel> = Gson().fromJson(
                             data.optJSONArray("responseValue").toString(),
                             object : TypeToken<List<WatchModel>>() {}.type
@@ -153,10 +152,10 @@ fun saveUser(
 //            "Id" to id
             "token" to token
 
-        );
+        )
 
 
-      val response = RetrofitInstance
+              val response = RetrofitInstance
           .createApiService()
           .dynamicDelete(
               url = ApiEndPoint().deleteWatchDetails,

@@ -19,7 +19,7 @@ class SymptomsTrackerAdapter(
     private val onBackClicked: () -> Unit,
 ) : RecyclerView.Adapter<SymptomsTrackerAdapter.SymptomViewHolder>() {
 
-    inner class SymptomViewHolder(val binding: ItemSymptomTrackerBinding) :
+    class SymptomViewHolder(val binding: ItemSymptomTrackerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomViewHolder {

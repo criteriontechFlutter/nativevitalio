@@ -167,7 +167,7 @@ class VitalDetailsAdapter(
 
     override fun getItemCount(): Int = groupedVitals.size
 
-    inner class VitalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class VitalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vitalTitle: TextView = view.findViewById(R.id.vitalTitle)
         val vitalValue: TextView = view.findViewById(R.id.vitalValue)
         val vitalTime: TextView = view.findViewById(R.id.vitalTime)

@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import PrefsManager
+import RetrofitInstance
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
@@ -32,7 +33,6 @@ import com.critetiontech.ctvitalio.adapter.DashboardAdapter
 import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel

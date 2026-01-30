@@ -156,15 +156,15 @@ class SmartGoalFragment : Fragment() {
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
 
-        val screenWidth = anchor.resources.displayMetrics.widthPixels
+        anchor.resources.displayMetrics.widthPixels
         popupWindow.contentView.measure(
             View.MeasureSpec.UNSPECIFIED,
             View.MeasureSpec.UNSPECIFIED
         )
         val popupWidth = popupWindow.contentView.measuredWidth
 
-        val anchorCenterX = location[0] + anchor.width / 2
-        val halfPopup = popupWidth / 2
+        location[0] + anchor.width / 2
+        popupWidth / 2
 
 
         val xOffset = (-120).dpToPx(anchor)  // move left

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.UploadedReportItem
 import com.critetiontech.ctvitalio.model.UploadedReportResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -43,7 +42,7 @@ class UploadReportHistoryViewModel : ViewModel() {
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true,
+                    .createApiService(
                         )
                     .dynamicGet(
                         url = ApiEndPoint().getPatientMediaData,

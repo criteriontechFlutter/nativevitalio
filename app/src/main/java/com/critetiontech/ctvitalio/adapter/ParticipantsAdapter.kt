@@ -14,7 +14,7 @@ import com.critetiontech.ctvitalio.model.Person
 class ParticipantsAdapter(private val items: List<Person>) :
     RecyclerView.Adapter<ParticipantsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val profileImage: ImageView = view.findViewById(R.id.profileImage)
         val countText: TextView = view.findViewById(R.id.extraCountText)
     }

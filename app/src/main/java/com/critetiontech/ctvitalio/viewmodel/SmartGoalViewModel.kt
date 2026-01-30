@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.model.GoalCategoryResponse
 import com.critetiontech.ctvitalio.model.GoalItem
 import com.critetiontech.ctvitalio.model.SmartGoalResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.gson.Gson
@@ -42,7 +41,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getAddedSmartGoalApi,
                         params = queryParams
@@ -87,7 +86,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getAllGoalListApi,
                         params = queryParams
@@ -132,7 +131,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .queryDynamicPut(
                         url = ApiEndPoint().updateGoalPinStatus,
                         params = queryParams,
@@ -142,7 +141,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
 
                 if (response.isSuccessful) {
                     getAddedSmartGoal()
-                    val json = response.body()?.string()
+                    response.body()?.string()
                     Toast.makeText(MyApplication.appContext,"Pin status updated successfully", Toast.LENGTH_LONG).show()
 
                 } else {
@@ -168,7 +167,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicDelete(
                         url = ApiEndPoint().deleteEmployeeGoal,
                         params = queryParams,
@@ -178,7 +177,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
 
                 if (response.isSuccessful) {
                     getAddedSmartGoal()
-                    val json = response.body()?.string()
+                    response.body()?.string()
                     Toast.makeText(MyApplication.appContext,"Goal Deleted successfully!", Toast.LENGTH_LONG).show()
 
                 } else {

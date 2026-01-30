@@ -5,7 +5,6 @@ import DailyCheckListWrapper
 import EnergyResponse
 import FluidResponse
 import InsightJson
-import InsightSections
 import MoodResponse
 import PillReminderModel
 import PillTime
@@ -37,7 +36,6 @@ import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
 import com.critetiontech.ctvitalio.model.ManualFoodItem
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.ConfirmationBottomSheet
@@ -135,7 +133,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getPatientLastVital,
                         params = queryParams
@@ -343,7 +341,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url =  ApiEndPointCorporateModule().getMoodByPid,
                         params = queryParams
@@ -356,7 +354,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val parsed = Gson().fromJson(json, MoodResponse::class.java)
 
 // Store the label in a variable
-                    val moodLabel: String? = parsed.responseValue.firstOrNull()?.moodId.toString()
+                    val moodLabel: String = parsed.responseValue.firstOrNull()?.moodId.toString()
                     if (moodLabel != null) {
                         onMoodClicked(moodLabel)
                     }
@@ -398,7 +396,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url =  ApiEndPointCorporateModule().getAllEnergyTankMaster,
                         params = queryParams
@@ -491,7 +489,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096(includeAuthHeader=true)
+                    .createApiService7096()
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams
@@ -575,7 +573,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
         getAllPatientMedication()
-        val medicationList = listOf(
+        listOf(
             mapOf(
                 "drugName" to "Paracetamol",
                 "medicationNameAndDate" to listOf(
@@ -584,7 +582,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
             )
         )
 
-        val foodList = listOf(
+        listOf(
             mapOf("foodName" to "Rice", "dietId" to "1"),
             mapOf("foodName" to "Soup", "dietId" to "2")
         )
@@ -607,12 +605,12 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         )
 
         val requestBody = mapOf("text" to data)
-        val json = JSONObject(requestBody).toString()
+        JSONObject(requestBody).toString()
 
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(
-                    overrideBaseUrl=RetrofitInstance.shopright
+                    overrideBaseUrl=RetrofitInstance.SHOPRIGHT
 
 
                 ).dynamicRawPost(
@@ -793,7 +791,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().getSymptoms,
                         params = queryParams
@@ -914,7 +912,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url = ApiEndPoint().insertPatientVital,
                         body = queryParams
@@ -955,7 +953,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url = ApiEndPoint().insertApisToken,
                         body = queryParams
@@ -987,7 +985,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 // Get the current timestamp once
                 val now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     java.time.LocalDateTime.now()
-                        .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"))
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"))
                 } else {
                     SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
                 }
@@ -1032,7 +1030,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 _loading.value = false
 
                 if (response.isSuccessful) {
-                    val context = MyApplication.appContext
+                    MyApplication.appContext
 
 
                 } else {
@@ -1077,7 +1075,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 _loading.value = false
 
                 if (response.isSuccessful) {
-                    getDailyEmployeeFluidIntake()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        getDailyEmployeeFluidIntake()
+                    }
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }
@@ -1137,7 +1137,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                         val diff = Duration.between(lastTime, now)
                         val hours = diff.toHours()
-                        val minutes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                             diff.toMinutesPart()
                         } else {
                             TODO("VERSION.SDK_INT < S")

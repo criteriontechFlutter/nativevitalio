@@ -43,7 +43,7 @@ class WaterIntakeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAddIntake.setOnClickListener()  {val ml = getSelectedSizeMl()
+        binding.btnAddIntake.setOnClickListener {val ml = getSelectedSizeMl()
             dashboardViewModel.fluidIntake(  ml.toString())
             viewModel.GetDailyEmployeeFluidIntake()
             viewModel.GetEmployeeMedicineIntakeByDate()

@@ -16,7 +16,7 @@ class MedicationReminderAdapter(
     private val onMarkTaken: (Medicine) -> Unit
 ) : RecyclerView.Adapter<MedicationReminderAdapter.ReminderViewHolder>() {
 
-    inner class ReminderViewHolder(val binding: ItemMedicationReminderBinding) :
+    class ReminderViewHolder(val binding: ItemMedicationReminderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {

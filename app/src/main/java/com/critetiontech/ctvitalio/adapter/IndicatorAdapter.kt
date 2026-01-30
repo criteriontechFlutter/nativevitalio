@@ -12,7 +12,7 @@ class IndicatorAdapter(private var count: Int) :
 
     private var selectedPosition = 0
 
-    inner class IndicatorViewHolder(val imageView: ImageView) :
+    class IndicatorViewHolder(val imageView: ImageView) :
         RecyclerView.ViewHolder(imageView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndicatorViewHolder {

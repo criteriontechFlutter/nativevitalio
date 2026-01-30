@@ -69,19 +69,19 @@ class WellnessMetrics : Fragment() {
         binding.caffeineBarGraph.addView(caffeineBars)
 
         // Date change refresh
-        binding.movementIndexId.setOnClickListener()  {
+        binding.movementIndexId.setOnClickListener {
             findNavController().navigate(R.id.action_wellnessMetrics_to_movemenetIndex  )
         }
-        binding.stressRhythmId.setOnClickListener()  {
+        binding.stressRhythmId.setOnClickListener {
             findNavController().navigate(R.id.action_wellnessMetrics_to_stressRhythm  )
         }
-        binding.dynamicRecovery.setOnClickListener()  {
+        binding.dynamicRecovery.setOnClickListener {
             findNavController().navigate(R.id.action_wellnessMetrics_to_dynamicRecovery  )
         }
-        binding.brainWasteClearance.setOnClickListener()  {
+        binding.brainWasteClearance.setOnClickListener {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
-            binding.sleepBarGreen.setOnClickListener()  {
+            binding.sleepBarGreen.setOnClickListener {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
 

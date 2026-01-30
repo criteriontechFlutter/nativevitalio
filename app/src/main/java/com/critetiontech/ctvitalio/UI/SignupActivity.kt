@@ -376,7 +376,7 @@ class SignupActivity : AppCompatActivity() {
     // Update the progress bar and step titles based on the current progress
     private fun updateProgress(step: Int,progressTitle: Int) {
         val totalSteps = 11
-        val progressPercent = (step * 100) / totalSteps
+        (step * 100) / totalSteps
 //        binding.progressBar.progress = progressPercent
 //        binding.tvProgressPercent.text = "$progressPercent%"
 

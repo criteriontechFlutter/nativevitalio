@@ -15,7 +15,7 @@ class SetPreferencesAdapter(
     private val onItemUpdated: (position: Int, frequency: String) -> Unit
 ) : RecyclerView.Adapter<SetPreferencesAdapter.VitalViewHolder>() {
 
-    inner class VitalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class VitalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val label: TextView = view.findViewById(R.id.labelVital)
         val dropdown: TextView = view.findViewById(R.id.dropdownVital)
     }

@@ -22,7 +22,6 @@ import com.critetiontech.ctvitalio.model.BaseResponse
 import com.critetiontech.ctvitalio.model.CityModel
 import com.critetiontech.ctvitalio.model.Problem
 import com.critetiontech.ctvitalio.model.StateModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
@@ -183,7 +182,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
 
                 // Print final parts for debug
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    part.headers?.toString() ?: "No Headers"
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -200,7 +199,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                 // API Call
                 val response = RetrofitInstance
                     .createApiService(
-                        includeAuthHeader=true)
+                        )
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
                         parts = parts

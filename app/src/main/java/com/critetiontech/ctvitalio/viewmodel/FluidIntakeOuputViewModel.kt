@@ -22,7 +22,6 @@ import com.critetiontech.ctvitalio.model.FluidType
 import com.critetiontech.ctvitalio.model.GlassSize
 import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
 import com.critetiontech.ctvitalio.model.ManualFoodItem
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

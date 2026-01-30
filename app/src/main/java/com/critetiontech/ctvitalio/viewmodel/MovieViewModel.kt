@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.critetiontech.ctvitalio.model.Movies
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

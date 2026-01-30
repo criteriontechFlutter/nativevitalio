@@ -83,7 +83,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setOnlyAlertOnce(false)
             .build()
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(NOTIFICATION_ID, notification)
 
         Log.d("FCM", "Custom notification displayed")
@@ -101,13 +101,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 enableVibration(true)
                 setShowBadge(true)
             }
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
     private fun isAppInForeground(): Boolean {
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as android.app.ActivityManager
+        val activityManager = getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager
         val appProcesses = activityManager.runningAppProcesses ?: return false
 
         return appProcesses.any {

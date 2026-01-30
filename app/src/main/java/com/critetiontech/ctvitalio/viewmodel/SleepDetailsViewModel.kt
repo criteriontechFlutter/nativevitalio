@@ -20,7 +20,6 @@ import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -101,7 +100,7 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getPatientLastVital,
                         params = queryParams
