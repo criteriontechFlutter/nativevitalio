@@ -74,6 +74,10 @@ class MedicationFragment : Fragment() {
 
     private fun observeMedicationData() {
         viewModel.allMedicineListLiveData.observe(viewLifecycleOwner) { list ->
+
+
+            binding.medicationId.text="Your Medications ("+list.size.toString()+")"
+
             binding.rvMedicines.adapter = MedicineAdapter(requireContext(), list)
         }
     }
