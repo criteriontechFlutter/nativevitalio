@@ -135,7 +135,7 @@
                     android:layout_marginEnd="8dp" />
 
                 <include
-                    android:id="@+id/timeInBedId"
+                    android:id="@+id/inactiveTimeId"
                     layout="@layout/sleep_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                 android:weightSum="2">
 
                 <include
-                    android:id="@+id/restorativeSleepId"
+                    android:id="@+id/activeHrId"
                     layout="@layout/sleep_layout"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -159,7 +159,7 @@
                     android:layout_marginEnd="8dp" />
 
                 <include
-                    android:id="@+id/hr"
+                    android:id="@+id/activeMinId"
                     layout="@layout/sleep_layout"
                     android:layout_width="0dp"
                     android:layout_weight="1"

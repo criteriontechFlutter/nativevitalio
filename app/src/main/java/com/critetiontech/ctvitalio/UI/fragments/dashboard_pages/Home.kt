@@ -420,7 +420,7 @@ class Home : Fragment() {
 
             binding.hydrationCardId.tvHydrationProgress.text =
                 if (remaining > 0)
-                    "$total ml consumed — $remaining ml to go"
+                    "$total ml consumed — ${remaining} ml to go"
                 else
                     "$total ml consumed — target reached $goal ml"
         }

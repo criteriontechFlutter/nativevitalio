@@ -17,21 +17,33 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex.MovementEntrys
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
 import com.critetiontech.ctvitalio.databinding.FragmentStressBinding
 import com.critetiontech.ctvitalio.databinding.FragmentStressRhythmBinding
+import com.critetiontech.ctvitalio.model.MovementIndexViewModel
 import java.util.Calendar
 
 class StressRhythm : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
 
     private var _binding: FragmentStressRhythmBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: MovementIndexViewModel
+
+    // For ordering days: Sunday → Saturday
+    private val weekOrder = mapOf(
+        "Sunday" to 0,
+        "Monday" to 1,
+        "Tuesday" to 2,
+        "Wednesday" to 3,
+        "Thursday" to 4,
+        "Friday" to 5,
+        "Saturday" to 6
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,52 +54,59 @@ class StressRhythm : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    // ----------------------------------------
+    // SAFE conversion extension
+    // ----------------------------------------
+    private fun String?.toSafeInt(default: Int = 0): Int {
+        return this?.toDoubleOrNull()?.toInt() ?: default
+    }
+
+    data class MovementEntrys(
+        val date: String,
+        val dayName: String,
+        val value: Int
+    )
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Sample data (last 7 days)
-        val entries = listOf(
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-            SleepEntry(
-                65,
-                value =65
-            ),
-        )
 
-    setData(entries)
+        viewModel = ViewModelProvider(this)[MovementIndexViewModel::class.java]
 
+        viewModel.wellnessMetrics.observe(viewLifecycleOwner) { response ->
 
-        binding.wellnessImageArrow.setOnClickListener {
+            // Map API data safely
+            val entries = response.movementIndexWeek.map {
+                MovementEntrys(
+                    date = it.date,
+                    dayName = it.dayName,
+                    value = it.vmValue.toInt()
+                )
+            }
 
-            findNavController().popBackStack()
+            // Sort Sunday → Saturday
+            val sortedEntries = entries.sortedBy { weekOrder[it.dayName] ?: 0 }
+
+            setData(sortedEntries)
+
+            // Back arrow
+            binding.wellnessImageArrow.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
+
+    // ----------------------------------------
+    // Draw chart
+    // ----------------------------------------
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    private fun setData(entries: List<SleepEntry>) {
+    private fun setData(entries: List<MovementEntrys>) {
 
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
@@ -96,18 +115,19 @@ class StressRhythm : Fragment() {
         val avg = entries.map { it.value }.average().toInt()
 
         binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "Sleep"
+        binding.tvLabel.text = "Stress Rhythm Score  "
 
         binding.barsContainer.post {
 
             val containerHeight = binding.barsContainer.height
             val maxBarHeight = containerHeight - 60.dp
 
-            entries.forEachIndexed { index, entry ->
+            entries.forEachIndexed { _, entry ->
 
                 val fillRatio = entry.value.toFloat() / maxValue.toFloat()
                 val fillHeight = (maxBarHeight * fillRatio).toInt()
 
+                // Bar layout
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
                     gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
@@ -133,6 +153,7 @@ class StressRhythm : Fragment() {
                     )
                 }
 
+                // Track view
                 val trackView = View(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         24.dp,
@@ -145,6 +166,7 @@ class StressRhythm : Fragment() {
                     }
                 }
 
+                // Fill view
                 val fillView = View(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         4.dp,
@@ -157,6 +179,7 @@ class StressRhythm : Fragment() {
                     }
                 }
 
+                // Bubble value
                 val bubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         24.dp,
@@ -175,20 +198,8 @@ class StressRhythm : Fragment() {
                     elevation = 2.dp.toFloat()
                 }
 
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.DAY_OF_MONTH, -(entries.size - 1 - index))
-
-                val weekdayInitial = when (calendar.get(Calendar.DAY_OF_WEEK)) {
-                    Calendar.SUNDAY -> "S"
-                    Calendar.MONDAY -> "M"
-                    Calendar.TUESDAY -> "T"
-                    Calendar.WEDNESDAY -> "W"
-                    Calendar.THURSDAY -> "T"
-                    Calendar.FRIDAY -> "F"
-                    Calendar.SATURDAY -> "S"
-                    else -> ""
-                }
-
+                // Weekday initial (S, M, T...)
+                val weekdayInitial = entry.dayName.first().toString()
                 val weekdayBubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         20.dp,
@@ -207,6 +218,16 @@ class StressRhythm : Fragment() {
                     elevation = 1.dp.toFloat()
                 }
 
+                // Day label dd/MM
+                val parts = entry.date.split("-")
+                val dayLabel = TextView(requireContext()).apply {
+                    text = "${parts[2]}/${parts[1]}"
+                    setTextColor(Color.parseColor("#80FFFFFF"))
+                    textSize = 10f
+                    gravity = Gravity.CENTER
+                }
+
+                // Base line
                 val baseLine = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -216,13 +237,6 @@ class StressRhythm : Fragment() {
                         bottomMargin = 6.dp
                     }
                     setBackgroundColor(Color.parseColor("#40FFFFFF"))
-                }
-
-                val dayLabel = TextView(requireContext()).apply {
-                    text = "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}"
-                    setTextColor(Color.parseColor("#80FFFFFF"))
-                    textSize = 10f
-                    gravity = Gravity.CENTER
                 }
 
                 barContainer.addView(trackView)
@@ -240,7 +254,8 @@ class StressRhythm : Fragment() {
         }
     }
 
-    val Int.dp: Int
+    // Convert dp to px
+    private val Int.dp: Int
         get() = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             this.toFloat(),

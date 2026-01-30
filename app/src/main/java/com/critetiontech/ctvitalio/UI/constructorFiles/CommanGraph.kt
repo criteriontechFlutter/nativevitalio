@@ -38,7 +38,7 @@ class HeartRateGraphView @JvmOverloads constructor(
         private set
 
     var yAxisGridLines = mutableListOf<Int>()
-    var timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+    var timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     var numberOfTimeLabels = 5
     var thresholdValue: Int? = null
 

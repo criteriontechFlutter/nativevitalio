@@ -27,7 +27,12 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
 
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
-    fun  resetPassword(context: Context, newPassword: String, confirmNewPassword: String) {
+    fun  resetPassword(
+        context: Context,
+        oldPassword: String?,
+        newPassword: String,
+        confirmNewPassword: String
+    ) {
         _loading.value = true
         viewModelScope.launch {
 
@@ -37,16 +42,18 @@ class ResetPasswordViewModel (application: Application) : BaseViewModel(applicat
                 val queryParams = mapOf(
                     // "mobileNo" to mo,
 
-                    "username" to PrefsManager().getPatient()?.empId.toString(),
-                "newPassword" to newPassword,
-                "confirmNewPassword" to confirmNewPassword,
+                    "pid" to PrefsManager().getPatient()?.id.toString(),
+                    "clientID" to PrefsManager().getPatient()?.clientId.toString(),
+                  "oldPassword" to oldPassword.toString(),
+                  "newPassword" to newPassword,
+                  "confirmNewPassword" to confirmNewPassword,
                     )
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
                     .createApiService()
                     .dynamicRawPost(
-                        url = ApiEndPoint().corporateEmployeeForgotPassword,
+                        url = ApiEndPoint().corporateEmployeeChangePassword,
                         body = queryParams
                     )
 

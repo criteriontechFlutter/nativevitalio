@@ -11,3 +11,9 @@ data class AllergyTypeItem(
     val apiUrl: String,
     // Add other properties if needed...
 )
+data class UnitConfig(
+    val step: Double,
+    val min: Double = 0.0,
+    val max: Double? = null,
+    val allowDecimal: Boolean = false
+)

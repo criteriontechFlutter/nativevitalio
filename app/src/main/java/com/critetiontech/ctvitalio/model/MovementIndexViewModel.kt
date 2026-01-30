@@ -14,8 +14,8 @@ import java.util.Locale
 class MovementIndexViewModel : ViewModel() {
 
 
-    private val _wellnessMetricList = MutableLiveData<List<WellnessItem>>()
-    val wellnessMetrics: LiveData<List<WellnessItem>> get() = _wellnessMetricList
+    private val _wellnessMetric   = MutableLiveData<MovementIndexResponseValue>()
+    val wellnessMetrics: LiveData<MovementIndexResponseValue> get() = _wellnessMetric
 
 
 
@@ -59,23 +59,16 @@ init {
                     val parsed = Gson().fromJson(json, WellnessResponse::class.java)
 
                     // Store API response
-                    _wellnessMetricList.postValue(parsed.responseValue.vitals)
+                    _wellnessMetric .postValue(parsed.responseValue)
 
 
                 } else {
-                    _wellnessMetricList.value = emptyList()
-                }
+                 }
 
             } catch (e: Exception) {
                 _loading.value = false
-                _wellnessMetricList.value = emptyList()
-                _errorMessage.value = e.message ?: "Unknown error"
+                 _errorMessage.value = e.message ?: "Unknown error"
             }
-        }
-    }
-    fun getLatestVital(vitalList: List<WellnessItem>, vitalName: String): WellnessItem? {
-        return vitalList.firstOrNull {
-            it.vitalName.equals(vitalName, ignoreCase = true)
         }
     }
 

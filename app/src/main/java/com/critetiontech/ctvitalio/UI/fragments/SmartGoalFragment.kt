@@ -215,7 +215,7 @@ class SmartGoalFragment : Fragment() {
                     putString("categoryId", (category?.categoryId ?: 0).toString()) // ✔ FIXED
                     putString("goalId", goal.goalId.toString()) // ✔ FIXED
                     putString("vmID", goal.vmId.toString())
-                    putString("unit", goal.unit.toString())
+                    putString("unit", goal.unit)
                 }
 
                 findNavController().navigate(

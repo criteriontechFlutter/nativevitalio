@@ -9,26 +9,28 @@
     app:layoutDescription="@xml/leaderboard_scene"
     tools:ignore="MissingClass">
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Leaderboard"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@android:color/white"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="LeaderBoard"
+        android:elevation="8dp"
+        app:titleTextColor="#000000"
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <LinearLayout
         android:id="@+id/playerId"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:gravity="center"
+        android:background="#EAF4FF"
         android:layout_marginTop="6dp"
 
         android:orientation="horizontal">

@@ -120,7 +120,7 @@ class CorporateDashBoard : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCorporateDashBoardBinding.inflate(inflater, container, false)
         return binding.root
@@ -130,7 +130,7 @@ class CorporateDashBoard : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val screenHeight = resources.displayMetrics.heightPixels
-        screenHeight / 2f
+        val halfHeight = screenHeight / 2f
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
         pillsViewModel.getAllPatientMedication()
@@ -265,37 +265,9 @@ class CorporateDashBoard : Fragment() {
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
       //  challengesViewModel.getNewChallenge()
         viewModel.fluidList.observe(viewLifecycleOwner) { list ->
-            list
+            val waterQty = list
                 .firstOrNull { it.id.toString() == "97694" }
                 ?.amount?.toFloat() ?: 0f  // convert safely to Float
-//            binding.sleepProgressIds.dashboardAnimatedCard.setWaveColors(
-//                backgroundColor = "#DFFFE9".toColorInt(),
-//                backWaveColor = "#DFFFE9".toColorInt(),
-//                frontWaveColor = "#DFFFE9".toColorInt()
-//            )
-
-
-
-//            binding.intakeWaterId.text=waterQty.toString()
-
-//binding.healthTrackId.healthGoalAchived.setOnClickListener {
-//    findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
-//}
-
-            PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
-
-
-//            waterGoal?.let {
-//                binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
-//
-//                val progress = (waterQty * 100f) / (it.targetValue * 1000f)
-//                binding.intakeWaterId.text=waterQty.toString()
-//// Now set progress
-//                binding.waterproGress.setProgress(progress)
-//
-//
-//            }
-
 
         }
 
@@ -347,29 +319,6 @@ class CorporateDashBoard : Fragment() {
         }
 
 
-        val stepsGoal = PrefsManager().getEmployeeGoals().find { it.vmId == 234 }
-        PrefsManager().getEmployeeGoals().find { it.vmId == 245 }
-        PrefsManager().getEmployeeGoals().find { it.vmId == 243 }
-
-        stepsGoal?.let {
-           // binding.stepsGoalId.text = "/"+it.targetValue.toString()+" Steps"
-        }
-
-//        waterGoal?.let {
-//            binding.waterGoalId.text = "/"+ (it.targetValue*1000).toString()+" ml"
-//
-//
-//
-//
-//
-//        }
-//        binding.waterContId.setOnClickListener(){
-//            findNavController().navigate(R.id.action_dashboard_to_fluidFragment ,null,)
-//        }
-
-
-
-
 
         viewModel.getFoodIntake()
         val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
@@ -380,41 +329,29 @@ class CorporateDashBoard : Fragment() {
             ToastUtils.getSimpleGreeting()
         } else {
             TODO("VERSION.SDK_INT < O")
-        }
+        };
 
-        binding.greetingHi.text = "${greetings}"
-        binding.greetingName.text = "${PrefsManager().getPatient()?.patientName ?: ""}"
+        binding.greetingHi.text = greetings
+        binding.greetingName.text = PrefsManager().getPatient()?.patientName ?: ""
 
-        viewModel.vitalList.observe(viewLifecycleOwner) { vitals ->
-            // `vitals` is the latest value emitted by LiveData
-            // Example: submit to RecyclerView adapter
-            vitals.find { it.vitalName.equals("MovementIndex", ignoreCase = true) }
-            vitals.find { it.vitalName.equals("RecoveryIndex", ignoreCase = true) }
-            vitals.find { it.vitalName.equals("ActiveMinutes", ignoreCase = true) }
-            vitals.find { it.vitalName.equals("TotalSteps", ignoreCase = true) }
-//            binding.tvMovementIndex.text=String.format("%.0f", vitalMovementIndex?.vitalValue)
-//            binding.tvRecoveryIndex.text= String.format("%.0f", vitalRecoveryIndex?.vitalValue)
-//            binding.tvStepss.text= String.format("%.0f", vitalStepsIndex?.vitalValue)+" steps"
-//            binding.activeMinutess.text= String.format("%.0f", activeMinutes?.vitalValue)+" mins"
-        }
 
         viewModel.quickMetricListList.observe(viewLifecycleOwner) { quickMetricListList ->
-            quickMetricListList
+            val efficiencyMetric = quickMetricListList
                 ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
 
 //            binding.sleepGoalId.text =  "Sleep Efficiency "+efficiencyMetric?.DisplayText ?: "-"
 
-            quickMetricListList
+            val sleepId = quickMetricListList
                 ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
 //            binding.sleepId.text =  sleepId?.DisplayText ?: "-"
         }
 
 
         // Animate to 80%
-        FragmentNavigatorExtras(
-           binding.avatar to "heroImageTransition",
-           binding.greetingHi to "heroGreetingtextTransition"
-       )
+         val extras = FragmentNavigatorExtras(
+            binding.avatar to "heroImageTransition",
+            binding.greetingHi to "heroGreetingtextTransition"
+        )
         binding.ivIllustration.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_moodFragment ,null,
                 null)
@@ -442,20 +379,9 @@ class CorporateDashBoard : Fragment() {
         })
 
         binding.energyCard.setOnClickListener{
-
             findNavController().navigate(R.id.action_dashboard_to_energyTank)
         }
-//        binding.energyCard.setOnClickListener{
-//            findNavController().navigate(R.id.action_dashboard_to_energyTank)
-//        }
-//         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
-//
-//
-//             binding.energyTitle.text="You're feeling "+ viewModel.latestEnergy.value.toString() +"% energized today ⚡"
-//
-//
-//
-//        }
+
         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
 
             if (energy == null) {
@@ -472,11 +398,7 @@ class CorporateDashBoard : Fragment() {
         }
 
 
-//        binding.linearLayout3.setOnClickListener()
-//        {
-//
-//            findNavController().navigate(R.id.action_dashboard_to_wellnessMetrics )
-//        }
+
 
         binding.bpPopupId.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_connection )
@@ -498,30 +420,14 @@ class CorporateDashBoard : Fragment() {
         }
 
 
-//        binding.addvitalBtn.setOnClickListener()
-//        {
-//
-//            findNavController().navigate(R.id.action_dashboard_to_connection )
-//        }
-//        binding.addGlucoseBtn.setOnClickListener()
-//        {
-//            val bundle = Bundle().apply {
-//                putString("vitalType", "Glucose")
-//            }
-//            findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-//        }
-//        binding.sleepContainerId.setOnClickListener()
-//        {
-//
-//            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
-//        }
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
+            val adapter: DashboardAdapter
             val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
             val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
-            vitalList.find { it.vitalName.equals("Glucose", ignoreCase = true) }
+            val Glucose = vitalList.find { it.vitalName.equals("Glucose", ignoreCase = true) }
 
-            vitalList.filterNot {
+            val filtered = vitalList.filterNot {
                 it.vitalName.equals("BP_Sys", ignoreCase = true) ||
                         it.vitalName.equals("BP_Dias", ignoreCase = true)
             }.toMutableList()
@@ -561,7 +467,7 @@ class CorporateDashBoard : Fragment() {
 // Vertical orientation
 
 
-        listOf(
+        val cards = listOf(
             ProgressCard("👍", "Progress", "Last night's sleep fuels today."),
             ProgressCard("🔥", "Energy!", "Your activity keeps momentum."),
             ProgressCard("💧", "Hydrate", "Water keeps focus sharp.")
@@ -572,8 +478,8 @@ class CorporateDashBoard : Fragment() {
 //        .ORIENTATION_VERTICAL
 
 // Optional: smooth scale effect
-        ViewPager2.PageTransformer { page, position ->
-            1 - kotlin.math.abs(position)
+        val transformer = ViewPager2.PageTransformer { page, position ->
+            val r = 1 - kotlin.math.abs(position)
         }
 //        binding.progressViewPager.setPageTransformer(transformer)
 //        binding.dotsIndicator.setViewPager2(binding.progressViewPager)
@@ -588,6 +494,7 @@ class CorporateDashBoard : Fragment() {
 //
 //        val adapter = MedicineAdapter(medicineList)
 //        binding.recyclerMedicines.adapter = adapter
+        var isBoxVisible = false
         binding.viewAllSleepDataaId.visibility=View.GONE
 binding.showId.showHideId.setOnClickListener{
     binding.viewAllSleepDataaId.visibility=View.VISIBLE
@@ -597,132 +504,6 @@ binding.showId.showHideId.setOnClickListener{
             binding.viewAllSleepDataaId.visibility=View.GONE
             binding.showId.showHideId.visibility=View.VISIBLE
         }
-
-
-//        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue  ->
-//            binding.sleepScoreId.title.text = "Sleep Score"
-//            //    binding.sleepScoreId.cardValue.text=sleepValue.SleepScore.Score.toString()
-//            binding.sleepScoreId.statusCardId.visibility = View.VISIBLE
-//
-//
-//    val totalSleep = sleepValue.QuickMetricsTiled
-//        ?.firstOrNull { it.Title.equals("TOTAL SLEEP", ignoreCase = true) }
-//
-//    binding.totalSleepId.title.text="Total Sleep"
-//        binding.totalSleepId.value.text= HtmlCompat.fromHtml(totalSleep?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-////         binding.totalSleepId.cardStatus6.text= totalSleep?.Tag.toString()
-//
-//
-//    val efficiencyMetric = sleepValue.QuickMetrics
-//        ?.firstOrNull { it.Title.equals("EFFICIENCY", ignoreCase = true) }
-//
-//        binding.sleepEfficiencyId.title.text="Sleep Efficiency"
-//        binding.sleepEfficiencyId.value.text= efficiencyMetric?.DisplayText.toString()
-//         binding.sleepEfficiencyId.statusCardId.visibility=View.VISIBLE
-//
-//    val timeinBed = sleepValue.QuickMetricsTiled
-//        ?.firstOrNull { it.Title.equals("TIME IN BED", ignoreCase = true) }
-//        binding.timeInBedId.title.text="Time in Bed"
-//        binding.timeInBedId.value.text=HtmlCompat.fromHtml(timeinBed?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-////        binding.timeInBedId.cardStatus6.text= timeinBed?.Tag.toString()
-//
-//
-//
-//
-//        binding.fulSleepCycleId.title.text="Full Sleep Cycle"
-//        binding.fulSleepCycleId.value.text="_"
-//         binding.fulSleepCycleId.statusCardId.visibility=View.VISIBLE
-//
-//
-//
-//
-//    val rem_sleep = sleepValue.SleepStages
-//        ?.firstOrNull { it.Title.equals("REM Sleep", ignoreCase = true) }
-//        binding.remSleepId.title.text="REM Sleep"
-//        binding.remSleepId.value.text= rem_sleep?.StageTimeText.toString()
-//        binding.remSleepId.statusCardId.visibility=View.VISIBLE
-//
-//
-//    val deep_sleep = sleepValue.SleepStages
-//        ?.firstOrNull { it.Title.equals("Deep Sleep", ignoreCase = true) }
-//        binding.deepSleepId.title.text="Deep Sleep"
-//        binding.deepSleepId.value.text=deep_sleep?.StageTimeText.toString()
-//        binding.deepSleepId.statusCardId.visibility=View.VISIBLE
-//
-//
-//    val light_sleep = sleepValue.SleepStages
-//        ?.firstOrNull { it.Title.equals("Light Sleep", ignoreCase = true) }
-//        binding.lightSleepId.title.text="Light Sleep"
-//        binding.lightSleepId.value.text=light_sleep?.StageTimeText.toString()
-//        binding.lightSleepId.statusCardId.visibility=View.VISIBLE
-//
-//
-//    val restorative = sleepValue.QuickMetricsTiled
-//        ?.firstOrNull { it.Title.equals("RESTORATIVE SLEEP", ignoreCase = true) }
-//        binding.restorativeSleepId.title.text="Restorative Sleep"
-//        binding.restorativeSleepId.value.text==HtmlCompat.fromHtml(restorative?.Value.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-////         binding.restorativeSleepId.cardStatus6.text=restorative?.Tag.toString()
-//
-//
-//
-//        binding.movementsId.title.text="Movements"
-//        binding.movementsId.value.text= sleepValue.MovementGraph?.Data?.size.toString()
-//         binding.movementsId.statusCardId.visibility=View.VISIBLE
-//
-//
-//            val morningAlertness = sleepValue.MorningAlertness
-//                ?.Minutes
-//            binding.morningAlertnessId.title.text="Morning Alertness"
-//        binding.morningAlertnessId.value.text=morningAlertness
-//        binding.morningAlertnessId.hrId.text="mins"
-//        binding.morningAlertnessId.statusCardId.visibility=View.VISIBLE
-//
-//
-//
-//        binding.tossesAndTurnsId.title.text="Tosses and Turns"
-//        binding.tossesAndTurnsId.value.text="_"
-//        binding.tossesAndTurnsId.statusCardId.visibility=View.VISIBLE
-//
-//
-//
-//
-//            binding.hideId.cardTitlse.text="Hide"
-//
-//
-//
-//
-////            Activity
-//            Glide.with(this).asGif().load(R.raw.celebrate).into(binding.celebrationId.trophyIcon)
-//
-//
-//            binding.inactiveHoursId.title.text="Inactive Time"
-//            binding.inactiveHoursId.value.text="_"
-//            binding.inactiveHoursId.statusCardId.visibility=View.VISIBLE
-//
-//
-//
-//            binding.activieHoursId.title.text="Active Hours"
-//            binding.activieHoursId.value.text="_"
-//            binding.activieHoursId.statusCardId.visibility=View.VISIBLE
-//
-//
-//
-//
-//            binding.WeeklyActiveMinutesId.title.text="Weekly Active Minutes"
-//            binding.WeeklyActiveMinutesId.value.text="_"
-//            binding.WeeklyActiveMinutesId.statusCardId.visibility=View.VISIBLE
-//
-//
-////            Recovery
-//
-//
-//
-//            binding.StressRhythmScoreId.title.text="Stress Rhythm Score"
-//            binding.StressRhythmScoreId.value.text= "_"
-//            binding.StressRhythmScoreId.statusCardId.visibility=View.VISIBLE\
-
-
-//        }
 
 
 
@@ -924,9 +705,6 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
 
-
-
-
     val sleepScoreIndex = vitalList.find { it.vitalName.equals("SleepScore", ignoreCase = true) }
     binding.sleepScoreId.title.text = "Sleep Score"
     binding.sleepScoreId.value.text = sleepScoreIndex?.vmValueText.toString()
@@ -1061,7 +839,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         val RecoveryIndex = vitals?.find { it.vitalID == 240 }
         val MovementIndex = vitals?.find { it.vitalID == 241 }
          val StressScore = vitals?.find { it.vitalID == 252 }
-        vitals?.find { it.vitalID == 249 }
+        val Glucose = vitals?.find { it.vitalID == 249 }
 
         // Text colors
         binding.sleepProgressIds.recoverystatusId.apply {
@@ -1108,20 +886,20 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
     }
 
-        binding.sleepProgressIds.addSleepActivityBtn.setOnClickListener {
+        binding.sleepProgressIds.addSleepActivityBtn.setOnClickListener(){
 
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 
         }
-        binding.sleepProgressIds.addMovementActivityBtn.setOnClickListener {
+        binding.sleepProgressIds.addMovementActivityBtn.setOnClickListener(){
 
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
-        binding.sleepProgressIds.addStressActivityBtn.setOnClickListener {
+        binding.sleepProgressIds.addStressActivityBtn.setOnClickListener(){
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 
         }
-        binding.sleepProgressIds.addRecoveryActivityBtn.setOnClickListener {
+        binding.sleepProgressIds.addRecoveryActivityBtn.setOnClickListener(){
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 
         }
@@ -1141,7 +919,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
 //            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 //        }
-        binding.sleepProgressIds.sleepContainerId.setOnClickListener {
+        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
            findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
         }
 
@@ -1150,8 +928,8 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             // Initialize the adapter with your list and callback
             val medicationReminderAdapter = MedicationReminderAdapter(list.toMutableList()) { medicine ->
                 // Handle Mark Taken click
-                // Example: Update database or notify ViewModel
-             }
+
+                pillsViewModel.insertPatientMedication(medicine)             }
 
             binding.medicationsId.apply {
                 layoutManager = LinearLayoutManager(requireContext())
@@ -1174,7 +952,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
             findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
         }
         initHydrationControls()
-        updateProgress(consumed =  2, target =  22, unit =  "ml")
+        updateProgress(unit =  "ml")
         updateHydrationTitle()
 //        wellnessDataBind()
 
@@ -1223,37 +1001,37 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             insight ?: return@observe
 
             val wellness = binding.sleepProgressIds
-            insight.wellnessStatus.toIntOrNull() ?: 0
+            val wellnessStatus = insight.wellnessStatus.toIntOrNull() ?: 0
 
             when (insight.wellnessScore) {
                 in 90..100 -> {
                     wellness.dashboardAnimatedCard.setDefaultWaveColors(
-                        backgroundColor = "#DFFFE9".toColorInt(),
-                        backWaveColor =   "#BEEFD1".toColorInt(),
-                        frontWaveColor =  "#8FD9AE".toColorInt()
+                        backgroundColor = "#F7FDF9".toColorInt(),
+                        backWaveColor =   "#F3FAF5".toColorInt(),
+                        frontWaveColor =  "#EBF5EE".toColorInt()
                     )
                 }
                 in 80..89 -> {
                     wellness.dashboardAnimatedCard.setDefaultWaveColors(
-                        backgroundColor = "#CAE3FF".toColorInt(),
-                        backWaveColor = "#A9CCF5".toColorInt(),
-                        frontWaveColor = "#7FB1E8".toColorInt()
+                        backgroundColor = "#F4F8FD".toColorInt(),
+                        backWaveColor = "#ECF3FA".toColorInt(),
+                        frontWaveColor = "#E3EBF4".toColorInt()
                     )
                 }
 
                 in 60..79 -> {
                     wellness.dashboardAnimatedCard.setDefaultWaveColors(
-                        backgroundColor = "#FFDFB2".toColorInt(),
-                        backWaveColor = "#F5C98A".toColorInt(),
-                        frontWaveColor = "#E8B25F".toColorInt()
+                        backgroundColor = "#FDF8F0".toColorInt(),
+                        backWaveColor = "#F9F1E6".toColorInt(),
+                        frontWaveColor = "#F5EBDD".toColorInt()
                     )
                 }
 
                 else -> {
                     wellness.dashboardAnimatedCard.setDefaultWaveColors(
-                        backgroundColor = "#FFD4D4".toColorInt(),
-                        backWaveColor = "#F2B7B7".toColorInt(),
-                        frontWaveColor = "#E68F8F".toColorInt()
+                        backgroundColor = "#FDF6F6".toColorInt(),
+                        backWaveColor = "#F9EEEE".toColorInt(),
+                        frontWaveColor = "#F5E7E7".toColorInt()
                     )
                 }
             }
@@ -1664,7 +1442,7 @@ private fun initHydrationControls() {
 
     }
     }
-private fun updateProgress(consumed: Int, target: Int, unit: String) {
+private fun updateProgress(unit: String) {
     val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
 
     viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue  ->
@@ -1673,12 +1451,12 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
 
         if(totalValue< remaining!!){
             binding.hydrationCardId.tvHydrationProgress.text =
-                "${totalValue} $unit consumed — $remaining $unit to go"
+                "${totalValue} $unit consumed — ${remaining*1000} $unit to go"
         }
         else{
 
             binding.hydrationCardId.tvHydrationProgress.text =
-                "${totalValue} $unit consumed — targed $goal $unit "
+                "${totalValue} $unit consumed — targed ${goal*1000} $unit "
         }
     }
      binding.hydrationCardId.tvHydrationProgress.setTextColor(Color.parseColor("#808C9A"))
@@ -1918,7 +1696,7 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
 
         private fun setupNav() {
             navItems.forEachIndexed { index, view ->
-                view.findViewById<ImageView>(R.id.navIcon)
+                val icon = view.findViewById<ImageView>(R.id.navIcon)
                 val text = view.findViewById<TextView>(R.id.navText)
                 view.setOnClickListener {
                     text.text = tabLabels[index]
@@ -1946,7 +1724,7 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
                         android.R.color.white
                     )
                 )
-                when (i) {
+                val fragment = when (i) {
                     0 -> {
                         binding.homeId.visibility = View.VISIBLE
                         binding.challengedId.visibility = View.GONE
@@ -1984,7 +1762,7 @@ private fun updateProgress(consumed: Int, target: Int, unit: String) {
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 pillsViewModel.insertPatientMedication(selectedMedicine)
-                            }
+                            };
                         }
                         binding.recyclerView.adapter = adapter
 

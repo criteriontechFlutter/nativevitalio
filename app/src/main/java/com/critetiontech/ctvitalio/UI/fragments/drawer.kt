@@ -174,6 +174,10 @@ class drawer : Fragment() {
 //        }
 
 
+        binding.gemsCard.setOnClickListener {
+            findNavController().navigate(R.id.leaderboardFragment)
+        }
+
 
     }
 

@@ -2,13 +2,23 @@ package com.critetiontech.ctvitalio.viewmodel
 
 import DailyCheckItem
 import DailyCheckListWrapper
+import GistObject
+import HrGraph
+import HrvGraph
 import InsightJson
+import MorningAlertness
+import MovementGraph
+import OxygenSaturation
 import PillReminderModel
 import PrefsManager
 import QuickMetric
 import QuickMetricsTiled
+import SleepScore
+import SleepStage
 import SleepValue
+import Spo2
 import Summary
+import TossTurn
 import Vital
 import VitalInsight
 import android.app.Application
@@ -85,7 +95,7 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
         viewModelScope.launch {
             _loading.value = true
 
-            Log.d("GIST_DATAdatadata", data. toString())
+            Log.d("GIST_DATAdatadata ", data. toString())
 
             // 1️⃣ Load from local first
 //            val localVitals = loadVitalsFromLocal()
@@ -111,23 +121,27 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     // Update UI from API
                     _vitalList.value = parsed.responseValue.lastVital
+                    Log.d("DEBUG_VITALS", "_vitalList_vitalList : ${_vitalList.value}")
 //                    _vitalInsights.value = parsed.responseValue.vitalInsights
                     val decoded = decodePriorityAction(parsed.responseValue.priorityAction)
-                    _priorityAction.value = decoded                // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
+                    _priorityAction.value = decoded
+                    Log.d("DEBUG_VITALS", "decodePriorityAction : ${_priorityAction.value}")           // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
 //                    saveVitalsToLocal(parsed.responseValue)
                     _dailyCheckList.value = decodeDailyCheckList(parsed.responseValue.dailyCheckList)
                     val jsonString = parsed.responseValue.vitalInsights
                         ?.firstOrNull()
                         ?.insightJson
+                    Log.d("DEBUG_VITALS", "_dailyCheckList : ${_dailyCheckList.value}")
                     // stop if nothing found
 
                     val decodedInsight = jsonString?.let { decodeInsightJson(it) }
+                    Log.d("DEBUG_VITALS", "decodedInsightdecodedInsight : ${decodedInsight}")
 
                     if (decodedInsight != null) {
                         _insightWrapperList.value = decodedInsight
                     }
                     val sleepMetric243 = parsed.responseValue.sleepmetrics
-                        ?.firstOrNull { it.vitalID == 243 }
+                        ?.firstOrNull { it.vitalID.toString() == "243" }
                         ?.vitalValue
 
                     sleepMetric243?.let { vitalValueJson ->
@@ -141,11 +155,22 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
                                 Gson().fromJson(unescapedJson, SleepValue::class.java)
                             }
                             printListData()
-                            _sleepValueList.value = sleepValue
-                            _quickMetricList.value = sleepValue.QuickMetrics.orEmpty()
-                            _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled.orEmpty()
-                            _sleepsummary.value = sleepValue.Summary.orEmpty()
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValue : ${sleepValue }")
+                            Log.d("DEBUG_VITALS", "ScoreScoreScore : ${sleepValue.Score}")
+                            Log.d("DEBUG_VITALS", "TitleTitleTitle : ${sleepValue.Title}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
+                            Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")
 
+
+                            _sleepValueList.value = sleepValue
+                            _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
+                            _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled ?: emptyList()
+                            _sleepsummary.value = sleepValue.Summary ?: emptyList()
                      // Log decoded data
 
                         } catch (e: Exception) {

@@ -810,8 +810,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2026" />
-                            <option name="y" value="-1242" />
+                            <option name="x" value="-2062" />
+                            <option name="y" value="-1234" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -970,8 +970,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1417" />
-                            <option name="y" value="-1905" />
+                            <option name="x" value="-4068" />
+                            <option name="y" value="-1612" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -1003,8 +1003,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-3735" />
-                            <option name="y" value="-1368" />
+                            <option name="x" value="-3831" />
+                            <option name="y" value="-1540" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -1284,13 +1284,23 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-3589" />
-                            <option name="y" value="-1550" />
+                            <option name="x" value="-3753" />
+                            <option name="y" value="-1835" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_wellnessMetrics_to_SleepDetails">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_wellnessMetrics_to_brainWasteClearance">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_wellnessMetrics_to_dynamicRecovery">
                               <value>
                                 <LayoutPositions />
                               </value>

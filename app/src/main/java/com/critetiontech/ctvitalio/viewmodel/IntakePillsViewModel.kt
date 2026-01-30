@@ -38,10 +38,8 @@ class IntakePillsViewModel :ViewModel() {
                     "UhID" to PrefsManager().getPatient()?.empId.toString(),
                     "pmID"  to  pmID,
                     "intakeDateAndTime"  to    java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(java.util.Date())+" "+convertedTime,
+                     "prescriptionID" to prescriptionID,
 
-
-
-                    "prescriptionID" to prescriptionID,
                     "userID"  to PrefsManager().getPatient()?.id.toString(),
                     "duration"  to  durationType ,
                     "compareTime"  to  convertedTime
