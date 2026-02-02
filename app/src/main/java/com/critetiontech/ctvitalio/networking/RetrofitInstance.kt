@@ -15,8 +15,8 @@ object RetrofitInstance {
 
     //Vitalio Static Development Server
 
-  //  const val StaggingbaseUrl="https://demo.vitalio.care"
-    const val StaggingbaseUrl="http://182.156.200.177"
+  //  const val StaggingbaseUrl="https://demo.vitalio.care"  //testing
+    const val StaggingbaseUrl="http://182.156.200.177" //development
     const val DEFAULT_BASE_URL = "${StaggingbaseUrl}:5082/"
     const val DEFAULT_BASE_URL_7096 = "${StaggingbaseUrl}:5096/"
     const val DEFAULT_BASE_URL_7082 = "${StaggingbaseUrl}:5082/"
@@ -25,13 +25,12 @@ object RetrofitInstance {
     const val DEFAULT_BASE_URL_5090 = "${StaggingbaseUrl}:5090/"
     const val DEFAULT_BASE_URL_5100 = "${StaggingbaseUrl}:5100/"
     const val  shopright = "http://food.shopright.ai:3478/api/"
-    val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"
-    val holdSpeakWsUrl ="ws://182.156.200.177:8002/listen?token="
+    const val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"
+    const val holdSpeakWsUrl ="ws://182.156.200.177:8002/listen?token="
 
     private val baseOkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(createLoggingInterceptor())
-
             .connectTimeout(60, TimeUnit.SECONDS) // default is 10 seconds
             .readTimeout(60, TimeUnit.SECONDS)    // default is 10 seconds
             .writeTimeout(60, TimeUnit.SECONDS)   // default is 10 seconds

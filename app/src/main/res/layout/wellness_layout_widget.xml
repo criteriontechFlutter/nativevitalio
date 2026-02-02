@@ -92,18 +92,18 @@
 
                                 <TextView
                                     android:id="@+id/attentionBadges"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
                                     android:background="@drawable/rounded_corners"
                                     android:paddingStart="8dp"
-                                    android:paddingEnd="8dp"
                                     android:paddingTop="4dp"
+                                    android:paddingEnd="8dp"
                                     android:paddingBottom="4dp"
-                                    android:text="Need Attention"
+                                    android:text="--------"
                                     android:textColor="#EA6C00"
                                     android:textSize="10sp"
-                                    android:textStyle="bold"
-                                    android:layout_height="wrap_content"
-                                    android:layout_width="wrap_content" />
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <TextView

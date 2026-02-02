@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/widget_background">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/waterDropIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/water_drop"
+            android:src="@drawable/ic_water_drop" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/water_intake"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/refreshIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:contentDescription="Refresh"
+            android:src="@drawable/ic_refresh_shape" />
+    </LinearLayout>
+
+    <!-- Last Updated Text -->
+    <TextView
+        android:id="@+id/lastUpdatedText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last updated 5 mins ago"
+        android:textSize="11sp"
+        android:textColor="#999999"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Wave View Container -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/wave_container_background">
+
+<!--        <com.critetiontech.ctvitalio.utils.WaterWidgetWaveView-->
+<!--            android:id="@+id/waveView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+        <!-- Percentage Text Overlay -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/percentageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="48%"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="of daily goal"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"
+                android:alpha="0.8" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Controls -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:spacing="8dp"
+        android:layout_marginTop="8dp">
+
+        <!-- Water amount pills -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:spacing="6dp">
+
+            <Button
+                android:id="@+id/pill100ml"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:text="100ml"
+                android:textSize="10sp"
+                android:background="@drawable/pill_button_background"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/pill150ml"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:text="150ml"
+                android:textSize="10sp"
+                android:background="@drawable/pill_button_background"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/pill200ml"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:text="200ml"
+                android:textSize="10sp"
+                android:background="@drawable/pill_button_background"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Add Button -->
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="48dp"
+            android:layout_height="36dp"
+            android:text="Add"
+            android:textSize="10sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/add_button_background" />
+    </LinearLayout>
+
+    <!-- Amount Display -->
+    <TextView
+        android:id="@+id/amountText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="200ml"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

@@ -59,6 +59,22 @@
             android:name=".UI.fragments.MedicationFragment"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
+
+        <!-- Widget Provider -->
+        <receiver
+            android:name=".widgets.WaterIntakeWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.critetiontech.ctvitalio.ADD_WATER" />
+                <action android:name="com.critetiontech.ctvitalio.RESET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/water_intake_widget_info" />
+        </receiver>
         <activity
             android:name=".UI.ChangePassword"
             android:exported="false" />
