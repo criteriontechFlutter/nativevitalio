@@ -1,60 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="@drawable/voice_bg_gradient"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/websocket_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:text="Connecting..."
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="34sp" />
-    <!-- Title -->
-
-    <!-- Hint -->
-
-    <!-- Floating Mic Icon in Dashboard FAB position -->
-
-    <TextView
-        android:id="@+id/voice_transcript"
+    <!-- CONTENT LAYER -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/voice_hint"
-        android:layout_marginBottom="315dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text=""
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/voice_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="42dp"
-        android:text="Speak to add your vitals or report your symptoms"
-        android:textColor="@android:color/white"
-        android:textSize="14sp" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <!-- Transcript -->
+        <TextView
+            android:id="@+id/voice_transcript"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginBottom="24dp" />
 
-    <ImageView
-        android:id="@+id/voice_button"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/rounded_corners"
-        android:contentDescription="Mic Button"
-        android:padding="10dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/doctors"
-        app:tint="@android:color/white" />
-</RelativeLayout>
+        <!-- Spacer -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Hint -->
+        <TextView
+            android:id="@+id/voice_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Track your vitals effortlessly\nwith voice logging."
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:layout_marginBottom="32dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <!-- Left spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+            <!-- Mic button (centered) -->
+            <ImageView
+                android:id="@+id/voice_button"
+                android:layout_width="111dp"
+                android:layout_height="111dp"
+                android:contentDescription="Mic"
+                android:src="@drawable/micpng" />
+
+            <!-- Right spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Close button (right) -->
+            <ImageView
+                android:id="@+id/ic_close"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:contentDescription="Close"
+                android:src="@drawable/ic_close"
+                app:tint="@color/bgDark2"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- OVERLAY LAYER (on top) -->
+
+</LinearLayout>

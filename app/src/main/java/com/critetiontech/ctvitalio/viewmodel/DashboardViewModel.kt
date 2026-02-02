@@ -1124,7 +1124,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                     // ⭐ SAFE total quantity
                     val totalQty = (parsed.responseValue ?: emptyList()).sumOf { it.quantity } .roundToInt()
-                    _totalQuantity.value = totalQty
+                    _totalQuantity.postValue(totalQty)
 
                     Log.e("VoicePost", "totalQty: ${totalQty}")
                     // ⭐ SAFE last drink

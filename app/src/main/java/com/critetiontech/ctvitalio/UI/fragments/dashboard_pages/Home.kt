@@ -120,7 +120,7 @@ class Home : Fragment() {
                 )
 
                 itemBinding.progressSteps.progress = item.Score.toInt()
-                itemBinding.tvStepsLabel.text = item.Title
+                itemBinding.tvStepsLabel?.text = item.Title
                 itemBinding.tvStepsValue.text = item.Score.toInt().toString()
 
                 when (item.State) {

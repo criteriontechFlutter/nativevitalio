@@ -76,7 +76,7 @@ data class EmployeeGoal(
     val vmId: Int,
     val goalId: Int,
     val vitalName: String,
-    val targetValue: Int,
+    val targetValue: Int?,
     val unit: String
 )
 

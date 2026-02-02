@@ -291,10 +291,10 @@ class Dashboard  : Fragment() {
                 else -> android.R.color.holo_orange_light
             }
 
-            voiceDialog?.findViewById<TextView>(R.id.websocket_status)?.apply {
-                text = statusText
-                setTextColor(ContextCompat.getColor(requireContext(), statusColor))
-            }
+//            voiceDialog?.findViewById<TextView>(R.id.websocket_status)?.apply {
+//                text = statusText
+//                setTextColor(ContextCompat.getColor(requireContext(), statusColor))
+//            }
         }
     }
 

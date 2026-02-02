@@ -10,7 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"    android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:background="@drawable/rounded_corners"
         android:orientation="vertical">
 
@@ -50,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="900 ml consumed — 2100 ml to go"
+            android:text=" 0 ml consumed — 2100 ml to go"
             android:textSize="12sp"
             android:textColor="#808C9A" />
 

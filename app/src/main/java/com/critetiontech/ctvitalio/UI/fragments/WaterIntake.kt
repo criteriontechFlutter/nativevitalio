@@ -1,5 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import PrefsManager
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -47,6 +49,7 @@ class WaterIntakeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,9 +72,9 @@ class WaterIntakeFragment : Fragment() {
             adapter.updateData(it)
             updateEmptyState()
         }
+        binding.tvGoalLabel.text= "Goal "+PrefsManager().getEmployeeGoals().find { it.goalId == 13}.toString()
 
-
-        viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
+            viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
 
             // Total ML
             binding.tvTotalMl.text = "$totalMl ml"
@@ -118,8 +121,7 @@ class WaterIntakeFragment : Fragment() {
             val level =
                 (selectedGlassSize / dailyGoalMl).coerceIn(0f, 1f)
 
-            binding.waterRing.setLevel(level   )
-        }
+         }
 
         /** ----------------------------
          * Add Intake Button
