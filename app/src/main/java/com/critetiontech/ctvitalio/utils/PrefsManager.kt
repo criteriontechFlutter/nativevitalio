@@ -68,7 +68,8 @@ data class Patient(
     val isFirstLoginCompleted: Int,
 
 
-
+    // JSON STRING
+    val leaderboardData: String?,
     val employeegoalsDetails: String
 )
 data class EmployeeGoal(
@@ -79,7 +80,15 @@ data class EmployeeGoal(
     val targetValue: Int?,
     val unit: String
 )
-
+data class LeaderboardItem(
+    val totalGems: String,
+    val totalChallenge: String,
+    val empId: String,
+    val empName: String,
+    val imageURL: String,
+    val totalPoints: Int,
+    val rank: Int
+)
 class PrefsManager {
     val context = MyApplication.appContext
     private val sharedPref = context.getSharedPreferences("patient_prefs", Context.MODE_PRIVATE)
