@@ -231,7 +231,7 @@
         <!-- ADD BUTTON -->
         <!-- ===================== -->
 
-        <com.google.android.material.button.MaterialButton
+        <com.critetiontech.ctvitalio.utils.CustomRoundedButton
             android:id="@+id/btn_add_intake"
             android:layout_width="0dp"
             android:layout_height="52dp"
@@ -241,6 +241,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
+            android:backgroundTint="@color/primaryBlue"
             android:background="@drawable/rounded_coner_pc"
             app:layout_constraintTop_toBottomOf="@id/chipGroup_sizes"
             app:layout_constraintStart_toStartOf="parent"
