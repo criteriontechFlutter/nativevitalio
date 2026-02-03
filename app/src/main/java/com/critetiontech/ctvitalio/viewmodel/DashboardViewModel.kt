@@ -570,6 +570,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun postAnalyzedVoiceData(context: Context, transcript: String) {
         val patient = PrefsManager().getPatient() ?: return
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())

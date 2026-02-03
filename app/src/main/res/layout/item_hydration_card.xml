@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Hydration due - last drink 2 hrs ago."
+                android:text="Hydration due - last drink 0 hrs ago."
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000" />
