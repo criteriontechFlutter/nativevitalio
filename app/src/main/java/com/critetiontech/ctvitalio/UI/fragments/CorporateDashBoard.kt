@@ -158,6 +158,14 @@ class CorporateDashBoard : Fragment() {
         binding.notificationIcon.setOnClickListener {
 
         }
+        binding.ringIcon.setOnClickListener {
+
+            startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
+//
+
+
+
+        }
 
         binding.headerContainer.setOnClickListener {
 
@@ -323,14 +331,6 @@ class CorporateDashBoard : Fragment() {
                 }
             )
 
-            binding.ringIcon.setOnClickListener {
-
-                startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
-//
-
-
-
-            }
 
 
             binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
@@ -1659,11 +1659,11 @@ fun Int.withAlpha(alpha: Float): Int {
 
 private fun getProgressColor(progress: Int): Int {
         return when {
-            progress <=  10 -> Color.RED
-            progress <= 30 -> Color.parseColor("#FFA500") // Orange
-            progress <= 60 -> Color.parseColor("#2196F3") // Blue
-            progress >= 80 -> Color.GREEN
-            else -> Color.GRAY
+            progress <=  10 ->  Color.parseColor("#FF3737")
+            progress <= 30 -> Color.parseColor("#FEA33C") // Orange
+            progress <= 60 -> Color.parseColor("#1281FD") // Blue
+            progress >= 80 ->  Color.parseColor("#00C67A")
+            else ->  Color.parseColor("#2196F3")
         }
     }
 //    private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
@@ -1949,6 +1949,7 @@ private fun updateProgress(unit: String) {
 
     private fun showCustomLoader(show: Boolean) {
 //        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+       // binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun refreshDashboardData() {

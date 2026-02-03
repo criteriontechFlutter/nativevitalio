@@ -21,7 +21,7 @@ import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.Home
 import com.critetiontech.ctvitalio.UI.ResetPassword
-import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
 import com.critetiontech.ctvitalio.adapter.SetYourOwnGoalAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSetYourOwnGoalBinding
 import com.critetiontech.ctvitalio.model.SetGoalModel
@@ -181,7 +181,7 @@ class SetYourOwnGoal : Fragment() {
         }
 
         binding.btnNext.setOnClickListener(){
-            ConfirmUpdateDialog(
+            ConfirmUpdateBottomSheet(
                 title = "All Done! Your Profile is Ready",
                 message = "Welcome aboard!\nLet's take you to your dashboard.",
                 btnText = "Continue to Dashboard",
@@ -216,7 +216,7 @@ class SetYourOwnGoal : Fragment() {
                      )
                 },
 
-                ).show(childFragmentManager, ConfirmUpdateDialog.TAG)
+                ).show(childFragmentManager, ConfirmUpdateBottomSheet.TAG)
         }
 
 

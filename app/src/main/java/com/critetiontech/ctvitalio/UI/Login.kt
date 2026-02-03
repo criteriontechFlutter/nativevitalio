@@ -3,8 +3,6 @@ package com.critetiontech.ctvitalio.UI
 import Patient
 import PrefsManager
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.*
 import android.text.Editable
 import android.text.InputType
@@ -12,9 +10,7 @@ import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -22,13 +18,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateDialog
 import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import androidx.core.graphics.toColorInt
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
 
 class Login : BaseActivity() {
 
@@ -183,7 +179,7 @@ class Login : BaseActivity() {
         val isFirstLogin = (prefs?.isFirstLoginCompleted ?: 1) == 0
 
         if (isFirstLogin) {
-            ConfirmUpdateDialog(
+            ConfirmUpdateBottomSheet(
                 title = "Login Successful",
                 message = "Hello $name, welcome to Vitalio.\nLet's secure your account with a new password.",
                 btnText = "Change Password",
@@ -192,7 +188,7 @@ class Login : BaseActivity() {
                     intent.putExtra("oldPassword", binding.passField.text.toString())
                     startActivity(intent)
                 }
-            ).show(supportFragmentManager, ConfirmUpdateDialog.TAG)
+            ).show(supportFragmentManager,  ConfirmUpdateBottomSheet.TAG)
         } else {
             startActivity(Intent(this, Home::class.java))
         }

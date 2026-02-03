@@ -46,6 +46,7 @@
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -166,12 +167,12 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:contentDescription="TODO"
-                    android:importantForAccessibility="no"
+  android:clickable="true"
                     android:padding="6dp"
                     android:src="@drawable/ring"
-                    app:layout_constraintBottom_toBottomOf="@+id/greeting_container"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/greeting_container"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:tint="@android:color/white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
