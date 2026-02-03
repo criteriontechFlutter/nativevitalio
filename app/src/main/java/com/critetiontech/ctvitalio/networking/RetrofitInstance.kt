@@ -3,13 +3,17 @@ import com.critetiontech.ctvitalio.networking.RetrofitFactory
 
 object RetrofitInstance {
 
-    const val DEFAULT_BASE_URL = "http://182.156.200.177:5082/"
-    const val DEFAULT_BASE_URL_7096 = "http://182.156.200.177:5096/"
-    const val DEFAULT_BASE_URL_7083 = "http://182.156.200.177:5083/"
-    const val DEFAULT_BASE_URL_7082 = "http://182.156.200.177:5082/"
-    const val DEFAULT_BASE_URL_5119 = "http://182.156.200.177:5119/"
-    const val DEFAULT_BASE_URL_5100 = "http://182.156.200.177:5100/"  //ok
-    const val DEFAULT_BASE_URL_5090 = "http://182.156.200.177:5090/"
+    //const val  BASE_URL="http://182.156.200.177";
+    const val  BASE_URL="https://demo.vitalio.care";
+
+
+    const val DEFAULT_BASE_URL = "${BASE_URL}:5082/"
+    const val DEFAULT_BASE_URL_7096 = "${BASE_URL}:5096/"
+    const val DEFAULT_BASE_URL_7083 = "${BASE_URL}:5083/"
+    const val DEFAULT_BASE_URL_7082 = "${BASE_URL}:5082/"
+    const val DEFAULT_BASE_URL_5119 = "${BASE_URL}:5119/"
+    const val DEFAULT_BASE_URL_5100 = "${BASE_URL}:5100/"  //ok
+    const val DEFAULT_BASE_URL_5090 = "${BASE_URL}:5090/"
     const val SHOPRIGHT = "http://food.shopright.ai:3478/api/"
 
     val uploadLabreportUrl = "http://182.156.200.178:8016/uploadLabreport/"

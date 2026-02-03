@@ -124,7 +124,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
                 /* This response is of type Response<ResponseBody> */
                 val response = RetrofitInstance
-                    .createApiService( includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(url = ApiEndPoint().insertPatientMedication, body = queryParams    )
                 getAllPatientMedication()
                 _loading.value = false
