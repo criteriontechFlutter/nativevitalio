@@ -53,14 +53,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:translationY="-23dp">
-
-            <ImageView
-                android:id="@+id/thirdUser"
+            <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@drawable/avatar_border_gold"
-                android:src="@drawable/diamond"  />
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/circle_border_3"
+                android:padding="2dp">
+
+                <ImageView
+                    android:id="@+id/thirdUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/badge"
@@ -73,11 +78,12 @@
         <!-- Name below avatar -->
         <TextView
             android:id="@+id/name_left"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:text="Darrell Steward"
             android:textColor="#1E1E1E"
+            android:gravity="center_horizontal"
             android:textSize="12sp"
             android:translationY="-18dp"
             app:layout_constraintTop_toBottomOf="@id/avatar_left"
@@ -90,7 +96,7 @@
             android:layout_width="103dp"
             android:layout_height="127dp"
             android:layout_marginTop="36dp"
-            app:cardBackgroundColor="#4FA3A5"
+            app:cardBackgroundColor="#92FF77"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -116,14 +122,14 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:contentDescription="gem"
-                    android:src="@drawable/diamond" />
+                    android:src="@drawable/gem" />
 
                 <TextView
                     android:id="@+id/score_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="350"
+                    android:text="0"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -152,13 +158,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:translationY="-23dp">
 
-            <ImageView
-                android:id="@+id/firstUser"
+            <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@drawable/avatar_border_gold"
-                android:src="@drawable/diamond"  />
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/circle_border_1"
+                android:padding="2dp">
+
+                <ImageView
+                    android:id="@+id/firstUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/badge_center"
@@ -171,12 +183,13 @@
         <!-- Name below avatar -->
         <TextView
             android:id="@+id/name_center"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:text="Darrell Steward"
             android:textColor="#1E1E1E"
-            android:textSize="-12sp"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
             android:translationY="-18dp"
             app:layout_constraintTop_toBottomOf="@id/avatar_center"
             app:layout_constraintStart_toStartOf="parent"
@@ -188,7 +201,7 @@
             android:layout_width="103dp"
             android:layout_height="199dp"
             android:layout_marginTop="36dp"
-            app:cardBackgroundColor="#F75435"
+            app:cardBackgroundColor="#FFA077"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -206,7 +219,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50dp"
                     android:contentDescription="medal"
-                    android:src="@drawable/medal3"
+                    android:src="@drawable/medal1"
                     android:translationY="-46dp" />
 
                 <ImageView
@@ -214,14 +227,14 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:contentDescription="gem"
-                    android:src="@drawable/diamond" />
+                    android:src="@drawable/gem" />
 
                 <TextView
                     android:id="@+id/score_center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="350"
+                    android:text="0"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -251,13 +264,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:translationY="-23dp">
 
-            <ImageView
-                android:id="@+id/secondUser"
+            <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@drawable/avatar_border_gold"
-                android:src="@drawable/diamond"  />
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/circle_border_2"
+                android:padding="2dp">
+
+                <ImageView
+                    android:id="@+id/secondUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/badge_right"
@@ -270,12 +289,14 @@
         <!-- Name below avatar -->
         <TextView
             android:id="@+id/name_right"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+             android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="4dp"
             android:text="Darrell Steward"
             android:textColor="#1E1E1E"
-            android:textSize="-12sp"
+            android:textSize="12sp"
             android:translationY="-18dp"
             app:layout_constraintTop_toBottomOf="@id/avatar_right"
             app:layout_constraintStart_toStartOf="parent"
@@ -287,7 +308,7 @@
             android:layout_width="103dp"
             android:layout_height="140dp"
             android:layout_marginTop="36dp"
-            app:cardBackgroundColor="#FDAE38"
+            app:cardBackgroundColor="#77B7FF"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -305,22 +326,22 @@
                     android:layout_width="40dp"
                     android:layout_height="50dp"
                     android:contentDescription="medal"
-                    android:src="@drawable/medal3"
-                    android:translationY="-46dp" />
+                    android:src="@drawable/medal2"
+                    android:translationY="-14dp" />
 
                 <ImageView
-                    android:id="@+id/gem_right"
+                    android:id="@+id/gem_rights"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:contentDescription="gem"
-                    android:src="@drawable/diamond" />
+                    android:src="@drawable/gem" />
 
                 <TextView
                     android:id="@+id/score_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="350"
+                    android:text="0"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -335,17 +356,128 @@
 
     <!-- RecyclerView for lower ranks -->
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:id="@+id/playerList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        android:scrollbars="vertical"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/white"
+        android:background="@color/white"
+
+         android:layout_marginTop="6dp"
+        android:padding="16dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerId"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-16dp" />
+        tools:layout_editor_absoluteX="-16dp">
+
+
+        android:layout_height="wrap_content"  />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_item_player"
+        android:backgroundTint="#77B7FF"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/rankText"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/circle_border_3"
+            android:padding="2dp">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+        </FrameLayout>
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="16sp"
+            android:background="@drawable/bg_item_player"
+            android:backgroundTint="@color/green"
+            android:layout_marginBottom="8dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You"
+                android:drawablePadding="4dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_item_player"
+            android:backgroundTint="@color/white"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/gem_right"
+                android:layout_width="21dp"
+                android:layout_height="wrap_content"
+                android:paddingEnd="4dp"
+                android:src="@drawable/gem" />
+
+            <TextView
+                android:id="@+id/gemText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:drawablePadding="4dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="8dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playerListdata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         android:background="@drawable/rounded_corners"
+        android:clipToPadding="false"
+
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical"  />
+    </LinearLayout>
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

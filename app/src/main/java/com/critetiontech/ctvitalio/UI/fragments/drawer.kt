@@ -18,6 +18,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -41,6 +42,7 @@ import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
 import com.critetiontech.ctvitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.utils.ImagePickerUtil
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.DrawerViewModel
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -54,6 +56,7 @@ class drawer : Fragment() {
     private lateinit var binding: FragmentDrawerBinding
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var drawerViewModel: DrawerViewModel
+    private lateinit var viewModel: DashboardViewModel
 
     private var imageUri: Uri? = null
     private var imageFile: File? = null
@@ -151,6 +154,7 @@ class drawer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         drawerViewModel = ViewModelProvider(this)[DrawerViewModel::class.java]
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.white,
             navBarColor = R.color.white,
@@ -159,6 +163,23 @@ class drawer : Fragment() {
         setupObservers()
         setupListeners()
         initDrawerLayout()
+//        Glide.with(MyApplication.appContext)
+//            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+//            .placeholder(R.drawable.baseline_person_24)
+//            .circleCrop()
+//            .into(binding.avatar)
+//        viewModel.insightWrapperList.observe(viewLifecycleOwner) { insight ->
+//            binding.progressCircler.animateProgress(insight?.wellnessScore?.toString()?.toFloat() ?: 0f)
+//
+//            binding.progressCircler.animateProgress(10f)
+//             (requireActivity() as? BaseActivity)?.setSystemBarsColor(
+//                statusBarColor = R.color.primaryBlue,
+//                navBarColor = R.color.white,
+//                lightIcons = true
+//
+//
+//            )
+//        }
 
         val patient = PrefsManager().getPatient()
         binding.userName.text = patient?.patientName ?: ""
@@ -180,6 +201,8 @@ class drawer : Fragment() {
 
 
     }
+
+
 
 
     private var tempImageUri: Uri? = null

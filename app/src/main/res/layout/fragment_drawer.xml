@@ -64,6 +64,36 @@ android:background="#F7F9FB"
                 </LinearLayout>
 
 
+                    <!-- Avatar with Progress Ring -->
+<!--                    <FrameLayout-->
+<!--                        android:id="@+id/avatar_container"-->
+<!--                        android:layout_width="60dp"-->
+<!--                        android:layout_height="60dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                        &lt;!&ndash; Circular Progress Bar &ndash;&gt;-->
+<!--                        <com.critetiontech.ctvitalio.utils.CircularProgressView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:id="@+id/progressCircler"-->
+<!--                            android:layout_height="match_parent"/>-->
+
+<!--                        &lt;!&ndash; Avatar &ndash;&gt;-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/avatar"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:padding="2dp"-->
+<!--                            android:scaleType="centerCrop"-->
+<!--                            android:src="@drawable/profile" />-->
+
+<!--                        &lt;!&ndash; Badge &ndash;&gt;-->
+
+<!--                    </FrameLayout>-->
+
+
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -93,6 +123,14 @@ android:background="#F7F9FB"
                         app:tint="@android:color/white" />
                 </FrameLayout>
 
+
+                <ImageView
+                    android:id="@+id/profile_badge"
+                    android:layout_width="90dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:elevation="6dp"
+                    android:src="@drawable/badge_user" />
 
                 <TextView
                     android:layout_width="wrap_content"

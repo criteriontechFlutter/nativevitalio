@@ -98,6 +98,7 @@ class CorporateDashBoard : Fragment() {
     private var voiceDialog: Dialog? = null
     private lateinit var voiceButton: ImageView
    private lateinit var closeButton: ImageView
+    private lateinit var testv: TextView
     private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
@@ -118,9 +119,9 @@ class CorporateDashBoard : Fragment() {
     private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
 
-    private var authService: AuthorizationService? = null
-    private var currentIndex = 0
-    private val totalIndicators = 3
+    private val micStatusHandler = Handler(Looper.getMainLooper())
+    private var micStatusRunnable: Runnable? = null
+
     private val moods = listOf(
         MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
         MoodData(6,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
@@ -131,7 +132,11 @@ class CorporateDashBoard : Fragment() {
 
     )
     private var isFabOpen = false
+    private var audioRecords: AudioRecord? = null
+    private var isRecordings = false
 
+    private var lastVoiceTime =  0L
+    private   val SILENCE_TIMEOUT = 5000L // 5 seconds
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -425,8 +430,11 @@ class CorporateDashBoard : Fragment() {
              }
              findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
         }
-        binding.voiceAssistantId.setOnClickListener {        binding.popupContainer.isVisible = false
-
+        binding.voiceAssistantId.setOnClickListener {
+             binding.fabIcon.animate().rotation(0f).setDuration(300).start()
+            binding.fabIcon.setImageResource(R.drawable.raddimg)
+            isFabOpen = false
+            hidePopup()
             showVoiceOverlay()
             connectWebSocket()
             checkAndStartAudio()        }
@@ -1005,6 +1013,106 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
     private fun dpToPx(dp: Float): Float {
         return dp * resources.displayMetrics.density
     }
+//    private fun monitorSilence() {
+//        Thread {
+//            val buffer = ShortArray(1024)
+//
+//            while (isRecording && audioRecord != null) {
+//
+//                val read = audioRecord!!.read(buffer, 0, buffer.size)
+//
+//                if (read > 0) {
+//                    var sum = 0.0
+//                    for (i in 0 until read) {
+//                        sum += buffer[i] * buffer[i]
+//                    }
+//                    val rms = kotlin.math.sqrt(sum / read)
+//
+//                    // 🗣 User is speaking
+//                    if (rms > 2000) {
+//                        lastVoiceTime = System.currentTimeMillis()
+//                    }
+//                }
+//
+//                // ⏱ No speech for 5 sec → OFF
+//                if (System.currentTimeMillis() - lastVoiceTime >= SILENCE_TIMEOUT) {
+//                    stopMic()
+//                    break
+//                }
+//
+//                Thread.sleep(200)
+//            }
+//        }.start()
+//    }
+    private fun stopMic() {
+        if (!isRecording) return
+
+        isRecording = false
+
+        try {
+            audioRecord?.stop()
+            audioRecord?.release()
+        } catch (_: Exception) {}
+
+        audioRecord = null
+    }
+    private fun startMicStatusMonitor() {
+        micStatusRunnable = object : Runnable {
+            override fun run() {
+                val isOn = isMicOn()
+
+                // 🔄 Use status here
+                Log.d("MIC_STATUS", if (isOn) "MIC ON" else "MIC OFF")
+
+                // Example UI update
+//
+//                testv = voiceDialog?.findViewById(R.id.voice_hinteest)!!
+//
+//                 testv.text =
+//                    if (isOn) "🎙 Mic Active" else "Mic Off"
+
+                micStatusHandler.postDelayed(this, 500) // check every 500ms
+            }
+        }
+        micStatusHandler.post(micStatusRunnable!!)
+    }
+
+    private fun monitorSilence() {
+        Thread {
+            val buffer = ShortArray(1024)
+
+            while (isRecording && audioRecord != null) {
+
+                val read = audioRecord!!.read(buffer, 0, buffer.size)
+
+                if (read > 0) {
+                    var sum = 0.0
+                    for (i in 0 until read) {
+                        sum += buffer[i] * buffer[i]
+                    }
+                    val rms = kotlin.math.sqrt(sum / read)
+
+                    if (rms > 500 && rms < 15000) {
+                        lastVoiceTime = System.currentTimeMillis()
+                    }
+                }
+
+                // ⏱️ Stop mic after 5 sec silence
+                if (System.currentTimeMillis() - lastVoiceTime >= SILENCE_TIMEOUT) {
+                    stopAudioStreaming()
+                    break
+                }
+
+                Thread.sleep(200)
+            }
+        }.start()
+    }
+
+    private fun isMicOn(): Boolean {
+        return audioRecord?.recordingState == AudioRecord.RECORDSTATE_RECORDING
+    }
+
+
     fun getPastelColor(hexColor: String): Int {
         val color = Color.parseColor(hexColor)
         val hsv = FloatArray(3)
@@ -1120,7 +1228,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         }
     }
 
-    private fun showVoiceOverlay() {
+    private fun showVoiceOverlay() {startMicStatusMonitor()
         if (voiceDialog == null) {
             voiceDialog = Dialog(requireContext(), android.R.style.Theme_DeviceDefault_NoActionBar)
             voiceDialog?.setContentView(R.layout.dialog_voice_input)
@@ -1278,6 +1386,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
                 }
             }
         }.start()
+//        monitorSilence()
     }
     private fun disconnectWebSocket() {
         webSocket?.close(1000, "Closing")
@@ -1839,6 +1948,7 @@ private fun updateProgress(unit: String) {
     }
 
     private fun showCustomLoader(show: Boolean) {
+//        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
        // binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
     }
 

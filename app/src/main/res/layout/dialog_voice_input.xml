@@ -7,6 +7,16 @@
     android:background="@drawable/voice_bg_gradient"
     android:padding="16dp">
 
+    <!-- Transcript -->
+    <TextView
+        android:id="@+id/connectionStatuss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp" />
+
     <!-- CONTENT LAYER -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,6 +55,13 @@
             android:textSize="18sp"
             android:layout_marginBottom="32dp" />
 
+        <!-- Hint -->
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifImage"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:src="@drawable/voice_wave"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,13 +80,13 @@
                 android:layout_height="1dp"
                 android:layout_weight="1" />
             <!-- Mic button (centered) -->
-            <ImageView
-                android:id="@+id/voice_button"
-                android:layout_width="111dp"
-                android:layout_height="111dp"
-                android:contentDescription="Mic"
-                android:src="@drawable/micpng" />
 
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/voice_button"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/micgif"/>
             <!-- Right spacer -->
             <View
                 android:layout_width="0dp"
