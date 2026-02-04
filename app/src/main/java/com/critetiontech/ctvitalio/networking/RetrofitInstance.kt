@@ -176,17 +176,7 @@ object RetrofitInstance {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-//    private fun generateAuthHeaderMap(includeAuth: Boolean ): Map<String, String> {
-//        return if (includeAuth) {
-//            mapOf(
-//                "Authorization" to "Bearer  ",
-//                "Content-Type" to "application/json"
-//                // Add more headers if needed
-//            )
-//        } else {
-//            emptyMap()
-//        }
-//    }
+
 
     private fun generateAuthHeaderMap(
         includeAuth: Boolean,

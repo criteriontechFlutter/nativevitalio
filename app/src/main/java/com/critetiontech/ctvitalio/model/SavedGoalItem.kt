@@ -27,3 +27,28 @@ data class SmartGoalResponse(
     val message: String,
     val responseValue: List<GoalCategoryResponse>
 )
+
+
+data class SmartGoalResponseForAdded (
+
+   var status        : Int?           = null,
+   var message       : String?        = null,
+    var responseValue : ResponseValue? = ResponseValue()
+
+)
+
+
+data class ResponseValue (
+
+   var goalSummary   : String?                  = null,
+   var employeeGoals : ArrayList<EmployeeGoals> = arrayListOf()
+
+)
+
+data class EmployeeGoals (
+
+   var categoryId   : Int?             = null,
+    var categoryName : String?          = null,
+    var goals        : ArrayList<GoalItem> = arrayListOf()
+
+)

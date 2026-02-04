@@ -72,6 +72,7 @@ import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.networking.RetrofitInstance.StaggingbaseUrl
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.applyStatusStyle
@@ -284,7 +285,7 @@ class CorporateDashBoard : Fragment() {
             }
         }
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .load(RetrofitInstance.StaggingbaseUrl+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.avatar)
