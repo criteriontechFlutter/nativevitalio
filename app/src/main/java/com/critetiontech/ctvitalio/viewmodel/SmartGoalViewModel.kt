@@ -124,7 +124,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
 
 
     fun updatePinStatus(id: Int, isPinned: Int) {
-        Log.d("TAG", "updatePinStatus: "+isPinned.toString())
+        Log.d("TAG", "updatePinStatus: $isPinned")
         viewModelScope.launch {
             _loading.value = true
             try {
