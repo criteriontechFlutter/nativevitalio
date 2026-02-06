@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.fragments.User
 import com.critetiontech.ctvitalio.databinding.ItemPlayerBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 
 class LeaderboardAdapter(
     private val users: List<LeaderboardItem>
@@ -46,13 +47,13 @@ class LeaderboardAdapter(
             // Profile image
             if (user.imageURL != "0") {
                 Glide.with(profileImage.context)
-                    .load("http://182.156.200.177:5082/"+ user.imageURL.replace("\\", "/"))
-                    .placeholder(R.drawable.person_badge)
-                    .error(R.drawable.person_badge)
-                    .circleCrop()
+                    .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                    .circleCrop().placeholder(R.drawable.person )
+                    .error(R.drawable.person )
                     .into(profileImage)
             } else {
-                profileImage.setImageResource(R.drawable.person_badge)
+                profileImage.setImageResource(R.drawable.person)
             }
         }
     }

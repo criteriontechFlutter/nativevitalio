@@ -39,6 +39,7 @@ import com.canhub.cropper.CropImageView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.BaseActivity
 import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.utils.ImagePickerUtil
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -46,6 +47,7 @@ import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.DrawerViewModel
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import retrofit2.Retrofit
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -186,7 +188,7 @@ class drawer : Fragment() {
         binding.userUhid.text = patient?.mobileNo ?: ""
 
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.userImage)

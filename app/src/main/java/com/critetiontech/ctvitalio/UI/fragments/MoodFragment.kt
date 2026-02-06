@@ -31,6 +31,7 @@ import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
 import androidx.core.graphics.toColorInt
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 
 class MoodFragment : Fragment() {
 
@@ -157,7 +158,7 @@ class MoodFragment : Fragment() {
         binding.userName2.text = PrefsManager().getPatient()?.patientName ?: ""
 
         Glide.with(this)
-            .load("http://182.156.200.177:5082/" + (PrefsManager().getPatient()?.imageURL ?: ""))
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/" + (PrefsManager().getPatient()?.imageURL ?: ""))
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.userAvatar)

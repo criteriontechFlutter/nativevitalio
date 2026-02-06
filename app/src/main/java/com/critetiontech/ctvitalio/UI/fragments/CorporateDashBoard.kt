@@ -284,7 +284,7 @@ class CorporateDashBoard : Fragment() {
             }
         }
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.avatar)
@@ -1319,6 +1319,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
                 }
             }
 
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
                 Log.d("WebSocketState", "DISCONNECTED: $code | $reason")
                 viewModel.setWebSocketState(WebSocketState.DISCONNECTED)
@@ -1726,22 +1727,65 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
         // ✅ SAFE progress calculation
         val progress = if (item.targetValue.toInt() > 0) {
-            ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
+            if(item.vmId.toString()=="298"){
+                (((item.vitalValue/  1000) / item.targetValue.toFloat() ) * 100).toInt()
+            }else{
+
+                ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
+            }
         } else {
             0
         }
 
-        // ✅ Set progress
-        if(progress.toString()=="0"){
-            itemBinding.progressSteps.progress = 1
-        }else{
-            itemBinding.progressSteps.progress = progress
 
-        }
+
+        if(progress.toString()=="0"){
+        itemBinding.progressSteps.progress = 1
+    }else{
+        itemBinding.progressSteps.progress = progress
+
+    }
         // ✅ Set texts
         itemBinding.tvStepsLabel?.text = item.goalName+" "+progress+"% "
-        itemBinding.tvStepsValue.text =
-            "${item.vitalValue.toInt()} / ${item.targetValue}"
+        if(item.vmId.toString()=="298"){
+
+            itemBinding.tvStepsValue.text =
+                "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000}"
+        }else{
+
+            itemBinding.tvStepsValue.text =
+                "${item.vitalValue.toInt()} / ${item.targetValue}"
+        }
+        if(item.vmId.toString()=="248"){
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.steps_p)
+        }
+        else if(item.vmId.toString()=="298"){
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.water_p)
+
+        }
+        else if(item.vmId.toString()=="300"){
+
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.sleep_p)
+        }
+        else if(item.vmId.toString()=="301"){
+
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.glucose_p)
+        }
+        else if(item.vmId.toString()=="302"){
+
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.bp_p)
+        }
+
 
         // ✅ Progress-based color
         val progressColor = getProgressColor(progress)
@@ -1898,13 +1942,11 @@ private fun updateProgress(unit: String) {
     viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue  ->
         val goal = goalEntry?.targetValue ?: 0  // safe
         val remaining = goal?.minus(totalValue)
-
         if(totalValue< remaining!!){
             binding.hydrationCardId.tvHydrationProgress.text =
                 "${totalValue} $unit consumed — ${remaining*1000} $unit to go"
         }
         else{
-
             binding.hydrationCardId.tvHydrationProgress.text =
                 "${totalValue} $unit consumed — targed ${goal*1000} $unit "
         }

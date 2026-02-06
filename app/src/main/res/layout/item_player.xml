@@ -2,7 +2,7 @@
     android:id="@+id/itemRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="8dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:background="@drawable/bg_item_player"
@@ -44,10 +44,9 @@
         android:padding="5dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:gravity="center_vertical"
+        android:gravity="clip_horizontal"
         android:background="@drawable/bg_item_player"
-        android:backgroundTint="#EAF4FF"
-        android:layout_marginBottom="8dp">
+        android:backgroundTint="#EAF4FF" >
 
         <ImageView
             android:id="@+id/gem_right"

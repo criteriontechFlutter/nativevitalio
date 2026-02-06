@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.UltraHumanActivity
 import com.critetiontech.ctvitalio.databinding.FragmentNewCorporateDashboardBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
@@ -90,7 +91,7 @@ class new_corporate_dashboard : Fragment() {
 
 
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.avatar)

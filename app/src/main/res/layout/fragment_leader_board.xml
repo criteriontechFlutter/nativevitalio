@@ -96,8 +96,7 @@
             android:layout_width="103dp"
             android:layout_height="127dp"
             android:layout_marginTop="36dp"
-            app:cardBackgroundColor="#92FF77"
-            app:cardCornerRadius="16dp"
+             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:background="@drawable/medal3_p"
                 android:orientation="vertical">
 
                 <ImageView
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="0"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -212,6 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:background="@drawable/medal1_p"
                 android:orientation="vertical">
 
                 <ImageView
@@ -235,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="0"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -319,6 +320,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:background="@drawable/medal2_p"
                 android:orientation="vertical">
 
                 <ImageView
@@ -342,7 +344,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="0"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -370,7 +372,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerId"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-16dp">
+        tools:layout_editor_absoluteX="-16dp"
+        tools:ignore="ExtraText">
 
 
         android:layout_height="wrap_content"  />
@@ -379,11 +382,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:padding="8dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_item_player"
-        android:backgroundTint="#77B7FF"
+        android:backgroundTint="#DBEAFF"
         android:layout_marginBottom="8dp">
 
         <TextView
@@ -424,8 +427,7 @@
             android:gravity="center_vertical"
             android:layout_marginEnd="16sp"
             android:background="@drawable/bg_item_player"
-            android:backgroundTint="@color/green"
-            android:layout_marginBottom="8dp">
+            android:backgroundTint="@color/green" >
 
 
             <TextView
@@ -446,8 +448,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/bg_item_player"
-            android:backgroundTint="@color/white"
-            android:layout_marginBottom="8dp">
+            android:backgroundTint="@color/white" >
 
             <ImageView
                 android:id="@+id/gem_right"

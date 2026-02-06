@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.LeaderboardAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentLeaderBoardBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -70,9 +71,10 @@ class LeaderboardFragment : Fragment() {
         binding.gemText .text  = currentEmployee?.totalPoints.toString()
 
         Glide.with(binding  .profileImage.context)
-            .load("http://182.156.200.177:5082/"+ currentEmployee?.imageURL?.replace("\\", "/"))
-            .placeholder(R.drawable.person_badge)
-            .error(R.drawable.person_badge)
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ currentEmployee?.imageURL?.replace("\\", "/"))
+
+            .circleCrop().placeholder(R.drawable.person)
+            .error(R.drawable.person)
             .circleCrop()
             .into(binding .profileImage)
         Log.d("Leaderboard", "Top1 = $top1User")
@@ -103,10 +105,10 @@ class LeaderboardFragment : Fragment() {
             // image loading optional
             // loadImage(binding.firstUser, user.imageURL)
             Glide.with(binding.firstUser.context)
-                .load("http://182.156.200.177:5082/"+ user.imageURL.replace("\\", "/"))
-                .placeholder(R.drawable.person_badge)
-                .error(R.drawable.person_badge)
-                .circleCrop()
+                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                .circleCrop().placeholder(R.drawable.person)
+                .error(R.drawable.person)
                 .into(binding.firstUser)
 
         }
@@ -117,10 +119,10 @@ class LeaderboardFragment : Fragment() {
             binding.scoreRight.text = user.totalPoints.toString()
             // loadImage(binding.secondUser, user.imageURL)
             Glide.with(binding.secondUser.context)
-                .load("http://182.156.200.177:5082/"+ user.imageURL.replace("\\", "/"))
-                .placeholder(R.drawable.person_badge)
-                .error(R.drawable.person_badge)
-                .circleCrop()
+                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                .circleCrop() .placeholder(R.drawable.person)
+                .error(R.drawable.person)
                 .into(binding.secondUser)
         }
 
@@ -130,10 +132,10 @@ class LeaderboardFragment : Fragment() {
             binding.scoreLeft.text = user.totalPoints.toString()
             // loadImage(binding.thirdUser, user.imageURL)
             Glide.with(binding.thirdUser.context)
-                .load("http://182.156.200.177:5082/"+ user.imageURL.replace("\\", "/"))
-                .placeholder(R.drawable.person_badge)
-                .error(R.drawable.person_badge)
-                .circleCrop()
+                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                .circleCrop() .placeholder(R.drawable.person)
+                .error(R.drawable.person)
                 .into(binding.thirdUser)
         }
     }
