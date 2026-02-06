@@ -54,7 +54,7 @@ class WaterRingWaveView @JvmOverloads constructor(
     init {
         // Wave color
         wavePaint.style = Paint.Style.FILL
-        wavePaint.color = "#1A85FF".toColorInt()
+        wavePaint.color = "#0A76E9".toColorInt()
 
         // Inner frosted circle
         blurPaint.color = "#80FFFFFF".toColorInt()

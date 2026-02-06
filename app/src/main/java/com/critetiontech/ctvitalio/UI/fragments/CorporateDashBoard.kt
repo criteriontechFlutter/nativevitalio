@@ -72,6 +72,9 @@ import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.networking.RetrofitInstance.StaggingbaseUrl
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.applyStatusStyle
@@ -179,9 +182,9 @@ class CorporateDashBoard : Fragment() {
             navBarColor = R.color.white,
             lightIcons = true
         )
-//        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-//            if (isLoading) showLoading() else hideLoading()
-//        }
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         binding.fabIcon.setOnClickListener {
             if (!isFabOpen) {

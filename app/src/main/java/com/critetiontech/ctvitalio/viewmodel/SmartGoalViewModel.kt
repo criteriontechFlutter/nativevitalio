@@ -7,9 +7,11 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.critetiontech.ctvitalio.model.EmployeeGoals
 import com.critetiontech.ctvitalio.model.GoalCategoryResponse
 import com.critetiontech.ctvitalio.model.GoalItem
 import com.critetiontech.ctvitalio.model.SmartGoalResponse
+import com.critetiontech.ctvitalio.model.SmartGoalResponseForAdded
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -23,8 +25,8 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
     val updateSuccess: LiveData<Boolean> = _updateSuccess
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-    private val _addedGoalItemList = MutableLiveData<List<GoalCategoryResponse>>()
-    val vitalList: LiveData<List<GoalCategoryResponse>> get() = _addedGoalItemList
+    private val _addedGoalItemList = MutableLiveData<List<EmployeeGoals>>()
+    val vitalList: LiveData<List<EmployeeGoals>> get() = _addedGoalItemList
 
     private val _allGoalList = MutableLiveData<List<GoalCategoryResponse>>()
     val allGoalList: LiveData<List<GoalCategoryResponse>> get() = _allGoalList
@@ -53,10 +55,10 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 if (response.isSuccessful) {
                     _loading.value = false
                     val json = response.body()?.string()
-                    val parsed = Gson().fromJson(json, SmartGoalResponse::class.java)
+                    val parsed = Gson().fromJson(json, SmartGoalResponseForAdded::class.java)
 
                     _loading.value = false
-                    _addedGoalItemList.value = parsed.responseValue
+                    _addedGoalItemList.value = parsed.responseValue?.employeeGoals
 
 
                 } else {
@@ -122,7 +124,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
 
 
     fun updatePinStatus(id: Int, isPinned: Int) {
-        Log.d("TAG", "updatePinStatus: "+isPinned.toString())
+        Log.d("TAG", "updatePinStatus: $isPinned")
         viewModelScope.launch {
             _loading.value = true
             try {
