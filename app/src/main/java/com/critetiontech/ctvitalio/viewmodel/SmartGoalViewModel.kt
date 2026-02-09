@@ -34,6 +34,17 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    private val _achievedGoalsCount = MutableLiveData<Int>()
+    val achievedGoalsCount: LiveData<Int> get() = _achievedGoalsCount
+
+    private val _totalGoalsCount = MutableLiveData<Int>()
+    val totalGoalsCount: LiveData<Int> get() = _totalGoalsCount
+
+    fun refreshData() {
+        _loading.value = true
+        getAddedSmartGoal()
+        getAllGoalList()
+    }
     fun getAddedSmartGoal() {
         viewModelScope.launch {
             _loading.value = true
@@ -59,6 +70,8 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
 
                     _loading.value = false
                     _addedGoalItemList.value = parsed.responseValue?.employeeGoals
+                    _achievedGoalsCount.value=parsed.responseValue?.goalSummary?.achievedGoals!!
+                    _totalGoalsCount.value=parsed.responseValue?.goalSummary?.totalGoals!!
 
 
                 } else {

@@ -49,26 +49,31 @@ class SmartGoalFragment : Fragment() {
 
         setupRecyclerView()
 
+
         viewModel.getAddedSmartGoal()
         viewModel.getAllGoalList()
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         /* --------------------- ADDED SMART GOALS LIST (MAIN SCREEN) --------------------- */
         viewModel.vitalList.observe(viewLifecycleOwner) { categoryList ->
             if (!categoryList.isNullOrEmpty()) {
-
                 val finalList = mutableListOf<Any>()
-
-
                 categoryList.forEach { category ->
                    // finalList.add(category)             // ✔ Add full category object
                     finalList.addAll(category.goals)    // ✔ Add goals
                 }
-
                 adapter.updateData(finalList, isAllGoal = false)
             }
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refreshData()
+        }
 
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = it
+        }
 
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -246,7 +251,7 @@ class SmartGoalFragment : Fragment() {
         )
 
         adapter.updateData(finalList, isAllGoal = false)
-        binding.centerIcon.text=finalList.size.toString()
+//        binding.centerIcon.text=finalList.size.toString()
         recyclerView.adapter = adapter
 
         dialog.show()
