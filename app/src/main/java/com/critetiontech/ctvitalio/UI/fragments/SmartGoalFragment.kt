@@ -26,6 +26,7 @@ import com.critetiontech.ctvitalio.utils.GoalMenuHandler
 import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.core.graphics.drawable.toDrawable
 
 
 class SmartGoalFragment : Fragment() {
@@ -96,6 +97,7 @@ class SmartGoalFragment : Fragment() {
         val finalList = mutableListOf<Any>()
 
         categoryList.forEach { category ->
+            finalList.add(category)
             finalList.addAll(category.goals)
         }
 
@@ -113,12 +115,10 @@ class SmartGoalFragment : Fragment() {
 
             },
             onPinClick = { goal, category ->
-                if (category != null) {
-                    viewModel.updatePinStatus(
-                        goal.id,
-                        goal.isPinned
-                    )
-                }
+                viewModel.updatePinStatus(
+                    goal.id,
+                    goal.isPinned
+                )
 
             },
             onThreeDotClick = { goal, category,ivMenu ->
@@ -143,7 +143,7 @@ class SmartGoalFragment : Fragment() {
                     }
                 )
 
-                popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
                 popupWindow.elevation = 12f
                 popupWindow.animationStyle = R.style.PopupFadeScaleAnimation
 
