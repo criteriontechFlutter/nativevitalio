@@ -1,5 +1,7 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import LeaderboardItem
+import PrefsManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -9,16 +11,24 @@ import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.LeaderboardAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentLeaderBoardBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class LeaderboardFragment : Fragment() {
 
     private var _binding: FragmentLeaderBoardBinding? = null
     private val binding get() = _binding!!
 
-    private var isPlayerId2Visible = false // Tracks visibility state
+    // 🔹 Store Top 3 here (NOT bound to UI)
+    private var top1User: LeaderboardItem? = null
+    private var top2User: LeaderboardItem? = null
+    private var top3User: LeaderboardItem? = null
+    private var currentEmployee: LeaderboardItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,67 +42,133 @@ class LeaderboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Sample user data
-        val users = listOf(
-            User(1, "Albert Flores", 465),
-            User(2, "Jacob Jones", 360),
-            User(3, "Darrell Steward", 350),
-            User(4, "Emma Watson", 320),
-            User(5, "Chris Evans", 310),
-            User(6, "Scarlett Johansson", 300),
-            User(7, "Robert Downey", 290),
-            User(8, "Tom Holland", 280),
-            User(9, "Benedict Cumberbatch", 270)
-        )
+        val patient = PrefsManager().getPatient()
 
-        // Initial visibility
-//        binding.playerId.visibility = View.VISIBLE
-//        binding.playerId2.visibility = View.GONE
+        // 🔹 Parse leaderboard JSON
+        val leaderboardList: List<LeaderboardItem> =
+            if (!patient?.leaderboardData.isNullOrEmpty()) {
+                Gson().fromJson(
+                    patient.leaderboardData,
+                    object : TypeToken<List<LeaderboardItem>>() {}.type
+                )
+            } else {
+                emptyList()
+            }
 
-        // RecyclerView setup
-        binding.playerList.layoutManager = LinearLayoutManager(requireContext())
-        binding.playerList.adapter = LeaderboardAdapter(users)
+        Log.d("Leaderboard", "Total items = ${leaderboardList.size}")
 
-        // MotionLayout transition listener
-        binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+        // 🔹 Sort by rank (important)
+        val sortedList = leaderboardList.sortedBy { it.rank }
+
+        // 🔹 Store Top 3 ONLY
+        top1User = sortedList.getOrNull(0)
+        top2User = sortedList.getOrNull(1)
+        top3User = sortedList.getOrNull(2)
+        currentEmployee = sortedList.find { it.empId.toString() == PrefsManager().getPatient()?.empId.toString() }
+
+        binding. rankText.text= currentEmployee?.rank.toString()
+        binding. nameText.text= currentEmployee?.empName.toString()
+        binding.gemText .text  = currentEmployee?.totalPoints.toString()
+
+        Glide.with(binding  .profileImage.context)
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ currentEmployee?.imageURL?.replace("\\", "/"))
+
+            .circleCrop().placeholder(R.drawable.person)
+            .error(R.drawable.person)
+            .circleCrop()
+            .into(binding .profileImage)
+        Log.d("Leaderboard", "Top1 = $top1User")
+        Log.d("Leaderboard", "Top2 = $top2User")
+        Log.d("Leaderboard", "Top3 = $top3User")
+        bindTopThree()
+        // 🔹 Remaining users (rank 4+)
+        val remainingUsers = if (sortedList.size > 3) {
+            sortedList.drop(3)
+        } else {
+            emptyList()
+        }
+
+        // 🔹 RecyclerView (ONLY remaining users)
+        binding.playerListdata.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = LeaderboardAdapter(remainingUsers)
+        }
+
+        setupMotionListener()
+    }
+    private fun bindTopThree() {
+
+        // 🥇 Rank 1 → CENTER
+        top1User?.let { user ->
+            binding.nameCenter.text = user.empName
+            binding.scoreCenter.text = user.totalPoints.toString()
+            // image loading optional
+            // loadImage(binding.firstUser, user.imageURL)
+            Glide.with(binding.firstUser.context)
+                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                .circleCrop().placeholder(R.drawable.person)
+                .error(R.drawable.person)
+                .into(binding.firstUser)
+
+        }
+
+        // 🥈 Rank 2 → RIGHT
+        top2User?.let { user ->
+            binding.nameRight.text = user.empName
+            binding.scoreRight.text = user.totalPoints.toString()
+            // loadImage(binding.secondUser, user.imageURL)
+            Glide.with(binding.secondUser.context)
+                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                .circleCrop() .placeholder(R.drawable.person)
+                .error(R.drawable.person)
+                .into(binding.secondUser)
+        }
+
+        // 🥉 Rank 3 → LEFT
+        top3User?.let { user ->
+            binding.nameLeft.text = user.empName
+            binding.scoreLeft.text = user.totalPoints.toString()
+            // loadImage(binding.thirdUser, user.imageURL)
+            Glide.with(binding.thirdUser.context)
+                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+
+                .circleCrop() .placeholder(R.drawable.person)
+                .error(R.drawable.person)
+                .into(binding.thirdUser)
+        }
+    }
+    // 🔹 MotionLayout listener (unchanged)
+    private fun setupMotionListener() {
+        binding.motionLayout.setTransitionListener(object :
+            MotionLayout.TransitionListener {
+
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?,
                 startId: Int,
                 endId: Int
-            ) {
+            ) {}
 
-            }
             override fun onTransitionChange(
                 motionLayout: MotionLayout?,
                 startId: Int,
                 endId: Int,
                 progress: Float
-            ) {
-//                when {
-//                    startId == R.id.collapsed && endId == R.id.expanded -> {
-//                        Log.d("MotionState", "Sliding UP → Expanding")
-//                    }
-//                    startId == R.id.expanded && endId == R.id.collapsed -> {
-//                        Log.d("MotionState", "Sliding DOWN → Collapsing")
-//                    }
-//                }
-            }
+            ) {}
 
             override fun onTransitionCompleted(
                 motionLayout: MotionLayout?,
                 currentId: Int
             ) {
-                Log.d("MotionState", "Transition completed to $currentId")
                 when (currentId) {
                     R.id.collapsed -> {
-                        Log.d("MotionState", "Collapsed state reached")
                         binding.bodyLeft.visibility = View.GONE
                         binding.bodyCenter.visibility = View.GONE
                         binding.bodyRight.visibility = View.GONE
                         binding.playerId.gravity = Gravity.TOP
                     }
                     R.id.expanded -> {
-                        Log.d("MotionState", "Expanded state reached")
                         binding.bodyLeft.visibility = View.VISIBLE
                         binding.bodyCenter.visibility = View.VISIBLE
                         binding.bodyRight.visibility = View.VISIBLE
@@ -115,5 +191,4 @@ class LeaderboardFragment : Fragment() {
         _binding = null
     }
 }
-
 data class User(val rank: Int, val name: String, val gems: Int)

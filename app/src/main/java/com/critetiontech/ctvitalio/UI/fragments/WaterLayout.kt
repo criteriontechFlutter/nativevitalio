@@ -27,8 +27,7 @@ class WaterLayout : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.waterRing.setLevelSmooth(0.75f, duration = 1500)
-//        binding.waterRing.setWaterLevelMl(1500, 3000) // sets to 50%
+ //        binding.waterRing.setWaterLevelMl(1500, 3000) // sets to 50%
 //        binding.waterRing.setWaterLevelMl(1500, 3000) // animates to 50%
 //
 //// tweak visuals to match the video:

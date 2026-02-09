@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -27,7 +28,7 @@ class LogUploadWorker(appContext: Context, workerParams: WorkerParameters) :
             val body = payload.toRequestBody(mediaType)
 
             val request = Request.Builder()
-                .url("http://182.156.200.177:5082/api/ActivityLogs/InsertActivityLogs")
+                .url("${RetrofitInstance.StaggingbaseUrl}:5082/api/ActivityLogs/InsertActivityLogs")
                 .post(body)
                 .addHeader("Content-Type", "application/json")
                 .build()

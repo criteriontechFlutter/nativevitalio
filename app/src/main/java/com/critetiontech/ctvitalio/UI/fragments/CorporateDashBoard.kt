@@ -8,14 +8,18 @@ import SleepVital
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.graphics.Typeface
+import android.media.AudioFormat
 import android.media.AudioRecord
+import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -36,6 +40,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.ColorUtils
@@ -43,6 +48,7 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,6 +71,10 @@ import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
 import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.networking.RetrofitInstance.StaggingbaseUrl
+import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
+import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.utils.applyStatusStyle
@@ -74,14 +84,24 @@ import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.critetiontech.ctvitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
 import net.openid.appauth.AuthorizationService
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import okio.ByteString.Companion.toByteString
 
 
 class CorporateDashBoard : Fragment() {
     private lateinit var binding: FragmentCorporateDashBoardBinding
     private lateinit var viewModel: DashboardViewModel
+    private var voiceDialog: Dialog? = null
+    private lateinit var voiceButton: ImageView
+   private lateinit var closeButton: ImageView
+    private lateinit var testv: TextView
     private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
@@ -102,9 +122,9 @@ class CorporateDashBoard : Fragment() {
     private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
 
-    private var authService: AuthorizationService? = null
-    private var currentIndex = 0
-    private val totalIndicators = 3
+    private val micStatusHandler = Handler(Looper.getMainLooper())
+    private var micStatusRunnable: Runnable? = null
+
     private val moods = listOf(
         MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
         MoodData(6,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
@@ -115,7 +135,11 @@ class CorporateDashBoard : Fragment() {
 
     )
     private var isFabOpen = false
+    private var audioRecords: AudioRecord? = null
+    private var isRecordings = false
 
+    private var lastVoiceTime =  0L
+    private   val SILENCE_TIMEOUT = 5000L // 5 seconds
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,6 +161,14 @@ class CorporateDashBoard : Fragment() {
         binding.notificationIcon.setOnClickListener {
 
         }
+        binding.ringIcon.setOnClickListener {
+
+            startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
+//
+
+
+
+        }
 
         binding.headerContainer.setOnClickListener {
 
@@ -150,9 +182,9 @@ class CorporateDashBoard : Fragment() {
             navBarColor = R.color.white,
             lightIcons = true
         )
-//        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-//            if (isLoading) showLoading() else hideLoading()
-//        }
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading() else hideLoading()
+        }
 
         binding.fabIcon.setOnClickListener {
             if (!isFabOpen) {
@@ -255,7 +287,7 @@ class CorporateDashBoard : Fragment() {
             }
         }
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.avatar)
@@ -302,14 +334,6 @@ class CorporateDashBoard : Fragment() {
                 }
             )
 
-            binding.ringIcon.setOnClickListener {
-
-                startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
-//
-
-
-
-            }
 
 
             binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
@@ -409,6 +433,14 @@ class CorporateDashBoard : Fragment() {
              }
              findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
         }
+        binding.voiceAssistantId.setOnClickListener {
+             binding.fabIcon.animate().rotation(0f).setDuration(300).start()
+            binding.fabIcon.setImageResource(R.drawable.raddimg)
+            isFabOpen = false
+            hidePopup()
+            showVoiceOverlay()
+            connectWebSocket()
+            checkAndStartAudio()        }
 
            binding.popupActivityId.setOnClickListener {
                findNavController().navigate(R.id.action_dashboard_to_addActivityFragment)
@@ -984,6 +1016,106 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
     private fun dpToPx(dp: Float): Float {
         return dp * resources.displayMetrics.density
     }
+//    private fun monitorSilence() {
+//        Thread {
+//            val buffer = ShortArray(1024)
+//
+//            while (isRecording && audioRecord != null) {
+//
+//                val read = audioRecord!!.read(buffer, 0, buffer.size)
+//
+//                if (read > 0) {
+//                    var sum = 0.0
+//                    for (i in 0 until read) {
+//                        sum += buffer[i] * buffer[i]
+//                    }
+//                    val rms = kotlin.math.sqrt(sum / read)
+//
+//                    // 🗣 User is speaking
+//                    if (rms > 2000) {
+//                        lastVoiceTime = System.currentTimeMillis()
+//                    }
+//                }
+//
+//                // ⏱ No speech for 5 sec → OFF
+//                if (System.currentTimeMillis() - lastVoiceTime >= SILENCE_TIMEOUT) {
+//                    stopMic()
+//                    break
+//                }
+//
+//                Thread.sleep(200)
+//            }
+//        }.start()
+//    }
+    private fun stopMic() {
+        if (!isRecording) return
+
+        isRecording = false
+
+        try {
+            audioRecord?.stop()
+            audioRecord?.release()
+        } catch (_: Exception) {}
+
+        audioRecord = null
+    }
+    private fun startMicStatusMonitor() {
+        micStatusRunnable = object : Runnable {
+            override fun run() {
+                val isOn = isMicOn()
+
+                // 🔄 Use status here
+                Log.d("MIC_STATUS", if (isOn) "MIC ON" else "MIC OFF")
+
+                // Example UI update
+//
+//                testv = voiceDialog?.findViewById(R.id.voice_hinteest)!!
+//
+//                 testv.text =
+//                    if (isOn) "🎙 Mic Active" else "Mic Off"
+
+                micStatusHandler.postDelayed(this, 500) // check every 500ms
+            }
+        }
+        micStatusHandler.post(micStatusRunnable!!)
+    }
+
+    private fun monitorSilence() {
+        Thread {
+            val buffer = ShortArray(1024)
+
+            while (isRecording && audioRecord != null) {
+
+                val read = audioRecord!!.read(buffer, 0, buffer.size)
+
+                if (read > 0) {
+                    var sum = 0.0
+                    for (i in 0 until read) {
+                        sum += buffer[i] * buffer[i]
+                    }
+                    val rms = kotlin.math.sqrt(sum / read)
+
+                    if (rms > 500 && rms < 15000) {
+                        lastVoiceTime = System.currentTimeMillis()
+                    }
+                }
+
+                // ⏱️ Stop mic after 5 sec silence
+                if (System.currentTimeMillis() - lastVoiceTime >= SILENCE_TIMEOUT) {
+                    stopAudioStreaming()
+                    break
+                }
+
+                Thread.sleep(200)
+            }
+        }.start()
+    }
+
+    private fun isMicOn(): Boolean {
+        return audioRecord?.recordingState == AudioRecord.RECORDSTATE_RECORDING
+    }
+
+
     fun getPastelColor(hexColor: String): Int {
         val color = Color.parseColor(hexColor)
         val hsv = FloatArray(3)
@@ -1099,7 +1231,253 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         }
     }
 
+    private fun showVoiceOverlay() {startMicStatusMonitor()
+        if (voiceDialog == null) {
+            voiceDialog = Dialog(requireContext(), android.R.style.Theme_DeviceDefault_NoActionBar)
+            voiceDialog?.setContentView(R.layout.dialog_voice_input)
+            voiceDialog?.setCancelable(true)
+            voiceDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+         }
+                voiceButton = voiceDialog?.findViewById(R.id.voice_button)!!
+        closeButton = voiceDialog?.findViewById(R.id.ic_close)!!
 
+        // ✅ SET CLICK LISTENER HERE
+        voiceButton?.setOnClickListener {
+            stopAudioStreaming()
+            disconnectWebSocket()
+            voiceDialog?.dismiss()
+        }
+        closeButton?.setOnClickListener {
+            voiceDialog?.dismiss()
+        }
+        voiceDialog?.show()
+    }
+
+    private fun hideVoiceOverlay() {
+        voiceDialog?.dismiss()
+    }
+//    private fun connectWebSocket() {
+//        viewModel.setWebSocketState( WebSocketState.CONNECTING)
+//        voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
+//
+//        val request = Request.Builder().url(RetrofitInstance.holdSpeakWsUrl+ PrefsManager().getPatient()?.pid.toString()).build()
+//        val client = OkHttpClient()
+//
+//        webSocket = client.newWebSocket(request, object : WebSocketListener() {
+//            override fun onOpen(webSocket: WebSocket, response: Response) {
+//                viewModel.setWebSocketState(WebSocketState.CONNECTED)
+//            }
+//
+//            override fun onMessage(webSocket: WebSocket, text: String) {
+//                requireActivity().runOnUiThread {
+//                    voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.append(" $text")
+//                }
+//            }
+//
+//            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+//                viewModel.setWebSocketState(WebSocketState.DISCONNECTED)
+//                requireActivity().runOnUiThread {
+//                    val transcriptText = voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text.toString()
+//                    if (transcriptText.isNotBlank()) {
+//                        val navController = findNavController()
+//                        navigateFromDashboard(navController, transcriptText)
+//                        viewModel.postAnalyzedVoiceData(requireContext(), transcriptText)
+//                    } else {
+//                        Toast.makeText(requireContext(), "No speech input found", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+//                viewModel.setWebSocketState(WebSocketState.ERROR)
+//            }
+//        })
+//    }
+    private fun connectWebSocket() {
+
+        viewModel.setWebSocketState(WebSocketState.CONNECTING)
+        Log.d("WebSocketState", "CONNECTING"+" ws://182.156.200.177:8002/listen?token=132" )
+
+        voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
+
+        val request = Request.Builder()
+            .url(RetrofitInstance.holdSpeakWsUrl +"132")
+            .build()
+
+        val client = OkHttpClient()
+
+        webSocket = client.newWebSocket(request, object : WebSocketListener() {
+
+            override fun onOpen(webSocket: WebSocket, response: Response) {
+                Log.d("WebSocketState", "CONNECTED")
+                viewModel.setWebSocketState(WebSocketState.CONNECTED)
+            }
+
+            override fun onMessage(webSocket: WebSocket, text: String) {
+                Log.d("WebSocketState", "MESSAGE: $text")
+
+                requireActivity().runOnUiThread {
+                    voiceDialog?.findViewById<TextView>(R.id.voice_transcript)
+                        ?.append(" $text")
+                }
+            }
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                Log.d("WebSocketState", "DISCONNECTED: $code | $reason")
+                viewModel.setWebSocketState(WebSocketState.DISCONNECTED)
+
+                requireActivity().runOnUiThread {
+                    val transcriptText =
+                        voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text.toString()
+
+                    if (transcriptText.isNotBlank()) {
+                        navigateFromDashboard(findNavController(), transcriptText)
+                        viewModel.postAnalyzedVoiceData(requireContext(), transcriptText)
+                    } else {
+                        Toast.makeText(requireContext(), "No speech input found", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                Log.e("WebSocketState", "ERROR", t)
+                viewModel.setWebSocketState(WebSocketState.ERROR)
+            }
+        })
+    }
+    private fun checkAndStartAudio() {
+        if (ContextCompat.checkSelfPermission(requireContext(), RECORD_AUDIO_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+            startAudioStreaming()
+        } else {
+            requestPermissions(arrayOf(RECORD_AUDIO_PERMISSION), PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    private fun startAudioStreaming() {
+        val bufferSize = AudioRecord.getMinBufferSize(
+            16000,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT
+        )
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),  // ✅ Corrected
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+
+            return
+        }
+        audioRecord = AudioRecord(
+            MediaRecorder.AudioSource.MIC,
+            16000,
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT,
+            bufferSize
+        )
+
+        audioRecord?.startRecording()
+        isRecording = true
+
+        Thread {
+            val buffer = ByteArray(bufferSize)
+            while (isRecording && audioRecord != null) {
+                val read = audioRecord!!.read(buffer, 0, buffer.size)
+                if (read > 0) {
+                    webSocket?.send(buffer.toByteString(0, read))
+                }
+            }
+        }.start()
+//        monitorSilence()
+    }
+    private fun disconnectWebSocket() {
+        webSocket?.close(1000, "Closing")
+        webSocket = null
+    }
+    private fun stopAudioStreaming() {
+        isRecording = false
+        audioRecord?.stop()
+        audioRecord?.release()
+        audioRecord = null
+    }
+    fun navigateFromDashboard(navController: NavController, destinationRaw: String) {
+        val destination = destinationRaw.lowercase()
+
+        when {
+            listOf(
+                "vital page", "vital screen", "vital view", "open vital",
+                "open vital page", "open vital screen", "open vital view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_voiceFragment)
+            }
+
+            listOf(
+                "symptom page", "symptom screen", "symptom view", "open symptom", "open symptom page", "open symptom screen", "open symptom view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_symptomsFragment)
+            }
+
+            listOf(
+                "pills reminder page", "pills page", "pills screen", "pills view",
+                "open pills", "open pills reminder", "open pills page", "open pills screen", "open pills view"
+            ).any { it in destination } -> {
+                //navController.navigate(R.id.action_dashboard_to_pillsReminder)
+            }
+
+            listOf(
+                "diet intake", "diet page", "diet screen", "diet view",
+                "open diet", "open diet intake", "open diet page", "open diet screen", "open diet view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_dietChecklist)
+            }
+
+            listOf(
+                "fluid intake page", "fluid page", "fluid screen", "fluid view",
+                "open fluid", "open fluid intake", "open fluid page", "open fluid screen", "open fluid view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidFragment)
+            }
+
+            listOf(
+                "fluid history page", "fluid history screen", "fluid history view",
+                "open fluid history", "open fluid history page", "open fluid history screen", "open fluid history view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidInputHistoryFragment)
+            }
+
+            listOf(
+                "output history", "output page", "output screen", "output view",
+                "open output", "open output history", "open output page", "open output screen", "open output view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_fluidOutputFragment)
+            }
+
+            listOf(
+                "upload report page", "upload report screen", "upload report view",
+                "open upload report", "open upload report page", "open upload report screen", "open upload report view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_uploadReportHistory)
+            }
+
+            listOf(
+                "allergies page", "allergies screen", "allergies view",
+                "open allergies", "open allergies page", "open allergies screen", "open allergies view"
+            ).any { it in destination } -> {
+                navController.navigate(R.id.action_dashboard_to_allergies3)
+            }
+
+            // Optional: Enable text/notes navigation
+            // listOf("text", "notes", "open text", "open notes").any { it in destination } -> {
+            //     navController.navigate(R.id.action_dashboard_to_notesFragment)
+            // }
+
+            else -> {
+                // Optionally log or toast for unrecognized command
+            }
+        }
+    }
     fun TextView.setTextOrHide(value: String?) {
         if (value.isNullOrBlank()) {
             this.visibility = View.GONE
@@ -1282,52 +1660,171 @@ fun Int.withAlpha(alpha: Float): Int {
             binding.healthGoalAchived.goalsContainer.addView(view)
         }
     }
-    private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
-        binding.checklistContainer.removeAllViews()
+private fun getProgressColor(progress: Int): Int {
+        return when {
+            progress <=  10 ->  Color.parseColor("#FF3737")
+            progress <= 30 -> Color.parseColor("#FEA33C") // Orange
+            progress <= 60 -> Color.parseColor("#1281FD") // Blue
+            progress >= 80 ->  Color.parseColor("#00C67A")
+            else ->  Color.parseColor("#2196F3")
+        }
+    }
+//    private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
+//
+//        binding.checklistContainer.removeAllViews()
+//
+//        list.forEach { item ->
+//
+//            val itemBinding = DailyChecklistWedgetBinding.inflate(
+//                layoutInflater,
+//                binding.checklistContainer,
+//                false
+//            )
+//
+//            val progress =
+//                ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
+//
+//            itemBinding.progressSteps.progress = 40
+//
+//            itemBinding.tvStepsLabel.text = item.goalName
+//            itemBinding.tvStepsValue.text =
+//                "${item.vitalValue.toInt()} / ${item.targetValue}"
+//
+//            when (item.isGoalAchieved) {
+//                1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
+//                0 -> itemBinding.ivStepsIcon.setColorFilter(Color.RED)
+//            }
+//
+//            // 🔥 IMPORTANT PART
+//            itemBinding.progressSteps.post {
+//
+//                val progressBarWidth = itemBinding.progressSteps.width
+//                val filledWidth = progressBarWidth * progress / 100f
+//
+//                val labelX =
+//                    itemBinding.tvStepsLabel.x + (itemBinding.tvStepsLabel.width / 2f)
+//
+//                if (filledWidth >= labelX) {
+//                    itemBinding.tvStepsLabel.setTextColor(Color.WHITE)
+//                } else {
+//                    itemBinding.tvStepsLabel.setTextColor(Color.BLACK)
+//                }
+//            }
+//
+//            binding.checklistContainer.addView(itemBinding.root)
+//        }
+//
+//    }
+private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
-        list.forEach { item ->
+    binding.checklistContainer.removeAllViews()
 
-            val itemBinding = DailyChecklistWedgetBinding.inflate(
-                layoutInflater,
-                binding.checklistContainer,
-                false
-            )
+    list.forEach { item ->
 
-            val progress =
+        val itemBinding = DailyChecklistWedgetBinding.inflate(
+            layoutInflater,
+            binding.checklistContainer,
+            false
+        )
+
+        // ✅ SAFE progress calculation
+        val progress = if (item.targetValue.toInt() > 0) {
+            if(item.vmId.toString()=="298"){
+                (((item.vitalValue/  1000) / item.targetValue.toFloat() ) * 100).toInt()
+            }else{
+
                 ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
-
-            itemBinding.progressSteps.progress = 40
-
-            itemBinding.tvStepsLabel.text = item.goalName
-            itemBinding.tvStepsValue.text =
-                "${item.vitalValue.toInt()} / ${item.targetValue}"
-
-            when (item.isGoalAchieved) {
-                1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
-                0 -> itemBinding.ivStepsIcon.setColorFilter(Color.RED)
             }
-
-            // 🔥 IMPORTANT PART
-            itemBinding.progressSteps.post {
-
-                val progressBarWidth = itemBinding.progressSteps.width
-                val filledWidth = progressBarWidth * progress / 100f
-
-                val labelX =
-                    itemBinding.tvStepsLabel.x + (itemBinding.tvStepsLabel.width / 2f)
-
-                if (filledWidth >= labelX) {
-                    itemBinding.tvStepsLabel.setTextColor(Color.WHITE)
-                } else {
-                    itemBinding.tvStepsLabel.setTextColor(Color.BLACK)
-                }
-            }
-
-            binding.checklistContainer.addView(itemBinding.root)
+        } else {
+            0
         }
 
+
+
+        if(progress.toString()=="0"){
+        itemBinding.progressSteps.progress = 1
+    }else{
+        itemBinding.progressSteps.progress = progress
+
     }
+        // ✅ Set texts
+        itemBinding.tvStepsLabel?.text = item.goalName+" "+progress+"% "
+        if(item.vmId.toString()=="298"){
+
+            itemBinding.tvStepsValue.text =
+                "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000}"
+        }else{
+
+            itemBinding.tvStepsValue.text =
+                "${item.vitalValue.toInt()} / ${item.targetValue}"
+        }
+        if(item.vmId.toString()=="248"){
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.steps_p)
+        }
+        else if(item.vmId.toString()=="298"){
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.water_p)
+
+        }
+        else if(item.vmId.toString()=="300"){
+
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.sleep_p)
+        }
+        else if(item.vmId.toString()=="301"){
+
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.glucose_p)
+        }
+        else if(item.vmId.toString()=="302"){
+
+
+
+            itemBinding.ivStepsIcon.setImageResource(R.drawable.bp_p)
+        }
+
+
+        // ✅ Progress-based color
+        val progressColor = getProgressColor(progress)
+
+        // ✅ Apply colors
+        itemBinding.progressSteps.progressTintList =
+            ColorStateList.valueOf(progressColor)
+
+        itemBinding.ivStepsIcon.setColorFilter(progressColor)
+
+
+        // ✅ Goal achieved icon color (optional override)
+        when (item.isGoalAchieved) {
+            1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
+            0 -> itemBinding.ivStepsIcon.setColorFilter(Color.BLACK)
+        }
+
+        // ✅ Text contrast logic (label over progress bar)
+        itemBinding.progressSteps.post {
+
+            val progressBarWidth = itemBinding.progressSteps.width
+            val filledWidth = progressBarWidth * progress / 100f
+
+            val labelCenterX =
+                itemBinding.tvStepsLabel.x + (itemBinding.tvStepsLabel.width / 2f)
+
+            if (filledWidth >= labelCenterX) {
+                itemBinding.tvStepsLabel.setTextColor(Color.WHITE)
+            } else {
+                itemBinding.tvStepsLabel.setTextColor(Color.BLACK)
+            }
+        }
+
+        binding.checklistContainer.addView(itemBinding.root)
+    }
+}
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("SuspiciousIndentation")
 private fun initHydrationControls() {
@@ -1446,15 +1943,13 @@ private fun updateProgress(unit: String) {
     val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
 
     viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue  ->
-        val goal = goalEntry?.targetValue    // safe
+        val goal = goalEntry?.targetValue ?: 0  // safe
         val remaining = goal?.minus(totalValue)
-
         if(totalValue< remaining!!){
             binding.hydrationCardId.tvHydrationProgress.text =
                 "${totalValue} $unit consumed — ${remaining*1000} $unit to go"
         }
         else{
-
             binding.hydrationCardId.tvHydrationProgress.text =
                 "${totalValue} $unit consumed — targed ${goal*1000} $unit "
         }
@@ -1498,7 +1993,8 @@ private fun updateProgress(unit: String) {
     }
 
     private fun showCustomLoader(show: Boolean) {
-        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+//        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+       // binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun refreshDashboardData() {

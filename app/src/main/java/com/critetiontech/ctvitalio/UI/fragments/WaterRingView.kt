@@ -39,7 +39,8 @@ class WaterRingWaveView @JvmOverloads constructor(
 
     // State
     private var waveOffset = 0f
-    private var fillFraction = 0f
+    var fillFraction = 0f
+    var perData = "0"
     private var lastTouchY = 0f
 
     // Sizes
@@ -53,7 +54,7 @@ class WaterRingWaveView @JvmOverloads constructor(
     init {
         // Wave color
         wavePaint.style = Paint.Style.FILL
-        wavePaint.color = "#1A85FF".toColorInt()
+        wavePaint.color = "#0A76E9".toColorInt()
 
         // Inner frosted circle
         blurPaint.color = "#80FFFFFF".toColorInt()
@@ -139,7 +140,7 @@ class WaterRingWaveView @JvmOverloads constructor(
 
         // Center percentage text
         val textY = cy - (textPaint.descent() + textPaint.ascent()) / 2
-        canvas.drawText("${(fillFraction * 100).toInt()}%", cx, textY, textPaint)
+        canvas.drawText("  ${perData}%", cx, textY, textPaint)
     }
 
     // ---------- SLIDE TO FILL ----------

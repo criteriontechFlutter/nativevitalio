@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="14dp"
+    android:background="@drawable/widget_background">
+
+    <!-- Header with Icon -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="@drawable/water_drop_shape"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Water Intake"
+            android:textSize="14sp"
+            android:textColor="#1A1A1A"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/ic_refresh_shape" />
+    </LinearLayout>
+
+    <!-- Last Updated -->
+    <TextView
+        android:id="@+id/lastUpdatedText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last updated 5 mins ago"
+        android:textSize="10sp"
+        android:textColor="#AAAAAA"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif" />
+
+    <!-- Wave Container with Better Styling -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/wave_container_background">
+
+        <!-- Animated Wave View -->
+        <com.critetiontech.ctvitalio.widgets.AdvancedWaveView
+            android:id="@+id/waveView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <!-- Percentage Text Overlay with Shadow -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/percentageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="48%"
+                android:textSize="38sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:shadowColor="#00000040"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="of daily goal"
+                android:textSize="9sp"
+                android:textColor="#FFFFFF"
+                android:alpha="0.85"
+                android:layout_marginTop="2dp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Amount Display -->
+    <TextView
+        android:id="@+id/amountText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="200ml"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        android:fontFamily="sans-serif-medium" />
+
+    <!-- Controls Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:spacing="8dp">
+
+        <!-- Water amount quick buttons -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:spacing="6dp">
+
+            <Button
+                android:id="@+id/pill100ml"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="100"
+                android:textSize="9sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/pill_button_background"
+                android:stateListAnimator="@null"
+                android:fontFamily="sans-serif-condensed" />
+
+            <Button
+                android:id="@+id/pill150ml"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="150"
+                android:textSize="9sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/pill_button_background"
+                android:stateListAnimator="@null"
+                android:fontFamily="sans-serif-condensed" />
+
+            <Button
+                android:id="@+id/pill200ml"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="200"
+                android:textSize="9sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/pill_button_background"
+                android:stateListAnimator="@null"
+                android:fontFamily="sans-serif-condensed" />
+        </LinearLayout>
+
+        <!-- Primary Add Button -->
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="52dp"
+            android:layout_height="40dp"
+            android:text="Add"
+            android:textSize="11sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="@drawable/add_button_background"
+            android:stateListAnimator="@null"
+            android:fontFamily="sans-serif-medium" />
+    </LinearLayout>
+
+</LinearLayout>

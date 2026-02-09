@@ -33,7 +33,7 @@ class VitalioCalendarView(context: Context) : LinearLayout(context) {
     private val dateScrollLayout = LinearLayout(context)
     private lateinit var monthLabel: TextView
     private lateinit var dropdownArrow: TextView
-    private lateinit var calendarContainer: LinearLayout
+    lateinit var calendarContainer: LinearLayout
     private var selectedDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
     private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
     private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)

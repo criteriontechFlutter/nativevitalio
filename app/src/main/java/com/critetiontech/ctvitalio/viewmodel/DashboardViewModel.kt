@@ -568,6 +568,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun postAnalyzedVoiceData(context: Context, transcript: String) {
         val patient = PrefsManager().getPatient() ?: return
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
@@ -1045,7 +1046,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-    fun fluidIntake(  givenFoodQuantity: String) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun fluidIntake(givenFoodQuantity: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true
@@ -1123,7 +1125,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                     // ⭐ SAFE total quantity
                     val totalQty = (parsed.responseValue ?: emptyList()).sumOf { it.quantity } .roundToInt()
-                    _totalQuantity.value = totalQty
+                    _totalQuantity.postValue(totalQty)
 
                     Log.e("VoicePost", "totalQty: ${totalQty}")
                     // ⭐ SAFE last drink

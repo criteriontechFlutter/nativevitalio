@@ -193,7 +193,7 @@ class Dashboard  : Fragment() {
 
 
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/"+PrefsManager().getPatient()?.imageURL.toString())
+            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.profileImage)
@@ -291,10 +291,10 @@ class Dashboard  : Fragment() {
                 else -> android.R.color.holo_orange_light
             }
 
-            voiceDialog?.findViewById<TextView>(R.id.websocket_status)?.apply {
-                text = statusText
-                setTextColor(ContextCompat.getColor(requireContext(), statusColor))
-            }
+//            voiceDialog?.findViewById<TextView>(R.id.websocket_status)?.apply {
+//                text = statusText
+//                setTextColor(ContextCompat.getColor(requireContext(), statusColor))
+//            }
         }
     }
 

@@ -10,7 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"    android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:background="@drawable/rounded_corners"
         android:orientation="vertical">
 
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Hydration due - last drink 2 hrs ago."
+                android:text="Hydration due - last drink 0 hrs ago."
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#000000" />
@@ -50,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="900 ml consumed — 2100 ml to go"
+            android:text=" 0 ml consumed — 2100 ml to go"
             android:textSize="12sp"
             android:textColor="#808C9A" />
 

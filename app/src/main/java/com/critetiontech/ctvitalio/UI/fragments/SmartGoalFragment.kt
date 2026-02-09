@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,8 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.GoalsAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentSmartGoalBinding
 import com.critetiontech.ctvitalio.databinding.LayoutGoalMenuBinding
+import com.critetiontech.ctvitalio.model.EmployeeGoals
+import com.critetiontech.ctvitalio.model.GoalCategoryResponse
 import com.critetiontech.ctvitalio.utils.GoalMenuHandler
 import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -29,7 +32,7 @@ class SmartGoalFragment : Fragment() {
     private lateinit var binding: FragmentSmartGoalBinding
     private lateinit var viewModel: SmartGoalViewModel
     private lateinit var adapter: GoalsAdapter
-
+    private var categoryListCache: List<GoalCategoryResponse>? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +59,7 @@ class SmartGoalFragment : Fragment() {
 
 
                 categoryList.forEach { category ->
-                    finalList.add(category)             // ✔ Add full category object
+                   // finalList.add(category)             // ✔ Add full category object
                     finalList.addAll(category.goals)    // ✔ Add goals
                 }
 
@@ -70,30 +73,37 @@ class SmartGoalFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-
-
+        viewModel.allGoalList.observe(viewLifecycleOwner) { categoryList ->
+            categoryListCache = categoryList
+        }
         /* --------------------- ADD NEW GOALS BUTTON --------------------- */
         binding.btnAdd.setOnClickListener {
-            viewModel.allGoalList.observe(viewLifecycleOwner) { categoryList ->
-                if (!categoryList.isNullOrEmpty()) {
-
-                    val finalList = mutableListOf<Any>()
-
-                    categoryList.forEach { category ->
-                        finalList.add(category)         // ✔ object
-                        finalList.addAll(category.goals)
-                    }
-
-                    showFullScreenBottomSheet(requireContext(), finalList)
-                    adapter.updateData(finalList, isAllGoal = true)
-                }
-            }
+            handleAddClick()
         }
     }
 
     /* ------------------------------------------------------------- */
     /* RECYCLER VIEW                                                 */
     /* ------------------------------------------------------------- */
+    private fun handleAddClick() {
+        val categoryList = categoryListCache
+
+        if (categoryList.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "No goals available", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val finalList = mutableListOf<Any>()
+
+        categoryList.forEach { category ->
+            finalList.addAll(category.goals)
+        }
+
+        showFullScreenBottomSheet(requireContext(), finalList)
+        adapter.updateData(finalList, isAllGoal = true)
+    }
+
+
     private fun setupRecyclerView() {
         adapter = GoalsAdapter(
             emptyList(),

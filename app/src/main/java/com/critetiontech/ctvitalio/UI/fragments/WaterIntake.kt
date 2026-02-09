@@ -1,11 +1,15 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import PrefsManager
+import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +49,8 @@ class WaterIntakeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,6 +72,24 @@ class WaterIntakeFragment : Fragment() {
             adapter.updateData(it)
             updateEmptyState()
         }
+        binding.tvGoalLabel.text= "Goal "+PrefsManager().getEmployeeGoals().find { it.goalId == 13}.toString()
+
+            viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
+
+            // Total ML
+            binding.tvTotalMl.text = "$totalMl ml"
+
+            // Percentage
+            val percentage = (totalMl.toInt() * 100) / 4000
+            binding.tvDailyper.text = "$percentage%"
+            val goal = 4000f
+
+            val fraction = (totalMl.toInt() / goal).coerceIn(0f, 1f)
+            binding.waterRing.setLevelSmooth(percentage.toFloat(), 1800)
+
+            binding.waterRing.perData =percentage.toString()
+        }
+//        binding.tvTotalMl.text=
 
         viewModel.chartRecords.observe(viewLifecycleOwner) {
             setupWaterChart(it)
@@ -80,7 +104,6 @@ class WaterIntakeFragment : Fragment() {
         /** ----------------------------
          * Default Water Ring
          * ---------------------------- */
-        binding.waterRing.setLevelSmooth(0.0f, 1000)
 
         /** ----------------------------
          * Chip Selection
@@ -92,15 +115,13 @@ class WaterIntakeFragment : Fragment() {
                 R.id.chip_250 -> 250
                 R.id.chip_300 -> 300
                 R.id.chip_400 -> 400
-                R.id.chip_custom -> 0
-                else -> 0
+                 else -> 0
             }
 
             val level =
                 (selectedGlassSize / dailyGoalMl).coerceIn(0f, 1f)
 
-            binding.waterRing.setLevelSmooth(level, 1500)
-        }
+         }
 
         /** ----------------------------
          * Add Intake Button
@@ -109,9 +130,8 @@ class WaterIntakeFragment : Fragment() {
 
             if (selectedGlassSize == 0) return@setOnClickListener
 
-            dashboardViewModel.fluidIntake(selectedGlassSize.toString())
-            viewModel.GetDailyEmployeeFluidIntake()
-            viewModel.GetEmployeeMedicineIntakeByDate()
+            viewModel.fluidIntake(selectedGlassSize.toString())
+
         }
     }
 

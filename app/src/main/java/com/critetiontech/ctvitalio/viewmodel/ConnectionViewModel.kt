@@ -86,8 +86,8 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                             buttonText = "OK",
                             hapticType = HapticType.LIGHT
                         ))
-//                    ToastUtils.showSuccessPopup(requireContext,"Vital Added Successfully!")
-//                    navController.popBackStack()
+                    ToastUtils.showSuccessPopup(requireContext,response.message().toString())
+
 
                 } else {
                     _loading.value = false

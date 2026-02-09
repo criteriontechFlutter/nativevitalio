@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/waterintakewidget"
+    android:initialLayout="@layout/waterintakewidget"
+    android:minWidth="280dp"
+    android:minHeight="280dp"
+    android:previewImage="@layout/water_intake_widget_enhanced"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:updatePeriodMillis="30000"
+    />
