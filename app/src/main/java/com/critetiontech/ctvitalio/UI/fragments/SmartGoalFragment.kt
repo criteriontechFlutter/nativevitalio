@@ -26,6 +26,7 @@ import com.critetiontech.ctvitalio.utils.GoalMenuHandler
 import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.core.graphics.drawable.toDrawable
 
 
 class SmartGoalFragment : Fragment() {
@@ -48,26 +49,31 @@ class SmartGoalFragment : Fragment() {
 
         setupRecyclerView()
 
+
         viewModel.getAddedSmartGoal()
         viewModel.getAllGoalList()
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         /* --------------------- ADDED SMART GOALS LIST (MAIN SCREEN) --------------------- */
         viewModel.vitalList.observe(viewLifecycleOwner) { categoryList ->
             if (!categoryList.isNullOrEmpty()) {
-
                 val finalList = mutableListOf<Any>()
-
-
                 categoryList.forEach { category ->
                    // finalList.add(category)             // ✔ Add full category object
                     finalList.addAll(category.goals)    // ✔ Add goals
                 }
-
                 adapter.updateData(finalList, isAllGoal = false)
             }
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refreshData()
+        }
 
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = it
+        }
 
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -96,6 +102,7 @@ class SmartGoalFragment : Fragment() {
         val finalList = mutableListOf<Any>()
 
         categoryList.forEach { category ->
+            finalList.add(category)
             finalList.addAll(category.goals)
         }
 
@@ -113,12 +120,10 @@ class SmartGoalFragment : Fragment() {
 
             },
             onPinClick = { goal, category ->
-                if (category != null) {
-                    viewModel.updatePinStatus(
-                        goal.id,
-                        goal.isPinned
-                    )
-                }
+                viewModel.updatePinStatus(
+                    goal.id,
+                    goal.isPinned
+                )
 
             },
             onThreeDotClick = { goal, category,ivMenu ->
@@ -143,7 +148,7 @@ class SmartGoalFragment : Fragment() {
                     }
                 )
 
-                popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
                 popupWindow.elevation = 12f
                 popupWindow.animationStyle = R.style.PopupFadeScaleAnimation
 
@@ -246,7 +251,7 @@ class SmartGoalFragment : Fragment() {
         )
 
         adapter.updateData(finalList, isAllGoal = false)
-        binding.centerIcon.text=finalList.size.toString()
+//        binding.centerIcon.text=finalList.size.toString()
         recyclerView.adapter = adapter
 
         dialog.show()
