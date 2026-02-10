@@ -1,6 +1,7 @@
 package com.critetiontech.ctvitalio.utils
 
 import NetworkUtils
+import PrefsManager
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -40,6 +41,7 @@ class MyApplication : Application() {
             }
 
             val token = task.result
+            PrefsManager().saveDeviceToken(token)
             Log.d("FCM", "FCM Registration Token: $token")
             // Send token to your server
         }

@@ -213,7 +213,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="407dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:background="@color/primaryBlue"
                 app:layout_constraintBottom_toTopOf="@+id/contentScroll"
                 app:layout_constraintEnd_toEndOf="parent"

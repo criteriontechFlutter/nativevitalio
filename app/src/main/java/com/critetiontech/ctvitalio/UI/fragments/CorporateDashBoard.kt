@@ -107,7 +107,6 @@ class CorporateDashBoard : Fragment() {
     private lateinit var dailyTipAdapter: DailyTipAdapter
     private lateinit var indicatorAdapter: IndicatorAdapter
     private var snackbar: Snackbar? = null
-    private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
     private var sliderRunnable: Runnable? = null
     private var audioRecord: AudioRecord? = null
