@@ -21,6 +21,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
+import java.util.Locale
+import java.util.Locale.getDefault
 
 class LoginViewModel (application: Application) : BaseViewModel(application){
 
@@ -73,7 +75,9 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "username" to username,
+                    "username" to run {
+                        username.lowercase(getDefault())
+                    },
                     "password" to password,
                     "deviceToken" to deviceToken.toString()
                 )
