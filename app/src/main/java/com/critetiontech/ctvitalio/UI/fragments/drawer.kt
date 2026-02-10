@@ -185,7 +185,7 @@ class drawer : Fragment() {
 
         val patient = PrefsManager().getPatient()
         binding.userName.text = patient?.patientName ?: ""
-        binding.userUhid.text = patient?.mobileNo ?: ""
+        binding.userUhid.text = patient?.uhID ?: ""
 
         Glide.with(MyApplication.appContext)
             .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())

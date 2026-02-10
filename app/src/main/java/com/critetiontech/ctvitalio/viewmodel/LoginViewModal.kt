@@ -88,9 +88,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
-                    val parsed =
-                        Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
-
+                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     parsed.responseValue.firstOrNull()?.let {
                         PrefsManager().savePatient(it)
                     }

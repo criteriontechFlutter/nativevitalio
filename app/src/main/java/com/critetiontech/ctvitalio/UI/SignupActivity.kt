@@ -382,15 +382,15 @@ class SignupActivity : AppCompatActivity() {
 
         when (progressTitle) {
 
-            0 -> {
+            1 -> {
                 binding.tvStepTitle.text = "Blood Group"
 //                binding.tvStepSubtitle.text = "Nice work! You're a third of the way there!"
             }
-            1 -> {
+            2 -> {
                 binding.tvStepTitle.text = "Your address"
 //                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
             }
-            2 -> {
+            3 -> {
                 binding.tvStepTitle.text = "Add weight"
 //                binding.tvStepSubtitle.text = "You're getting closer—just a little more to reach halfway!"
             }

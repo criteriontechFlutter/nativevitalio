@@ -4,7 +4,6 @@ import PrefsManager
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
@@ -17,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import androidx.core.content.ContextCompat
@@ -32,6 +30,7 @@ import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.critetiontech.ctvitalio.viewmodel.EnergyTankViewModel
 import androidx.core.graphics.toColorInt
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 
 class EnergyTank : Fragment() {
 
@@ -84,7 +83,7 @@ class EnergyTank : Fragment() {
         binding.statusText.typeface = typefaceStatus
 
         binding.questionText.text = spannable
-        val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
+        val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro_regular)
         binding.questionText.setTypeface(typeface, Typeface.BOLD)
 
         gestureDetector = GestureDetector(requireContext(), GestureListener())
@@ -92,7 +91,7 @@ class EnergyTank : Fragment() {
 
         binding.userName.text = PrefsManager().getPatient()?.patientName ?: ""
         Glide.with(MyApplication.appContext)
-            .load("http://182.156.200.177:5082/" + PrefsManager().getPatient()?.imageURL.toString())
+            .load("${RetrofitInstance.StaggingbaseUrl}:5082/" + PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
             .circleCrop()
             .into(binding.userAvatar)
