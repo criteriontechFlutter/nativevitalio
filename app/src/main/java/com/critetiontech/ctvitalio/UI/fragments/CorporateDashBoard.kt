@@ -156,9 +156,7 @@ class CorporateDashBoard : Fragment() {
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
         pillsViewModel.getAllPatientMedication()
-        binding.notificationIcon.setOnClickListener {
-
-        }
+        binding.notificationIcon.setOnClickListener {   }
         binding.ringIcon.setOnClickListener {
 
             startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
@@ -421,16 +419,26 @@ class CorporateDashBoard : Fragment() {
 
 
 
-
-        binding.bpPopupId.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_connection )
-        }
+//
+//        binding.bpPopupId.setOnClickListener {
+//            findNavController().navigate(R.id.action_dashboard_to_connection )
+//        }
          binding.glucosePopupId.setOnClickListener {
              val bundle = Bundle().apply {
                  putString("vitalType", "Glucose")
              }
              findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
         }
+
+        binding.bpPopupId.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_BPHistory  )
+
+        }
+        binding.glucosePopupId.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_glucoseHistory  )
+
+        }
+
         binding.voiceAssistantId.setOnClickListener {
              binding.fabIcon.animate().rotation(0f).setDuration(300).start()
             binding.fabIcon.setImageResource(R.drawable.raddimg)

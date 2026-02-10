@@ -65,14 +65,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         customView.setTextViewText(R.id.timestamp, timestamp)
 
         // Set icon
-        customView.setImageViewResource(R.id.notification_icon, R.drawable.logo)
+        customView.setImageViewResource(R.id.notification_icon, R.drawable.applicationlogo)
 
         // Set click listener
        // customView.setOnClickPendingIntent(R.id.notification_container, pendingIntent)
 
         // Build notification
         val notification = NotificationCompat.Builder(MyApplication.appContext, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo)
+            .setSmallIcon(R.drawable.applicationlogo)
             .setContentIntent(pendingIntent)
             .setCustomContentView(customView)
             .setCustomBigContentView(customView)

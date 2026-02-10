@@ -8,6 +8,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="BPHistory">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-3486" />
+                            <option name="y" value="-768" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="addActivityFragment">
                     <value>
                       <LayoutPositions>
@@ -292,12 +304,17 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2558" />
-                            <option name="y" value="-902" />
+                            <option name="x" value="-3322" />
+                            <option name="y" value="-936" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboard_to_BPHistory">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_addActivityFragment">
                               <value>
                                 <LayoutPositions />
@@ -646,6 +663,18 @@
                           <Point>
                             <option name="x" value="-448" />
                             <option name="y" value="-882" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="glucoseHistory">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-3676" />
+                            <option name="y" value="-792" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -1290,11 +1319,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_wellnessMetrics_to_SleepDetails">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_wellnessMetrics_to_brainWasteClearance">
                               <value>
                                 <LayoutPositions />
@@ -1306,6 +1330,11 @@
                               </value>
                             </entry>
                             <entry key="action_wellnessMetrics_to_movemenetIndex">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_wellnessMetrics_to_sleepDetails">
                               <value>
                                 <LayoutPositions />
                               </value>
