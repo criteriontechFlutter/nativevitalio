@@ -16,6 +16,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex.MovementEntrys
@@ -25,6 +26,7 @@ import com.critetiontech.ctvitalio.model.WeeklyMapGraph
 import com.critetiontech.ctvitalio.model.dp
 import com.critetiontech.ctvitalio.viewmodel.BloosPresureHistoryViewModel
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 
@@ -65,7 +67,12 @@ class BPHistory : Fragment() {
         viewModel.weeklyMapGraph.observe(viewLifecycleOwner) { weeklyData ->
             setData(weeklyData)
         }
-
+        binding.logBloodPressure.setOnClickListener {
+            findNavController().navigate(R.id.action_BPHistory_to_connection )
+        }
+        val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
+        val date = formatter.format(Date())
+        binding.wellnessText.text = date
         viewModel.weeklyTrend.observe(viewLifecycleOwner) { trend ->
 
             if (trend.isEmpty()) return@observe

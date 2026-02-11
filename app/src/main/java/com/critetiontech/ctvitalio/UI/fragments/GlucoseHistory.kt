@@ -17,7 +17,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.BPLog
 import com.critetiontech.ctvitalio.adapter.BPLogAdapter
 import com.critetiontech.ctvitalio.adapter.GlucoseAdapter
@@ -30,6 +32,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 import kotlin.collections.forEach
 
@@ -60,6 +63,16 @@ class GlucoseHistory : Fragment() {
         viewModel.logs.observe(viewLifecycleOwner) { logs ->
             adapter.updateData(logs)
         }
+
+        binding.logglucoselevel.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("vitalType", "Glucose")
+            }
+            findNavController().navigate(R.id.action_glucoseHistory_to_connection, bundle)
+        }
+        val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
+        val date = formatter.format(Date())
+        binding.wellnessText.text = date
         viewModel.weeklyGraph.observe(viewLifecycleOwner) { list ->
             if (!list.isNullOrEmpty()) {
                 setData(list)
@@ -83,6 +96,8 @@ class GlucoseHistory : Fragment() {
                 binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
             }
         }
+
+        binding.logglucoselevel
 
         viewModel.summary.observe(viewLifecycleOwner) { summary ->
 

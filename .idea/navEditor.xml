@@ -222,8 +222,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1304" />
-                            <option name="y" value="-1085" />
+                            <option name="x" value="-3200" />
+                            <option name="y" value="-721" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -391,6 +391,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_fluidOutputFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_glucoseHistory">
                               <value>
                                 <LayoutPositions />
                               </value>
