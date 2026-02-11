@@ -40,7 +40,8 @@ data class TodayLog(
 data class WeeklyMapGraph(
     val date: String,
     val dayName: String,
-    val mapValue: Double
+    val mapValue: Double ,
+    val avgValue: Double
 )
 data class WeeklyMapTrend(
     val date: String,
