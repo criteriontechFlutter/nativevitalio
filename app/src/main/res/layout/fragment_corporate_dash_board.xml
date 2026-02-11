@@ -237,7 +237,7 @@
                     android:id="@+id/tFeeling"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_serif_pro_regular"
+                    android:fontFamily="@font/source_serif_pro"
                     android:paddingTop="6dp"
                     android:text="@string/how_are_you_feeling_now"
                     android:textAlignment="center"
@@ -280,7 +280,6 @@
                     android:foregroundGravity="center_horizontal"
                     android:src="@drawable/moods"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_max="160dp"
                     app:layout_constraintHeight_min="80dp"
                     app:layout_constraintVertical_chainStyle="spread_inside"
 
