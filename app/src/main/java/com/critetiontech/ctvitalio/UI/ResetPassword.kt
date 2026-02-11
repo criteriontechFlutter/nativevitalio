@@ -79,6 +79,39 @@ class ResetPassword : AppCompatActivity() {
             false
         }
 
+        binding.confirmPasswordField.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableEnd = 2  // Index for drawableRight
+                val drawableWidth = binding.inputField.compoundDrawables[drawableEnd]?.bounds?.width() ?: 0
+                if (event.rawX >= (binding.inputField.right - drawableWidth)) {
+                    isNewPasswordVisible = !isNewPasswordVisible
+
+                    // Preserve typeface before changing inputType
+                    val typeface = binding.inputField.typeface
+
+                    // Change input type
+                    binding.confirmPasswordField.inputType = if (isNewPasswordVisible) {
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    } else {
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+
+                    // Reapply typeface to maintain font appearance
+                    binding.confirmPasswordField.typeface = typeface
+
+                    // Preserve cursor position
+                    binding.confirmPasswordField.setSelection(binding.inputField.text.length)
+
+                    // Toggle eye icon
+                    val icon = if (isNewPasswordVisible) R.drawable.close_eye else R.drawable.open_eye
+                    binding.confirmPasswordField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, icon, 0)
+
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+
 
 
 
@@ -90,7 +123,7 @@ class ResetPassword : AppCompatActivity() {
                     btnText = "Start Profile Setup",
                     onConfirm = {
 
-                        val intent = Intent(context, SignupActivity::class.java)
+                        val intent = Intent(context, UltraHumanActivity::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         context.startActivity(intent)
 

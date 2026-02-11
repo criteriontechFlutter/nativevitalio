@@ -1,6 +1,5 @@
 package com.critetiontech.ctvitalio.firebase
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,85 +7,78 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.critetiontech.ctvitalio.MainActivity
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.utils.MyApplication
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlin.random.Random
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
-        private const val CHANNEL_ID = "custom_notification_channel"
-        private const val CHANNEL_NAME = "Custom Notifications"
-        private const val NOTIFICATION_ID = 1001
+        private const val CHANNEL_ID = "vitalio_notification_channel"
+        private const val CHANNEL_NAME = "Vitalio Notifications"
     }
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d("FCM", "Message received in: ${if (isAppInForeground()) "FOREGROUND" else "BACKGROUND"}")
-        Log.d("FCM", "Data: ${remoteMessage.data}")
-        Log.d("FCM", "Notification: ${remoteMessage.notification}")
+    override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
 
-        // ALWAYS show custom notification regardless of app state
-        showCustomNotification(remoteMessage)
-    }
+        Log.d("FCM", "Message received")
+        Log.d("FCM", "Data payload: ${message.data}")
+        Log.d("FCM", "Notification payload: ${message.notification}")
 
-    @SuppressLint("RemoteViewLayout")
-    private fun showCustomNotification(remoteMessage: RemoteMessage) {
         createNotificationChannel()
 
+        val title =
+            message.data["title"]
+                ?: message.notification?.title
+                ?: "Vitalio"
+
+        val body =
+            message.data["body"]
+                ?: message.notification?.body
+                ?: ""
+
+        showNotification(title, body, message.data)
+    }
+
+    private fun showNotification(
+        title: String,
+        body: String,
+        data: Map<String, String>
+    ) {
+        val notificationId = Random.nextInt()
+
         val intent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra("from_notification", true)
-            // Add all FCM data
-            remoteMessage.data.forEach { (key, value) ->
+
+            data.forEach { (key, value) ->
                 putExtra(key, value)
             }
         }
 
         val pendingIntent = PendingIntent.getActivity(
             this,
-            NOTIFICATION_ID,
+            notificationId,
             intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Get data - prioritize data payload over notification payload
-        val title = remoteMessage.notification?.title
-        val body =  remoteMessage.notification?.body
-        val timestamp = "2 Min Ago"
-
-        // Create custom view
-        val customView = RemoteViews(packageName, R.layout.custom_notification_layout)
-        customView.setTextViewText(R.id.title, title)
-        customView.setTextViewText(R.id.body, body)
-        customView.setTextViewText(R.id.timestamp, timestamp)
-
-        // Set icon
-        customView.setImageViewResource(R.id.notification_icon, R.drawable.applicationlogo)
-
-        // Set click listener
-       // customView.setOnClickPendingIntent(R.id.notification_container, pendingIntent)
-
-        // Build notification
-        val notification = NotificationCompat.Builder(MyApplication.appContext, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.applicationlogo)
+            .setContentTitle(title)
+            .setContentText(body)
             .setContentIntent(pendingIntent)
-            .setCustomContentView(customView)
-            .setCustomBigContentView(customView)
-            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setAutoCancel(true)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .setOnlyAlertOnce(false)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(NOTIFICATION_ID, notification)
+        val manager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        Log.d("FCM", "Custom notification displayed")
+        manager.notify(notificationId, notification)
     }
 
     private fun createNotificationChannel() {
@@ -95,29 +87,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 CHANNEL_ID,
                 CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description = "Custom notification channel"
-                enableLights(true)
-                enableVibration(true)
-                setShowBadge(true)
-            }
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+            )
 
-    private fun isAppInForeground(): Boolean {
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as android.app.ActivityManager
-        val appProcesses = activityManager.runningAppProcesses ?: return false
+            val manager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        return appProcesses.any {
-            it.processName == packageName &&
-                    it.importance == android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+            manager.createNotificationChannel(channel)
         }
     }
 
     override fun onNewToken(token: String) {
-        Log.d("FCM_TOKEN", "Refreshed token: $token")
-        // Send token to your backend server
+        super.onNewToken(token)
+        Log.d("FCM", "Token: $token")
+
+        // TODO send token to backend
     }
 }

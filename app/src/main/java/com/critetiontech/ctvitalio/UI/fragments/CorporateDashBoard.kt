@@ -72,7 +72,6 @@ import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.networking.RetrofitInstance.StaggingbaseUrl
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -86,7 +85,6 @@ import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.critetiontech.ctvitalio.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
-import net.openid.appauth.AuthorizationService
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -109,7 +107,6 @@ class CorporateDashBoard : Fragment() {
     private lateinit var dailyTipAdapter: DailyTipAdapter
     private lateinit var indicatorAdapter: IndicatorAdapter
     private var snackbar: Snackbar? = null
-    private val slideDelay: Long = 2100
     private val handler = Handler(Looper.getMainLooper())
     private var sliderRunnable: Runnable? = null
     private var audioRecord: AudioRecord? = null
@@ -343,7 +340,7 @@ class CorporateDashBoard : Fragment() {
 
 
         viewModel.getFoodIntake()
-        val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro)
+        val typeface = ResourcesCompat.getFont(requireActivity(), R.font.source_serif_pro_regular)
         binding.tFeeling.setTypeface(typeface, Typeface.BOLD)
         binding.tFeelingBelow.setTypeface(typeface )
 
