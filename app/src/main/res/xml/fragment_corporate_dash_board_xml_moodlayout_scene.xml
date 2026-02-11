@@ -2,75 +2,65 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
-    <!-- Transition -->
     <Transition
         motion:constraintSetStart="@id/start"
-        motion:constraintSetEnd="@+id/end"
-        motion:duration="150">
+        motion:constraintSetEnd="@id/end"
+        motion:duration="220">
 
         <OnSwipe
             motion:touchAnchorId="@id/swipeRefreshLayout"
             motion:touchAnchorSide="top"
             motion:dragDirection="dragUp"
-            motion:maxVelocity="2"
-            motion:moveWhenScrollAtTop="true" />
+            motion:moveWhenScrollAtTop="true"/>
     </Transition>
 
-    <!-- Start state - Mood header visible -->
+    <!-- START -->
     <ConstraintSet android:id="@+id/start">
 
-        <Constraint android:id="@+id/moodLayout">
-            <PropertySet
-                android:alpha="1.0"
-                android:translationY="0dp" />
+        <Constraint android:id="@id/constraintLayout">
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 motion:layout_constraintTop_toTopOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
-                motion:layout_constraintHeight_percent="0.1" />
+                motion:layout_constraintHeight_percent="0.25"/>
         </Constraint>
 
-        <Constraint android:id="@+id/swipeRefreshLayout">
+        <Constraint android:id="@id/swipeRefreshLayout">
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="0dp"
-                motion:layout_constraintTop_toBottomOf="@id/moodLayout"
+                motion:layout_constraintTop_toBottomOf="@id/constraintLayout"
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintEnd_toEndOf="parent"
-                motion:layout_constraintHeight_percent=" 0.999" />
+                motion:layout_constraintEnd_toEndOf="parent"/>
         </Constraint>
 
     </ConstraintSet>
 
-    <!-- End state - Mood header hidden -->
+    <!-- END -->
     <ConstraintSet android:id="@+id/end">
 
-        <Constraint android:id="@+id/moodLayout">
-            <PropertySet
-                android:alpha="0.0"
-                android:translationY="-100dp" />
+        <Constraint android:id="@id/constraintLayout">
+            <PropertySet android:alpha="0"/>
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 motion:layout_constraintTop_toTopOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
-                motion:layout_constraintHeight_percent="0.0" />
+                motion:layout_constraintHeight_percent="0.0"/>
         </Constraint>
 
-        <Constraint android:id="@+id/swipeRefreshLayout">
+        <Constraint android:id="@id/swipeRefreshLayout">
             <Layout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 motion:layout_constraintTop_toTopOf="parent"
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
-                motion:layout_constraintEnd_toEndOf="parent"
-                motion:layout_constraintHeight_percent="1.0" />
+                motion:layout_constraintEnd_toEndOf="parent"/>
         </Constraint>
 
     </ConstraintSet>
