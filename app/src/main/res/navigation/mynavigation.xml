@@ -633,10 +633,18 @@
         android:id="@+id/BPHistory"
         android:name="com.critetiontech.ctvitalio.UI.fragments.BPHistory"
         android:label="fragment_b_p_history"
-        tools:layout="@layout/fragment_b_p_history" />
+        tools:layout="@layout/fragment_b_p_history" >
+        <action
+            android:id="@+id/action_BPHistory_to_connection"
+            app:destination="@id/connection" />
+    </fragment>
     <fragment
         android:id="@+id/glucoseHistory"
         android:name="com.critetiontech.ctvitalio.UI.fragments.GlucoseHistory"
-        android:label="GlucoseHistory" />
+        android:label="GlucoseHistory" >
+        <action
+            android:id="@+id/action_glucoseHistory_to_connection"
+            app:destination="@id/connection" />
+    </fragment>
 
 </navigation>

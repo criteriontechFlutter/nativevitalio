@@ -318,6 +318,23 @@
                     android:id="@+id/glucoseGraph"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"/>
+            <!-- Top Row -->
+                <LinearLayout
+                    android:id="@+id/logglucoselevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="54sp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/rounded_primary_button"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Glucose Level"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

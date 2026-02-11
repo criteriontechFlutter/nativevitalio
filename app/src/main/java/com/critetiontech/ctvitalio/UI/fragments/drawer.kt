@@ -162,6 +162,7 @@ class drawer : Fragment() {
             navBarColor = R.color.white,
             lightIcons = true
         )
+        binding.progressCircler.animateProgress(60f)
         setupObservers()
         setupListeners()
         initDrawerLayout()
