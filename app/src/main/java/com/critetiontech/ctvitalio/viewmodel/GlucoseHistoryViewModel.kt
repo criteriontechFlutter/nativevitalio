@@ -76,6 +76,7 @@ class GlucoseHistoryViewModel(application: Application) : BaseViewModel(applicat
                     // Assign data
                     _summary.postValue(value.Summary)
                     _logs.postValue(value.TodayLogs)
+                    _logs.postValue(value.TodayLogs)
                     _weeklyGraph.postValue(value.GlucoseAvgGraph)
                     _monthlyGraph.postValue(value.GlucoseMonthlyGraph)
                     _trendGraph.postValue(value.GlucoseTrendGraph)

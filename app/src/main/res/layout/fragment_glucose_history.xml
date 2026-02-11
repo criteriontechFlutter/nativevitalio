@@ -59,6 +59,7 @@
                 android:background="@color/white"
                 android:padding="16dp">
                 <!-- Stress Score Card -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,21 +105,21 @@
 
 
                 <!-- BP Card -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:background="@drawable/rounded_coner_gl_16"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+
 
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:background="@drawable/rounded_corners"
+                            android:gravity="center_vertical"
                             android:padding="14dp">
 
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
                             <!-- Top Row -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -130,6 +131,7 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -137,7 +139,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="87"
-                                        android:textSize="18sp"
+                                        android:textSize="22sp"
                                         android:textStyle="bold"
                                         android:textColor="#000"/>
 
@@ -145,7 +147,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text=" Min\nmg/dL"
-                                        android:textSize="11sp"
+                                        android:textSize="10sp"
                                         android:layout_marginStart="4dp"
                                         android:textColor="#777"/>
                                 </LinearLayout>
@@ -159,6 +161,7 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -194,29 +197,37 @@
                                 android:paddingTop="3dp"
                                 android:paddingBottom="3dp"/>
 
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="10dp"
+                                android:orientation="vertical">
                             <!-- Range Bar -->
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center_vertical">
 
                                 <FrameLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="8dp">
+                                    android:layout_height="16dp">
 
-                                    <!-- Background Range -->
+                                    <!-- Full range background -->
                                     <View
+                                        android:id="@+id/rangeBackground"
                                         android:layout_width="match_parent"
-                                        android:layout_height="8dp"
+                                        android:layout_height="16dp"
                                         android:background="#E0E0E0"/>
 
-                                    <!-- Indicator -->
+                                    <!-- Green range -->
                                     <View
                                         android:id="@+id/rangeIndicator"
-                                        android:layout_width="30dp"
-                                        android:layout_height="8dp"
-                                        android:layout_gravity="center"
+                                        android:layout_width="10dp"
+                                        android:layout_height="16dp"
                                         android:background="#1BAA60"/>
                                 </FrameLayout>
                             </LinearLayout>
@@ -244,110 +255,11 @@
                                     android:textColor="#777"/>
                             </LinearLayout>
 
+                            </LinearLayout>
                         </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="bottom">
-
-                            <TextView
-                                android:id="@+id/tvBPValue"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="120/80"
-                                android:textSize="22sp"
-                                android:textStyle="bold"
-                                android:textColor="#222222" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" mmHg"
-                                android:textSize="12sp"
-                                android:textColor="#777777"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tvStatus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Normal"
-                            android:textSize="12sp"
-                            android:textColor="#1B8F5A"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:layout_marginTop="6dp"
-                            android:background="@drawable/medal2_p"/>
-                    </LinearLayout>
 
 
-                    <!-- RIGHT SIDE -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:text="Sys"
-                                android:textSize="12sp"
-                                android:textColor="#555"
-                                android:background="@drawable/bg_tag"
-                                android:padding="4dp"
-                                android:layout_marginEnd="6dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:text="118-120 mmHg"
-                                android:textSize="14sp"
-                                android:textColor="#222"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="6dp">
-
-                            <TextView
-                                android:text="Dia"
-                                android:textSize="12sp"
-                                android:textColor="#555"
-                                android:background="@drawable/bg_tag"
-                                android:padding="4dp"
-                                android:layout_marginEnd="6dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:text="80-82 mmHg"
-                                android:textSize="14sp"
-                                android:textColor="#222"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -385,7 +297,7 @@
                         android:id="@+id/tvAverage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="129/70 mmHg"
+                        android:text="00 mmHg"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:textColor="#222"/>
@@ -400,11 +312,12 @@
             </LinearLayout>
 
                 <!-- Chart -->
-                <com.critetiontech.ctvitalio.utils.BPChartViewData
-                    android:id="@+id/bpChart"
+
+
+                <com.critetiontech.ctvitalio.utils.GlucoseTrendGraphView
+                    android:id="@+id/glucoseGraph"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_height="200dp"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
