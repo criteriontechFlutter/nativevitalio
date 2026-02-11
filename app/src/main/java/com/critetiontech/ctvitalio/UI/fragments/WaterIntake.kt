@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
@@ -72,6 +73,21 @@ class WaterIntakeFragment : Fragment() {
             adapter.updateData(it)
             updateEmptyState()
         }
+
+        binding.waterRing.post {
+
+            val halfWidth = binding.waterRing.width / 2.6f
+
+            // Start completely hidden to the left
+            binding.waterRing.translationX = -binding.waterRing.width.toFloat()
+
+            // Animate to half visible
+            binding.waterRing.animate()
+                .translationX(-halfWidth)
+                .setDuration(800)
+                .setInterpolator(FastOutSlowInInterpolator())
+                .start()
+        }
         binding.tvGoalLabel.text= "Goal "+PrefsManager().getEmployeeGoals().find { it.goalId == 13}.toString()
 
             viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
@@ -87,7 +103,9 @@ class WaterIntakeFragment : Fragment() {
             val fraction = (totalMl.toInt() / goal).coerceIn(0f, 1f)
             binding.waterRing.setLevelSmooth(percentage.toFloat(), 1800)
 
-            binding.waterRing.perData =percentage.toString()
+                binding.waterRing.setLevelSmooth(70f, 1800)
+
+
         }
 //        binding.tvTotalMl.text=
 
@@ -134,7 +152,6 @@ class WaterIntakeFragment : Fragment() {
 
         }
     }
-
     /** ----------------------------
      * Empty State
      * ---------------------------- */
