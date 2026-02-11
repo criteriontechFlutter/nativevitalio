@@ -46,26 +46,45 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         username: String,
         password: String
     ) {
+
         _loading.value = true
         _loginSuccess.postValue(false)
 
-        FirebaseMessaging.getInstance().token
-            .addOnCompleteListener { task ->
+        try {
 
-                if (!task.isSuccessful) {
-                    Log.w("FCM", "Fetching FCM token failed", task.exception)
-                    _loading.value = false
-                    return@addOnCompleteListener
+            FirebaseMessaging.getInstance().token
+                .addOnCompleteListener { task ->
+
+                    if (!task.isSuccessful) {
+
+                        Log.w("FCM", "Fetching FCM token failed", task.exception)
+
+                        // Fallback → Login without token
+                        loginWithToken(username, password, "")
+
+                        _loading.value = false
+                        return@addOnCompleteListener
+                    }
+
+                    val deviceToken = task.result ?: ""
+
+                    Log.d("FCM", "FCM Token: $deviceToken")
+
+                    // Use REAL token
+                    loginWithToken(username, password, deviceToken)
+
                 }
 
-                val deviceToken = task.result
-                Log.d("FCM", "FCM Registration Token: $deviceToken")
+        } catch (e: Exception) {
 
-                // ✅ Call API ONLY after token is available
-                loginWithToken(username, password, deviceToken)
-            }
+            Log.e("FCM", "FCM Crash: ${e.message}")
 
+            // Fallback login
+            loginWithToken(username, password, "")
+            _loading.value = false
+        }
     }
+
 
     private fun loginWithToken(
         username: String,

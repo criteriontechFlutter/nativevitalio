@@ -178,7 +178,7 @@ class Login : BaseActivity() {
 
         val isFirstLogin = (prefs?.isFirstLoginCompleted ?: 1) == 0
 
-        if (!isFirstLogin) {
+        if (isFirstLogin) {
             ConfirmUpdateBottomSheet(
                 title = "Login Successfully",
                 message = "Hello $name, Welcome to Vitalio.\nLet's secure your account with a new password.",
