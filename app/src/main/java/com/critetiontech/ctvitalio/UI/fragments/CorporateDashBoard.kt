@@ -20,6 +20,7 @@ import android.graphics.Typeface
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.media.audiofx.NoiseSuppressor
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -91,6 +92,8 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
+import kotlin.math.max
+import kotlin.math.min
 
 
 class CorporateDashBoard : Fragment() {
@@ -111,6 +114,9 @@ class CorporateDashBoard : Fragment() {
     private var sliderRunnable: Runnable? = null
     private var audioRecord: AudioRecord? = null
     private var isRecording = false
+    private var silenceStartTime = 0L
+    private var backgroundNoise = 0.0
+    private var noiseMeasured = false
     private var webSocket: WebSocket? = null
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_REQUEST_CODE = 101
@@ -1359,7 +1365,15 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         }
     }
 
-    private fun startAudioStreaming() {
+
+
+    fun startAudioStreaming() {
+
+        if (isRecording) return
+        silenceStartTime = 0L
+        noiseMeasured = false
+        backgroundNoise = 0.0
+
         val bufferSize = AudioRecord.getMinBufferSize(
             16000,
             AudioFormat.CHANNEL_IN_MONO,
@@ -1367,14 +1381,11 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         )
 
         if (ActivityCompat.checkSelfPermission(
-                requireContext(),  // ✅ Corrected
+                requireContext(),
                 Manifest.permission.RECORD_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        ) return
 
-
-            return
-        }
         audioRecord = AudioRecord(
             MediaRecorder.AudioSource.MIC,
             16000,
@@ -1383,20 +1394,110 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             bufferSize
         )
 
+        if (NoiseSuppressor.isAvailable()) {
+            NoiseSuppressor.create(audioRecord!!.audioSessionId)
+        }
+
         audioRecord?.startRecording()
         isRecording = true
 
+        val buffer = ShortArray(bufferSize / 2)
+
+        val rmsHistory = mutableListOf<Double>()
+        val smoothingWindow = 5
+
+        val noiseMeasureEnd = System.currentTimeMillis() + 2000
+        var noiseSum = 0.0
+        var noiseCount = 0
+
         Thread {
-            val buffer = ByteArray(bufferSize)
             while (isRecording && audioRecord != null) {
+
                 val read = audioRecord!!.read(buffer, 0, buffer.size)
-                if (read > 0) {
-                    webSocket?.send(buffer.toByteString(0, read))
+                if (read <= 0) continue
+
+// STREAM AUDIO
+                val byteBuffer = ByteArray(read * 2)
+                for (i in 0 until read) {
+                    byteBuffer[i * 2] = (buffer[i].toInt() and 0x00FF).toByte()
+                    byteBuffer[i * 2 + 1] = ((buffer[i].toInt() shr 8) and 0x00FF).toByte()
+                }
+
+                webSocket?.send(byteBuffer.toByteString())
+                // ---- Calculate RMS correctly (IMPORTANT) ----
+                var sum = 0.0
+                for (i in 0 until read) {
+                    sum += buffer[i] * buffer[i]
+                }
+                val rms = kotlin.math.sqrt(sum / read)
+
+                // ---- Measure background noise for first 2 sec ----
+                if (!noiseMeasured) {
+                    if (System.currentTimeMillis() < noiseMeasureEnd) {
+                        noiseSum += rms
+                        noiseCount++
+                        continue
+                    } else {
+                        backgroundNoise = if (noiseCount > 0) noiseSum / noiseCount else 30.0
+                        noiseMeasured = true
+                        Log.d("Audio", "Background noise measured = $backgroundNoise")
+                    }
+                }
+
+                // ---- Smooth RMS ----
+                rmsHistory.add(rms)
+                if (rmsHistory.size > smoothingWindow)
+                    rmsHistory.removeAt(0)
+
+                val smoothedRms = rmsHistory.average()
+
+                // ---- Dynamic threshold (IMPORTANT FIX) ----
+                val speakingThreshold = backgroundNoise * 1.4   // 40% above noise
+
+                if (smoothedRms > speakingThreshold) {
+
+                    // USER SPEAKING
+                    silenceStartTime = 0L
+
+                    Log.d("Audio", "Speaking RMS=$smoothedRms Noise=$backgroundNoise")
+
+                } else {
+
+                    if (silenceStartTime == 0L)
+                        silenceStartTime = System.currentTimeMillis()
+
+                    val silenceDuration =
+                        System.currentTimeMillis() - silenceStartTime
+
+                    Log.d("Audio", "Silent for $silenceDuration ms RMS=$smoothedRms")
+
+                    if (silenceDuration >= 5000) {
+                        Log.d("Audio", "5 sec silence → stopping mic")
+
+                        requireActivity().runOnUiThread {
+                            stopAudioStreaming()
+                            disconnectWebSocket()
+                            voiceDialog?.dismiss()
+                        }
+                        break
+                    }
                 }
             }
         }.start()
-//        monitorSilence()
     }
+
+
+
+    fun reconnectWebSocket() {
+        try {
+            webSocket?.cancel()
+             connectWebSocket() // implement your WebSocket creation logic
+            Log.d("Audio", "WebSocket reconnected")
+        } catch (e: Exception) {
+            Log.e("Audio", "WebSocket reconnect failed: ${e.message}")
+        }
+    }
+
     private fun disconnectWebSocket() {
         webSocket?.close(1000, "Closing")
         webSocket = null
