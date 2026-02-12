@@ -243,6 +243,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="25sp"
+                    android:visibility="gone"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/tFeelingBelow"
                     app:layout_constraintEnd_toEndOf="parent"
