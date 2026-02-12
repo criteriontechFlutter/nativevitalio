@@ -651,7 +651,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                             if (value != "0" && value != "0.0") {
                                 val name = key.removePrefix("vmValue").replace("BPSys", "BP Systolic")
                                     .replace("BPDias", "BP Diastolic")
-                                    .replace("Rbs", "RBS")
+                                    .replace("Rbs", "RBS/Glucose")
                                     .replace("Pulse", "Pulse Rate")
                                     .replace("HeartRate", "Heart Rate")
                                     .replace("SPO2", "SpO2")

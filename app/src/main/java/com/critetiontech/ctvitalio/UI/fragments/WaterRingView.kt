@@ -36,7 +36,7 @@ class WaterRingWaveView @JvmOverloads constructor(
     private var lastTouchY = 0f
 
     // Sizes
-    private var ringWidth = dp(40f)
+    private var ringWidth = dp(60f)   // Increased ring thickness
     private var waveHeight = dp(18f)
 
     // Animators
@@ -51,9 +51,9 @@ class WaterRingWaveView @JvmOverloads constructor(
 
         // LIGHT WAVE
         lightWavePaint.style = Paint.Style.FILL
-        lightWavePaint.color = "#804FC3F7".toColorInt()
+        lightWavePaint.color = "#803197D6".toColorInt()
 
-        // OUTER WAVE (Light Color)
+        // OUTER RING WAVE
         outerWavePaint.style = Paint.Style.FILL
         outerWavePaint.color = "#40A5C8FF".toColorInt()
 
@@ -62,9 +62,10 @@ class WaterRingWaveView @JvmOverloads constructor(
         textPaint.textAlign = Paint.Align.CENTER
         textPaint.typeface = Typeface.DEFAULT_BOLD
 
+        // Grey Base Ring
         ringBasePaint.style = Paint.Style.STROKE
         ringBasePaint.strokeWidth = ringWidth
-        ringBasePaint.color = "#33000000".toColorInt()
+        ringBasePaint.color = "#4D000000".toColorInt() // transparent grey
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -84,52 +85,46 @@ class WaterRingWaveView @JvmOverloads constructor(
         val outerRadius = radius
         val innerRadius = radius - ringWidth
 
-        // Outer base ring
+        // Base ring
         canvas.drawCircle(cx, cy, outerRadius - ringWidth / 2, ringBasePaint)
 
         val waveTop = cy + innerRadius * (1 - fillFraction)
         val waveWidth = w * 1.5f
 
-        // FIRST WAVE
+        // Wave 1
         wavePath.reset()
         wavePath.moveTo(-waveWidth + waveOffset, waveTop)
-
         wavePath.quadTo(
             -waveWidth * 0.5f + waveOffset,
             waveTop - waveHeight,
             waveOffset,
             waveTop
         )
-
         wavePath.quadTo(
             waveWidth * 0.5f + waveOffset,
             waveTop + waveHeight,
             waveWidth + waveOffset,
             waveTop
         )
-
         wavePath.lineTo(waveWidth, h)
         wavePath.lineTo(0f, h)
         wavePath.close()
 
-        // SECOND WAVE
+        // Wave 2
         wavePath2.reset()
         wavePath2.moveTo(-waveWidth + waveOffset2, waveTop)
-
         wavePath2.quadTo(
             -waveWidth * 0.5f + waveOffset2,
             waveTop - waveHeight * 0.4f,
             waveOffset2,
             waveTop
         )
-
         wavePath2.quadTo(
             waveWidth * 0.5f + waveOffset2,
             waveTop + waveHeight * 0.4f,
             waveWidth + waveOffset2,
             waveTop
         )
-
         wavePath2.lineTo(waveWidth, h)
         wavePath2.lineTo(0f, h)
         wavePath2.close()
@@ -140,9 +135,7 @@ class WaterRingWaveView @JvmOverloads constructor(
 
         canvas.save()
         canvas.clipPath(innerCirclePath)
-
         canvas.drawPath(wavePath, outerWavePaint)
-
         canvas.drawPath(wavePath2, outerWavePaint)
         canvas.restore()
 
@@ -153,15 +146,13 @@ class WaterRingWaveView @JvmOverloads constructor(
 
         canvas.save()
         canvas.clipPath(ringClipPath)
-
-        canvas.drawPath(wavePath, outerWavePaint)
-        canvas.drawPath(wavePath2, innerWavePaint)
-
+        canvas.drawPath(wavePath, innerWavePaint)
+        canvas.drawPath(wavePath2, lightWavePaint)
         canvas.restore()
 
-        // CENTER TEXT
+        // Text
         val textY = cy - (textPaint.descent() + textPaint.ascent()) / 2
-        canvas.drawText("       ${perData}%", cx, textY, textPaint)
+        canvas.drawText("${perData}%", cx, textY, textPaint)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -170,14 +161,11 @@ class WaterRingWaveView @JvmOverloads constructor(
                 lastTouchY = event.y
                 return true
             }
-
             MotionEvent.ACTION_MOVE -> {
                 val dy = lastTouchY - event.y
                 lastTouchY = event.y
-
                 fillFraction += dy / height
                 fillFraction = fillFraction.coerceIn(0f, 1f)
-
                 invalidate()
                 return true
             }
@@ -209,19 +197,22 @@ class WaterRingWaveView @JvmOverloads constructor(
 
     fun setLevelSmooth(targetPercent: Float, duration: Long = 800) {
         levelAnimator?.cancel()
-        levelAnimator = ValueAnimator.ofFloat(
-            fillFraction,
-            targetPercent.coerceIn(0f, 1f)
-        ).apply {
+        levelAnimator = ValueAnimator.ofFloat(fillFraction, targetPercent.coerceIn(0f, 1f)).apply {
             this.duration = duration
             interpolator = LinearInterpolator()
-
             addUpdateListener {
                 fillFraction = it.animatedValue as Float
                 invalidate()
             }
             start()
         }
+    }
+
+    // Change ring thickness dynamically
+    fun setRingWidth(dpValue: Float) {
+        ringWidth = dp(dpValue)
+        ringBasePaint.strokeWidth = ringWidth
+        invalidate()
     }
 
     override fun onDetachedFromWindow() {

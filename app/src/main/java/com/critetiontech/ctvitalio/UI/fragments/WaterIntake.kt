@@ -88,8 +88,12 @@ class WaterIntakeFragment : Fragment() {
                 .setInterpolator(FastOutSlowInInterpolator())
                 .start()
         }
-        binding.tvGoalLabel.text= "Goal "+PrefsManager().getEmployeeGoals().find { it.goalId == 13}.toString()
+        val goal = PrefsManager().getEmployeeGoals()
+            ?.find { it.goalId == 13 }
+            ?.targetValue
+            ?.toInt() ?: 0
 
+        binding.tvGoalLabel.text = "Goal ${goal * 10000} ml"
             viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
 
             // Total ML
