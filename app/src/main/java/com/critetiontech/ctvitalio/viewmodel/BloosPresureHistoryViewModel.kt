@@ -59,7 +59,7 @@ class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(app
 
                 val params = mapOf(
                     "pid" to prefs.getPatient()?.id.toString(),
-                    "FromDate" to "2026-02-05"
+                    "FromDate" to "2026-02-12"
                 )
 
                 val response = apiService.dynamicGet(
