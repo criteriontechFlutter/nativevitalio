@@ -6,6 +6,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,10 +16,13 @@ import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
+import java.util.Locale
+import java.util.Locale.getDefault
 
 class LoginViewModel (application: Application) : BaseViewModel(application){
 
@@ -42,26 +46,45 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         username: String,
         password: String
     ) {
+
         _loading.value = true
         _loginSuccess.postValue(false)
 
-//        FirebaseMessaging.getInstance().token
-//            .addOnCompleteListener { task ->
-//
-//                if (!task.isSuccessful) {
-//                    Log.w("FCM", "Fetching FCM token failed", task.exception)
-//                    _loading.value = false
-//                    return@addOnCompleteListener
-//                }
-//
-//                val deviceToken = task.result
-//                Log.d("FCM", "FCM Registration Token: $deviceToken")
-//
-//                // ✅ Call API ONLY after token is available
-//
-//            }
-        loginWithToken(username, password, "deviceToken")
+        try {
+
+            FirebaseMessaging.getInstance().token
+                .addOnCompleteListener { task ->
+
+                    if (!task.isSuccessful) {
+
+                        Log.w("FCM", "Fetching FCM token failed", task.exception)
+
+                        // Fallback → Login without token
+                        loginWithToken(username, password, "")
+
+                        _loading.value = false
+                        return@addOnCompleteListener
+                    }
+
+                    val deviceToken = task.result ?: ""
+
+                    Log.d("FCM", "FCM Token: $deviceToken")
+
+                    // Use REAL token
+                    loginWithToken(username, password, deviceToken)
+
+                }
+
+        } catch (e: Exception) {
+
+            Log.e("FCM", "FCM Crash: ${e.message}")
+
+            // Fallback login
+            loginWithToken(username, password, "")
+            _loading.value = false
+        }
     }
+
 
     private fun loginWithToken(
         username: String,
@@ -71,9 +94,11 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "username" to username,
+                    "username" to run {
+                        username.lowercase(getDefault())
+                    },
                     "password" to password,
-                    "deviceToken" to deviceToken
+                    "deviceToken" to deviceToken.toString()
                 )
 
                 val response = RetrofitInstance
@@ -88,9 +113,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
 
                     val responseBodyString = response.body()?.string()
                     val type = object : TypeToken<BaseResponse<List<Patient>>>() {}.type
-                    val parsed =
-                        Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
-
+                    val parsed = Gson().fromJson<BaseResponse<List<Patient>>>(responseBodyString, type)
                     parsed.responseValue.firstOrNull()?.let {
                         PrefsManager().savePatient(it)
                     }

@@ -1,10 +1,13 @@
 package com.critetiontech.ctvitalio
 
+import android.app.ComponentCaller
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,5 +42,33 @@ class MainActivity : AppCompatActivity() {
             manager.createNotificationChannel(channel)
         }
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleNotificationIntent(intent)
+    }
+
+
+    private fun handleNotificationIntent(intent: Intent?) {
+        intent?.extras?.let {
+            if (it.getBoolean("from_notification", false)) {
+
+                val type = it.getString("type")
+                val goalId = it.getString("goal_id")
+
+                Log.d("FCM_CLICK", "Type: $type")
+
+                when (type) {
+                    "goal" -> {
+                        // open goal screen
+                    }
+                    "chat" -> {
+                        // open chat
+                    }
+                }
+            }
+        }
+    }
+
 
 }

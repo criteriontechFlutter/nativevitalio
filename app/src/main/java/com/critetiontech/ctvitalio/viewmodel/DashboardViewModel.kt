@@ -19,6 +19,7 @@ import VitalResponseValue
 import VitalsResponse
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.util.Log
@@ -52,6 +53,8 @@ import java.util.Locale
 import androidx.core.graphics.toColorInt
 import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
 import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
+import com.critetiontech.ctvitalio.UI.SignupActivity
+import com.critetiontech.ctvitalio.UI.UltraHumanActivity
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
@@ -646,7 +649,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                             if (value != "0" && value != "0.0") {
                                 val name = key.removePrefix("vmValue").replace("BPSys", "BP Systolic")
                                     .replace("BPDias", "BP Diastolic")
-                                    .replace("Rbs", "RBS")
+                                    .replace("Rbs", "RBS/Glucose")
                                     .replace("Pulse", "Pulse Rate")
                                     .replace("HeartRate", "Heart Rate")
                                     .replace("SPO2", "SpO2")
@@ -964,6 +967,9 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                 if (response.isSuccessful) {
                     Toast.makeText(MyApplication.appContext,"Connected to Ring", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(MyApplication.appContext, SignupActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    MyApplication.appContext.startActivity(intent)
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }

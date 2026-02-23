@@ -180,8 +180,8 @@ class Login : BaseActivity() {
 
         if (isFirstLogin) {
             ConfirmUpdateBottomSheet(
-                title = "Login Successful",
-                message = "Hello $name, welcome to Vitalio.\nLet's secure your account with a new password.",
+                title = "Login Successfully",
+                message = "Hello $name, Welcome to Vitalio.\nLet's secure your account with a new password.",
                 btnText = "Change Password",
                 onConfirm = {
                     val intent = Intent(this, ResetPassword::class.java)
@@ -197,7 +197,6 @@ class Login : BaseActivity() {
     private fun handleLoginFailure() {
         binding.passField.setBackgroundResource(R.drawable.error_feild)
         binding.inputField.setBackgroundResource(R.drawable.error_feild)
-
         binding.doctorsImage.setImageResource(R.drawable.angergif)
         binding.validationId.visibility = View.VISIBLE
 

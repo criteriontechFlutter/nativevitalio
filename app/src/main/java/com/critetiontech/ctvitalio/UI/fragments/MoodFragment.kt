@@ -7,6 +7,7 @@ import PrefsManager
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -43,11 +45,11 @@ class MoodFragment : Fragment() {
     private var colorAnimator: ValueAnimator? = null
 
     private val moods = listOf(
-        MoodData(5, "Spectacular", "#FFA4BA", R.drawable.spectulor_mood, "#611829"),
-        MoodData(6, "Upset", "#88A7FF", R.drawable.upset_mood, "#2A4089"),
-        MoodData(1, "Stressed", "#FF9459", R.drawable.stressed_mood, "#782E04"),
-        MoodData(2, "Happy", "#9ABDFF", R.drawable.happy_mood, "#505D87"),
-        MoodData(4, "Good", "#F9C825", R.drawable.good_mood, "#664F00"),
+        MoodData(5, "Spectacular", "#FFA4BA", R.drawable.spectular, "#611829"),
+        MoodData(6, "Upset", "#88A7FF", R.drawable.upset, "#2A4089"),
+        MoodData(1, "Stressed", "#FF9459", R.drawable.angery, "#782E04"),
+        MoodData(2, "Happy", "#9ABDFF", R.drawable.happy, "#505D87"),
+        MoodData(4, "Good", "#F9C825", R.drawable.good, "#664F00"),
         MoodData(3, "Sad", "#7DE7EE", R.drawable.sad_mood, "#3A7478")
     )
 
@@ -72,6 +74,14 @@ class MoodFragment : Fragment() {
         )
 
         binding.rootMoodLayout.transitionToEnd()
+        val typeface = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            resources.getFont(R.font.source_serif_pro)
+        } else {
+            ResourcesCompat.getFont(requireContext(), R.font.source_serif_pro)
+        }
+
+        binding.questionText.setTypeface(typeface, Typeface.BOLD_ITALIC)
+
 
         setupRecyclerView()
         observeViewModel()

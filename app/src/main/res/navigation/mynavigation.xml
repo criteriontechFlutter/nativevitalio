@@ -122,6 +122,12 @@
         <action
             android:id="@+id/action_dashboard_to_movemenetIndex"
             app:destination="@id/movemenetIndex" />
+        <action
+            android:id="@+id/action_dashboard_to_BPHistory"
+            app:destination="@id/BPHistory" />
+        <action
+            android:id="@+id/action_dashboard_to_glucoseHistory"
+            app:destination="@id/glucoseHistory" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -623,5 +629,22 @@
         android:name="com.critetiontech.ctvitalio.UI.fragments.DynamicRecovery"
         android:label="fragment_dynamic_recovery"
         tools:layout="@layout/fragment_dynamic_recovery" />
+    <fragment
+        android:id="@+id/BPHistory"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BPHistory"
+        android:label="fragment_b_p_history"
+        tools:layout="@layout/fragment_b_p_history" >
+        <action
+            android:id="@+id/action_BPHistory_to_connection"
+            app:destination="@id/connection" />
+    </fragment>
+    <fragment
+        android:id="@+id/glucoseHistory"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.GlucoseHistory"
+        android:label="GlucoseHistory" >
+        <action
+            android:id="@+id/action_glucoseHistory_to_connection"
+            app:destination="@id/connection" />
+    </fragment>
 
 </navigation>
