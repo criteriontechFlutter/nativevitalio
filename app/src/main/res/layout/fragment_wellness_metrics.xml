@@ -73,6 +73,7 @@
             <com.critetiontech.ctvitalio.utils.CenterDatePickerView
                 android:id="@+id/centerDatePicker"
                 android:layout_width="match_parent"
+                android:paddingBottom="8dp"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -1156,152 +1157,152 @@
 
 <!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                 app:cardCornerRadius="22dp"
-                app:cardUseCompatPadding="true"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#E9FDF5">
+<!--            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                 app:cardCornerRadius="22dp"-->
+<!--                app:cardUseCompatPadding="true"-->
+<!--                app:cardElevation="0dp"-->
+<!--                app:cardBackgroundColor="#E9FDF5">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="20dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingHorizontal="18dp"-->
+<!--                    android:paddingVertical="20dp">-->
 
-                    <!-- Top Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/wm_brain" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Sleep Debt"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:paddingStart="8dp"
-                            android:textColor="#000000" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_arrow_right" />
-                    </LinearLayout>
-                    <com.critetiontech.ctvitalio.utils.StepProgressView
-                        android:id="@+id/stepProgressView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"/>
-                    <!-- Timeline Bar -->
+<!--                    &lt;!&ndash; Top Row &ndash;&gt;-->
 <!--                    <LinearLayout-->
 <!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="28dp"-->
+<!--                        android:layout_height="wrap_content"-->
 <!--                        android:orientation="horizontal"-->
-<!--                        android:gravity="center_vertical"-->
+<!--                        android:gravity="center_vertical">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="32dp"-->
+<!--                            android:layout_height="32dp"-->
+<!--                            android:src="@drawable/wm_brain" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Sleep Debt"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:textColor="#000000" />-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_arrow_right" />-->
+<!--                    </LinearLayout>-->
+<!--                    <com.critetiontech.ctvitalio.utils.StepProgressView-->
+<!--                        android:id="@+id/stepProgressView"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="16dp"/>-->
+<!--                    &lt;!&ndash; Timeline Bar &ndash;&gt;-->
+<!--&lt;!&ndash;                    <LinearLayout&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="28dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:orientation="horizontal"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:gravity="center_vertical"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:background="#E9FDF5">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        &lt;!&ndash; Red block &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="24dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="14dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginEnd="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_red_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        &lt;!&ndash; Green block &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="24dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginEnd="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_green_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        &lt;!&ndash; Repeating pale blocks &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginEnd="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_gray_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginEnd="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_gray_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginEnd="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_gray_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginEnd="6dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_gray_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <View&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_gray_round" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </LinearLayout>&ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center_horizontal"-->
 <!--                        android:background="#E9FDF5">-->
 
-<!--                        &lt;!&ndash; Red block &ndash;&gt;-->
-<!--                        <View-->
-<!--                            android:layout_width="24dp"-->
-<!--                            android:layout_height="14dp"-->
-<!--                            android:layout_marginEnd="6dp"-->
-<!--                            android:background="@drawable/bg_red_round" />-->
+<!--                    &lt;!&ndash; Main Value &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:text="-1h 20m"-->
+<!--                        android:textColor="#18C27E"-->
+<!--                        android:textSize="42sp"-->
+<!--                        android:textStyle="bold" />-->
 
-<!--                        &lt;!&ndash; Green block &ndash;&gt;-->
-<!--                        <View-->
-<!--                            android:layout_width="24dp"-->
-<!--                            android:layout_height="22dp"-->
-<!--                            android:layout_marginEnd="6dp"-->
-<!--                            android:background="@drawable/bg_green_round" />-->
+<!--                    &lt;!&ndash; Label &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="Recommended Sleep Time"-->
+<!--                        android:textColor="#777"-->
+<!--                        android:textSize="14sp" />-->
 
-<!--                        &lt;!&ndash; Repeating pale blocks &ndash;&gt;-->
-<!--                        <View-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="22dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="6dp"-->
-<!--                            android:background="@drawable/bg_gray_round" />-->
+<!--                    &lt;!&ndash; Time Range &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="2dp"-->
+<!--                        android:text="11:26 PM - 11:56 PM for 6h 30m of sleep"-->
+<!--                        android:textColor="#000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
 
-<!--                        <View-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="22dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="6dp"-->
-<!--                            android:background="@drawable/bg_gray_round" />-->
+<!--                </LinearLayout>-->
+<!--        </LinearLayout>-->
 
-<!--                        <View-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="22dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="6dp"-->
-<!--                            android:background="@drawable/bg_gray_round" />-->
-
-<!--                        <View-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="22dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_marginEnd="6dp"-->
-<!--                            android:background="@drawable/bg_gray_round" />-->
-
-<!--                        <View-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="22dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@drawable/bg_gray_round" />-->
-
-<!--                    </LinearLayout>-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:background="#E9FDF5">
-
-                    <!-- Main Value -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="-1h 20m"
-                        android:textColor="#18C27E"
-                        android:textSize="42sp"
-                        android:textStyle="bold" />
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Recommended Sleep Time"
-                        android:textColor="#777"
-                        android:textSize="14sp" />
-
-                    <!-- Time Range -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="11:26 PM - 11:56 PM for 6h 30m of sleep"
-                        android:textColor="#000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-        </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/brainWasteClearance"

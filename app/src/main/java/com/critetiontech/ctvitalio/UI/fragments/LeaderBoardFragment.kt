@@ -66,15 +66,15 @@ class LeaderboardFragment : Fragment() {
         top3User = sortedList.getOrNull(2)
         currentEmployee = sortedList.find { it.empId.toString() == PrefsManager().getPatient()?.empId.toString() }
 
-        binding. rankText.text= currentEmployee?.rank.toString()
-        binding. nameText.text= currentEmployee?.empName.toString()
-        binding.gemText .text  = currentEmployee?.totalPoints.toString()
+        binding.rankText.text = currentEmployee?.rank?.toString() ?: "-"
+        binding.nameText.text = currentEmployee?.empName ?: "Unknown"
+        binding.gemText.text  = currentEmployee?.totalPoints?.toString() ?: "0"
 
         Glide.with(binding  .profileImage.context)
             .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ currentEmployee?.imageURL?.replace("\\", "/"))
 
-            .circleCrop().placeholder(R.drawable.person)
-            .error(R.drawable.person)
+            .circleCrop().placeholder(R.drawable.achievement_background)
+            .error(R.drawable.achievement_background)
             .circleCrop()
             .into(binding .profileImage)
         Log.d("Leaderboard", "Top1 = $top1User")
@@ -107,8 +107,8 @@ class LeaderboardFragment : Fragment() {
             Glide.with(binding.firstUser.context)
                 .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
 
-                .circleCrop().placeholder(R.drawable.person)
-                .error(R.drawable.person)
+                .circleCrop().placeholder(R.drawable.achievement_background)
+                .error(R.drawable.achievement_background)
                 .into(binding.firstUser)
 
         }
@@ -121,8 +121,8 @@ class LeaderboardFragment : Fragment() {
             Glide.with(binding.secondUser.context)
                 .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
 
-                .circleCrop() .placeholder(R.drawable.person)
-                .error(R.drawable.person)
+                .circleCrop() .placeholder(R.drawable.achievement_background)
+                .error(R.drawable.achievement_background)
                 .into(binding.secondUser)
         }
 
@@ -134,8 +134,8 @@ class LeaderboardFragment : Fragment() {
             Glide.with(binding.thirdUser.context)
                 .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
 
-                .circleCrop() .placeholder(R.drawable.person)
-                .error(R.drawable.person)
+                .circleCrop() .placeholder(R.drawable.achievement_background)
+                .error(R.drawable.achievement_background)
                 .into(binding.thirdUser)
         }
     }

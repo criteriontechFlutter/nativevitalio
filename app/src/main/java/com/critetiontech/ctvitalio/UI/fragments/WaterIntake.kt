@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
@@ -28,6 +29,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+
 class WaterIntakeFragment : Fragment() {
 
     private var _binding: FragmentWaterIntakeBinding? = null
@@ -74,6 +76,10 @@ class WaterIntakeFragment : Fragment() {
             updateEmptyState()
         }
 
+        binding.wellnessImageArrow.setOnClickListener {
+
+            findNavController().popBackStack()
+        }
         binding.waterRing.post {
 
             val halfWidth = binding.waterRing.width / 2.6f
@@ -88,30 +94,32 @@ class WaterIntakeFragment : Fragment() {
                 .setInterpolator(FastOutSlowInInterpolator())
                 .start()
         }
-        val goal = PrefsManager().getEmployeeGoals()
+        
+        val goalLitres = PrefsManager().getEmployeeGoals()
             ?.find { it.goalId == 13 }
             ?.targetValue
             ?.toInt() ?: 0
 
-        binding.tvGoalLabel.text = "Goal ${goal * 10000} ml"
-            viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
+        // Show configured goal (fallback to 0 safely)
+        binding.tvGoalLabel.text = "Goal ${goalLitres * 1000} ml"
 
+        viewModel.atotalWaterQty.observe(viewLifecycleOwner) { totalMl ->
             // Total ML
             binding.tvTotalMl.text = "$totalMl ml"
 
-            // Percentage
-            val percentage = (totalMl.toInt() * 100) / 4000
-            binding.tvDailyper.text = "$percentage%"
-            val goal = 4000f
+            if (goalLitres <= 0) {
+                // No goal set → avoid divide‑by‑zero, show 0%
+                binding.tvDailyper.text = "0%"
+                binding.waterRing.setLevelSmooth(0f, 1800)
+            } else {
+                val goalMl = goalLitres * 1000f
+                val rawPercentage = (totalMl.toFloat() * 100f) / goalMl
+                val safePercentage = rawPercentage.coerceIn(0f, 100f)
 
-            val fraction = (totalMl.toInt() / goal).coerceIn(0f, 1f)
-            binding.waterRing.setLevelSmooth(percentage.toFloat(), 1800)
-
-                binding.waterRing.setLevelSmooth(70f, 1800)
-
-
+                binding.tvDailyper.text = "${safePercentage.toInt()}%"
+                binding.waterRing.setLevelSmooth(safePercentage, 1800)
+            }
         }
-//        binding.tvTotalMl.text=
 
         viewModel.chartRecords.observe(viewLifecycleOwner) {
             setupWaterChart(it)

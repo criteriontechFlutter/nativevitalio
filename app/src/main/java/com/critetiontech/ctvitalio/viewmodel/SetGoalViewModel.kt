@@ -74,7 +74,7 @@ fun updateUserData(
 
             if (status == 1) {
                 // BUSINESS SUCCESS
-                ToastUtils.showSuccessPopup(requireContext, message)
+                ToastUtils.showSuccessPopup(requireContext, "Success")
                 _updateSuccess.postValue(true)
             } else {
                 // BUSINESS FAILURE ("Goal already exists !!" etc.)

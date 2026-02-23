@@ -95,18 +95,7 @@ class MoodFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = moodAdapter
             PagerSnapHelper().attachToRecyclerView(this)
-            handleMoodChange(binding.moodEmoji)
         }
-
-        binding.moodEmoji.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    handleMoodChange(recyclerView)
-                }
-            }
-        })
 
         // Scroll listener for background color animation
         binding.moodEmoji.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -114,7 +103,7 @@ class MoodFragment : Fragment() {
                 if (newState != RecyclerView.SCROLL_STATE_IDLE) return
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val position = layoutManager.findFirstVisibleItemPosition()
+                val position = layoutManager.findFirstCompletelyVisibleItemPosition()
 
                 if (position == RecyclerView.NO_POSITION) return
 
@@ -153,38 +142,6 @@ class MoodFragment : Fragment() {
             }
         })
     }
-    private fun handleMoodChange(recyclerView: RecyclerView) {
-
-        val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
-        val position = layoutManager.findFirstCompletelyVisibleItemPosition()
-
-        if (position == RecyclerView.NO_POSITION) return
-
-        val moodList = viewModel.moodsLiveData.value ?: return
-        if (position !in moodList.indices) return
-
-        val mood = moodList[position]
-        viewModel.onMoodClicked(mood.id.toString())
-
-        val localMood = moods.find { it.id == mood.id }
-        val targetColorHex = localMood?.color ?: "#FFFFFF"
-        val targetColor = runCatching { targetColorHex.toColorInt() }.getOrDefault(Color.WHITE)
-
-        val currentColor =
-            (binding.rootMoodLayout.background as? ColorDrawable)?.color ?: Color.WHITE
-
-        colorAnimator?.cancel()
-
-        colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), currentColor, targetColor).apply {
-            duration = 50
-            addUpdateListener { animator ->
-                if (!isAdded) return@addUpdateListener
-                val animatedColor = animator.animatedValue as Int
-                binding.rootMoodLayout.setBackgroundColor(animatedColor)
-            }
-            start()
-        }
-    }
 
     private fun observeViewModel() {
 
@@ -208,14 +165,17 @@ class MoodFragment : Fragment() {
 
             moodAdapter.updateList(mapped)
 
-            // ✅ Select and apply first item immediately (NO scroll dependency)
-            val firstMood = mapped[0]
+            // First item auto scroll
+            binding.moodEmoji.post {
+                binding.moodEmoji.smoothScrollToPosition(0)
+            }
 
+            // First mood auto apply
+            val firstMood = mapped.first()
             viewModel.onMoodClicked(firstMood.id.toString())
 
-            val targetColor = runCatching {
-                firstMood.color.toColorInt()
-            }.getOrDefault(Color.WHITE)
+            val localMood = moods.find { it.id == firstMood.id } ?: return@observe
+            val targetColor = localMood.color.toColorInt()
 
             binding.rootMoodLayout.setBackgroundColor(targetColor)
 
@@ -224,14 +184,9 @@ class MoodFragment : Fragment() {
                 navColorInt = ContextCompat.getColor(requireContext(), R.color.white),
                 lightIcons = true
             )
-
-            // Optional: ensu
-            binding.moodEmoji.post {
-                binding.moodEmoji.scrollToPosition(0)
-            }
-        }}
-
-            private fun setUserInfo() {
+        }
+    }
+    private fun setUserInfo() {
         binding.userName2.text = PrefsManager().getPatient()?.patientName ?: ""
 
         Glide.with(this)

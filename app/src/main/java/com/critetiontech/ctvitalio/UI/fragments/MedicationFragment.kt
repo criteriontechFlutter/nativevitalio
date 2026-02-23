@@ -51,7 +51,10 @@ class MedicationFragment : Fragment() {
         binding.rvLoggedMedicines.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        binding.wellnessImageArrow.setOnClickListener {
 
+            findNavController().popBackStack()
+        }
 
         val today = calendarView.getSelectedDateString("yyyy-MM-dd")
         viewModel.getEmployeeMedicineIntakeByDate(today)

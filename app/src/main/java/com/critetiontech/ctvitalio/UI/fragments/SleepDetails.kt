@@ -425,7 +425,7 @@ class SleepDetails : Fragment() {
             val hr = sleepValue
                 ?.firstOrNull { it.vitalName.equals("HRV", ignoreCase = true) }
             "HR Drop".also { binding.hr.title.text = it }
-            binding.hr.value.text =hr?.vmValueText.toString()
+            binding.hr.value.text = hr?.vmValueText ?: hr?.vitalValue?.toString() ?: "--"
             binding.hr.status.text =hr?.severityLevel.toString()
             Log.d("EfficiencyEfficiencyEfficiency", viewModel.sleepsummary.value.toString())
 

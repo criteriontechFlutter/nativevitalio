@@ -289,6 +289,9 @@ class CorporateDashBoard : Fragment() {
                 ) { viewModel.getVitals() }
             }
         }
+
+
+
         Glide.with(MyApplication.appContext)
             .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+PrefsManager().getPatient()?.imageURL.toString())
             .placeholder(R.drawable.baseline_person_24)
@@ -342,6 +345,10 @@ class CorporateDashBoard : Fragment() {
             binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
             binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
+            val visible = list.isNotEmpty()
+
+            binding.activechalgesId.visibility = if (visible) View.VISIBLE else View.GONE
+            binding.activeChalleTextId.visibility = if (visible) View.VISIBLE else View.GONE
             setupActiveChallenges(list.size)
         }
 
@@ -426,24 +433,12 @@ class CorporateDashBoard : Fragment() {
 
 
 
-//
-//        binding.bpPopupId.setOnClickListener {
-//            findNavController().navigate(R.id.action_dashboard_to_connection )
-//        }
-         binding.glucosePopupId.setOnClickListener {
-             val bundle = Bundle().apply {
-                 putString("vitalType", "Glucose")
-             }
-             findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-        }
-
         binding.bpPopupId.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_BPHistory  )
-
+            findNavController().navigate(R.id.action_dashboard_to_BPHistory)
         }
+        
         binding.glucosePopupId.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_glucoseHistory  )
-
+            findNavController().navigate(R.id.action_dashboard_to_glucoseHistory)
         }
 
         binding.voiceAssistantId.setOnClickListener {
@@ -464,7 +459,8 @@ class CorporateDashBoard : Fragment() {
             findNavController().navigate(R.id.action_dashboard_to_addMedicineReminderFragment)
         }
 
-
+        observeVitalList()
+        observeSleepValues()
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
             val adapter: DashboardAdapter
@@ -1599,63 +1595,59 @@ fun Int.withAlpha(alpha: Float): Int {
         val a = (alpha * 255).toInt().coerceIn(0, 255)
         return (this and 0x00FFFFFF) or (a shl 24)
     }
-//    private fun observeVitalList() {
-//        viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
-//
-//            updateCard(binding.sleepScoreId, "Sleep Score", vitalList.getVital("SleepScore"))
-//            updateCard(binding.totalSleepId, "Total Sleep", vitalList.getVital("TotalSleep"))
-//            updateCard(binding.timeInBedId, "Time In Bed", vitalList.getVital("TimeInBed"))
-//            updateCard(binding.fulSleepCycleId, "Sleep Cycles", vitalList.getVital("SleepCycles"))
-//            updateCard(binding.restorativeSleepId, "Restorative Sleep", vitalList.getVital("RestorativeSleep"))
-//            updateCard(binding.morningAlertnessId, "Morning Alertness", vitalList.getVital("MorningAlertness"))
-//            updateCard(binding.tossesAndTurnsId, "Tosses and Turns", vitalList.getVital("TossTurn"))
-//            updateCard(binding.averageBodyTempId, "Temperature", vitalList.getVital("Temperature"))
-//            updateCard(binding.activieHoursId, "Active Hours", vitalList.getVital("ActiveHours"))
-//            updateCard(binding.StepsId, "Steps", vitalList.getVital("TotalSteps"))
-//            updateCard(binding.ActiveminutesId, "Active Minutes", vitalList.getVital("ActiveMinutes"))
-//            updateCard(binding.recoveryScoreId, "Recovery Index", vitalList.getVital("RecoveryIndex"))
-//            updateCard(binding.lastNightHrvId, "Last Night's HRV", vitalList.getVital("HRV"))
-//            updateCard(binding.SleepStageHrvId, "Sleep Stage HRV", vitalList.getVital("HRV"))
-//            updateCard(binding.StressRhythmScoreId, "Stress Rhythm Score", vitalList.getVital("StressScore"))
-//            // Temperature Deviation (special formatting)
-//            val temp = vitalList.getVital("Temperature")?.vitalValue ?: 0.0
-//            binding.tempDeviationId.title.text = "Temperature Deviation"
-//            binding.tempDeviationId.value.text = "%.1f".format(temp)
-//            binding.tempDeviationId.statusCardId.visibility = View.VISIBLE
-//
-//            updateCard(binding.movementsId, "Movement Index", vitalList.getVital("MovementIndex"))
-//        }
-//    }
+    private fun observeVitalList() {
+
+        updateCardTitle(binding.sleepScoreId, "Sleep Score",  )
+        updateCardTitle(binding.totalSleepId, "Total Sleep",  )
+        updateCardTitle(binding.timeInBedId, "Time In Bed",  )
+        updateCardTitle(binding.fulSleepCycleId, "Sleep Cycles",  )
+        updateCardTitle(binding.restorativeSleepId, "Restorative Sleep", )
+        updateCardTitle(binding.morningAlertnessId, "Morning Alertness",  )
+        updateCardTitle(binding.tossesAndTurnsId, "Tosses and Turns", )
+        updateCardTitle(binding.averageBodyTempId, "Temperature", )
+        updateCardTitle(binding.activieHoursId, "Active Hours",  )
+        updateCardTitle(binding.StepsId, "Steps", )
+        updateCardTitle(binding.ActiveminutesId, "Active Minutes",  )
+        updateCardTitle(binding.WeeklyActiveMinutesId, "Weekly Active Minutes",  )
+        updateCardTitle(binding.recoveryScoreId, "Recovery Index",  )
+        updateCardTitle(binding.lastNightHrvId, "Last Night's HRV", )
+        updateCardTitle(binding.SleepStageHrvId, "Sleep Stage HRV", )
+        updateCardTitle(binding.StressRhythmScoreId, "Stress Rhythm Score",  )
+            // Temperature Deviation (special formatting)
+            binding.tempDeviationId.title.text = "Temperature Deviation"
+
+
+    }
+    private fun updateCardTitle(card: SleepLayoutBinding, title: String, ) {
+        card.title.text = title
+
+
+    }
 
     // ---------------------------------------------------------------------
     //  OBSERVE: SLEEP VALUE DETAILS
     // ---------------------------------------------------------------------
-//    private fun observeSleepValues() {
-//        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
-//
-//            val efficiency = sleepValue.QuickMetrics
-//                ?.firstOrNull { it.Title.equals("EFFICIENCY", true) }
-//
-//            binding.sleepEfficiencyId.title.text = "Sleep Efficiency"
-//            binding.sleepEfficiencyId.value.text = efficiency?.DisplayText ?: "--"
-//            binding.sleepEfficiencyId.statusCardId.visibility = View.VISIBLE
-//
-//
-//            updateStage(binding.remSleepId, "REM Sleep", sleepValue, "REM Sleep")
-//            updateStage(binding.deepSleepId, "Deep Sleep", sleepValue, "Deep Sleep")
-//            updateStage(binding.lightSleepId, "Light Sleep", sleepValue, "Light Sleep")
-//
-//
-//            binding.movementsId.title.text = "Movements"
-//            binding.movementsId.value.text = sleepValue.MovementGraph?.Data?.size.toString()
-//            binding.movementsId.statusCardId.visibility = View.VISIBLE
-//
-//
-//            binding.inactiveHoursId.title.text = "Inactive Time"
-//            binding.inactiveHoursId.value.text = "_"
-//            binding.inactiveHoursId.statusCardId.visibility = View.VISIBLE
-//        }
-//    }
+    private fun observeSleepValues() {
+
+
+            binding.sleepEfficiencyId.title.text = "Sleep Efficiency"
+            binding.sleepEfficiencyId.value.text =  "--"
+
+
+        updateStageTitle(binding.remSleepId, "REM Sleep",  )
+        updateStageTitle(binding.deepSleepId, "Deep Sleep",  )
+        updateStageTitle(binding.lightSleepId, "Light Sleep", )
+
+
+
+
+            binding.inactiveHoursId.title.text = "Inactive Time"
+            binding.inactiveHoursId.value.text = "_"
+        }
+    private fun updateStageTitle(card: SleepLayoutBinding, title: String,  ) {
+
+        card.title.text = title
+    }
 
     private fun updateCard(card: SleepLayoutBinding, title: String, vital: Vital?) {
         card.title.text = title
@@ -1861,7 +1853,7 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
         if(item.vmId.toString()=="298"){
 
             itemBinding.tvStepsValue.text =
-                "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000}"
+                "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000} ml"
         }else{
 
             itemBinding.tvStepsValue.text =
@@ -2170,8 +2162,6 @@ private fun updateProgress(unit: String) {
 
 
     private fun setupRecyclerAndIndicators() {
-
-        // Create adapter once
         dailyTipAdapter = DailyTipAdapter(emptyList()) { tip ->
             handleTipAction(tip)
         }

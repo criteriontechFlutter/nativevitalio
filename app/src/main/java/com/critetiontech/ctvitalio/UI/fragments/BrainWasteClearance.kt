@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentBrainWasteClearanceBinding
 import com.critetiontech.ctvitalio.model.MovementIndexViewModel
@@ -32,11 +33,7 @@ class BrainWasteClearance : Fragment() {
 
         viewModel = ViewModelProvider(this)[MovementIndexViewModel::class.java]
         binding.wellnessImageArrow.setOnClickListener {
-            // Option 1: If using Navigation Component
-            // findNavController().navigateUp()
-
-            // Option 2: If not using Navigation Component
-            activity?.onBackPressedDispatcher?.onBackPressed()
+            findNavController().popBackStack()
         }
 
         viewModel.wellnessMetrics.observe(viewLifecycleOwner) { response ->
