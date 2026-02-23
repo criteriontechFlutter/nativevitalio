@@ -20,6 +20,9 @@ import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(application) {
 
@@ -57,9 +60,11 @@ class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(app
         viewModelScope.launch {
             try {
 
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val currentDate = sdf.format(Date())
                 val params = mapOf(
                     "pid" to prefs.getPatient()?.id.toString(),
-                    "FromDate" to "2026-02-05"
+                    "FromDate" to currentDate
                 )
 
                 val response = apiService.dynamicGet(

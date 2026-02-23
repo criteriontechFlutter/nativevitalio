@@ -64,6 +64,10 @@ class GlucoseHistory : Fragment() {
             adapter.updateData(logs)
         }
 
+        binding.wellnessImageArrow.setOnClickListener {
+
+            findNavController().popBackStack()
+        }
         binding.logglucoselevel.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("vitalType", "Glucose")
@@ -101,17 +105,23 @@ class GlucoseHistory : Fragment() {
 
         viewModel.summary.observe(viewLifecycleOwner) { summary ->
 
-            binding.tvMinValue.text = summary.dayMin.toInt().toString()
-            binding.tvMaxValue.text = summary.dayMax.toInt().toString()
+            summary?.let {
 
-            showMinMaxRange(
-                summary.dayMin.toInt(),
-                summary.dayMax.toInt()
-            )
-            val status = getGlucoseStatus(summary.weekAvg.toInt())
-//
-//            binding.tvStatus.text = status.first
-//            binding.tvStatus.setTextColor(status.second)
+                binding.tvMinValue.text = it.dayMin.toInt().toString()
+                binding.tvMaxValue.text = it.dayMax.toInt().toString()
+
+                showMinMaxRange(
+                    it.dayMin.toInt(),
+                    it.dayMax.toInt()
+                )
+
+                val status = getGlucoseStatus(it.weekAvg.toInt())
+
+            } ?: run {
+                // optional fallback UI
+                binding.tvMinValue.text = "--"
+                binding.tvMaxValue.text = "--"
+            }
         }
         viewModel.trendGraph.observe(viewLifecycleOwner) { list ->
 
@@ -122,6 +132,11 @@ class GlucoseHistory : Fragment() {
             }
 
                 binding.glucoseGraph.setData(minValues, maxValues, days)
+            // Average glucose calculation
+            val avgGlucose = list.map { (it.minValue + it.maxValue) / 2.0 }
+                .average()
+
+            binding.tvAverage.text = avgGlucose.toInt().toString()+" mg/dl"
         }
         // RecyclerView setup
         binding.recyclerTodayLog.layoutManager =

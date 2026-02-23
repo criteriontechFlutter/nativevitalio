@@ -59,7 +59,10 @@ class BPHistory : Fragment() {
         binding.recyclerTodayLog.adapter = adapter
 
         viewModel.getBloodPressureDetailsByPid()
+            binding.wellnessImageArrow.setOnClickListener {
 
+                findNavController().popBackStack()
+            }
         // Logs
         viewModel.bpLogs.observe(viewLifecycleOwner) { logs ->
             adapter.updateList(logs)   // Make sure adapter has updateList()
@@ -73,11 +76,41 @@ class BPHistory : Fragment() {
         val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
         val date = formatter.format(Date())
         binding.wellnessText.text = date
+//        viewModel.weeklyTrend.observe(viewLifecycleOwner) { trend ->
+//
+//            if (trend.isEmpty()) return@observe
+//
+//            // Prepare data for chart
+//            val maxList = trend.map { it.maxMAP.toInt() }
+//            val minList = trend.map { it.minMAP.toInt() }
+//            val days = trend.map { it.dayName.take(3) }
+//
+//            binding.bpChart.setDataa(
+//                systolic = maxList,
+//                diastolic = minList,
+//                days = days
+//            )
+//
+//            // Format date range
+//            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//            val outputFormat = SimpleDateFormat("dd", Locale.getDefault())      // for day
+//            val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())    // for full month name
+//
+//            val startDate = inputFormat.parse(trend.first().date)
+//            val endDate = inputFormat.parse(trend.last().date)
+//
+//            val startDay = outputFormat.format(startDate!!)
+//            val endDay = outputFormat.format(endDate!!)
+//            val month = monthFormat.format(startDate)  // assuming start and end in same month
+//
+//            val totalDays = trend.size
+//
+//            binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
+//        }
         viewModel.weeklyTrend.observe(viewLifecycleOwner) { trend ->
 
             if (trend.isEmpty()) return@observe
 
-            // Prepare data for chart
             val maxList = trend.map { it.maxMAP.toInt() }
             val minList = trend.map { it.minMAP.toInt() }
             val days = trend.map { it.dayName.take(3) }
@@ -88,24 +121,36 @@ class BPHistory : Fragment() {
                 days = days
             )
 
-            // Format date range
+            // Average BP calculation
+            val avgSystolic = maxList.average().toInt()
+            val avgDiastolic = minList.average().toInt()
+
+            binding.tvAverage.text = "$avgSystolic / $avgDiastolic mmHg"
+
+            // Date range code (same as yours)
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("dd", Locale.getDefault())      // for day
-            val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())    // for full month name
+            val outputFormat = SimpleDateFormat("dd", Locale.getDefault())
+            val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())
 
             val startDate = inputFormat.parse(trend.first().date)
             val endDate = inputFormat.parse(trend.last().date)
 
             val startDay = outputFormat.format(startDate!!)
             val endDay = outputFormat.format(endDate!!)
-            val month = monthFormat.format(startDate)  // assuming start and end in same month
+            val month = monthFormat.format(startDate)
 
             val totalDays = trend.size
-
             binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
         }
         // Summary
         viewModel.summary.observe(viewLifecycleOwner) { summary ->
+
+            if (summary == null) {
+                binding.tvBPValue.text = "--/--"
+                binding.tvStatus.text = "No Data"
+                binding.tvStatus.setTextColor(Color.GRAY)
+                return@observe
+            }
 
             val sys = summary.systolic?.toInt() ?: 0
             val dia = summary.diastolic?.toInt() ?: 0
@@ -115,7 +160,6 @@ class BPHistory : Fragment() {
             val status = getBPStatus(sys, dia)
             binding.tvStatus.text = status
 
-            // Apply UI based on status
             when (status) {
                 "Low" -> {
                     binding.tvStatus.setTextColor(Color.BLUE)

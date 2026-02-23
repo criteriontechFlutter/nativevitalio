@@ -41,6 +41,12 @@ class SetGoal : Fragment() {
         setupClicks()
 
         binding.unitLabel.text=arguments?.getString("unit")
+
+
+
+
+
+
     }
 
     /** ----------------------------------------------------------
@@ -61,7 +67,14 @@ class SetGoal : Fragment() {
 
         binding.selectAllDaysId.setOnClickListener {
             val allDays = (0..6).toMutableSet()
+            val isAllSelected = viewModel.selectedDays.containsAll(allDays)
 
+
+            if (viewModel.selectedDays.containsAll(allDays)) {
+                binding.selectedAll.setImageResource(R.drawable.rounded_circle)
+            } else {
+                binding.selectedAll.setImageResource(R.drawable.rounded_check)
+            }
             viewModel.selectedDays = if (viewModel.selectedDays.containsAll(allDays)) {
                 mutableSetOf()        // Clear all
             } else {

@@ -144,13 +144,16 @@ class MoodFragment : Fragment() {
     }
 
     private fun observeViewModel() {
+
         viewModel.getMoodByPid()
 
         viewModel.moodsLiveData.observe(viewLifecycleOwner) { apiMoods ->
+
             if (apiMoods.isNullOrEmpty()) return@observe
 
             val mapped = apiMoods.map { api ->
                 val localMood = moods.find { it.id == api.id }
+
                 Mood(
                     id = api.id,
                     label = api.label,
@@ -161,9 +164,28 @@ class MoodFragment : Fragment() {
             }
 
             moodAdapter.updateList(mapped)
+
+            // First item auto scroll
+            binding.moodEmoji.post {
+                binding.moodEmoji.smoothScrollToPosition(0)
+            }
+
+            // First mood auto apply
+            val firstMood = mapped.first()
+            viewModel.onMoodClicked(firstMood.id.toString())
+
+            val localMood = moods.find { it.id == firstMood.id } ?: return@observe
+            val targetColor = localMood.color.toColorInt()
+
+            binding.rootMoodLayout.setBackgroundColor(targetColor)
+
+            (activity as? BaseActivity)?.setSystemBarsColorInt(
+                statusColorInt = targetColor,
+                navColorInt = ContextCompat.getColor(requireContext(), R.color.white),
+                lightIcons = true
+            )
         }
     }
-
     private fun setUserInfo() {
         binding.userName2.text = PrefsManager().getPatient()?.patientName ?: ""
 

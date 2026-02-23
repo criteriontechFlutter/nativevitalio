@@ -62,6 +62,12 @@ class AddMedicineReminderFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+        // EditText me set
+        binding.etStartDate.setText(currentDate)
+        binding.etEndDate.setText(currentDate)
+
         binding.addMedicine.setOnClickListener {
 
             if (binding.etMedicineName.text.isNullOrEmpty()) {
@@ -209,7 +215,7 @@ class AddMedicineReminderFragment : Fragment() {
             }
 
             /** 🔵 Show delete only if NOT "Every day" */
-            del.visibility = if ( viewModel.selectedFrequency== "Every day") View.GONE else View.VISIBLE
+//            del.visibility = if ( viewModel.selectedFrequency== "Every day") View.GONE else View.VISIBLE
         }
     }
 
