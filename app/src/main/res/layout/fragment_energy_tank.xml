@@ -156,7 +156,7 @@
     <FrameLayout
         android:id="@+id/lightningContainer"
         android:layout_width="210dp"
-        android:layout_height="400dp"
+        android:layout_height="411dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toEndOf="@id/percentageText"

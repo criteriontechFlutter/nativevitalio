@@ -93,7 +93,9 @@ dependencies {
         implementation(libs.androidx.navigation.ui.ktx)*/
     testImplementation(libs.junit)
     implementation(libs.glide)
+    // OkHttp core + Okio (for ByteString.toByteString)
     implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okio:okio:3.9.0")
     implementation(libs.shimmer)
 
     implementation(libs.logging.interceptor) // or latest version

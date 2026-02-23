@@ -162,7 +162,22 @@ class drawer : Fragment() {
             navBarColor = R.color.white,
             lightIcons = true
         )
-        binding.progressCircler.animateProgress(60f)
+
+        viewModel.getVitals()
+        viewModel.insightWrapperList.observe(viewLifecycleOwner) { insight ->
+
+            if (insight == null) {
+                Log.e("WellnessDebug", "Insight is NULL")
+                return@observe
+            }
+
+            val score = insight.wellnessScore?.toFloat() ?: 0f
+
+            Log.d("WellnessDebug", "Wellness Score: $score")
+
+            binding.progressCircler.animateProgress(score)
+            binding.tvScore.text = score.toInt().toString()
+        }
         setupObservers()
         setupListeners()
         initDrawerLayout()
@@ -266,7 +281,7 @@ class drawer : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.editIcon.setOnClickListener { showProfileImageBottomSheet() }
+        binding.userImage.setOnClickListener { showProfileImageBottomSheet() }
 
         binding.btnEditProfile.setOnClickListener {
             val bundle = Bundle().apply { putString("isProfile", "1") }

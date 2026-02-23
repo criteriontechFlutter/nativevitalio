@@ -133,7 +133,7 @@ class EnergyTank : Fragment() {
             questionText.translationY = 30f
             lightningContainer.alpha = 0f
             lightningContainer.scaleX = 0.8f
-            lightningContainer.scaleY = 0.8f
+            lightningContainer.scaleY =0.8f
             actionButton.alpha = 0f
             actionButton.translationY = 50f
         }
@@ -284,8 +284,16 @@ class EnergyTank : Fragment() {
         val drawable = binding.lightningIcon.drawable
         if (drawable is LayerDrawable) {
             val clip = drawable.findDrawableByLayerId(R.id.item_clip)
+
+            // Fill level normally increase hoga
             clip.level = levelPercent.coerceIn(0, 100) * 100
-            clip.setTint(tintColor)
+
+            // Color logic
+            if (levelPercent == 100) {
+                clip.setTint(tintColor)   // full color only at 100%
+            } else {
+                clip.setTint(ContextCompat.getColor(requireContext(), android.R.color.darker_gray))
+            }
         }
         binding.lightningIcon.invalidate()
     }

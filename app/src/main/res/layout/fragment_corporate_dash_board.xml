@@ -986,6 +986,7 @@
                             <!--                        android:id="@+id/priority_action"-->
                             <!--                        layout="@layout/priority_action_card" />-->
                             <LinearLayout
+                                android:id="@+id/todaysPriorityAction"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">

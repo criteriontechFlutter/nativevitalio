@@ -78,7 +78,32 @@ binding.showId.showHideId.setOnClickListener{
 
             updateCard(binding.movementsId, "Movement Index", vitalList.getVital("MovementIndex"))
         }
+
+
+        updateCardtitle(binding.sleepScoreId, "Sleep Score",  )
+        updateCardtitle(binding.totalSleepId, "Total Sleep",  )
+        updateCardtitle(binding.timeInBedId, "Time In Bed",  )
+        updateCardtitle(binding.fulSleepCycleId, "Sleep Cycles", )
+        updateCardtitle(binding.restorativeSleepId, "Restorative Sleep", )
+        updateCardtitle(binding.morningAlertnessId, "Morning Alertness", )
+        updateCardtitle(binding.tossesAndTurnsId, "Tosses and Turns",  )
+
+        updateCardtitle(binding.averageBodyTempId, "Temperature",  )
+        updateCardtitle(binding.activieHoursId, "Active Hours", )
+        updateCardtitle(binding.StepsId, "Steps", )
+        updateCardtitle(binding.ActiveminutesId, "Active Minutes", )
+
+        updateCardtitle(binding.recoveryScoreId, "Recovery Index" )
+        updateCardtitle(binding.lastNightHrvId, "Last Night's HRV" )
+        updateCardtitle(binding.SleepStageHrvId, "Sleep Stage HRV" )
+        updateCardtitle(binding.StressRhythmScoreId, "Stress Rhythm Score" )
+
+        // Temperature Deviation (special formatting)
+        binding.tempDeviationId.title.text = "Temperature Deviation"
+
+        updateCardtitle(binding.movementsId, "Movement Index", )
     }
+
 
     // ---------------------------------------------------------------------
     //  OBSERVE: SLEEP VALUE DETAILS
@@ -109,6 +134,10 @@ binding.showId.showHideId.setOnClickListener{
             binding.inactiveHoursId.statusCardId.visibility = View.GONE
         }
     }
+private fun updateCardtitle(card: SleepLayoutBinding, title: String,  ) {
+    card.title.text = title
+
+}
 
     // ---------------------------------------------------------------------
     //  UI HELPERS
