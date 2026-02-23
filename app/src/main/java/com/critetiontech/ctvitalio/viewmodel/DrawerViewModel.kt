@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.UI.Login
 import com.critetiontech.ctvitalio.model.BaseResponse
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson

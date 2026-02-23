@@ -13,6 +13,7 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.ProblemWithIcon
 import com.critetiontech.ctvitalio.model.SymptomDetail
 import com.critetiontech.ctvitalio.model.SymptomResponse
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch

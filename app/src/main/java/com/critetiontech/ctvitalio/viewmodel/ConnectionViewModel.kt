@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.HapticType
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import kotlinx.coroutines.flow.MutableSharedFlow

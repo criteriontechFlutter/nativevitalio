@@ -59,6 +59,7 @@ import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
 import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -614,7 +615,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(
-                    overrideBaseUrl=RetrofitInstance.SHOPRIGHT
+                    overrideBaseUrl= RetrofitInstance.shopright
 
 
                 ).dynamicRawPost(

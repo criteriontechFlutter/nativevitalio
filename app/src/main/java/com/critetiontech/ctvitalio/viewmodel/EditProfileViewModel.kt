@@ -20,6 +20,7 @@ import com.critetiontech.ctvitalio.model.BloodGroup
 import com.critetiontech.ctvitalio.model.CityModel
 import com.critetiontech.ctvitalio.model.Problem
 import com.critetiontech.ctvitalio.model.StateModel
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils

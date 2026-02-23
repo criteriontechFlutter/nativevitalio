@@ -16,6 +16,7 @@ import com.critetiontech.ctvitalio.model.BotMessage
 import com.critetiontech.ctvitalio.model.ChatMessage
 import com.critetiontech.ctvitalio.model.ChatResponse
 import com.critetiontech.ctvitalio.model.ChatResponseRepo
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ToastUtils
 import com.google.gson.Gson

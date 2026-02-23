@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.adapter.WaterRecord
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import kotlinx.coroutines.launch
 import org.json.JSONObject

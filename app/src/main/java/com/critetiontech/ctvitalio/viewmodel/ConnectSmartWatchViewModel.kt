@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.R
  import com.critetiontech.ctvitalio.model.WatchModel
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson

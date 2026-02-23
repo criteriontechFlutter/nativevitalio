@@ -10,6 +10,7 @@ import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.AllergyGroup
 import com.critetiontech.ctvitalio.model.AllergyHistoryItem
 import com.critetiontech.ctvitalio.model.AllergyTypeItem
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

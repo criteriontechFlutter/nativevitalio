@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.JoinedChallenge
 import com.critetiontech.ctvitalio.model.NewChallengeModel
+import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
