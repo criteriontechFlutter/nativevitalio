@@ -156,7 +156,7 @@ class SleepDetails : Fragment() {
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
             sleepValue.MorningAlertness?.let { alertness ->
                 bindMorningAlertness(alertness)
-                binding.tvAlertnessValue.text = "${alertness.Avg ?: 0} min"
+                binding.tvAlertnessValue.text = "${alertness.Minutes ?: 0} min"
             }
         }
 

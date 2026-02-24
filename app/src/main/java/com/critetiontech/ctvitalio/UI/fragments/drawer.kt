@@ -301,9 +301,9 @@ class drawer : Fragment() {
             findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
         }
 
-        binding.darkModeRow.root.setOnClickListener {
-            findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
-        }
+//        binding.darkModeRow.root.setOnClickListener {
+//            findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
+//        }
 
         binding.connectSmartWatchRow.root.setOnClickListener {
             findNavController().navigate(R.id.action_drawer4_to_connectSmartWatchFragment)
@@ -428,10 +428,10 @@ class drawer : Fragment() {
             count.text = "English"
         }
 
-        binding.darkModeRow.apply {
-            title.text = getString(R.string.dark_mode)
-            icon.setImageResource(R.drawable.ic_theme)
-        }
+//        binding.darkModeRow.apply {
+//            title.text = getString(R.string.dark_mode)
+//            icon.setImageResource(R.drawable.ic_theme)
+//        }
 
         binding.FAQsRow.apply {
             title.text = getString(R.string.f_q)
