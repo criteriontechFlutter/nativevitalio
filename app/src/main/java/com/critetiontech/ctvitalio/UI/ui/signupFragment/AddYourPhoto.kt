@@ -60,11 +60,11 @@ class AddYourPhoto : Fragment() {
                 binding.profileImageView.setImageURI(it)
             }
         }
-        binding.profileImageContainer.setOnClickListener(){
+        binding.profileImageContainer.setOnClickListener {
             showImagePickerOptions()
          }
 
-        binding.btnNext.setOnClickListener(){
+        binding.btnNext.setOnClickListener {
 
             progressViewModel.updateProgress(7)
             progressViewModel.updatepageNo(7)

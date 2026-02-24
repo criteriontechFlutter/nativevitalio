@@ -111,7 +111,7 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getPatientLastVital,
                         params = queryParams

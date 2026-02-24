@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             ).apply {
                 description = "Channel for chatbot and health alerts"
             }
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
     }

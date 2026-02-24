@@ -19,7 +19,7 @@ class TabMedicineAdapter(
     private val onItemClick: (Medicine) -> Unit
 ) : RecyclerView.Adapter<TabMedicineAdapter.MedicineViewHolder>() {
 
-    inner class MedicineViewHolder(val binding: MedicineReminderTabPageBinding) :
+    class MedicineViewHolder(val binding: MedicineReminderTabPageBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineViewHolder {

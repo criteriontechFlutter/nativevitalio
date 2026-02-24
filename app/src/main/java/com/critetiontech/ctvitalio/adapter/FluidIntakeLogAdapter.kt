@@ -12,7 +12,7 @@ class FluidIntakeLogAdapter (
     private val items: List<ManualFoodItem>,
 ) : RecyclerView.Adapter<FluidIntakeLogAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: FluidHistoryItemLayoutBinding) :
+    class ViewHolder(val binding: FluidHistoryItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

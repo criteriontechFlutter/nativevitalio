@@ -74,7 +74,7 @@ class SymptomAdapter(
         notifyDataSetChanged()
     }
 
-    inner class SymptomViewHolder(
+    class SymptomViewHolder(
         private val binding: ItemSymptomBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProblemWithIcon, isSelected: Boolean) {

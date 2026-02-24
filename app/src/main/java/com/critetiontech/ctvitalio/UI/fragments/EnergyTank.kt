@@ -96,7 +96,7 @@ class EnergyTank : Fragment() {
             .circleCrop()
             .into(binding.userAvatar)
 
-        binding.actionButton.setOnClickListener() {
+        binding.actionButton.setOnClickListener {
             viewModel.insertEnergyTankMaster(
                 context = requireContext(),
                 status = binding.statusText.text.toString(),
@@ -105,7 +105,7 @@ class EnergyTank : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.ivBack.setOnClickListener() {
+        binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
 

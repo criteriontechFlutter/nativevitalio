@@ -15,7 +15,7 @@ class GlassSizeAdapter(
     private val onSelected: (GlassSize) -> Unit
 ) : RecyclerView.Adapter<GlassSizeAdapter.GlassViewHolder>() {
 
-    inner class GlassViewHolder(val binding: ItemGlassSizeBinding) :
+    class GlassViewHolder(val binding: ItemGlassSizeBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GlassViewHolder {

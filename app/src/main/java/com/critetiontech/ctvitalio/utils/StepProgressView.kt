@@ -61,7 +61,7 @@ class StepProgressView @JvmOverloads constructor(
 
         for (i in 1..totalSteps) {
             // Draw circle with color based on step
-            val paint = when {
+            when {
                 i == 1 -> redPaint
                 i == 2 -> greenPaint
                 i > 2 -> greyPaint

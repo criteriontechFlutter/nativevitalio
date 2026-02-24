@@ -13,7 +13,7 @@ class MasterActivityAdapter(
     private val onClick: (ActivityModel) -> Unit
 ) : RecyclerView.Adapter<MasterActivityAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: android.view.View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: android.view.View) : RecyclerView.ViewHolder(view) {
         val chip: TextView = view.findViewById(R.id.chipText)
     }
 

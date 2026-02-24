@@ -133,8 +133,8 @@ class EditProfile : Fragment() {
 
             // 2. Prepare values
             val name = "$firstName $lastName"
-            val address = prefsManager.getPatient()?.address.toString()
-            val genderId = when (binding.genderGroup.checkedRadioButtonId) {
+            prefsManager.getPatient()?.address.toString()
+            when (binding.genderGroup.checkedRadioButtonId) {
                 R.id.radioMale -> "1"
                 R.id.radioFemale -> "2"
                 R.id.radioOther -> "3"

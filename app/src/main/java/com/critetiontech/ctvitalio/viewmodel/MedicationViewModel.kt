@@ -37,7 +37,7 @@ class MedicationViewModel(application: Application) : AndroidViewModel(applicati
                     "clientId" to PrefsManager().getPatient()?.clientId.toString()
                 )
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true,  )
+                    .createApiService( )
                     .dynamicGet(
                         url = "api/EmployeeMedicineIntake/GetEmployeeMedicineIntakeByDate",
                         params = queryParams

@@ -41,7 +41,7 @@ class SymptomsTrackerViewModel(application: Application) : BaseViewModel(applica
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().getSymptoms,
                         params = queryParams

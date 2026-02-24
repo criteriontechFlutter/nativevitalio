@@ -18,7 +18,7 @@ class WaterRecordAdapter(
     private val onDeleteClick: (WaterRecord) -> Unit
 ) : RecyclerView.Adapter<WaterRecordAdapter.RecordViewHolder>() {
 
-    inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtAmount: TextView = itemView.findViewById(R.id.txtAmount)
         val txtUnit: TextView = itemView.findViewById(R.id.txtUnit)
         val txtTime: TextView = itemView.findViewById(R.id.txtTime)

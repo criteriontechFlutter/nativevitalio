@@ -15,7 +15,7 @@ class ActivityChipAdapter(
     private val onActivityClick: (ActivityModel) -> Unit
 ) : RecyclerView.Adapter<ActivityChipAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.chipText)
     }
 

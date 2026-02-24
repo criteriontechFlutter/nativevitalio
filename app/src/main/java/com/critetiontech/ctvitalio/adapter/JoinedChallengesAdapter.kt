@@ -14,7 +14,7 @@ class JoinedChallengesAdapter (
     private val items: List<JoinedChallenge>,
 ) : RecyclerView.Adapter<JoinedChallengesAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: JoinedChallengeItemBinding) :
+    class ViewHolder(val binding: JoinedChallengeItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

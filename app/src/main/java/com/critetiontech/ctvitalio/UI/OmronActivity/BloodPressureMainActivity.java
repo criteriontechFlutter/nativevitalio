@@ -310,7 +310,7 @@ public class BloodPressureMainActivity extends BaseActivity {
                                                     String.valueOf(dia),                           // BPDias
                                                     "0",  // rr
                                                     "0", String.valueOf(pr), "0", "0", "0", "0",  // spo2, pr, tmp, hr, weight, rbs
-                                                    "129".toString()          // positionId
+                                                    "129"          // positionId
                                             );
 
                                             if (success) {

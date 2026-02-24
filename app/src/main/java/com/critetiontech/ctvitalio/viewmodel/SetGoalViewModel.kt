@@ -56,7 +56,7 @@ fun updateUserData(
 
             /** ---------------- API CALL ---------------- **/
             val response = RetrofitInstance
-                .createApiService(includeAuthHeader = true)
+                .createApiService()
                 .dynamicRawPost(
                     url = "api/EmployeeGoals/InsertEmployeeGoals",
                     body = params

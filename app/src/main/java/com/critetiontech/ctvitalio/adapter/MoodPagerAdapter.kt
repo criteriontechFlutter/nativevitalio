@@ -9,7 +9,7 @@ import com.critetiontech.ctvitalio.databinding.ItemMoodBinding
 class MoodAdapter(private var moods: List<Mood> ) :
     RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
 
-    inner class MoodViewHolder(val binding: ItemMoodBinding) :
+    class MoodViewHolder(val binding: ItemMoodBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(mood: Mood) {
                 binding.moodEmoji.setImageResource(mood.emojiRes)

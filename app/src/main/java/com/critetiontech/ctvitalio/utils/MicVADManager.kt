@@ -8,8 +8,7 @@
 //import android.media.MediaRecorder
 //import android.util.Log
 //import androidx.core.app.ActivityCompat
-//import com.critetiontech.ctvitalio.networking.RetrofitInstance
-//import com.critetiontech.ctvitalio.utils.MyApplication
+////import com.critetiontech.ctvitalio.utils.MyApplication
 //import okhttp3.OkHttpClient
 //import okhttp3.Request
 //import okhttp3.Response

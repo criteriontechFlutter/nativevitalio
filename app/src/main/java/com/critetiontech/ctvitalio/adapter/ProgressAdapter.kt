@@ -17,7 +17,7 @@ class ProgressAdapter(private var states: List<DotState>) :
         EMPTY
     }
 
-    inner class ProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val circleView: View = itemView.findViewById(R.id.circleView)
     }
 

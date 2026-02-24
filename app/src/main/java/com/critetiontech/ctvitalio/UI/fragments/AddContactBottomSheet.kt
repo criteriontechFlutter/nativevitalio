@@ -17,7 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.graphics.Color
 import android.widget.AdapterView
 
-import android.widget.Toast;
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 
 class AddContactBottomSheet : BottomSheetDialogFragment() {
@@ -44,7 +44,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
 
         val adapter = object : ArrayAdapter<String>(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.simple_spinner_item,
             relationships
         ) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -69,7 +69,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
                 return view
             }
         }
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.spinnerRelationship.adapter = adapter
 
         // Set default selected item to 0 (hint)

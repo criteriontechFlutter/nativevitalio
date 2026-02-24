@@ -17,7 +17,7 @@ class UploadHistoryAdapter(
     private val onImageClick: (Uri) -> Unit // Callback to handle image click
 ) : RecyclerView.Adapter<UploadHistoryAdapter.ReportViewHolder>() {
 
-    inner class ReportViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ReportViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val tvDate: TextView = itemView.findViewById(R.id.tvDate)
         val imagePreview: ImageView = itemView.findViewById(R.id.imagePreview)

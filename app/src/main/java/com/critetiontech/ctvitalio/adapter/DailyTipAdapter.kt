@@ -12,7 +12,7 @@ class DailyTipAdapter(
     private val onButtonClick: (PriorityAction) -> Unit
 ) : RecyclerView.Adapter<DailyTipAdapter.TipViewHolder>() {
 
-    inner class TipViewHolder(val binding: PriorityActionCardBinding)
+    class TipViewHolder(val binding: PriorityActionCardBinding)
         : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TipViewHolder {
