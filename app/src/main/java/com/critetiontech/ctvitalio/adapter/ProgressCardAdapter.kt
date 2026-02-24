@@ -10,7 +10,7 @@ data class ProgressCard(val emoji: String, val title: String, val subtitle: Stri
 class ProgressCardAdapter(private val items: List<ProgressCard>) :
     RecyclerView.Adapter<ProgressCardAdapter.CardViewHolder>() {
 
-    inner class CardViewHolder(val binding: ItemProgressCardBinding) :
+    class CardViewHolder(val binding: ItemProgressCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProgressCard) {
             binding.emoji.text = item.emoji

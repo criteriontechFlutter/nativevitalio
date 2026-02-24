@@ -43,7 +43,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicDelete(
                         url = ApiEndPoint().deleteEmergency,
                         params = queryParams
@@ -78,7 +78,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getEmergencyContact,
                         params = queryParams
@@ -113,7 +113,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
         _loading.value = true
         viewModelScope.launch {
             try {
-                val uhid = PrefsManager().getPatient()?.uhID.orEmpty()
+                PrefsManager().getPatient()?.uhID.orEmpty()
 
                 val requestBody = mapOf(
                     "id" to 0,

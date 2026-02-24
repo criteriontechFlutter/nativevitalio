@@ -27,7 +27,7 @@ class NewChallengedAdapter(
     private val onDetailsClick: (DashboardActiveChallenges) -> Unit
 ) : RecyclerView.Adapter<NewChallengedAdapter.ChallengeViewHolder>() {
 
-    inner class ChallengeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ChallengeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardViewId: CardView = view.findViewById(R.id.cardViewid)
         val iconGoal: ImageView = view.findViewById(R.id.iconGoal)
         val titleText: TextView = view.findViewById(R.id.titleText)

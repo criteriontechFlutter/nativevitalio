@@ -32,7 +32,7 @@ class VitalDetailsViewModel(application: Application) : BaseViewModel(applicatio
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url = ApiEndPoint().getPatientLastVital, // ✅ Update to correct endpoint
                         params = queryParams

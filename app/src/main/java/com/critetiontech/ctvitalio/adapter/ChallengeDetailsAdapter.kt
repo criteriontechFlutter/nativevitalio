@@ -30,7 +30,7 @@ class ChallengeDetailsAdapter(
     private val items: List<Person>
 ) : RecyclerView.Adapter<ChallengeDetailsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemParticipantBinding) :
+    class ViewHolder(val binding: ItemParticipantBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

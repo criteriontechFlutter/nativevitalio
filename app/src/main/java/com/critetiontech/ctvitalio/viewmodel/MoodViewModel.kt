@@ -48,7 +48,7 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url =  ApiEndPointCorporateModule().insertMood,
                         body = queryParams as Map<String, Any>
@@ -84,7 +84,7 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicGet(
                         url =  ApiEndPointCorporateModule().getAllMoods,
                         params = emptyMap()

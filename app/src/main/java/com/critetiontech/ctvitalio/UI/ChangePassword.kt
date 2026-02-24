@@ -102,7 +102,7 @@ class ChangePassword : AppCompatActivity() {
         }
 
 
-        binding.submitBtn.setOnClickListener(){
+        binding.submitBtn.setOnClickListener {
             viewModel.changePassword(
                 context = context,
                 oldPassword = binding.currentPassField.text.toString(),

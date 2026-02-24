@@ -49,7 +49,7 @@ class ForgotPassword : BaseActivity() {
         }
 
         binding.inputField.addTextChangedListener(textWatcher)
-        binding.sendResetLink.setOnClickListener(){
+        binding.sendResetLink.setOnClickListener {
             viewModel.forgotPassword(context, username = binding.inputField.text.toString())
 
         }

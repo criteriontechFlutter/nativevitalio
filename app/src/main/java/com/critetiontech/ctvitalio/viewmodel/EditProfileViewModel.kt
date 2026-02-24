@@ -128,7 +128,7 @@ class EditProfileViewModel :ViewModel() {
 //                // API Call
 //                val response = RetrofitInstance
 //                    .createApiService(
-//                        includeAuthHeader=true)
+//                        )
 //                    .dynamicMultipartPut(
 //                        url = ApiEndPoint().updatePatient,
 //                        parts = parts
@@ -252,7 +252,7 @@ class EditProfileViewModel :ViewModel() {
 
                 // Print final parts for debug
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    part.headers?.toString() ?: "No Headers"
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -269,7 +269,7 @@ class EditProfileViewModel :ViewModel() {
                 // API Call
                 val response = RetrofitInstance
                     .createApiService(
-                        includeAuthHeader=true)
+                        )
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
                         parts = parts
@@ -411,8 +411,7 @@ class EditProfileViewModel :ViewModel() {
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService7082( )
-                    .dynamicGet(
+                    .createApiService().dynamicGet(
                         url = ApiEndPoint().getProblemList,
                         params = queryParams
                     )

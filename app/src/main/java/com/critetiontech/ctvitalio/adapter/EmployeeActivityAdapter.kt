@@ -13,7 +13,7 @@ class EmployeeActivityAdapter(
     private val onClick: (EmployeeActivity) -> Unit
 ) : RecyclerView.Adapter<EmployeeActivityAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val chip: TextView = view.findViewById(R.id.chipText)
     }
 

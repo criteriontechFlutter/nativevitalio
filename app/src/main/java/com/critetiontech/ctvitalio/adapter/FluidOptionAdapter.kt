@@ -14,7 +14,7 @@ class FluidOptionAdapter(
     private val onSelect: (ManualFoodItem) -> Unit
 ) : RecyclerView.Adapter<FluidOptionAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemFluidOptionBinding) :
+    class ViewHolder(val binding: ItemFluidOptionBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

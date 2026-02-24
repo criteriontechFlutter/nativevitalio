@@ -14,7 +14,7 @@ class BPReadingAdapter(
     private val readings: List<BloodPressureReading>
 ) : RecyclerView.Adapter<BPReadingAdapter.BPViewHolder>() {
 
-    inner class BPViewHolder(val binding: BloodPressureLogItemBinding) :
+    class BPViewHolder(val binding: BloodPressureLogItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BPViewHolder {

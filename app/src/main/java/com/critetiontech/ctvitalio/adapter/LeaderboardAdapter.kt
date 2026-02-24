@@ -15,7 +15,7 @@ class LeaderboardAdapter(
     private val users: List<LeaderboardItem>
 ) : RecyclerView.Adapter<LeaderboardAdapter.PlayerViewHolder>() {
 
-    inner class PlayerViewHolder(val binding: ItemPlayerBinding) :
+    class PlayerViewHolder(val binding: ItemPlayerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {

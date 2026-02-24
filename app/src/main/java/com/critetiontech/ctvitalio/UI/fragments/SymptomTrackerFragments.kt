@@ -35,7 +35,7 @@ class SymptomTrackerFragments : Fragment() {
         binding.recyclerViewSymptoms.layoutManager = LinearLayoutManager(requireContext())
         observeViewModel()
         viewModel.getSymptoms()
-        binding.historyText.setOnClickListener(){
+        binding.historyText.setOnClickListener {
             findNavController().navigate(R.id.action_symptomTrackerFragments_to_symptomHistory)
         }
         binding.backButton.setOnClickListener {
@@ -113,7 +113,7 @@ class SymptomTrackerFragments : Fragment() {
     }
 
     private fun showSummary() {
-        val selected = symptomList.filter { it.selection == 1 }
+        symptomList.filter { it.selection == 1 }
       //  Toast.makeText(requireContext(), "Selected: ${selected.size}", Toast.LENGTH_SHORT).show()
     }
 }

@@ -48,7 +48,7 @@ class VitalHistoryFragment : Fragment() {
 
         val vitalType = arguments?.getString("vitalType")
         val json = arguments?.getString("itemData")
-        val (type, value, timestamp) = json.toString()
+        val (_, value, _) = json.toString()
             .removeSurrounding("(", ")")
             .split(",")
             .map { it.trim() }

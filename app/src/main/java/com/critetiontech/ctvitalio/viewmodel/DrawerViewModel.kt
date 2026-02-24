@@ -100,7 +100,7 @@ class DrawerViewModel : ViewModel() {
 //                // API Call
 //                val response = RetrofitInstance
 //                    .createApiService(
-//                        includeAuthHeader=true)
+//                        )
 //                    .dynamicMultipartPut(
 //                        url = ApiEndPoint().updatePatient,
 //                        headers = generateAuthHeaderMap(true),
@@ -209,7 +209,7 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
 
                 // Print final parts for debug
                 parts.forEach { part ->
-                    val headers = part.headers?.toString() ?: "No Headers"
+                    part.headers?.toString() ?: "No Headers"
                     val bodyString = try {
                         val buffer = okio.Buffer()
                         part.body.writeTo(buffer)
@@ -226,7 +226,7 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
                 // API Call
                 val response = RetrofitInstance
                     .createApiService(
-                        includeAuthHeader=true)
+                        )
                     .dynamicMultipartPut(
                         url = ApiEndPoint().updatePatient,
                         parts = parts

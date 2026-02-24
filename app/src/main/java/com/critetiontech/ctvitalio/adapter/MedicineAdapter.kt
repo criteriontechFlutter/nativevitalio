@@ -47,7 +47,7 @@ class MedicineAdapter(
 
     override fun getItemCount() = list.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(com.critetiontech.ctvitalio.R.id.tvMedName)
         val tvType: TextView = itemView.findViewById(com.critetiontech.ctvitalio.R.id.tvMedType)
         val icon: ImageView = itemView.findViewById(com.critetiontech.ctvitalio.R.id.ivIcon)

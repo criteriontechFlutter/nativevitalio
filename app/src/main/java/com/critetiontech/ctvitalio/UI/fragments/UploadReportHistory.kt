@@ -1,7 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.adapter.UploadHistoryAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.viewmodel.UploadReportHistoryViewModel
-import com.google.gson.Gson
 
 class UploadReportHistory : Fragment() {
 

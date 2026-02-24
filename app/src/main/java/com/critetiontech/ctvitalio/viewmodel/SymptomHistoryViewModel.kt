@@ -33,7 +33,7 @@ class SymptomsHistoryViewModel (application: Application) : BaseViewModel(applic
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().getSymptoms,
                         params = queryParams

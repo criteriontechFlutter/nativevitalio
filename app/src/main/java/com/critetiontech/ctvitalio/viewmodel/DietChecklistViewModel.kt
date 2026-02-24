@@ -45,7 +45,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096(includeAuthHeader=true)
+                    .createApiService7096()
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams

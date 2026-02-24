@@ -65,7 +65,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
                                 gson.fromJson(responseArray.toString(), type)
 
 // Convert to day-wise grouped medicines
-                            val dayWiseList = schedules.map { schedule ->
+                            schedules.map { schedule ->
                                 DayWiseMedicines(
                                     dayPeriod = schedule.dayPeriod ?: "Unknown",
                                     medicineData = schedule.medicineData
@@ -125,7 +125,7 @@ class PillsReminderViewModal (application: Application) : BaseViewModel(applicat
 
                 /* This response is of type Response<ResponseBody> */
                 val response = RetrofitInstance
-                    .createApiService( includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(url = ApiEndPoint().insertPatientMedication, body = queryParams    )
                 getAllPatientMedication()
                 _loading.value = false

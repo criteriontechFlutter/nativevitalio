@@ -35,7 +35,7 @@ class BinkingViewModel(application: Application) : AndroidViewModel(application)
                     "clientId" to PrefsManager().getPatient()?.clientId.toString()
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicRawPost(
                         url = ApiEndPointCorporateModule().insertEmployeeActivity,
                         body = params

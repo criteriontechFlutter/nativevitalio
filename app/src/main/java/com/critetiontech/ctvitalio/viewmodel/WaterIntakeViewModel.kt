@@ -85,7 +85,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                     "clientId" to PrefsManager().getPatient()?.clientId.toString()
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicGet(
                         url = "/api/EmployeeFluidIntake/GetDailyEmployeeFluidIntake",
                         params = params
@@ -151,7 +151,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                     "toDate" to toDate.format(formatter)
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicGet(
                         url = "api/EmployeeFluidIntake/EmployeeFluidIntakeByDateRange",
                         params = params
@@ -199,7 +199,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                     "id" to id.toString(),
                 )
 
-                val response = RetrofitInstance.createApiService(includeAuthHeader = true)
+                val response = RetrofitInstance.createApiService()
                     .dynamicDelete(
                         url = "api/EmployeeFluidIntake/DeleteEmployeeFluidIntake",
                         params = params

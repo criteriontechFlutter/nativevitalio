@@ -83,7 +83,7 @@ class UltraHumanActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Log.d("TAG", "onNewIntentCheckingfdbdb1: $intent");
+        Log.d("TAG", "onNewIntentCheckingfdbdb1: $intent")
         handleAuthRedirectIntent(intent)
     }
 

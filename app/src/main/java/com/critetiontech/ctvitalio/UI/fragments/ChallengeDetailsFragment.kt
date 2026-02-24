@@ -31,7 +31,7 @@ class ChallengeDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentChallengeDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -62,7 +62,7 @@ class ChallengeDetailsFragment : Fragment() {
             binding.topId.visibility=View.GONE
         }
 
-        binding.backBtn.setOnClickListener(){
+        binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -87,7 +87,7 @@ class ChallengeDetailsFragment : Fragment() {
                 it,  )
         }
 
-        binding.joidId.setOnClickListener(){
+        binding.joidId.setOnClickListener {
             val currentUserId = PrefsManager().getPatient()?.empId.toString()
             val hasJoined = challenges
                 ?.getPeopleJoinedList()
@@ -99,7 +99,7 @@ class ChallengeDetailsFragment : Fragment() {
             }
         }
 
-        binding.leaveChallengesId.setOnClickListener(){
+        binding.leaveChallengesId.setOnClickListener {
             viewModel.leaveChallenge(
                 challenges?.id.toString()
             )

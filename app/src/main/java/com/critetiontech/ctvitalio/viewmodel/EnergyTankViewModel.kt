@@ -38,7 +38,7 @@ class EnergyTankViewModel(application: Application) : BaseViewModel(application)
 
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url =  ApiEndPointCorporateModule().insertEnergyTankMaster,
                         body = queryParams

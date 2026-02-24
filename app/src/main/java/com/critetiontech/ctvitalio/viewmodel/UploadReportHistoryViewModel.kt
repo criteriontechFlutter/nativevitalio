@@ -43,7 +43,7 @@ class UploadReportHistoryViewModel : ViewModel() {
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true,
+                    .createApiService(
                         )
                     .dynamicGet(
                         url = ApiEndPoint().getPatientMediaData,

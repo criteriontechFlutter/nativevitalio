@@ -18,7 +18,7 @@ class WatchAdapter(
         notifyDataSetChanged()
     }
 
-    inner class WatchViewHolder(val binding: ItemWatchBinding) : RecyclerView.ViewHolder(binding.root)
+    class WatchViewHolder(val binding: ItemWatchBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WatchViewHolder {
         val inflater = LayoutInflater.from(parent.context)

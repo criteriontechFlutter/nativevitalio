@@ -23,7 +23,7 @@ class BreathingAdapter : ListAdapter<BreathingProtocol, BreathingAdapter.Breathi
         holder.bind(getItem(position))
     }
 
-    inner class BreathingViewHolder(private val binding: MindfulnessItemLayoutBinding) :
+    class BreathingViewHolder(private val binding: MindfulnessItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(protocol: BreathingProtocol) {
             binding.apply {

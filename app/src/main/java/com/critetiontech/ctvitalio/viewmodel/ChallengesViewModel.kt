@@ -36,7 +36,7 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
     // endregion
 
     private val gson = Gson()
-    private val apiService = RetrofitInstance.createApiService(includeAuthHeader = true)
+    private val apiService = RetrofitInstance.createApiService()
     private val prefs = PrefsManager()
 
     /**

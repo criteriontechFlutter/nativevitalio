@@ -23,12 +23,12 @@ class DashboardAdapter(
     private val onVitalCardClick: (String) -> Unit
 ) : RecyclerView.Adapter<DashboardAdapter.VitalViewHolder>() {
 
-inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val iconView: ImageView = itemView.findViewById(R.id.vital_icon)
-    val titleView: TextView = itemView.findViewById(R.id.vital_title)
-    val valueView: TextView = itemView.findViewById(R.id.vital_value)
-        val unitView: TextView = itemView.findViewById(R.id.vital_unit)
-    val addView: TextView = itemView.findViewById(R.id.addId)
+class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val iconView: ImageView = itemView.findViewById(id.vital_icon)
+    val titleView: TextView = itemView.findViewById(id.vital_title)
+    val valueView: TextView = itemView.findViewById(id.vital_value)
+        val unitView: TextView = itemView.findViewById(id.vital_unit)
+    val addView: TextView = itemView.findViewById(id.addId)
 //    val cardLayout: ConstraintLayout = itemView.findViewById(R.id.vitalCard)
 //    val arrowIcon: ImageView = itemView.findViewById(R.id.arrow_icon)
 }
@@ -56,9 +56,7 @@ inner class VitalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 //        holder.itemView.backgroundTintList = ColorStateList.valueOf(randomColor)
 
 
-
-
-        val shape = GradientDrawable().apply {
+        GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = 16f
             setColor(getSlightlyDarkerPastelColor()) // Set based on your logic

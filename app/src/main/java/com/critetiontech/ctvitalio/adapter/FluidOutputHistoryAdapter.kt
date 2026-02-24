@@ -12,7 +12,7 @@ class FluidOutputHistoryAdapter (
     private val items: List<FluidOutput>,
 ) : RecyclerView.Adapter<FluidOutputHistoryAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: FluidOutputItemLayoutBinding) :
+    class ViewHolder(val binding: FluidOutputItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

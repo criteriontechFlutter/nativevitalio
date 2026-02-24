@@ -49,7 +49,7 @@ class SleepStageBarView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         val width = width.toFloat()
-        val height = height.toFloat()
+        height.toFloat()
 
         // Draw stage name
         canvas.drawText(stageName, 0f, 30f, labelPaint)

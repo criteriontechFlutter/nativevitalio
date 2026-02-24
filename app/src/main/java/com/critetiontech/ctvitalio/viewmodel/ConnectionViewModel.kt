@@ -69,7 +69,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url = ApiEndPoint().insertPatientVital,
                         body = queryParams
@@ -141,7 +141,7 @@ class ConnectionViewModel (application: Application) : BaseViewModel(application
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService()
                     .dynamicRawPost(
                         url = ApiEndPoint().insertPatientVital,
                         body = queryParams
