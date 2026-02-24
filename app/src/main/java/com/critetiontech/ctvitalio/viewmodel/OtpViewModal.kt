@@ -61,7 +61,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                     val responseBodyString = response.body()?.string()
                     if(isRegistered.toString()=="0"){
 
-                        if(uhid.isEmpty()){
+//                        if(uhid.isEmpty()){
                             Log.d("RESPONSE", "phoneOrUHID5$mNo")
                             val intent =
                                 Intent(MyApplication.appContext, SignupActivity::class.java).apply {
@@ -70,9 +70,9 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
                                 }
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             MyApplication.appContext.startActivity(intent)
-                        }else{
-                            Toast.makeText(context, "Enter valid uhid", Toast.LENGTH_SHORT).show()
-                        }
+//                        }else{
+//                            Toast.makeText(context, "Enter valid uhid", Toast.LENGTH_SHORT).show()
+//                        }
 
 
 
