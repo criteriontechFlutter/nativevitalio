@@ -52,9 +52,47 @@ data class SleepValue(
     // ⭐ Add these:
     val OxygenSaturation: OxygenSaturation?,
    val TossTurn: TossTurn?, val TempGraph: TempGraph?,
-    val TotalSleepHours: Int?
+    val TotalSleepHours: Int?,
+    val SleepCycles: SleepCyclesModel?  ,
+    val SleepGraph: SleepGraph?
+)
+class MovementItem(
+    var Timestamp: String,
+    var Type: String
+)
+class MovementGraph(
+    var Title: String,
+    var Data: List<MovementItem>
+)
+data class SleepCyclesModel(
+    val Title: String?,
+    val Cycles: List<SleepCycleItem>?
 )
 
+data class SleepCycleItem(
+    val StartTime: String,
+    val EndTime: String,
+    val CycleType: String,
+    val Color: String?
+)
+
+data class SleepGraph(
+    val Title: String,
+    val Data: List<SleepGraphData>
+)
+
+data class SleepGraphData(
+    val Start: String,
+    val End: String,
+    val Type: String,
+    val TossTurn: Int?
+)
+enum class SleepStageType {
+    awake,
+    light_sleep,
+    deep_sleep,
+    rem_sleep
+}
 data class TempGraph(
     val Title: String?,
     val Data: List<TempData>?,
@@ -135,10 +173,6 @@ data class Vitals(
     val vitalDateTime: String,
     val userId: Int,
     val rowId: Int
-)
-data class MovementGraph(
-    val Title: String,
-    val Data: List<MovementData>
 )
 data class MovementData(
     val Timestamp: String,

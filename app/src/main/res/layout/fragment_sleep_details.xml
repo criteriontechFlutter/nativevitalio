@@ -198,34 +198,124 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <!-- Header -->
+
             <LinearLayout
-                android:id="@+id/headerRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="8dp">
 
+                <!-- Sleep Cycle Text -->
                 <TextView
-                    android:id="@+id/tvSleepCycleCount"
+                    android:id="@+id/sleepCycleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sleep Cycle 0"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:fontFamily="sans-serif-medium"/>
 
-                <View
+                <!-- Space -->
+                <Space
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/tvLegend"
+                <!-- Full Indicator -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Full / Partial"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginEnd="12dp">
 
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/green_circle"/>
+
+                    <TextView
+                        android:id="@+id/fullText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Full"
+                        android:textSize="14sp"
+                        android:textColor="#4CAF50"
+                        android:layout_marginStart="6dp"/>
+                </LinearLayout>
+
+                <!-- Partial Indicator -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/gray_circle"/>
+
+                    <TextView
+                        android:id="@+id/partialText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 Partial"
+                        android:textSize="14sp"
+                        android:textColor="#9E9E9E"
+                        android:layout_marginStart="6dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <com.critetiontech.ctvitalio.utils.SleepCycleTimelineView
+                android:id="@+id/sleepCycleView"
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movement"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:alpha="0.8" />
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp">
+
+                <!-- Left icon -->
+                <ImageView
+                    android:id="@+id/leftIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/icbed"
+                    android:padding="6dp"
+                    android:background="@drawable/circle_bg"
+                    android:layout_marginEnd="8dp"/>
+
+                <!-- Your custom graph view -->
+                <com.critetiontech.ctvitalio.utils.SleepMovementGraphView
+                    android:id="@+id/movementGraph"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <!-- Right icon -->
+                <ImageView
+                    android:id="@+id/rightIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/circle_bg"
+                    android:src="@drawable/ion_bed"
+                    android:padding="6dp"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
             <!-- Dynamic graph area -->
             <LinearLayout
                 android:id="@+id/sleepGraph"

@@ -8,6 +8,7 @@ import HrvGraph
 import InsightJson
 import MorningAlertness
 import MovementGraph
+import MovementItem
 import OxygenSaturation
 import PillReminderModel
 import PrefsManager
@@ -84,6 +85,10 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
 
     private val _sleepsummary = MutableLiveData<List<Summary>?>()
     val  sleepsummary: LiveData<List<Summary>?> get() = _sleepsummary
+
+
+    private val _movementList = MutableLiveData<List<MovementItem>>()
+    val movementList: LiveData<List<MovementItem>> = _movementList
     private val _quickMetricsTiledList = MutableLiveData<List<QuickMetricsTiled>>()
     val quickMetricsTiledList: LiveData<List<QuickMetricsTiled>> = _quickMetricsTiledList
     private val _priorityAction = MutableLiveData<List<PriorityAction>?>()
@@ -172,6 +177,7 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
                             _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
                             _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled ?: emptyList()
                             _sleepsummary.value = sleepValue.Summary ?: emptyList()
+                            _movementList.value = sleepValue.MovementGraph?.Data ?: emptyList()
                      // Log decoded data
 
                         } catch (e: Exception) {
