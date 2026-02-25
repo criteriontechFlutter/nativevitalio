@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -86,6 +87,11 @@ class LeaderboardFragment : Fragment() {
             sortedList.drop(3)
         } else {
             emptyList()
+        }
+
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
         // 🔹 RecyclerView (ONLY remaining users)
