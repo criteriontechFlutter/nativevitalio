@@ -56,6 +56,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -124,7 +125,6 @@ class CorporateDashBoard : Fragment() {
     private val tabLabels = listOf("Home", "Snaps", "Reminders", "Challenges")
     private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
-
     private val micStatusHandler = Handler(Looper.getMainLooper())
     private var micStatusRunnable: Runnable? = null
 
@@ -132,7 +132,7 @@ class CorporateDashBoard : Fragment() {
         MoodData(5,"Spectacular", "#FFA4BA", R.drawable.spectulor_mood,  "#611829"),
         MoodData(6,"Upset", "#88A7FF",  R.drawable.upset_mood,  "#2A4089"),
         MoodData(1, "Stressed", "#FF9459",  R.drawable.stressed_mood, "#782E04"),
-        MoodData(2,"Happy", "#9ABDFF",  R.drawable.happy_mood,"#505D87"),
+        MoodData(2,"Happy", "#9ABDFF",  R.drawable.happy,"#505D87"),
         MoodData(4,"Good", "#F9C825",  R.drawable.good_mood, "#664F00"),
         MoodData(3,"Sad",   "#7DE7EE",  R.drawable.sad_mood,  "#3A7478")
 
@@ -236,6 +236,7 @@ class CorporateDashBoard : Fragment() {
                 if (mood != null) {
                     binding.tFeelingBelow.visibility = View.GONE
                     binding.tFeeling.text = "Feeling ${mood.name}"
+
                     binding.tFeeling.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
                     (binding.tFeeling.layoutParams as ConstraintLayout.LayoutParams).apply {
                         verticalBias = 0.1f
@@ -243,12 +244,13 @@ class CorporateDashBoard : Fragment() {
                     }
                     binding.ivIllustration.setImageResource(mood.emojiRes)
                     (binding.ivIllustration.layoutParams as ConstraintLayout.LayoutParams).apply {
-                        verticalBias = -0.14f
+                        verticalBias = -0.34f
                         binding.ivIllustration.layoutParams = this
                     }
                     binding.ivIllustration.layoutParams.apply {
-                        width = dpToPx(374, requireContext())
-                        height = dpToPx(203, requireContext())
+                        width = dpToPx(350, requireContext())
+                        height = dpToPx(190, requireContext())
+
                         binding.ivIllustration.layoutParams = this
                     }
                 }

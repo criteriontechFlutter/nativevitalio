@@ -57,6 +57,7 @@
         <com.critetiontech.ctvitalio.UI.SleepStageBarView
             android:id="@+id/remBar"
             android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
             android:layout_height="47dp"  />
 
         <View
