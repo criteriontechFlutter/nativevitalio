@@ -1832,7 +1832,12 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
         val progress = if (item.targetValue.toInt() > 0) {
             if(item.vmId.toString()=="298"){
                 (((item.vitalValue/  1000) / item.targetValue.toFloat() ) * 100).toInt()
-            }else{
+            }else if(item.vmId.toString()=="249"){
+
+                ((item.glucoseCount / item.targetValue.toFloat()) * 100).toInt()
+            }
+
+            else{
 
                 ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
             }
@@ -1854,8 +1859,11 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
             itemBinding.tvStepsValue.text =
                 "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000} ml"
-        }else{
+        }else if(item.vmId.toString()=="249"){
 
+            itemBinding.tvStepsValue.text =
+                "${item.glucoseCount.toInt()} / ${item.targetValue}"
+        }else{
             itemBinding.tvStepsValue.text =
                 "${item.vitalValue.toInt()} / ${item.targetValue}"
         }
@@ -1876,7 +1884,7 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
             itemBinding.ivStepsIcon.setImageResource(R.drawable.sleep_p)
         }
-        else if(item.vmId.toString()=="301"){
+        else if(item.vmId.toString()=="249"){
 
 
 
