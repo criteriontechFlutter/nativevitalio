@@ -174,7 +174,7 @@ class SleepDetails : Fragment() {
             binding.partialText.text = "$partialCount Partial"
 
             // Agar tumhara custom graph view hai to usme cycles set kar do
-            binding.sleepCycleView.setCycles(cycleList)
+            binding.sleepCycleView.setSleepCycles(cycleList)
         }
 
 

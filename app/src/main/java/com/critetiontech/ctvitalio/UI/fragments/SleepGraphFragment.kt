@@ -15,6 +15,7 @@ import com.critetiontech.ctvit.SleepKind
 import com.critetiontech.ctvit.SleepSegmentData
 import com.critetiontech.ctvitalio.databinding.FragmentSleepChartBinding
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -55,46 +56,20 @@ class SleepGraphFragment : Fragment() {
     private fun observeSleepData() {
 
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
-
-            sleepValue.SleepGraph?.Data?.let { graphList ->
-                bindSleepGraph(graphList)
+            viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+                sleepValue.SleepGraph?.Data?.let { graphList ->
+                    // graphList is already List<SleepGraphData> if you parse in ViewModel
+                    bindSleepGraph(graphList)
+                }
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindSleepGraph(graphList: List<SleepGraphData>) {
-
-        if (graphList.isEmpty()) return
-
-        val baseTime = graphList.first().Start
-
-        val segments = graphList.map { segment ->
-
-            SleepSegmentData(   // ✅ correct model
-
-                kind = when (segment.Type.lowercase()) {
-                    "awake" -> SleepKind.AWAKE
-                    "rem_sleep" -> SleepKind.REM
-                    "light_sleep" -> SleepKind.LIGHT
-                    "deep_sleep" -> SleepKind.DEEP
-                    else -> SleepKind.LIGHT
-                },
-
-                start = convertToMinutes(baseTime, segment.Start),
-                end = convertToMinutes(baseTime, segment.End),
-                labelValue = segment.TossTurn ?: 0
-            )
-        }
-
-        val totalTime = segments.maxOf { it.end }
-
-        binding.sleepChartView.setSegments(
-            data = segments,
-            totalTime = totalTime
-        )
+        // Pass JSON data to the custom view
+        binding.sleepChartView.setSegmentsFromJson(graphList)
     }
-
 
 
     @RequiresApi(Build.VERSION_CODES.O)

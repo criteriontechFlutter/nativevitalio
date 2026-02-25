@@ -1,25 +1,22 @@
 package com.critetiontech.ctvit
-import android.graphics.*
-import android.os.Build
-import androidx.annotation.RequiresApi
-import org.json.JSONArray
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
-
+import SleepGraphData
 import android.content.Context
 import android.graphics.*
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
-import com.critetiontech.ctvitalio.UI.fragments.SleepSegment
-import java.text.SimpleDateFormat
+import androidx.annotation.RequiresApi
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
+
 data class SleepSegmentData(
     val id: String = UUID.randomUUID().toString(),
     val kind: SleepKind,
-    val start: Double,
-    val end: Double,
-    val labelValue: Int = 0
+    val start: LocalDateTime,
+    val end: LocalDateTime
 )
 
 enum class SleepKind(val display: String, val color: Int) {
@@ -36,17 +33,20 @@ enum class SleepKind(val display: String, val color: Int) {
         get() = ordered.indexOf(this)
 }
 
+// -------------------------
+// Custom View
+// -------------------------
 class SleepTimelineView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : View(context, attrs) {
 
     private var segments: List<SleepSegmentData> = emptyList()
-    private var totalTime: Double = 0.0
+    private var totalDurationMinutes: Long = 1
+    private var startTime: LocalDateTime? = null
+    private var endTime: LocalDateTime? = null
 
     private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    // ✅ Grey border connecting line
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = 0xFF9E9E9E.toInt()
         style = Paint.Style.STROKE
@@ -54,17 +54,15 @@ class SleepTimelineView @JvmOverloads constructor(
         strokeJoin = Paint.Join.ROUND
         strokeCap = Paint.Cap.ROUND
     }
-
     private val gridPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = 0x22000000
         strokeWidth = 1f
     }
-
     private val timeLabelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.GRAY
         textSize = 28f
+        textAlign = Paint.Align.CENTER
     }
-
     private val yLabelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         textSize = 30f
@@ -73,126 +71,135 @@ class SleepTimelineView @JvmOverloads constructor(
     private val leftMargin = 140f
     private val rightMargin = 40f
     private val topMargin = 18f
-    private val bottomMargin = 18f
+    private val bottomMargin = 40f
     private val baselineHeight = 18f
     private val cornerRadius = 6f
 
-    private val timeLabels = listOf("2 AM", "5 AM", "8 AM", "11 AM")
+    private val formatter =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME
+        else null
 
-    fun setSegments(data: List<SleepSegmentData>, totalTime: Double) {
-        this.segments = data
-        this.totalTime = totalTime
+    // -------------------------
+    // Bind JSON SleepGraph Data
+    // -------------------------
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setSegmentsFromJson(graphList: List<SleepGraphData>) {
+        segments = graphList.map { data ->
+            val kind = when (data.Type.lowercase()) {
+                "awake" -> SleepKind.AWAKE
+                "light_sleep" -> SleepKind.LIGHT
+                "deep_sleep" -> SleepKind.DEEP
+                "rem_sleep" -> SleepKind.REM
+                else -> SleepKind.AWAKE
+            }
+
+            SleepSegmentData(
+                kind = kind,
+                start = LocalDateTime.parse(data.Start, formatter),
+                end = LocalDateTime.parse(data.End, formatter)
+            )
+        }
+
+        if (segments.isNotEmpty()) {
+            startTime = segments.minOf { it.start }
+            endTime = segments.maxOf { it.end }
+            totalDurationMinutes = Duration.between(startTime, endTime).toMinutes()
+            if (totalDurationMinutes <= 0) totalDurationMinutes = 1
+        }
+
         invalidate()
     }
 
+    // -------------------------
+    // Optional: Direct typed binding
+    // -------------------------
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setSegments(segmentsList: List<SleepSegmentData>) {
+        if (segmentsList.isEmpty()) return
+
+        segments = segmentsList
+        startTime = segments.minOf { it.start }
+        endTime = segments.maxOf { it.end }
+        totalDurationMinutes = Duration.between(startTime, endTime).toMinutes().coerceAtLeast(1)
+
+        invalidate()
+    }
+
+    // -------------------------
+    // Draw Timeline
+    // -------------------------
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onDraw(canvas: Canvas) {
-
         super.onDraw(canvas)
-
-        if (segments.isEmpty() || totalTime <= 0) return
+        if (segments.isEmpty() || totalDurationMinutes <= 0) return
 
         val chartWidth = width - leftMargin - rightMargin
         val chartHeight = height - topMargin - bottomMargin
         val rowHeight = chartHeight / SleepKind.ordered.size
 
-        // =====================
-        // Y AXIS
-        // =====================
+        // -------------------------
+        // Draw Y-axis (Sleep Kind)
+        // -------------------------
         SleepKind.ordered.forEachIndexed { index, kind ->
-
             val y = topMargin + rowHeight * index + rowHeight / 2
-
             canvas.drawLine(leftMargin, y, leftMargin + chartWidth, y, gridPaint)
-
-            canvas.drawText(
-                kind.display,
-                20f,
-                y + 10f,
-                yLabelPaint
-            )
+            canvas.drawText(kind.display, 20f, y + 10f, yLabelPaint)
         }
 
-        // =====================
-        // X AXIS
-        // =====================
-        timeLabels.forEachIndexed { i, label ->
+        // -------------------------
+        // Draw X-axis (Time) Dynamic
+        // -------------------------
+        val intervals = 4
+        startTime?.let { start ->
+            for (i in 0..intervals) {
+                val ratio = i / intervals.toFloat()
+                val x = leftMargin + ratio * chartWidth
 
-            val x = leftMargin + i * (chartWidth / (timeLabels.size - 1))
-            val textWidth = timeLabelPaint.measureText(label)
+                val minutes = (ratio * totalDurationMinutes).toLong()
+                val labelTime = start.plusMinutes(minutes)
+                val label = labelTime.format(DateTimeFormatter.ofPattern("h:mm a"))
 
-            canvas.drawText(
-                label,
-                x - textWidth / 2,
-                height - 20f,
-                timeLabelPaint
-            )
+                canvas.drawLine(x, height - bottomMargin, x, height - bottomMargin + 12f, gridPaint)
+                canvas.drawText(label, x, height - 8f, timeLabelPaint)
+            }
         }
 
-        // =====================
-        // DRAW BARS
-        // =====================
+        // -------------------------
+        // Draw Bars
+        // -------------------------
         barPaint.style = Paint.Style.FILL
 
         segments.forEach { seg ->
-
             val yCenter = topMargin + rowHeight * seg.kind.index + rowHeight / 2
 
-            val xStart =
-                leftMargin + (seg.start.toFloat() / totalTime * chartWidth)
-
-            val xEnd =
-                leftMargin + (seg.end.toFloat() / totalTime * chartWidth)
+            val xStart = leftMargin + (Duration.between(startTime, seg.start).toMinutes().toFloat() / totalDurationMinutes) * chartWidth
+            val xEnd = leftMargin + (Duration.between(startTime, seg.end).toMinutes().toFloat() / totalDurationMinutes) * chartWidth
 
             barPaint.color = seg.kind.color
-
-            val rect = RectF(
-                xStart.toFloat(),
-                yCenter - baselineHeight / 2,
-                xEnd.toFloat(),
-                yCenter + baselineHeight / 2
-            )
-
+            val rect = RectF(xStart, yCenter - baselineHeight / 2, xEnd, yCenter + baselineHeight / 2)
             canvas.drawRoundRect(rect, cornerRadius, cornerRadius, barPaint)
         }
 
-        // =====================
-        // FULL BORDER CONNECT LINE (NO PADDING)
-        // =====================
+        // -------------------------
+        // Full connecting line
+        // -------------------------
         val path = Path()
-
         segments.forEachIndexed { index, seg ->
-
             val yCenter = topMargin + rowHeight * seg.kind.index + rowHeight / 2
-
             val topEdge = yCenter - baselineHeight / 2
+            val xStart = leftMargin + (Duration.between(startTime, seg.start).toMinutes().toFloat() / totalDurationMinutes) * chartWidth
+            val xEnd = leftMargin + (Duration.between(startTime, seg.end).toMinutes().toFloat() / totalDurationMinutes) * chartWidth
 
-            val xStart =
-                leftMargin + (seg.start.toFloat() / totalTime * chartWidth)
-
-            val xEnd =
-                leftMargin + (seg.end.toFloat() / totalTime * chartWidth)
-
-            if (index == 0) {
-                path.moveTo(xStart.toFloat(), topEdge)
-            }
-
-            // top horizontal
-            path.lineTo(xEnd.toFloat(), topEdge)
+            if (index == 0) path.moveTo(xStart, topEdge)
+            path.lineTo(xEnd, topEdge)
 
             if (index < segments.size - 1) {
-
                 val next = segments[index + 1]
-
-                val nextYCenter =
-                    topMargin + rowHeight * next.kind.index + rowHeight / 2
-
+                val nextYCenter = topMargin + rowHeight * next.kind.index + rowHeight / 2
                 val nextTop = nextYCenter - baselineHeight / 2
-
-                val nextX =
-                    leftMargin + (next.start.toFloat() / totalTime * chartWidth)
-
-                // vertical transition
-                path.lineTo(nextX.toFloat(), nextTop)
+                val nextX = leftMargin + (Duration.between(startTime, next.start).toMinutes().toFloat() / totalDurationMinutes) * chartWidth
+                path.lineTo(nextX, nextTop)
             }
         }
 
@@ -200,10 +207,8 @@ class SleepTimelineView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-
         val width = resolveSize(800, widthMeasureSpec)
         val height = resolveSize(350, heightMeasureSpec)
-
         setMeasuredDimension(width, height)
     }
 }
