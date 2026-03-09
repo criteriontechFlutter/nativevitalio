@@ -65,7 +65,7 @@ class BikingFragment : Fragment() {
 
             } else Toast.makeText(requireContext(),"Failed! Try again.",Toast.LENGTH_SHORT).show()
         }
-    }
+    }  
 
     private fun pickTime(callback: (String) -> Unit) {
         val c = Calendar.getInstance()
