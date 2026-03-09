@@ -470,7 +470,6 @@ data class DailyCheckItem(
     val vitalValue: Double,
     val totalFluid_L: Double,
     val isGoalAchieved: Int,
-    val glucoseCount: Int,
     val goalName: String,
     val unit: String,
     val glucoseCount: Int,
