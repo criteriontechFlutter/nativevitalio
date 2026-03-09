@@ -83,19 +83,19 @@ class WellnessMetrics : Fragment() {
         binding.sleepContainerId.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_sleepDetails  )
         }
-         binding.brainWasteClearance.setOnClickListener()  {
-            findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
-        }
+//         binding.brainWasteClearance.setOnClickListener()  {
+//            findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
+//        }
             binding.sleepBarGreen.setOnClickListener()  {
             findNavController().navigate(R.id.action_wellnessMetrics_to_brainWasteClearance  )
         }
 
 //        // RulerSeekBar: Cardio Age
-        binding.rulerSeekBar.apply {
-            minValue = 12
-            currentValue = 32
-
-        }
+//        binding.rulerSeekBar.apply {
+//            minValue = 12
+//            currentValue = 32
+//
+//        }
      }
 
     private fun observeVitals() {
@@ -114,10 +114,6 @@ class WellnessMetrics : Fragment() {
                  getLatestVital(list, "BrainWasteClearance")?.vmValue ?: "0"
            // binding.restingHR = viewModel.getLatestVital(list, "RestingHR")?.vmValue?.toInt().toString()
           //  binding.hrv = viewModel.getLatestVital(list, "HRV")?.vmValue?.toInt().toString()
-
-
-
-
 
         }}
 

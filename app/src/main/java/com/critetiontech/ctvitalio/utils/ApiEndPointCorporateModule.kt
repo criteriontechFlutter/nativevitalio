@@ -1,9 +1,10 @@
 package com.critetiontech.ctvitalio.utils
 
 class ApiEndPointCorporateModule {
-
     val getJoinedChallenge="api/CorporateChallenges/GetJoinedChallengesByEmployeeId"
     val getNewChallenge="api/CorporateChallenges/GetCorporateChallengesByClientId"
+    val getJoinedChallengesDetailsByEmployeeId="CorporateChallenges/GetJoinedChallengesDetailsByEmployeeId"
+
     val insertChallengeparticipants ="api/Challengeparticipants/InsertChallengeparticipants"
     val leaveChallengeparticipants ="api/Challengeparticipants/LeaveChallengeparticipants"
 

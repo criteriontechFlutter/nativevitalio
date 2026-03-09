@@ -5,6 +5,7 @@ package com.critetiontech.ctvitalio.UI.fragments
 import HrData
 import HrvGraph
 import MorningAlertness
+import SleepCycle
 import SleepValue
 import TempGraph
 import android.annotation.SuppressLint
@@ -129,6 +130,53 @@ class SleepDetails : Fragment() {
         binding.wellnessImageArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+//        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+//
+//            val cycleList = sleepValue.SleepCycles?.Cycles?.map {
+//
+//                SleepCycle(
+//                    startTime = it.StartTime,
+//                    endTime = it.EndTime,
+//                    cycleType = it.CycleType,
+//                    color = it.Color
+//                )
+//
+//            } ?: emptyList()
+//
+//            binding.sleepCycleView.setCycles(cycleList)
+//        }
+
+
+        viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+
+            val cycleList = sleepValue.SleepCycles?.Cycles?.map {
+                SleepCycle(
+                    startTime = it.StartTime,
+                    endTime = it.EndTime,
+                    cycleType = it.CycleType,
+                    color = it.Color
+                )
+            } ?: emptyList()
+
+            // Total cycles count
+            val totalCycles = cycleList.size
+
+            // Full sleep types (deep_sleep, rem_sleep)
+            val fullCount = cycleList.count {
+                it.cycleType == "complete" || it.cycleType == "rem_sleep" || it.cycleType == "partial"
+            }
+
+            // Partial sleep types (light_sleep, awake)
+            val partialCount = totalCycles-fullCount
+            // Set values to UI
+            binding.sleepCycleText.text = "Sleep Cycle $totalCycles"
+            binding.fullText.text = "$fullCount Full"
+            binding.partialText.text = "$partialCount Partial"
+
+            // Agar tumhara custom graph view hai to usme cycles set kar do
+            binding.sleepCycleView.setSleepCycles(cycleList)
+        }
+
 
         // Progress cards
         setDefaultProgress(binding.sleepEfficiencyProgressId)
@@ -467,6 +515,27 @@ class SleepDetails : Fragment() {
                 }
             }
         }
+        viewModel.sleepsummary.observe(viewLifecycleOwner) { list ->
+            list?.forEach { item ->
+                val card = cardMap[item.Title]
+                card?.let { c ->
+                    c.sleepProgressBar.progress = item.Score.toInt()
+                    c.cardTitle.text = item.Title
+                    c.Title.text = item.StateTitle
+                }
+            }
+        }
+
+
+
+        viewModel.movementList.observe(viewLifecycleOwner) { list ->
+
+            // Agar custom view use kar rahe ho
+           binding. movementGraph.setData(list)
+
+        }
+
+
     }
     private fun View.setCardTintHex(hex: String?) {
         val color = hex?.toColorInt() ?: Color.WHITE
@@ -581,7 +650,7 @@ class SleepDetails : Fragment() {
             // ⭐ Correct Title + Value
             bindHeader("Heart Rate", avg, "bpm")
 
-            thresholdValue = 84
+            thresholdValue = 70
             setYAxisRange(40, 120)
             setTimeRange(points.first().timestamp, points.last().timestamp)
             // resetDynamicAxes() // enable if needed
@@ -665,14 +734,14 @@ class SleepDetails : Fragment() {
         // Add time container below sleep graph (adjust based on your parent layout)
         // binding.yourParentLayout.addView(timeContainer)
 
-        sleepManager.setupSleepCycleGraph(
-            context = requireContext(),
-            sleepGraphContainer = binding.sleepGraph,
-            tvSleepCycleCount = binding.tvSleepCycleCount,
-            cyclesData = cyclesData,
-            timeLabels = timeLabels
-        )
-        "${cyclesData.fullCount} Full / ${cyclesData.partialCount} Partial".also { binding.tvLegend.text = it }
+//        sleepManager.setupSleepCycleGraph(
+//            context = requireContext(),
+//            sleepGraphContainer = binding.sleepGraph,
+//            tvSleepCycleCount = binding.tvSleepCycleCount,
+//            cyclesData = cyclesData,
+//            timeLabels = timeLabels
+//        )
+//        "${cyclesData.fullCount} Full / ${cyclesData.partialCount} Partial".also { binding.tvLegend.text = it }
     }
 
     // -------------------------------------------
@@ -690,7 +759,6 @@ class SleepDetails : Fragment() {
         val movements =
             listOf(true, false, true, true, false, true, false, false, true, true)
 
-        "Sleep Cycle ${sleepSegments.size}".also { binding.tvSleepCycleCount.text = it }
 
         binding.sleepGraph.removeAllViews()
         binding.movementRow.removeAllViews()

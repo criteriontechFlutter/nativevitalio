@@ -111,11 +111,17 @@ class StressRhythm : Fragment() {
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
 
-        val maxValue = entries.maxOf { it.value }
-        val avg = entries.map { it.value }.average().toInt()
+        // Safely get max value; agar sab 0 ho, crash na ho
+        // 1️⃣ Max value (bar scaling ke liye)
+        val maxValue = entries.maxOfOrNull { it.value } ?: 0
 
-        binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "Stress Rhythm Score  "
+// 2️⃣ Current date ka value
+        val todayStr = java.time.LocalDate.now().toString()  // "YYYY-MM-DD"
+        val currentValue = entries.firstOrNull { it.date == todayStr }?.value ?: 0
+
+// 3️⃣ Show in header
+        binding.tvScore.text = currentValue.toString()
+        binding.tvLabel.text = "Stress Rhythm Score"
 
         binding.barsContainer.post {
 
@@ -124,8 +130,9 @@ class StressRhythm : Fragment() {
 
             entries.forEachIndexed { _, entry ->
 
-                val fillRatio = entry.value.toFloat() / maxValue.toFloat()
-                val fillHeight = (maxBarHeight * fillRatio).toInt()
+                // Calculate fill ratio; 0-value ke liye 0 height
+                val fillRatio = if (maxValue == 0) 0f else entry.value.toFloat() / maxValue.toFloat()
+                val fillHeight = (maxBarHeight * fillRatio).toInt().coerceAtLeast(0)
 
                 // Bar layout
                 val barLayout = LinearLayout(requireContext()).apply {
@@ -149,7 +156,7 @@ class StressRhythm : Fragment() {
                 val barContainer = FrameLayout(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         24.dp,
-                        fillHeight.coerceAtLeast(30.dp)
+                        fillHeight.coerceAtLeast(0)  // 0-value bars height = 0
                     )
                 }
 
@@ -239,6 +246,7 @@ class StressRhythm : Fragment() {
                     setBackgroundColor(Color.parseColor("#40FFFFFF"))
                 }
 
+                // Add views to container
                 barContainer.addView(trackView)
                 barContainer.addView(fillView)
                 barContainer.addView(bubble)

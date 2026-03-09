@@ -127,7 +127,7 @@ class GoalsAdapter(
             binding.tvProgress.text = if (isAllGoal) {
                 goal.description
             } else {
-                safeGoalText(goal.vmValue, goal.targetValue)
+                safeGoalText(goal.vmValue,goal.goalId.toString(), goal.targetValue)
 
             }
 
@@ -190,12 +190,27 @@ class GoalsAdapter(
             }
         }
 
+        fun safeGoalText(vmValue: String?,id: String?, targetValue: String,  ): String {
 
-        fun safeGoalText(vmValue: String?, targetValue: String): String {
-            val current = vmValue?.toFloatOrNull()?.let { Math.round(it) } ?: 0
-            val target = targetValue
-            return "$current/$target"
+            val currentFloat = vmValue?.toFloatOrNull() ?: 0f
+
+            return if (id.equals("13", ignoreCase = true)) {
+
+                // vmValue already ml me hai (1200)
+                val currentMl = currentFloat.toInt()
+
+                // target liters ko ml me convert karo
+                val targetMl = (targetValue.toInt()*1000 ?: 0)
+
+               return "$currentMl/$targetMl"
+
+            } else {
+
+                val current = currentFloat.toInt()
+               return "$current/$targetValue "
+            }
         }
+
 
     }
 }

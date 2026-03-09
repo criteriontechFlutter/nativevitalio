@@ -17,6 +17,15 @@
                             <option name="y" value="-768" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_BPHistory_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -304,12 +313,17 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-3322" />
-                            <option name="y" value="-936" />
+                            <option name="x" value="-4561" />
+                            <option name="y" value="-1515" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_dashboard_self">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_BPHistory">
                               <value>
                                 <LayoutPositions />
@@ -682,6 +696,15 @@
                             <option name="y" value="-792" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_glucoseHistory_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -834,6 +857,18 @@
                           <Point>
                             <option name="x" value="-2657" />
                             <option name="y" value="-1281" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="newChallengeDetails">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-4316" />
+                            <option name="y" value="-1831" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:elevation="5dp"
+        android:background="@color/primaryBlueLight"
+        android:orientation="vertical">
+
+        <!-- Header: Arrow + Text -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdgeLength="@dimen/_14sdp"
+            android:elevation="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="0dp">
+
+            <ImageView
+                android:id="@+id/wellnessImageArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/wellnessText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Challenge Details"
+                android:textSize="18sp"
+                android:paddingStart="16dp"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardViewid"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white">
+
+        <!-- Title Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iconGoal"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/octicon_goal"
+                 android:layout_marginEnd="8dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Glucose Stability Week"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#111111"/>
+
+                <TextView
+                    android:id="@+id/subtitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="w/Coach Sarah | 7 days"
+                    android:textSize="12sp"
+                    android:textColor="#777777"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Progress Text -->
+        <TextView
+            android:id="@+id/labelCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Progress 86%"
+            android:textSize="12sp"
+            android:textColor="#444444"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="6dp"
+            android:max="100"
+            android:progress="70"
+            android:progressDrawable="@drawable/progress_drawable"/>
+
+        <!-- Streak Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tvConsistencyWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Consistency wins!"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#FF6F07"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Day Circles -->
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvMonday" android:text="M"/>
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvTuesday" android:text="T"/>
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvWednesday" android:text="W"/>
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvThursday" android:text="T"/>
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvFriday" android:text="F"/>
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvFireIcon" android:text="🔥"/>
+                <TextView style="@style/DayCircleStyle" android:id="@+id/tvSaturday" android:text="S"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Reminder Box -->
+        <TextView
+            android:id="@+id/reminderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:text="Tiny push needed — one smooth glucose day completes your streak."
+            android:textSize="12sp"
+            android:textColor="#444444"
+              />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_log_reading"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Log reading"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textColor="@android:color/white"
+                app:backgroundTint="#007BFF"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_log"
+                app:iconPadding="6dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_message_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:text="Message Coach"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textColor="#007BFF"
+                app:backgroundTint="#EAF3FF"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_chat"
+                app:iconPadding="6dp"
+                app:iconTint="#007BFF"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Info Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#F3F6FB">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_trophy"
+                    android:tint="#2F80ED"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Logged readings on time, 8 readings in 6 days"
+                    android:textSize="14sp"
+                    android:textColor="#1A1A1A"
+                    android:layout_marginStart="8dp"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_arrow_right"
+                    android:tint="#888888"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Next Step Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#F6F6F6">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💡 Next Step to Complete Challenge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="#333333"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log your post-dinner glucose reading before 9:00 PM. Stay hydrated this evening to support stability."
+                    android:textSize="13sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="6dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <!-- Left Box -->
+        <LinearLayout
+            android:id="@+id/leftBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_box"
+            android:padding="12dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/tvDaysLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/7 days left"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDaysLeftStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good"
+                android:textSize="12sp"
+                android:textColor="@color/green"
+                android:background="@drawable/bg_badge_green"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Right Box -->
+        <LinearLayout
+            android:id="@+id/rightBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_box"
+            android:padding="12dp"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:id="@+id/tvDaysDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/1"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDaysDoneStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good"
+                android:textSize="12sp"
+                android:textColor="@color/green"
+                android:background="@drawable/bg_badge_green"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:layout_margin="12dp"
+        android:elevation="2dp">
+
+        <!-- Title and Days Left -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Glucose Stability Status"
+                android:textColor="#333"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDaysLefts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4/7 Days"
+                android:textSize="12sp"
+                android:textColor="#999" />
+        </LinearLayout>
+
+        <!-- Glucose Range -->
+        <TextView
+            android:id="@+id/tvGlucoseRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="95–99 mg/dL"
+            android:textSize="18sp"
+            android:textColor="#111"
+            android:textStyle="bold" />
+
+        <!-- Chart with Y-axis and center line -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white">
+
+            <!-- Y-axis labels -->
+            <LinearLayout
+                android:id="@+id/yAxisContainer"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical|end"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvMaxValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="140"
+                    android:textSize="10sp"
+                    android:textColor="#999"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvMidValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="90"
+                    android:textSize="10sp"
+                    android:textColor="#999"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvMinValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40"
+                    android:textSize="10sp"
+                    android:textColor="#999"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Bars container -->
+            <LinearLayout
+                android:id="@+id/barChartContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/yAxisContainer"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:background="#E6F3EA">
+            </LinearLayout>
+
+            <!-- Center line -->
+            <View
+                android:id="@+id/centerLine"
+                android:layout_width="316dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="-2dp"
+                android:layout_toEndOf="@+id/yAxisContainer"
+                android:background="#00D492" />
+        </RelativeLayout>
+
+        <!-- X-axis Dates -->
+        <LinearLayout
+            android:id="@+id/xAxisDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+    </LinearLayout>
+    </LinearLayout>
+
+    </ScrollView>
+    </LinearLayout>

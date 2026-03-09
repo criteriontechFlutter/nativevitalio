@@ -20,3 +20,4 @@ data class AllergyApiResponse<T>(
     val message: String,
     val responseValue: T
 )
+
