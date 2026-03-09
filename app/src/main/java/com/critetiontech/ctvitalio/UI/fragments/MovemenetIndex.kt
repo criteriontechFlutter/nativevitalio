@@ -170,11 +170,16 @@ class MovemenetIndex : Fragment() {
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
 
-        val maxValue = entries.maxOf { it.value }
-        val avg = entries.map { it.value }.average().toInt()
+        // Safely get max value; agar sab 0 hai, phir bhi safe
+        val maxValue = entries.maxOfOrNull { it.value } ?: 0
 
-        binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "Movement Index"
+// Current date value
+        val today = java.time.LocalDate.now()
+        val todayStr = today.toString()
+        val currentValue = entries.firstOrNull { it.date == todayStr }?.value ?: 0
+
+        binding.tvScore.text = currentValue.toString()
+        binding.tvLabel.text = "Today's Value"
 
         binding.barsContainer.post {
 
@@ -183,8 +188,9 @@ class MovemenetIndex : Fragment() {
 
             entries.forEachIndexed { _, entry ->
 
-                val fillRatio = entry.value.toFloat() / maxValue.toFloat()
-                val fillHeight = (maxBarHeight * fillRatio).toInt()
+                // Fill ratio calculation
+                val fillRatio = if (maxValue == 0) 0f else entry.value.toFloat() / maxValue.toFloat()
+                val fillHeight = (maxBarHeight * fillRatio).toInt().coerceAtLeast(0) // 0 value => 0 height
 
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
@@ -207,7 +213,7 @@ class MovemenetIndex : Fragment() {
                 val barContainer = FrameLayout(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         24.dp,
-                        fillHeight.coerceAtLeast(30.dp)
+                        fillHeight.coerceAtLeast(0)  // 0-height support
                     )
                 }
 
@@ -253,9 +259,7 @@ class MovemenetIndex : Fragment() {
                     elevation = 2.dp.toFloat()
                 }
 
-                // --- weekday initial from API (S,M,T,W,T,F,S)
                 val weekdayInitial = entry.dayName.first().toString()
-
                 val weekdayBubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         20.dp,
@@ -274,7 +278,6 @@ class MovemenetIndex : Fragment() {
                     elevation = 1.dp.toFloat()
                 }
 
-                // --- convert YYYY-MM-DD into dd/MM
                 val parts = entry.date.split("-")
                 val dayLabel = TextView(requireContext()).apply {
                     text = "${parts[2]}/${parts[1]}"

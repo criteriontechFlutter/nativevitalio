@@ -160,6 +160,7 @@ class CorporateDashBoard : Fragment() {
         val halfHeight = screenHeight / 2f
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
+        challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
         pillsViewModel.getAllPatientMedication()
         binding.notificationIcon.setOnClickListener {   }
         binding.ringIcon.setOnClickListener {
@@ -170,6 +171,8 @@ class CorporateDashBoard : Fragment() {
 
 
         }
+        challengesViewModel.getJoinedChallenge()
+
 
         binding.headerContainer.setOnClickListener {
 
@@ -272,10 +275,10 @@ class CorporateDashBoard : Fragment() {
         binding.goalCard.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
         }
-
-        binding.mindfulness.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_mindfulnessFragment)
-        }
+//
+//        binding.mindfulness.setOnClickListener {
+//            findNavController().navigate(R.id.action_dashboard_to_mindfulnessFragment)
+//        }
 
 
         viewModel.getVitals()
@@ -311,8 +314,50 @@ class CorporateDashBoard : Fragment() {
 
 
 
+//
+//        viewModel.activeChallenges.observe(viewLifecycleOwner) { list ->
+//            binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
+//                list.toMutableList(),
+//                onJoinClick  =  { challenge ->
+//                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+//                },
+//                onDetailsClick  =  { challenge ->
+//                    val bundle = Bundle().apply {
+//                        putSerializable("challenges", challenge)
+//                    }
+//                     findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+//
+//                }
+//            )
+//            binding.challengedId.adapter = NewChallengedAdapter(
+//                list.toMutableList(),
+//                onJoinClick =  { challenge ->
+//                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+//                },
+//                onDetailsClick =  { challenge ->
+//                    val bundle = Bundle().apply {
+//                        putSerializable("challenges", challenge)
+//                    }
+//                    findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+//
+//                }
+//            )
+//
+//
+//
+//            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+//            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
+//
+//            val visible = list.isNotEmpty()
+//
+//            binding.activechalgesId.visibility = if (visible) View.VISIBLE else View.GONE
+//            binding.activeChalleTextId.visibility = if (visible) View.VISIBLE else View.GONE
+//            setupActiveChallenges(list.size)
+//        }
 
-        viewModel.activeChallenges.observe(viewLifecycleOwner) { list ->
+
+
+        challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
@@ -322,7 +367,7 @@ class CorporateDashBoard : Fragment() {
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge)
                     }
-                     findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+                    findNavController().navigate(R.id.action_dashboard_to_newChallengeDetails, bundle)
 
                 }
             )
@@ -335,7 +380,7 @@ class CorporateDashBoard : Fragment() {
                     val bundle = Bundle().apply {
                         putSerializable("challenges", challenge)
                     }
-                    findNavController().navigate(R.id.action_dashboard_to_challengeDetailsFragment, bundle)
+                    findNavController().navigate(R.id.action_dashboard_to_newChallengeDetails, bundle)
 
                 }
             )
@@ -351,6 +396,7 @@ class CorporateDashBoard : Fragment() {
             binding.activeChalleTextId.visibility = if (visible) View.VISIBLE else View.GONE
             setupActiveChallenges(list.size)
         }
+
 
 
 
@@ -439,8 +485,11 @@ class CorporateDashBoard : Fragment() {
         
         binding.glucosePopupId.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_glucoseHistory)
-        }
 
+        }
+        binding.mindfulnessId.setOnClickListener {
+
+        }
         binding.voiceAssistantId.setOnClickListener {
              binding.fabIcon.animate().rotation(0f).setDuration(300).start()
             binding.fabIcon.setImageResource(R.drawable.raddimg)
@@ -537,14 +586,14 @@ class CorporateDashBoard : Fragment() {
 //        binding.recyclerMedicines.adapter = adapter
         var isBoxVisible = false
         binding.viewAllSleepDataaId.visibility=View.GONE
-binding.showId.showHideId.setOnClickListener{
+//binding.showId.showHideId.setOnClickListener{
     binding.viewAllSleepDataaId.visibility=View.VISIBLE
-    binding.showId.showHideId.visibility=View.GONE
-}
-        binding.hideId.showHideId.setOnClickListener{
-            binding.viewAllSleepDataaId.visibility=View.GONE
-            binding.showId.showHideId.visibility=View.VISIBLE
-        }
+//    binding.showId.showHideId.visibility=View.GONE
+//}
+//        binding.hideId.showHideId.setOnClickListener{
+//            binding.viewAllSleepDataaId.visibility=View.GONE
+//            binding.showId.showHideId.visibility=View.VISIBLE
+//        }
 
 
 
@@ -960,9 +1009,9 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
 //            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 //        }
-        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
-           findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
-        }
+//        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
+//           findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
+//        }
 
 
         pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
@@ -1012,14 +1061,14 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
 
 //        observeVitalList()
 //        observeSleepValues()
-        binding.showId.showHideId.setOnClickListener{
+//        binding.showId.showHideId.setOnClickListener{
             binding.viewAllSleepDataaId.visibility=View.VISIBLE
-            binding.showId.showHideId.visibility=View.GONE
-        }
-        binding.hideId.showHideId.setOnClickListener{
-            binding.viewAllSleepDataaId.visibility=View.GONE
-            binding.showId.showHideId.visibility=View.VISIBLE
-        }
+//            binding.showId.showHideId.visibility=View.GONE
+//        }
+//        binding.hideId.showHideId.setOnClickListener{
+//            binding.viewAllSleepDataaId.visibility=View.GONE
+//            binding.showId.showHideId.visibility=View.VISIBLE
+//        }
          wellnessDataBind()
     }
     private fun dpToPx(dp: Float): Float {
@@ -1832,8 +1881,11 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
         val progress = if (item.targetValue.toInt() > 0) {
             if(item.vmId.toString()=="298"){
                 (((item.vitalValue/  1000) / item.targetValue.toFloat() ) * 100).toInt()
-            }else{
+            }
 
+            else   if(item.vmId.toString()=="249"){
+                ((item.glucoseCount / item.targetValue.toFloat()) * 100).toInt()
+            }  else{
                 ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
             }
         } else {
@@ -1854,7 +1906,14 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
             itemBinding.tvStepsValue.text =
                 "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000} ml"
-        }else{
+        }
+        else  if(item.vmId.toString()=="249"){
+
+            itemBinding.tvStepsValue.text =
+                "${item.glucoseCount.toInt()} / ${item.targetValue}"
+        }
+
+        else{
 
             itemBinding.tvStepsValue.text =
                 "${item.vitalValue.toInt()} / ${item.targetValue}"

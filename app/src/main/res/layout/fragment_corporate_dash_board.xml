@@ -442,14 +442,14 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_weight="1" />
 
-                                <include
-                                    android:id="@+id/showId"
+<!--                                <include-->
+<!--                                    android:id="@+id/showId"-->
 
-                                    layout="@layout/hide_show_box"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_weight="1" />
+<!--                                    layout="@layout/hide_show_box"-->
+<!--                                    android:layout_width="0dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginStart="8dp"-->
+<!--                                    android:layout_weight="1" />-->
 
                                 <include
                                     android:id="@+id/remSleepId"
@@ -559,14 +559,14 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_weight="1" />
 
-                                    <include
-                                        android:id="@+id/hideId"
+<!--                                    <include-->
+<!--                                        android:id="@+id/hideId"-->
 
-                                        layout="@layout/hide_show_box"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_weight="1" />
+<!--                                        layout="@layout/hide_show_box"-->
+<!--                                        android:layout_width="0dp"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:layout_marginStart="8dp"-->
+<!--                                        android:layout_weight="1" />-->
                                 </LinearLayout>
 
 
@@ -2315,6 +2315,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|end"
                     android:layout_marginTop="12dp"
+                    android:id="@+id/mindfulnessId"
                     android:paddingHorizontal="10dp"
                     android:orientation="horizontal"
                     >

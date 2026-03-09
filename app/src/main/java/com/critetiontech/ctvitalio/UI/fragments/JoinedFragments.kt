@@ -29,7 +29,7 @@ class JoinedFragments : Fragment() {
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
         challengesViewModel.getJoinedChallenge()
         challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->
-            joinedChallengesAdapter = JoinedChallengesAdapter(list)
+//            joinedChallengesAdapter = JoinedChallengesAdapter(list)
             binding.joinedRecyclerView.adapter = joinedChallengesAdapter
         }
     }

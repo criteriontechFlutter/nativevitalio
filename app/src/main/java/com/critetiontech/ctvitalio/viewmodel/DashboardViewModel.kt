@@ -1162,7 +1162,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         }
 
                          val result = "last drink was $hours hr ago"
-                        _lastDrinkInfo.value = result
+                        _lastDrinkInfo.postValue(result)
                     } else {
                         _lastDrinkInfo.value = "No drink data"
                     }

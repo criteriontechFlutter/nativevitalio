@@ -471,7 +471,9 @@ data class DailyCheckItem(
     val totalFluid_L: Double,
     val isGoalAchieved: Int,
     val goalName: String,
-    val unit: String
+    val unit: String,
+    val glucoseCount: Int,
+
 )
 data class InsightJson(
     val date: String,
