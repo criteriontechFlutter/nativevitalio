@@ -96,6 +96,13 @@ dependencies {
     // OkHttp core + Okio (for ByteString.toByteString)
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okio:okio:3.9.0")
+    implementation("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+// ML Kit QR Scanner
+    implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    // ✅ This fixes the ListenableFuture error
+    implementation("com.google.guava:guava:32.1.3-android")
     implementation(libs.shimmer)
 
     implementation(libs.logging.interceptor) // or latest version
@@ -123,6 +130,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation (libs.lottie)
     implementation(libs.circleimageview)
+    implementation(libs.play.services.location)
     implementation(libs.androidx.cardview)
     implementation (libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)

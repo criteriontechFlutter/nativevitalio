@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         if (intent.getBooleanExtra("from_notification", false)) {
             // Navigate to a specific fragment or screen
         }
+
+
     }
 
 

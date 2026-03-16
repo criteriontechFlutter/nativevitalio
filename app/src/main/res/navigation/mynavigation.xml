@@ -134,6 +134,9 @@
         <action
             android:id="@+id/action_dashboard_to_newChallengeDetails"
             app:destination="@id/newChallengeDetails" />
+        <action
+            android:id="@+id/action_dashboard_to_gymListFragment"
+            app:destination="@id/gymListFragment" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -656,5 +659,13 @@
         android:id="@+id/newChallengeDetails"
         android:name="com.critetiontech.ctvitalio.UI.fragments.NewChallengeDetails"
         android:label="NewChallengeDetails" />
+    <fragment
+        android:id="@+id/gymListFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.GymListFragment"
+        android:label="GymListFragment" />
+    <fragment
+        android:id="@+id/gymCheckInFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.GymCheckInFragment"
+        android:label="GymCheckInFragment" />
 
 </navigation>
