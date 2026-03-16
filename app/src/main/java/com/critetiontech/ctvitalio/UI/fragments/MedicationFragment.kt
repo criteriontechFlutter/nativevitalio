@@ -25,7 +25,6 @@ class MedicationFragment : Fragment() {
 
     private var _binding: FragmentMedicationBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: MedicationViewModel by viewModels()
 
     override fun onCreateView(

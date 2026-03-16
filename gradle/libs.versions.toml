@@ -20,6 +20,7 @@ activity = "1.8.0"
 constraintlayout = "2.2.1"
 mpandroidchart = "v3.1.0"
 okhttp = "4.12.0"
+playServicesLocation = "21.3.0"
 retrofit = "2.11.0"
 roomRuntime = "2.8.4"
 sdpAndroid = "1.0.5"
@@ -59,6 +60,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }

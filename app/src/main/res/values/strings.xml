@@ -287,5 +287,6 @@
     <string name="water_intake">Water Intake</string>
     <string name="change_password">Change Password</string>
     <string name="login_successful">Login Successful</string>
+    <string name="join_explore_nearby_gyms"><![CDATA[Join & Explore Nearby Gyms]]></string>
 
 </resources>

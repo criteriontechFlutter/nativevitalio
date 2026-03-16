@@ -414,6 +414,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_gymListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_intakePills">
                               <value>
                                 <LayoutPositions />
@@ -440,6 +445,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboard_to_movemenetIndex">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboard_to_newChallengeDetails">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -704,6 +714,30 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="gymCheckInFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-3844" />
+                            <option name="y" value="-2872" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="gymListFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-4254" />
+                            <option name="y" value="-892" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
