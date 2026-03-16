@@ -66,9 +66,8 @@ class EnergyTank : Fragment() {
         }
         binding.greetingText.text = greetings
 
-        val text = "How's your energy tank this morning?"
+        val text = "How's your energy tank this${greetings.replace("Good","").lowercase()}?"
         val spannable = SpannableString(text)
-
         // Change only the word "energy tank" to yellow
         val start = text.indexOf("energy tank")
         val end = start + "energy tank".length

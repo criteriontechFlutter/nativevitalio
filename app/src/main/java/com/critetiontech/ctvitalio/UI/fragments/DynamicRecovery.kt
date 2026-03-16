@@ -23,6 +23,7 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentDynamicRecoveryBinding
 import com.critetiontech.ctvitalio.databinding.FragmentStressRhythmBinding
 import com.critetiontech.ctvitalio.model.MovementIndexViewModel
+import kotlin.math.max
 
 class DynamicRecovery : Fragment() {
 
@@ -110,9 +111,15 @@ class DynamicRecovery : Fragment() {
         if (entries.isEmpty()) return
 
         val maxValue = entries.maxOf { it.value }
-        val avg = entries.map { it.value }.average().toInt()
 
-        binding.tvScore.text = avg.toString()
+        // -----------------------------
+        // Current date ka value fetch karo
+        // -----------------------------
+        val todayStr = java.time.LocalDate.now().toString() // format "YYYY-MM-DD"
+        val currentValue = entries.firstOrNull { it.date == todayStr }?.value ?: 0
+
+        // Show current day value in header
+        binding.tvScore.text = currentValue.toString()
         binding.tvLabel.text = "Dynamic Recovery"
 
         binding.barsContainer.post {
@@ -122,10 +129,16 @@ class DynamicRecovery : Fragment() {
 
             entries.forEachIndexed { _, entry ->
 
-                val fillRatio = entry.value.toFloat() / maxValue.toFloat()
-                val fillHeight = (maxBarHeight * fillRatio).toInt()
+                // -----------------------------
+                // Bar height calculation
+                // -----------------------------
+                val fillRatio = if (maxValue == 0) 0f else entry.value.toFloat() / maxValue.toFloat()
+                // Minimum height 1.dp so bar is visible even for 0
+                val fillHeight = max((maxBarHeight * fillRatio).toInt(), 1.dp)
 
+                // -----------------------------
                 // Bar layout
+                // -----------------------------
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
                     gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
@@ -147,7 +160,7 @@ class DynamicRecovery : Fragment() {
                 val barContainer = FrameLayout(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         24.dp,
-                        fillHeight.coerceAtLeast(30.dp)
+                        fillHeight
                     )
                 }
 
@@ -177,14 +190,14 @@ class DynamicRecovery : Fragment() {
                     }
                 }
 
-                // Bubble value
+                // Bubble value - hide if value = 0
                 val bubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         24.dp,
                         24.dp,
                         Gravity.TOP or Gravity.CENTER_HORIZONTAL
                     )
-                    text = entry.value.toString()
+                    text = if (entry.value == 0) "" else entry.value.toString()
                     setTextColor(Color.parseColor("#0A84FF"))
                     textSize = 11f
                     typeface = Typeface.DEFAULT_BOLD

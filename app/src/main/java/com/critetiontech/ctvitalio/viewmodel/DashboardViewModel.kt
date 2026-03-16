@@ -11,6 +11,7 @@ import PillTime
 import PrefsManager
 import QuickMetric
 import QuickMetricsTiled
+import SleepCycleItem
 import SleepValue
 import Summary
 import Vital
@@ -108,6 +109,10 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _sleepsummary = MutableLiveData<List<Summary>?>()
     val  sleepsummary: MutableLiveData<List<Summary>?> get() = _sleepsummary
+
+    private val _sleepCyclesList = MutableLiveData<List<SleepCycleItem>>()
+    val sleepCyclesList: LiveData<List<SleepCycleItem>> = _sleepCyclesList
+
     private val _quickMetricsTiledList = MutableLiveData<List<QuickMetricsTiled>>()
     val quickMetricsTiledList: LiveData<List<QuickMetricsTiled>> = _quickMetricsTiledList
     private val _priorityAction = MutableLiveData<List<PriorityAction>?>()
@@ -176,6 +181,10 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         _quickMetricList.value = sleepValue.QuickMetrics ?: emptyList()
                         _quickMetricsTiledList.value = sleepValue.QuickMetricsTiled ?: emptyList()
                         _sleepsummary.value = sleepValue.Summary ?: emptyList()
+
+
+                        _sleepCyclesList.value = sleepValue.SleepCycles?.Cycles ?: emptyList()
+
                     }
 
                     _loading.value = false
@@ -1153,7 +1162,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                         }
 
                          val result = "last drink was $hours hr ago"
-                        _lastDrinkInfo.value = result
+                        _lastDrinkInfo.postValue(result)
                     } else {
                         _lastDrinkInfo.value = "No drink data"
                     }

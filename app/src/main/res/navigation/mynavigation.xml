@@ -128,6 +128,12 @@
         <action
             android:id="@+id/action_dashboard_to_glucoseHistory"
             app:destination="@id/glucoseHistory" />
+        <action
+            android:id="@+id/action_dashboard_self"
+            app:destination="@id/dashboard" />
+        <action
+            android:id="@+id/action_dashboard_to_newChallengeDetails"
+            app:destination="@id/newChallengeDetails" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -646,5 +652,9 @@
             android:id="@+id/action_glucoseHistory_to_connection"
             app:destination="@id/connection" />
     </fragment>
+    <fragment
+        android:id="@+id/newChallengeDetails"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.NewChallengeDetails"
+        android:label="NewChallengeDetails" />
 
 </navigation>

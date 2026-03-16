@@ -16,3 +16,7 @@ data class DashboardActiveChallenges(
 data class DashboardActiveChallengesWrapper(
     val challenges: String   // JSON string containing an array of PriorityAction
 )
+
+data class ResponseValueModel(
+    val joinedChallenges: List<DashboardActiveChallenges>,
+)

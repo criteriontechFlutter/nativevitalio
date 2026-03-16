@@ -42,9 +42,6 @@ class MindfulnessFragment : Fragment() {
         setupEyeExerciseRecyclerView()
         observeViewModel()
 
-
-
-
     }
 
 

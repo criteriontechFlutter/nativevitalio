@@ -1,23 +1,28 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+import SleepGraphData
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.privacysandbox.tools.core.model.Type
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.SleepStageBarView
+import com.critetiontech.ctvit.SleepKind
+import com.critetiontech.ctvit.SleepSegmentData
 import com.critetiontech.ctvitalio.databinding.FragmentSleepChartBinding
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class SleepGraphFragment : Fragment() {
 
 
-
+    private lateinit var sleepStagesFromJson: String
     private var _binding: FragmentSleepChartBinding? = null
     private val binding get() = _binding!!
 
@@ -32,6 +37,7 @@ class SleepGraphFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,23 +49,41 @@ class SleepGraphFragment : Fragment() {
         observeSleepData()
     }
 
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun observeSleepData() {
+
         viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
-
-            val stageList = sleepValue.SleepStages ?: return@observe
-
-            val chartData = stageList.map {
-                when (it.Type.lowercase()) {
-                    "deep_sleep" -> 0
-                    "light_sleep" -> 1
-                    "rem_sleep" -> 2
-                    else -> 3
+            viewModel.sleepValueList.observe(viewLifecycleOwner) { sleepValue ->
+                sleepValue.SleepGraph?.Data?.let { graphList ->
+                    // graphList is already List<SleepGraphData> if you parse in ViewModel
+                    bindSleepGraph(graphList)
                 }
             }
-            binding.sleepChartView.setSleepStages(chartData)
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun bindSleepGraph(graphList: List<SleepGraphData>) {
+        // Pass JSON data to the custom view
+        binding.sleepChartView.setSegmentsFromJson(graphList)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun convertToMinutes(base: String, target: String): Double {
+
+        val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+
+        val baseTime = LocalDateTime.parse(base, formatter)
+        val targetTime = LocalDateTime.parse(target, formatter)
+
+        val diff = java.time.Duration.between(baseTime, targetTime)
+
+        return diff.toMinutes().toDouble()
+    }
 
     private fun observeSleepStages() {
 
