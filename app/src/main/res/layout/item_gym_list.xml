@@ -1,0 +1,104 @@
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="14dp"
+
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/dashboardContainerBg"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Gym Image -->
+        <ImageView
+            android:id="@+id/imgGym"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_user_avatar"
+            android:background="@drawable/rounded_corners"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- Gym Name -->
+        <TextView
+            android:id="@+id/tvGymName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="FitZone Express"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            app:layout_constraintStart_toEndOf="@id/imgGym"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/imgGym"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Distance -->
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="#1E88E5"
+            android:textSize="13sp"
+            android:text="Calculating"
+            app:layout_constraintStart_toStartOf="@id/tvGymName"
+            app:layout_constraintTop_toBottomOf="@id/tvGymName" />
+
+        <!-- Address -->
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="123 MG Road, Bengaluru"
+            android:textSize="13sp"
+            android:textColor="#777"
+            app:layout_constraintStart_toStartOf="@id/tvGymName"
+            app:layout_constraintTop_toBottomOf="@id/tvDistance"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp"/>
+
+        <!-- Get Directions Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDirection"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Get Directions"
+            android:textAllCaps="false"
+            app:icon="@drawable/baseline_navigation_24"
+            app:iconPadding="8dp"
+            app:iconTint="@color/black"
+            android:textColor="#000"
+            android:backgroundTint="#F5F5F5"
+            app:cornerRadius="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnCheckin"
+            app:layout_constraintTop_toBottomOf="@id/imgGym"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Check-in Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCheckin"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Check-in"
+            android:textAllCaps="false"
+            app:icon="@drawable/baseline_qr_code_24"
+            app:iconPadding="8dp"
+            android:backgroundTint="#1976D2"
+            android:textColor="#FFF"
+            app:cornerRadius="8dp"
+            app:layout_constraintStart_toEndOf="@id/btnDirection"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnDirection"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

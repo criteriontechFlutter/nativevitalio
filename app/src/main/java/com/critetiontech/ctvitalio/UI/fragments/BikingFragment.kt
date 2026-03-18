@@ -65,19 +65,19 @@ class BikingFragment : Fragment() {
 
             } else Toast.makeText(requireContext(),"Failed! Try again.",Toast.LENGTH_SHORT).show()
         }
-    }
+    }  
 
     private fun pickTime(callback: (String) -> Unit) {
         val c = Calendar.getInstance()
         TimePickerDialog(requireContext(),{_,h,m->
-            val f = if (h < 12) "AM" else "PM"
-            val d = if (h % 12 == 0) 12 else h % 12
-            callback(String.format("%d:%02d %s",d,m,f))
+//            val f = if (h < 12)
+//            val d = if (h % 12 == 0) 12 else h % 12
+//            callback(String.format("%d:%02d %s",d,m,f))
         },c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE),false).show()
     }
 
     private fun getCurrentTime() =
-        SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date())
+        SimpleDateFormat("h:mm", Locale.getDefault()).format(Date())
 
     private fun showSuccessDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_success_bottom,null)

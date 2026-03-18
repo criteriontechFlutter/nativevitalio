@@ -88,6 +88,7 @@ import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
 import com.critetiontech.ctvitalio.viewmodel.WebSocketState
+import com.critetiontech.ctvitalio.widgets.GymOfferBottomSheet
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -173,9 +174,21 @@ class CorporateDashBoard : Fragment() {
 
 
         }
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            GymOfferBottomSheet().show(parentFragmentManager, "GymOffer")
+
+        }, 5000) // 3000 = 3 seconds delay
         challengesViewModel.getJoinedChallenge()
 
-
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            101
+        )
         binding.headerContainer.setOnClickListener {
 
            // findNavController().navigate(R.id.action_dashboard_to_new_corporate_dashboard)
