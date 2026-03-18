@@ -151,9 +151,9 @@ class VitalDetailsAdapter(
             }
         }
 
-        holder.vitalText.setOnClickListener {
-            onVitalButtonClick(title)
-        }
+//        holder.vitalText.setOnClickListener {
+//            onVitalButtonClick(title)
+//        }
 
         holder.vitalLayout.setOnClickListener {
             val bundle = Bundle().apply {
@@ -171,7 +171,7 @@ class VitalDetailsAdapter(
         val vitalTitle: TextView = view.findViewById(R.id.vitalTitle)
         val vitalValue: TextView = view.findViewById(R.id.vitalValue)
         val vitalTime: TextView = view.findViewById(R.id.vitalTime)
-        val vitalText: TextView = view.findViewById(R.id.addVitalText)
+//        val vitalText: TextView = view.findViewById(R.id.addVitalText)
         val vitalLayout: CardView = view.findViewById(R.id.vitalsLayout)
         //val warningIcon: ImageView = view.findViewById(R.id.warningIcon)
     }
