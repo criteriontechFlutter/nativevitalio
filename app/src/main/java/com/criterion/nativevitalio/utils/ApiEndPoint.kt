@@ -56,4 +56,10 @@ class ApiEndPoint {
 
     val getPatientMediaData="api/PatientMediaData/GetPatientMediaData"
 
+
+
+
+
+    val sendLoginOtp="api/LogInForVitalioApp/SendLoginOtp"
+
 }

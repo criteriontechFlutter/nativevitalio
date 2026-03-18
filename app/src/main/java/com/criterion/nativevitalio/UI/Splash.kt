@@ -28,7 +28,7 @@ class Splash : AppCompatActivity() {
             )
 
             // Check if user data is saved locally using PrefsManager
-            val currentPatientUHID = PrefsManager().currentPatientUHID
+            val currentPatientUHID = PrefsManager().getPatient()?.uhID.toString()
 
             Log.d("RESPONSE", "responseValue: $currentPatientUHID")
 

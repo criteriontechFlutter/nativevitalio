@@ -74,7 +74,7 @@ class OtpViewModal  (application: Application) : BaseViewModel(application){
             try {
 
                 val queryParams = mapOf(
-                    "mobileNo" to "",
+                    "mobileNo" to uhid,
                     "uhid" to uhid,
                     "ClientId" to 194
                 )

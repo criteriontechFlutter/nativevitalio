@@ -36,16 +36,18 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
         viewModelScope.launch {
             try {
                 val queryParams = mapOf(
-                    "mobileNo" to "",
-                    "uhid" to uhid,
-                    "ClientId" to 194
+//                    "mobileNo" to "",
+//                    "uhid" to uhid,
+//                    "ClientId" to 194
+                    "key" to "6307748142",
+                    "ifLoggedOutFromAllDevices" to true
                 )
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
                     .createApiService()
-                    .dynamicGet(
-                        url = ApiEndPoint().getPatientDetailsByMobileNo,
+                    .queryDynamicRawPost(
+                        url = ApiEndPoint().sendLoginOtp,
                         params = queryParams
                     )
 

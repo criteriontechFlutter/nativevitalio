@@ -10,7 +10,12 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
 
-    const val DEFAULT_BASE_URL = "https://api.medvantage.tech:7082/"
+//    https://api.medvantage.tech
+//    const val DEFAULT_BASE_URL = "https://api.medvantage.tech:7082/"
+
+//    cisurl
+    const val DEFAULT_BASE_URL = "http://182.156.200.178:4082/"
+
     const val DEFAULT_BASE_URL_7096 = "https://api.medvantage.tech:7096/"
     const val DEFAULT_BASE_URL_7082 = "https://api.medvantage.tech:7082/"
 //    private const val DEFAULT_BASE_URL = "http://52.172.134.222:205/api/v1.0/"
