@@ -370,7 +370,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="30dp"
                                 android:paddingBottom="20dp"
-                                android:text="Vitals"
+                                android:text="Health Snapshot"
                                 android:textColor="@android:color/black"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
