@@ -40,11 +40,9 @@ class BinkingViewModel(application: Application) : AndroidViewModel(application)
                         url = ApiEndPointCorporateModule().insertEmployeeActivity,
                         body = params
                     )
-
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
                     Log.d("INSERT_ACTIVITY", "SUCCESS → $json")
-
                     _activityInsertSuccess.postValue(true) // Live update event success
 
                 } else {
