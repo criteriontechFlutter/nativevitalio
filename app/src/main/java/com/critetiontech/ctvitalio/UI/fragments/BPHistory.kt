@@ -28,6 +28,7 @@ import com.critetiontech.ctvitalio.viewmodel.BloosPresureHistoryViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.core.graphics.toColorInt
 
 
 class BPHistory : Fragment() {
@@ -75,7 +76,7 @@ class BPHistory : Fragment() {
         }
         val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
         val date = formatter.format(Date())
-        binding.wellnessText.text = date
+       // binding.wellnessText.text = date
 //        viewModel.weeklyTrend.observe(viewLifecycleOwner) { trend ->
 //
 //            if (trend.isEmpty()) return@observe
@@ -255,7 +256,7 @@ class BPHistory : Fragment() {
                         Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
                     )
                     background = GradientDrawable().apply {
-                        setColor(Color.parseColor("#40FFFFFF"))
+                        setColor("#40FFFFFF".toColorInt())
                         cornerRadius = 12.dp.toFloat()
                     }
                 }
@@ -299,7 +300,7 @@ class BPHistory : Fragment() {
                         Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
                     )
                     text = weekdayInitial
-                    setTextColor(Color.parseColor("#0A84FF"))
+                    setTextColor("#0A84FF".toColorInt())
                     textSize = 10f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER

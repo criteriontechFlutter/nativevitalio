@@ -76,7 +76,7 @@ class GlucoseHistory : Fragment() {
         }
         val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
         val date = formatter.format(Date())
-        binding.wellnessText.text = date
+//        binding.wellnessText.text = date
         viewModel.weeklyGraph.observe(viewLifecycleOwner) { list ->
             if (!list.isNullOrEmpty()) {
                 setData(list)
@@ -97,7 +97,7 @@ class GlucoseHistory : Fragment() {
 
                 val totalDays = list.size
 
-                binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
+               // binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
             }
         }
 
@@ -136,7 +136,7 @@ class GlucoseHistory : Fragment() {
             val avgGlucose = list.map { (it.minValue + it.maxValue) / 2.0 }
                 .average()
 
-            binding.tvAverage.text = avgGlucose.toInt().toString()+" mg/dl"
+            //binding.tvAverage.text = avgGlucose.toInt().toString()+" mg/dl"
         }
         // RecyclerView setup
         binding.recyclerTodayLog.layoutManager =

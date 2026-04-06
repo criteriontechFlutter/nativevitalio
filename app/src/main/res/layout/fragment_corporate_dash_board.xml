@@ -53,7 +53,7 @@
             <!-- Top Row: Avatar + Greeting + Icons -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="60dp"
                 android:background="@color/primaryBlue">
 
                 <!-- Avatar with Progress Ring -->
@@ -213,43 +213,31 @@
                 android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="120dp"
                 android:background="@color/primaryBlue"
                 app:layout_constraintBottom_toTopOf="@+id/contentScroll"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/moodLayout">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_mood_text_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.06" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_illustration_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="40dp" />
 
                 <TextView
                     android:id="@+id/tFeeling"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/source_serif_pro"
-                    android:paddingTop="6dp"
                     android:text="@string/how_are_you_feeling_now"
                     android:textAlignment="center"
+                    android:layout_marginTop="14dp"
                     android:textColor="@color/white"
-                    android:textSize="25sp"
+                    android:textSize="28sp"
                     android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintBottom_toTopOf="@+id/tFeelingBelow"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.58000004" />
+                    app:layout_constraintVertical_bias="0.0" />
 
 
                 <TextView
@@ -260,17 +248,17 @@
                     android:text="@string/choose_the_mood_that_fits_you_best"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/ivIllustration"
                     app:layout_constraintEnd_toEndOf="@+id/tFeeling"
                     app:layout_constraintStart_toStartOf="@+id/tFeeling"
                     app:layout_constraintTop_toBottomOf="@+id/tFeeling"
-                    app:layout_constraintVertical_bias="0.58000004" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <pl.droidsonroids.gif.GifImageView
                     android:id="@+id/ivIllustration"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="210dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="-30dp"
@@ -283,7 +271,6 @@
                     app:layout_constraintHeight_min="80dp"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-
                     app:layout_constraintVertical_chainStyle="spread_inside" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -302,7 +289,7 @@
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -313,9 +300,9 @@
                     android:id="@+id/contentScroll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fillViewport="true"
                     android:background="@drawable/bg_content_white"
                     android:elevation="8dp"
+                    android:fillViewport="true"
                     android:padding="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -366,7 +353,9 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:visibility="visible">
-                            <TextView    android:layout_width="wrap_content"
+
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="30dp"
                                 android:paddingBottom="20dp"
@@ -379,424 +368,423 @@
                                 android:id="@+id/vitalRecyclerView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="74.dp"/>
-
-
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginTop="30dp"-->
-<!--                                android:paddingBottom="20dp"-->
-<!--                                android:text="Sleep"-->
-<!--                                android:textColor="@android:color/black"-->
-<!--                                android:textSize="18sp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/sleepScoreId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/totalSleepId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                            </LinearLayout>-->
-
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/sleepEfficiencyId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/timeInBedId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                            </LinearLayout>-->
-
-<!--                            <LinearLayout-->
-
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/fulSleepCycleId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--&lt;!&ndash;                                <include&ndash;&gt;-->
-<!--&lt;!&ndash;                                    android:id="@+id/showId"&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    layout="@layout/hide_show_box"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    android:layout_width="0dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    android:layout_marginStart="8dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    android:layout_weight="1" />&ndash;&gt;-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/remSleepId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                            </LinearLayout>-->
-
-
-<!--                            <LinearLayout-->
-<!--                                android:id="@+id/viewAllSleepDataaId"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="match_parent"-->
-<!--                                android:orientation="vertical">-->
-
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginBottom="12dp"-->
-<!--                                    android:orientation="horizontal"-->
-<!--                                    android:weightSum="2">-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/deepSleepId"-->
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginEnd="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/lightSleepId"-->
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginStart="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-<!--                                </LinearLayout>-->
-
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginBottom="12dp"-->
-<!--                                    android:orientation="horizontal"-->
-<!--                                    android:weightSum="2">-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/restorativeSleepId"-->
-
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginEnd="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/awakeSleepId"-->
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginStart="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-<!--                                </LinearLayout>-->
-
-
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginBottom="12dp"-->
-<!--                                    android:orientation="horizontal"-->
-<!--                                    android:weightSum="2">-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/morningAlertnessId"-->
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginEnd="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/tossesAndTurnsId"-->
-
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginStart="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-<!--                                </LinearLayout>-->
-
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginBottom="12dp"-->
-<!--                                    android:orientation="horizontal"-->
-<!--                                    android:weightSum="2">-->
-
-<!--                                    <include-->
-<!--                                        android:id="@+id/averageBodyTempId"-->
-
-<!--                                        layout="@layout/sleep_layout"-->
-<!--                                        android:layout_width="0dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginEnd="8dp"-->
-<!--                                        android:layout_weight="1" />-->
-
-<!--&lt;!&ndash;                                    <include&ndash;&gt;-->
-<!--&lt;!&ndash;                                        android:id="@+id/hideId"&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        layout="@layout/hide_show_box"&ndash;&gt;-->
-<!--&lt;!&ndash;                                        android:layout_width="0dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                                        android:layout_marginStart="8dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                                        android:layout_weight="1" />&ndash;&gt;-->
-<!--                                </LinearLayout>-->
-
-
-<!--                            </LinearLayout>-->
-
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginTop="30dp"-->
-<!--                                android:paddingBottom="20dp"-->
-<!--                                android:text="@string/activity"-->
-<!--                                android:textColor="@android:color/black"-->
-<!--                                android:textSize="18sp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/movementIndexId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-
-<!--                                <include-->
-<!--                                    android:id="@+id/inactiveHoursId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                            </LinearLayout>-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/StepsId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/activieHoursId"-->
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:id="@+id/showActivityId"&ndash;&gt;-->
-
-<!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
-<!--                            </LinearLayout>-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-
-<!--                                <include-->
-<!--                                    android:id="@+id/ActiveminutesId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/WeeklyActiveMinutesId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:id="@+id/hideActivityId"&ndash;&gt;-->
-
-<!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
-<!--                            </LinearLayout>-->
-
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginTop="30dp"-->
-<!--                                android:paddingBottom="20dp"-->
-<!--                                android:text="Revovery"-->
-<!--                                android:textColor="@android:color/black"-->
-<!--                                android:textSize="18sp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-
-<!--                                <include-->
-<!--                                    android:id="@+id/recoveryScoreId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/lastNightHrvId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-<!--                            </LinearLayout>-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/SleepStageHrvId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-
-<!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:id="@+id/showRecoveryId"&ndash;&gt;-->
-
-<!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
-<!--                                <include-->
-<!--                                    android:id="@+id/StressRhythmScoreId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-<!--                            </LinearLayout>-->
-
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginBottom="12dp"-->
-<!--                                android:baselineAligned="false"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:weightSum="2">-->
-
-<!--                                <include-->
-<!--                                    android:id="@+id/tempDeviationId"-->
-
-<!--                                    layout="@layout/sleep_layout"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginEnd="8dp"-->
-<!--                                    android:layout_weight="1" />-->
-
-
-<!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:id="@+id/hideRecoveryId"&ndash;&gt;-->
-
-<!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
-<!--                            </LinearLayout>-->
-
-<!--                            <View-->
-<!--                                android:layout_width="100dp"-->
-<!--                                android:layout_height="100dp"-->
-<!--                                android:layout_gravity="center" />-->
+                                android:layout_marginBottom="74.dp" />
+
+
+                            <!--                            <TextView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginTop="30dp"-->
+                            <!--                                android:paddingBottom="20dp"-->
+                            <!--                                android:text="Sleep"-->
+                            <!--                                android:textColor="@android:color/black"-->
+                            <!--                                android:textSize="18sp"-->
+                            <!--                                android:textStyle="bold" />-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/sleepScoreId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/totalSleepId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginStart="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                            </LinearLayout>-->
+
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/sleepEfficiencyId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/timeInBedId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginStart="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                            </LinearLayout>-->
+
+                            <!--                            <LinearLayout-->
+
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/fulSleepCycleId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--&lt;!&ndash;                                <include&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                    android:id="@+id/showId"&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;                                    layout="@layout/hide_show_box"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                    android:layout_width="0dp"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                    android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                    android:layout_marginStart="8dp"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                    android:layout_weight="1" />&ndash;&gt;-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/remSleepId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginStart="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                            </LinearLayout>-->
+
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:id="@+id/viewAllSleepDataaId"-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:orientation="vertical">-->
+
+                            <!--                                <LinearLayout-->
+                            <!--                                    android:layout_width="match_parent"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginBottom="12dp"-->
+                            <!--                                    android:orientation="horizontal"-->
+                            <!--                                    android:weightSum="2">-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/deepSleepId"-->
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginEnd="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/lightSleepId"-->
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginStart="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+                            <!--                                </LinearLayout>-->
+
+                            <!--                                <LinearLayout-->
+                            <!--                                    android:layout_width="match_parent"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginBottom="12dp"-->
+                            <!--                                    android:orientation="horizontal"-->
+                            <!--                                    android:weightSum="2">-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/restorativeSleepId"-->
+
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginEnd="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/awakeSleepId"-->
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginStart="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+                            <!--                                </LinearLayout>-->
+
+
+                            <!--                                <LinearLayout-->
+                            <!--                                    android:layout_width="match_parent"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginBottom="12dp"-->
+                            <!--                                    android:orientation="horizontal"-->
+                            <!--                                    android:weightSum="2">-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/morningAlertnessId"-->
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginEnd="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/tossesAndTurnsId"-->
+
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginStart="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+                            <!--                                </LinearLayout>-->
+
+                            <!--                                <LinearLayout-->
+                            <!--                                    android:layout_width="match_parent"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginBottom="12dp"-->
+                            <!--                                    android:orientation="horizontal"-->
+                            <!--                                    android:weightSum="2">-->
+
+                            <!--                                    <include-->
+                            <!--                                        android:id="@+id/averageBodyTempId"-->
+
+                            <!--                                        layout="@layout/sleep_layout"-->
+                            <!--                                        android:layout_width="0dp"-->
+                            <!--                                        android:layout_height="wrap_content"-->
+                            <!--                                        android:layout_marginEnd="8dp"-->
+                            <!--                                        android:layout_weight="1" />-->
+
+                            <!--&lt;!&ndash;                                    <include&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                        android:id="@+id/hideId"&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;                                        layout="@layout/hide_show_box"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                        android:layout_width="0dp"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                        android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                        android:layout_marginStart="8dp"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                        android:layout_weight="1" />&ndash;&gt;-->
+                            <!--                                </LinearLayout>-->
+
+
+                            <!--                            </LinearLayout>-->
+
+
+                            <!--                            <TextView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginTop="30dp"-->
+                            <!--                                android:paddingBottom="20dp"-->
+                            <!--                                android:text="@string/activity"-->
+                            <!--                                android:textColor="@android:color/black"-->
+                            <!--                                android:textSize="18sp"-->
+                            <!--                                android:textStyle="bold" />-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/movementIndexId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/inactiveHoursId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                            </LinearLayout>-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/StepsId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/activieHoursId"-->
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:id="@+id/showActivityId"&ndash;&gt;-->
+
+                            <!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
+                            <!--                            </LinearLayout>-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/ActiveminutesId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/WeeklyActiveMinutesId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:id="@+id/hideActivityId"&ndash;&gt;-->
+
+                            <!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
+                            <!--                            </LinearLayout>-->
+
+
+                            <!--                            <TextView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginTop="30dp"-->
+                            <!--                                android:paddingBottom="20dp"-->
+                            <!--                                android:text="Revovery"-->
+                            <!--                                android:textColor="@android:color/black"-->
+                            <!--                                android:textSize="18sp"-->
+                            <!--                                android:textStyle="bold" />-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/recoveryScoreId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/lastNightHrvId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+                            <!--                            </LinearLayout>-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/SleepStageHrvId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+
+                            <!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:id="@+id/showRecoveryId"&ndash;&gt;-->
+
+                            <!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/StressRhythmScoreId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+                            <!--                            </LinearLayout>-->
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginBottom="12dp"-->
+                            <!--                                android:baselineAligned="false"-->
+                            <!--                                android:orientation="horizontal"-->
+                            <!--                                android:weightSum="2">-->
+
+                            <!--                                <include-->
+                            <!--                                    android:id="@+id/tempDeviationId"-->
+
+                            <!--                                    layout="@layout/sleep_layout"-->
+                            <!--                                    android:layout_width="0dp"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginEnd="8dp"-->
+                            <!--                                    android:layout_weight="1" />-->
+
+
+                            <!--                                &lt;!&ndash;                    <include&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:id="@+id/hideRecoveryId"&ndash;&gt;-->
+
+                            <!--                                &lt;!&ndash;                        layout="@layout/hide_show_box"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                        android:layout_marginStart="8dp"/>&ndash;&gt;-->
+                            <!--                            </LinearLayout>-->
+
+                            <!--                            <View-->
+                            <!--                                android:layout_width="100dp"-->
+                            <!--                                android:layout_height="100dp"-->
+                            <!--                                android:layout_gravity="center" />-->
                         </LinearLayout>
 
 
@@ -992,37 +980,38 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:background="@drawable/rounded_corners"
-                                android:elevation="2dp"
                                 android:backgroundTint="#E6F2FF"
-                                app:layout_constraintTop_toBottomOf="@id/energyCard"
+                                android:visibility="gone"
+                                android:elevation="2dp"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent">
+                                app:layout_constraintTop_toBottomOf="@id/energyCard">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
                                     android:background="@drawable/dashboard_rounded_corner"
                                     android:backgroundTint="#E6F2FF"
+                                    android:orientation="vertical"
                                     android:padding="14dp"
 
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintBottom_toBottomOf="parent">
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
 
                                     <!-- Row 1: Icon + Title + Days Left Badge -->
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="center_vertical">
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
 
                                         <!-- Gym Icon -->
                                         <ImageView
                                             android:id="@+id/gymIcon"
                                             android:layout_width="20dp"
                                             android:layout_height="20dp"
-                                            android:src="@drawable/ic_gym"
-                                            android:layout_marginEnd="8dp" />
+                                            android:layout_marginEnd="8dp"
+                                            android:src="@drawable/ic_gym" />
 
                                         <!-- Title -->
                                         <TextView
@@ -1040,14 +1029,14 @@
                                             android:id="@+id/gymDaysLeft"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="29 days left"
-                                            android:textColor="#2979FF"
-                                            android:textSize="12sp"
                                             android:background="@drawable/bg_days_left_badge"
                                             android:paddingStart="8dp"
-                                            android:paddingEnd="8dp"
                                             android:paddingTop="4dp"
-                                            android:paddingBottom="4dp" />
+                                            android:paddingEnd="8dp"
+                                            android:paddingBottom="4dp"
+                                            android:text="29 days left"
+                                            android:textColor="#2979FF"
+                                            android:textSize="12sp" />
                                     </LinearLayout>
 
                                     <!-- Row 2: Progress Bar -->
@@ -1066,8 +1055,8 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="center_vertical">
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
 
                                         <!-- Day X of Y -->
                                         <TextView
@@ -1101,14 +1090,14 @@
                                             android:id="@+id/btnMarkVisit"
                                             android:layout_width="wrap_content"
                                             android:layout_height="36dp"
-                                            android:text="Mark Visit"
-                                            android:textSize="13sp"
-                                            android:textColor="@color/white"
                                             android:background="@drawable/bg_mark_visit_button"
+                                            android:drawableStart="@drawable/ic_gym"
+                                            android:drawablePadding="4dp"
                                             android:paddingStart="14dp"
                                             android:paddingEnd="14dp"
-                                            android:drawableStart="@drawable/ic_gym"
-                                            android:drawablePadding="4dp" />
+                                            android:text="Mark Visit"
+                                            android:textColor="@color/white"
+                                            android:textSize="13sp" />
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -1150,9 +1139,9 @@
                                     android:id="@+id/recyclerSlider"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:nestedScrollingEnabled="false"
                                     android:clipChildren="false"
                                     android:clipToPadding="false"
+                                    android:nestedScrollingEnabled="false"
                                     android:orientation="horizontal"
                                     android:overScrollMode="never"
                                     android:scrollbars="none" />
@@ -1161,11 +1150,11 @@
                                     android:id="@+id/layoutIndicators"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:nestedScrollingEnabled="false"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="8dp"
                                     android:clipChildren="false"
                                     android:clipToPadding="false"
+                                    android:nestedScrollingEnabled="false"
                                     android:overScrollMode="never"
                                     android:scrollbars="none" />
                                 <!-- Add your next TextView *inside* the parent layout -->
@@ -1294,8 +1283,8 @@
                                 android:id="@+id/medications_id"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:nestedScrollingEnabled="false"
                                 android:clipToPadding="false"
+                                android:nestedScrollingEnabled="false"
                                 android:orientation="vertical"
                                 android:paddingTop="8dp"
                                 android:paddingBottom="8dp"

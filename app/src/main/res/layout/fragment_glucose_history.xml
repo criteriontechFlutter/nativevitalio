@@ -39,10 +39,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="  "
-                    android:textSize="18sp"
                     android:paddingStart="16dp"
-                    android:textColor="@android:color/black" />
+                    android:text="Glucose History"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -286,29 +286,22 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvDateRange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="09-15 September (7 days records)"
-                        android:textSize="13sp"
-                        android:textColor="#666"/>
-
-                    <TextView
                         android:id="@+id/tvAverage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00 mmHg"
-                        android:textStyle="bold"
+                        android:text="Glucose Trend"
+                        android:textColor="#222"
                         android:textSize="20sp"
-                        android:textColor="#222"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="7 Days Average"
+                    android:textColor="#888"
                     android:textSize="12sp"
-                    android:textColor="#888"/>
+                    android:visibility="invisible" />
             </LinearLayout>
 
                 <!-- Chart -->

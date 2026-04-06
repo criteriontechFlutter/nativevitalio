@@ -56,6 +56,7 @@ import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
 import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
 import com.critetiontech.ctvitalio.UI.SignupActivity
 import com.critetiontech.ctvitalio.UI.UltraHumanActivity
+import com.critetiontech.ctvitalio.adapter.NotificationItem
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
@@ -102,6 +103,12 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
     private val _sleepValueList = MutableLiveData<SleepValue>()
     val sleepValueList: LiveData<SleepValue> get() = _sleepValueList
+
+
+    // ✅ Correct — holds a list
+    private val _notificationList = MutableLiveData<List<NotificationItem>>()
+    val notificationList: LiveData<List<NotificationItem>> = _notificationList
+
 
     private val _vitalInsights = MutableLiveData<List<VitalInsight>?>()
     val vitalInsights: MutableLiveData<List<VitalInsight>?> get() = _vitalInsights
@@ -153,10 +160,11 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val parsed = Gson().fromJson(json, VitalsResponse::class.java)
                     // Update UI from API
                     _vitalList.value = parsed.responseValue.lastVital
+                    _notificationList.value=parsed.responseValue.notifications
 //                    _vitalInsights.value = parsed.responseValue.vitalInsights
                     val decoded = decodePriorityAction(parsed.responseValue.priorityAction)
                     _priorityAction.value = decoded                // Store locally 2️⃣ SAVE API DATA INTO ROOM DB
-//                    saveVitalsToLocal(parsed.responseValue)
+                    saveVitalsToLocal(parsed.responseValue)
                     _dailyCheckList.value = decodeDailyCheckList(parsed.responseValue.dailyCheckList)
                     _activeChallenges.value = decodeDashboardActiveChallenges(parsed.responseValue.activeChallenges)
                     val jsonString = parsed.responseValue.vitalInsights

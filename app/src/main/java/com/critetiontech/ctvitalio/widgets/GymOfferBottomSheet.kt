@@ -36,6 +36,9 @@ class GymOfferBottomSheet : BottomSheetDialogFragment() {
         binding.imgClose.setOnClickListener {
             dismiss()
         }
+        binding.txtRemindLater.setOnClickListener {
+            dismiss()
+        }
 
         binding.btnJoinGym.setOnClickListener {
             dismiss()
