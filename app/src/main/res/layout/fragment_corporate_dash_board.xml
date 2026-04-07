@@ -84,8 +84,8 @@
                     <!-- Badge -->
                     <ImageView
                         android:id="@+id/profile_badge"
-                        android:layout_width="15dp"
-                        android:layout_height="22dp"
+                        android:layout_width="12dp"
+                        android:layout_height="17dp"
                         android:layout_gravity="bottom|center_horizontal"
                         android:elevation="6dp"
                         android:src="@drawable/badge_user" />
