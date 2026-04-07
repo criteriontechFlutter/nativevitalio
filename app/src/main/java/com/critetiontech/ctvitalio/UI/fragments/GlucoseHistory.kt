@@ -32,6 +32,8 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import kotlin.collections.forEach
@@ -40,6 +42,9 @@ class GlucoseHistory : Fragment() {
 
     private var _binding: FragmentGlucoseHistoryBinding? = null
     private val binding get() = _binding!!
+
+    private var selectedIndex = -1  // -1 = nothing selected yet
+    private var selectedValue = 0
     private lateinit var viewModel: GlucoseHistoryViewModel
     private lateinit var adapter: GlucoseAdapter
     override fun onCreateView(
@@ -76,7 +81,7 @@ class GlucoseHistory : Fragment() {
         }
         val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
         val date = formatter.format(Date())
-        binding.wellnessText.text = date
+//        binding.wellnessText.text = date
         viewModel.weeklyGraph.observe(viewLifecycleOwner) { list ->
             if (!list.isNullOrEmpty()) {
                 setData(list)
@@ -97,7 +102,7 @@ class GlucoseHistory : Fragment() {
 
                 val totalDays = list.size
 
-                binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
+               // binding.tvDateRange.text = "$startDay-$endDay $month ($totalDays days records)"
             }
         }
 
@@ -136,7 +141,7 @@ class GlucoseHistory : Fragment() {
             val avgGlucose = list.map { (it.minValue + it.maxValue) / 2.0 }
                 .average()
 
-            binding.tvAverage.text = avgGlucose.toInt().toString()+" mg/dl"
+            //binding.tvAverage.text = avgGlucose.toInt().toString()+" mg/dl"
         }
         // RecyclerView setup
         binding.recyclerTodayLog.layoutManager =
@@ -150,6 +155,7 @@ class GlucoseHistory : Fragment() {
         // Chart demo data
 
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun setData(entries: List<WeeklyMapGraph>) {
@@ -157,106 +163,86 @@ class GlucoseHistory : Fragment() {
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
 
-        // avoid crash if all values are zero
         val maxValue = entries.maxOf { it.avgValue }.takeIf { it > 0 } ?: 1.0
-        val avg = entries.map { it.avgValue }.average().toInt()
 
-        binding.tvScore.text = avg.toString()
+        // ✅ Select current date only if nothing selected yet
+        if (selectedIndex == -1) {
+            val todayStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val todayIndex = entries.indexOfFirst { it.date == todayStr }
+            selectedIndex = if (todayIndex != -1) todayIndex else 0
+        }
+
+        selectedValue = entries[selectedIndex].avgValue.toInt()
+        binding.tvScore.text = selectedValue.toString()
         binding.tvLabel.text = "Glucose Avg"
 
         binding.barsContainer.post {
-
             val containerHeight = binding.barsContainer.height
             val maxBarHeight = containerHeight - 60.dp
 
-            entries.forEach { entry ->
+            entries.forEachIndexed { index, entry ->
 
+                val isSelected = index == selectedIndex
                 val value = entry.avgValue
                 val fillRatio = value.toFloat() / maxValue.toFloat()
                 val fillHeight = (maxBarHeight * fillRatio).toInt()
+                val visibleHeight = if (value == 0.0) 30.dp else fillHeight.coerceAtLeast(30.dp)
 
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
                     gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    layoutParams = LinearLayout.LayoutParams(
-                        0,
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        1f
-                    )
+                    layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
                 }
 
                 val spacer = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        0,
-                        1f
+                        LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f
                     )
                 }
-
-                // Minimum visible height if value is zero
-                val visibleHeight = if (value == 0.0) 30.dp else fillHeight.coerceAtLeast(30.dp)
 
                 val barContainer = FrameLayout(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         24.dp,
-                        visibleHeight
+                        if (isSelected) (visibleHeight + 10.dp) else visibleHeight // selected bar taller
                     )
                 }
 
-                // Track (background bar)
+                // Track
                 val trackView = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        24.dp,
-                        visibleHeight,
-                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(24.dp, visibleHeight, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     background = GradientDrawable().apply {
                         setColor(Color.parseColor("#40FFFFFF"))
                         cornerRadius = 12.dp.toFloat()
                     }
                 }
 
-                // Fill (white inner line)
+                // Fill
                 val fillView = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        4.dp,
-                        visibleHeight,
-                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(4.dp, visibleHeight, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     background = GradientDrawable().apply {
-                        setColor(Color.WHITE)
+                        setColor(if (isSelected) Color.parseColor("#0A84FF") else Color.WHITE) // highlight
                         cornerRadius = 2.dp.toFloat()
                     }
                 }
 
-                // Top bubble value
+                // Bubble on top
                 val bubble = TextView(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        24.dp,
-                        24.dp,
-                        Gravity.TOP or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(24.dp, 24.dp, Gravity.TOP or Gravity.CENTER_HORIZONTAL)
                     text = value.toInt().toString()
-                    setTextColor(Color.parseColor("#0A84FF"))
+                    setTextColor(if (isSelected) Color.WHITE else Color.parseColor("#0A84FF"))
                     textSize = 11f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
                     background = GradientDrawable().apply {
-                        setColor(Color.WHITE)
+                        setColor(if (isSelected) Color.parseColor("#0A84FF") else Color.WHITE)
                         shape = GradientDrawable.OVAL
                     }
                     elevation = 2.dp.toFloat()
                 }
 
-                // Day Initial (S M T W T F S)
                 val weekdayInitial = entry.dayName.first().toString()
-
                 val weekdayBubble = TextView(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        20.dp,
-                        20.dp,
-                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(20.dp, 20.dp, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     text = weekdayInitial
                     setTextColor(Color.parseColor("#0A84FF"))
                     textSize = 10f
@@ -269,7 +255,6 @@ class GlucoseHistory : Fragment() {
                     elevation = 1.dp.toFloat()
                 }
 
-                // Date label (dd/MM)
                 val parts = entry.date.split("-")
                 val dayLabel = TextView(requireContext()).apply {
                     text = if (parts.size == 3) "${parts[2]}/${parts[1]}" else entry.date
@@ -280,13 +265,22 @@ class GlucoseHistory : Fragment() {
 
                 val baseLine = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        2.dp
+                        LinearLayout.LayoutParams.MATCH_PARENT, 2.dp
                     ).apply {
                         topMargin = 6.dp
                         bottomMargin = 6.dp
                     }
                     setBackgroundColor(Color.parseColor("#40FFFFFF"))
+                }
+
+                // ✅ Click listener to select bar
+                barContainer.setOnClickListener {
+                    if (selectedIndex != index) { // Only update if new selection
+                        selectedIndex = index
+                        selectedValue = entry.avgValue.toInt()
+                        binding.tvScore.text = selectedValue.toString()
+                        setData(entries) // redraw bars with new selection
+                    }
                 }
 
                 barContainer.addView(trackView)

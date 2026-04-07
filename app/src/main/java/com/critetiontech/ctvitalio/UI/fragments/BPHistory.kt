@@ -28,13 +28,17 @@ import com.critetiontech.ctvitalio.viewmodel.BloosPresureHistoryViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.core.graphics.toColorInt
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class BPHistory : Fragment() {
 
     private var _binding: FragmentBPHistoryBinding? = null
     private val binding get() = _binding!!
-
+    private var selectedIndex = -1  // -1 = nothing selected yet
+    private var selectedValue = 0
     private lateinit var viewModel: BloosPresureHistoryViewModel
 
     override fun onCreateView(
@@ -75,7 +79,7 @@ class BPHistory : Fragment() {
         }
         val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
         val date = formatter.format(Date())
-        binding.wellnessText.text = date
+       // binding.wellnessText.text = date
 //        viewModel.weeklyTrend.observe(viewLifecycleOwner) { trend ->
 //
 //            if (trend.isEmpty()) return@observe
@@ -207,97 +211,86 @@ class BPHistory : Fragment() {
         binding.barsContainer.removeAllViews()
         if (entries.isEmpty()) return
 
-        val maxValue = entries.maxOf { it.mapValue }
-        val avg = entries.map { it.mapValue }.average().toInt()
+        val maxValue = entries.maxOf { it.avgValue }.takeIf { it > 0 } ?: 1.0
 
-        binding.tvScore.text = avg.toString()
-        binding.tvLabel.text = "MAP Average"
+        // ✅ Select current date only if nothing selected yet
+        if (selectedIndex == -1) {
+            val todayStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val todayIndex = entries.indexOfFirst { it.date == todayStr }
+            selectedIndex = if (todayIndex != -1) todayIndex else 0
+        }
+
+        selectedValue = entries[selectedIndex].avgValue.toInt()
+        binding.tvScore.text = selectedValue.toString()
+        binding.tvLabel.text = "Glucose Avg"
 
         binding.barsContainer.post {
-
             val containerHeight = binding.barsContainer.height
             val maxBarHeight = containerHeight - 60.dp
 
-            entries.forEach { entry ->
+            entries.forEachIndexed { index, entry ->
 
-                val fillRatio = entry.mapValue.toFloat() / maxValue.toFloat()
+                val isSelected = index == selectedIndex
+                val value = entry.avgValue
+                val fillRatio = value.toFloat() / maxValue.toFloat()
                 val fillHeight = (maxBarHeight * fillRatio).toInt()
+                val visibleHeight = if (value == 0.0) 30.dp else fillHeight.coerceAtLeast(30.dp)
 
                 val barLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
                     gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    layoutParams = LinearLayout.LayoutParams(
-                        0,
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        1f
-                    )
+                    layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
                 }
 
                 val spacer = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        0,
-                        1f
+                        LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f
                     )
                 }
 
                 val barContainer = FrameLayout(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         24.dp,
-                        fillHeight.coerceAtLeast(30.dp)
+                        if (isSelected) (visibleHeight + 10.dp) else visibleHeight // selected bar taller
                     )
                 }
 
+                // Track
                 val trackView = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        24.dp,
-                        fillHeight,
-                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(24.dp, visibleHeight, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     background = GradientDrawable().apply {
                         setColor(Color.parseColor("#40FFFFFF"))
                         cornerRadius = 12.dp.toFloat()
                     }
                 }
 
+                // Fill
                 val fillView = View(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        4.dp,
-                        fillHeight,
-                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(4.dp, visibleHeight, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     background = GradientDrawable().apply {
-                        setColor(Color.WHITE)
+                        setColor(if (isSelected) Color.parseColor("#0A84FF") else Color.WHITE) // highlight
                         cornerRadius = 2.dp.toFloat()
                     }
                 }
 
+                // Bubble on top
                 val bubble = TextView(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        24.dp,
-                        24.dp,
-                        Gravity.TOP or Gravity.CENTER_HORIZONTAL
-                    )
-                    text = entry.mapValue.toInt().toString()
-                    setTextColor(Color.parseColor("#0A84FF"))
+                    layoutParams = FrameLayout.LayoutParams(24.dp, 24.dp, Gravity.TOP or Gravity.CENTER_HORIZONTAL)
+                    text = value.toInt().toString()
+                    setTextColor(if (isSelected) Color.WHITE else Color.parseColor("#0A84FF"))
                     textSize = 11f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
                     background = GradientDrawable().apply {
-                        setColor(Color.WHITE)
+                        setColor(if (isSelected) Color.parseColor("#0A84FF") else Color.WHITE)
                         shape = GradientDrawable.OVAL
                     }
                     elevation = 2.dp.toFloat()
                 }
 
                 val weekdayInitial = entry.dayName.first().toString()
-
                 val weekdayBubble = TextView(requireContext()).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        20.dp,
-                        20.dp,
-                        Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    )
+                    layoutParams = FrameLayout.LayoutParams(20.dp, 20.dp, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     text = weekdayInitial
                     setTextColor(Color.parseColor("#0A84FF"))
                     textSize = 10f
@@ -311,9 +304,8 @@ class BPHistory : Fragment() {
                 }
 
                 val parts = entry.date.split("-")
-
                 val dayLabel = TextView(requireContext()).apply {
-                    text = "${parts[2]}/${parts[1]}"
+                    text = if (parts.size == 3) "${parts[2]}/${parts[1]}" else entry.date
                     setTextColor(Color.parseColor("#80FFFFFF"))
                     textSize = 10f
                     gravity = Gravity.CENTER
@@ -321,13 +313,22 @@ class BPHistory : Fragment() {
 
                 val baseLine = View(requireContext()).apply {
                     layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        2.dp
+                        LinearLayout.LayoutParams.MATCH_PARENT, 2.dp
                     ).apply {
                         topMargin = 6.dp
                         bottomMargin = 6.dp
                     }
                     setBackgroundColor(Color.parseColor("#40FFFFFF"))
+                }
+
+                // ✅ Click listener to select bar
+                barContainer.setOnClickListener {
+                    if (selectedIndex != index) { // Only update if new selection
+                        selectedIndex = index
+                        selectedValue = entry.avgValue.toInt()
+                        binding.tvScore.text = selectedValue.toString()
+                        setData(entries) // redraw bars with new selection
+                    }
                 }
 
                 barContainer.addView(trackView)
@@ -343,6 +344,20 @@ class BPHistory : Fragment() {
                 binding.barsContainer.addView(barLayout)
             }
         }
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun selectCurrentDate(entries: List<WeeklyMapGraph>) {
+        if (entries.isEmpty()) return
+
+        val today = LocalDate.now()
+        val todayStr = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+        val todayIndex = entries.indexOfFirst { it.date == todayStr }
+        selectedIndex = if (todayIndex != -1) todayIndex else 0
+        selectedValue = entries[selectedIndex].mapValue.toInt()
+
+        // Update UI
+        binding.tvScore.text = selectedValue.toString()
     }
 
     override fun onDestroyView() {

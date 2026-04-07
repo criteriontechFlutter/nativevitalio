@@ -1,4 +1,5 @@
 import android.graphics.Color
+import com.critetiontech.ctvitalio.adapter.NotificationItem
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
@@ -20,7 +21,8 @@ data class VitalResponseValue(
     val priorityAction: List<PriorityActionWrapper>?,
     val activeChallenges: List<DashboardActiveChallengesWrapper>?,
     val dailyCheckList: List<DailyCheckListWrapper>?,
-    val summary: List<SleepSummaryData>
+    val summary: List<SleepSummaryData>?,
+    val notifications: List<NotificationItem>
 )
 data class SleepMetric(
     val uhid: String,

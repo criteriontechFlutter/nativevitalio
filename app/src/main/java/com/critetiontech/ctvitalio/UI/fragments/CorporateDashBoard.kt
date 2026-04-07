@@ -57,7 +57,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -80,9 +79,6 @@ import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.utils.applyStatusStyle
-import com.critetiontech.ctvitalio.utils.bindVitalView
-import com.critetiontech.ctvitalio.utils.bindVitalViewVitalValue
 import com.critetiontech.ctvitalio.utils.showRetrySnackbar
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
@@ -96,8 +92,6 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString.Companion.toByteString
-import kotlin.math.max
-import kotlin.math.min
 
 
 class CorporateDashBoard : Fragment() {
@@ -110,7 +104,6 @@ class CorporateDashBoard : Fragment() {
     private lateinit var challengesViewModel: ChallengesViewModel
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
-    private lateinit var medicationReminderAdapter: MedicationReminderAdapter
     private lateinit var dailyTipAdapter: DailyTipAdapter
     private lateinit var indicatorAdapter: IndicatorAdapter
     private var snackbar: Snackbar? = null
@@ -165,7 +158,11 @@ class CorporateDashBoard : Fragment() {
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
         pillsViewModel.getAllPatientMedication()
-        binding.notificationIcon.setOnClickListener {   }
+        binding.notificationIcon.setOnClickListener {
+
+
+            findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
+        }
         binding.ringIcon.setOnClickListener {
 
             startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
@@ -370,6 +367,10 @@ class CorporateDashBoard : Fragment() {
 //            setupActiveChallenges(list.size)
 //        }
 
+        viewModel.notificationList.observe(viewLifecycleOwner) { list ->
+
+            binding.notificationBadge.text=list.count().toString()
+        }
 
 
         challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->
@@ -402,8 +403,8 @@ class CorporateDashBoard : Fragment() {
 
 
 
-            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
-            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
+//            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+//            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
             val visible = list.isNotEmpty()
 
