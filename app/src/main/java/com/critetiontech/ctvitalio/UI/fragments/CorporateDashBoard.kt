@@ -403,8 +403,8 @@ class CorporateDashBoard : Fragment() {
 
 
 
-            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
-            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
+//            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+//            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
             val visible = list.isNotEmpty()
 
