@@ -61,7 +61,20 @@ class NotificationAdapter(
         }
 
         holder.ivStatusIcon.setImageResource(iconRes)
-        holder.ivStatusIcon.imageTintList = null  // clears any existing tint
+        holder.ivStatusIcon.imageTintList = null
+
+        // 👉 Animation: Slide from right + fade in
+        holder.itemView.apply {
+            translationX = 300f   // start from right
+            alpha = 0f
+
+            animate()
+                .translationX(0f)
+                .alpha(1f)
+                .setDuration(300)
+                .setStartDelay((position * 50).toLong()) // stagger effect
+                .start()
+        }
     }
 
     override fun getItemCount() = items.size

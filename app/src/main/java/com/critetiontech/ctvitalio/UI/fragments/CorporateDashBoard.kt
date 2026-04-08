@@ -1282,6 +1282,8 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
             // HEADER
             // =======================
             wellness.wellnessScoreNumber.text = insight.wellnessScore.toString()
+            wellness.attentionBadges.text = insight.wellnessStatus.toString()
+            wellness.attentionBadges.setTextColor(insight.colorCode.toColorInt())
             binding.progressCircler.animateProgress(insight.wellnessScore.toFloat())
             wellness.wellnessDescriptions.text = insight.wellnessMessage
 
