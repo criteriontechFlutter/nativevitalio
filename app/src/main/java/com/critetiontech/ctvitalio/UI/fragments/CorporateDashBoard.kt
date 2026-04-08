@@ -70,6 +70,7 @@ import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.ProgressCard
 import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
+import com.critetiontech.ctvitalio.adapter.UpcomingAdapter
 import com.critetiontech.ctvitalio.adapter.VitalAdapter
 import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
@@ -102,6 +103,7 @@ class CorporateDashBoard : Fragment() {
    private lateinit var closeButton: ImageView
     private lateinit var testv: TextView
     private lateinit var challengesViewModel: ChallengesViewModel
+
     private lateinit var pillsViewModel: PillsReminderViewModal
     private lateinit var adapter: DashboardAdapter
     private lateinit var dailyTipAdapter: DailyTipAdapter
@@ -158,6 +160,20 @@ class CorporateDashBoard : Fragment() {
         pillsViewModel = ViewModelProvider(this)[PillsReminderViewModal::class.java]
         challengesViewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
         pillsViewModel.getAllPatientMedication()
+
+
+        challengesViewModel.getJoinedChallenge()
+        challengesViewModel.pendingChallenges.observe(viewLifecycleOwner) { list ->
+
+            binding.upcomingRecycler.layoutManager =
+                LinearLayoutManager(requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false)
+
+            binding.upcomingRecycler.adapter =
+                UpcomingAdapter(list)
+
+        }
         binding.notificationIcon.setOnClickListener {
 
 
@@ -372,9 +388,24 @@ class CorporateDashBoard : Fragment() {
             binding.notificationBadge.text=list.count().toString()
         }
 
+        binding.challengesTab.visibility=View.GONE
 
         challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
+                list.toMutableList(),
+                onJoinClick  =  { challenge ->
+                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+                },
+                onDetailsClick  =  { challenge ->
+                    val bundle = Bundle().apply {
+                        putSerializable("challenges", challenge)
+                    }
+                    findNavController().navigate(R.id.action_dashboard_to_newChallengeDetails, bundle)
+
+                }
+            )
+
+            binding.challengedIdtab.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
                     challengesViewModel.joinChallenge( challenge.challengeId.toString())
@@ -403,17 +434,15 @@ class CorporateDashBoard : Fragment() {
 
 
 
-//            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
-//            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
+            binding.activechalgesId.text="Active Challenges ("+list.size.toString()+")"
+            binding.activeChalleTextId.text="Active Challenges ("+list.size.toString()+")"
 
             val visible = list.isNotEmpty()
 
             binding.activechalgesId.visibility = if (visible) View.VISIBLE else View.GONE
-            binding.activeChalleTextId.visibility = if (visible) View.VISIBLE else View.GONE
+            binding.activeChalleTextId.visibility =   View.GONE
             setupActiveChallenges(list.size)
         }
-
-
 
 
         viewModel.getFoodIntake()
@@ -2314,6 +2343,7 @@ private fun updateProgress(unit: String) {
         }
 
 
+
         // Listen for scroll changes
         // Declare once outside listener
         try {
@@ -2405,7 +2435,7 @@ private fun updateProgress(unit: String) {
                         binding.homeId.visibility = View.VISIBLE
                         binding.challengedId.visibility = View.GONE
                         binding.activeChalleTextId.visibility = View.GONE
-
+                        binding.challengesTab.visibility=View.GONE
                         binding.medicineTitleID.visibility = View.GONE
                         binding.recyclerView.visibility = View.GONE
                         binding.healthSnaps.visibility = View.GONE
@@ -2416,7 +2446,7 @@ private fun updateProgress(unit: String) {
                         binding.homeId.visibility = View.GONE
                         binding.challengedId.visibility = View.GONE
                         binding.activeChalleTextId.visibility = View.GONE
-
+                        binding.challengesTab.visibility=View.GONE
                         binding.medicineTitleID.visibility = View.GONE
                         binding.recyclerView.visibility = View.GONE
                         binding.healthSnaps.visibility = View.VISIBLE
@@ -2428,7 +2458,7 @@ private fun updateProgress(unit: String) {
                         binding.medicineTitleID.visibility = View.VISIBLE
                         binding.recyclerView.layoutManager =
                             LinearLayoutManager(requireContext())
-
+                        binding.challengesTab.visibility=View.GONE
                         binding.medicineTitleID.setOnClickListener {
                             findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
                         }
@@ -2464,9 +2494,9 @@ private fun updateProgress(unit: String) {
 
                     3 -> {
                         binding.homeId.visibility = View.GONE
-                        binding.challengedId.visibility = View.VISIBLE
-                        binding.activeChalleTextId.visibility = View.VISIBLE
-
+                        binding.challengedId.visibility = View.GONE
+                        binding.activeChalleTextId.visibility = View.GONE
+                        binding.challengesTab.visibility=View.VISIBLE
                         binding.medicineTitleID.visibility = View.GONE
                         binding.recyclerView.visibility = View.GONE
                         binding.healthSnaps.visibility = View.GONE

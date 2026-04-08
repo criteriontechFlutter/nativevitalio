@@ -284,55 +284,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="14dp"
             android:gravity="end"
-            android:layout_marginTop="16dp">
+            android:orientation="horizontal">
 
-            <!-- Log Reading Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_log_reading"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginEnd="12dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingVertical="0dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="Join Challenge"
+                android:text="Log reading"
                 android:textAllCaps="false"
+                android:textSize="13sp"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:visibility="visible"
                 app:backgroundTint="#007BFF"
                 app:cornerRadius="10dp"
                 app:icon="@drawable/ic_log"
-                app:iconGravity="start"
-                app:iconPadding="6dp" />
-
-            <!-- Message Coach Button -->
-
+                app:iconPadding="6dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_message_coach"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginEnd="12dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="0dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="Message coach"
+                android:layout_marginStart="10dp"
+                android:text="Message Coach"
                 android:textAllCaps="false"
+                android:textSize="13sp"
                 android:textColor="#007BFF"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:backgroundTint="@color/greyBG"
-                app:cornerRadius="6dp"
+                app:backgroundTint="#EAF3FF"
+                app:cornerRadius="10dp"
                 app:icon="@drawable/ic_chat"
-                app:iconGravity="start"
                 app:iconPadding="6dp"
-                app:iconTint="#007BFF" />
+                app:iconTint="#007BFF"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
