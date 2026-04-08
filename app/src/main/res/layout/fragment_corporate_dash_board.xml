@@ -406,7 +406,7 @@
                                             android:textSize="13sp"/>
 
                                         <TextView
-                                            android:text="68% → 72%"
+                                            android:text="0% → 0%"
                                             android:textStyle="bold"
                                             android:textSize="13sp"
                                             android:textColor="#000"
@@ -437,7 +437,7 @@
                                             android:textSize="13sp"/>
 
                                         <TextView
-                                            android:text="85% → 94%"
+                                            android:text="0% → 0%"
                                             android:textStyle="bold"
                                             android:textSize="13sp"
                                             android:textColor="#000"
@@ -468,7 +468,7 @@
                                             android:textSize="13sp"/>
 
                                         <TextView
-                                            android:text="2/2 → 2/2"
+                                            android:text="0/0 → 0/0"
                                             android:textStyle="bold"
                                             android:textSize="13sp"
                                             android:textColor="#000"
@@ -488,6 +488,7 @@
                             </androidx.cardview.widget.CardView>
 
                             <TextView
+                                android:id="@+id/upcomingchallengesID"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Upcoming Challenges"
