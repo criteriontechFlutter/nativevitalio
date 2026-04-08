@@ -10,7 +10,8 @@ import com.critetiontech.ctvitalio.databinding.ItemUpcomingBinding
 import com.critetiontech.ctvitalio.model.PendingChallenge
 
 class UpcomingAdapter(
-    private val list: List<PendingChallenge>
+    private val list: List<PendingChallenge>,
+    private val onJoinClick: (PendingChallenge) -> Unit
 ) : RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemUpcomingBinding)
@@ -32,44 +33,33 @@ class UpcomingAdapter(
         val item = list[position]
         val context = holder.itemView.context
 
-        // ✅ Title
+        // title
         holder.binding.tvTitle.text = item.title
 
-        // ✅ Description (remove HTML)
-//        holder.binding.tvDesc.text = android.text.Html
-//            .fromHtml(item.description, android.text.Html.FROM_HTML_MODE_LEGACY)
-//            .toString()
-
-        // ✅ Duration
+        // duration
         holder.binding.tvDuration.text = "w/ Care Team | ${item.duration} days"
 
-        // ✅ People Joined
+        // people joined
         val count = item.peopleJoined.size
         holder.binding.tvPeople.text =
             if (count == 0) "Be first to join"
             else "$count+ joined"
 
-        // ✅ Days (static for now)
         holder.binding.tvDays.text = "Upcoming"
 
-        // ✅ Load Image (Fix broken URL issue)
+        // image
         if (item.peopleJoined.isNotEmpty()) {
 
             val fixedUrl = item.peopleJoined[0].imageURL.replace("\\", "/")
 
             Glide.with(context)
                 .load(fixedUrl)
-//                .placeholder(android.R.drawable.sym_def_app_icon)
-//                .error(android.R.drawable.c)
                 .into(holder.binding.imgIcon)
-
-        } else {
-//            holder.binding.imgIcon.setImageResource(R.drawable.chaalle)
         }
 
-        // ✅ Join Button Click
+        // join click
         holder.binding.btnJoin.setOnClickListener {
-            Toast.makeText(context, "Join ${item.title}", Toast.LENGTH_SHORT).show()
+            onJoinClick(item)
         }
     }
 }

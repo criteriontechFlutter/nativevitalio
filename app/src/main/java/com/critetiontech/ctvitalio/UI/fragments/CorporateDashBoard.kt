@@ -166,12 +166,19 @@ class CorporateDashBoard : Fragment() {
         challengesViewModel.pendingChallenges.observe(viewLifecycleOwner) { list ->
 
             binding.upcomingRecycler.layoutManager =
-                LinearLayoutManager(requireContext(),
+                LinearLayoutManager(
+                    requireContext(),
                     LinearLayoutManager.HORIZONTAL,
-                    false)
+                    false
+                )
 
             binding.upcomingRecycler.adapter =
-                UpcomingAdapter(list)
+                UpcomingAdapter(list) { challenge ->
+
+                    // ✅ correct
+                    challengesViewModel.joinChallenge(challenge.challengeId.toString())
+
+                }
 
         }
         binding.notificationIcon.setOnClickListener {
@@ -395,6 +402,23 @@ class CorporateDashBoard : Fragment() {
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
                     challengesViewModel.joinChallenge( challenge.challengeId.toString())
+
+                    val title = challenge.title.lowercase()
+
+                    when {
+                        title.contains("glucose") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_glucoseHistory)
+                        }
+
+                        title.contains("water") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
+                        }
+
+                        title.contains("blood") || title.contains("hypertension") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_BPHistory)
+                        }
+                    }
+
                 },
                 onDetailsClick  =  { challenge ->
                     val bundle = Bundle().apply {
