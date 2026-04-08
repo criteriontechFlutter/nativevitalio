@@ -57,6 +57,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -162,9 +163,10 @@ class CorporateDashBoard : Fragment() {
         pillsViewModel.getAllPatientMedication()
 
 
+        binding.upcomingchallengesID.visibility=  View.GONE
         challengesViewModel.getJoinedChallenge()
         challengesViewModel.pendingChallenges.observe(viewLifecycleOwner) { list ->
-
+binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.VISIBLE
             binding.upcomingRecycler.layoutManager =
                 LinearLayoutManager(
                     requireContext(),
@@ -398,10 +400,13 @@ class CorporateDashBoard : Fragment() {
         binding.challengesTab.visibility=View.GONE
 
         challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->
+
+
+            binding.activeChalleTextIdtab.visibility=if(list.isEmpty()) View.GONE else View.VISIBLE
             binding.newChallengedRecyclerView.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+//                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
 
                     val title = challenge.title.lowercase()
 
@@ -432,7 +437,26 @@ class CorporateDashBoard : Fragment() {
             binding.challengedIdtab.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick  =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+//                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+
+
+
+                    val title = challenge.title.lowercase()
+
+                    when {
+                        title.contains("glucose") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_glucoseHistory)
+                        }
+
+                        title.contains("water") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
+                        }
+
+                        title.contains("blood") || title.contains("hypertension") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_BPHistory)
+                        }
+                    }
+
                 },
                 onDetailsClick  =  { challenge ->
                     val bundle = Bundle().apply {
@@ -445,7 +469,25 @@ class CorporateDashBoard : Fragment() {
             binding.challengedId.adapter = NewChallengedAdapter(
                 list.toMutableList(),
                 onJoinClick =  { challenge ->
-                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+//                    challengesViewModel.joinChallenge( challenge.challengeId.toString())
+
+
+
+                    val title = challenge.title.lowercase()
+
+                    when {
+                        title.contains("glucose") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_glucoseHistory)
+                        }
+
+                        title.contains("water") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_fluidFragment)
+                        }
+
+                        title.contains("blood") || title.contains("hypertension") -> {
+                            findNavController().navigate(R.id.action_dashboard_to_BPHistory)
+                        }
+                    }
                 },
                 onDetailsClick =  { challenge ->
                     val bundle = Bundle().apply {
