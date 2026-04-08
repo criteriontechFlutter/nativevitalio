@@ -8,6 +8,7 @@ import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
 import com.critetiontech.ctvitalio.model.JoinedChallenge
 import com.critetiontech.ctvitalio.model.NewChallengeModel
+import com.critetiontech.ctvitalio.model.PendingChallenge
 import com.critetiontech.ctvitalio.model.ResponseValue
 import com.critetiontech.ctvitalio.model.ResponseValueModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
@@ -27,6 +28,8 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
 
     private val _joinedChallenges = MutableLiveData<List<DashboardActiveChallenges>>()
     val joinedChallenges: LiveData<List<DashboardActiveChallenges>> get() = _joinedChallenges
+    private val _pendingChallenges = MutableLiveData<List<PendingChallenge>>()
+    val pendingChallenges: LiveData<List<PendingChallenge>> get() = _pendingChallenges
 
     private val _newChallenges = MutableLiveData<List<DashboardActiveChallenges>>()
     val newChallenges: LiveData<List<DashboardActiveChallenges>> get() = _newChallenges
@@ -49,6 +52,11 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
         _loading.postValue(true)
         viewModelScope.launch {
             try {
+//                val params = mapOf(
+//                    "pid" to "152",
+//                    "clientId" to "194"
+//                )
+
                 val params = mapOf(
                     "pid" to prefs.getPatient()?.id.toString(),
                     "clientId" to prefs.getPatient()?.clientId.toString()
@@ -71,6 +79,9 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
                     _joinedChallenges.postValue(
                         parsed.responseValue.joinedChallenges
                     )
+                    _pendingChallenges.postValue(
+                        parsed.responseValue.pendingChallenges
+                    )
                 } else {
                     handleError(response.code(), response.errorBody())
                     _joinedChallenges.postValue(emptyList())
@@ -91,8 +102,8 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
         viewModelScope.launch {
             try {
                 val params = mapOf(
+                    "clientId" to prefs.getPatient()?.clientId.toString(),
                     "pid" to prefs.getPatient()?.id.toString(),
-                    "clientId" to prefs.getPatient()?.clientId.toString()
                 )
 
                 val response = apiService.dynamicGet(

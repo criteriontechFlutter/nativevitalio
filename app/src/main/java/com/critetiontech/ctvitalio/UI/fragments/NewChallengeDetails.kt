@@ -3,6 +3,8 @@ package com.critetiontech.ctvitalio.UI.fragments
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,19 +16,24 @@ import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeBinding
 import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeDetailsBinding
 import okhttp3.Challenge
 import androidx.core.graphics.toColorInt
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
+import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import kotlin.getValue
 
 class NewChallengeDetails : Fragment() {
 
     private var _binding: FragmentNewChallengeDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private var challenge: Challenge? = null
+    private var challenge: DashboardActiveChallenges? = null
+
+    private  val challengesViewModel: ChallengesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            challenge = it.getSerializable("challenges") as? Challenge
-        }
     }
 
     override fun onCreateView(
@@ -41,8 +48,25 @@ class NewChallengeDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        challenge?.let { bindAllData(it) }
 
+        binding.wellnessImageArrow.setOnClickListener {
 
+            findNavController().popBackStack()
+        }
+        challengesViewModel.getJoinedChallengesDetailsByEmployeeId()
+        arguments?.let {
+            challenge = it.getSerializable("challenges") as DashboardActiveChallenges?
 
+        }
+
+        binding.titleText.text= challenge?.title.toString()
+        binding.titleText.text= challenge?.title.toString()
+        binding.discriptions.text =
+            Html.fromHtml(challenge?.description ?: "", Html.FROM_HTML_MODE_LEGACY)
+
+        binding.progressBar.progress = challenge?.progress ?:0
+        binding.labelCurrent.text = "Progress "+ challenge?.progress.toString()+"%"
+
+        Log.d("ChallengeData", "challenge = ${challenge?.challengeId.toString()}")
         val glucoseValues = listOf(95, 105, 90, 98, 80, 85, 92)  // example data
         val dayLabels = listOf("18/09", "19/09", "20/09", "21/09", "22/09", "23/09", "24/09")
         val glucoseRangeText = "95–99 mg/dL"

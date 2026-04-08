@@ -37,7 +37,6 @@ class NewChallengedAdapter(
         val labelCurrent: TextView = view.findViewById(R.id.labelCurrent)
         val reminderText: TextView = view.findViewById(R.id.reminderText)
         val btnLogReading: Button = view.findViewById(R.id.btn_log_reading)
-        val btnMessageCoach: Button = view.findViewById(R.id.btn_message_coach)
 
         val tvMonday: TextView = view.findViewById(R.id.tvMonday)
         val tvTuesday: TextView = view.findViewById(R.id.tvTuesday)
@@ -73,7 +72,10 @@ class NewChallengedAdapter(
             dayViews = holder.dayViews,
 
         )
-        holder.titleText.text = challenge.title
+        holder.btnLogReading.visibility =
+            if (challenge.dataSourceId == "4") View.VISIBLE else View.GONE
+
+            holder.titleText.text = challenge.title
         holder.subtitleText.text = "${challenge.duration} days"
 
        // val progress = challenge.rewardPoints % 100
