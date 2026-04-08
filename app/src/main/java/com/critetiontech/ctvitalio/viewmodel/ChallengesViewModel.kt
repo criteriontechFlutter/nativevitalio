@@ -52,15 +52,15 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
         _loading.postValue(true)
         viewModelScope.launch {
             try {
-                val params = mapOf(
-                    "pid" to "152",
-                    "clientId" to "194"
-                )
-
 //                val params = mapOf(
-//                    "pid" to prefs.getPatient()?.id.toString(),
-//                    "clientId" to prefs.getPatient()?.clientId.toString()
+//                    "pid" to "152",
+//                    "clientId" to "194"
 //                )
+
+                val params = mapOf(
+                    "pid" to prefs.getPatient()?.id.toString(),
+                    "clientId" to prefs.getPatient()?.clientId.toString()
+                )
 
                 val response = apiService.dynamicGet(
                     url = ApiEndPointCorporateModule().getJoinedChallenge,
