@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/white">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -53,7 +58,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
     app:cardCornerRadius="18dp"
-    app:cardElevation="4dp"
+    android:background="@drawable/bg_box"
+    app:cardElevation="0dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -61,7 +67,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@android:color/white">
+        android:background="@drawable/bg_box">
 
         <!-- Title Row -->
         <LinearLayout
@@ -108,7 +114,7 @@
             android:id="@+id/labelCurrent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Progress 86%"
+            android:text="Progress 0%"
             android:textSize="12sp"
             android:textColor="#444444"
             android:layout_marginTop="12dp"/>
@@ -125,13 +131,16 @@
             android:progressDrawable="@drawable/progress_drawable"/>
 
         <!-- Streak Row -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="end"
-            android:layout_marginTop="10dp">
+            android:paddingTop="4.dp"
+            android:background="#FFFFFF">
 
+            <!-- Consistency wins! text -->
             <TextView
                 android:id="@+id/tvConsistencyWins"
                 android:layout_width="wrap_content"
@@ -140,37 +149,138 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#FF6F07"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="16dp" />
 
+            <!-- Day indicators container -->
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="17.dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <!-- Day Circles -->
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvMonday" android:text="M"/>
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvTuesday" android:text="T"/>
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvWednesday" android:text="W"/>
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvThursday" android:text="T"/>
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvFriday" android:text="F"/>
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvFireIcon" android:text="🔥"/>
-                <TextView style="@style/DayCircleStyle" android:id="@+id/tvSaturday" android:text="S"/>
+                <!-- Monday -->
+                <TextView
+                    android:id="@+id/tvMonday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="M"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="@drawable/day_circle_background"  />
+
+                <!-- Tuesday -->
+                <TextView
+                    android:id="@+id/tvTuesday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="T"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9"  />
+
+                <!-- Wednesday -->
+                <TextView
+                    android:id="@+id/tvWednesday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="W"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9"  />
+
+                <!-- Thursday -->
+                <TextView
+                    android:id="@+id/tvThursday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="T"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9" />
+
+                <!-- Friday -->
+                <TextView
+                    android:id="@+id/tvFriday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="F"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF6B35"
+                    android:gravity="center"
+                    android:background="#FFE5D9"  />
+
+                <!-- Fire emoji/icon -->
+                <TextView
+                    android:id="@+id/tvFireIcon"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="🔥"
+                    android:background="#FFE5D9"
+                    android:textSize="20sp"
+                    android:gravity="center"  />
+
+                <!-- Saturday -->
+                <TextView
+                    android:id="@+id/tvSaturday"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:text="S"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#999999"
+                    android:gravity="center"
+                    android:layout_marginEnd="0dp" />
 
             </LinearLayout>
+
         </LinearLayout>
 
         <!-- Reminder Box -->
-        <TextView
-            android:id="@+id/reminderText"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="12dp"
-            android:text="Tiny push needed — one smooth glucose day completes your streak."
-            android:textSize="12sp"
-            android:textColor="#444444"
-              />
+            android:paddingTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iconReminder"-->
+            <!--                android:layout_width="16dp"-->
+            <!--                android:layout_height="16dp"-->
+            <!--                android:src="@drawable/clock"-->
+            <!--                android:layout_marginEnd="6dp" />-->
+
+            <TextView
+                android:id="@+id/reminderText"
+                android:layout_width="match_parent"
+                android:padding="12dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dashboard_rounded_corner"
+
+                android:text="Tiny push needed — one smooth glucose day completes your streak."
+                android:textSize="12sp"
+                android:textColor="#444444" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/discriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="12sp"
+            android:textColor="#777777"
+            android:layout_marginTop="2dp"/>
         <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -210,11 +320,7 @@
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -235,7 +341,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             app:cardCornerRadius="30dp"
-            app:cardElevation="2dp"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="#F3F6FB">
 
             <LinearLayout
@@ -248,8 +354,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_trophy"
-                    android:tint="#2F80ED"/>
+                    android:src="@drawable/ic_trophy" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -263,8 +368,7 @@
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:src="@drawable/ic_arrow_right"
-                    android:tint="#888888"/>
+                    android:src="@drawable/ic_arrow_right" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -514,5 +618,7 @@
     </LinearLayout>
     </LinearLayout>
 
-    </ScrollView>
     </LinearLayout>
+
+
+</ScrollView>
