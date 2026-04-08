@@ -11,7 +11,9 @@ data class DashboardActiveChallenges(
     val progress: Int = 0,
     val streakDays: String = "",
     val streakMessage: String? = null,
-    val graphData: String = ""
+    val graphData: String = "",
+    val dataSourceId: String = "",
+
 ) : Serializable
 
 data class DashboardActiveChallengesWrapper(

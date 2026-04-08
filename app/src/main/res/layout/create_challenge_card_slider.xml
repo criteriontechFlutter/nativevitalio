@@ -301,20 +301,20 @@
                 app:icon="@drawable/ic_log"
                 app:iconPadding="6dp"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_message_coach"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:text="Message Coach"
-                android:textAllCaps="false"
-                android:textSize="13sp"
-                android:textColor="#007BFF"
-                app:backgroundTint="#EAF3FF"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/ic_chat"
-                app:iconPadding="6dp"
-                app:iconTint="#007BFF"/>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btn_message_coach"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:text="Message Coach"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textColor="#007BFF"-->
+<!--                app:backgroundTint="#EAF3FF"-->
+<!--                app:cornerRadius="10dp"-->
+<!--                app:icon="@drawable/ic_chat"-->
+<!--                app:iconPadding="6dp"-->
+<!--                app:iconTint="#007BFF"/>-->
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
