@@ -41,9 +41,9 @@ class ChallengeDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
-
-viewModel.getJoinedChallengesDetailsByEmployeeId()
         challenges = arguments?.getSerializable("challenges") as? NewChallengeModel
+        viewModel.getJoinedChallengesDetailsByEmployeeId(challenges?.clientId ?:0 )
+
         binding.title.text= challenges?.title.toString()
         binding.detailId.text= challenges?.description.toString()
         binding.rewardPoints.text= challenges?.rewardPoints.toString()
