@@ -125,6 +125,7 @@ class ResetPassword : AppCompatActivity() {
 
                         val intent = Intent(context, UltraHumanActivity::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.putExtra("source", "FirstTime")   // or any identifier
                         context.startActivity(intent)
 
                     },
