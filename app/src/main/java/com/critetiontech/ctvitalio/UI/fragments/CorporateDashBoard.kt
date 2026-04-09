@@ -189,12 +189,9 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
             findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
         }
         binding.ringIcon.setOnClickListener {
-
-            startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
-//
-
-
-
+            val intent = Intent(requireActivity(), UltraHumanActivity::class.java)
+            intent.putExtra("source", "HOME")   // or any identifier
+            startActivity(intent)
         }
         Handler(Looper.getMainLooper()).postDelayed({
 

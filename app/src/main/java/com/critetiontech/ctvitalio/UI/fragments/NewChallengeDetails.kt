@@ -12,12 +12,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeBinding
 import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeDetailsBinding
-import okhttp3.Challenge
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
@@ -52,10 +49,10 @@ class NewChallengeDetails : Fragment() {
 
             findNavController().popBackStack()
         }
-        challengesViewModel.getJoinedChallengesDetailsByEmployeeId()
+
         arguments?.let {
             challenge = it.getSerializable("challenges") as DashboardActiveChallenges?
-
+            challengesViewModel.getJoinedChallengesDetailsByEmployeeId(challenge?.challengeId ?: 0)
         }
 
         binding.titleText.text= challenge?.title.toString()

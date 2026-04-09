@@ -6,10 +6,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
-import com.critetiontech.ctvitalio.model.JoinedChallenge
-import com.critetiontech.ctvitalio.model.NewChallengeModel
 import com.critetiontech.ctvitalio.model.PendingChallenge
-import com.critetiontech.ctvitalio.model.ResponseValue
 import com.critetiontech.ctvitalio.model.ResponseValueModel
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
@@ -97,13 +94,14 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
 
 
 
-    fun getJoinedChallengesDetailsByEmployeeId() {
+    fun getJoinedChallengesDetailsByEmployeeId(clientId: Int) {
         _loading.postValue(true)
         viewModelScope.launch {
             try {
                 val params = mapOf(
                     "clientId" to prefs.getPatient()?.clientId.toString(),
                     "pid" to prefs.getPatient()?.id.toString(),
+                    "challengeId" to clientId,
                 )
 
                 val response = apiService.dynamicGet(
