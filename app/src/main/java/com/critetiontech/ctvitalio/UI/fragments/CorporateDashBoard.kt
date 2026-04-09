@@ -2019,6 +2019,7 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
     }
         // ✅ Set texts
         itemBinding.tvStepsLabel?.text = item.goalName+" "+progress+"% "
+
         if(item.vmId.toString()=="298"){
 
             itemBinding.tvStepsValue.text =
@@ -2039,6 +2040,7 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
 
             itemBinding.ivStepsIcon.setImageResource(R.drawable.steps_p)
+
         }
         else if(item.vmId.toString()=="298"){
 

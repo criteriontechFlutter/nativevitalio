@@ -387,11 +387,11 @@
                     android:textColor="@color/textColor"
                     android:id="@+id/languageRow" />
 
-<!--                <include layout="@layout/item_profile_row"-->
-<!--                    android:textColor="@color/textColor"-->
-<!--                    android:id="@+id/darkModeRow"-->
-<!--                    android:visibility="gone"-->
-<!--                    />-->
+                <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
+                    android:id="@+id/darkModeRow"
+                    android:visibility="gone"
+                    />
 
                 <include layout="@layout/item_profile_row"
                     android:textColor="@color/textColor"

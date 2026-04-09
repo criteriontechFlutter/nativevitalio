@@ -136,4 +136,13 @@
 
 
     <color name="setgoaltext">#898D9E</color>
+    <color name="eneryBackGroundStartColor">#F2FFFA</color>
+    <color name="energyBackgroundEndColor">#C8F5E4</color>
+    <color name="themeTextColorBW">@color/black</color>
+    <color name="foregroundItem">@color/white</color>
+    <color name="wellnessborderColor">#E6E6E680</color>
+    <color name="wellnessMessage">#F6F6F6</color>
+
+
+
 </resources>

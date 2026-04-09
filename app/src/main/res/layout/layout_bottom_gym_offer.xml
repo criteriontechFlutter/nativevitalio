@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@color/foregroundItem"
         android:layout_height="wrap_content">
 
 
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             app:cardCornerRadius="20dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/foregroundItem"
             app:cardElevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/foregroundItem"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:padding="20dp">
@@ -48,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="30-Day Free Gym Access"
-                    android:textColor="#333"
+                    android:textColor="@color/themeTextColorBW"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -56,14 +57,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+                    android:textColor="@color/themeTextColorBW"
                     android:text="Join partner gyms near you at no cost."
-                    android:textColor="#555" />
+                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Available to selected Vitalio users only*"
-                    android:textColor="#777"
+                    android:textColor="@color/themeTextColorBW"
                     android:textStyle="italic" />
 
                 <LinearLayout
@@ -81,7 +83,7 @@
                         android:drawablePadding="5dp"
                         android:padding="6dp"
                         android:text="Exclusive Offer"
-                        android:textColor="#fff"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="12sp" />
 
                     <TextView
@@ -91,6 +93,7 @@
                         android:drawableLeft="@drawable/clock_icon"
                         android:drawablePadding="5dp"
                         android:padding="6dp"
+                        android:textColor="@color/themeTextColorBW"
                         android:text="Limited Time"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -107,6 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+
                         android:text="• Access to 50+ premium gyms" />
 
                     <TextView
@@ -130,7 +134,7 @@
                     android:layout_marginTop="18dp"
                     android:backgroundTint="#1976D2"
                     android:text="@string/join_explore_nearby_gyms"
-                    android:textColor="#fff" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/txtRemindLater"
