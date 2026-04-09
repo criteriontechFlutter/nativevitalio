@@ -111,7 +111,7 @@ class LeaderboardFragment : Fragment() {
             // image loading optional
             // loadImage(binding.firstUser, user.imageURL)
             Glide.with(binding.firstUser.context)
-                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+                .load(RetrofitInstance.StaggingbaseUrl +":5082/"+ user.imageURL.replace("\\", "/"))
 
                 .circleCrop().placeholder(R.drawable.achievement_background)
                 .error(R.drawable.achievement_background)
