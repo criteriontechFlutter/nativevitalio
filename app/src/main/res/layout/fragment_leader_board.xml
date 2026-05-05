@@ -15,7 +15,7 @@
         android:layout_height="56dp"
         android:background="@android:color/white"
         app:navigationIcon="@drawable/ic_back"
-        app:title="LeaderBoard"
+        app:title="Leaderboard"
         android:elevation="8dp"
         app:titleTextColor="#000000"
         app:contentInsetStartWithNavigation="0dp"

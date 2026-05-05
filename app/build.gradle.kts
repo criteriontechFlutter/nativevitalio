@@ -65,7 +65,7 @@ android {
 
 
 dependencies {
-
+    implementation(platform(libs.firebase.bom))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -111,6 +111,7 @@ dependencies {
     implementation (libs.ssp.android)
     implementation (libs.sdp.android)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.installations)
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
 //    implementation("com.github.barteksc.pdfviewer:android-pdf-viewer:3.1.0") // Stable version of PDFView
     implementation ("com.google.android.material:material:1.4.0")
