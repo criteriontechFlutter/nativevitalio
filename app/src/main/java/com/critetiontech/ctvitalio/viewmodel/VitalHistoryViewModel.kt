@@ -21,10 +21,8 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
 
     private val _bpList = MutableLiveData<List<BloodPressureReading>>()
     val bpList: LiveData<List<BloodPressureReading>> = _bpList
-
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-
 
 
 
