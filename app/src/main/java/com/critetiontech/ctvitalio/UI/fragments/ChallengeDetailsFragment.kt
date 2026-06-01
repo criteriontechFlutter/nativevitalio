@@ -42,12 +42,12 @@ class ChallengeDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ChallengesViewModel::class.java]
 
-viewModel.getJoinedChallengesDetailsByEmployeeId()
         challenges = arguments?.getSerializable("challenges") as? NewChallengeModel
         binding.title.text= challenges?.title.toString()
         binding.detailId.text= challenges?.description.toString()
         binding.rewardPoints.text= challenges?.rewardPoints.toString()
 
+        viewModel.getJoinedChallengesDetailsByEmployeeId(challenges?.id.toString())
 
         if (challenges?.startsIn?.equals("Started", ignoreCase = true) == true) {
             binding.startTitle.text = "Ended In"

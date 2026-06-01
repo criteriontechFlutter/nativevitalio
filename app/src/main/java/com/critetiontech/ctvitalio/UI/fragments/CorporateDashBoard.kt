@@ -397,6 +397,11 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
             binding.notificationBadge.text=list.count().toString()
         }
 
+        binding.mindfulness.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_mindfulnessView  )
+
+        }
+
         binding.challengesTab.visibility=View.GONE
 
         challengesViewModel.joinedChallenges.observe(viewLifecycleOwner) { list ->

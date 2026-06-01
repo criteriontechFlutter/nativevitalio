@@ -79,7 +79,7 @@ class NewChallengedAdapter(
         holder.subtitleText.text = "${challenge.duration} days"
 
        // val progress = challenge.rewardPoints % 100
-         holder.progressBar.progress = challenge.progress
+         holder.progressBar.progress = challenge.progress.toInt()
 //        holder.labelPercent.text = "$progress%"
         holder.labelCurrent.text = "Progress ${challenge.progress} %"
 

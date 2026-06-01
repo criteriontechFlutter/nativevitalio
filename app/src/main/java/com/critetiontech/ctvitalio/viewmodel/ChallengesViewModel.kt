@@ -5,7 +5,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.critetiontech.ctvitalio.model.AllergyApiResponse
+import com.critetiontech.ctvitalio.model.ChallengeDetailsResponse
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
+import com.critetiontech.ctvitalio.model.DashboardActiveChallengesDetails
 import com.critetiontech.ctvitalio.model.JoinedChallenge
 import com.critetiontech.ctvitalio.model.NewChallengeModel
 import com.critetiontech.ctvitalio.model.PendingChallenge
@@ -28,6 +30,10 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
 
     private val _joinedChallenges = MutableLiveData<List<DashboardActiveChallenges>>()
     val joinedChallenges: LiveData<List<DashboardActiveChallenges>> get() = _joinedChallenges
+
+
+    private val _challengesDetails = MutableLiveData<DashboardActiveChallengesDetails>()
+    val  challengesDetails: LiveData<DashboardActiveChallengesDetails> get() = _challengesDetails
     private val _pendingChallenges = MutableLiveData<List<PendingChallenge>>()
     val pendingChallenges: LiveData<List<PendingChallenge>> get() = _pendingChallenges
 
@@ -97,13 +103,15 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
 
 
 
-    fun getJoinedChallengesDetailsByEmployeeId() {
+    fun getJoinedChallengesDetailsByEmployeeId(challengeId: String) {
         _loading.postValue(true)
         viewModelScope.launch {
             try {
                 val params = mapOf(
                     "clientId" to prefs.getPatient()?.clientId.toString(),
                     "pid" to prefs.getPatient()?.id.toString(),
+                    "challengeId" to challengeId.toString(),
+
                 )
 
                 val response = apiService.dynamicGet(
@@ -116,20 +124,23 @@ class ChallengesViewModel(application: Application) : BaseViewModel(application)
 
                 if (response.isSuccessful && !responseBody.isNullOrEmpty()) {
 
-                    val type = object : TypeToken<AllergyApiResponse<ResponseValueModel>>() {}.type
 
-                    val parsed = gson.fromJson<AllergyApiResponse<ResponseValueModel>>(responseBody, type)
 
-                    _joinedChallenges.postValue(
-                        parsed.responseValue.joinedChallenges
+                    val parsed = gson.fromJson(
+                        responseBody,
+                        ChallengeDetailsResponse::class.java
                     )
+
+                    parsed.responseValue.firstOrNull()?.let {
+                        _challengesDetails.postValue(it)
+                    }
                 } else {
                     handleError(response.code(), response.errorBody())
-                    _joinedChallenges.postValue(emptyList())
+
                 }
             } catch (e: Exception) {
                 handleException(e)
-                _joinedChallenges.postValue(emptyList())
+
             } finally {
                 _loading.postValue(false)
             }

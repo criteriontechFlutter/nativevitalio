@@ -439,6 +439,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_dashboard_to_mindfulnessView">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_dashboard_to_moodFragment">
                               <value>
                                 <LayoutPositions />
@@ -642,6 +647,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="fivetoOneTechniqueProgress">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="466" />
+                            <option name="y" value="2838" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="fluidFragment">
                     <value>
                       <LayoutPositions>
@@ -709,6 +726,27 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_glucoseHistory_to_connection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="groundingTecniqueView">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="200" />
+                            <option name="y" value="2864" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_groundingTecniqueView_to_fivetoOneTechniqueProgress">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -872,6 +910,32 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="mindfulnessView">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-30" />
+                            <option name="y" value="2901" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_mindfulnessView_to_groundingTecniqueView">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_mindfulnessView_to_scavengerHuntProgress">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="moodFragment">
                     <value>
                       <LayoutPositions>
@@ -1015,6 +1079,30 @@
                           <Point>
                             <option name="x" value="1930" />
                             <option name="y" value="994" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="scavengerHunt">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="197" />
+                            <option name="y" value="3131" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="scavengerHuntProgress">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="501" />
+                            <option name="y" value="3080" />
                           </Point>
                         </option>
                       </LayoutPositions>
