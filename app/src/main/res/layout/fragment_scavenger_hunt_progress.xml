@@ -161,7 +161,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_camera"
-                        android:tint="@android:color/white" />
+                        app:tint="@android:color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -252,35 +252,36 @@
                         android:layout_height="wrap_content"
                         android:text="Sky"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"
+                        />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Water"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Flowers"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Clothing"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Objects"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                 </com.google.android.material.chip.ChipGroup>
 

@@ -1,5 +1,6 @@
 package com.critetiontech.ctvitalio.UI.fragments
 
+
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -16,9 +18,10 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.critetiontech.ctvitalio.databinding.FragmentScavengerHuntProgressBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
+import com.critetiontech.ctvitalio.utils.ColorDetector
+import com.google.android.material.chip.Chip
 import java.io.File
+import org.opencv.android.OpenCVLoader
 
 class ScavengerHuntProgress : Fragment() {
 
@@ -28,6 +31,8 @@ class ScavengerHuntProgress : Fragment() {
     private lateinit var imageCapture: ImageCapture
 
     private var foundCount = 0
+
+    private var selectedColor = "Red"
 
     private val cameraPermissionLauncher =
         registerForActivityResult(
@@ -64,18 +69,30 @@ class ScavengerHuntProgress : Fragment() {
             savedInstanceState
         )
 
+        OpenCVLoader.initLocal()
+
         checkCameraPermission()
-        binding.layoutItemsFound.visibility = View.GONE
+
+        binding.layoutItemsFound.visibility =
+            View.GONE
+
         binding.btnFound.setOnClickListener {
 
             takePhoto()
         }
 
-        binding.imgClose.setOnClickListener {
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
-            requireActivity()
-                .onBackPressedDispatcher
-                .onBackPressed()
+            if (checkedIds.isNotEmpty()) {
+
+                val chip =
+                    group.findViewById<Chip>(
+                        checkedIds.first()
+                    )
+
+                selectedColor =
+                    chip.text.toString()
+            }
         }
 
         updateProgress()
@@ -122,14 +139,11 @@ class ScavengerHuntProgress : Fragment() {
             imageCapture =
                 ImageCapture.Builder().build()
 
-            val cameraSelector =
-                CameraSelector.DEFAULT_BACK_CAMERA
-
             cameraProvider.unbindAll()
 
             cameraProvider.bindToLifecycle(
                 viewLifecycleOwner,
-                cameraSelector,
+                CameraSelector.DEFAULT_BACK_CAMERA,
                 preview,
                 imageCapture
             )
@@ -159,27 +173,64 @@ class ScavengerHuntProgress : Fragment() {
                     outputFileResults: ImageCapture.OutputFileResults
                 ) {
 
-                    foundCount++
-
-                    if (foundCount > 0) {
-                        binding.layoutItemsFound.visibility = View.VISIBLE
-                    }
-
                     val bitmap =
-                        BitmapFactory.decodeFile(file.absolutePath)
+                        BitmapFactory.decodeFile(
+                            file.absolutePath
+                        )
 
-                    when (foundCount) {
-                        1 -> binding.imgItem1.setImageBitmap(bitmap)
-                        2 -> binding.imgItem2.setImageBitmap(bitmap)
-                        3 -> binding.imgItem3.setImageBitmap(bitmap)
+                    val detectedColor =
+                        ColorDetector.detectColor(
+                            bitmap
+                        )
+
+                    if (
+                        detectedColor.equals(
+                            selectedColor,
+                            true
+                        )
+                    ) {
+
+                        foundCount++
+
+                        binding.layoutItemsFound.visibility =
+                            View.VISIBLE
+
+                        when (foundCount) {
+
+                            1 -> binding.imgItem1.setImageBitmap(bitmap)
+
+                            2 -> binding.imgItem2.setImageBitmap(bitmap)
+
+                            3 -> binding.imgItem3.setImageBitmap(bitmap)
+                        }
+
+                        updateProgress()
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Correct Color Found : $detectedColor",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    } else {
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Detected : $detectedColor",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-                    updateProgress()
                 }
 
                 override fun onError(
                     exception: ImageCaptureException
                 ) {
+
+                    Toast.makeText(
+                        requireContext(),
+                        exception.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         )
@@ -189,65 +240,6 @@ class ScavengerHuntProgress : Fragment() {
 
         binding.txtProgress.text =
             "$foundCount / 3"
-
-        when (foundCount) {
-
-            0 -> {
-
-                binding.progress1.alpha = 0.1f
-                binding.progress2.alpha = 0.1f
-                binding.progress3.alpha = 0.1f
-            }
-
-            1 -> {
-
-                binding.progress1.alpha = 1f
-                binding.progress1.alpha = 1f
-            }
-
-            2 -> {
-
-                binding.progress1.alpha = 1f
-                binding.progress2.alpha = 1f
-            }
-
-            3 -> {
-
-                binding.progress1.alpha = 1f
-                binding.progress2.alpha = 1f
-                binding.progress3.alpha = 1f
-            }
-        }
-    }
-
-    private fun showCompletionBottomSheet() {
-
-        val bottomSheet =
-            BottomSheetDialog(requireContext())
-
-        val view =
-            layoutInflater.inflate(
-                com.critetiontech.ctvitalio.R.layout.bottomsheet_mindfulness_completed,
-                null
-            )
-
-        bottomSheet.setContentView(view)
-
-        val btnOk =
-            view.findViewById<MaterialButton>(
-                com.critetiontech.ctvitalio.R.id.btnOk
-            )
-
-        btnOk.setOnClickListener {
-
-            bottomSheet.dismiss()
-
-            foundCount = 0
-
-            updateProgress()
-        }
-
-        bottomSheet.show()
     }
 
     override fun onDestroyView() {
