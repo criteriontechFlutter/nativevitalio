@@ -322,10 +322,10 @@
 
                     android:id="@+id/personalInfoRow" />
 
-                <include layout="@layout/item_profile_row"
-                    android:textColor="@color/textColor"
-                    android:id="@+id/allergiesRow"
-                    />
+<!--                <include layout="@layout/item_profile_row"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:id="@+id/allergiesRow"-->
+<!--                    />-->
             </LinearLayout>
 
             <!-- Personal Info -->
@@ -344,22 +344,22 @@
 <!--                    android:visibility="gone"-->
 <!--                    android:id="@+id/myObserverRow" />-->
 
-                <include layout="@layout/item_profile_row"
-                    android:textColor="@color/textColor"
-                    android:id="@+id/sharedAccountRow"
-                    />
+<!--                <include layout="@layout/item_profile_row"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:id="@+id/sharedAccountRow"-->
+<!--                    />-->
 
-                <include layout="@layout/item_profile_row"
-                    android:textColor="@color/textColor"
-                    android:id="@+id/connectSmartWatchRow"
-                    />
+<!--                <include layout="@layout/item_profile_row"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:id="@+id/connectSmartWatchRow"-->
+<!--                    />-->
 
 
-                <include layout="@layout/item_profile_row"
-                    android:visibility="gone"
-                    android:textColor="@color/textColor"
-                    android:id="@+id/emergencyContactRow"
-                    />
+<!--                <include layout="@layout/item_profile_row"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:textColor="@color/textColor"-->
+<!--                    android:id="@+id/emergencyContactRow"-->
+<!--                    />-->
 
 <!--                <include layout="@layout/item_profile_row"-->
 <!--                    android:visibility="gone"-->
@@ -387,11 +387,11 @@
                     android:textColor="@color/textColor"
                     android:id="@+id/languageRow" />
 
-<!--                <include layout="@layout/item_profile_row"-->
-<!--                    android:textColor="@color/textColor"-->
-<!--                    android:id="@+id/darkModeRow"-->
-<!--                    android:visibility="gone"-->
-<!--                    />-->
+                <include layout="@layout/item_profile_row"
+                    android:textColor="@color/textColor"
+                    android:id="@+id/darkModeRow"
+                    android:visibility="gone"
+                    />
 
                 <include layout="@layout/item_profile_row"
                     android:textColor="@color/textColor"

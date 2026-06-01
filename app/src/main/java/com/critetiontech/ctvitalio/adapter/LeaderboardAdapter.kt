@@ -10,6 +10,8 @@ import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.fragments.User
 import com.critetiontech.ctvitalio.databinding.ItemPlayerBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import java.util.Locale
+import java.util.Locale.getDefault
 
 class LeaderboardAdapter(
     private val users: List<LeaderboardItem>
@@ -38,7 +40,8 @@ class LeaderboardAdapter(
             gemText.text = user.totalPoints.toString()
 
             // Highlight logged-in user (recommended way)
-            if (user.empId == PrefsManager().getPatient()?.empId) {
+            if (user.empId.lowercase(getDefault()) == PrefsManager().getPatient()?.empId?.lowercase(getDefault())
+            ) {
                 itemRoot.setBackgroundResource(R.drawable.bg_current_user)
             } else {
                 itemRoot.setBackgroundResource(R.drawable.bg_item_player)

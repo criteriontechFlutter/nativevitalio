@@ -5,7 +5,6 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,24 +12,19 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeBinding
 import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeDetailsBinding
-import okhttp3.Challenge
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
 import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlin.getValue
 
 class NewChallengeDetails : Fragment() {
 
     private var _binding: FragmentNewChallengeDetailsBinding? = null
     private val binding get() = _binding!!
-    var isGraphLoaded = false
+
     private var challenge: DashboardActiveChallenges? = null
 
     private  val challengesViewModel: ChallengesViewModel by viewModels()
@@ -55,67 +49,35 @@ class NewChallengeDetails : Fragment() {
 
             findNavController().popBackStack()
         }
+
         arguments?.let {
             challenge = it.getSerializable("challenges") as DashboardActiveChallenges?
-
+            challengesViewModel.getJoinedChallengesDetailsByEmployeeId(challenge?.challengeId ?: 0)
         }
-        challengesViewModel.getJoinedChallengesDetailsByEmployeeId(challenge?.challengeId.toString())
 
         binding.titleText.text= challenge?.title.toString()
         binding.titleText.text= challenge?.title.toString()
         binding.discriptions.text =
             Html.fromHtml(challenge?.description ?: "", Html.FROM_HTML_MODE_LEGACY)
 
-        binding.progressBar.progress = challenge?.progress?.toInt() ?:0
+        binding.progressBar.progress = challenge?.progress ?:0
         binding.labelCurrent.text = "Progress "+ challenge?.progress.toString()+"%"
-        Log.d("ChallengeData", "challenge = ${challenge?.challengeId}")
 
-        challengesViewModel?.challengesDetails?.observe(viewLifecycleOwner) { response ->
-            binding.dayLeftId.text=response.dayProgress
+        Log.d("ChallengeData", "challenge = ${challenge?.challengeId.toString()}")
+        val glucoseValues = listOf(95, 105, 90, 98, 80, 85, 92)  // example data
+        val dayLabels = listOf("18/09", "19/09", "20/09", "21/09", "22/09", "23/09", "24/09")
+        val glucoseRangeText = "95–99 mg/dL"
+        val daysFraction = "4/7 Days"
 
-            if (isGraphLoaded) return@observe
 
-            val graphJson = response?.graphData ?: "[]"
-
-            val type = object : TypeToken<List<GraphItem>>() {}.type
-            val graphList: List<GraphItem> = Gson().fromJson(graphJson, type)
-
-            if (graphList.isNullOrEmpty()) return@observe
-
-            isGraphLoaded = true
-
-            // ✅ GROUP FIX
-            val groupedList = graphList
-                .groupBy { it.logDate.substring(0, 10) }
-                .map { it.value.last() }
-                .sortedBy { it.logDate }
-
-            val glucoseValues = groupedList.mapNotNull { it.value.toInt() }
-
-            val dayLabels = groupedList.map {
-                it.logDate.substring(5).replace("-", "/")
-            }
-
-            val count = minOf(glucoseValues.size, dayLabels.size)
-
-            val finalValues = glucoseValues.take(count)
-            val finalDates = dayLabels.take(count)
-
-            val glucoseRangeText =
-                "${finalValues.minOrNull()}–${finalValues.maxOrNull()}"
-
-            val daysFraction =
-                "${finalValues.size}/${response?.duration ?: 0} Days"
-
-            bindGlucoseDataWithAxis(
-                rootLayout = binding.rootLayout,
-                glucoseRange = glucoseRangeText,
-                daysLeftText = "",
-                daysFractionText = daysFraction,
-                dayValues = finalValues,
-                dayDates = finalDates
-            )
-        }
+        bindGlucoseDataWithAxis(
+            rootLayout = view.findViewById(R.id.rootLayout),
+            glucoseRange = glucoseRangeText,
+            daysLeftText = "", // not used here
+            daysFractionText = daysFraction,
+            dayValues = glucoseValues,
+            dayDates = dayLabels
+        )
     }
 
 
@@ -124,8 +86,8 @@ class NewChallengeDetails : Fragment() {
         glucoseRange: String,
         daysLeftText: String,
         daysFractionText: String,
-        dayValues: List<Int>,
-        dayDates: List<String>
+        dayValues: List<Int>,    // glucose values for 7 days
+        dayDates: List<String>   // corresponding dates
     ) {
         val tvGlucoseRange = rootLayout.findViewById<TextView>(R.id.tvGlucoseRange)
         val tvDaysLeft = rootLayout.findViewById<TextView>(R.id.tvDaysLefts)
@@ -147,94 +109,60 @@ class NewChallengeDetails : Fragment() {
         val maxValue = 140
         val maxBarHeightDp = 100f
 
-        fun dpToPx(dp: Float) =
-            (dp * rootLayout.resources.displayMetrics.density).toInt()
+        fun dpToPx(dp: Float) = (dp * rootLayout.resources.displayMetrics.density).toInt()
 
-        // current date
-        val today = java.text.SimpleDateFormat(
-            "MM/dd",
-            java.util.Locale.getDefault()
-        ).format(java.util.Date())
-
-        // Y axis
+        // --- Y-axis labels: Max, Mid, Min ---
         val midValue = (minValue + maxValue) / 2
         val yLabels = listOf(maxValue, midValue, minValue)
-
         yLabels.forEach { value ->
             val yText = TextView(rootLayout.context).apply {
                 text = value.toString()
                 textSize = 10f
-                setTextColor(Color.parseColor("#777777"))
-                gravity = Gravity.END
+                setTextColor("#777777".toColorInt())
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    0,
-                    1f
+                    0, 1f
                 )
             }
             yAxisContainer.addView(yText)
         }
 
-        // bars
+        // --- Bars & X-axis dates ---
         dayValues.forEachIndexed { index, value ->
-
             val clampedValue = value.coerceIn(minValue, maxValue)
-            val heightRatio =
-                (clampedValue - minValue).toFloat() / (maxValue - minValue)
+            val heightRatio = (clampedValue - minValue).toFloat() / (maxValue - minValue)
+            val barHeightPx = (heightRatio * dpToPx(maxBarHeightDp)).toInt()
 
-            val barHeightPx =
-                (heightRatio * dpToPx(maxBarHeightDp)).toInt()
-
-            val date = dayDates.getOrNull(index)
-
+            // Bar
             val barView = View(rootLayout.context).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    0,
-                    barHeightPx,
-                    1f
-                ).apply {
+                layoutParams = LinearLayout.LayoutParams(0, barHeightPx, 1f).apply {
                     setMargins(dpToPx(4f), 0, dpToPx(4f), 0)
                 }
-
-                // highlight only today
                 setBackgroundColor(
-                    if (date == today)
-                        Color.parseColor("#00D492")
-                    else
-                        Color.parseColor("#EAF4FF")
+                    if (value in 95..99) android.graphics.Color.parseColor("#7BD197")
+                    else android.graphics.Color.parseColor("#D3E4CD")
                 )
             }
-
             barChartContainer.addView(barView)
 
-            // dates
+            // X-axis date
             val dateTextView = TextView(rootLayout.context).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1f
-                ).apply {
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
                     setMargins(dpToPx(4f), 0, dpToPx(4f), 0)
                 }
-
-                text = date ?: ""
+                text = dayDates.getOrNull(index) ?: ""
                 textSize = 10f
-                setTextColor(Color.parseColor("#AAAAAA"))
-                gravity = Gravity.CENTER
+                setTextColor(android.graphics.Color.parseColor("#AAAAAA"))
+                textAlignment = View.TEXT_ALIGNMENT_CENTER
             }
-
             xAxisDates.addView(dateTextView)
         }
 
-        // center line
+        // --- Center line position ---
         centerLine.post {
             val barContainerHeight = barChartContainer.height
-            val midRatio =
-                (midValue - minValue).toFloat() / (maxValue - minValue)
-
-            val yPos =
-                barContainerHeight - (midRatio * barContainerHeight)
-
+            val midRatio = (midValue - minValue).toFloat() / (maxValue - minValue)
+            val yPos = barContainerHeight - (midRatio * barContainerHeight)
             centerLine.y = yPos - centerLine.height / 2f
         }
     }
@@ -315,8 +243,3 @@ class NewChallengeDetails : Fragment() {
         _binding = null
     }
 }
-
-data class GraphItem(
-    val logDate: String,
-    val value: Double
-)

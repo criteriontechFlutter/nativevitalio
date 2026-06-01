@@ -2,6 +2,11 @@
 <resources>
 
     <!--Text Color-->
+    <color name="primaryColor">#101B27</color>
+    <color name="primaryBlue">#101B27</color>
+    <color name="primaryBlue2">#101B27</color>
+    <color name="primaryBlueLight">#101B27</color>
+
     <color name="textColor">@color/white</color>
     <color name="symptomsTextColor">@color/white</color>
     <color name="revBackgroundColor">@color/white</color>
@@ -25,8 +30,31 @@
     <color name="bgInputFieldColor">@color/blackText</color>
 
 
+    <!-- Whites -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#B90505</color>
+    <color name="whiteDull">#E4EEFF</color>
+    <color name="bgcolor_signup">#1564ED</color>
+    <color name="edttxt_bg">#EDF1F6</color>
+    <color name="edt_bg">#EDF1F6</color>
+    <color name="terms_color">#828691</color>
+    <color name="purple_200">#FFBB86FC</color>
 
+    <color name="stressed">#FFA4BA</color>
+    <color name="happy">#9ABDFF</color>
+    <color name="sad">#7DE7EE</color>
+    <color name="good">#F9C825</color>
+    <color name="spectacular">#FFA4BA</color>
+    <color name="upset">#88A7FF</color>
 
     <color name="dashboardBg">#000000</color>
-    <color name="dashboardContainerBg">@color/bgDark2</color>
+    <color name="dashboardContainerBg">#1C2735</color>
+
+    <color name="eneryBackGroundStartColor">#232E3A</color>
+    <color name="energyBackgroundEndColor">#232E3A</color>
+    <color name="themeTextColorBW">#FFFFFFFF</color>
+    <color name="foregroundItem">#232E3A</color>
+    <color name="borderColor">#232E3A</color>
+    <color name="wellnessborderColor">#232E3A</color>
+    <color name="wellnessMessage">#303D4B</color>
 </resources>

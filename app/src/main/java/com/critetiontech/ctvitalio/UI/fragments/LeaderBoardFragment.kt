@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
@@ -88,6 +89,11 @@ class LeaderboardFragment : Fragment() {
             emptyList()
         }
 
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         // 🔹 RecyclerView (ONLY remaining users)
         binding.playerListdata.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -105,7 +111,7 @@ class LeaderboardFragment : Fragment() {
             // image loading optional
             // loadImage(binding.firstUser, user.imageURL)
             Glide.with(binding.firstUser.context)
-                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+                .load(RetrofitInstance.StaggingbaseUrl +":5082/"+ user.imageURL.replace("\\", "/"))
 
                 .circleCrop().placeholder(R.drawable.achievement_background)
                 .error(R.drawable.achievement_background)

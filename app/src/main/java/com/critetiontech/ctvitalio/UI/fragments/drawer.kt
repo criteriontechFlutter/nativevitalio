@@ -293,21 +293,21 @@ class drawer : Fragment() {
             findNavController().navigate(R.id.action_drawer4_to_editProfile3, bundle)
         }
 
-        binding.allergiesRow.root.setOnClickListener {
-            findNavController().navigate(R.id.action_drawer4_to_allergies3)
-        }
-
-        binding.emergencyContactRow.root.setOnClickListener {
-            findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
-        }
-
-//        binding.darkModeRow.root.setOnClickListener {
-//            findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
+//        binding.allergiesRow.root.setOnClickListener {
+//            findNavController().navigate(R.id.action_drawer4_to_allergies3)
 //        }
 
-        binding.connectSmartWatchRow.root.setOnClickListener {
-            findNavController().navigate(R.id.action_drawer4_to_connectSmartWatchFragment)
+//        binding.emergencyContactRow.root.setOnClickListener {
+//            findNavController().navigate(R.id.action_drawer4_to_emergencyContactFragment)
+//        }
+
+        binding.darkModeRow.root.setOnClickListener {
+            findNavController().navigate(R.id.action_drawer4_to_settingsFragmentVitalio)
         }
+
+//        binding.connectSmartWatchRow.root.setOnClickListener {
+//            findNavController().navigate(R.id.action_drawer4_to_connectSmartWatchFragment)
+//        }
 
         binding.backDrawer.setOnClickListener { findNavController().popBackStack() }
 
@@ -399,28 +399,28 @@ class drawer : Fragment() {
             icon.setImageResource(R.drawable.ic_personal_info)
         }
 
-        binding.allergiesRow.apply {
-            title.text = getString(R.string.allergies)
-            icon.setImageResource(R.drawable.ic_allergies)
-            count.text = PrefsManager().getAllergies().takeIf { it != "0" } ?: ""
-        }
+//        binding.allergiesRow.apply {
+//            title.text = getString(R.string.allergies)
+//            icon.setImageResource(R.drawable.ic_allergies)
+//            count.text = PrefsManager().getAllergies().takeIf { it != "0" } ?: ""
+//        }
 
-        binding.emergencyContactRow.apply {
-            title.text = getString(R.string.emergency_contacts)
-            icon.setImageResource(R.drawable.ic_emergency_contact)
-            count.text = PrefsManager().getEmergency().takeIf { it != "0" } ?: ""
-        }
+//        binding.emergencyContactRow.apply {
+//            title.text = getString(R.string.emergency_contacts)
+//            icon.setImageResource(R.drawable.ic_emergency_contact)
+//            count.text = PrefsManager().getEmergency().takeIf { it != "0" } ?: ""
+//        }
+//
+//        binding.sharedAccountRow.apply {
+//            title.text = getString(R.string.shared_accounts)
+//            icon.setImageResource(R.drawable.ic_shared)
+//        }
 
-        binding.sharedAccountRow.apply {
-            title.text = getString(R.string.shared_accounts)
-            icon.setImageResource(R.drawable.ic_shared)
-        }
-
-        binding.connectSmartWatchRow.apply {
-            title.text = getString(R.string.connect_smart_watch)
-            icon.setImageResource(R.drawable.ic_smartwatch)
-            count.text = PrefsManager().getSmartWatch().takeIf { it != "0" } ?: ""
-        }
+//        binding.connectSmartWatchRow.apply {
+//            title.text = getString(R.string.connect_smart_watch)
+//            icon.setImageResource(R.drawable.ic_smartwatch)
+//            count.text = PrefsManager().getSmartWatch().takeIf { it != "0" } ?: ""
+//        }
 
         binding.languageRow.apply {
             title.text = getString(R.string.language)
@@ -428,10 +428,10 @@ class drawer : Fragment() {
             count.text = "English"
         }
 
-//        binding.darkModeRow.apply {
-//            title.text = getString(R.string.dark_mode)
-//            icon.setImageResource(R.drawable.ic_theme)
-//        }
+        binding.darkModeRow.apply {
+            title.text = getString(R.string.dark_mode)
+            icon.setImageResource(R.drawable.ic_theme)
+        }
 
         binding.FAQsRow.apply {
             title.text = getString(R.string.f_q)

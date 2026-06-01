@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motionLayout"
         android:layout_width="match_parent" android:layout_height="match_parent"
-        android:background="@color/primaryBlue">
+        android:background="@color/primaryBlueLight">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_header_bottom"
@@ -305,6 +305,7 @@
                     android:fillViewport="true"
                      android:paddingLeft="16dp"
                     android:paddingRight="16dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1011,7 +1012,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#F9F9F9"
+
                             android:orientation="vertical"
                             android:paddingBottom="100dp">
 
@@ -1103,7 +1104,7 @@
                                 android:id="@+id/energyCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="15dp"
                                 android:background="@drawable/rounded_corners"
                                 android:elevation="0dp"
                                 app:cardBackgroundColor="@color/white"
@@ -1113,6 +1114,7 @@
                                     android:id="@+id/energyid"
                                     android:layout_width="match_parent"
                                     android:layout_height="110dp"
+
                                     android:background="@drawable/bg_energy_gradient"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal"
@@ -1134,7 +1136,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/your_energy_story_awaits"
-                                            android:textColor="@android:color/black"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
@@ -1296,7 +1298,7 @@
                                 android:layout_marginTop="20dp"
                                 android:paddingBottom="10dp"
                                 android:text="@string/today_s_health_snapshot"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -1428,7 +1430,6 @@
                                         android:id="@+id/checklistContainer"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-
                                         android:orientation="vertical"
                                         android:padding="12dp">
 

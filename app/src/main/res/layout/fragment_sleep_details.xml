@@ -48,7 +48,7 @@
                     android:text="Sleep Details"
                     android:textSize="18sp"
                     android:paddingStart="16dp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/textColor" />
 
             </LinearLayout>
 
@@ -58,7 +58,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:padding="@dimen/_16sdp"
-            android:background="#F7F9FB"
+            android:background="@color/dashboardBg"
             android:layout_height="match_parent"
             android:orientation="vertical">
 

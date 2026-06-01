@@ -53,6 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="14dp"
                         android:layout_marginEnd="6dp"
+
                         android:src="@drawable/medicine"
                         app:tint="#FFFFFF" />
 

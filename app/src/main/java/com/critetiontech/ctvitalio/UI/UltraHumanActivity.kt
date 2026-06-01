@@ -1,19 +1,12 @@
 package com.critetiontech.ctvitalio.UI
 
 import PrefsManager
-import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityResetPasswordBinding
 import com.critetiontech.ctvitalio.databinding.ActivityUltraHumanBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
@@ -29,12 +22,16 @@ class UltraHumanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUltraHumanBinding
     private var authService: AuthorizationService? = null
+    private var source: String? = null
     private lateinit var viewModel: DashboardViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("UH_DEBUG", "UltraHumanActivity CREATED with intent: " + intent.data)
+
         binding = ActivityUltraHumanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        source = intent.getStringExtra("source")
+        Log.d("UH_DEBUG", "UltraHumanActivity CREATED with intent: " + source.toString())
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
 
         binding.btnContinue.setOnClickListener {
@@ -55,7 +52,22 @@ class UltraHumanActivity : AppCompatActivity() {
 
 
     }
+    override fun onBackPressed() {
+        when (source) {
+            "HOME" -> {
+                startActivity(Intent(this, Home::class.java))
+                finish()
+            } "FirstTime" -> {
+            val intent = Intent(MyApplication.appContext, SignupActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            MyApplication.appContext.startActivity(intent)
+            }
 
+            else -> {
+                super.onBackPressed() // default behavior
+            }
+        }
+    }
 
 
     private fun handleAuthRedirectIntent(intent: Intent) {
@@ -71,7 +83,7 @@ class UltraHumanActivity : AppCompatActivity() {
                 Log.d("OAuth", "Received refreshToken: $refreshToken")
                 Log.d("OAuth", "Received refreshToken: $tokenType")
                 Log.d("OAuth", "Received refreshToken: $expiry")
-                viewModel.insertUltraHumanToken(accessToken, refreshToken, tokenType, expiry)
+                viewModel.insertUltraHumanToken(accessToken, refreshToken, tokenType, expiry,source)
                 //Toast.makeText(this, "Check$refreshToken", Toast.LENGTH_LONG).show()
                 exchangeCodeForToken(accessToken)
             } else {

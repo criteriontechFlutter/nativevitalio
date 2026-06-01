@@ -189,12 +189,9 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
             findNavController().navigate(R.id.action_dashboard_to_notificationFragment)
         }
         binding.ringIcon.setOnClickListener {
-
-            startActivity(Intent(requireActivity(), UltraHumanActivity::class.java))
-//
-
-
-
+            val intent = Intent(requireActivity(), UltraHumanActivity::class.java)
+            intent.putExtra("source", "HOME")   // or any identifier
+            startActivity(intent)
         }
         Handler(Looper.getMainLooper()).postDelayed({
 
@@ -2027,6 +2024,7 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
     }
         // ✅ Set texts
         itemBinding.tvStepsLabel?.text = item.goalName+" "+progress+"% "
+
         if(item.vmId.toString()=="298"){
 
             itemBinding.tvStepsValue.text =
@@ -2047,6 +2045,7 @@ private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
 
             itemBinding.ivStepsIcon.setImageResource(R.drawable.steps_p)
+
         }
         else if(item.vmId.toString()=="298"){
 

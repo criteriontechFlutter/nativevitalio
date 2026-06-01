@@ -55,7 +55,6 @@ import androidx.core.graphics.toColorInt
 import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
 import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
 import com.critetiontech.ctvitalio.UI.SignupActivity
-import com.critetiontech.ctvitalio.UI.UltraHumanActivity
 import com.critetiontech.ctvitalio.adapter.NotificationItem
 import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
@@ -961,7 +960,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         accessToken: String,
         refreshToken: String?,
         tokenType: String?,
-        expiry: String?
+        expiry: String?,
+        source: String?
     ) {
         _loading.value = true
         viewModelScope.launch {
@@ -984,10 +984,11 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 _loading.value = false
 
                 if (response.isSuccessful) {
+
                     Toast.makeText(MyApplication.appContext,"Connected to Ring", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(MyApplication.appContext, SignupActivity::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    MyApplication.appContext.startActivity(intent)
+//                    val intent = Intent(MyApplication.appContext, SignupActivity::class.java)
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    MyApplication.appContext.startActivity(intent)
                 } else {
                     _errorMessage.value = "Error: ${response.code()}"
                 }
