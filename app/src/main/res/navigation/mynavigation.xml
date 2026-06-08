@@ -137,6 +137,9 @@
         <action
             android:id="@+id/action_dashboard_to_gymListFragment"
             app:destination="@id/gymListFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_mindfulnessView"
+            app:destination="@id/mindfulnessView" />
     </fragment>
     <fragment
         android:id="@+id/allergies3"
@@ -667,5 +670,40 @@
         android:id="@+id/gymCheckInFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.GymCheckInFragment"
         android:label="GymCheckInFragment" />
+    <fragment
+        android:id="@+id/mindfulnessView"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.MindfulnessView"
+        android:label="MindfulnessView" >
+        <action
+            android:id="@+id/action_mindfulnessView_to_groundingTecniqueView"
+            app:destination="@id/groundingTecniqueView" />
+        <action
+            android:id="@+id/action_mindfulnessView_to_scavengerHunt"
+            app:destination="@id/scavengerHunt" />
+    </fragment>
+    <fragment
+        android:id="@+id/groundingTecniqueView"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.GroundingTecniqueView"
+        android:label="GroundingTecniqueView" >
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_fivetoOneTechniqueProgress"
+            app:destination="@id/fivetoOneTechniqueProgress" />
+    </fragment>
+    <fragment
+        android:id="@+id/fivetoOneTechniqueProgress"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.FivetoOneTechniqueProgress"
+        android:label="FivetoOneTechniqueProgress" />
+    <fragment
+        android:id="@+id/scavengerHuntProgress"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.ScavengerHuntProgress"
+        android:label="ScavengerHuntProgress" />
+    <fragment
+        android:id="@+id/scavengerHunt"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.ScavengerHunt"
+        android:label="ScavengerHunt" >
+        <action
+            android:id="@+id/action_scavengerHunt_to_scavengerHuntProgress"
+            app:destination="@id/scavengerHuntProgress" />
+    </fragment>
 
 </navigation>
