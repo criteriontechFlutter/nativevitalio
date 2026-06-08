@@ -60,7 +60,7 @@ class NewChallengeDetails : Fragment() {
         binding.discriptions.text =
             Html.fromHtml(challenge?.description ?: "", Html.FROM_HTML_MODE_LEGACY)
 
-        binding.progressBar.progress = challenge?.progress ?:0
+        (challenge?.progress ?:0).also { binding.progressBar.progress = it as Int }
         binding.labelCurrent.text = "Progress "+ challenge?.progress.toString()+"%"
 
         Log.d("ChallengeData", "challenge = ${challenge?.challengeId.toString()}")
