@@ -57,4 +57,38 @@
     <color name="borderColor">#232E3A</color>
     <color name="wellnessborderColor">#232E3A</color>
     <color name="wellnessMessage">#303D4B</color>
+
+
+
+
+
+
+    <color name="feelingBoxColor1">#000000</color>
+
+    <color name="feelingBoxColor">#004087</color>
+
+
+    <color name="dashbg">#121E2C</color>
+
+    <color name="contbg">#303D4B</color>
+
+    <color name="contuperbg">#303D4B</color>
+
+
+    <color name="textgrey">#BABFC9</color>
+
+    <color name="blebg">#303D4B</color>
+
+
+
+    <color name="groundingcon">#303D4B</color>
+    <color name="movementIndex">#1FFF7600</color>
+
+    <color name="stressRhythm">#1F0094FF</color>
+    <color name="sleepcolor">#1F00C67A</color>
+    <color name="dynamicRecovery">#1FFF7600</color>
+    <color name="brainWasteClearance">#1F00C67A</color>
+
+
+    <color name="textdarkgrey">#BABFC9</color>
 </resources>

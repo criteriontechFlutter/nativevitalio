@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FB">
+    android:background="@color/dashbg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Your Progress"
-                        android:textColor="#344054"
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="16sp" />
 
                     <TextView
@@ -161,14 +161,14 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_camera"
-                        android:tint="@android:color/white" />
+                        app:tint="@android:color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="I Found One!"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -223,6 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/contbg"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -251,36 +252,42 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sky"
+                        android:textColor="@color/themeTextColorBW"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"
+                        />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Water"
+                        android:textColor="@color/themeTextColorBW"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Flowers"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        android:textColor="@color/themeTextColorBW"
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Clothing"
+                        android:textColor="@color/themeTextColorBW"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Objects"
                         app:chipStrokeWidth="0dp"
-                        app:chipBackgroundColor="#E8F1FF"/>
+                        android:textColor="@color/themeTextColorBW"
+                        app:chipBackgroundColor="@color/chip_bg_selector"/>
 
                 </com.google.android.material.chip.ChipGroup>
 

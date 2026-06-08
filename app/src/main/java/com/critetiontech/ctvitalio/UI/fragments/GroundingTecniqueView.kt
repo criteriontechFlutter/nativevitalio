@@ -57,7 +57,10 @@ class GroundingTecniqueView : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Example
+        // Navigate back on back button click
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         binding.btnStart.setOnClickListener {
 

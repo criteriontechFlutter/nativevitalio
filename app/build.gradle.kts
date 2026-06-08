@@ -143,6 +143,7 @@ dependencies {
     implementation (libs.androidx.room.ktx)
     kapt("androidx.room:room-compiler:2.8.4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0")
-    
 
+    // TensorFlow Lite
+    implementation(project(":opencv"))
 }

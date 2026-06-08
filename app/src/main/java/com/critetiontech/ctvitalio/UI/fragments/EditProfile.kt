@@ -20,6 +20,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -218,47 +219,146 @@ class EditProfile : Fragment() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
                 && email.lowercase().endsWith(".com")
     }
-    private fun   chronicDiease(){
+    private fun chronicDiease() {
+
+        // Background / Text Color Setup
+        binding.chronicDieases.apply {
+
+            // EditText Background
+            setBackgroundResource(R.drawable.bg_field)
+
+            // Text Color
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.themeTextColorBW
+                )
+            )
+
+            // Hint Color
+            setHintTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.themeTextColorBW
+                )
+            )
+
+            // Dropdown Background
+            setDropDownBackgroundResource(
+                R.drawable.bg_dropdown
+            )
+        }
+
+        // Selected Chip Container Background
+        binding.selectedListContainer.setBackgroundResource(
+            R.drawable.bg_field
+        )
+
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable?) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {}
+
+            override fun afterTextChanged(
+                s: Editable?
+            ) {}
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+
                 val input = s.toString().trim()
+
                 if (input.isNotEmpty()) {
-                    viewModel.getProblemList(input.toString())
-                    binding.chronicDieases.setDropDownBackgroundResource(android.R.color.white)
+
+                    viewModel.getProblemList(input)
+
                     binding.chronicDieases.showDropDown()
                 }
             }
         }
 
-        binding.chronicDieases.addTextChangedListener(textWatcher)
+        binding.chronicDieases.addTextChangedListener(
+            textWatcher
+        )
 
         binding.chronicDieases.setOnItemClickListener { parent, _, position, _ ->
-            val selectedName = parent.getItemAtPosition(position).toString()
-            val selectedProblem = viewModel.problemList.value?.find { it.problemName == selectedName }
+
+            val selectedName =
+                parent.getItemAtPosition(position).toString()
+
+            val selectedProblem =
+                viewModel.problemList.value?.find {
+                    it.problemName == selectedName
+                }
 
             if (selectedProblem != null) {
-                viewModel.addSelectedDisease(selectedProblem, requireContext())
-                binding.chronicDieases.removeTextChangedListener(textWatcher)
-                binding.chronicDieases.setText("", false)
-                binding.chronicDieases.addTextChangedListener(textWatcher)
+
+                viewModel.addSelectedDisease(
+                    selectedProblem,
+                    requireContext()
+                )
+
+                binding.chronicDieases.removeTextChangedListener(
+                    textWatcher
+                )
+
+                binding.chronicDieases.setText(
+                    "",
+                    false
+                )
+
+                binding.chronicDieases.addTextChangedListener(
+                    textWatcher
+                )
+
                 binding.chronicDieases.dismissDropDown()
             }
         }
 
-        viewModel.problemList.observe(viewLifecycleOwner) { problemList ->
+        viewModel.problemList.observe(
+            viewLifecycleOwner
+        ) { problemList ->
+
             if (!problemList.isNullOrEmpty()) {
-                latestSuggestions = problemList.map { it.problemName }
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, latestSuggestions)
-                binding.chronicDieases.setAdapter(adapter)
+
+                latestSuggestions =
+                    problemList.map {
+                        it.problemName
+                    }
+
+                val adapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    latestSuggestions
+                )
+
+                binding.chronicDieases.setAdapter(
+                    adapter
+                )
             }
         }
 
-        viewModel.selectedDiseaseList.observe(viewLifecycleOwner) { list ->
+        viewModel.selectedDiseaseList.observe(
+            viewLifecycleOwner
+        ) { list ->
+
             binding.selectedListContainer.removeAllViews()
-            list.distinctBy { it["detailID"] }.forEach { disease ->
-                addRemovableChip(disease)
+
+            list.distinctBy {
+                it["detailID"]
+            }.forEach { disease ->
+
+                addRemovableChip(
+                    disease
+                )
             }
         }
     }

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="@color/dashboardContainerBg"
     android:fillViewport="true"
     android:windowSoftInputMode="adjustPan"
     android:isScrollContainer="true"
@@ -75,12 +75,12 @@
 
             <!-- First Name -->
             <TextView
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="First Name"
-                android:textColor="@color/profileText"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/themeTextColorBW"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/firstNameField"
@@ -262,6 +262,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/dashboardBg"
                 android:drawablePadding="8dp"
                 android:textAlignment="textStart"
                 android:hint="Select Chronic Diseases"
@@ -279,6 +280,8 @@
                 android:textSize="14sp"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start"
+                android:background="@color/dashboardBg"
+                android:backgroundTint="@color/dashboardBg"
                 app:alignItems="flex_start"
                 android:orientation="horizontal" />
 
@@ -504,6 +507,7 @@
                 android:drawablePadding="10dp"
                 android:textSize="14sp"
                 android:focusable="false"
+                android:backgroundTint="@color/dashboardBg"
                 android:hint="Select Blood Group"
                 android:inputType="none"
                 android:paddingHorizontal="16dp" />

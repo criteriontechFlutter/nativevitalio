@@ -31,4 +31,4 @@ include(":app")
 include( ":omronconnectivitylibrary")
 include(":omronconnectivitylibraryassets")
 
-include(":mylibrary")
+include(":opencv")

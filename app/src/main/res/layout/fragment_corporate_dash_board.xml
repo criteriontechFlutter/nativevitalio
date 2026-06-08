@@ -1,12 +1,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motionLayout"
+        android:background="@color/feelingBoxColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryBlue">
+         >
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_header_bottom"
@@ -41,7 +43,7 @@
             android:id="@+id/headerContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/primaryBlue"
+            android:background="@color/feelingBoxColor1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingLeft="15dp"
@@ -55,7 +57,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/primaryBlue">
+                android:background="@color/feelingBoxColor1">
 
                 <!-- Avatar with Progress Ring -->
                 <FrameLayout
@@ -214,7 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:minHeight="120dp"
-                android:background="@color/primaryBlue"
+                android:background="@drawable/bg_gradient"
                 app:layout_constraintBottom_toTopOf="@+id/contentScroll"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -225,11 +227,10 @@
                     android:id="@+id/tFeeling"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingTop="41dp"
                     android:fontFamily="@font/source_serif_pro"
                     android:text="@string/how_are_you_feeling_now"
                     android:textAlignment="center"
-                    android:layout_marginTop="14dp"
-                    android:paddingTop="10dp"
                     android:textColor="@color/white"
                     android:textSize="28sp"
                     android:textStyle="bold"
@@ -303,7 +304,6 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_content_white"
                     android:elevation="8dp"
-                    android:backgroundTint="@color/dashboardContainerBg"
                     android:fillViewport="true"
                      android:paddingLeft="16dp"
                     android:paddingRight="16dp"
@@ -321,10 +321,11 @@
 
                         <View
                             android:layout_width="100dp"
-                            android:layout_height="9dp"
+                            android:layout_height="10dp"
                             android:layout_gravity="center"
                             android:background="@drawable/rounded_corners"
-                            android:backgroundTint="#D9D9D9" />
+                            
+                            />
 
                         <LinearLayout
                             android:id="@+id/challengesTab"
@@ -341,7 +342,7 @@
                                 android:layout_marginTop="30dp"
                                 android:paddingBottom="20dp"
                                 android:text="Active Challenges"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -367,7 +368,7 @@
                                 android:text="Your Health Progress"
                                 android:textStyle="bold"
                                 android:textSize="16sp"
-                                android:textColor="#000"/>
+                                android:textColor="@color/themeTextColorBW"/>
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
@@ -375,7 +376,7 @@
                                 android:layout_marginTop="8dp"
                                 app:cardCornerRadius="18dp"
                                 app:cardElevation="1dp"
-                                app:cardBackgroundColor="#FFFFFF">
+                                app:cardBackgroundColor="@color/contbg">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -389,7 +390,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="This Week vs Last Week"
                                         android:textSize="13sp"
-                                        android:textColor="#000"
+                                        android:textColor="@color/themeTextColorBW"
                                         android:textStyle="bold"/>
 
                                     <!-- row 1 -->
@@ -412,7 +413,7 @@
                                             android:text="0% → 0%"
                                             android:textStyle="bold"
                                             android:textSize="13sp"
-                                            android:textColor="#000"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"/>
 
@@ -443,7 +444,7 @@
                                             android:text="0% → 0%"
                                             android:textStyle="bold"
                                             android:textSize="13sp"
-                                            android:textColor="#000"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"/>
 
@@ -474,7 +475,7 @@
                                             android:text="0/0 → 0/0"
                                             android:textStyle="bold"
                                             android:textSize="13sp"
-                                            android:textColor="#000"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"/>
 
@@ -496,6 +497,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Upcoming Challenges"
                                 android:textStyle="bold"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="16sp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="12dp"/>
@@ -505,6 +507,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="200dp"
                                 android:layout_marginTop="8dp"
+
                                 android:clipToPadding="false"
                                  android:overScrollMode="never"/>
                         </LinearLayout>
@@ -522,7 +525,7 @@
                                 android:layout_marginTop="30dp"
                                 android:paddingBottom="20dp"
                                 android:text="Today's Medicine"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 app:drawableEndCompat="@drawable/arrow_right" />
@@ -531,7 +534,6 @@
                                 android:id="@+id/recycler_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#F9F9F9"
                                 android:clickable="true" />
                         </LinearLayout>
 
@@ -548,7 +550,7 @@
                                 android:layout_marginTop="30dp"
                                 android:paddingBottom="20dp"
                                 android:text="Health Snapshot"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -556,6 +558,7 @@
                                 android:id="@+id/vitalRecyclerView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+
                                 android:layout_marginBottom="74.dp" />
 
 
@@ -985,7 +988,7 @@
                             android:layout_marginTop="30dp"
                             android:paddingBottom="20dp"
                             android:text="Active Challenges"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/themeTextColorBW"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -1013,7 +1016,7 @@
                             android:id="@+id/homeId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_corners"
+
                             android:orientation="vertical"
                             android:paddingBottom="100dp">
 
@@ -1108,7 +1111,7 @@
                                 android:layout_marginTop="15dp"
                                 android:background="@drawable/rounded_corners"
                                 android:elevation="0dp"
-                                app:cardBackgroundColor="@color/white"
+                                app:cardBackgroundColor="@color/contbg"
                                 tools:ignore="TooManyViews">
 
                                 <LinearLayout
@@ -1136,10 +1139,10 @@
                                             android:id="@+id/energyTitle"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-
                                             android:text="@string/your_energy_story_awaits"
                                             android:textColor="@color/themeTextColorBW"
-                                            android:textSize="18sp"
+                                            android:textSize="16sp"
+
                                             android:textStyle="bold" />
 
                                         <TextView
@@ -1322,7 +1325,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:text="@string/today_s_priority_action"
-                                    android:textColor="@android:color/black"
+                                    android:textColor="@color/themeTextColorBW"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -1406,7 +1409,7 @@
                                 android:layout_marginTop="30dp"
                                 android:layout_marginBottom="10dp"
                                 android:text="@string/daily_checklist"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -1414,8 +1417,8 @@
                                 android:id="@+id/dailyCheckListCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/dashboard_rounded_corner"
-                                android:backgroundTint="#FFFFFF"
+                                android:background="@drawable/bg_progress_track"
+
                                 android:clickable="true"
                                 android:focusable="true"
                                 app:cardCornerRadius="24dp"
@@ -1424,15 +1427,16 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/dashboard_rounded_corner"
+                                    android:background="@drawable/rounded_corners"
                                     android:orientation="vertical"
-                                    android:padding="12dp">
+                                    >
 
                                     <LinearLayout
                                         android:id="@+id/checklistContainer"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical"
+                                        android:background="@drawable/round_top_corner"
                                         android:padding="12dp">
 
                                         <!--                    <include-->
@@ -1955,7 +1959,7 @@
                                 android:layout_marginTop="10dp"
                                 android:paddingBottom="12dp"
                                 android:text="Activities"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -1974,7 +1978,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/dashboard_rounded_corner"
+                                    android:background="@drawable/rounded_corners"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -1984,6 +1988,7 @@
                                         android:gravity="center_horizontal|center_vertical"
                                         android:orientation="vertical"
                                         android:padding="12dp"
+
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -1999,7 +2004,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="10dp"
                                             android:text="My Health"
-                                            android:textColor="@color/blackText"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:textSize="18sp"
                                             android:textStyle="bold" />
 
@@ -2019,7 +2024,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/dashboard_rounded_corner"                                    android:padding="10dp">
+                                    android:background="@drawable/rounded_corners"
+                                    android:padding="10dp">
 
                                     <LinearLayout
                                         android:layout_width="185dp"
@@ -2073,7 +2079,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/dashboard_rounded_corner"
+                                    android:background="@drawable/rounded_corners"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -2117,7 +2123,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/dashboard_rounded_corner"
+                                    android:background="@drawable/rounded_corners"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -2405,7 +2411,7 @@
             android:contentDescription="TODO"
             app:shapeAppearanceOverlay="@style/CircleFAB"
             android:src="@drawable/raddimg"
-            app:backgroundTint="@color/primaryBlue"
+            app:backgroundTint="#007BFF"
             app:fabSize="normal"
             app:maxImageSize="28dp"
             app:useCompatPadding="true"
@@ -2448,7 +2454,7 @@
             android:layout_gravity="end"
             android:visibility="gone"
             android:layout_marginEnd="20dp"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#80000000"
             app:layout_constraintBottom_toTopOf="@+id/fabIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -2478,7 +2484,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/glucose"
-                        android:textColor="#546788"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="18sp" />
 
                     <!-- ROUND WHITE BUTTON -->
@@ -2519,7 +2525,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Blood Pressure"
-                        android:textColor="#546788"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_marginRight="10dp"
                         android:textSize="18sp"
                         />
@@ -2561,7 +2567,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/medicine"
-                        android:textColor="#546788"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_marginRight="10dp"
                         android:textSize="18sp"
                         />
@@ -2605,7 +2611,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/activity"
-                        android:textColor="#546788"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_marginRight="10dp"
                         android:textSize="18sp"
                         />
@@ -2646,7 +2652,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mindfulness Session"
-                        android:textColor="#546788"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_marginRight="10dp"
                         android:textSize="18sp"
                         />
@@ -2687,7 +2693,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Voice Assistant"
-                        android:textColor="#546788"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_marginRight="10dp"
                         android:textSize="18sp"
                         />

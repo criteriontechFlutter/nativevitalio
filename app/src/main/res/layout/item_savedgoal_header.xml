@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="16dp"
-    android:background="@color/white"
     android:paddingBottom="12dp">
 
     <TextView
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
+        android:textColor="@color/themeTextColorBW"
         android:text="Section Header"/>
 
 </LinearLayout>

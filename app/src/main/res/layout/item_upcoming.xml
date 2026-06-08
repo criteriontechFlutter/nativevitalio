@@ -7,7 +7,8 @@
     android:layout_marginEnd="8.dp"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="0dp"
-    android:backgroundTint="@android:color/white">
+    android:background="@color/contbg"
+    android:backgroundTint="@color/contbg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                     android:text="Stress Less Living"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    android:textColor="#000"/>
+                    android:textColor="@color/themeTextColorBW"/>
 
 
                 <TextView
@@ -55,7 +56,7 @@
                     android:paddingTop="14.dp"
                     android:text="w/ Care Team | 30 days"
                     android:textSize="12sp"
-                    android:textColor="#777"/>
+                    android:textColor="@color/textgrey"/>
 
             </LinearLayout>
 
@@ -72,7 +73,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#EEEEEE"
+            android:background="@color/textgrey"
             android:layout_marginVertical="8dp"/>
 
         <!-- Sub Info -->

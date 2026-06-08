@@ -22,13 +22,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:background="#F7F9FB"
+        android:background="@color/dashbg"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F7F9FB"
+            android:background="@color/dashbg"
             android:orientation="vertical">
 
             <LinearLayout
@@ -63,7 +63,7 @@
                         android:text="Wellness Metrics"
                         android:textSize="18sp"
                         android:paddingStart="16dp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/themeTextColorBW" />
 
                 </LinearLayout>
 
@@ -81,7 +81,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:background="#F7F9FB">
+                android:background="@color/dashbg">
 
                 <!-- Movement Index Card -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -122,7 +122,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="1"
                                 android:text="Movement Index"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -183,7 +183,7 @@
                                     android:layout_weight="1"
                                     android:gravity="left"
                                     android:text="12 AM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -192,7 +192,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center_horizontal"
                                     android:text="6 AM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -201,7 +201,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center_horizontal"
                                     android:text="12 PM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -210,7 +210,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center_horizontal"
                                     android:text="6 PM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -219,7 +219,7 @@
                                     android:layout_weight="1"
                                     android:gravity="end"
                                     android:text="12 AM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
                             </LinearLayout>
 
@@ -254,7 +254,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:text="You achieved 1/2 movement goals"
-                                android:textColor="#333333"
+
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="13sp" />
 
                             <ImageView
@@ -276,8 +277,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:background="#F7F9FB">
+                android:padding="10dp" >
 
                 <!-- Movement Index Card -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -318,7 +318,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="1"
                                 android:text="Stress Rhythm"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -337,7 +337,7 @@
                             android:gravity="center"
                             android:text='@{stressScore != null ? String.valueOf(Math.round(Double.parseDouble(stressScore))) : "0"}'
                             android:id="@+id/stresScoretv"
-                            android:textColor="#1A1A2E"
+                            android:textColor="@color/themeTextColorBW"
                             android:textStyle="bold"
                             android:textSize="38sp" />
 
@@ -347,7 +347,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Peak performance"
-                            android:textColor="#2E4B43"
+                            android:textColor="@color/textdarkgrey"
                             android:textSize="14sp"
                             android:layout_marginTop="2dp" />
 
@@ -391,7 +391,7 @@
                                     android:layout_weight="1"
                                     android:gravity="left"
                                     android:text="12 AM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -400,7 +400,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center_horizontal"
                                     android:text="6 AM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -409,7 +409,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center_horizontal"
                                     android:text="12 PM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -418,7 +418,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center_horizontal"
                                     android:text="6 PM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
 
                                 <TextView
@@ -427,7 +427,7 @@
                                     android:layout_weight="1"
                                     android:gravity="end"
                                     android:text="12 AM"
-                                    android:textColor="#666666"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="10sp" />
                             </LinearLayout>
 
@@ -462,7 +462,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:text="You achieved 1/2 movement goals"
-                                android:textColor="#333333"
+
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="13sp" />
 
                             <ImageView
@@ -486,7 +487,7 @@
                 android:layout_margin="12dp"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                android:backgroundTint="#E8FDF5">
+                android:backgroundTint="@color/sleepcolor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -515,7 +516,7 @@
                             android:text="Sleep"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="#1A1A2E" />
+                            android:textColor="@color/themeTextColorBW" />
 
                         <ImageView
                             android:layout_width="12dp"
@@ -532,7 +533,7 @@
                         android:layout_marginTop="16dp"
                         android:gravity="center"
                         android:text="81"
-                        android:textColor="#1A1A2E"
+                        android:textColor="@color/themeTextColorBW"
                         android:textStyle="bold"
                         android:textSize="38sp" />
 
@@ -542,7 +543,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Peak performance"
-                        android:textColor="#2E4B43"
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="14sp"
                         android:layout_marginTop="2dp" />
 
@@ -582,7 +583,7 @@
                                     android:id="@+id/tvSleepStart"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
-                                    android:textColor="#1A1A2E" />
+                                    android:textColor="@color/textdarkgrey"/>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -607,7 +608,7 @@
                                 android:id="@+id/tvSleepEnd"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
-                                android:textColor="#1A1A2E" />
+                                android:textColor="@color/textdarkgrey" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -666,7 +667,7 @@
                                     android:layout_marginStart="6dp"
                                     android:text="7h 0m"
                                     android:id="@+id/tvSleepDuration"
-                                    android:textColor="#1A1A2E"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -675,7 +676,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:text="Sleep Cycles"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -704,12 +705,12 @@
                                     app:tint="#555555" />
 
                                 <TextView
+                                    android:id="@+id/tvSleepCycles"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:layout_marginStart="6dp"
                                     android:text="4 Full"
-                                    android:id="@+id/tvSleepCycles"
-                                    android:textColor="#1A1A2E"
+                                    android:textColor="@color/textdarkgrey"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -719,7 +720,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:text="Sleep Cycles"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -751,7 +752,8 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="Quick sleep onset shows your body was ready for rest, helping you build consistent and disciplined sleep patterns."
-                            android:textColor="#2E4B43"
+
+                            android:textColor="@color/textdarkgrey"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -778,7 +780,8 @@
                             android:layout_marginStart="12dp"
                             android:layout_weight="1"
                             android:text="@string/you_achieved_2_4_sleep_goals"
-                            android:textColor="#1A1A2E"
+
+                            android:textColor="@color/textdarkgrey"
                             android:textSize="13sp" />
 
                         <ImageView
@@ -799,7 +802,7 @@
                 android:layout_margin="12dp"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                android:backgroundTint="#FFF5EB">
+                android:backgroundTint="@color/dynamicRecovery">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -829,7 +832,7 @@
                             android:text="Dynamic Recovery"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#1A1A2E" />
+                            android:textColor="@color/themeTextColorBW" />
 
                         <ImageView
                             android:layout_width="12dp"
@@ -881,7 +884,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:text="RHR"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -903,7 +906,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:text="Temp"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -925,7 +928,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:text="HRV"
-                                android:textColor="#1A1A2E"
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -1311,7 +1314,7 @@
                 android:layout_margin="16dp"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#E8F9F1">
+                app:cardBackgroundColor="@color/brainWasteClearance">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1339,7 +1342,7 @@
                             android:layout_weight="1"
                             android:paddingStart="8dp"
                             android:text="Brain Waste Clearance"
-                            android:textColor="#000"
+                            android:textColor="@color/themeTextColorBW"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 

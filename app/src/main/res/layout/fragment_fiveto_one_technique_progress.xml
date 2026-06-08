@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA">
+    android:background="@color/dashbg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +16,10 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            app:cardBackgroundColor="#EEF4FA"
+            app:cardBackgroundColor="@color/groundingcon"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp"
-            app:strokeColor="#D7E4F3"
+            app:strokeColor="@color/groundingcon"
             app:strokeWidth="1dp">
 
             <RelativeLayout
@@ -47,7 +47,7 @@
                     android:layout_below="@id/imgStar"
                     android:layout_marginTop="10dp"
                     android:text="5-4-3-2-1 Technique"
-                    android:textColor="#1F2937"
+                    android:textColor="@color/themeTextColorBW"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -57,7 +57,8 @@
                     android:layout_below="@id/txtTitle"
                     android:layout_marginTop="6dp"
                     android:text="Ground yourself using your five senses"
-                    android:textColor="#6B7280"
+
+                    android:textColor="@color/textdarkgrey"
                     android:textSize="13sp" />
 
             </RelativeLayout>
@@ -70,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/contbg"
             app:cardCornerRadius="18dp"
 
             app:strokeColor="#D9D9D9"
@@ -100,7 +101,8 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="Find 5 things you can SEE around you"
-                    android:textColor="#374151"
+
+                    android:textColor="@color/themeTextColorBW"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -110,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="#F3F4F6"
+                    android:background="@color/contbg"
                     android:orientation="vertical"
                     android:padding="16dp">
 
@@ -118,7 +120,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="✦ Observe your surroundings"
-                        android:textColor="#1E2939"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -145,7 +148,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Progress"
-                        android:textColor="#4A5565"
+
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="14sp" />
 
                     <TextView
@@ -183,11 +187,11 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="  Reset"
-                        android:textColor="#364153"
-                        android:backgroundTint="#F3F4F6"
+                        android:textColor="@color/themeTextColorBW"
+                        android:backgroundTint="@color/dashbg"
                         app:cornerRadius="12dp"
                         app:icon="@drawable/reset"
-                        app:iconTint="#364153"
+                        app:iconTint="@color/themeTextColorBW"
                         app:iconGravity="textStart"
                         app:iconPadding="2dp" />
 

@@ -7,13 +7,13 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
     android:layout_margin="8.dp"
-    android:backgroundTint="@color/dashboardIconBg">
+    android:backgroundTint="@color/contbg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/contbg"
         android:padding="16dp">
 
         <!-- Title -->
@@ -24,7 +24,7 @@
             android:text="Vital Name"
             android:textStyle="bold"
             android:textSize="12sp"
-            android:textColor="#828691" />
+            android:textColor="@color/themeTextColorBW" />
 
         <!-- Value OR BP -->
         <LinearLayout

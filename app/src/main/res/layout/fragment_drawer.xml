@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="@color/white"
+        android:background="@color/dashboardContainerBg"
 
       >
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-             android:background="@color/white"
+             android:background="@color/dashboardContainerBg"
             android:padding="5dp">
 
             <!-- Profile Card -->
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:backgroundTint="#F7F9FB"
+                android:backgroundTint="@color/dashboardContainerBg"
                 app:cardElevation="1dp"
 
                 android:background="@drawable/profile_card_bg"
@@ -173,7 +173,7 @@
                             android:layout_marginStart="-10dp"
                             android:gravity="center"
                             android:text="0"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/themeTextColorBW"
                             android:textStyle="bold"
                             android:textSize="16sp"
                             android:background="@drawable/bg_score_pill"/>
@@ -190,7 +190,7 @@
                     android:textSize="18sp"
                     android:id="@+id/userName"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/themeTextColorBW"
                     android:textStyle="bold"
                     android:layout_marginBottom="4dp" />
 
@@ -200,7 +200,7 @@
                     android:text="+91 9876543210"
                     android:textSize="14sp"
                     android:id="@+id/userUhid"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/themeTextColorBW"
                     android:layout_marginBottom="12dp" />
 
                 <Button
@@ -211,7 +211,7 @@
                     android:text="Edit Profile"
                     android:visibility="gone"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/themeTextColorBW" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="230"
-                                android:textColor="#000000"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textStyle="bold"
                                 android:textSize="14sp"/>
 
@@ -255,7 +255,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Gems"
-                                android:textColor="#8A8A8A"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="10sp"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -286,7 +286,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="15"
-                                android:textColor="#000000"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textStyle="bold"
                                 android:textSize="14sp"/>
 
@@ -294,7 +294,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Challenges"
-                                android:textColor="#8A8A8A"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="10sp"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -312,7 +312,7 @@
                 android:textColor="@color/textColor"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/dashboardContainerBg"
                 android:background="@drawable/section_bg"
                 >
 
@@ -334,7 +334,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/dashboardContainerBg"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/section_bg"
                 >
@@ -377,7 +377,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/dashboardContainerBg"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/section_bg"
                 >

@@ -9,8 +9,8 @@
 
     <gradient
         android:angle="0"
-        android:startColor="#4F8DFD"
-        android:centerColor="#5B8CFF"
-        android:endColor="#6A7CFF" />
+        android:startColor="@color/feelingBoxColor1"
+        android:centerColor="@color/feelingBoxColor1"
+        android:endColor="@color/feelingBoxColor1" />
 
 </shape>
