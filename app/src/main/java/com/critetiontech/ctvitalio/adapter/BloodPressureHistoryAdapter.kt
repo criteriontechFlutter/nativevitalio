@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Visibility
 import com.critetiontech.ctvitalio.databinding.BloodPressureLogItemBinding
 import com.critetiontech.ctvitalio.model.BloodPressureReading
+import androidx.core.graphics.toColorInt
 
 class BPReadingAdapter(
     private val readings: List<BloodPressureReading>
@@ -41,8 +42,8 @@ class BPReadingAdapter(
             holder.binding.bpValue.setTextColor(
                 when {
                     item.sys < 90 || item.dia < 60 -> Color.RED
-                    item.sys > 140 || item.dia > 90 -> Color.parseColor("#FFA500")
-                    else -> Color.parseColor("#2D5BE3")
+                    item.sys > 140 || item.dia > 90 -> "#FFA500".toColorInt()
+                    else -> "#2D5BE3".toColorInt()
                 }
             )
 

@@ -31,9 +31,8 @@ object LoggingManager {
 
         logQueue.add(json)
 
-//        if (logQueue.size > 50) {
             flushLogs(MyApplication.appContext)
-//        }
+
     }
 
     fun getAppVersion(context: Context): String {

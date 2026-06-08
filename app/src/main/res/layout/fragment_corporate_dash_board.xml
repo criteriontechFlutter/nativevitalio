@@ -4,8 +4,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motionLayout"
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:background="@color/primaryBlueLight">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBlue">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_header_bottom"
@@ -200,7 +201,6 @@
             android:id="@+id/moodLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:paddingTop="10dp"
             app:layoutDescription="@xml/fragment_corporate_dash_board_xml_moodlayout_scene"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -229,6 +229,7 @@
                     android:text="@string/how_are_you_feeling_now"
                     android:textAlignment="center"
                     android:layout_marginTop="14dp"
+                    android:paddingTop="10dp"
                     android:textColor="@color/white"
                     android:textSize="28sp"
                     android:textStyle="bold"
@@ -302,6 +303,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_content_white"
                     android:elevation="8dp"
+                    android:backgroundTint="@color/dashboardContainerBg"
                     android:fillViewport="true"
                      android:paddingLeft="16dp"
                     android:paddingRight="16dp"
@@ -1012,7 +1014,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_corners"
-
                             android:orientation="vertical"
                             android:paddingBottom="100dp">
 
@@ -1135,9 +1136,10 @@
                                             android:id="@+id/energyTitle"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
+
                                             android:text="@string/your_energy_story_awaits"
                                             android:textColor="@color/themeTextColorBW"
-                                            android:textSize="16sp"
+                                            android:textSize="18sp"
                                             android:textStyle="bold" />
 
                                         <TextView
@@ -1412,7 +1414,7 @@
                                 android:id="@+id/dailyCheckListCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/bg_progress_track"
+                                android:background="@drawable/dashboard_rounded_corner"
                                 android:backgroundTint="#FFFFFF"
                                 android:clickable="true"
                                 android:focusable="true"
@@ -1422,7 +1424,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/rounded_corners"
+                                    android:background="@drawable/dashboard_rounded_corner"
                                     android:orientation="vertical"
                                     android:padding="12dp">
 
@@ -1972,7 +1974,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/rounded_corners"
+                                    android:background="@drawable/dashboard_rounded_corner"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -1982,7 +1984,6 @@
                                         android:gravity="center_horizontal|center_vertical"
                                         android:orientation="vertical"
                                         android:padding="12dp"
-
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -2018,8 +2019,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/rounded_corners"
-                                    android:padding="10dp">
+                                    android:background="@drawable/dashboard_rounded_corner"                                    android:padding="10dp">
 
                                     <LinearLayout
                                         android:layout_width="185dp"
@@ -2073,7 +2073,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/rounded_corners"
+                                    android:background="@drawable/dashboard_rounded_corner"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -2117,7 +2117,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="6dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/rounded_corners"
+                                    android:background="@drawable/dashboard_rounded_corner"
                                     android:padding="10dp">
 
                                     <LinearLayout

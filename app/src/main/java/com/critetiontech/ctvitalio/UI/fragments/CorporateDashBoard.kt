@@ -574,6 +574,14 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
 
             if (energy == null) {
                 binding.energyTitle.text = "Your energy story awaits"
+
+                val typeface = ResourcesCompat.getFont(
+                    requireContext(),
+                    R.font.source_serif_pro
+                )
+
+                binding.energyTitle.setTypeface(typeface, Typeface.BOLD_ITALIC)
+                binding.energyTitle.typeface = typeface
                 binding.energySubtitle.text = "Log your energy for today ⚡"
                 binding.energyImage.setImageResource(R.drawable.emtyp_energy)
                 binding.energyid.setBackgroundResource(R.drawable.rounded_card_bg)

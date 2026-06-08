@@ -31,17 +31,7 @@ class otp : AppCompatActivity() {
         binding=  ActivityOtpBinding.inflate(layoutInflater)
        setContentView(binding.root)
 
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-
-//
-
-
         viewModel = ViewModelProvider(this)[OtpViewModal::class.java]
-
         viewModel.loading.observe(this) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }

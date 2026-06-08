@@ -131,7 +131,8 @@
     <color name="primaryPurple">#6A1B9A</color>
     <color name="primaryPurpleDark">#4A0072</color>
     <color name="dashboardBg">@color/white</color>
-    <color name="dashboardContainerBg">@color/primaryBlueLight</color>
+    <color name="dashboardContainerBg">#F9F9F9</color>
+    <color name="dashboardContainerBg2">#F9F9F9</color>
 
 
 

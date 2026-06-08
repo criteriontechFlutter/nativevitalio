@@ -165,9 +165,6 @@ object RetrofitInstance {
             headers.forEach { (key, value) ->
                 addHeader(key, value)
             }
-//            if (!headers.containsKey("Content-Type")) {
-//                addHeader("Content-Type", "application/json")
-//            }
         }.build()
         chain.proceed(request)
     }

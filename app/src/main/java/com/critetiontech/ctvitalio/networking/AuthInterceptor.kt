@@ -9,8 +9,6 @@ class AuthInterceptor : Interceptor {
 
         val request = chain.request().newBuilder().apply {
             addHeader("Content-Type", "application/json")
-//            patient?.let { addHeader("x-access-token", it) }
-//            patient?.id?.let { addHeader("userID", it.toString()) }
         }.build()
 
         return chain.proceed(request)

@@ -27,19 +27,6 @@ class WaterLayout : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
- //        binding.waterRing.setWaterLevelMl(1500, 3000) // sets to 50%
-//        binding.waterRing.setWaterLevelMl(1500, 3000) // animates to 50%
-//
-//// tweak visuals to match the video:
-//        binding.waterRing.setColors(Color.parseColor("#D1F4FF"), Color.parseColor("#2DA6FF"))
-//        binding.waterRing.setWaveAmplitude(0.02f, 0.05f)   // back, front amplitude fractions
-//        binding.waterRing.setWavelengthFactor(1.8f)
-//        binding.waterRing.setPhaseDuration(1500L)
-//        binding.waterRing.setRingThicknessDp(10f)
-//        binding.waterRing.setPercentTextSp(26f)
-//
-//// stop wave if you want
-//        binding.waterRing.setWaveRunning(true)
     }
 
 
