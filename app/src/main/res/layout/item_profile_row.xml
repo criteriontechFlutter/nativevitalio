@@ -13,7 +13,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
 
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/dashboardBg"
             android:background="@drawable/rounded_corners"
             android:paddingHorizontal="12dp"
           >

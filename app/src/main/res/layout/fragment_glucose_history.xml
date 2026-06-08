@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:paddingStart="16dp"
                     android:text="Glucose History"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/themeTextColorBW"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="@color/dashboardBg"
                 android:padding="16dp">
                 <!-- Stress Score Card -->
 
@@ -141,7 +141,7 @@
                                         android:text="87"
                                         android:textSize="22sp"
                                         android:textStyle="bold"
-                                        android:textColor="#000"/>
+                                        android:textColor="@color/themeTextColorBW"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                                         android:text="125"
                                         android:textSize="18sp"
                                         android:textStyle="bold"
-                                        android:textColor="#000"/>
+                                        android:textColor="@color/themeTextColorBW"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -266,15 +266,16 @@
                     android:text="Today’s Log"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"/>
+                    android:textColor="@color/themeTextColorBW"
+                    android:layout_marginTop="16dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerTodayLog"
                     android:layout_width="match_parent"
     android:background="@drawable/rounded_corners"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"/> <LinearLayout
+                    android:padding="16dp"/>
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -290,8 +291,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Glucose Trend"
-                        android:textColor="#222"
-                        android:textSize="20sp"
+                        android:textColor="@color/themeTextColorBW"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -310,6 +311,7 @@
                 <com.critetiontech.ctvitalio.utils.GlucoseTrendGraphView
                     android:id="@+id/glucoseGraph"
                     android:layout_width="match_parent"
+                    android:background="@drawable/rounded_corners"
                     android:layout_height="200dp"/>
             <!-- Top Row -->
                 <LinearLayout

@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -171,7 +172,7 @@ class AddMedicineReminderFragment : Fragment() {
         weekViews.forEach {
             it.isSelected = false
             it.setBackgroundResource(R.drawable.bg_day_unselected)
-            it.setTextColor(Color.BLACK)
+            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.themeTextColorBW))
         }
 
         // reset time slot view → keep only one default

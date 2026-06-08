@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F6F8">
+    android:background="@color/dashbg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Mindfulness"
+                android:textColor="@color/themeTextColorBW"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_marginStart="8dp" />
 
@@ -45,7 +46,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#DFF0FF"
+            app:cardBackgroundColor="@color/contbg"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp">
 
@@ -81,7 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Your Progress"
-                            android:textColor="#222222"
+                            android:textColor="@color/themeTextColorBW"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -89,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="42 activities completed"
-                            android:textColor="#666666"
+                            android:textColor="@color/textdarkgrey"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -116,7 +117,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="7"
-                                android:textColor="#222222"
+                                android:textColor="@color/themeTextColorBW"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -124,7 +125,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="day streak"
-                                android:textColor="#666666"
+                                android:textColor="@color/textdarkgrey"
                                 android:textSize="11sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -176,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    android:background="@color/dashbg"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp">
 
@@ -190,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="✧ Today's Recommendation"
-                            android:textColor="#333333"
+                            android:textColor="@color/themeTextColorBW"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
@@ -200,7 +201,8 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="2dp"
                             android:text="Start with a grounding exercise to center yourself and reduce stress"
-                            android:textColor="#666666"
+
+                            android:textColor="@color/textdarkgrey"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -216,7 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="◎ Activities"
-            android:textColor="#222222"
+            android:textColor="@color/themeTextColorBW"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -226,7 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Grounding Exercises"
-            android:textColor="#222222"
+            android:textColor="@color/themeTextColorBW"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -236,7 +238,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/contbg"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp">
 
@@ -265,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5-4-3-2-1 Technique"
-                        android:textColor="#222222"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -274,7 +276,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="Stay present and calm  •  5 mins"
-                        android:textColor="#777777"
+
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="13sp" />
 
                     <TextView
@@ -282,7 +285,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Ground yourself using your five senses"
-                        android:textColor="#999999"
+
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -297,7 +301,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/contbg"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp">
 
@@ -325,7 +329,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Color Scavenger Hunt"
-                        android:textColor="#222222"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -334,7 +338,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="Reduce Stress •  5 mins"
-                        android:textColor="#777777"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="13sp" />
 
                     <TextView
@@ -342,7 +347,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Practice mindfulness by finding colors in your envirment"
-                        android:textColor="#999999"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -356,7 +362,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="BINGO Challenge"
-            android:textColor="#222222"
+            android:textColor="@color/themeTextColorBW"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -366,7 +372,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/contbg"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp">
 
@@ -395,7 +401,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3x3 BINGO Card"
-                        android:textColor="#222222"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -404,7 +410,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="Stay present and calm  •  5 mins"
-                        android:textColor="#777777"
+
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="13sp" />
 
                     <TextView
@@ -412,7 +419,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Complete minfulness tasks"
-                        android:textColor="#999999"
+
+                        android:textColor="@color/textdarkgrey"
                         android:textSize="12sp" />
                 </LinearLayout>
 

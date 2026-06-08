@@ -2294,7 +2294,6 @@ private fun updateProgress(unit: String) {
             )
             binding.contentScroll.setRenderEffect(blurEffect)
         }
-
         binding.blurOverlay.isVisible = true
         binding.popupContainer.isVisible = true
 

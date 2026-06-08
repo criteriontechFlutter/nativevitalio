@@ -145,4 +145,30 @@
 
 
 
+    <color name="feelingBoxColor1">#0079FF</color>
+
+    <color name="feelingBoxColor">#0056B3</color>
+
+
+
+    <color name="dashbg">#F9F9F9</color>
+
+    <color name="contbg">#FFFFFF</color>
+
+    <color name="groundingcon">#D7E4F3</color>
+    <color name="contuperbg">#303D4B</color>
+
+
+    <color name="textgrey">#BABFC9</color>
+
+    <color name="blebg">#DFF0FF</color>
+
+    <color name="movementIndex">#FFECD8</color>
+
+    <color name="stressRhythm">#ECF7FF</color>
+    <color name="sleepcolor">#E8FDF5</color>
+    <color name="dynamicRecovery">#FFF5EB</color>
+    <color name="brainWasteClearance">#E8F9F1</color>
+
+    <color name="textdarkgrey">#1A1A2E</color>
 </resources>

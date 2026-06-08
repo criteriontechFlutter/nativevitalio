@@ -14,8 +14,8 @@
                 android:type="linear"
                 android:angle="90"
                 android:endColor="#00FFFFFF"
-               android:centerColor="#BFFFFFFF"
-                android:startColor="#FFFFFF"
+               android:centerColor="@color/contbg"
+                android:startColor="@color/contbg"
                 />
         </shape>
     </item>

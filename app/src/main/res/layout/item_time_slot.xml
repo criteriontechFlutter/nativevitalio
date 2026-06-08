@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Select Time"
         android:textSize="15sp"
-        android:textColor="#222222"
+        android:textColor="@color/themeTextColorBW"
         android:layout_marginStart="10dp"
         android:layout_weight="1"/>
 

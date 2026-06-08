@@ -42,7 +42,7 @@
                     android:layout_weight="1"
                     android:paddingStart="16dp"
                     android:text="Blood Pressure History"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/themeTextColorBW"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/dashboardBg"
         android:padding="16dp">
         <!-- Stress Score Card -->
         <LinearLayout
@@ -133,7 +133,7 @@
                         android:text="120/80"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        android:textColor="#222222" />
+                        android:textColor="@color/themeTextColorBW" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -184,7 +184,7 @@
                     <TextView
                         android:text="118-120 mmHg"
                         android:textSize="14sp"
-                        android:textColor="#222"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -208,7 +208,7 @@
                     <TextView
                         android:text="80-82 mmHg"
                         android:textSize="14sp"
-                        android:textColor="#222"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -222,6 +222,7 @@
             android:text="Today’s Log"
             android:textStyle="bold"
             android:textSize="16sp"
+            android:textColor="@color/themeTextColorBW"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"/>
 

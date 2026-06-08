@@ -3,18 +3,13 @@
     android:shape="rectangle">
 
     <!-- Gradient background -->
-    <gradient
-        android:startColor="#FFF8F2"
-        android:endColor="#FFECD8"
-        android:angle="270" /> <!-- top to bottom -->
+
+    <solid android:color="@color/movementIndex" />
 
     <!-- Rounded corners -->
     <corners android:radius="16dp" />
 
     <!-- Optional subtle border (optional aesthetic) -->
-    <stroke
-        android:width="0.5dp"
-        android:color="#FFE6D2" />
 
     <!-- Optional soft inner padding (shadow look) -->
     <padding

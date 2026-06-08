@@ -22,7 +22,6 @@ import com.critetiontech.ctvitalio.utils.ColorDetector
 import com.google.android.material.chip.Chip
 import java.io.File
 import org.opencv.android.OpenCVLoader
-
 class ScavengerHuntProgress : Fragment() {
 
     private var _binding: FragmentScavengerHuntProgressBinding? = null

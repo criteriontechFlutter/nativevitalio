@@ -3,18 +3,14 @@
     android:shape="rectangle">
 
     <!-- Gradient background -->
-    <gradient
-        android:startColor="#ECF7FF"
-        android:endColor="#ECF7FF"
-        android:angle="270" /> <!-- top to bottom -->
+
+    <solid android:color="@color/stressRhythm" />
 
     <!-- Rounded corners -->
     <corners android:radius="24dp" />
 
     <!-- Optional subtle border (optional aesthetic) -->
-    <stroke
-        android:width="0.5dp"
-        android:color="#FFE6D2" />
+
 
     <!-- Optional soft inner padding (shadow look) -->
     <padding

@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentSetGoalBinding
 import com.critetiontech.ctvitalio.model.UnitConfig
@@ -42,7 +43,10 @@ class SetGoal : Fragment() {
 
         binding.unitLabel.text=arguments?.getString("unit")
 
+        binding.wellnessImageArrow.setOnClickListener {
 
+            findNavController().popBackStack()
+        }
 
 
 

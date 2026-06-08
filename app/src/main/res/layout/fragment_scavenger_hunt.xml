@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F4F6">
+    android:background="@color/dashbg">
 
     <!-- Toolbar -->
     <LinearLayout
@@ -77,7 +77,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="Color Scavenger Hunt "
-                android:textColor="#202529"
+                android:textColor="@color/themeTextColorBW"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -89,7 +89,8 @@
                 android:gravity="center"
                 android:lineSpacingExtra="2dp"
                 android:text="Color Scavenger Hunt is a fun, interactive mindfulness activity where users are asked to find and notice objects of a specific color in their surroundings. It gently shifts attention away from stress and into the present moment by engaging the sense."
-                android:textColor="#5F6471"
+
+                android:textColor="@color/textdarkgrey"
                 android:textSize="16sp"
                 android:textStyle="italic" />
 
@@ -132,7 +133,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Strengthens Eye Muscles"
-                        android:textColor="#222222"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -153,7 +155,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Enhances Focus &amp; Concentration"
-                        android:textColor="#222222"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -174,7 +177,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Improves Coordination"
-                        android:textColor="#222222"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -195,7 +199,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Reduces Digital Eye Strain"
-                        android:textColor="#222222"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -216,7 +221,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Promotes Mindfulness"
-                        android:textColor="#222222"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -236,7 +242,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Supports Cognitive Function"
-                        android:textColor="#222222"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="15sp" />
                 </LinearLayout>
 

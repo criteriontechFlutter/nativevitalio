@@ -6,13 +6,16 @@
     android:id="@+id/mainId"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="0dp"
-    android:background="@drawable/rounded_corners">
+
+    card_view:cardBackgroundColor="@color/contbg"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/contbg"
         android:orientation="vertical">
 
         <!-- HEADER -->
@@ -36,7 +39,7 @@
                 android:text="Hydration due - last drink 0 hrs ago."
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#000000" />
+                android:textColor="@color/themeTextColorBW" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -53,7 +56,7 @@
             android:layout_marginTop="4dp"
             android:text=" 0 ml consumed — 2100 ml to go"
             android:textSize="12sp"
-            android:textColor="#808C9A" />
+            android:textColor="@color/textgrey" />
 
 
         <!-- CONTROLLER ROW -->
@@ -94,7 +97,7 @@
                     android:text="200 ml"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    android:textColor="@color/primaryBlue" />
+                    android:textColor="#007BFF" />
 
                 <!-- PLUS BUTTON -->
                 <ImageButton
@@ -117,8 +120,8 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="16dp"
-                android:backgroundTint="@color/primaryBlue"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/rounded_card_bg"
+                android:backgroundTint="#007BFF"
                 android:layout_marginStart="12dp">
 
                 <ImageView
