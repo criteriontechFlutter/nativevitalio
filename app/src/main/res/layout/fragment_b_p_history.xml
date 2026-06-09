@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="@drawable/bg_sleep_card"
+            android:background="@drawable/container_gradient"
             android:clipToOutline="true">
 
             <TextView
@@ -240,7 +240,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:textSize="18sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/themeTextColorBW"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -264,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="09-15 September (7 days records)"
-                android:textColor="#666"
+                android:textColor="@color/textgrey"
                 android:textSize="13sp"
                 android:visibility="invisible" />
 
@@ -275,14 +275,14 @@
                 android:text="00/00 mmHg"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="#222"/>
+                android:textColor="@color/themeTextColorBW"/>
         </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="7 Days Average"
-                android:textColor="#888"
+                android:textColor="@color/textgrey"
                 android:textSize="12sp"
                 android:visibility="invisible" />
     </LinearLayout>

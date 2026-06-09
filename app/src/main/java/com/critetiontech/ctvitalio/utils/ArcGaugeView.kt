@@ -7,6 +7,8 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import androidx.core.content.ContextCompat
+import com.critetiontech.ctvitalio.R
 import kotlin.math.min
 
 class ArcGaugeView @JvmOverloads constructor(
@@ -36,7 +38,7 @@ class ArcGaugeView @JvmOverloads constructor(
     }
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#222222")
+        color =  ContextCompat.getColor(context, R.color.themeTextColorBW)
         textSize = 110f
         textAlign = Paint.Align.CENTER
         typeface = Typeface.DEFAULT_BOLD

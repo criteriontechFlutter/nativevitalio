@@ -7,7 +7,9 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
+import com.critetiontech.ctvitalio.R
 import kotlin.math.min
 
 
@@ -56,8 +58,8 @@ class WaterRingWaveView @JvmOverloads constructor(
         outerWavePaint.style = Paint.Style.FILL
         outerWavePaint.color = "#40A5C8FF".toColorInt()
 
-        textPaint.color = "#1A1A1A".toColorInt()
-        textPaint.textSize = sp(26f)
+        textPaint.color = ContextCompat.getColor(context, R.color.themeTextColorBW)
+        textPaint.textSize = 110f
         textPaint.textAlign = Paint.Align.CENTER
         textPaint.typeface = Typeface.DEFAULT_BOLD
 

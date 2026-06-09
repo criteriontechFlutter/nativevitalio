@@ -56,7 +56,9 @@ class AddMedicineReminderFragment : Fragment() {
 
         // Default first slot
         addTimeSlotView("08:00")
-
+        binding.spFrequency.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), R.color.contbg)
+        )
         binding.btnAddSlot.setOnClickListener { addTimeSlotView("08:00") }
 
         binding.backButton.setOnClickListener {

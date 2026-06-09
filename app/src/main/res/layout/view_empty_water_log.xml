@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/contbg"
     android:padding="32dp">
 
     <!-- Illustration -->
@@ -23,7 +23,7 @@
         android:text="No Water Log Yet"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#222222"
+        android:textColor="@color/themeTextColorBW"
         android:layout_marginBottom="8dp" />
 
     <!-- Description -->
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Log your water to monitor your daily hydration progress."
         android:textSize="14sp"
-        android:textColor="#6E6E6E"
+        android:textColor="@color/textdarkgrey"
         android:gravity="center"
         android:layout_marginTop="4dp" />
 
