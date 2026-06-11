@@ -67,7 +67,7 @@ public class BloodPressureDataListingActivity extends BaseActivity implements Lo
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new AsyncTaskLoader<Cursor>(BloodPressureDataListingActivity.this) {
+        return new AsyncTaskLoader<>(BloodPressureDataListingActivity.this) {
 
             private Cursor mTaskData = null;
 

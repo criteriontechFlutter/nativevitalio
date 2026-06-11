@@ -29,9 +29,11 @@ class GymOfferBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.txtRemindLater.setOnClickListener {
-//            dismiss()
-//        }
+        /*
+        binding.txtRemindLater.setOnClickListener {
+        dismiss()
+        }
+        */
 
         binding.imgClose.setOnClickListener {
             dismiss()
@@ -44,12 +46,12 @@ class GymOfferBottomSheet : BottomSheetDialogFragment() {
             dismiss()
             findNavController().navigate(R.id.action_dashboard_to_gymListFragment)
         }
-//        binding.btnJoinGym.setOnClickListener {
-//
-//            Toast.makeText(requireContext(),"Opening Gym List",Toast.LENGTH_SHORT).show()
-//
-//            dismiss()
-//        }
+        // binding.btnJoinGym.setOnClickListener {
+        //
+        // Toast.makeText(requireContext(),"Opening Gym List",Toast.LENGTH_SHORT).show()
+        //
+        // dismiss()
+        // }
     }
 
     override fun onDestroyView() {
