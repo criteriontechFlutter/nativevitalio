@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F9FB"
+    android:background="@color/dashbg"
     android:orientation="vertical" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:elevation="5dp"
-        android:background="@color/primaryBlueLight"
+        android:background="@color/dashbg"
         android:orientation="vertical">
 
         <!-- Header: Arrow + Text -->
@@ -37,7 +37,7 @@
                 android:text="Dynamic Rcovery"
                 android:textSize="18sp"
                 android:paddingStart="16dp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/themeTextColorBW" />
 
         </LinearLayout>
 
@@ -50,6 +50,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dashbg"
     tools:context=".UI.fragments.DynamicRecovery">
 
     <LinearLayout
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="@drawable/bg_sleep_card"
+            android:background="@drawable/container_gradient"
             android:clipToOutline="true">
 
             <LinearLayout
@@ -114,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="Contributors"
-                android:textColor="@android:color/black"
+                android:textColor="@color/themeTextColorBW"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

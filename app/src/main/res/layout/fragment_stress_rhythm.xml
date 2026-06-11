@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F9FB"
+    android:background="@color/dashbg"
     android:orientation="vertical" >
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:text="Stress Rhythm"
                 android:textSize="18sp"
                 android:paddingStart="16dp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/themeTextColorBW" />
 
         </LinearLayout>
 
@@ -56,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/dashbg"
         android:padding="16dp">
 
         <!-- Sleep Chart Card -->
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="@drawable/bg_sleep_card"
+            android:background="@drawable/container_gradient"
             android:clipToOutline="true">
 
             <LinearLayout

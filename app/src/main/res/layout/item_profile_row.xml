@@ -13,7 +13,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
 
-            android:backgroundTint="@color/dashboardBg"
+            android:backgroundTint="@color/contbg"
             android:background="@drawable/rounded_corners"
             android:paddingHorizontal="12dp"
           >
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="14sp"
-                android:textColor="@color/textColor" />
+                android:textColor="@color/themeTextColorBW" />
 
             <ImageView
                 android:layout_width="14dp"

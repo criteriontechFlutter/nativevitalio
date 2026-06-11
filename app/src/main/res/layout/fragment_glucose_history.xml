@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    android:background="@drawable/bg_sleep_card"
+                    android:background="@drawable/container_gradient"
                     android:clipToOutline="true">
 
                     <TextView

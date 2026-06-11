@@ -2049,7 +2049,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="10dp"
                                             android:text="Mindfulness"
-                                            android:textColor="@color/blackText"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:textSize="18sp"
                                             android:textStyle="bold" />
 
@@ -2104,7 +2104,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="10dp"
                                             android:text="Progress"
-                                            android:textColor="@color/blackText"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:textSize="18sp"
                                             android:textStyle="bold" />
 
@@ -2148,7 +2148,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="10dp"
                                             android:text="Learn"
-                                            android:textColor="@color/blackText"
+                                            android:textColor="@color/themeTextColorBW"
                                             android:textSize="18sp"
                                             android:textStyle="bold" />
 

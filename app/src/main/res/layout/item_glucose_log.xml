@@ -16,8 +16,9 @@
             android:layout_height="wrap_content"
             android:text="125 mg/dL"
             android:textSize="18sp"
+
             android:textStyle="bold"
-            android:textColor="#000"/>
+            android:textColor="@color/themeTextColorBW"/>
 
         <!-- Bottom Row -->
         <LinearLayout
@@ -47,7 +48,7 @@
                     android:layout_marginStart="6dp"
                     android:text="08:00 AM"
                     android:textSize="13sp"
-                    android:textColor="#666"/>
+                    android:textColor="@color/textgrey"/>
             </LinearLayout>
 
             <!-- Meal Type -->
@@ -69,7 +70,7 @@
                     android:layout_marginStart="6dp"
                     android:text="Fasting"
                     android:textSize="13sp"
-                    android:textColor="#666"/>
+                    android:textColor="@color/textgrey"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -79,5 +80,5 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="#E0E0E0"/>
+            android:background="@color/textgrey"/>
     </LinearLayout>

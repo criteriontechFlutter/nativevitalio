@@ -11,6 +11,8 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.core.content.ContextCompat
+import com.critetiontech.ctvitalio.R
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
@@ -39,7 +41,7 @@ class ArcProgressView @JvmOverloads constructor(
     }
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#222222")
+        color = ContextCompat.getColor(context, R.color.themeTextColorBW)
         textSize = 110f
         textAlign = Paint.Align.CENTER
         typeface = Typeface.DEFAULT_BOLD

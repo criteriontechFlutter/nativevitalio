@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    android:background="@color/dashboardContainerBg"
+    android:background="@color/dashbg"
     android:fillViewport="true"
     android:windowSoftInputMode="adjustPan"
     android:isScrollContainer="true"
@@ -39,7 +39,7 @@
                 android:text="Edit Profile"
                 android:textStyle="normal"
                 android:textSize="18sp"
-                android:textColor="@color/textColor" />
+                android:textColor="@color/themeTextColorBW" />
 
             <!-- Update Profile Button -->
             <LinearLayout
@@ -90,7 +90,7 @@
                 android:hint="Enter First Name"
                 android:paddingHorizontal="16dp"
                 android:text="Abhay"
-                android:textColor="@color/textColor"
+                android:textColor="@color/themeTextColorBW"
                 android:textSize="14sp"/>
 
             <!-- Last Name -->
@@ -110,7 +110,7 @@
                 android:hint="Enter Last Name"
                 android:paddingHorizontal="16dp"
                 android:text="Sharma"
-                android:textColor="@color/textColor"
+                android:textColor="@color/themeTextColorBW"
 
                 android:textSize="14sp"/>
 
@@ -140,7 +140,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:gravity="center_vertical"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/themeTextColorBW"
 
                     android:textSize="14sp" />
 
@@ -213,7 +213,7 @@
                 android:hint="Enter No"
                 android:paddingHorizontal="16dp"
                 android:text="Sharma"
-                android:textColor="@color/textColor"
+                android:textColor="@color/themeTextColorBW"
 
                 android:textSize="14sp"/>
 
@@ -233,7 +233,7 @@
                 android:hint="Enter Email"
                 android:paddingHorizontal="16dp"
                 android:text=""
-                android:textColor="@color/textColor"
+                android:textColor="@color/themeTextColorBW"
 
                 android:textSize="14sp"/>
 
@@ -262,7 +262,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/rounded_corners"
-                android:backgroundTint="@color/dashboardBg"
+                android:backgroundTint="@color/contbg"
                 android:drawablePadding="8dp"
                 android:textAlignment="textStart"
                 android:hint="Select Chronic Diseases"
@@ -303,7 +303,7 @@
                 android:hint="Enter Address"
                 android:paddingHorizontal="16dp"
                 android:text="123 Street Name"
-                android:textColor="@color/textColor"
+                android:textColor="@color/themeTextColorBW"
 
                 android:textSize="14sp"/>
 
@@ -338,7 +338,7 @@
                         android:hint="Enter Zip"
                         android:paddingHorizontal="16dp"
                         android:text="123456"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/themeTextColorBW"
 
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -486,7 +486,7 @@
                 android:hint="Enter Height"
                 android:paddingHorizontal="16dp"
                 android:textSize="14sp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/themeTextColorBW"
                  />
 
             <!-- Blood Group -->
@@ -507,7 +507,7 @@
                 android:drawablePadding="10dp"
                 android:textSize="14sp"
                 android:focusable="false"
-                android:backgroundTint="@color/dashboardBg"
+                android:backgroundTint="@color/contbg"
                 android:hint="Select Blood Group"
                 android:inputType="none"
                 android:paddingHorizontal="16dp" />

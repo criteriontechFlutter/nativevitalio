@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sleepChartContainer"
     android:layout_width="match_parent"
-    android:background="#F7F9FB"
+    android:background="@color/dashbg"
     android:layout_height="match_parent"
     android:scrollbars="none"
    >
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:text="Contributors"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/themeTextColorBW"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -187,13 +187,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sleep_stages"
-                android:textColor="@android:color/white"
+                android:textColor="@color/themeTextColorBW"
                 android:textSize="16sp"
                 android:alpha="0.8" />
                <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/sleepChartFragment"
                 android:name="com.critetiontech.ctvitalio.UI.fragments.SleepGraphFragment"
                 android:layout_width="match_parent"
+                   android:background="@color/contbg"
                 android:layout_height="wrap_content" />
             <!-- Header -->
 
@@ -386,14 +387,14 @@
             <TextView
                 android:text="Heart Rate "
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                android:textColor="@color/themeTextColorBW"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
                 android:id="@+id/heartRateGraph"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@android:color/white"
+                android:background="@color/contbg"
                 android:elevation="4dp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -440,7 +441,7 @@
                         android:text=" "
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:textColor="#333333"
+                        android:textColor="@color/themeTextColorBW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -565,7 +566,7 @@
                 android:id="@+id/heartRateVariablityGraph"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                 android:background="@android:color/white"
+                 android:background="@color/contbg"
                 android:elevation="4dp" />
         </LinearLayout>
         <androidx.cardview.widget.CardView
@@ -649,7 +650,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#FFF5F5">
+                app:cardBackgroundColor="@color/contbg">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -711,7 +712,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tosses and turns during sleep"
-                        android:textColor="#333333"
+
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_alignParentStart="true"/>
@@ -834,7 +836,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/average_oxygen_saturation"
-                        android:textColor="#333333"
+                        android:textColor="@color/themeTextColorBW"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_alignParentStart="true"/>
@@ -866,7 +868,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Oxygen Saturation"
-                            android:textColor="#999999"
+
+                            android:textColor="@color/textgrey"
                             android:textSize="12sp"
                             android:layout_marginBottom="4dp"/>
 
@@ -875,7 +878,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="86%"
-                            android:textColor="#333333"
+                            android:textColor="@color/themeTextColorBW"
                             android:textSize="32sp"
                             android:textStyle="bold"/>
                     </LinearLayout>
@@ -908,20 +911,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:padding="@dimen/_16sdp"
-        android:background="#F7F9FB"
+        android:background="@color/contbg"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
             android:text="Skin Temprature"
             android:textSize="14sp"
-            android:textColor="#666"
+            android:textColor="@color/themeTextColorBW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
             android:id="@+id/skinTempId"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@android:color/white"
+            android:background="@color/dashbg"
             android:elevation="4dp" />
     </LinearLayout>
     </LinearLayout>
