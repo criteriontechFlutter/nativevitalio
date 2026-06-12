@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="54dp"
+    android:height="54dp"
+    android:viewportWidth="54"
+    android:viewportHeight="54">
+    <!-- Background rounded square -->
+    <path
+        android:pathData="M10,4h34A6,6 0,0 1,50 10L50,44A6,6 0,0 1,44 50L10,50A6,6 0,0 1,4 44L4,10A6,6 0,0 1,10 4z"
+        android:fillColor="#FFF3E0"/>
+    <!-- Color blobs -->
+    <path android:pathData="M27,27m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0" android:fillColor="#FFB300"/>
+    <path android:pathData="M27,13A14,14 0,0 1,41 27L27,27Z" android:fillColor="#F44336"/>
+    <path android:pathData="M41,27A14,14 0,0 1,27 41L27,27Z" android:fillColor="#4CAF50"/>
+    <path android:pathData="M27,41A14,14 0,0 1,13 27L27,27Z" android:fillColor="#2196F3"/>
+    <path android:pathData="M13,27A14,14 0,0 1,27 13L27,27Z" android:fillColor="#9C27B0"/>
+    <!-- Center white circle -->
+    <path android:pathData="M27,27m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" android:fillColor="#FFFFFF"/>
+</vector>
