@@ -142,14 +142,7 @@ class WaveView @JvmOverloads constructor(
         paintBack.color = backWaveColor
         paintFront.color = frontWaveColor
         hasPendingColorUpdate = true
-
-        // Force immediate redraw with multiple strategies
         invalidate()
-        postInvalidate()
-
-        if (isAttachedToWindow) {
-            postInvalidateOnAnimation()
-        }
     }
 
     private fun Float.dp(): Float = this * resources.displayMetrics.density

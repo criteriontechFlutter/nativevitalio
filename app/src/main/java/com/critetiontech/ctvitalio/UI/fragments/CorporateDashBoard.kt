@@ -56,7 +56,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -214,14 +213,44 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
 
         }
         binding.progressCircler.animateProgress(10f)
+
+        // Hide real content, show shimmer while first load happens
+        binding.homeId.visibility = View.INVISIBLE
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.shimmerLayout.startShimmer()
+
+        // Header elements animate in immediately
         animatePageLoad()
+
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.primaryBlue,
             navBarColor = R.color.white,
             lightIcons = true
         )
+
+        var shimmerDismissed = false
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
+            if (!isLoading && !shimmerDismissed) {
+                shimmerDismissed = true
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.animate()
+                    .alpha(0f)
+                    .setDuration(250)
+                    .withEndAction {
+                        binding.shimmerLayout.visibility = View.GONE
+                        binding.shimmerLayout.alpha = 1f
+                        binding.homeId.visibility = View.VISIBLE
+                        binding.homeId.alpha = 0f
+                        binding.homeId.translationY = 40f
+                        binding.homeId.animate()
+                            .alpha(1f)
+                            .translationY(0f)
+                            .setDuration(500)
+                            .setInterpolator(DecelerateInterpolator(2.0f))
+                            .start()
+                    }
+                    .start()
+            }
         }
 
         binding.fabIcon.setOnClickListener {
@@ -550,21 +579,26 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
            // findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
         }
 
+        // Pull-to-refresh only works when mood section is fully collapsed (end state).
+        // In start state, MotionLayout's OnSwipe intercepts the same touch events.
+        binding.swipeRefreshLayout.isEnabled = false
+
         binding.moodLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?, startId: Int, endId: Int
-            ) {}
+            ) {
+                binding.swipeRefreshLayout.isEnabled = false
+            }
 
             override fun onTransitionChange(
                 motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float
-            ) {
-                // progress goes from 0.0 → 1.0
-//                if (!fragmentOpened && progress > 0.5f) {
-//                   // openNewFragment()
-//                }
+            ) {}
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                // Enable pull-to-refresh only in end state (content full-screen, mood hidden)
+                binding.swipeRefreshLayout.isEnabled = (currentId == R.id.end)
             }
 
-            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {}
             override fun onTransitionTrigger(
                 motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float
             ) {}
@@ -2149,76 +2183,27 @@ private fun initHydrationControls() {
     }
 
     private fun animatePageLoad() {
+        val offset = 60f
+        val dur = 700L
+        val interp = DecelerateInterpolator(2.0f)
 
-        // Slide constraintLayout from top
-//        binding.constraintLayout.apply {
-//            translationY = -300f  // start above screen
-//            alpha = 0f
-//            animate()
-//                .translationY(0f)
-//                .alpha(1f)
-//                .setDuration(1200)
-//                .setInterpolator(DecelerateInterpolator())
-//                .start()
-//        }
+        // Only header elements animate on entry; content area handled by shimmer dismiss
+        listOf(binding.tFeeling, binding.tFeelingBelow, binding.ivIllustration)
+            .forEach { it.alpha = 0f; it.translationY = offset }
 
-        // Slide swipeRefreshLayout from bottom
-        binding.tFeeling.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
+        fun animItem(view: View, delay: Long) {
+            view.animate()
                 .translationY(0f)
                 .alpha(1f)
-                .setDuration(1400)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-        binding.tFeelingBelow.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(1900)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-        binding.ivIllustration.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(2700)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-        binding.swipeRefreshLayout.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(2100)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
+                .setDuration(dur)
+                .setStartDelay(delay)
+                .setInterpolator(interp)
                 .start()
         }
 
-        binding.constraintLayout.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(2100)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
+        animItem(binding.tFeeling,       100L)
+        animItem(binding.tFeelingBelow,  220L)
+        animItem(binding.ivIllustration, 360L)
     }
 
     private fun updateHydrationTitle() {
@@ -2250,45 +2235,33 @@ private fun updateProgress(unit: String) {
 
 
     private fun initializeSwipeRefresh() {
-
-
-        // Configure SwipeRefreshLayout colors and size
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.primaryBlue)
-        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white)
-        binding.swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT)
-
-        // Set refresh listener
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            performRefresh()
-        }
-
-        // Optional: Configure distance to trigger refresh
-        binding.swipeRefreshLayout.setDistanceToTriggerSync(200)
+        binding.swipeRefreshLayout.setOnRefreshListener { performRefresh() }
     }
 
     private fun performRefresh() {
-        // Show custom loader
-        showCustomLoader(true)
-
-        // Simulate network call with delay
-        Handler(Looper.getMainLooper()).postDelayed({
-            // Your actual refresh logic here
-            refreshDashboardData()
-
-            // Hide custom loader and refresh indicator
-            showCustomLoader(false)
-            binding.swipeRefreshLayout.isRefreshing = false
-
-        }, 2000) // 2 second delay - replace with actual API call
+        refreshDashboardData()
+        // Stop the spinner once loading finishes; use observeForever + manual remove to avoid
+        // stacking observers on repeated swipes
+        val observer = object : androidx.lifecycle.Observer<Boolean> {
+            override fun onChanged(isLoading: Boolean) {
+                if (!isLoading) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    viewModel.loading.removeObserver(this)
+                }
+            }
+        }
+        viewModel.loading.observe(viewLifecycleOwner, observer)
     }
 
-    private fun showCustomLoader(show: Boolean) {
-//        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
-       // binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
-    }
+    private fun showCustomLoader(show: Boolean) {}
 
     private fun refreshDashboardData() {
-       viewModel.getVitals()
+        viewModel.getVitals()
+        viewModel.getMoodByPid()
+        viewModel.getAllEnergyTankMaster()
+        viewModel.fetchManualFluidIntake(uhid = PrefsManager().getPatient()?.empId.toString())
+        challengesViewModel.getJoinedChallenge()
+        pillsViewModel.getAllPatientMedication()
     }
 
 

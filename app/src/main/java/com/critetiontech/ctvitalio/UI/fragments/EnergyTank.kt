@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
+import androidx.core.animation.addListener
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -36,6 +37,7 @@ class EnergyTank : Fragment() {
 
     private lateinit var binding: FragmentEnergyTankBinding
     private var energyLevel = 0 // start at 0%
+    private var percentageAnimator: ValueAnimator? = null
     private lateinit var gestureDetector: GestureDetector
     private lateinit var viewModel: EnergyTankViewModel
 
@@ -165,64 +167,57 @@ class EnergyTank : Fragment() {
         }
     }
 
-    /**
-     * Simple fade in animation
-     */
     private fun animateFadeIn(view: View, startDelay: Long, duration: Long) {
+        view.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         ObjectAnimator.ofFloat(view, "alpha", 0f, 1f).apply {
             this.startDelay = startDelay
             this.duration = duration
             interpolator = DecelerateInterpolator()
+            addListener(onEnd = { view.setLayerType(View.LAYER_TYPE_NONE, null) })
             start()
         }
     }
 
-    /**
-     * Avatar entry with scale and fade
-     */
     private fun animateAvatarEntry(view: View, startDelay: Long) {
+        view.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 0.5f, 1f)
         val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 0.5f, 1f)
         val alpha = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-
         AnimatorSet().apply {
             playTogether(scaleX, scaleY, alpha)
             this.startDelay = startDelay
             duration = 600
             interpolator = OvershootInterpolator(1.5f)
+            addListener(onEnd = { view.setLayerType(View.LAYER_TYPE_NONE, null) })
             start()
         }
     }
 
-    /**
-     * Slide up with fade in
-     */
     private fun animateSlideUpFadeIn(view: View, startDelay: Long, duration: Long) {
+        view.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         val translateY = ObjectAnimator.ofFloat(view, "translationY", view.translationY, 0f)
         val alpha = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-
         AnimatorSet().apply {
             playTogether(translateY, alpha)
             this.startDelay = startDelay
             this.duration = duration
             interpolator = DecelerateInterpolator()
+            addListener(onEnd = { view.setLayerType(View.LAYER_TYPE_NONE, null) })
             start()
         }
     }
 
-    /**
-     * Lightning container entry with scale
-     */
     private fun animateLightningEntry(view: View, startDelay: Long) {
+        view.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 0.8f, 1f)
         val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 0.8f, 1f)
         val alpha = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-
         AnimatorSet().apply {
             playTogether(scaleX, scaleY, alpha)
             this.startDelay = startDelay
             duration = 700
             interpolator = OvershootInterpolator(0.8f)
+            addListener(onEnd = { view.setLayerType(View.LAYER_TYPE_NONE, null) })
             start()
         }
     }
@@ -270,13 +265,19 @@ class EnergyTank : Fragment() {
     }
 
     private fun animatePercentage(start: Int, end: Int) {
-        ValueAnimator.ofInt(start, end).apply {
-            duration = 233
+        percentageAnimator?.cancel()
+        percentageAnimator = ValueAnimator.ofInt(start, end).apply {
+            duration = 150
             addUpdateListener { animator ->
                 binding.percentageText.text = "${animator.animatedValue}%"
             }
             start()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        percentageAnimator?.cancel()
     }
 
     private fun setLightningFillLevel(levelPercent: Int, tintColor: Int) {

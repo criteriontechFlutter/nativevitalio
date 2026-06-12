@@ -70,6 +70,16 @@ class WaterRingWaveView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        val radius = minOf(w, h) / 2f
+        val cx = w / 2f
+        val cy = h / 2f
+        val outerRadius = radius
+        val innerRadius = radius - ringWidth
+        innerCirclePath.reset()
+        innerCirclePath.addCircle(cx, cy, innerRadius, Path.Direction.CW)
+        ringClipPath.reset()
+        ringClipPath.addCircle(cx, cy, outerRadius, Path.Direction.CW)
+        ringClipPath.addCircle(cx, cy, innerRadius, Path.Direction.CCW)
         startWaveAnimation(w.toFloat())
     }
 
@@ -131,20 +141,11 @@ class WaterRingWaveView @JvmOverloads constructor(
         wavePath2.lineTo(0f, h)
         wavePath2.close()
 
-        // Inner circle clip
-        innerCirclePath.reset()
-        innerCirclePath.addCircle(cx, cy, innerRadius, Path.Direction.CW)
-
         canvas.save()
         canvas.clipPath(innerCirclePath)
         canvas.drawPath(wavePath, outerWavePaint)
         canvas.drawPath(wavePath2, outerWavePaint)
         canvas.restore()
-
-        // Ring clip
-        ringClipPath.reset()
-        ringClipPath.addCircle(cx, cy, outerRadius, Path.Direction.CW)
-        ringClipPath.addCircle(cx, cy, innerRadius, Path.Direction.CCW)
 
         canvas.save()
         canvas.clipPath(ringClipPath)
