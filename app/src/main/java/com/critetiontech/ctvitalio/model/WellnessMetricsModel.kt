@@ -11,12 +11,17 @@ data class WellnessResponse(
 
 data class MovementIndexResponseValue(
     val vitals: List<VitalItem>,
-    val stepsGraph: List<Any>, // empty array in your JSON
+    val stepsGraph: List<Any>,
     val movementIndexWeek: List<IndexWeekItem>,
-    val stressIndexWeek: List<IndexWeekItem>,
-    val recoveryIndexWeek: List<IndexWeekItem>,
+    val stressIndexWeek: IndexTrend?,
+    val recoveryIndexWeek: IndexTrend?,
     val workoutFrequency: WorkoutFrequency?,
-    val hrvTrend: HrvTrend?
+    val hrvTrend: List<Any>?
+)
+
+data class IndexTrend(
+    val today: Double,
+    val weekly: List<IndexWeekItem>
 )
 data class VitalItem(
     val pmId: Int?,
@@ -42,14 +47,14 @@ data class SleepSummary(
     val durationPercent: Float
 )
 data class WorkoutFrequency(
-    val totalWeekMinutes: Int,
+    val totalWeekMinutes: Double,
     val dayWiseMinutes: List<WorkoutDayItem>
 )
 
 data class WorkoutDayItem(
     val date: String,
     val dayName: String,
-    val minutes: Int
+    val minutes: Double
 )
 data class HrvTrend(
     val hrvZone: String?,

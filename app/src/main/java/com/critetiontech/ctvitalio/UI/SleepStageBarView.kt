@@ -14,7 +14,6 @@ class SleepStageBarView @JvmOverloads constructor(
 
     private var stageName: String = ""
     private var duration: String = ""
-    private var percentage: Int = 0
     private var filledBars: Int = 0
     private var totalBars: Int = 30
     private var barColor: Int = 0xFF1976D2.toInt()

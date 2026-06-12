@@ -80,7 +80,7 @@ class DynamicRecovery : Fragment() {
         viewModel.wellnessMetrics.observe(viewLifecycleOwner) { response ->
 
             // Map API data safely
-            val entries = response.recoveryIndexWeek.map {
+            val entries = response.recoveryIndexWeek?.weekly.orEmpty().map {
                 MovementEntrys(
                     date = it.date,
                     dayName = it.dayName,

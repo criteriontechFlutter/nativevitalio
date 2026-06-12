@@ -130,9 +130,24 @@ class WellnessMetrics : Fragment() {
     private fun observeVitals() {
 
         viewModel.wellnessMetrics.observe(viewLifecycleOwner) { metrics ->
-
             updateCircularProgress(metrics)
             updateTextValues(metrics)
+        }
+
+        viewModel.sleepTime.observe(viewLifecycleOwner) { time ->
+            binding.tvSleepStart.text = time
+        }
+
+        viewModel.wakeTime.observe(viewLifecycleOwner) { time ->
+            binding.tvSleepEnd.text = time
+        }
+
+        viewModel.totalSleepText.observe(viewLifecycleOwner) { duration ->
+            binding.tvSleepDuration.text = duration
+        }
+
+        viewModel.sleepCyclesCount.observe(viewLifecycleOwner) { cycles ->
+            binding.tvSleepCycles.text = cycles
         }
     }
 

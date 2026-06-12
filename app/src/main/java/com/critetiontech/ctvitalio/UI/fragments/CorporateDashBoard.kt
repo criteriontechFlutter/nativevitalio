@@ -395,8 +395,7 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
         }
 
         binding.mindfulness.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_mindfulnessView  )
-
+            findNavController().navigate(R.id.action_dashboard_to_mindfulnessFragment)
         }
 
         binding.challengesTab.visibility=View.GONE
