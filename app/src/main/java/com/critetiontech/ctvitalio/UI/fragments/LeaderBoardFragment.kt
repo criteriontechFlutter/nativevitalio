@@ -65,14 +65,14 @@ class LeaderboardFragment : Fragment() {
         top1User = sortedList.getOrNull(0)
         top2User = sortedList.getOrNull(1)
         top3User = sortedList.getOrNull(2)
-        currentEmployee = sortedList.find { it.empId.toString() == PrefsManager().getPatient()?.empId.toString() }
+        currentEmployee = sortedList.find { it.empId == PrefsManager().getPatient()?.empId.toString() }
 
         binding.rankText.text = currentEmployee?.rank?.toString() ?: "-"
         binding.nameText.text = currentEmployee?.empName ?: "Unknown"
         binding.gemText.text  = currentEmployee?.totalPoints?.toString() ?: "0"
 
         Glide.with(binding  .profileImage.context)
-            .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ currentEmployee?.imageURL?.replace("\\", "/"))
+            .load(RetrofitInstance.StaggingbaseUrl +":5082/"+ currentEmployee?.imageURL?.replace("\\", "/"))
 
             .circleCrop().placeholder(R.drawable.achievement_background)
             .error(R.drawable.achievement_background)
@@ -125,7 +125,7 @@ class LeaderboardFragment : Fragment() {
             binding.scoreRight.text = user.totalPoints.toString()
             // loadImage(binding.secondUser, user.imageURL)
             Glide.with(binding.secondUser.context)
-                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+                .load(RetrofitInstance.StaggingbaseUrl +":5082/"+ user.imageURL.replace("\\", "/"))
 
                 .circleCrop() .placeholder(R.drawable.achievement_background)
                 .error(R.drawable.achievement_background)
@@ -138,7 +138,7 @@ class LeaderboardFragment : Fragment() {
             binding.scoreLeft.text = user.totalPoints.toString()
             // loadImage(binding.thirdUser, user.imageURL)
             Glide.with(binding.thirdUser.context)
-                .load(RetrofitInstance.StaggingbaseUrl.toString()+":5082/"+ user.imageURL.replace("\\", "/"))
+                .load(RetrofitInstance.StaggingbaseUrl +":5082/"+ user.imageURL.replace("\\", "/"))
 
                 .circleCrop() .placeholder(R.drawable.achievement_background)
                 .error(R.drawable.achievement_background)
