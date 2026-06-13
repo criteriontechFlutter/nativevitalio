@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="10dp">
+
+        <!-- Pull arrow — flips 180° as you pull -->
+        <ImageView
+            android:id="@+id/refreshArrow"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_back"
+            android:rotation="-90"
+            app:tint="@android:color/white" />
+
+        <!-- Spinning indicator shown while refreshing -->
+        <ProgressBar
+            android:id="@+id/refreshSpinner"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@android:color/white"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/refreshStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pull down to refresh"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:letterSpacing="0.02" />
+
+</LinearLayout>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <!-- Energy card skeleton -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shimmer_bg" />
+
+    <!-- Section title skeleton -->
+    <View
+        android:layout_width="160dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/shimmer_bg" />
+
+    <!-- Wellness card skeleton -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shimmer_bg"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Score row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/shimmer_bg" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="140dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 4 metric rows -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/shimmer_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Priority Actions title skeleton -->
+    <View
+        android:layout_width="180dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/shimmer_bg" />
+
+    <!-- Priority horizontal cards skeleton -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/shimmer_bg" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/shimmer_bg" />
+    </LinearLayout>
+
+    <!-- Active Challenges title skeleton -->
+    <View
+        android:layout_width="160dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/shimmer_bg" />
+
+    <!-- Active Challenges horizontal cards skeleton -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/shimmer_bg" />
+
+        <View
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:background="@drawable/shimmer_bg" />
+    </LinearLayout>
+
+    <!-- Daily Checklist title skeleton -->
+    <View
+        android:layout_width="140dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/shimmer_bg" />
+
+    <!-- Checklist card skeleton -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shimmer_bg"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shimmer_bg" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/shimmer_bg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shimmer_bg" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/shimmer_bg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shimmer_bg" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/shimmer_bg" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Medication title skeleton -->
+    <View
+        android:layout_width="140dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/shimmer_bg" />
+
+    <!-- Medication rows skeleton -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shimmer_bg"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shimmer_bg" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="110dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:background="@drawable/shimmer_bg" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/shimmer_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shimmer_bg" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="110dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_bg" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:background="@drawable/shimmer_bg" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Hydration card skeleton -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/shimmer_bg" />
+
+</LinearLayout>

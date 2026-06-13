@@ -289,4 +289,18 @@
     <string name="login_successful">Login Successful</string>
     <string name="join_explore_nearby_gyms"><![CDATA[Join & Explore Nearby Gyms]]></string>
 
+    <!-- Dashboard energy card -->
+    <string name="energy_story_awaits">Your energy story awaits</string>
+    <string name="log_energy_today">Log your energy for today ⚡</string>
+    <string name="energized_today">You\'re feeling %1$d%% energized today ⚡</string>
+    <string name="ready_take_day">Ready to take on the day!</string>
+
+    <!-- Dashboard goals -->
+    <string name="goals_achieved">%1$d of %2$d goals achieved</string>
+
+    <!-- Dashboard hydration -->
+    <string name="hydration_due">Hydration due - %1$s</string>
+    <string name="hydration_consumed_remaining">%1$d ml consumed — %2$d ml to go</string>
+    <string name="hydration_consumed_target">%1$d ml consumed — target %2$d ml</string>
+
 </resources>
