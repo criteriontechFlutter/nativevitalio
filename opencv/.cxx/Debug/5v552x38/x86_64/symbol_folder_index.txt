@@ -1,1 +1,1 @@
-C:\Users\CT-Animesh\AndroidStudioProjects\nativevitalio\opencv\build\intermediates\cxx\Debug\5v552x38\obj\x86_64
+C:\CT_Project\nativevitalio\opencv\build\intermediates\cxx\Debug\5v552x38\obj\x86_64
