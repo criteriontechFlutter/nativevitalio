@@ -53,21 +53,23 @@ class ArcGaugeView @JvmOverloads constructor(
     private var progress = 65f
     private var animatedSweep = 0f
     private var labelText = "Moderate"
+    private val arcRect = RectF()
+    private var sweepAnimator: ValueAnimator? = null
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        val cx = w / 2f
+        val cy = h / 1.4f
+        val r = min(w, h) / 2.0f
+        arcRect.set(cx - r, cy - r, cx + r, cy + r)
+    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         val centerX = width / 2f
         val centerY = height / 1.4f
-        val radius = min(width, height) / 2.0f
-
-        // Rectangle area for arc
-        val rect = RectF(
-            centerX - radius,
-            centerY - radius,
-            centerX + radius,
-            centerY + radius
-        )
+        val rect = arcRect
 
         // FULL arc background (gray)
         canvas.drawArc(rect, 180f, 180f, false, emptyPaint)
@@ -102,15 +104,21 @@ class ArcGaugeView @JvmOverloads constructor(
         progress = value.coerceIn(0f, 100f)
         if (label.isNotEmpty()) labelText = label
 
-        val animator = ValueAnimator.ofFloat(animatedSweep, progress).apply {
+        sweepAnimator?.cancel()
+        sweepAnimator = ValueAnimator.ofFloat(animatedSweep, progress).apply {
             duration = 1200
             interpolator = DecelerateInterpolator()
             addUpdateListener {
                 animatedSweep = it.animatedValue as Float
                 invalidate()
             }
+            start()
         }
-        animator.start()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        sweepAnimator?.cancel()
     }
 
     fun setProgress(value: Float, label: String = "") {

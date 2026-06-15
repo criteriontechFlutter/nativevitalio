@@ -29,11 +29,8 @@ class BreathingAdapter : ListAdapter<BreathingProtocol, BreathingAdapter.Breathi
             binding.apply {
                 protocolIcon.setImageResource(protocol.icon)
                 protocolTitle.text = protocol.title
-                protocolDescription.text = protocol.description
-                protocolDuration.text = protocol.duration
-
-                val benefitText = protocol.benefits.joinToString("  •  ")
-                protocolBenefits.text = benefitText
+                protocolTagDuration.text = "${protocol.description}  •  ${protocol.duration}"
+                protocolDescription.text = protocol.benefits.joinToString("  •  ")
             }
         }
     }

@@ -37,6 +37,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import kotlin.collections.forEach
+import androidx.core.graphics.toColorInt
 
 class GlucoseHistory : Fragment() {
 
@@ -211,7 +212,7 @@ class GlucoseHistory : Fragment() {
                 val trackView = View(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(24.dp, visibleHeight, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     background = GradientDrawable().apply {
-                        setColor(Color.parseColor("#40FFFFFF"))
+                        setColor("#40FFFFFF".toColorInt())
                         cornerRadius = 12.dp.toFloat()
                     }
                 }
@@ -220,7 +221,7 @@ class GlucoseHistory : Fragment() {
                 val fillView = View(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(4.dp, visibleHeight, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     background = GradientDrawable().apply {
-                        setColor(if (isSelected) Color.parseColor("#0A84FF") else Color.WHITE) // highlight
+                        setColor(if (isSelected) "#0A84FF".toColorInt() else Color.WHITE) // highlight
                         cornerRadius = 2.dp.toFloat()
                     }
                 }
@@ -229,12 +230,12 @@ class GlucoseHistory : Fragment() {
                 val bubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(24.dp, 24.dp, Gravity.TOP or Gravity.CENTER_HORIZONTAL)
                     text = value.toInt().toString()
-                    setTextColor(if (isSelected) Color.WHITE else Color.parseColor("#0A84FF"))
+                    setTextColor(if (isSelected) Color.WHITE else "#0A84FF".toColorInt())
                     textSize = 11f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
                     background = GradientDrawable().apply {
-                        setColor(if (isSelected) Color.parseColor("#0A84FF") else Color.WHITE)
+                        setColor(if (isSelected) "#0A84FF".toColorInt() else Color.WHITE)
                         shape = GradientDrawable.OVAL
                     }
                     elevation = 2.dp.toFloat()
@@ -244,7 +245,7 @@ class GlucoseHistory : Fragment() {
                 val weekdayBubble = TextView(requireContext()).apply {
                     layoutParams = FrameLayout.LayoutParams(20.dp, 20.dp, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
                     text = weekdayInitial
-                    setTextColor(Color.parseColor("#0A84FF"))
+                    setTextColor("#0A84FF".toColorInt())
                     textSize = 10f
                     typeface = Typeface.DEFAULT_BOLD
                     gravity = Gravity.CENTER
@@ -258,7 +259,7 @@ class GlucoseHistory : Fragment() {
                 val parts = entry.date.split("-")
                 val dayLabel = TextView(requireContext()).apply {
                     text = if (parts.size == 3) "${parts[2]}/${parts[1]}" else entry.date
-                    setTextColor(Color.parseColor("#80FFFFFF"))
+                    setTextColor("#80FFFFFF".toColorInt())
                     textSize = 10f
                     gravity = Gravity.CENTER
                 }
@@ -270,7 +271,7 @@ class GlucoseHistory : Fragment() {
                         topMargin = 6.dp
                         bottomMargin = 6.dp
                     }
-                    setBackgroundColor(Color.parseColor("#40FFFFFF"))
+                    setBackgroundColor("#40FFFFFF".toColorInt())
                 }
 
                 // ✅ Click listener to select bar
@@ -313,9 +314,9 @@ class GlucoseHistory : Fragment() {
     private fun getGlucoseStatus(value: Int): Pair<String, Int> {
 
         return when {
-            value < 70 -> Pair("Low", Color.parseColor("#E53935"))   // Red
-            value in 70..140 -> Pair("Normal", Color.parseColor("#1BAA60")) // Green
-            else -> Pair("High", Color.parseColor("#FB8C00"))  // Orange
+            value < 70 -> Pair("Low", "#E53935".toColorInt())   // Red
+            value in 70..140 -> Pair("Normal", "#1BAA60".toColorInt()) // Green
+            else -> Pair("High", "#FB8C00".toColorInt())  // Orange
         }
     }
     private fun showMinMaxRange(minValue: Int, maxValue: Int) {

@@ -25,10 +25,7 @@ class ForgotPassword : BaseActivity() {
 
     private lateinit var binding: ActivityForgotPasswordBinding
     private lateinit var viewModel: ForgotPasswordViewModel
-
     val context = MyApplication.appContext
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSystemBarsColor(

@@ -544,7 +544,11 @@
         android:id="@+id/mindfulnessFragment"
         android:name="com.critetiontech.ctvitalio.UI.fragments.MindfulnessFragment"
         android:label="fragment_mindfullness"
-        tools:layout="@layout/fragment_mindfullness" />
+        tools:layout="@layout/fragment_mindfullness">
+        <action
+            android:id="@+id/action_mindfulnessFragment_to_groundingTecniqueView"
+            app:destination="@id/groundingTecniqueView" />
+    </fragment>
     <fragment
         android:id="@+id/new_corporate_dashboard"
         android:name="com.critetiontech.ctvitalio.UI.fragments.dashboard_pages.new_corporate_dashboard"

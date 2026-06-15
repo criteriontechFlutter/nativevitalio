@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.databinding.FragmentImagePdfViewBinding
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
+import androidx.core.net.toUri
 
 //import com.github.barteksc.pdfviewer.PDFView
 
@@ -32,7 +33,7 @@ class ImagePdfViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fileUriString = arguments?.getString("fileUri")
-        val fileUri = fileUriString?.let { Uri.parse(it) }
+        val fileUri = fileUriString?.let { it.toUri() }
 
         fileUri?.let {
             val fileExtension = getFileExtension(it)

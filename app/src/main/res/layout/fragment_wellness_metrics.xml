@@ -462,7 +462,6 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:text="You achieved 1/2 movement goals"
-
                                 android:textColor="@color/textdarkgrey"
                                 android:textSize="13sp" />
 
@@ -473,6 +472,7 @@
                                 android:src="@drawable/arrow_right"
                                 app:tint="#CCCCCC" />
                         </LinearLayout>
+
 
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>

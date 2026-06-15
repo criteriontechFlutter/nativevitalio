@@ -14,8 +14,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.RenderEffect
-import android.graphics.Shader
 import android.graphics.Typeface
 import android.media.AudioFormat
 import android.media.AudioRecord
@@ -33,7 +31,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
@@ -56,7 +53,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -77,6 +73,7 @@ import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
 import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
 import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.ctvitalio.utils.DashboardAnimationHelper
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.utils.MyApplication
@@ -101,17 +98,13 @@ class CorporateDashBoard : Fragment() {
     private lateinit var viewModel: DashboardViewModel
     private var voiceDialog: Dialog? = null
     private lateinit var voiceButton: ImageView
-   private lateinit var closeButton: ImageView
-    private lateinit var testv: TextView
+    private lateinit var closeButton: ImageView
     private lateinit var challengesViewModel: ChallengesViewModel
-
     private lateinit var pillsViewModel: PillsReminderViewModal
-    private lateinit var adapter: DashboardAdapter
     private lateinit var dailyTipAdapter: DailyTipAdapter
     private lateinit var indicatorAdapter: IndicatorAdapter
+    private lateinit var tabMedicineAdapter: TabMedicineAdapter
     private var snackbar: Snackbar? = null
-    private val handler = Handler(Looper.getMainLooper())
-    private var sliderRunnable: Runnable? = null
     private var audioRecord: AudioRecord? = null
     private var isRecording = false
     private var silenceStartTime = 0L
@@ -120,9 +113,7 @@ class CorporateDashBoard : Fragment() {
     private var webSocket: WebSocket? = null
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_REQUEST_CODE = 101
-    var fragmentOpened = false
     private val tabLabels = listOf("Home", "Snaps", "Reminders", "Challenges")
-    private val tabIcons = listOf(R.drawable.home, R.drawable.vitals_icon_home, R.drawable.pill,R.drawable.challenges_icon)
     private lateinit var navItems: List<View>
     private val micStatusHandler = Handler(Looper.getMainLooper())
     private var micStatusRunnable: Runnable? = null
@@ -137,10 +128,7 @@ class CorporateDashBoard : Fragment() {
 
     )
     private var isFabOpen = false
-    private var audioRecords: AudioRecord? = null
-    private var isRecordings = false
-
-    private var lastVoiceTime =  0L
+    private var lastVoiceTime = 0L
     private   val SILENCE_TIMEOUT = 5000L // 5 seconds
 
     override fun onCreateView(
@@ -214,14 +202,44 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
 
         }
         binding.progressCircler.animateProgress(10f)
+
+        // Hide real content, show shimmer while first load happens
+        binding.homeId.visibility = View.INVISIBLE
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.shimmerLayout.startShimmer()
+
+        // Header elements animate in immediately
         animatePageLoad()
+
         (requireActivity() as? BaseActivity)?.setSystemBarsColor(
             statusBarColor = R.color.primaryBlue,
             navBarColor = R.color.white,
             lightIcons = true
         )
+
+        var shimmerDismissed = false
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) showLoading() else hideLoading()
+            if (!isLoading && !shimmerDismissed) {
+                shimmerDismissed = true
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.animate()
+                    .alpha(0f)
+                    .setDuration(250)
+                    .withEndAction {
+                        binding.shimmerLayout.visibility = View.GONE
+                        binding.shimmerLayout.alpha = 1f
+                        binding.homeId.visibility = View.VISIBLE
+                        binding.homeId.alpha = 0f
+                        binding.homeId.translationY = 40f
+                        binding.homeId.animate()
+                            .alpha(1f)
+                            .translationY(0f)
+                            .setDuration(500)
+                            .setInterpolator(DecelerateInterpolator(2.0f))
+                            .start()
+                    }
+                    .start()
+            }
         }
 
         binding.fabIcon.setOnClickListener {
@@ -395,8 +413,7 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
         }
 
         binding.mindfulness.setOnClickListener {
-            findNavController().navigate(R.id.action_dashboard_to_mindfulnessView  )
-
+            findNavController().navigate(R.id.action_dashboard_to_mindfulnessFragment)
         }
 
         binding.challengesTab.visibility=View.GONE
@@ -545,27 +562,33 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
             binding.avatar to "heroImageTransition",
             binding.greetingHi to "heroGreetingtextTransition"
         )
+
         binding.ivIllustration.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_moodFragment ,null,
                 null)
            // findNavController().navigate(R.id.action_dashboard_to_waterIntakeFragment)
         }
 
+        // Pull-to-refresh only works when mood section is fully collapsed (end state).
+        // In start state, MotionLayout's OnSwipe intercepts the same touch events.
+        binding.swipeRefreshLayout.isEnabled = false
+
         binding.moodLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?, startId: Int, endId: Int
-            ) {}
+            ) {
+                binding.swipeRefreshLayout.isEnabled = false
+            }
 
             override fun onTransitionChange(
                 motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float
-            ) {
-                // progress goes from 0.0 → 1.0
-//                if (!fragmentOpened && progress > 0.5f) {
-//                   // openNewFragment()
-//                }
+            ) {}
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                // Enable pull-to-refresh only in end state (content full-screen, mood hidden)
+                binding.swipeRefreshLayout.isEnabled = (currentId == R.id.end)
             }
 
-            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {}
             override fun onTransitionTrigger(
                 motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float
             ) {}
@@ -578,13 +601,21 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
         viewModel.latestEnergy.observe(viewLifecycleOwner) { energy ->
 
             if (energy == null) {
-                binding.energyTitle.text = "Your energy story awaits"
-                binding.energySubtitle.text = "Log your energy for today ⚡"
+                binding.energyTitle.text = getString(R.string.energy_story_awaits)
+
+                val typeface = ResourcesCompat.getFont(
+                    requireContext(),
+                    R.font.source_serif_pro
+                )
+
+                binding.energyTitle.setTypeface(typeface, Typeface.BOLD_ITALIC)
+                binding.energyTitle.typeface = typeface
+                binding.energySubtitle.text = getString(R.string.log_energy_today)
                 binding.energyImage.setImageResource(R.drawable.emtyp_energy)
                 binding.energyid.setBackgroundResource(R.drawable.rounded_card_bg)
             } else {
-                binding.energyTitle.text = "You're feeling $energy% energized today ⚡"
-                binding.energySubtitle.text = "Ready to take on the day!"
+                binding.energyTitle.text = getString(R.string.energized_today, energy)
+                binding.energySubtitle.text = getString(R.string.ready_take_day)
                 binding.energyImage.setImageResource(R.drawable.ic_meditation)
                 binding.energyid.setBackgroundResource(R.drawable.bg_energy_gradient)
             }
@@ -1126,6 +1157,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
         setupRecyclerAndIndicators()
+        setupMedicineTab()
 //        binding.sleepProgressIds.sleepContainerId.setOnClickListener(){
 //            findNavController().navigate(R.id.action_dashboard_to_sleepDetails)
 //        }
@@ -1190,9 +1222,6 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
 //            binding.showId.showHideId.visibility=View.VISIBLE
 //        }
          wellnessDataBind()
-    }
-    private fun dpToPx(dp: Float): Float {
-        return dp * resources.displayMetrics.density
     }
 //    private fun monitorSilence() {
 //        Thread {
@@ -2141,205 +2170,80 @@ private fun initHydrationControls() {
         }
     }
 
-    private fun animatePageLoad() {
-
-        // Slide constraintLayout from top
-//        binding.constraintLayout.apply {
-//            translationY = -300f  // start above screen
-//            alpha = 0f
-//            animate()
-//                .translationY(0f)
-//                .alpha(1f)
-//                .setDuration(1200)
-//                .setInterpolator(DecelerateInterpolator())
-//                .start()
-//        }
-
-        // Slide swipeRefreshLayout from bottom
-        binding.tFeeling.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(1400)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-        binding.tFeelingBelow.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(1900)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-        binding.ivIllustration.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(2700)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-        binding.swipeRefreshLayout.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(2100)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-
-        binding.constraintLayout.apply {
-            translationY = 700f  // start below screen
-            alpha = 0f
-            animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(2100)
-                .setStartDelay(250)  // slight stagger looks smooth
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-    }
+    private fun animatePageLoad() = DashboardAnimationHelper.animatePageLoad(binding)
 
     private fun updateHydrationTitle() {
-
-    viewModel.lastDrinkInfo.observe(viewLifecycleOwner) { lastDrinkInfo  ->
-     binding.hydrationCardId.tvHydrationTitle.text =
-            "Hydration due - $lastDrinkInfo ."
-
-    }
-    }
-private fun updateProgress(unit: String) {
-    val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
-
-    viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue  ->
-        val goal = goalEntry?.targetValue ?: 0  // safe
-        val remaining = goal?.minus(totalValue)
-        if(totalValue< remaining!!){
-            binding.hydrationCardId.tvHydrationProgress.text =
-                "${totalValue} $unit consumed — ${remaining*1000} $unit to go"
-        }
-        else{
-            binding.hydrationCardId.tvHydrationProgress.text =
-                "${totalValue} $unit consumed — targed ${goal*1000} $unit "
+        viewModel.lastDrinkInfo.observe(viewLifecycleOwner) { lastDrinkInfo ->
+            binding.hydrationCardId.tvHydrationTitle.text =
+                getString(R.string.hydration_due, lastDrinkInfo)
         }
     }
-     binding.hydrationCardId.tvHydrationProgress.setTextColor(Color.parseColor("#808C9A"))
 
-}
+    private fun updateProgress(unit: String) {
+        val goalEntry = PrefsManager().getEmployeeGoals().find { it.goalId == 13 }
+        viewModel.totalQuantity.observe(viewLifecycleOwner) { totalValue ->
+            val goal = goalEntry?.targetValue ?: 0
+            val remaining = goal - totalValue
+            binding.hydrationCardId.tvHydrationProgress.text =
+                if (totalValue < remaining) {
+                    getString(R.string.hydration_consumed_remaining, totalValue, remaining * 1000)
+                } else {
+                    getString(R.string.hydration_consumed_target, totalValue, goal * 1000)
+                }
+        }
+        binding.hydrationCardId.tvHydrationProgress.setTextColor("#808C9A".toColorInt())
+    }
 
 
     private fun initializeSwipeRefresh() {
-
-
-        // Configure SwipeRefreshLayout colors and size
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.primaryBlue)
-        binding.swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white)
-        binding.swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT)
-
-        // Set refresh listener
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            performRefresh()
-        }
-
-        // Optional: Configure distance to trigger refresh
-        binding.swipeRefreshLayout.setDistanceToTriggerSync(200)
+        binding.swipeRefreshLayout.setOnRefreshListener { performRefresh() }
     }
 
     private fun performRefresh() {
-        // Show custom loader
-        showCustomLoader(true)
-
-        // Simulate network call with delay
-        Handler(Looper.getMainLooper()).postDelayed({
-            // Your actual refresh logic here
-            refreshDashboardData()
-
-            // Hide custom loader and refresh indicator
-            showCustomLoader(false)
-            binding.swipeRefreshLayout.isRefreshing = false
-
-        }, 2000) // 2 second delay - replace with actual API call
-    }
-
-    private fun showCustomLoader(show: Boolean) {
-//        binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
-       // binding.customLoaderContainer.visibility = if (show) View.VISIBLE else View.GONE
+        refreshDashboardData()
+        // Stop the spinner once loading finishes; use observeForever + manual remove to avoid
+        // stacking observers on repeated swipes
+        val observer = object : androidx.lifecycle.Observer<Boolean> {
+            override fun onChanged(isLoading: Boolean) {
+                if (!isLoading) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    viewModel.loading.removeObserver(this)
+                }
+            }
+        }
+        viewModel.loading.observe(viewLifecycleOwner, observer)
     }
 
     private fun refreshDashboardData() {
-       viewModel.getVitals()
+        viewModel.getVitals()
+        viewModel.getMoodByPid()
+        viewModel.getAllEnergyTankMaster()
+        viewModel.fetchManualFluidIntake(uhid = PrefsManager().getPatient()?.empId.toString())
+        challengesViewModel.getJoinedChallenge()
+        pillsViewModel.getAllPatientMedication()
     }
 
 
 
-    private fun showPopup() {
-        // Apply blur effect to contentScroll only (Android 12+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val blurEffect = RenderEffect.createBlurEffect(
-                25f, 25f, Shader.TileMode.CLAMP
-            )
-            binding.contentScroll.setRenderEffect(blurEffect)
-        }
-        binding.blurOverlay.isVisible = true
-        binding.popupContainer.isVisible = true
-
-        // Animate blur overlay
-        binding.blurOverlay.alpha = 0f
-        binding.blurOverlay.animate()
-            .alpha(1f)
-            .setDuration(300)
-            .start()
-
-        // Animate popup with scale and fade from center
-        binding.popupContainer.alpha = 0f
-        binding.popupContainer.scaleX = 0.8f
-        binding.popupContainer.scaleY = 0.8f
-        binding.popupContainer.animate()
-            .alpha(1f)
-            .scaleX(1f)
-            .scaleY(1f)
-            .setDuration(300)
-            .setInterpolator(AccelerateDecelerateInterpolator())
-            .start()
-    }
-
-    private fun hidePopup() {
-        // Remove blur effect
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            binding.contentScroll.setRenderEffect(null)
-        }
-
-        // Animate popup out
-        binding.popupContainer.animate()
-            .alpha(0f)
-            .scaleX(0.8f)
-            .scaleY(0.8f)
-            .setDuration(250)
-            .start()
-
-        // Animate blur overlay
-        binding.blurOverlay.animate()
-            .alpha(0f)
-            .setDuration(250)
-            .withEndAction {
-                binding.blurOverlay.isVisible = false
+    private fun setupMedicineTab() {
+        tabMedicineAdapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                pillsViewModel.insertPatientMedication(selectedMedicine)
             }
-            .start()
+        }
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = tabMedicineAdapter
+        binding.medicineTitleID.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
+        }
+        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
+            tabMedicineAdapter.updateList(list)
+        }
     }
+
+    private fun showPopup() = DashboardAnimationHelper.showPopup(binding)
+
+    private fun hidePopup() = DashboardAnimationHelper.hidePopup(binding)
 
 
 
@@ -2525,38 +2429,10 @@ private fun updateProgress(unit: String) {
                     }
 
                     2 -> {
-                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.recyclerView.visibility =
+                            if (tabMedicineAdapter.itemCount > 0) View.VISIBLE else View.GONE
                         binding.medicineTitleID.visibility = View.VISIBLE
-                        binding.recyclerView.layoutManager =
-                            LinearLayoutManager(requireContext())
-                        binding.challengesTab.visibility=View.GONE
-                        binding.medicineTitleID.setOnClickListener {
-                            findNavController().navigate(R.id.action_dashboard_to_medicationFragment)
-                        }
-
-                        // Initialize adapter once with an empty list
-                        val adapter = TabMedicineAdapter(mutableListOf()) { selectedMedicine ->
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                pillsViewModel.insertPatientMedication(selectedMedicine)
-                            };
-                        }
-                        binding.recyclerView.adapter = adapter
-
-                        // Observe pill list updates
-                        pillsViewModel.pillList.observe(viewLifecycleOwner) { list ->
-                            Log.d("TAG", "selectItem: "+list.size.toString())
-                            if (list.isNotEmpty()) {
-                                adapter.updateList(list) // Update existing adapter data
-                                binding.recyclerView.visibility = View.VISIBLE
-                                //  binding.tvNoData.visibility = View.GONE
-                            } else {
-                                binding.recyclerView.visibility = View.GONE
-                                // binding.tvNoData.visibility = View.VISIBLE
-                            }
-                        }
-
-                        // Hide other views
+                        binding.challengesTab.visibility = View.GONE
                         binding.homeId.visibility = View.GONE
                         binding.challengedId.visibility = View.GONE
                         binding.activeChalleTextId.visibility = View.GONE

@@ -22,9 +22,6 @@ fun generateAuthHeaderMap(
 
     val prefsManager = PrefsManager( )
     prefsManager.getPatient()
-
-//    val accessToken = patient?.token
-//    val userId = patient?.id
     val accessToken = " "
     val userId = " "
     return if (token && accessToken.isNotEmpty() && userId.isNotEmpty()) {

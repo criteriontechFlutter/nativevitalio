@@ -33,8 +33,8 @@ class BPLogAdapter(private var list: List<BPLog>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
-        holder.tvBP.text = "${item.systolic}/${item.diastolic}"
-        holder.tvMap.text = "MAP : ${item.map} mmHg"
+        "${item.systolic}/${item.diastolic}".also { holder.tvBP.text = it }
+        "MAP : ${item.map} mmHg".also { holder.tvMap.text = it }
         holder.tvTime.text = item.time
         holder.tvPosition.text = item.status
     }

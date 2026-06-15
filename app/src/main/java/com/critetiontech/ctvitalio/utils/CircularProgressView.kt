@@ -57,6 +57,7 @@ class ArcProgressView @JvmOverloads constructor(
 
     private var progress = 65f
     private var animatedProgress = 0f
+    private var progressAnimator: ValueAnimator? = null
 
     private var labelText = "Moderate"
 
@@ -116,15 +117,21 @@ class ArcProgressView @JvmOverloads constructor(
         progress = value.coerceIn(0f, 100f)
         if (label.isNotEmpty()) labelText = label
 
-        val animator = ValueAnimator.ofFloat(animatedProgress, progress).apply {
+        progressAnimator?.cancel()
+        progressAnimator = ValueAnimator.ofFloat(animatedProgress, progress).apply {
             duration = 1500
             interpolator = customInterpolator ?: AccelerateDecelerateInterpolator()
             addUpdateListener {
                 animatedProgress = it.animatedValue as Float
                 invalidate()
             }
+            start()
         }
-        animator.start()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        progressAnimator?.cancel()
     }
 
     fun setProgress(value: Float, label: String = "") {
