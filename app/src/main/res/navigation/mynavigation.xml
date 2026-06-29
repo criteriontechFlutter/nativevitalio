@@ -548,6 +548,18 @@
         <action
             android:id="@+id/action_mindfulnessFragment_to_groundingTecniqueView"
             app:destination="@id/groundingTecniqueView" />
+        <action
+            android:id="@+id/action_mindfulnessFragment_to_clockCircleFragment"
+            app:destination="@id/clockCircleFragment" />
+        <action
+            android:id="@+id/action_mindfulnessFragment_to_crissCrossFragment"
+            app:destination="@id/crissCrossFragment" />
+        <action
+            android:id="@+id/action_mindfulnessFragment_to_focusShiftView"
+            app:destination="@id/focusShiftView" />
+        <action
+            android:id="@+id/action_mindfulnessFragment_to_figure8FlowFragment"
+            app:destination="@id/figure8FlowFragment" />
     </fragment>
     <fragment
         android:id="@+id/new_corporate_dashboard"
@@ -708,6 +720,58 @@
         <action
             android:id="@+id/action_scavengerHunt_to_scavengerHuntProgress"
             app:destination="@id/scavengerHuntProgress" />
+    </fragment>
+    <fragment
+        android:id="@+id/clockCircleFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.ClockCircleFragment"
+        android:label="ClockCircleFragment" />
+    <fragment
+        android:id="@+id/crissCrossFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.CrissCrossFragment"
+        android:label="CrissCrossFragment" >
+        <action
+            android:id="@+id/action_crissCrossFragment_to_crissCrossSession"
+            app:destination="@id/crissCrossSession" />
+    </fragment>
+    <fragment
+        android:id="@+id/focusShiftView"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.FocusShiftView"
+        android:label="FocusShiftView" >
+        <action
+            android:id="@+id/action_focusShiftView_to_focusSessionView"
+            app:destination="@id/focusSessionView" />
+    </fragment>
+    <fragment
+        android:id="@+id/figure8FlowFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.Figure8FlowFragment"
+        android:label="Figure8FlowFragment" >
+        <action
+            android:id="@+id/action_figure8FlowFragment_to_figureFlowSession"
+            app:destination="@id/figureFlowSession" />
+    </fragment>
+    <fragment
+        android:id="@+id/focusSessionView"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.FocusSessionView"
+        android:label="FocusSessionView" >
+        <action
+            android:id="@+id/action_focusSessionView_to_focusShiftView"
+            app:destination="@id/focusShiftView" />
+    </fragment>
+    <fragment
+        android:id="@+id/figureFlowSession"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.FigureFlowSession"
+        android:label="FigureFlowSession" >
+        <action
+            android:id="@+id/action_figureFlowSession_to_figure8FlowFragment"
+            app:destination="@id/figure8FlowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/crissCrossSession"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.CrissCrossSession"
+        android:label="CrissCrossSession" >
+        <action
+            android:id="@+id/action_crissCrossSession_to_crissCrossFragment"
+            app:destination="@id/crissCrossFragment" />
     </fragment>
 
 </navigation>

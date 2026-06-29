@@ -146,4 +146,5 @@ dependencies {
 
     // TensorFlow Lite
     implementation(project(":opencv"))
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
 }

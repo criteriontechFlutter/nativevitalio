@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:background="@drawable/bg_focus_shift_gradient">
+
+    <!-- Ambient glow behind center images -->
+    <View
+        android:id="@+id/ambient_glow"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_solid_circle"
+        android:alpha="0.12"
+        android:backgroundTint="#0055CC"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Title at Top Center -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus Shift"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Center Container for Hands and Finger -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/exercise_container"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Both Hands Container (Can be blurred dynamically via RenderEffect) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_hands"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <!-- Left Hand -->
+            <ImageView
+                android:id="@+id/iv_left_hand"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:src="@drawable/iv_left_hand"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                android:layout_marginBottom="40dp" />
+
+            <!-- Right Hand -->
+            <ImageView
+                android:id="@+id/iv_right_hand"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:src="@drawable/iv_right_hand"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.75"
+                android:layout_marginBottom="60dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Single Finger ImageView (Placed on top of the blurred hands, sharp and focused) -->
+        <ImageView
+            android:id="@+id/iv_single_finger"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:src="@drawable/iv_single_finger"
+            android:scaleType="fitCenter"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Centered Countdown outline ring & text -->
+    <TextView
+        android:id="@+id/tv_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="3"
+        android:textColor="@color/white"
+        android:textSize="54sp"
+        android:fontFamily="sans-serif-medium"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Focus Guide (Focus Near / Focus Far / Take Position) -->
+    <TextView
+        android:id="@+id/tv_focus_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Position"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintBottom_toTopOf="@id/tv_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Subtitle description -->
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hold your both hands index finger one after other, 1st at (8-12 inches) distance and other at (16-20 inches)."
+        android:textColor="@color/textdarkgrey"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_play_pause"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bottom Action & Control Bar -->
+
+    <!-- Left: Reverse Countdown Timer -->
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:12"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginStart="40dp"
+        app:layout_constraintTop_toTopOf="@id/btn_play_pause"
+        app:layout_constraintBottom_toBottomOf="@id/btn_play_pause"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Center: Play/Pause action button -->
+    <ImageButton
+        android:id="@+id/btn_play_pause"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:background="@drawable/bg_play_pause"
+        android:src="@drawable/ic_pause"
+        android:contentDescription="Play or Pause Focus Shift session"
+        android:scaleType="fitCenter"
+        android:padding="20dp"
+        android:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="48dp" />
+
+    <!-- Right: End Button -->
+    <TextView
+        android:id="@+id/btn_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End"
+        android:textColor="@color/red_end"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-bold"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintTop_toTopOf="@id/btn_play_pause"
+        app:layout_constraintBottom_toBottomOf="@id/btn_play_pause"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
