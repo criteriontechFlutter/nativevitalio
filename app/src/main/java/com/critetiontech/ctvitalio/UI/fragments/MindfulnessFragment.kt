@@ -38,6 +38,24 @@ class MindfulnessFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+
+        binding.crisscrossId.setOnClickListener {
+            findNavController().navigate(R.id.action_mindfulnessFragment_to_crissCrossFragment)
+        }
+
+        binding.figureflowid.setOnClickListener {
+            findNavController().navigate(R.id.action_mindfulnessFragment_to_figure8FlowFragment)
+        }
+
+        binding.clockcircleid.setOnClickListener {
+
+            findNavController().navigate(R.id.action_mindfulnessFragment_to_clockCircleFragment)
+        }
+
+        binding.focusshiftid.setOnClickListener {
+
+            findNavController().navigate(R.id.action_mindfulnessFragment_to_focusShiftView)
+        }
         setupRecyclerViews()
         observeViewModel()
     }

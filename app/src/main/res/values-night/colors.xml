@@ -91,4 +91,10 @@
 
 
     <color name="textdarkgrey">#BABFC9</color>
+
+
+
+    <color name="meditation_blue">#FF007AFF</color>
+
+    <color name="red_end">#FF4D4D</color>
 </resources>
