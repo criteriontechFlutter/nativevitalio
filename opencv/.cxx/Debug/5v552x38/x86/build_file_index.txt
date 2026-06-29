@@ -1,1 +1,1 @@
-C:\CT_Project\nativevitalio\opencv\libcxx_helper\CMakeLists.txt
+C:\Users\CT-Animesh\AndroidStudioProjects\nativevitalio\opencv\libcxx_helper\CMakeLists.txt
