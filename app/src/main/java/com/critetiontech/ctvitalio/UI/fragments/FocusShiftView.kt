@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentFocusShiftViewBinding
 import com.critetiontech.ctvitalio.utils.FocusShiftAnimationManager
-import com.critetiontech.ctvitalio.utils.FocusShiftEndBottomSheet
+import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
 import com.critetiontech.ctvitalio.viewmodel.FocusShiftViewModel
 import kotlin.getValue
 
@@ -42,6 +42,7 @@ class FocusShiftView : Fragment() {
 
     // Flag to track if the initial countdown animation has been run
     private var isCountdownCompleted = false
+    private var startTimeMillis: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +60,8 @@ class FocusShiftView : Fragment() {
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
+
+        startTimeMillis = System.currentTimeMillis()
 
         // Initialize hand drawables
         binding.ivLeftHand.setImageResource(R.drawable.iv_left_hand)
@@ -103,22 +106,17 @@ class FocusShiftView : Fragment() {
 
         // Listen for bottom sheet confirmation results
         parentFragmentManager.setFragmentResultListener(
-            FocusShiftEndBottomSheet.REQUEST_KEY,
+            EndSessionBottomSheet.REQUEST_KEY,
             viewLifecycleOwner
         ) { _, bundle ->
-            val action = bundle.getString(FocusShiftEndBottomSheet.EXTRA_ACTION)
-            if (action == "end") {
+            val action = bundle.getString(EndSessionBottomSheet.EXTRA_ACTION)
+            if (action == "success") {
+                onSessionComplete()
+                exitFragment()
+            } else if (action == "end") {
                 endSessionAndExit()
             } else {
                 resumeSession()
-
-
-
-                val navController = findNavController()
-
-                navController.navigate(
-                    R.id.action_focusShiftView_to_focusSessionView
-                )
             }
         }
 
@@ -240,8 +238,26 @@ class FocusShiftView : Fragment() {
 
     private fun openEndSessionBottomSheet() {
         viewModel.setPlaying(false)
-        val bottomSheet = FocusShiftEndBottomSheet()
-        bottomSheet.show(parentFragmentManager, FocusShiftEndBottomSheet.TAG)
+        val durationSeconds = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+        val exerciseId = arguments?.getString("exerciseId")?.toIntOrNull() ?: 0
+        val timeLeftSeconds = viewModel.timeLeftSeconds.value ?: 0
+        val mindfulnessData = mapOf(
+            "exerciseName" to "Focus Shift",
+            "timeLeftSeconds" to timeLeftSeconds,
+            "completed" to (timeLeftSeconds == 0)
+        )
+        val mindfulnessJson = com.google.gson.Gson().toJson(mindfulnessData)
+        val totalSteps = if (timeLeftSeconds == 0) 1 else 0
+
+        val bottomSheet = EndSessionBottomSheet.newInstance(
+            exerciseId = exerciseId,
+            duration = durationSeconds,
+            totalSteps = totalSteps,
+            mindfulnessJson = mindfulnessJson,
+            title = "Incomplete Session!",
+            description = "Take a moment to finish your session mindfully. Completing the Focus Shift session will boost your progress stats."
+        )
+        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun resumeSession() {

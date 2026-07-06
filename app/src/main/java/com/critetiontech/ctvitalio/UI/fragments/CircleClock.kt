@@ -31,6 +31,8 @@ class ClockCircleFragment : Fragment() {
     private var exerciseAnimator: ValueAnimator? = null
     private var timerAnimator: ValueAnimator? = null
 
+    private var startTimeMillis: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +44,8 @@ class ClockCircleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        startTimeMillis = System.currentTimeMillis()
 
         // Enable full-screen edge-to-edge layout
         activity?.window?.let { window ->
@@ -74,16 +78,12 @@ class ClockCircleFragment : Fragment() {
             viewLifecycleOwner
         ) { _, bundle ->
             val action = bundle.getString(EndSessionBottomSheet.EXTRA_ACTION)
-            if (action == "end") {
+            if (action == "success") {
+                onSessionComplete()
+            } else if (action == "end") {
                 endSessionAndExit()
             } else {
                 resumeSession()
-
-//                val navController = findNavController()
-//
-//                navController.navigate(
-//                    R.id.action_focusShiftView_to_focusSessionView
-//                )
             }
         }
     }
@@ -240,7 +240,24 @@ class ClockCircleFragment : Fragment() {
 
     private fun openEndSessionBottomSheet() {
         pauseSession()
-        val bottomSheet = EndSessionBottomSheet()
+        val durationSeconds = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+        val exerciseId = arguments?.getString("exerciseId")?.toIntOrNull() ?: 0
+        val mindfulnessData = mapOf(
+            "exerciseName" to "Clock Circle",
+            "timeLeftSeconds" to timeLeftSeconds,
+            "completed" to (timeLeftSeconds == 0)
+        )
+        val mindfulnessJson = com.google.gson.Gson().toJson(mindfulnessData)
+        val totalSteps = if (timeLeftSeconds == 0) 1 else 0
+
+        val bottomSheet = EndSessionBottomSheet.newInstance(
+            exerciseId = exerciseId,
+            duration = durationSeconds,
+            totalSteps = totalSteps,
+            mindfulnessJson = mindfulnessJson,
+            title = "Incomplete Session!",
+            description = "Take a moment to finish your session mindfully. Completing the Clock Circle session will boost your progress stats."
+        )
         bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 

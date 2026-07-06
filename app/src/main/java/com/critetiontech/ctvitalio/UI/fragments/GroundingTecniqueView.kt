@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentGroundingTecniqueViewBinding
 
+
 class GroundingTecniqueView : Fragment() {
 
     private var _binding: FragmentGroundingTecniqueViewBinding? = null
@@ -36,6 +37,7 @@ class GroundingTecniqueView : Fragment() {
         }
 
         val exerciseName = arguments?.getString("exerciseName")
+        val exerciseId = arguments?.getString("exerciseId")
         val exerciseDescription = arguments?.getString("exerciseDescription")
         val benefits = arguments?.getStringArrayList("benefits") ?: arrayListOf()
 
@@ -44,8 +46,93 @@ class GroundingTecniqueView : Fragment() {
 
         populateBenefits(benefits)
 
+        val bundle = Bundle().apply {
+            putString("exerciseId", exerciseId)
+        }
+
         binding.btnStart.setOnClickListener {
-            findNavController().navigate(R.id.action_groundingTecniqueView_to_fivetoOneTechniqueProgress)
+
+            when (exerciseName) {
+
+                "5-4-3-2-1 Technique" -> {
+            findNavController().navigate(
+                R.id.action_groundingTecniqueView_to_boxBreathingFragment,
+
+//                R.id.action_groundingTecniqueView_to_fivetoOneTechniqueProgress,
+                bundle
+            )
+                }
+
+                "Color Scavenger Hunt" -> {
+            findNavController().navigate(
+                R.id.action_groundingTecniqueView_to_scavengerHunt,
+                bundle
+            )
+                }
+
+                "3x3 BINGO Card" -> {
+//            findNavController().navigate(
+//                R.id.action_to_bingoFragment,
+//                bundle
+//            )
+                }
+
+                "Deep Breathing" -> {
+//            findNavController().navigate(
+//                R.id.action_to_deepBreathingFragment,
+//                bundle
+//            )
+                }
+
+                "Shamanic Breathing" -> {
+//            findNavController().navigate(
+//                R.id.action_to_shamanicBreathingFragment,
+//                bundle
+//            )
+                }
+
+                "Box Breathing" -> {
+                    findNavController().navigate(
+                        R.id.action_groundingTecniqueView_to_boxBreathingFragment,
+                        bundle
+                    )
+                }
+
+                "Criss-Cross Focus" -> {
+                    findNavController().navigate(
+                        R.id.action_groundingTecniqueView_to_crissCrossFragment,
+                        bundle
+                    )
+                }
+
+                "Focus Shift" -> {
+                    findNavController().navigate(
+                        R.id.action_groundingTecniqueView_to_focusShiftView,
+                        bundle
+                    )
+                }
+
+                "Figure 8 Flow" -> {
+                    findNavController().navigate(
+                        R.id.action_groundingTecniqueView_to_figure8FlowFragment,
+                        bundle
+                    )
+                }
+
+                "Clock Circle" -> {
+                    findNavController().navigate(
+                        R.id.action_groundingTecniqueView_to_clockCircleFragment,
+                        bundle
+                    )
+                }
+
+                else -> {
+                    findNavController().navigate(
+                        R.id.action_groundingTecniqueView_to_fivetoOneTechniqueProgress,
+                        bundle
+                    )
+                }
+    }
         }
     }
 

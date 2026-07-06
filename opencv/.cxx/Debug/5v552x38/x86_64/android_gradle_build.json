@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "C:\\CT_Project\\nativevitalio\\opencv\\libcxx_helper\\CMakeLists.txt"
+    "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\libcxx_helper\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
       "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "C:\\CT_Project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86_64",
+      "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86_64",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
     "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "C:\\CT_Project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86_64",
+    "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86_64",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
@@ -21,7 +21,7 @@
       "toolchain": "toolchain",
       "abi": "x86_64",
       "artifactName": "opencv_jni_shared",
-      "output": "C:\\CT_Project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86_64\\libopencv_jni_shared.a"
+      "output": "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86_64\\libopencv_jni_shared.a"
     }
   },
   "toolchains": {

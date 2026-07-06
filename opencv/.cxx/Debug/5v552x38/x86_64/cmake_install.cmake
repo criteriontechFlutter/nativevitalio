@@ -1,4 +1,4 @@
-# Install script for directory: C:/CT_Project/nativevitalio/opencv/libcxx_helper
+# Install script for directory: C:/CT_Project/cursor_project/nativevitalio/opencv/libcxx_helper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/CT_Project/nativevitalio/opencv/.cxx/Debug/5v552x38/x86_64/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/CT_Project/cursor_project/nativevitalio/opencv/.cxx/Debug/5v552x38/x86_64/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

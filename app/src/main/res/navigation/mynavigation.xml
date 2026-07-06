@@ -704,7 +704,32 @@
         <action
             android:id="@+id/action_groundingTecniqueView_to_fivetoOneTechniqueProgress"
             app:destination="@id/fivetoOneTechniqueProgress" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_clockCircleFragment"
+            app:destination="@id/clockCircleFragment" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_focusShiftView"
+            app:destination="@id/focusShiftView" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_figure8FlowFragment"
+            app:destination="@id/figure8FlowFragment" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_crissCrossFragment"
+            app:destination="@id/crissCrossFragment" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_scavengerHuntProgress"
+            app:destination="@id/scavengerHuntProgress" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_scavengerHunt"
+            app:destination="@id/scavengerHunt" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_boxBreathingFragment"
+            app:destination="@id/boxBreathingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/boxBreathingFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BoxBreathingFragment"
+        android:label="BoxBreathingFragment" />
     <fragment
         android:id="@+id/fivetoOneTechniqueProgress"
         android:name="com.critetiontech.ctvitalio.UI.fragments.FivetoOneTechniqueProgress"

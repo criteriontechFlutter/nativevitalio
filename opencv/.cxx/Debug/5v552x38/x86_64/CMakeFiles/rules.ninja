@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\CT-VishaS\AppData\Local\Android\Sdk\cmake\3.22.1\bin\cmake.exe --regenerate-during-build -SC:\CT_Project\nativevitalio\opencv\libcxx_helper -BC:\CT_Project\nativevitalio\opencv\.cxx\Debug\5v552x38\x86_64
+  command = C:\Users\CT-VishaS\AppData\Local\Android\Sdk\cmake\3.22.1\bin\cmake.exe --regenerate-during-build -SC:\CT_Project\cursor_project\nativevitalio\opencv\libcxx_helper -BC:\CT_Project\cursor_project\nativevitalio\opencv\.cxx\Debug\5v552x38\x86_64
   description = Re-running CMake...
   generator = 1
 

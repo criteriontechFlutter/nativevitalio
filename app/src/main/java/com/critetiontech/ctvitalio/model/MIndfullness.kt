@@ -50,7 +50,32 @@ data class MindfulnessCategory(
     val categoryName: String,
     val exercises: List<MindfulnessExercise>
 )
-
+data class ExerciseCategoryResponse(
+    val categoryId: Int,
+    val categoryName: String,
+    val exercises: List<Exercise>
+)
+data class Exercise(
+    val exerciseId: Int,
+    val exerciseName: String,
+    val title: String,
+    val subTitle: String,
+    val exerciseType: String,
+    val description: String,
+    val instructions: String,
+    val durationMinutes: Int,
+    val secondsPerMovement: Double,
+    val repetitions: Int,
+    val totalSteps: Int,
+    val points: Int,
+    val heartRateEffect: String,
+    val hrvEffect: String,
+    val benefits: List<Benefit>
+)
+data class Benefit(
+    val benefitId: Int,
+    val benefit: String
+)
 data class MindfulnessExercise(
     val exerciseId: Int,
     val exerciseName: String,

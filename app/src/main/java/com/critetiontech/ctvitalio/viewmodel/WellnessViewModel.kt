@@ -24,6 +24,10 @@ class WellnessViewModel(application: Application) : BaseViewModel(application) {
     private val _breathingActivities = MutableLiveData<List<MindfulnessExercise>>()
     val breathingActivities: LiveData<List<MindfulnessExercise>> = _breathingActivities
 
+
+
+    private val _eyeMovementActivities = MutableLiveData<List<MindfulnessExercise>>()
+    val eyeMovementActivities: LiveData<List<MindfulnessExercise>> = _eyeMovementActivities
     private val _progress = MutableLiveData<MindfulnessProgress>()
     val progress: LiveData<MindfulnessProgress> = _progress
 
@@ -49,6 +53,8 @@ class WellnessViewModel(application: Application) : BaseViewModel(application) {
                                 1 -> _groundingExercises.postValue(category.exercises)
                                 2 -> _bingoActivities.postValue(category.exercises)
                                 3 -> _breathingActivities.postValue(category.exercises)
+                                4 -> _eyeMovementActivities.postValue(category.exercises)
+
                             }
                         }
                     }
@@ -58,4 +64,13 @@ class WellnessViewModel(application: Application) : BaseViewModel(application) {
             }
         }
     }
+
+
+
 }
+
+data class MindfulnessStepJson(
+    val stepNo: Int,
+    val title: String,
+    val items: List<String>
+)
