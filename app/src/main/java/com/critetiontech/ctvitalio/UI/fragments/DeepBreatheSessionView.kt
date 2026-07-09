@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentDeepBreatheSessionViewBinding
+import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 
@@ -24,6 +25,7 @@ class DeepBreatheSessionView : Fragment() {
     private var remainingSeconds = totalSeconds
 
     private var isPaused = false
+    private var startTimeMillis: Long = 0
 
     // ---------------- ON CREATE VIEW ----------------
     override fun onCreateView(
@@ -53,15 +55,49 @@ class DeepBreatheSessionView : Fragment() {
         setupVideo()
         startTimer()
 
-        // Play / Pause button
         binding.btnPlayPause.setOnClickListener {
             togglePlayPause()
         }
 
+        startTimeMillis = System.currentTimeMillis()
+
+        // Listen for bottom sheet results
+        parentFragmentManager.setFragmentResultListener(
+            EndSessionBottomSheet.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val action = bundle.getString(EndSessionBottomSheet.EXTRA_ACTION)
+            if (action == "success") {
+                onSessionComplete()
+            } else if (action == "end") {
+                endSessionAndExit()
+            } else {
+                resumeSession()
+            }
+        }
+
         // End button
         binding.btnEnd.setOnClickListener {
-            // BottomSheet open yahan karo
-            // EndSessionBottomSheet().show(childFragmentManager, "end")
+            pauseSession()
+            val durationSeconds = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+            val exerciseId = arguments?.getString("exerciseId")?.toIntOrNull() ?: 0
+            val mindfulnessData = mapOf(
+                "exerciseName" to "Deep Breathing",
+                "remainingSeconds" to remainingSeconds,
+                "completed" to (remainingSeconds == 0)
+            )
+            val mindfulnessJson = com.google.gson.Gson().toJson(mindfulnessData)
+            val totalSteps = if (remainingSeconds == 0) 1 else 0
+
+            val bottomSheet = EndSessionBottomSheet.newInstance(
+                exerciseId = exerciseId,
+                duration = durationSeconds,
+                totalSteps = totalSteps,
+                mindfulnessJson = mindfulnessJson,
+                title = "Incomplete Session!",
+                description = "Take a moment to finish your session mindfully. Completing the Deep Breathing session will boost your progress stats."
+            )
+            bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
         }
     }
 
@@ -130,6 +166,34 @@ class DeepBreatheSessionView : Fragment() {
             startTimer()
 
             binding.btnPlayPause.setImageResource(R.drawable.ic_pause)
+        }
+    }
+
+    private fun pauseSession() {
+        if (!isPaused) {
+            togglePlayPause()
+        }
+    }
+
+    private fun resumeSession() {
+        if (isPaused) {
+            togglePlayPause()
+        }
+    }
+
+    private fun endSessionAndExit() {
+        android.widget.Toast.makeText(context, "Session Incomplete. Progress not saved.", android.widget.Toast.LENGTH_SHORT).show()
+        exitFragment()
+    }
+
+    private fun onSessionComplete() {
+        android.widget.Toast.makeText(context, "Deep Breathing Session Completed! Progress Saved.", android.widget.Toast.LENGTH_LONG).show()
+        exitFragment()
+    }
+
+    private fun exitFragment() {
+        if (!parentFragmentManager.popBackStackImmediate()) {
+            activity?.finish()
         }
     }
 

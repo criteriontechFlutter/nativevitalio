@@ -704,7 +704,38 @@
         <action
             android:id="@+id/action_groundingTecniqueView_to_fivetoOneTechniqueProgress"
             app:destination="@id/fivetoOneTechniqueProgress" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_clockCircleFragment"
+            app:destination="@id/clockCircleFragment" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_focusShiftView"
+            app:destination="@id/focusShiftView" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_figure8FlowFragment"
+            app:destination="@id/figure8FlowFragment" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_crissCrossFragment"
+            app:destination="@id/crissCrossFragment" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_scavengerHuntProgress"
+            app:destination="@id/scavengerHuntProgress" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_scavengerHunt"
+            app:destination="@id/scavengerHunt" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_boxBreathingFragment"
+            app:destination="@id/boxBreathingFragment" />
+        <action
+            android:id="@+id/action_to_deepBreathingFragment"
+            app:destination="@id/deepBreatheSessionView" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_bingo"
+            app:destination="@id/bingoActivityFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/boxBreathingFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BoxBreathingFragment"
+        android:label="BoxBreathingFragment" />
     <fragment
         android:id="@+id/fivetoOneTechniqueProgress"
         android:name="com.critetiontech.ctvitalio.UI.fragments.FivetoOneTechniqueProgress"
@@ -773,5 +804,24 @@
             android:id="@+id/action_crissCrossSession_to_crissCrossFragment"
             app:destination="@id/crissCrossFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/bingoActivityFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BingoActivityFragment"
+        android:label="BingoActivityFragment" >
+        <action
+            android:id="@+id/action_bingoActivityFragment_to_bingoCardPage"
+            app:destination="@id/bingoCardPage" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bingoCardPage"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BingoCardPage"
+        android:label="BingoCardPage" />
+
+    <fragment
+        android:id="@+id/deepBreatheSessionView"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.DeepBreatheSessionView"
+        android:label="DeepBreatheSessionView" />
 
 </navigation>

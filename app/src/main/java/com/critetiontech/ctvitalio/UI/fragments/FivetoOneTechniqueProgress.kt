@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
 import com.critetiontech.ctvitalio.databinding.FragmentFivetoOneTechniqueProgressBinding
 import com.critetiontech.ctvitalio.viewmodel.FiveToOneViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -28,6 +30,7 @@ class FivetoOneTechniqueProgress : Fragment() {
     private var currentStep = 0
     private var selectedCount = 0
     private val selectedItemsPerStep = mutableMapOf<Int, List<String>>()
+    private var startTimeMillis: Long = 0
 
     data class StepData(
         val title: String,
@@ -96,6 +99,8 @@ class FivetoOneTechniqueProgress : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startTimeMillis = System.currentTimeMillis()
+
         // Start immediately with fallback data
         steps = buildSteps(emptyMap())
         loadStep()
@@ -106,9 +111,18 @@ class FivetoOneTechniqueProgress : Fragment() {
             if (currentStep == 0) loadStep()
         }
 
-        viewModel.insertMessage.observe(viewLifecycleOwner) { (success, message) ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-            if (success) showCompletionDialog()
+        binding.imgClose.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        // Listen for bottom sheet results
+        parentFragmentManager.setFragmentResultListener(
+            EndSessionBottomSheet.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val action = bundle.getString(EndSessionBottomSheet.EXTRA_ACTION)
+            if (action == "success") {
+                showCompletionDialog()
+            }
         }
 
         binding.btnReset.setOnClickListener {
@@ -149,11 +163,13 @@ class FivetoOneTechniqueProgress : Fragment() {
             currentStep++
             loadStep()
         } else {
-            buildAndInsert()
+            openEndSessionBottomSheet()
         }
     }
 
-    private fun buildAndInsert() {
+    private fun openEndSessionBottomSheet() {
+        val durationSeconds = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+        val exerciseId = arguments?.getString("exerciseId")?.toIntOrNull() ?: 0
         val mindfulnessData = stepTemplates.mapIndexed { index, template ->
             mapOf(
                 "stepNo" to (index + 1),
@@ -163,7 +179,16 @@ class FivetoOneTechniqueProgress : Fragment() {
         }
         val completedSteps = selectedItemsPerStep.values.count { it.isNotEmpty() }
         val mindfulnessJson = Gson().toJson(mindfulnessData)
-        viewModel.insertMindfulness(mindfulnessJson, completedSteps)
+
+        val bottomSheet = EndSessionBottomSheet.newInstance(
+            exerciseId = exerciseId,
+            duration = durationSeconds,
+            totalSteps = completedSteps,
+            mindfulnessJson = mindfulnessJson,
+            title = "Session Completed! 🎉",
+            description = "Nice work! You've completed your grounding session. Save your progress now."
+        )
+        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun loadStep() {

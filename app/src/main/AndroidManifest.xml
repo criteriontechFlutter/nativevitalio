@@ -76,6 +76,7 @@
         <activity
             android:name=".UI.ChangePassword"
             android:exported="false" />
+
         <activity
             android:name=".UI.ResetPassword"
             android:exported="false" />

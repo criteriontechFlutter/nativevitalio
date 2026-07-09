@@ -4,9 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:background="@drawable/bg_focus_shift_gradient">
-
+    android:clipToPadding="false" >
+    <ImageView
+        android:id="@+id/imgGifBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <!-- Ambient glow behind center images -->
     <View
         android:id="@+id/ambient_glow"

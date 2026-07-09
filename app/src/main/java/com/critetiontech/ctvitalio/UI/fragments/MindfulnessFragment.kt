@@ -23,6 +23,8 @@ class MindfulnessFragment : Fragment() {
     private lateinit var bingoAdapter: MindfulnessActivityAdapter
     private lateinit var breathingAdapter: MindfulnessActivityAdapter
 
+    private lateinit var eyeMovementAdapter: MindfulnessActivityAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,23 +41,6 @@ class MindfulnessFragment : Fragment() {
         }
 
 
-        binding.crisscrossId.setOnClickListener {
-            findNavController().navigate(R.id.action_mindfulnessFragment_to_crissCrossFragment)
-        }
-
-        binding.figureflowid.setOnClickListener {
-            findNavController().navigate(R.id.action_mindfulnessFragment_to_figure8FlowFragment)
-        }
-
-        binding.clockcircleid.setOnClickListener {
-
-            findNavController().navigate(R.id.action_mindfulnessFragment_to_clockCircleFragment)
-        }
-
-        binding.focusshiftid.setOnClickListener {
-
-            findNavController().navigate(R.id.action_mindfulnessFragment_to_focusShiftView)
-        }
         setupRecyclerViews()
         observeViewModel()
     }
@@ -78,11 +63,19 @@ class MindfulnessFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = breathingAdapter
         }
+
+
+        eyeMovementAdapter = MindfulnessActivityAdapter { exercise -> navigateToDetail(exercise) }
+        binding.eyeMovementId.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = eyeMovementAdapter
+        }
     }
 
     private fun navigateToDetail(exercise: MindfulnessExercise) {
         val args = Bundle().apply {
             putString("exerciseName", exercise.exerciseName)
+            putString("exerciseId", exercise.exerciseId.toString())
             putString("exerciseDescription", exercise.description)
             putStringArrayList("benefits", ArrayList(exercise.benefits.map { it.benefit }))
         }
@@ -102,6 +95,10 @@ class MindfulnessFragment : Fragment() {
         }
         viewModel.breathingActivities.observe(viewLifecycleOwner) { items ->
             breathingAdapter.submitList(items)
+        }
+
+        viewModel.eyeMovementActivities.observe(viewLifecycleOwner) { items ->
+            eyeMovementAdapter.submitList(items)
         }
     }
 }

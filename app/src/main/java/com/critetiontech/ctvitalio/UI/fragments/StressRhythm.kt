@@ -22,7 +22,6 @@ import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex.MovementEntrys
 import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
-import com.critetiontech.ctvitalio.databinding.FragmentStressBinding
 import com.critetiontech.ctvitalio.databinding.FragmentStressRhythmBinding
 import com.critetiontech.ctvitalio.model.MovementIndexViewModel
 import java.util.Calendar

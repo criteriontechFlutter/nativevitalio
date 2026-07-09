@@ -329,6 +329,15 @@
                             <option name="y" value="574" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_crissCrossFragment_to_crissCrossSession">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -340,6 +349,15 @@
                             <option name="x" value="486" />
                             <option name="y" value="890" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_crissCrossSession_to_crissCrossFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -692,6 +710,15 @@
                             <option name="y" value="558" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_figure8FlowFragment_to_figureFlowSession">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -704,6 +731,15 @@
                             <option name="y" value="866" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_figureFlowSession_to_figure8FlowFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -712,8 +748,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="466" />
-                            <option name="y" value="2838" />
+                            <option name="x" value="-348" />
+                            <option name="y" value="772" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -783,6 +819,15 @@
                             <option name="y" value="850" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_focusSessionView_to_focusShiftView">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -794,6 +839,15 @@
                             <option name="x" value="68" />
                             <option name="y" value="553" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_focusShiftView_to_focusSessionView">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -824,13 +878,43 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="200" />
-                            <option name="y" value="2864" />
+                            <option name="x" value="-254" />
+                            <option name="y" value="460" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_groundingTecniqueView_to_clockCircleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_groundingTecniqueView_to_crissCrossFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_groundingTecniqueView_to_figure8FlowFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_groundingTecniqueView_to_fivetoOneTechniqueProgress">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_groundingTecniqueView_to_focusShiftView">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_groundingTecniqueView_to_scavengerHunt">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_groundingTecniqueView_to_scavengerHuntProgress">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -1202,8 +1286,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="197" />
-                            <option name="y" value="3131" />
+                            <option name="x" value="-48" />
+                            <option name="y" value="1006" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -1223,8 +1307,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="501" />
-                            <option name="y" value="3080" />
+                            <option name="x" value="314" />
+                            <option name="y" value="1129" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -20,11 +20,12 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentCrissCrossViewBinding
-import com.critetiontech.ctvitalio.utils.CrissCrossEndBottomSheet
+import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
 
 class CrissCrossFragment : Fragment() {
 
     private var _binding: FragmentCrissCrossViewBinding? = null
+
     private val binding get() = _binding!!
 
     // State properties
@@ -36,7 +37,9 @@ class CrissCrossFragment : Fragment() {
     private var timerAnimator: ValueAnimator? = null
     private var movementAnimator: ValueAnimator? = null
     private val jumpHandler = Handler(Looper.getMainLooper())
+    private var startTimeMillis: Long = 0
 
+    private var pathStep = 0
     private val jumpRunnable = object : Runnable {
         override fun run() {
             if (isPlaying) {
@@ -71,21 +74,19 @@ class CrissCrossFragment : Fragment() {
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
-        Glide.with(this)
+        Glide.with(requireContext())
             .asGif()
-            .load(R.drawable.mindexbg)
-            .into(binding.bgGif)
+            .load(R.drawable.exercisebg)
+            .into(binding.imgGifBackground)
         setupInitialDotsState()
         setupControls()
         setupTimerAnimator()
 
         // Start session
         isPlaying = true
+        startTimeMillis = System.currentTimeMillis()
         timerAnimator?.start()
         scheduleNextJump()
-
-
-
     }
 
     private fun setupInitialDotsState() {
@@ -114,21 +115,17 @@ class CrissCrossFragment : Fragment() {
 
         // Listen for custom bottom sheet results
         parentFragmentManager.setFragmentResultListener(
-            CrissCrossEndBottomSheet.REQUEST_KEY,
+            EndSessionBottomSheet.REQUEST_KEY,
             viewLifecycleOwner
         ) { _, bundle ->
-            val action = bundle.getString(CrissCrossEndBottomSheet.EXTRA_ACTION)
-            if (action == "end") {
+            val action = bundle.getString(EndSessionBottomSheet.EXTRA_ACTION)
+            if (action == "success") {
+                onSessionComplete()
+                exitFragment()
+            } else if (action == "end") {
                 endSessionAndExit()
-
-
             } else {
                 resumeSession()
-                val navController = findNavController()
-
-                navController.navigate(
-                    R.id.action_crissCrossFragment_to_crissCrossSession
-                )
             }
         }
     }
@@ -154,29 +151,54 @@ class CrissCrossFragment : Fragment() {
     private fun transitionToNextDot() {
         if (!isAdded || _binding == null) return
 
-        // Pick a random target index excluding the current active index
-        val inactiveIndices = (0..3).filter { it != activeIndex }
-        val nextIndex = inactiveIndices.random()
+        val startPoint: Int
+        val endPoint: Int
+
+        when (pathStep) {
+            0 -> {
+                // Diagonal 1: Top Left -> Bottom Right
+                startPoint = 0
+                endPoint = 3
+            }
+            1 -> {
+                // Connect: Bottom Right -> Top Right
+                startPoint = 1
+                endPoint = 1
+            }
+            2 -> {
+                // Diagonal 2: Top Right -> Bottom Left
+                startPoint = 1
+                endPoint = 2
+            }
+            else -> {
+                // Connect: Bottom Left -> Top Left
+                startPoint = 0
+                endPoint = 0
+            }
+        }
+
+        pathStep = (pathStep + 1) % 4
 
         movementAnimator?.cancel()
 
-        binding.crissCrossLineView.startPointIndex = activeIndex
-        binding.crissCrossLineView.endPointIndex = nextIndex
+        binding.crissCrossLineView.startPointIndex = startPoint
+        binding.crissCrossLineView.endPointIndex = endPoint
         binding.crissCrossLineView.progress = 0f
 
         movementAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 1000L // 1 second duration for slide
+            duration = 1000L
             interpolator = LinearInterpolator()
-            addUpdateListener { animator ->
-                if (_binding != null) {
-                    binding.crissCrossLineView.progress = animator.animatedValue as Float
-                }
+
+            addUpdateListener {
+                binding.crissCrossLineView.progress = it.animatedValue as Float
             }
+
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    activeIndex = nextIndex
+                    activeIndex = endPoint
                 }
             })
+
             start()
         }
     }
@@ -232,8 +254,25 @@ class CrissCrossFragment : Fragment() {
 
     private fun openEndSessionBottomSheet() {
         pauseSession()
-        val bottomSheet = CrissCrossEndBottomSheet()
-        bottomSheet.show(parentFragmentManager, CrissCrossEndBottomSheet.TAG)
+        val durationSeconds = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+        val exerciseId = arguments?.getString("exerciseId")?.toIntOrNull() ?: 0
+        val mindfulnessData = mapOf(
+            "exerciseName" to "Criss-Cross Focus",
+            "timeLeftSeconds" to timeLeftSeconds,
+            "completed" to (timeLeftSeconds == 0)
+        )
+        val mindfulnessJson = com.google.gson.Gson().toJson(mindfulnessData)
+        val totalSteps = if (timeLeftSeconds == 0) 1 else 0
+
+        val bottomSheet = EndSessionBottomSheet.newInstance(
+            exerciseId = exerciseId,
+            duration = durationSeconds,
+            totalSteps = totalSteps,
+            mindfulnessJson = mindfulnessJson,
+            title = "Incomplete Session!",
+            description = "Take a moment to finish your session mindfully. Completing the Criss-Cross Focus session will boost your progress stats."
+        )
+        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun endSessionAndExit() {

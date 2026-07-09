@@ -17,6 +17,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.databinding.FragmentScavengerHuntProgressBinding
 import com.critetiontech.ctvitalio.utils.ColorDetector
 import com.google.android.material.chip.Chip
@@ -78,6 +79,10 @@ class ScavengerHuntProgress : Fragment() {
         binding.btnFound.setOnClickListener {
 
             takePhoto()
+        }
+
+        binding.imgClose.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->

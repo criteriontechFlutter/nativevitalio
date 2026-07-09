@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/CT-Animesh/AndroidStudioProjects/nativevitalio/opencv/libcxx_helper
+# Install script for directory: C:/CT_Project/cursor_project/nativevitalio/opencv/libcxx_helper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/CT-Animesh/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Users/CT-VishaS/AppData/Local/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/CT-Animesh/AndroidStudioProjects/nativevitalio/opencv/.cxx/Debug/5v552x38/armeabi-v7a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/CT_Project/cursor_project/nativevitalio/opencv/.cxx/Debug/5v552x38/armeabi-v7a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

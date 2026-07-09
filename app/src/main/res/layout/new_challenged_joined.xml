@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
 
     android:background="@drawable/rounded_corners"
-    android:backgroundTint="#F5F0F5"
-    app:cardElevation="0dp">
+    android:backgroundTint="#F5F0F5">
 
 
     <ImageView
