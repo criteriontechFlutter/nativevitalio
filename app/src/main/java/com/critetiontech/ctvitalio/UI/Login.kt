@@ -7,7 +7,6 @@ import android.os.*
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -226,8 +225,9 @@ class Login : BaseActivity() {
         card?.startAnimation(anim)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-    }
+}
+
+override fun onBackPressed(login: Login) {
+    super.onBackPressed()
+    login.finishAffinity()
 }
