@@ -6,8 +6,7 @@ import android.view.View
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.roundToInt
+
 class HeartRateGraphView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -94,17 +93,6 @@ class HeartRateGraphView @JvmOverloads constructor(
         dataPoints.clear()
         dataPoints.addAll(points)
         updateDynamicRanges()
-        invalidate()
-    }
-
-    fun addDataPoint(timestamp: Long, bpm: Int) {
-        dataPoints.add(HeartRatePoint(timestamp, bpm))
-        updateDynamicRanges()
-        invalidate()
-    }
-
-    fun clearData() {
-        dataPoints.clear()
         invalidate()
     }
 

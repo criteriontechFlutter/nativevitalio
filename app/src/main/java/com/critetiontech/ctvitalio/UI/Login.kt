@@ -76,11 +76,12 @@ class Login : BaseActivity() {
         binding.validationId.visibility = View.GONE
 
         val watcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateButtonState()
             }
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) = Unit
         }
 
         binding.inputField.addTextChangedListener(watcher)
@@ -104,44 +105,7 @@ class Login : BaseActivity() {
         }
     }
 
-    private fun setupPasswordVisibilityToggle() {
-        var visible = false
-
-        binding.passField.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-
-                val drawableEnd = binding.passField.compoundDrawables[2]
-                if (drawableEnd != null) {
-
-                    val width = drawableEnd.bounds.width()
-                    if (event.rawX >= (binding.passField.right - width - 30)) {
-
-                        visible = !visible
-                        val cursorPos = binding.passField.selectionEnd
-                        val tf = binding.passField.typeface
-
-                        binding.passField.inputType =
-                            if (visible) InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                            else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
-                        binding.passField.typeface = tf
-                        binding.passField.setSelection(cursorPos)
-
-                        val icon = if (visible) R.drawable.close_eye else R.drawable.open_eye
-                        binding.passField.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.lock,
-                            0,
-                            icon,
-                            0
-                        )
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-            false
-        }
-    }
-
+ 
     private fun performLogin() {
         val username = binding.inputField.text?.toString()?.trim() ?: ""
         val password = binding.passField.text?.toString()?.trim() ?: ""
