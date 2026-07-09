@@ -105,7 +105,30 @@ class Login : BaseActivity() {
         }
     }
 
- 
+    private fun setupPasswordVisibilityToggle() {
+        val isVisible =
+            binding.passField.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+        val cursor = binding.passField.selectionEnd
+        val typeface = binding.passField.typeface
+
+        binding.passField.inputType =
+            if (isVisible) {
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            }
+
+        binding.passField.typeface = typeface
+        binding.passField.setSelection(cursor)
+
+        binding.passField.setCompoundDrawablesWithIntrinsicBounds(
+            R.drawable.lock,
+            0,
+            if (isVisible) R.drawable.open_eye else R.drawable.close_eye,
+            0
+        )
+    }
     private fun performLogin() {
         val username = binding.inputField.text?.toString()?.trim() ?: ""
         val password = binding.passField.text?.toString()?.trim() ?: ""
