@@ -29,6 +29,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import androidx.core.graphics.toColorInt
 
 class WaterIntakeFragment : Fragment() {
 
@@ -96,9 +97,8 @@ class WaterIntakeFragment : Fragment() {
         }
         
         val goalLitres = PrefsManager().getEmployeeGoals()
-            ?.find { it.goalId == 13 }
-            ?.targetValue
-            ?.toInt() ?: 0
+            .find { it.goalId == 13 }
+            ?.targetValue ?: 0
 
         // Show configured goal (fallback to 0 safely)
         binding.tvGoalLabel.text = "Goal ${goalLitres * 1000} ml"
@@ -116,7 +116,7 @@ class WaterIntakeFragment : Fragment() {
                 val rawPercentage = (totalMl.toFloat() * 100f) / goalMl
                 val safePercentage = rawPercentage.coerceIn(0f, 100f)
 
-                binding.tvDailyper.text = "${safePercentage.toInt()}%"
+                "${safePercentage.toInt()}%".also { binding.tvDailyper.text = it }
                 binding.waterRing.setLevelSmooth(safePercentage, 1800)
             }
         }
@@ -206,8 +206,8 @@ class WaterIntakeFragment : Fragment() {
         }
 
         // ---- Colors
-        val normal = Color.parseColor("#E3EEF7")
-        val highlight = Color.parseColor("#28D27D")
+        val normal = "#E3EEF7".toColorInt()
+        val highlight = "#28D27D".toColorInt()
 
         val colors = MutableList(days) { normal }
         colors[days - 1] = highlight // today

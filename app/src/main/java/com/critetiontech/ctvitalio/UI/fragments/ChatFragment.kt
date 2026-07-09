@@ -54,7 +54,6 @@ class ChatFragment : Fragment() {
 
 
         binding.voiceBtn.setOnClickListener {
-
                 viewModel.sentMessages(requireContext(),"",binding.messageBox.text.toString())
                 binding.messageBox.clearFocus()
 
@@ -66,17 +65,6 @@ class ChatFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
-
-    private fun sendMessage() {
-        val text = binding.messageBox.text.toString().trim()
-        if (text.isNotEmpty()) {
-            viewModel.sendMessage(text)
-            binding.messageBox.text?.clear()
-        }
-
-
-    }
-
 
 
 }

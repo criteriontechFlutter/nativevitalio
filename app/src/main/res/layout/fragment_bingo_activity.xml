@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:padding="24dp">
+
+    <!-- Back Arrow Button -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#1B2430"
+        android:contentDescription="Back" />
+
+    <!-- Center Content ScrollView to handle smaller screens -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/btnStartActivity"
+        app:layout_constraintTop_toBottomOf="@id/btnBack">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- Rounded square app icon with 3x3 white dot grid inside -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="32dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_icon_gradient" />
+
+                <!-- 3x3 Grid inside the icon -->
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:columnCount="3"
+                    android:rowCount="3"
+                    android:useDefaultMargins="false">
+
+                    <!-- Row 1 -->
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <!-- Row 2 -->
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <!-- Row 3 -->
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+                    <View android:layout_width="10dp" android:layout_height="10dp" android:layout_margin="5dp" android:background="@drawable/bg_dot_white" />
+
+                </GridLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvIntroTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="3×3 BINGO Card"
+                android:textColor="#1B2430"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Subtitle/Description -->
+            <TextView
+                android:id="@+id/tvIntroSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:text="Engaging grid of 9 bite-sized activities designed to build daily mindfulness habits. Each tile represents a quick, trackable task, and completing a row, column, or full grid creates a sense of achievement—just like a game."
+                android:textColor="#5A6472"
+                android:textSize="14sp" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#E2E8F0" />
+
+            <!-- Benefits List Container -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                android:gravity="start">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="12dp"
+                    android:text="Key Benefits:"
+                    android:textColor="#006CFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <!-- Benefit Items -->
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginVertical="4dp" android:gravity="center_vertical">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_check_circle" app:tint="#2ED85A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Prevents Overthinking" android:textColor="#1B2430" android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginVertical="4dp" android:gravity="center_vertical">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_check_circle" app:tint="#2ED85A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Improves Awareness" android:textColor="#1B2430" android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginVertical="4dp" android:gravity="center_vertical">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_check_circle" app:tint="#2ED85A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Boosts Engagement" android:textColor="#1B2430" android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginVertical="4dp" android:gravity="center_vertical">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_check_circle" app:tint="#2ED85A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Supports Holistic Health" android:textColor="#1B2430" android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginVertical="4dp" android:gravity="center_vertical">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_check_circle" app:tint="#2ED85A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Improves Mindfulness" android:textColor="#1B2430" android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginVertical="4dp" android:gravity="center_vertical">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_check_circle" app:tint="#2ED85A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Combines physical + Mental + Emotional" android:textColor="#1B2430" android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Start Activity Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStartActivity"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Start Activity"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#006CFF"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

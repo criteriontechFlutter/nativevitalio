@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentFocusShiftViewBinding
 import com.critetiontech.ctvitalio.utils.FocusShiftAnimationManager
@@ -60,7 +61,10 @@ class FocusShiftView : Fragment() {
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
-
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.drawable.exercisebg)
+            .into(binding.imgGifBackground)
         startTimeMillis = System.currentTimeMillis()
 
         // Initialize hand drawables

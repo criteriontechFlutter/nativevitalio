@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
 import com.critetiontech.ctvitalio.databinding.FragmentCircleClockBinding
@@ -46,7 +47,10 @@ class ClockCircleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         startTimeMillis = System.currentTimeMillis()
-
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.drawable.exercisebg)
+            .into(binding.imgGifBackground)
         // Enable full-screen edge-to-edge layout
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)

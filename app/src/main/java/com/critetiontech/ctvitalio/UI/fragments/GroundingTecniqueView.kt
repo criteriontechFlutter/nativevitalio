@@ -41,7 +41,22 @@ class GroundingTecniqueView : Fragment() {
         val exerciseDescription = arguments?.getString("exerciseDescription")
         val benefits = arguments?.getStringArrayList("benefits") ?: arrayListOf()
 
-        exerciseName?.let { binding.tvExerciseTitle.text = it }
+        exerciseName?.let {
+            binding.tvExerciseTitle.text = it
+            val iconRes = when (it) {
+                "5-4-3-2-1 Technique" -> R.drawable.grounding_icon_gradient
+                "Color Scavenger Hunt" -> R.drawable.ic_color_scavenger
+                "3x3 BINGO Card" -> R.drawable.ic_bingo_grid
+                "Deep Breathing" -> R.drawable.deep_breathing
+                "Shamanic Breathing" -> R.drawable.shamanic_breathing
+                "Box Breathing" -> R.drawable.box_breathing
+                "Criss-Cross Focus" -> R.drawable.criss_cross_focus
+                "Figure 8 Flow" -> R.drawable.figure_8_flow
+                "Clock Circle" -> R.drawable.clock_circle
+                else -> R.drawable.grounding_icon_gradient
+            }
+            binding.ivExerciseIcon.setImageResource(iconRes)
+        }
         exerciseDescription?.let { binding.tvExerciseDescription.text = it }
 
         populateBenefits(benefits)
@@ -56,9 +71,9 @@ class GroundingTecniqueView : Fragment() {
 
                 "5-4-3-2-1 Technique" -> {
             findNavController().navigate(
-                R.id.action_groundingTecniqueView_to_boxBreathingFragment,
-
-//                R.id.action_groundingTecniqueView_to_fivetoOneTechniqueProgress,
+//                R.id.action_groundingTecniqueView_to_boxBreathingFragment,
+//
+                R.id.action_groundingTecniqueView_to_fivetoOneTechniqueProgress,
                 bundle
             )
                 }
@@ -71,10 +86,10 @@ class GroundingTecniqueView : Fragment() {
                 }
 
                 "3x3 BINGO Card" -> {
-//            findNavController().navigate(
-//                R.id.action_to_bingoFragment,
-//                bundle
-//            )
+            findNavController().navigate(
+                R.id.action_groundingTecniqueView_to_bingo,
+                bundle
+            )
                 }
 
                 "Deep Breathing" -> {

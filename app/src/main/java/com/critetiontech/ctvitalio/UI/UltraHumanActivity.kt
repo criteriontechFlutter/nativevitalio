@@ -31,7 +31,7 @@ class UltraHumanActivity : AppCompatActivity() {
         binding = ActivityUltraHumanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         source = intent.getStringExtra("source")
-        Log.d("UH_DEBUG", "UltraHumanActivity CREATED with intent: " + source.toString())
+        Log.d("UH_DEBUG", "UltraHumanActivity CREATED with intent: $source")
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
 
         binding.btnContinue.setOnClickListener {

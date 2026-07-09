@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentFigure8FlowBinding
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
@@ -51,7 +52,10 @@ class Figure8FlowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.drawable.exercisebg)
+            .into(binding.imgGifBackground)
         // Enable full-screen edge-to-edge layout
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)

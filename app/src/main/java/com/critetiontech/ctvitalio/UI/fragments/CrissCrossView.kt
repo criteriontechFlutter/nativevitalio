@@ -39,7 +39,7 @@ class CrissCrossFragment : Fragment() {
     private val jumpHandler = Handler(Looper.getMainLooper())
     private var startTimeMillis: Long = 0
 
-    private var moveToTopLeft = true
+    private var pathStep = 0
     private val jumpRunnable = object : Runnable {
         override fun run() {
             if (isPlaying) {
@@ -74,7 +74,10 @@ class CrissCrossFragment : Fragment() {
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
-
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.drawable.exercisebg)
+            .into(binding.imgGifBackground)
         setupInitialDotsState()
         setupControls()
         setupTimerAnimator()
@@ -151,17 +154,30 @@ class CrissCrossFragment : Fragment() {
         val startPoint: Int
         val endPoint: Int
 
-        if (moveToTopLeft) {
-            // Bottom Right -> Top Left
-            startPoint = 3
-            endPoint = 0
-        } else {
-            // Top Left -> Bottom Right
-            startPoint = 0
-            endPoint = 3
+        when (pathStep) {
+            0 -> {
+                // Diagonal 1: Top Left -> Bottom Right
+                startPoint = 0
+                endPoint = 3
+            }
+            1 -> {
+                // Connect: Bottom Right -> Top Right
+                startPoint = 1
+                endPoint = 1
+            }
+            2 -> {
+                // Diagonal 2: Top Right -> Bottom Left
+                startPoint = 1
+                endPoint = 2
+            }
+            else -> {
+                // Connect: Bottom Left -> Top Left
+                startPoint = 0
+                endPoint = 0
+            }
         }
 
-        moveToTopLeft = !moveToTopLeft
+        pathStep = (pathStep + 1) % 4
 
         movementAnimator?.cancel()
 

@@ -53,39 +53,15 @@
             android:paddingEnd="24dp"
             android:paddingBottom="24dp">
 
-            <!-- Gradient Custom Icon mimicking the squircle 5 perfectly -->
-            <FrameLayout
+            <!-- Dynamic Exercise Icon -->
+            <ImageView
+                android:id="@+id/ivExerciseIcon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/grounding_icon_gradient">
-
-                <!-- Outer Circle (semi-transparent white) -->
-                <View
-                    android:layout_width="66dp"
-                    android:layout_height="66dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/grounding_circle_outer" />
-
-                <!-- Inner Circle (bright semi-transparent white) -->
-                <View
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/grounding_circle_inner" />
-
-                <!-- The number "5" -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="5"
-                    android:textColor="#5E83F6"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-            </FrameLayout>
+                android:src="@drawable/grounding_icon_gradient"
+                android:contentDescription="Exercise Icon" />
 
             <!-- Title -->
             <TextView

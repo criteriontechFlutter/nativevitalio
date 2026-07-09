@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
 import com.critetiontech.ctvitalio.databinding.FragmentFivetoOneTechniqueProgressBinding
@@ -110,6 +111,9 @@ class FivetoOneTechniqueProgress : Fragment() {
             if (currentStep == 0) loadStep()
         }
 
+        binding.imgClose.setOnClickListener {
+            findNavController().navigateUp()
+        }
         // Listen for bottom sheet results
         parentFragmentManager.setFragmentResultListener(
             EndSessionBottomSheet.REQUEST_KEY,

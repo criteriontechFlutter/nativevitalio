@@ -725,6 +725,12 @@
         <action
             android:id="@+id/action_groundingTecniqueView_to_boxBreathingFragment"
             app:destination="@id/boxBreathingFragment" />
+        <action
+            android:id="@+id/action_to_deepBreathingFragment"
+            app:destination="@id/deepBreatheSessionView" />
+        <action
+            android:id="@+id/action_groundingTecniqueView_to_bingo"
+            app:destination="@id/bingoActivityFragment" />
     </fragment>
     <fragment
         android:id="@+id/boxBreathingFragment"
@@ -798,5 +804,24 @@
             android:id="@+id/action_crissCrossSession_to_crissCrossFragment"
             app:destination="@id/crissCrossFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/bingoActivityFragment"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BingoActivityFragment"
+        android:label="BingoActivityFragment" >
+        <action
+            android:id="@+id/action_bingoActivityFragment_to_bingoCardPage"
+            app:destination="@id/bingoCardPage" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bingoCardPage"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.BingoCardPage"
+        android:label="BingoCardPage" />
+
+    <fragment
+        android:id="@+id/deepBreatheSessionView"
+        android:name="com.critetiontech.ctvitalio.UI.fragments.DeepBreatheSessionView"
+        android:label="DeepBreatheSessionView" />
 
 </navigation>
