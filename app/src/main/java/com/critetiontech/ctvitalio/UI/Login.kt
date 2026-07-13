@@ -227,7 +227,7 @@ class Login : BaseActivity() {
 
 }
 
-override fun onBackPressed(login: Login) {
+fun onBackPressed(login: Login) {
     super.onBackPressed()
     login.finishAffinity()
 }
