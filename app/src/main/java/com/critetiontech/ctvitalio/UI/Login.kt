@@ -228,6 +228,6 @@ class Login : BaseActivity() {
 }
 
 fun onBackPressed(login: Login) {
-    super.onBackPressed()
+
     login.finishAffinity()
 }
