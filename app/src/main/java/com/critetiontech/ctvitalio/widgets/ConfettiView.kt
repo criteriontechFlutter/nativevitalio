@@ -2,11 +2,12 @@ package com.critetiontech.ctvitalio.widgets
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import java.util.Random
+import androidx.core.graphics.toColorInt
+import androidx.core.graphics.withTranslation
 
 class ConfettiView @JvmOverloads constructor(
     context: Context,
@@ -19,12 +20,12 @@ class ConfettiView @JvmOverloads constructor(
     private var isAnimating = false
 
     private val colors = intArrayOf(
-        Color.parseColor("#FFC107"), // Yellow
-        Color.parseColor("#FF5722"), // Orange
-        Color.parseColor("#E91E63"), // Pink
-        Color.parseColor("#00BCD4"), // Cyan
-        Color.parseColor("#4CAF50"), // Green
-        Color.parseColor("#9C27B0")  // Purple
+        "#FFC107".toColorInt(), // Yellow
+        "#FF5722".toColorInt(), // Orange
+        "#E91E63".toColorInt(), // Pink
+        "#00BCD4".toColorInt(), // Cyan
+        "#4CAF50".toColorInt(), // Green
+        "#9C27B0".toColorInt()  // Purple
     )
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -34,20 +35,21 @@ class ConfettiView @JvmOverloads constructor(
         val width = if (width > 0) width else 1080
         val height = if (height > 0) height else 1920
 
-        for (i in 0 until 150) {
-            particles.add(
-                Particle(
-                    x = random.nextFloat() * width,
-                    y = -random.nextFloat() * height * 0.5f,
-                    vx = (random.nextFloat() - 0.5f) * 10f,
-                    vy = random.nextFloat() * 15f + 10f,
-                    color = colors[random.nextInt(colors.size)],
-                    size = random.nextFloat() * 15f + 10f,
-                    rotation = random.nextFloat() * 360f,
-                    rotationSpeed = (random.nextFloat() - 0.5f) * 10f
+        (0 until 150)
+            .forEach { _ ->
+                particles.add(
+                    Particle(
+                        x = random.nextFloat() * width,
+                        y = -random.nextFloat() * height * 0.5f,
+                        vx = (random.nextFloat() - 0.5f) * 10f,
+                        vy = random.nextFloat() * 15f + 10f,
+                        color = colors[random.nextInt(colors.size)],
+                        size = random.nextFloat() * 15f + 10f,
+                        rotation = random.nextFloat() * 360f,
+                        rotationSpeed = (random.nextFloat() - 0.5f) * 10f
+                    )
                 )
-            )
-        }
+            }
         isAnimating = true
         invalidate()
     }
@@ -69,19 +71,18 @@ class ConfettiView @JvmOverloads constructor(
 
                 paint.color = particle.color
                 
-                canvas.save()
-                canvas.translate(particle.x, particle.y)
-                canvas.rotate(particle.rotation)
-                
-                canvas.drawRect(
-                    -particle.size / 2f,
-                    -particle.size / 4f,
-                    particle.size / 2f,
-                    particle.size / 4f,
-                    paint
-                )
-                
-                canvas.restore()
+                canvas.withTranslation(particle.x, particle.y) {
+                    rotate(particle.rotation)
+
+                    drawRect(
+                        -particle.size / 2f,
+                        -particle.size / 4f,
+                        particle.size / 2f,
+                        particle.size / 4f,
+                        paint
+                    )
+
+                }
             }
         }
 
