@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    remote_config_defaults.xml
+    ─────────────────────────────────────────────────────────────────────────────
+    Local default values for Firebase Remote Config.
+    These are used immediately on first launch BEFORE the first successful
+    fetch from Firebase console, so the app always has sane fallbacks.
+
+    Keys here MUST match the keys defined in RemoteConfigManager.kt.
+    ─────────────────────────────────────────────────────────────────────────────
+-->
+<defaultsMap>
+
+    <!-- ── Environment: "staging" | "development" | "production" ── -->
+    <entry>
+        <key>active_environment</key>
+        <value>staging</value>
+    </entry>
+
+    <!-- ── Base host overrides (empty = use built-in NetworkConfig value) ── -->
+    <entry>
+        <key>base_host_staging</key>
+        <value>https://demo.vitalio.care</value>
+    </entry>
+    <entry>
+        <key>base_host_development</key>
+        <value>http://182.156.200.177</value>
+    </entry>
+    <entry>
+        <key>base_host_production</key>
+        <value>https://api.vitalio.care</value>
+    </entry>
+
+    <!-- ── Maintenance mode ── -->
+    <entry>
+        <key>is_maintenance_mode</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>maintenance_title</key>
+        <value>Under Maintenance</value>
+    </entry>
+    <entry>
+        <key>maintenance_message</key>
+        <value>We are upgrading our systems to serve you better. Please check back in a few minutes.</value>
+    </entry>
+    <entry>
+        <key>maintenance_contact_email</key>
+        <value>support@vitalio.care</value>
+    </entry>
+
+    <!-- ── Force update ── -->
+    <entry>
+        <key>force_update_required</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>minimum_app_version</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>update_message</key>
+        <value>A new version of Vitalio is available. Please update to continue.</value>
+    </entry>
+
+</defaultsMap>
