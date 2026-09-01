@@ -11,6 +11,7 @@ import com.critetiontech.ctvitalio.utils.FCMHelper
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.PrefsManager
 import com.google.firebase.FirebaseApp
+import androidx.core.net.toUri
 
 class Splash : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -38,7 +39,7 @@ class Splash : AppCompatActivity() {
 
     private fun playSplashVideo() {
         try {
-            val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.microsoft_teams}")
+            val videoUri = "android.resource://${packageName}/${R.raw.microsoft_teams}".toUri()
             binding.videoView.setVideoURI(videoUri)
             binding.videoView.setOnCompletionListener {
                 navigateNextScreen()
