@@ -628,6 +628,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val requestBody = mapOf("text" to data)
         JSONObject(requestBody).toString()
 
+        Log.d("RequestBody", requestBody.toString())
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(
