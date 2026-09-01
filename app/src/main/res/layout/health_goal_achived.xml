@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/round_btm_corner"
-    android:gravity="center"
-    android:padding="8.dp
-"
+    android:padding="8dp"
     android:orientation="vertical">
 
     <View

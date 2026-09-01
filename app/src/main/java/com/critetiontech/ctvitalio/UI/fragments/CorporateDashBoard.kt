@@ -21,6 +21,8 @@ import android.media.MediaRecorder
 import android.media.audiofx.NoiseSuppressor
 import android.os.Build
 import android.os.Bundle
+import java.util.Locale
+import kotlin.math.roundToInt
 import android.os.Handler
 import android.os.Looper
 import android.text.Spannable
@@ -1262,11 +1264,34 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 //        wellnessDataBind()
 
 
-binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
-    findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
-}
+        binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+        }
+
+        binding.dailyCheckListCard.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboard_to_smartGoalFragment)
+        }
+
         viewModel.dailyCheckList.observe(viewLifecycleOwner) { list ->
             if (list.isNotEmpty()) {
+                bindDailyChecklistSummary(list)
+                bindDailyChecklistGoals(list)
+                bindDailyChecklistProgress(list)
+            }
+        }
+
+        viewModel.vitalList.observe(viewLifecycleOwner) {
+            val list = viewModel.dailyCheckList.value
+            if (!list.isNullOrEmpty()) {
+                bindDailyChecklistSummary(list)
+                bindDailyChecklistGoals(list)
+                bindDailyChecklistProgress(list)
+            }
+        }
+
+        viewModel.totalQuantity.observe(viewLifecycleOwner) {
+            val list = viewModel.dailyCheckList.value
+            if (!list.isNullOrEmpty()) {
                 bindDailyChecklistSummary(list)
                 bindDailyChecklistGoals(list)
                 bindDailyChecklistProgress(list)
@@ -1975,14 +2000,197 @@ fun Int.withAlpha(alpha: Float): Int {
             binding.healthGoalAchived.goalsContainer.addView(goalView)
         }
     }
-    private fun bindDailyChecklistSummary(list: List<DailyCheckItem>) {
+    private data class ResolvedGoalInfo(
+        val iconRes: Int,
+        val progress: Int,
+        val valueText: String,
+        val isAchieved: Boolean
+    )
 
+    private fun resolveGoalInfo(item: DailyCheckItem): ResolvedGoalInfo {
+        val goalName = item.goalName.orEmpty()
+        val unit = item.unit.orEmpty().lowercase()
+        val goalId = item.goalId
+        val vmId = item.vmId
+        val lastVitals = viewModel.vitalList.value
+
+        return when {
+            // 1. Water / Hydration Goal
+            goalId == 13 || vmId == 298 || unit.contains("liter") || unit.contains("ltr") ||
+            goalName.contains("water", true) || goalName.contains("fluid", true) || goalName.contains("hydration", true) -> {
+                val targetL = item.targetValue?.toDoubleOrNull() ?: 3.0
+                val targetMl = if (targetL <= 20.0) (targetL * 1000).roundToInt() else targetL.roundToInt()
+
+                var currentMl = 0
+                if (item.vitalValue > 0.0) {
+                    currentMl = if (item.vitalValue <= 20.0) (item.vitalValue * 1000).roundToInt() else item.vitalValue.roundToInt()
+                } else if (item.totalFluid_L > 0.0) {
+                    currentMl = (item.totalFluid_L * 1000).roundToInt()
+                } else {
+                    val lastWater = lastVitals?.find { it.vitalId == 298 || it.vitalName.equals("WaterIntake", true) }?.vitalValue
+                    if (lastWater != null && lastWater > 0.0) {
+                        currentMl = if (lastWater <= 20.0) (lastWater * 1000).roundToInt() else lastWater.roundToInt()
+                    } else {
+                        val totalQty = viewModel.totalQuantity.value ?: 0
+                        if (totalQty > 0) currentMl = totalQty
+                    }
+                }
+
+                val progress = if (targetMl > 0) ((currentMl.toDouble() / targetMl.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                val achieved = item.isGoalAchieved == 1 || (targetMl > 0 && currentMl >= targetMl)
+
+                ResolvedGoalInfo(
+                    iconRes = R.drawable.water_p,
+                    progress = if (achieved && progress < 100) 100 else progress,
+                    valueText = "$currentMl / $targetMl ml",
+                    isAchieved = achieved
+                )
+            }
+
+            // 2. Steps / Activity Goal
+            goalId == 1 || vmId == 248 || vmId == 295 || unit == "steps" ||
+            goalName.contains("step", true) || goalName.contains("activity", true) || goalName.contains("walk", true) -> {
+                val target = item.targetValue?.toIntOrNull() ?: 10000
+                val current = if (item.vitalValue > 0.0) {
+                    item.vitalValue.roundToInt()
+                } else {
+                    lastVitals?.find { it.vitalId == 248 || it.vitalName.equals("TotalSteps", true) }?.vitalValue?.roundToInt() ?: 0
+                }
+
+                val progress = if (target > 0) ((current.toDouble() / target.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                ResolvedGoalInfo(
+                    iconRes = R.drawable.steps_p,
+                    progress = if (achieved && progress < 100) 100 else progress,
+                    valueText = "$current / $target",
+                    isAchieved = achieved
+                )
+            }
+
+            // 3. Sleep Goals (Sleep Early, Sleep Duration, etc.)
+            goalId == 6 || vmId == 262 || vmId == 300 || vmId == 243 || vmId == 261 ||
+            unit == "time" || goalName.contains("sleep", true) || goalName.contains("bedtime", true) -> {
+                val isHourUnit = unit == "hrs" || unit == "hours" || (item.targetValue?.toDoubleOrNull() ?: 0.0) > 1.0
+
+                if (isHourUnit) {
+                    val target = item.targetValue?.toDoubleOrNull() ?: 8.0
+                    val current = if (item.vitalValue > 0.0) {
+                        item.vitalValue
+                    } else {
+                        lastVitals?.find { it.vitalId == 261 || it.vitalName.equals("TotalSleep", true) }?.vitalValue ?: 0.0
+                    }
+
+                    val progress = if (target > 0) ((current / target) * 100).roundToInt().coerceIn(0, 100) else 0
+                    val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                    ResolvedGoalInfo(
+                        iconRes = R.drawable.sleep_p,
+                        progress = if (achieved && progress < 100) 100 else progress,
+                        valueText = "${String.format(Locale.US, "%.1f", current)} / ${String.format(Locale.US, "%.1f", target)} hrs",
+                        isAchieved = achieved
+                    )
+                } else {
+                    val target = item.targetValue?.toIntOrNull() ?: 1
+                    val current = if (item.vitalValue > 0.0) item.vitalValue.roundToInt() else if (item.isGoalAchieved == 1) 1 else 0
+                    val progress = if (target > 0) ((current.toDouble() / target.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                    val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                    ResolvedGoalInfo(
+                        iconRes = R.drawable.sleep_p,
+                        progress = if (achieved && progress < 100) 100 else progress,
+                        valueText = "$current / $target",
+                        isAchieved = achieved
+                    )
+                }
+            }
+
+            // 4. Meditation / Mindfulness Goal
+            goalId == 14 || vmId == 299 || goalName.contains("meditation", true) ||
+            goalName.contains("mindfulness", true) || goalName.contains("breath", true) || goalName.contains("relax", true) -> {
+                val target = item.targetValue?.toIntOrNull() ?: 20
+                val current = item.vitalValue.roundToInt()
+                val progress = if (target > 0) ((current.toDouble() / target.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                ResolvedGoalInfo(
+                    iconRes = R.drawable.mindfullness,
+                    progress = if (achieved && progress < 100) 100 else progress,
+                    valueText = "$current / $target",
+                    isAchieved = achieved
+                )
+            }
+
+            // 5. Glucose / Blood Sugar Goal
+            vmId == 249 || vmId == 301 || goalName.contains("glucose", true) || goalName.contains("sugar", true) -> {
+                val target = item.targetValue?.toIntOrNull() ?: 1
+                val current = if (item.glucoseCount > 0) {
+                    item.glucoseCount
+                } else if (item.vitalValue > 0.0) {
+                    item.vitalValue.roundToInt()
+                } else {
+                    lastVitals?.find { it.vitalId == 249 || it.vitalName.equals("Glucose", true) }?.vitalValue?.roundToInt() ?: 0
+                }
+
+                val progress = if (target > 0) ((current.toDouble() / target.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                ResolvedGoalInfo(
+                    iconRes = R.drawable.glucose_p,
+                    progress = if (achieved && progress < 100) 100 else progress,
+                    valueText = "$current / $target",
+                    isAchieved = achieved
+                )
+            }
+
+            // 6. Blood Pressure (BP) Goal
+            vmId == 302 || goalName.contains("bp", true) || goalName.contains("blood pressure", true) -> {
+                val target = item.targetValue?.toIntOrNull() ?: 1
+                val current = if (item.bpCount > 0) {
+                    item.bpCount
+                } else if (item.vitalValue > 0.0) {
+                    item.vitalValue.roundToInt()
+                } else {
+                    if (lastVitals?.any { it.vitalId == 4 || it.vitalId == 6 } == true) 1 else 0
+                }
+
+                val progress = if (target > 0) ((current.toDouble() / target.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                ResolvedGoalInfo(
+                    iconRes = R.drawable.bp_p,
+                    progress = if (achieved && progress < 100) 100 else progress,
+                    valueText = "$current / $target",
+                    isAchieved = achieved
+                )
+            }
+
+            // 7. Fallback / Generic Goal
+            else -> {
+                val target = item.targetValue?.toIntOrNull() ?: 1
+                val current = item.vitalValue.roundToInt()
+                val progress = if (target > 0) ((current.toDouble() / target.toDouble()) * 100).roundToInt().coerceIn(0, 100) else 0
+                val achieved = item.isGoalAchieved == 1 || (target > 0 && current >= target)
+
+                ResolvedGoalInfo(
+                    iconRes = R.drawable.medicine,
+                    progress = if (achieved && progress < 100) 100 else progress,
+                    valueText = "$current / $target",
+                    isAchieved = achieved
+                )
+            }
+        }
+    }
+
+    private fun bindDailyChecklistSummary(list: List<DailyCheckItem>) {
         val totalGoals = list.size
-        val achievedGoals = list.count { it.isGoalAchieved == 1 }
-        val percentage = ((achievedGoals.toDouble() / totalGoals) * 100).toInt()
+        val achievedGoals = list.count { item ->
+            val info = resolveGoalInfo(item)
+            info.isAchieved
+        }
+        val percentage = if (totalGoals > 0) ((achievedGoals.toDouble() / totalGoals) * 100).toInt() else 0
 
         binding.healthGoalAchived.apply {
-
             title.text = when {
                 percentage == 100 -> "Excellent!"
                 percentage >= 50 -> "Nice start!"
@@ -1995,12 +2203,11 @@ fun Int.withAlpha(alpha: Float): Int {
             progressBar.progress = percentage
         }
     }
-    private fun bindDailyChecklistGoals(list: List<DailyCheckItem>) {
 
+    private fun bindDailyChecklistGoals(list: List<DailyCheckItem>) {
         binding.healthGoalAchived.goalsContainer.removeAllViews()
 
         list.forEach { item ->
-
             val view = layoutInflater.inflate(
                 R.layout.goal_item,
                 binding.healthGoalAchived.goalsContainer,
@@ -2012,194 +2219,88 @@ fun Int.withAlpha(alpha: Float): Int {
 
             label.text = item.goalName
 
-            if (item.isGoalAchieved == 1) {
+            val info = resolveGoalInfo(item)
+            if (info.isAchieved) {
                 icon.setImageResource(R.drawable.check_green)
-                label.setTextColor("#1A1A1A".toColorInt())
+                label.setTextColor(ContextCompat.getColor(requireContext(), R.color.themeTextColorBW))
             } else {
                 icon.setImageResource(R.drawable.check_grey)
-                label.setTextColor("#AAAAAA".toColorInt())
+                label.setTextColor(ContextCompat.getColor(requireContext(), R.color.greyText))
             }
 
             binding.healthGoalAchived.goalsContainer.addView(view)
         }
     }
 
-private fun getProgressColor(progress: Int): Int {
+    private fun getProgressColor(progress: Int): Int {
         return when {
-            progress <=  10 ->  Color.parseColor("#FF3737")
+            progress <= 10 -> Color.parseColor("#FF3737") // Red
             progress <= 30 -> Color.parseColor("#FEA33C") // Orange
             progress <= 60 -> Color.parseColor("#1281FD") // Blue
-            progress >= 80 ->  Color.parseColor("#00C67A")
-            else ->  Color.parseColor("#2196F3")
+            else -> Color.parseColor("#00C67A") // Green
         }
     }
-//    private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
-//
-//        binding.checklistContainer.removeAllViews()
-//
-//        list.forEach { item ->
-//
-//            val itemBinding = DailyChecklistWedgetBinding.inflate(
-//                layoutInflater,
-//                binding.checklistContainer,
-//                false
-//            )
-//
-//            val progress =
-//                ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
-//
-//            itemBinding.progressSteps.progress = 40
-//
-//            itemBinding.tvStepsLabel.text = item.goalName
-//            itemBinding.tvStepsValue.text =
-//                "${item.vitalValue.toInt()} / ${item.targetValue}"
-//
-//            when (item.isGoalAchieved) {
-//                1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
-//                0 -> itemBinding.ivStepsIcon.setColorFilter(Color.RED)
-//            }
-//
-//            // 🔥 IMPORTANT PART
-//            itemBinding.progressSteps.post {
-//
-//                val progressBarWidth = itemBinding.progressSteps.width
-//                val filledWidth = progressBarWidth * progress / 100f
-//
-//                val labelX =
-//                    itemBinding.tvStepsLabel.x + (itemBinding.tvStepsLabel.width / 2f)
-//
-//                if (filledWidth >= labelX) {
-//                    itemBinding.tvStepsLabel.setTextColor(Color.WHITE)
-//                } else {
-//                    itemBinding.tvStepsLabel.setTextColor(Color.BLACK)
-//                }
-//            }
-//
-//            binding.checklistContainer.addView(itemBinding.root)
-//        }
-//
-//    }
-private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
 
-    binding.checklistContainer.removeAllViews()
+    private fun bindDailyChecklistProgress(list: List<DailyCheckItem>) {
+        binding.checklistContainer.removeAllViews()
 
-    list.forEach { item ->
+        val darkTextColor = ContextCompat.getColor(requireContext(), R.color.themeTextColorBW)
 
-        val itemBinding = DailyChecklistWedgetBinding.inflate(
-            layoutInflater,
-            binding.checklistContainer,
-            false
-        )
+        list.forEach { item ->
+            val itemBinding = DailyChecklistWedgetBinding.inflate(
+                layoutInflater,
+                binding.checklistContainer,
+                false
+            )
 
-        // ✅ SAFE progress calculation
-        val progress = if (item.targetValue.toInt() > 0) {
-            if(item.vmId.toString()=="298"){
-                (((item.vitalValue/  1000) / item.targetValue.toFloat() ) * 100).toInt()
-            }
+            val info = resolveGoalInfo(item)
+            val labelText = "${item.goalName.orEmpty()} ${info.progress}%"
 
-            else   if(item.vmId.toString()=="249"){
-                ((item.glucoseCount / item.targetValue.toFloat()) * 100).toInt()
-            }  else{
-                ((item.vitalValue / item.targetValue.toFloat()) * 100).toInt()
-            }
-        } else {
-            0
-        }
+            // Base Layer (Unfilled: Dark/Black text & icon)
+            itemBinding.tvStepsLabel.text = labelText
+            itemBinding.tvStepsLabel.setTextColor(darkTextColor)
+            itemBinding.ivStepsIcon.setImageResource(info.iconRes)
+            itemBinding.ivStepsIcon.setColorFilter(darkTextColor)
 
+            // Filled Layer (Masked: White text & icon)
+            itemBinding.tvStepsLabelFilled.text = labelText
+            itemBinding.tvStepsLabelFilled.setTextColor(Color.WHITE)
+            itemBinding.ivStepsIconFilled.setImageResource(info.iconRes)
+            itemBinding.ivStepsIconFilled.setColorFilter(Color.WHITE)
 
+            // Right-side Value text
+            itemBinding.tvStepsValue.text = info.valueText
 
-        if(progress.toString()=="0"){
-        itemBinding.progressSteps.progress = 1
-    }else{
-        itemBinding.progressSteps.progress = progress
+            // Progress pill color
+            val progressColor = getProgressColor(info.progress)
+            itemBinding.filledClipLayout.backgroundTintList = ColorStateList.valueOf(progressColor)
 
-    }
-        // ✅ Set texts
-        itemBinding.tvStepsLabel?.text = item.goalName+" "+progress+"% "
+            // Masking & Clipping logic
+            if (info.progress > 0) {
+                itemBinding.filledClipLayout.visibility = View.VISIBLE
+                itemBinding.progressContainer.post {
+                    val totalWidth = itemBinding.progressContainer.width
+                    if (totalWidth > 0) {
+                        val filledWidth = (totalWidth * (info.progress / 100f)).roundToInt()
 
-        if(item.vmId.toString()=="298"){
+                        // Set the clipping frame to exact filled width
+                        val clipParams = itemBinding.filledClipLayout.layoutParams
+                        clipParams.width = filledWidth
+                        itemBinding.filledClipLayout.layoutParams = clipParams
 
-            itemBinding.tvStepsValue.text =
-                "${item.vitalValue.toInt()} / ${item.targetValue.toInt()*1000} ml"
-        }
-        else  if(item.vmId.toString()=="249"){
-
-            itemBinding.tvStepsValue.text =
-                "${item.glucoseCount.toInt()} / ${item.targetValue}"
-        }
-
-        else{
-
-            itemBinding.tvStepsValue.text =
-                "${item.vitalValue.toInt()} / ${item.targetValue}"
-        }
-        if(item.vmId.toString()=="248"){
-
-
-            itemBinding.ivStepsIcon.setImageResource(R.drawable.steps_p)
-
-        }
-        else if(item.vmId.toString()=="298"){
-
-
-            itemBinding.ivStepsIcon.setImageResource(R.drawable.water_p)
-
-        }
-        else if(item.vmId.toString()=="300"){
-
-
-
-            itemBinding.ivStepsIcon.setImageResource(R.drawable.sleep_p)
-        }
-        else if(item.vmId.toString()=="301"){
-
-
-
-            itemBinding.ivStepsIcon.setImageResource(R.drawable.glucose_p)
-        }
-        else if(item.vmId.toString()=="302"){
-
-
-
-            itemBinding.ivStepsIcon.setImageResource(R.drawable.bp_p)
-        }
-
-
-        // ✅ Progress-based color
-        val progressColor = getProgressColor(progress)
-
-        // ✅ Apply colors
-        itemBinding.progressSteps.progressTintList =
-            ColorStateList.valueOf(progressColor)
-
-        itemBinding.ivStepsIcon.setColorFilter(progressColor)
-
-
-        // ✅ Goal achieved icon color (optional override)
-        when (item.isGoalAchieved) {
-            1 -> itemBinding.ivStepsIcon.setColorFilter(Color.GREEN)
-            0 -> itemBinding.ivStepsIcon.setColorFilter(Color.BLACK)
-        }
-
-        // ✅ Text contrast logic (label over progress bar)
-        itemBinding.progressSteps.post {
-
-            val progressBarWidth = itemBinding.progressSteps.width
-            val filledWidth = progressBarWidth * progress / 100f
-
-            val labelCenterX =
-                itemBinding.tvStepsLabel.x + (itemBinding.tvStepsLabel.width / 2f)
-
-            if (filledWidth >= labelCenterX) {
-                itemBinding.tvStepsLabel.setTextColor(Color.WHITE)
+                        // Keep inner content layout pinned to total width so text & icon position matches base layer
+                        val contentParams = itemBinding.filledContentLayout.layoutParams
+                        contentParams.width = totalWidth
+                        itemBinding.filledContentLayout.layoutParams = contentParams
+                    }
+                }
             } else {
-                itemBinding.tvStepsLabel.setTextColor(Color.BLACK)
+                itemBinding.filledClipLayout.visibility = View.GONE
             }
-        }
 
-        binding.checklistContainer.addView(itemBinding.root)
+            binding.checklistContainer.addView(itemBinding.root)
+        }
     }
-}
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("SuspiciousIndentation")
 private fun initHydrationControls() {
