@@ -49,7 +49,8 @@ class otp : AppCompatActivity() {
                 viewModel.getPatientDetailsByUHID(uhid=storedUHID,
                     deviceToken="deviceToken",isRegistered=isRegistered
                     ,otp=otptext ,context=applicationContext,
-                    mNo = mobileNo.toString())
+                    mNo = mobileNo
+                )
 
             }
         }
@@ -59,7 +60,7 @@ class otp : AppCompatActivity() {
         }
 
 
-        binding.loginSubtitle.text= "Verification code sent to your Mobile $mobileNo"
+        "Verification code sent to your Mobile $mobileNo".also { binding.loginSubtitle.text = it }
 
     }
 
@@ -74,7 +75,7 @@ class otp : AppCompatActivity() {
             val editText = otpFields[i]
 
             // Handle backspace key explicitly
-            editText.setOnKeyListener { v, keyCode, event ->
+            editText.setOnKeyListener { _, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
                     if (editText.text.isEmpty() && i > 0) {
                         otpFields[i - 1].setText("") // Clear previous field

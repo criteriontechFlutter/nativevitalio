@@ -7,7 +7,6 @@ import android.os.*
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -76,11 +75,12 @@ class Login : BaseActivity() {
         binding.validationId.visibility = View.GONE
 
         val watcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateButtonState()
             }
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) = Unit
         }
 
         binding.inputField.addTextChangedListener(watcher)
@@ -105,43 +105,29 @@ class Login : BaseActivity() {
     }
 
     private fun setupPasswordVisibilityToggle() {
-        var visible = false
+        val isVisible =
+            binding.passField.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 
-        binding.passField.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
+        val cursor = binding.passField.selectionEnd
+        val typeface = binding.passField.typeface
 
-                val drawableEnd = binding.passField.compoundDrawables[2]
-                if (drawableEnd != null) {
-
-                    val width = drawableEnd.bounds.width()
-                    if (event.rawX >= (binding.passField.right - width - 30)) {
-
-                        visible = !visible
-                        val cursorPos = binding.passField.selectionEnd
-                        val tf = binding.passField.typeface
-
-                        binding.passField.inputType =
-                            if (visible) InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                            else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
-                        binding.passField.typeface = tf
-                        binding.passField.setSelection(cursorPos)
-
-                        val icon = if (visible) R.drawable.close_eye else R.drawable.open_eye
-                        binding.passField.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.lock,
-                            0,
-                            icon,
-                            0
-                        )
-                        return@setOnTouchListener true
-                    }
-                }
+        binding.passField.inputType =
+            if (isVisible) {
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             }
-            false
-        }
-    }
 
+        binding.passField.typeface = typeface
+        binding.passField.setSelection(cursor)
+
+        binding.passField.setCompoundDrawablesWithIntrinsicBounds(
+            R.drawable.lock,
+            0,
+            if (isVisible) R.drawable.open_eye else R.drawable.close_eye,
+            0
+        )
+    }
     private fun performLogin() {
         val username = binding.inputField.text?.toString()?.trim() ?: ""
         val password = binding.passField.text?.toString()?.trim() ?: ""
@@ -239,8 +225,9 @@ class Login : BaseActivity() {
         card?.startAnimation(anim)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-    }
+}
+
+fun onBackPressed(login: Login) {
+
+    login.finishAffinity()
 }
