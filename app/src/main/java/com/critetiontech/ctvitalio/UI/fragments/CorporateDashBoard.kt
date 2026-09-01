@@ -655,53 +655,128 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
 //        observeVitalList()
 //        observeSleepValues()
         viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
+            if (vitalList.isNullOrEmpty()) return@observe
 
-                binding.vitalRecyclerView.apply {
-                    layoutManager = GridLayoutManager(requireContext(), 2)
-                    adapter = VitalAdapter(vitalList)
+            binding.vitalRecyclerView.apply {
+                layoutManager = GridLayoutManager(requireContext(), 2)
+                adapter = VitalAdapter(vitalList)
+            }
+
+            fun List<Vital>.findVital(vararg names: String): Vital? =
+                firstOrNull { vital -> names.any { it.equals(vital.vitalName, ignoreCase = true) } }
+
+            fun Vital?.asText(): String =
+                this?.vitalValue?.toInt()?.toString() ?: "--"
+
+            fun bindStatusBadge(tv: TextView, vital: Vital?, defaultColor: String) {
+                val severity = vital?.severityLevel
+                if (!severity.isNullOrBlank()) {
+                    tv.text = severity
+                    val color = try {
+                        Color.parseColor(vital.vitalColor ?: defaultColor)
+                    } catch (e: Exception) {
+                        Color.parseColor(defaultColor)
+                    }
+                    tv.setTextColor(color)
+                    tv.backgroundTintList = ColorStateList.valueOf(
+                        ColorUtils.setAlphaComponent(color, (0.15f * 255).toInt())
+                    )
+                } else {
+                    tv.text = "--"
+                }
+            }
+
+            val wellnessVital = vitalList.findVital("Wellness Score", "WellnessScore", "Wellness")
+            val sleepVital = vitalList.findVital("SleepScore", "Sleep", "TotalSleep")
+            val movementVital = vitalList.findVital("MovementIndex", "Movement")
+            val stressVital = vitalList.findVital("StressScore", "Stress")
+            val recoveryVital = vitalList.findVital("RecoveryIndex", "Recovery")
+
+            binding.sleepProgressIds.apply {
+                // 1. Wellness Score
+                wellnessScoreNumber.text = wellnessVital.asText()
+
+                val wellnessSeverity = wellnessVital?.severityLevel
+                if (!wellnessSeverity.isNullOrBlank()) {
+                    attentionBadges.text = wellnessSeverity
+                    attentionBadges.visibility = View.VISIBLE
+                    val color = try {
+                        Color.parseColor(wellnessVital?.vitalColor ?: "#FFD600")
+                    } catch (e: Exception) {
+                        Color.parseColor("#FFD600")
+                    }
+                    attentionBadges.setTextColor(color)
+                    attentionBadges.backgroundTintList = ColorStateList.valueOf(
+                        ColorUtils.setAlphaComponent(color, (0.15f * 255).toInt())
+                    )
+                } else {
+                    attentionBadges.visibility = View.GONE
                 }
 
+                val score = wellnessVital?.vitalValue?.toInt() ?: 0
+                if (score > 0) {
+                    binding.progressCircler.animateProgress(score.toFloat())
+                }
 
+                when (score) {
+                    in 90..100 -> {
+                        dashboardAnimatedCard.setDefaultWaveColors(
+                            backgroundColor = Color.parseColor("#F7FDF9"),
+                            backWaveColor = Color.parseColor("#F3FAF5"),
+                            frontWaveColor = Color.parseColor("#EBF5EE")
+                        )
+                    }
+                    in 80..89 -> {
+                        dashboardAnimatedCard.setDefaultWaveColors(
+                            backgroundColor = Color.parseColor("#F4F8FD"),
+                            backWaveColor = Color.parseColor("#ECF3FA"),
+                            frontWaveColor = Color.parseColor("#E3EBF4")
+                        )
+                    }
+                    in 60..79 -> {
+                        dashboardAnimatedCard.setDefaultWaveColors(
+                            backgroundColor = Color.parseColor("#FDF8F0"),
+                            backWaveColor = Color.parseColor("#F9F1E6"),
+                            frontWaveColor = Color.parseColor("#F5EBDD")
+                        )
+                    }
+                    else -> {
+                        dashboardAnimatedCard.setDefaultWaveColors(
+                            backgroundColor = Color.parseColor("#FDF6F6"),
+                            backWaveColor = Color.parseColor("#F9EEEE"),
+                            frontWaveColor = Color.parseColor("#F5E7E7")
+                        )
+                    }
+                }
 
-            val adapter: DashboardAdapter
+                // 2. Sleep
+                sleepValue.text = sleepVital.asText()
+                bindStatusBadge(sleepstatusId, sleepVital, "#EA6C00")
+
+                // 3. Movement
+                movementValue.text = movementVital.asText()
+                bindStatusBadge(movementstatusId, movementVital, "#00B77E")
+
+                // 4. Stress
+                stressValue.text = stressVital.asText()
+                bindStatusBadge(stressstatusId, stressVital, "#0090F6")
+
+                // 5. Recovery
+                recoveryValue.text = recoveryVital.asText()
+                bindStatusBadge(recoverystatusId, recoveryVital, "#EA6C00")
+            }
+
             val bpSys = vitalList.find { it.vitalName.equals("BP_Sys", ignoreCase = true) }
             val bpDia = vitalList.find { it.vitalName.equals("BP_Dias", ignoreCase = true) }
-            val Glucose = vitalList.find { it.vitalName.equals("Glucose", ignoreCase = true) }
-
-            val filtered = vitalList.filterNot {
-                it.vitalName.equals("BP_Sys", ignoreCase = true) ||
-                        it.vitalName.equals("BP_Dias", ignoreCase = true)
-            }.toMutableList()
-
-            val finalVitalList = mutableListOf<Vital>()
 
             if (bpSys != null && bpDia != null) {
                 val bpVital = Vital().apply {
                     vitalName = "Blood Pressure"
-                    vitalValue = 0.0 // Optional placeholder
+                    vitalValue = 0.0
                     unit = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue?.toInt()}  "
                     vitalDateTime = bpSys.vitalDateTime
                 }
-
-//                binding.bpDataId.text = "${bpSys.vitalValue?.toInt()}/${bpDia.vitalValue.toString()}  "
-//                binding.glucoseDataId.text = Glucose?.vitalValue.toString()
-                finalVitalList.add(bpVital)
             }
-
-
-
-
-//            finalVitalList.addAll(filtered)
-
-//            adapter = DashboardAdapter(requireContext(), finalVitalList) { vitalType ->
-//                val bundle = Bundle().apply {
-//                    putString("vitalType", vitalType)
-//                }
-//                findNavController().navigate(R.id.action_dashboard_to_connection, bundle)
-//
-//            }
-//            binding.vitalsSlider.adapter = adapter
-
         }
         initializeSwipeRefresh()
 
@@ -1077,54 +1152,42 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
 
 
     viewModel.vitalInsights.observe(viewLifecycleOwner) { vitals ->
-        val RecoveryIndex = vitals?.find { it.vitalID == 240 }
-        val MovementIndex = vitals?.find { it.vitalID == 241 }
-         val StressScore = vitals?.find { it.vitalID == 252 }
-        val Glucose = vitals?.find { it.vitalID == 249 }
-
-        // Text colors
-        binding.sleepProgressIds.recoverystatusId.apply {
-            text = RecoveryIndex?.severityLevel ?: "--"
-            setTextColor(Color.parseColor(RecoveryIndex?.colourCode ?: "#EF4444"))
-        }
-
-        binding.sleepProgressIds.sleepstatusId.apply {
-            text = RecoveryIndex?.severityLevel ?: "--"
-            setTextColor(Color.parseColor(RecoveryIndex?.colourCode ?: "#EF4444"))
-        }
-
-        binding.sleepProgressIds.movementstatusId.apply {
-            text = MovementIndex?.severityLevel ?: "--"
-            setTextColor(Color.parseColor(MovementIndex?.colourCode ?: "#EF4444"))
-        }
-
-        binding.sleepProgressIds.stressstatusId.apply {
-            text = StressScore?.severityLevel ?: "--"
-            setTextColor(Color.parseColor(StressScore?.colourCode ?: "#EF4444"))
-        }
+        if (vitals.isNullOrEmpty()) return@observe
+        val RecoveryIndex = vitals.find { it.vitalID == 240 }
+        val MovementIndex = vitals.find { it.vitalID == 241 }
+        val StressScore = vitals.find { it.vitalID == 252 }
+        val Glucose = vitals.find { it.vitalID == 249 }
 
         // Helper function for background color with opacity
-        fun getColorWithOpacity(hexColor: String?, alphaPercent: Int = 74): Int {
+        fun getColorWithOpacity(hexColor: String?, alphaPercent: Int = 15): Int {
             val color = Color.parseColor(hexColor ?: "#FFFFFF")
             val alpha = (alphaPercent / 100f * 255).toInt()
             return ColorUtils.setAlphaComponent(color, alpha)
         }
 
+        RecoveryIndex?.let { r ->
+            binding.sleepProgressIds.recoverystatusId.apply {
+                text = r.severityLevel ?: "--"
+                setTextColor(Color.parseColor(r.colourCode ?: "#EF4444"))
+                backgroundTintList = ColorStateList.valueOf(getColorWithOpacity(r.colourCode))
+            }
+        }
 
-        // Background colors with 74% opacity
-//        binding.sleepProgressIds.sleepstatusId.setBackgroundColor(
-//            getColorWithOpacity(RecoveryIndex?.colourCode)
-//        )
-        binding.sleepProgressIds.movementstatusId.setBackgroundColor(
-            getColorWithOpacity(MovementIndex?.colourCode)
-        )
-        binding.sleepProgressIds.recoverystatusId.setBackgroundColor(
-            getColorWithOpacity(RecoveryIndex?.colourCode)
-        )
-        binding.sleepProgressIds.stressstatusId.setBackgroundColor(
-            getColorWithOpacity(StressScore?.colourCode)
-        )
+        MovementIndex?.let { m ->
+            binding.sleepProgressIds.movementstatusId.apply {
+                text = m.severityLevel ?: "--"
+                setTextColor(Color.parseColor(m.colourCode ?: "#EF4444"))
+                backgroundTintList = ColorStateList.valueOf(getColorWithOpacity(m.colourCode))
+            }
+        }
 
+        StressScore?.let { s ->
+            binding.sleepProgressIds.stressstatusId.apply {
+                text = s.severityLevel ?: "--"
+                setTextColor(Color.parseColor(s.colourCode ?: "#EF4444"))
+                backgroundTintList = ColorStateList.valueOf(getColorWithOpacity(s.colourCode))
+            }
+        }
     }
 
         binding.sleepProgressIds.addSleepActivityBtn.setOnClickListener(){
