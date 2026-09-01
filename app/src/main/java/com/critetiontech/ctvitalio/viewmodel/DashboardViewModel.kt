@@ -8,7 +8,7 @@ import InsightJson
 import MoodResponse
 import PillReminderModel
 import PillTime
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import QuickMetric
 import QuickMetricsTiled
 import SleepCycleItem
@@ -60,6 +60,7 @@ import com.critetiontech.ctvitalio.adapter.PriorityAction
 import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
 import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
 import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
+import com.critetiontech.ctvitalio.networking.NetworkConfig
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import java.time.Duration
 import java.time.LocalTime
@@ -284,7 +285,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidIntakeDetails,
                         params = queryParams
@@ -409,8 +410,8 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
                 val queryParams = mapOf(
                     "pid" to PrefsManager().getPatient()?.id.toString() ,
-                    "userId" to "99",
-                    "clientId" to "194",
+                    "userId" to  PrefsManager().getPatient()?.userId.toString(),
+                    "clientId" to  PrefsManager().getPatient()?.clientId.toString(),
                 )
 
 
@@ -509,7 +510,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams
@@ -631,7 +632,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(
-                    overrideBaseUrl= RetrofitInstance.shopright
+                    baseUrl = NetworkConfig.SHOPRIGHT_URL
 
 
                 ).dynamicRawPost(
@@ -643,7 +644,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     val body = response.body()?.string()
                     Log.d("API_RESPONSE", "data is $body")
 
-                    val parsedJson = JSONObject(body)
+                    val parsedJson = JSONObject(body.orEmpty())
                     val myVital = parsedJson.getJSONObject("echo").getJSONObject("myvital")
 
                     var addedData = ""
@@ -1050,7 +1051,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                     .createApiService()
                     .queryDynamicRawPost(
                         url = ApiEndPoint().insertSymtoms,
-                        params = queryParams as Map<String, String>
+                        params = queryParams.mapValues { it.value.toString() }
                     )
 
                 _loading.value = false
@@ -1190,3 +1191,4 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
 
 
 }
+

@@ -1,13 +1,17 @@
 package com.critetiontech.ctvitalio.UI
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.critetiontech.ctvitalio.R
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    private var loaderDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,4 +44,26 @@ abstract class BaseActivity : AppCompatActivity() {
         insetsController.isAppearanceLightNavigationBars = lightIcons
     }
 
+    /** Show a full-screen loading dialog. Call [hideLoading] to dismiss. */
+    fun showLoading() {
+        if (loaderDialog?.isShowing == true) return
+        loaderDialog = Dialog(this).apply {
+            setContentView(R.layout.dialog_loader)
+            setCancelable(false)
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+            show()
+        }
+    }
+
+    /** Dismiss the loading dialog shown by [showLoading]. */
+    fun hideLoading() {
+        loaderDialog?.dismiss()
+        loaderDialog = null
+    }
+
+    override fun onDestroy() {
+        loaderDialog?.dismiss()
+        loaderDialog = null
+        super.onDestroy()
+    }
 }

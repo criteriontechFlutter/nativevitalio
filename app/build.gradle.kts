@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId = "com.critetiontech.ctvitalio"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 2
         versionName = "2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -26,7 +26,11 @@ android {
 
         manifestPlaceholders["appAuthRedirectScheme"] = "com.critetiontech.ctvitalio"
 
-
+        // ── 16 KB page-size compliance ─────────────────────────────────────
+        // Only 64-bit ABIs are supported on devices that use 16 KB pages.
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
     }
 
     buildTypes {
@@ -52,11 +56,18 @@ android {
         viewBinding = true
         //noinspection DataBindingWithoutKapt
         dataBinding = true
+        buildConfig = true
     }
 
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+        // ── 16 KB page-size compliance ─────────────────────────────────────
+        // Keep .so files compressed inside the APK so the system can map them
+        // directly at their native 16 KB alignment without extraction.
+        jniLibs {
+            useLegacyPackaging = false
         }
     }
 
@@ -112,6 +123,7 @@ dependencies {
     implementation (libs.sdp.android)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.installations)
+    implementation(libs.firebase.config)          // ← Remote Config
     implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
 //    implementation("com.github.barteksc.pdfviewer:android-pdf-viewer:3.1.0") // Stable version of PDFView
     implementation ("com.google.android.material:material:1.4.0")
@@ -144,6 +156,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.8.4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0")
 
+    implementation("androidx.preference:preference-ktx:1.2.1")
     // TensorFlow Lite
     implementation(project(":opencv"))
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")

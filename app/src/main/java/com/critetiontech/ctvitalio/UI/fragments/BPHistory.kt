@@ -69,10 +69,10 @@ class BPHistory : Fragment() {
             }
         // Logs
         viewModel.bpLogs.observe(viewLifecycleOwner) { logs ->
-            adapter.updateList(logs)   // Make sure adapter has updateList()
+            adapter.updateList(logs ?: emptyList())
         }
         viewModel.weeklyMapGraph.observe(viewLifecycleOwner) { weeklyData ->
-            setData(weeklyData)
+            setData(weeklyData ?: emptyList())
         }
         binding.logBloodPressure.setOnClickListener {
             findNavController().navigate(R.id.action_BPHistory_to_connection )

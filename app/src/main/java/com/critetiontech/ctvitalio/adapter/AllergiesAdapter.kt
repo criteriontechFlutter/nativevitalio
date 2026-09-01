@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.adapter
 
-import DateUtils.toCamelCase
+import com.critetiontech.ctvitalio.utils.DateUtils
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -73,9 +73,9 @@ class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHo
         holder.binding.categoryText.isVisible = !item.category.isNullOrBlank()
         holder.binding.categoryText.text = item.category
 
-        holder.binding.substanceText.text = item.substance?.let { toCamelCase(it) }
-        holder.binding.remarkText.text = item.remark?.let { toCamelCase(it) }
-        holder.binding.severityText.text = item.severityLevel?.let { toCamelCase(it) }
+        holder.binding.substanceText.text = item.substance?.let { DateUtils.toCamelCase(it) }
+        holder.binding.remarkText.text = item.remark?.let { DateUtils.toCamelCase(it) }
+        holder.binding.severityText.text = item.severityLevel?.let { DateUtils.toCamelCase(it) }
 
         val severityColor = when (item.severityLevel?.lowercase()) {
             "mild" -> Color.parseColor("#FFA500")

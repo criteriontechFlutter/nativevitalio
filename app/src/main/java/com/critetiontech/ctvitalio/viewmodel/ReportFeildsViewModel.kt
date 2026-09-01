@@ -1,12 +1,13 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
 import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.critetiontech.ctvitalio.networking.NetworkConfig
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,10 +20,9 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
 
-class ReportFeildsViewModel  : ViewModel(){
+class ReportFeildsViewModel : ViewModel() {
     suspend fun insertPatientMediaData(
         context: Context,
-
         testName: String,
         category: String,
         remark: String,
@@ -30,7 +30,7 @@ class ReportFeildsViewModel  : ViewModel(){
         imagePath: String
     ): String? = withContext(Dispatchers.IO) {
 
-        val url = RetrofitInstance.DEFAULT_BASE_URL+ ApiEndPoint().insertPatientMediaData +
+        val url = NetworkConfig.BASE_URL + ApiEndPoint().insertPatientMediaData +
                 "?uhId=${PrefsManager().getPatient()?.uhID.toString()}&subCategory=${Uri.encode(testName)}&remark=${Uri.encode(category)}" +
                 "&category=${Uri.encode(category)}&dateTime=${Uri.encode(dateTime)}&userId=0"
         Log.e("UploadError", "url: ${url}")
@@ -72,22 +72,20 @@ class ReportFeildsViewModel  : ViewModel(){
         }
     }
 
-
-
     fun Map<*, *>.getIfExists(key: String): String {
         return if (this.containsKey(key)) this[key]?.toString() ?: "" else ""
     }
 
     suspend fun insertInvestigation(
         context: Context,
-        dateTime:String,
+        dateTime: String,
         reportData: List<Map<String, Any>>,
-        patientDetails:  Map<*, *>
+        patientDetails: Map<*, *>
     ): Boolean = withContext(Dispatchers.IO) {
         val tempPatientData = mutableListOf<Map<String, String>>()
         val tempReportData = mutableListOf<Map<String, String>>()
 
-        // ✅ Extension for safe value extraction
+        // Extension for safe value extraction
         fun Map<*, *>.getIfExists(key: String): String {
             return if (this.containsKey(key)) this[key]?.toString() ?: "" else ""
         }
@@ -106,7 +104,9 @@ class ReportFeildsViewModel  : ViewModel(){
             )
 
             reportData.forEach { report ->
-                val reportList = report["report"] as? List<Map<String, Any>> ?: emptyList()
+                val reportList = (report["report"] as? List<*>)
+                    ?.filterIsInstance<Map<String, Any>>()
+                    ?: emptyList()
 
                 reportList.forEach { item ->
                     tempReportData.add(
@@ -123,7 +123,6 @@ class ReportFeildsViewModel  : ViewModel(){
                 }
             }
 
-
             val body = mapOf(
                 "uhid" to PrefsManager().getPatient()?.empId.toString(),
                 "investigationDetailsJson" to Gson().toJson(tempPatientData),
@@ -132,7 +131,7 @@ class ReportFeildsViewModel  : ViewModel(){
                 "userId" to PrefsManager().getPatient()?.userId.toString(),
             )
 
-            val url = RetrofitInstance.DEFAULT_BASE_URL_5090 +  ApiEndPoint().insertResult
+            val url = NetworkConfig.BASE_URL_5090 + ApiEndPoint().insertResult
 
             val client = OkHttpClient()
             val mediaType = "application/json".toMediaTypeOrNull()
@@ -160,5 +159,4 @@ class ReportFeildsViewModel  : ViewModel(){
             return@withContext false
         }
     }
-
 }

@@ -1,37 +1,47 @@
 package com.critetiontech.ctvitalio.utils
 
-import NetworkUtils
 import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ * FragmentExtensions.kt
+ *
+ * Extension functions for Fragment — UI feedback helpers.
+ */
+
+/**
+ * Shows a persistent "No Internet" snackbar with a Retry action.
+ * When the user taps Retry:
+ *  - If internet is available, dismisses the snackbar and calls [retryAction].
+ *  - If still offline, re-shows the snackbar.
+ */
 fun Fragment.showRetrySnackbar(
-    message: String = "No Internet Connection",
+    message: String = AppConstants.ERROR_NO_INTERNET,
     retryAction: (() -> Unit)? = null
 ) {
     var snackbar: Snackbar? = null
-
-    fun showConnectedMessage() {
-        val quality = NetworkUtils.getConnectionQuality(requireContext())
-        val speed = String.format("%.2f Mbps", NetworkUtils.getDownlinkSpeedMbps(requireContext()))
-        val message = "✅ Internet Connected ($quality, $speed)"
-
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(Color.parseColor("#4CAF50")) // Green background
-            .setTextColor(Color.WHITE)
-            .show()
-    }
 
     snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_INDEFINITE)
         .setAction("Retry") {
             if (NetworkUtils.isInternetAvailable(requireContext())) {
                 snackbar?.dismiss()
-                showConnectedMessage()
+                showConnectedSnackbar()
                 retryAction?.invoke()
             } else {
-                this.showRetrySnackbar(message, retryAction)
+                showRetrySnackbar(message, retryAction)
             }
         }
 
     snackbar.show()
+}
+
+/** Shows a brief "Connected" confirmation snackbar. */
+fun Fragment.showConnectedSnackbar() {
+    val quality = NetworkUtils.getConnectionQuality(requireContext())
+    val speed   = "%.2f Mbps".format(NetworkUtils.getDownlinkSpeedMbps(requireContext()))
+    Snackbar.make(requireView(), "Internet Connected ($quality, $speed)", Snackbar.LENGTH_SHORT)
+        .setBackgroundTint(Color.parseColor("#4CAF50"))
+        .setTextColor(Color.WHITE)
+        .show()
 }

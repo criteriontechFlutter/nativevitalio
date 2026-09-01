@@ -1,8 +1,7 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,16 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.WaterRecord
 import com.critetiontech.ctvitalio.adapter.WaterRecordAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentWaterIntakeBinding
 import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
 import com.critetiontech.ctvitalio.viewmodel.FluidChartData
 import com.critetiontech.ctvitalio.viewmodel.WaterIntakeViewModel
-import com.example.vitalio_pragya.viewmodel.AddActivityViewModel
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet

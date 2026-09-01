@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import LeaderboardItem
-import PrefsManager
+import com.critetiontech.ctvitalio.model.LeaderboardItem
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity

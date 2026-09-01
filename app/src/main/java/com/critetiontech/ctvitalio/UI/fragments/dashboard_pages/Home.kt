@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+﻿package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import SleepVital
 import Vital
 import android.annotation.SuppressLint

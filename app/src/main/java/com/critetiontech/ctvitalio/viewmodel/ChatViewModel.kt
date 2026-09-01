@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.os.Handler
@@ -188,8 +188,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
                 }
                 // API Call
                 val response = RetrofitInstance
-                    .createApiService5100(
-                        )
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5100)
                     .dynamicMultipartPost(
                         url = ApiEndPoint().sentMessageChat,
                         parts = parts
@@ -223,7 +222,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
                 val queryParams = mapOf("sendFrom" to PrefsManager().getPatient()!!.pid, "sendTo" to PrefsManager().getPatient()!!.doctorID,"isPatient" to true,"groupId" to 0)
 
                 val response = RetrofitInstance
-                    .createApiService5100()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5100)
                     .dynamicGet(
                         url = ApiEndPoint().getUserChat,
                         params = queryParams
@@ -250,3 +249,4 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
         }
     }
 }
+

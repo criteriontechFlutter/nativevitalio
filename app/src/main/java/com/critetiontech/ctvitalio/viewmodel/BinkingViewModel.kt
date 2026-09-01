@@ -3,7 +3,7 @@ package com.critetiontech.ctvitalio.viewmodel
 import AllMedicine
 import LoggedMedicine
 import MedicineIntakeResponse
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -51,7 +51,7 @@ class BinkingViewModel(application: Application) : AndroidViewModel(application)
                 }
 
             } catch (e: Exception) {
-                Log.e("INSERT_ACTIVITY", e.localizedMessage.toString())
+                Log.e("INSERT_ACTIVITY", e.localizedMessage ?: "Unknown error")
                 _activityInsertSuccess.postValue(false)
             }
         }

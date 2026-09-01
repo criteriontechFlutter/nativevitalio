@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.adapter
+﻿package com.critetiontech.ctvitalio.adapter
 
-import LeaderboardItem
-import PrefsManager
+import com.critetiontech.ctvitalio.model.LeaderboardItem
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

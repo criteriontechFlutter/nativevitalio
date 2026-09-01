@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import Patient
-import PrefsManager
+import com.critetiontech.ctvitalio.model.Patient
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -384,7 +384,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getFrequencyList,
                         params = queryParams
@@ -453,7 +453,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService7082( )
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicRawPost(
                         url = ApiEndPoint().patientSignUp,
                         body = queryParams
@@ -609,7 +609,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicRawPost(
                         url = "api/PatientParameterSetting/Insert",
                         body = body
@@ -762,7 +762,7 @@ class RegistrationViewModel  (application: Application) : BaseViewModel(applicat
                 )
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService7082( )
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getProblemList,
                         params = queryParams

@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import kotlin.math.min
+import androidx.core.graphics.toColorInt
 
 class BoxBreathingView @JvmOverloads constructor(
     context: Context,
@@ -14,7 +16,7 @@ class BoxBreathingView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val squarePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#3F6B8F")
+        color = "#3F6B8F".toColorInt()
         style = Paint.Style.STROKE
     }
 
@@ -60,7 +62,7 @@ class BoxBreathingView @JvmOverloads constructor(
         val width = width
         val height = height
 
-        val size = Math.min(width, height) - (2 * squareMargin)
+        val size = min(width, height) - (2 * squareMargin)
         if (size <= 0) return
 
         val left = (width - size) / 2f

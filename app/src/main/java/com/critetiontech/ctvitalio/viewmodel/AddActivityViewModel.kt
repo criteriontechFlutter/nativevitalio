@@ -1,6 +1,6 @@
-package com.example.vitalio_pragya.viewmodel
+﻿package com.example.vitalio_pragya.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.os.Build

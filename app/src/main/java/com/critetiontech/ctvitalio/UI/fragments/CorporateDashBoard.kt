@@ -1,8 +1,8 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
 import DailyCheckItem
 import MoodData
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import SleepValue
 import SleepVital
 import Vital
@@ -1510,7 +1510,7 @@ binding.healthGoalAchived.healthGoalAchived.setOnClickListener {
         voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
 
         val request = Request.Builder()
-            .url(RetrofitInstance.holdSpeakWsUrl +"132")
+            .url(com.critetiontech.ctvitalio.networking.NetworkConfig.VOICE_WS_URL + "132")
             .build()
 
         val client = OkHttpClient()

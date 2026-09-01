@@ -53,7 +53,7 @@ class ConnectSmartWatchFragment : Fragment() {
 
         // Initialize RecyclerView and Adapter
         watchAdapter = WatchAdapter { item ->
-            viewModel.deleteWatchDetails(requireContext() ,item.id.toString(),item.token.toString())
+            viewModel.deleteWatchDetails(requireContext() , item.id, item.token)
 
             
         }

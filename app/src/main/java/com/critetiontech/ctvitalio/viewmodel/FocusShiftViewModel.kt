@@ -16,7 +16,7 @@ class FocusShiftViewModel : ViewModel() {
     private val _focusGuideText = MutableLiveData<String>("Take Position")
     val focusGuideText: LiveData<String> get() = _focusGuideText
 
-    private val _descriptionText = MutableLiveData<String>(
+    private val _descriptionText = MutableLiveData(
         "Hold your both hands index finger one after other, 1st at (8-12 inches) distance and other at (16-20 inches)."
     )
     val descriptionText: LiveData<String> get() = _descriptionText

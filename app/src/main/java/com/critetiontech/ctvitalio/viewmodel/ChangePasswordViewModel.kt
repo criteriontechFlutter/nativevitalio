@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -65,7 +65,7 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel(applicat
 
                     // Parse the JSON response
 
-                        val jsonObject = JSONObject(responseBodyString)
+                        val jsonObject = JSONObject(responseBodyString.orEmpty())
                         val message = jsonObject.optString("message", "Success")
 
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -81,7 +81,7 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel(applicat
 
                     // Parse the JSON response
 
-                        val jsonObject = JSONObject(responseBodyString)
+                        val jsonObject = JSONObject(responseBodyString.orEmpty())
                         val message = jsonObject.optString("message", "Success")
 
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show()

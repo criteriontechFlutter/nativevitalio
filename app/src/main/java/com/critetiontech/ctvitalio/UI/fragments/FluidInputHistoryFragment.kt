@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import DateUtils
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.DateUtils
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable

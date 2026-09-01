@@ -1,9 +1,7 @@
 package com.critetiontech.ctvitalio
 
-import android.app.ComponentCaller
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -56,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             if (it.getBoolean("from_notification", false)) {
 
                 val type = it.getString("type")
-                val goalId = it.getString("goal_id")
 
                 Log.d("FCM_CLICK", "Type: $type")
 

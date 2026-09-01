@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.critetiontech.ctvitalio.networking.NetworkConfig
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,7 +39,7 @@ class UploadReportViewModel : ViewModel() {
             .build()
 
         val request = Request.Builder()
-            .url(RetrofitInstance.uploadLabreportUrl)
+            .url(NetworkConfig.UPLOAD_LAB_REPORT_URL)
             .post(requestBody)
             .addHeader("Content-Type", "application/json")
             .build()

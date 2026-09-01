@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
@@ -55,7 +55,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService(includeAuth = true)
                     .dynamicGet(
                         url = ApiEndPoint().getAddedSmartGoalApi,
                         params = queryParams
@@ -102,7 +102,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService(includeAuth = true)
                     .dynamicGet(
                         url = ApiEndPoint().getAllGoalListApi,
                         params = queryParams
@@ -147,7 +147,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService(includeAuth = true)
                     .queryDynamicPut(
                         url = ApiEndPoint().updateGoalPinStatus,
                         params = queryParams,
@@ -183,7 +183,7 @@ class SmartGoalViewModel (application: Application) : BaseViewModel(application)
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(includeAuthHeader = true)
+                    .createApiService(includeAuth = true)
                     .dynamicDelete(
                         url = ApiEndPoint().deleteEmployeeGoal,
                         params = queryParams,

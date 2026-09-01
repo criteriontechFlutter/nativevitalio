@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+﻿package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.app.FragmentManager
 import android.content.Context

@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.os.Build
 import android.util.Log
@@ -94,7 +94,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                 if (response.isSuccessful) {
                     val json = response.body()?.string()
 
-                    val jsonObj = JSONObject(json)
+                    val jsonObj = JSONObject(json.orEmpty())
                     val arr = jsonObj.getJSONArray("responseValue")
 
                     val list = mutableListOf<WaterRecord>()
@@ -128,7 +128,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
             } catch (e: Exception) {
-                Log.e("INSERT_ACTIVITY", e.localizedMessage.toString())
+                Log.e("INSERT_ACTIVITY", e.localizedMessage ?: "Unknown error")
                 _activityInsertSuccess.postValue(false)
             }
         }
@@ -159,7 +159,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
 
                 if (response.isSuccessful) {
                     val jsonStr = response.body()?.string()
-                    val jsonObj = JSONObject(jsonStr)
+                    val jsonObj = JSONObject(jsonStr.orEmpty())
                     val arr = jsonObj.getJSONArray("responseValue")
 
 
@@ -186,7 +186,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
             } catch (e: Exception) {
-                Log.e("INSERT_ACTIVITY", e.localizedMessage.toString())
+                Log.e("INSERT_ACTIVITY", e.localizedMessage ?: "Unknown error")
                 _activityInsertSuccess.postValue(false)
             }
         }
@@ -217,7 +217,7 @@ class WaterIntakeViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
             } catch (e: Exception) {
-                Log.e("INSERT_ACTIVITY", e.localizedMessage.toString())
+                Log.e("INSERT_ACTIVITY", e.localizedMessage ?: "Unknown error")
                 _activityInsertSuccess.postValue(false)
             }
         }

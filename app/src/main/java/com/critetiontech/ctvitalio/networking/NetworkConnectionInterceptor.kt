@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.networking
+﻿package com.critetiontech.ctvitalio.networking
 
 
 import android.content.Context
@@ -7,6 +7,7 @@ import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
+import com.critetiontech.ctvitalio.utils.NetworkUtils
 import java.io.IOException
 
 

@@ -75,7 +75,7 @@ public class SleepDataFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new AsyncTaskLoader<Cursor>(getActivity()) {
+        return new AsyncTaskLoader<>(getActivity()) {
 
             private Cursor mTaskData = null;
 

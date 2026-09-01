@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import DateUtils
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.DateUtils
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.graphics.Color
@@ -171,7 +171,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidIntakeDetails,
                         params = queryParams
@@ -220,7 +220,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 val queryParams = mapOf("UHID" to uhid)
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidOutputDaily,
                         params = queryParams
@@ -265,7 +265,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidIntakeDetailsByRange,
                         params = queryParams
@@ -319,7 +319,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidOutPutDetailsByRange ,
                         params = queryParams
@@ -367,7 +367,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                     )
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicRawPost(
                         url = ApiEndPoint().savePatientOutput,
                         body = queryParams
@@ -417,7 +417,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicRawPost(
                         url = ApiEndPoint().savePatientIntake,
                         body = queryParams
@@ -451,3 +451,4 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
 
 
 }
+

@@ -3,12 +3,11 @@ package com.critetiontech.ctvitalio.viewmodel
 import Mood
 import MoodResponse
 import MoodsResponse
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,74 +21,66 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MoodViewModel(application: Application) : BaseViewModel(application){
+class MoodViewModel(application: Application) : BaseViewModel(application) {
 
     val selectedMoodId = MutableLiveData<String>()
-    fun onMoodClicked(id:String) {
-         selectedMoodId.value =id
+    fun onMoodClicked(id: String) {
+        selectedMoodId.value = id
     }
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
-    fun insertMood(context: Context ) {
+
+    fun insertMood(context: Context) {
         viewModelScope.launch {
             _loading.value = true
             try {
-
-                val queryParams = mapOf(
-                    "pid" to PrefsManager().getPatient()?.id.toString() ,
-                    "moodId" to selectedMoodId.value ,
+                // Convert all values to non-null strings so the map matches Map<String, Any>
+                val queryParams: Map<String, Any> = mapOf(
+                    "pid" to (PrefsManager().getPatient()?.id?.toString() ?: ""),
+                    "moodId" to (selectedMoodId.value ?: ""),
                     "userId" to "99",
                     "clientId" to "194",
                 )
 
-
-
                 val response = RetrofitInstance
                     .createApiService()
                     .dynamicRawPost(
-                        url =  ApiEndPointCorporateModule().insertMood,
-                        body = queryParams as Map<String, Any>
+                        url = ApiEndPointCorporateModule().insertMood,
+                        body = queryParams
                     )
-
 
                 if (response.isSuccessful) {
                     _loading.value = false
-
-
-
                 } else {
-
                     _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
                 _loading.value = false
-                _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"
                 e.printStackTrace()
             }
         }
     }
+
     private val _moods = MutableLiveData<List<Mood>>()
     val moodsLiveData: LiveData<List<Mood>> get() = _moods
-    fun getMoodByPid( ) {
+
+    fun getMoodByPid() {
         viewModelScope.launch {
             _loading.value = true
             try {
-
-
-
                 val response = RetrofitInstance
                     .createApiService()
                     .dynamicGet(
-                        url =  ApiEndPointCorporateModule().getAllMoods,
+                        url = ApiEndPointCorporateModule().getAllMoods,
                         params = emptyMap()
                     )
-
 
                 if (response.isSuccessful) {
                     _loading.value = false
@@ -100,13 +91,11 @@ class MoodViewModel(application: Application) : BaseViewModel(application){
 
                     _moods.value = moodsResponse.responseValue
                 } else {
-
                     _loading.value = false
                     _errorMessage.value = "Error Code: ${response.code()}"
                 }
 
             } catch (e: Exception) {
-                _loading.value = false
                 _loading.value = false
                 _errorMessage.value = e.message ?: "Unexpected error"
                 e.printStackTrace()

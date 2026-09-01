@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
@@ -59,7 +59,7 @@ class GymCheckInViewModel (application: Application) : AndroidViewModel(applicat
 
                     val json = response.body()?.string()
 
-                    val jsonObj = JSONObject(json)
+                    val jsonObj = JSONObject(json.orEmpty())
 
                     val arr = jsonObj.getJSONArray("responseValue")
 
@@ -70,8 +70,7 @@ class GymCheckInViewModel (application: Application) : AndroidViewModel(applicat
                 } else {
 
                     val json = response.body()?.string()
-                    val jsonObj = JSONObject(json)
-                    val arr = jsonObj.getJSONArray("message")
+                    val jsonObj = JSONObject(json.orEmpty())
                     Toast.makeText(MyApplication.appContext,jsonObj.getJSONArray("message").toString(),
                         Toast.LENGTH_LONG).show()
                     Log.e("GYM_API", "FAILED → ${response.errorBody()?.string()}")
@@ -81,7 +80,7 @@ class GymCheckInViewModel (application: Application) : AndroidViewModel(applicat
 
             } catch (e: Exception) {
 
-                Log.e("GYM_API", e.localizedMessage.toString())
+                Log.e("GYM_API", e.localizedMessage ?: "Unknown error")
                 _apiStatus.postValue(false)
 
             }

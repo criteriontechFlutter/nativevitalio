@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import Patient
-import PrefsManager
+import com.critetiontech.ctvitalio.model.Patient
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent

@@ -1,6 +1,5 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import DateUtils.formatDate
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
@@ -20,23 +19,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.BPLog
-import com.critetiontech.ctvitalio.adapter.BPLogAdapter
 import com.critetiontech.ctvitalio.adapter.GlucoseAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentGlucoseHistoryBinding
 import com.critetiontech.ctvitalio.model.WeeklyMapGraph
 import com.critetiontech.ctvitalio.model.dp
-import com.critetiontech.ctvitalio.viewmodel.BloosPresureHistoryViewModel
 import com.critetiontech.ctvitalio.viewmodel.GlucoseHistoryViewModel
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
-import kotlin.collections.forEach
 import androidx.core.graphics.toColorInt
 
 class GlucoseHistory : Fragment() {

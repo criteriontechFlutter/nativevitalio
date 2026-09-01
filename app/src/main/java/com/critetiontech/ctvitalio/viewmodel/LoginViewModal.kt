@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import Patient
-import PrefsManager
+import com.critetiontech.ctvitalio.model.Patient
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -98,7 +98,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                         username.lowercase(getDefault())
                     },
                     "password" to password,
-                    "deviceToken" to deviceToken.toString()
+                    "deviceToken" to deviceToken
                 )
 
                 val response = RetrofitInstance
@@ -143,7 +143,7 @@ class LoginViewModel (application: Application) : BaseViewModel(application){
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().logoutFromApp,
                         params = queryParams

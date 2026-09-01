@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
-import DateUtils.showHeightPicker
+import com.critetiontech.ctvitalio.utils.DateUtils
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
 import com.critetiontech.ctvitalio.databinding.FragmentHeightBinding
 
 class HeightFragment : Fragment() {
@@ -43,7 +42,7 @@ class HeightFragment : Fragment() {
         }
 
         binding.etHeight.setOnClickListener {
-            showHeightPicker(requireContext()) { selectedHeight ->
+            DateUtils.showHeightPicker(requireContext()) { selectedHeight ->
                 var heightInCm = 0.0
                 var displayText = selectedHeight // default
 
@@ -72,7 +71,7 @@ class HeightFragment : Fragment() {
                 binding.etHeight.setText(displayText)
 
                 // ✅ Store converted value (cm) for backend/API
-                viewModel.htInCm.value = String.format("%.1f", heightInCm)
+                String.format("%.1f", heightInCm).also { viewModel.htInCm.value = it }
 
                 // ✅ Store exact selected display (e.g., "5' 8\" ft" or "170 cm")
                 viewModel.ht.value = displayText

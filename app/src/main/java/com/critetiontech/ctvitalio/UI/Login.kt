@@ -1,7 +1,5 @@
 package com.critetiontech.ctvitalio.UI
 
-import Patient
-import PrefsManager
 import android.content.Intent
 import android.os.*
 import android.text.Editable
@@ -12,18 +10,18 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
+import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
 import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.ctvitalio.model.Patient
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import androidx.core.graphics.toColorInt
-import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
 
 class Login : BaseActivity() {
 
@@ -75,8 +73,7 @@ class Login : BaseActivity() {
         binding.validationId.visibility = View.GONE
 
         val watcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
-                Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateButtonState()
             }
@@ -128,6 +125,7 @@ class Login : BaseActivity() {
             0
         )
     }
+
     private fun performLogin() {
         val username = binding.inputField.text?.toString()?.trim() ?: ""
         val password = binding.passField.text?.toString()?.trim() ?: ""
@@ -174,7 +172,7 @@ class Login : BaseActivity() {
                     intent.putExtra("oldPassword", binding.passField.text.toString())
                     startActivity(intent)
                 }
-            ).show(supportFragmentManager,  ConfirmUpdateBottomSheet.TAG)
+            ).show(supportFragmentManager, ConfirmUpdateBottomSheet.TAG)
         } else {
             startActivity(Intent(this, Home::class.java))
         }
@@ -228,6 +226,5 @@ class Login : BaseActivity() {
 }
 
 fun onBackPressed(login: Login) {
-
     login.finishAffinity()
 }

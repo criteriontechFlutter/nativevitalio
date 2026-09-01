@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import NetworkUtils
+import com.critetiontech.ctvitalio.utils.NetworkUtils
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -30,7 +30,7 @@ class SettingsFragmentVitalio : Fragment() {
 
 
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        PreferenceManager.getDefaultSharedPreferences(activity).also { prefs = it }
 
         // Restore current selection
         when (prefs.getString("theme_pref", NetworkUtils.ThemeHelper.MODE_SYSTEM)) {

@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import Patient
-import PrefsManager
+import com.critetiontech.ctvitalio.model.Patient
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.content.Context
 import android.net.Uri
 import android.util.Log
@@ -163,14 +163,14 @@ private val _selectedImageUri = MutableLiveData<Uri?>()
                 parts += partFromField("EmailID", patient.emailID)
                 parts += partFromField("GenderId",  patient.genderId.toString())
                 parts += partFromField("BloodGroupId", patient.bloodGroupId.toString())
-                parts += partFromField("Height",patient.height.toString())
-                parts += partFromField("Weight", patient.weight.toString())
-                parts += partFromField("Dob",  patient.dob.toString())
-                parts += partFromField("Zip",  patient.zip.toString())
+                parts += partFromField("Height", patient.height)
+                parts += partFromField("Weight", patient.weight)
+                parts += partFromField("Dob", patient.dob)
+                parts += partFromField("Zip", patient.zip)
                 parts += partFromField("AgeUnitId", "1")
-                parts += partFromField("Age",  patient.age.toString())
-                parts += partFromField("Address",  patient.address.toString())
-                parts += partFromField("MobileNo",   patient.mobileNo.toString())
+                parts += partFromField("Age", patient.age)
+                parts += partFromField("Address", patient.address)
+                parts += partFromField("MobileNo", patient.mobileNo)
                 parts += partFromField("CountryId",   patient.countryId.toString())
                 parts += partFromField("StateId",   patient.stateId.toString())
                 parts += partFromField("CityId",   patient.cityId.toString())

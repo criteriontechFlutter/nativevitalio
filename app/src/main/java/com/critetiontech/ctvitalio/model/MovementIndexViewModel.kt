@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.model
+﻿package com.critetiontech.ctvitalio.model
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import SleepValue
 import VitalsResponse
 import androidx.lifecycle.LiveData

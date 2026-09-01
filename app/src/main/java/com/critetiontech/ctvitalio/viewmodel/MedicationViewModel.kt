@@ -1,10 +1,10 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import AllMedicine
-import LoggedMedicine
- import MedicineIntakeResponse
- import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import VitalsResponse
+import MedicineIntakeResponse
+import LoggedMedicine
+import AllMedicine
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel

@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
@@ -326,7 +326,7 @@ class Dashboard  : Fragment() {
         viewModel.setWebSocketState( WebSocketState.CONNECTING)
         voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
 
-        val request = Request.Builder().url(RetrofitInstance.holdSpeakWsUrl+ PrefsManager().getPatient()?.pid.toString()).build()
+        val request = Request.Builder().url(com.critetiontech.ctvitalio.networking.NetworkConfig.VOICE_WS_URL + PrefsManager().getPatient()?.pid.toString()).build()
         val client = OkHttpClient()
 
         webSocket = client.newWebSocket(request, object : WebSocketListener() {

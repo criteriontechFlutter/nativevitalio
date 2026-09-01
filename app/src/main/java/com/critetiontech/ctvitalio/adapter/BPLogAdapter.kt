@@ -8,13 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.model.BPLog
 
-data class BPLog(
-    val systolic: Int,
-    val diastolic: Int,
-    val map: Int,
-    val time: String,
-    val position: String
-)
 class BPLogAdapter(private var list: List<BPLog>) :
     RecyclerView.Adapter<BPLogAdapter.ViewHolder>() {
 

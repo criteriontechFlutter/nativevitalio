@@ -48,6 +48,7 @@ circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circ
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
+firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
 firebase-installations = { module = "com.google.firebase:firebase-installations" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }

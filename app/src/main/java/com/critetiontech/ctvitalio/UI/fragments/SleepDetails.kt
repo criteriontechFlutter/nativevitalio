@@ -169,9 +169,9 @@ class SleepDetails : Fragment() {
             // Partial sleep types (light_sleep, awake)
             val partialCount = totalCycles-fullCount
             // Set values to UI
-            binding.sleepCycleText.text = "Sleep Cycle $totalCycles"
-            binding.fullText.text = "$fullCount Full"
-            binding.partialText.text = "$partialCount Partial"
+            "Sleep Cycle $totalCycles".also { binding.sleepCycleText.text = it }
+            "$fullCount Full".also { binding.fullText.text = it }
+            "$partialCount Partial".also { binding.partialText.text = it }
 
             // Agar tumhara custom graph view hai to usme cycles set kar do
             binding.sleepCycleView.setSleepCycles(cycleList)

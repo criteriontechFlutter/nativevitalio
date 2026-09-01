@@ -1,25 +1,18 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.BPLog
-import com.critetiontech.ctvitalio.model.BloodPressureResponse
 import com.critetiontech.ctvitalio.model.GlucoseLog
 import com.critetiontech.ctvitalio.model.GlucoseResponse
 import com.critetiontech.ctvitalio.model.GlucoseSummary
-import com.critetiontech.ctvitalio.model.JoinedChallenge
 import com.critetiontech.ctvitalio.model.MonthlyGraph
-import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.model.Summary
 import com.critetiontech.ctvitalio.model.TrendGraph
 import com.critetiontech.ctvitalio.model.WeeklyMapGraph
-import com.critetiontech.ctvitalio.model.WeeklyMapTrend
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat

@@ -1,6 +1,5 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
@@ -9,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import kotlinx.coroutines.launch
 
 class EnergyTankViewModel(application: Application) : BaseViewModel(application){
@@ -32,8 +32,8 @@ class EnergyTankViewModel(application: Application) : BaseViewModel(application)
                     "id" to PrefsManager().getPatient()?.id.toString() ,
                     "energyPercentage" to energyPercentage ,
                     "statusLabel" to status.toString(),
-                    "userId" to "194",
-                    "clientId" to "194",
+                    "userId" to PrefsManager().getPatient()?.userId.toString(),
+                    "clientId" to PrefsManager().getPatient()?.clientId.toString(),
                 )
 
 

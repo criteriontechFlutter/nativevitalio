@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler

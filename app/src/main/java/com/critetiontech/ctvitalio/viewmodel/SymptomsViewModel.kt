@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.os.Build
@@ -93,7 +93,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
 
                 val response = RetrofitInstance
                     .createApiService(
-                        overrideBaseUrl = ApiEndPoint().digiDoctorBaseUrl,
+                    baseUrl = ApiEndPoint().digiDoctorBaseUrl,
                     )
                     .dynamicRawPost(
                         url = ApiEndPoint().getProblemsWithIcon,
@@ -130,7 +130,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
 
                 val response = RetrofitInstance
                     .createApiService(
-                        overrideBaseUrl = ApiEndPoint().digiDoctorBaseUrl,
+                    baseUrl = ApiEndPoint().digiDoctorBaseUrl,
                     )
                     .dynamicRawPost(
                         url = ApiEndPoint().getAllSuggestedProblem,
@@ -172,7 +172,7 @@ class SymptomsViewModel (application: Application) : BaseViewModel(application) 
 
                 val response = RetrofitInstance
                     .createApiService(
-                        overrideBaseUrl = ApiEndPoint().digiDoctorBaseUrl,
+                    baseUrl = ApiEndPoint().digiDoctorBaseUrl,
                     )
                     .dynamicRawPost(
                         url = ApiEndPoint().getAllProblems,

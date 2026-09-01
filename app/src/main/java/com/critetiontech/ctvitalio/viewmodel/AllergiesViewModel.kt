@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -116,7 +116,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
                     val responseBody = response.body()?.string()
                     println("Fetched Allergy Types: $responseBody")
 
-                    val parsed = JSONObject(responseBody)
+                    val parsed = JSONObject(responseBody.orEmpty())
                     if (parsed.getInt("status") == 1) {
                         val jsonArray = parsed.getJSONArray("responseValue")
                         val type = object : TypeToken<List<AllergyTypeItem>>() {}.type
@@ -216,7 +216,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
             runCatching {
                 RetrofitInstance
                     .createApiService()
-                    .queryDynamicRawPost(ApiEndPoint().savePatientAllergies, params = params as Map<String, String>)
+                    .queryDynamicRawPost(ApiEndPoint().savePatientAllergies, params = params.mapValues { it.value.toString() })
             }.onSuccess { response ->
                 withContext(Dispatchers.Main) {
                     _loading.value = false

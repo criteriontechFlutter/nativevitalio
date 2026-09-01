@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator

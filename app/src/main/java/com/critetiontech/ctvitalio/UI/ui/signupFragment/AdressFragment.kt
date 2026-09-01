@@ -1,6 +1,6 @@
 package com.critetiontech.ctvitalio.UI.ui.signupFragment
 
-import DateUtils.showListBottomSheet
+import com.critetiontech.ctvitalio.utils.DateUtils
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,7 +45,7 @@ class AdressFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
         progressViewModel = ViewModelProvider(requireActivity())[ProgressViewModel::class.java]
-        viewModel.loading.observe(this) { isLoading ->
+        viewModel.loading.observe(requireActivity()) { isLoading ->
             if (isLoading) showLoading() else hideLoading()
         }
 
@@ -76,7 +76,7 @@ class AdressFragment : Fragment() {
 
         // COUNTRY SELECTION
         binding.etCountry.setOnClickListener {
-            showListBottomSheet(
+            DateUtils.showListBottomSheet(
                 context = requireContext(),
                 title = "Select Country",
                 list = addressData,
@@ -116,7 +116,7 @@ class AdressFragment : Fragment() {
                     mapOf<String, Any>("id" to it.id, "name" to it.stateName)
                 }
 
-                showListBottomSheet(
+                DateUtils.showListBottomSheet(
                     context = requireContext(),
                     title = "Select State",
                     list = stateMappedList,
@@ -158,7 +158,7 @@ class AdressFragment : Fragment() {
                     )
                 }
 
-                showListBottomSheet(
+                DateUtils.showListBottomSheet(
                     context = requireContext(),
                     title = "Select City",
                     list = cityMappedList,

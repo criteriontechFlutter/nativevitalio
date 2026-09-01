@@ -1,9 +1,9 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
 import Mood
 import MoodAdapter
 import MoodData
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color

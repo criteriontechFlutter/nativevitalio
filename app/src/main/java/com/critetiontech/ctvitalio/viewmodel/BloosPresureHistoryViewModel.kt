@@ -1,13 +1,12 @@
 package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.AllergyApiResponse
 import com.critetiontech.ctvitalio.model.BPLog
 import com.critetiontech.ctvitalio.model.BloodPressureResponse
 import com.critetiontech.ctvitalio.model.JoinedChallenge
@@ -18,14 +17,12 @@ import com.critetiontech.ctvitalio.model.WeeklyMapTrend
 import com.critetiontech.ctvitalio.networking.RetrofitInstance
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(application) {
-
 
     // region LiveData
     private val _loading = MutableLiveData(false)
@@ -45,21 +42,25 @@ class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(app
     // endregion
 
     private val gson = Gson()
-    private val apiService = RetrofitInstance.createApiService(includeAuthHeader = true)
+    private val apiService = RetrofitInstance.createApiService(includeAuth = true)
     private val prefs = PrefsManager()
+
+    // Use nullable LiveData to avoid unchecked casts
     private val _summary = MutableLiveData<Summary?>()
-    val summary: LiveData<Summary> = _summary as LiveData<Summary>
+    val summary: LiveData<Summary?> = _summary
+
     private val _bpLogs = MutableLiveData<List<BPLog>?>()
-    val bpLogs: LiveData<List<BPLog>> = _bpLogs as LiveData<List<BPLog>>
+    val bpLogs: LiveData<List<BPLog>?> = _bpLogs
+
     private val _weeklyTrend = MutableLiveData<List<WeeklyMapTrend>>()
     val weeklyTrend: LiveData<List<WeeklyMapTrend>> = _weeklyTrend
-    private val _weeklyMapGraph = MutableLiveData<List<WeeklyMapGraph>?>()
-    val weeklyMapGraph: LiveData<List<WeeklyMapGraph>> = _weeklyMapGraph as LiveData<List<WeeklyMapGraph>>
-    fun getBloodPressureDetailsByPid() {
 
+    private val _weeklyMapGraph = MutableLiveData<List<WeeklyMapGraph>?>()
+    val weeklyMapGraph: LiveData<List<WeeklyMapGraph>?> = _weeklyMapGraph
+
+    fun getBloodPressureDetailsByPid() {
         viewModelScope.launch {
             try {
-
                 val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val currentDate = sdf.format(Date())
                 val params = mapOf(
@@ -75,12 +76,9 @@ class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(app
                 val responseBody = response.body()?.string()
 
                 if (response.isSuccessful && !responseBody.isNullOrEmpty()) {
-
-                    val parsed =
-                        gson.fromJson(responseBody, BloodPressureResponse::class.java)
+                    val parsed = gson.fromJson(responseBody, BloodPressureResponse::class.java)
 
                     parsed.responseValue?.let { value ->
-
                         // Summary
                         _summary.postValue(value.Summary)
 
@@ -107,5 +105,4 @@ class BloosPresureHistoryViewModel(application: Application) : BaseViewModel(app
             }
         }
     }
-
 }

@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+﻿package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
 
 import MoodData
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent

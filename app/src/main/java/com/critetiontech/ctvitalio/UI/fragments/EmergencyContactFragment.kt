@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -44,7 +44,7 @@ class EmergencyContactFragment : Fragment() {
             val bottomSheet = AddContactBottomSheet()
             bottomSheet.show(parentFragmentManager, "AddContactBottomSheet")
         }
-        viewModel.emergencyContactList.observe(viewLifecycleOwner) { data ->
+        viewModel.emergencyContactList.observe(viewLifecycleOwner) { _ ->
             PrefsManager().saveEmergency(viewModel.emergencyContactList.value?.size.toString())
         }
         setupRecyclerView()

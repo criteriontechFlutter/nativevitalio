@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
 import android.app.Application
 import android.util.Log
@@ -44,7 +44,7 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getBpRangeHistory,
                         params = queryParams

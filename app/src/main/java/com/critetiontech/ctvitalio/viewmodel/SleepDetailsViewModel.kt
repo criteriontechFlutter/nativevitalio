@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
 import DailyCheckItem
 import DailyCheckListWrapper
@@ -11,7 +11,7 @@ import MovementGraph
 import MovementItem
 import OxygenSaturation
 import PillReminderModel
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import QuickMetric
 import QuickMetricsTiled
 import SleepScore
@@ -161,7 +161,7 @@ class SleepDetailsViewModel(application: Application) : BaseViewModel(applicatio
                                 Gson().fromJson(unescapedJson, SleepValue::class.java)
                             }
                             printListData()
-                            Log.d("DEBUG_VITALS", "sleepValuesleepValue : ${sleepValue }")
+                            Log.d("DEBUG_VITALS", "sleepValue sleepValue : ${sleepValue }")
                             Log.d("DEBUG_VITALS", "ScoreScoreScore : ${sleepValue.Score}")
                             Log.d("DEBUG_VITALS", "TitleTitleTitle : ${sleepValue.Title}")
                             Log.d("DEBUG_VITALS", "sleepValuesleepValuesleepValuesleepValue : ${sleepValue.BedtimeEnd}")

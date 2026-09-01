@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -127,7 +127,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
 
 
                 val response = RetrofitInstance
-                    .createApiService7082()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicRawPost(
                         url = ApiEndPoint().saveEmergencyContact,
                         body = requestBody

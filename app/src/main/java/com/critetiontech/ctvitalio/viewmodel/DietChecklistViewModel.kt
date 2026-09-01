@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -45,7 +45,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
                 )
 
                 val response = RetrofitInstance
-                    .createApiService7096()
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams
@@ -102,8 +102,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService7096(
-                    )
+                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
                     .queryDynamicRawPost(
                         url = ApiEndPoint().intakeByDietID,
                         params = queryParams

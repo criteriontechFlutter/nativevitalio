@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
 import FluidAmountBottomSheet
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.Color

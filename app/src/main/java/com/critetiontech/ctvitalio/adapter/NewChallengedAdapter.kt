@@ -1,8 +1,8 @@
-package com.critetiontech.ctvitalio.adapter
+﻿package com.critetiontech.ctvitalio.adapter
 
 
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable

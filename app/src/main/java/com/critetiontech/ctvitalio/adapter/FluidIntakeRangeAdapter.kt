@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.adapter
+﻿package com.critetiontech.ctvitalio.adapter
 
-import DateUtils
+import com.critetiontech.ctvitalio.utils.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

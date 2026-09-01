@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI
+﻿package com.critetiontech.ctvitalio.UI
 
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log

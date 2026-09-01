@@ -1,8 +1,8 @@
-package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.ctvitalio.viewmodel
 
 import Medicine
 import MedicineResponse
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel

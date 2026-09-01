@@ -39,7 +39,7 @@ class GymViewModel(application: Application) : AndroidViewModel(application) {
 
                     val json = response.body()?.string()
 
-                    val jsonObj = JSONObject(json)
+                    val jsonObj = JSONObject(json.orEmpty())
 
                     val arr = jsonObj.getJSONArray("responseValue")
 
@@ -79,7 +79,7 @@ class GymViewModel(application: Application) : AndroidViewModel(application) {
 
             } catch (e: Exception) {
 
-                Log.e("GYM_API", e.localizedMessage.toString())
+                Log.e("GYM_API", e.localizedMessage ?: "Unknown error")
                 _apiStatus.postValue(false)
 
             }

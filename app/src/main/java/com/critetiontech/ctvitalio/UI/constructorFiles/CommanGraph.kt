@@ -6,6 +6,7 @@ import android.view.View
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.max
+import androidx.core.graphics.toColorInt
 
 class HeartRateGraphView @JvmOverloads constructor(
     context: Context,
@@ -48,13 +49,13 @@ class HeartRateGraphView @JvmOverloads constructor(
 
     // ================= PAINTS =================
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#E91E63")
+        color = "#E91E63".toColorInt()
         strokeWidth = 5f
         style = Paint.Style.STROKE
     }
 
     private val gridPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#E0E0E0")
+        color = "#E0E0E0".toColorInt()
         strokeWidth = 1.2f
     }
 

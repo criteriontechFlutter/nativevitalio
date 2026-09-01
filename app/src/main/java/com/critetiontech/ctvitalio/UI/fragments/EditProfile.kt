@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.ctvitalio.UI.fragments
 
-import DateUtils.showListBottomSheet
-import PrefsManager
+import com.critetiontech.ctvitalio.utils.DateUtils
+import com.critetiontech.ctvitalio.utils.PrefsManager
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -425,7 +425,7 @@ class EditProfile : Fragment() {
 
         // COUNTRY SELECTION
         binding.countrySpinner.setOnClickListener {
-            showListBottomSheet(
+            DateUtils.showListBottomSheet(
                 context = requireContext(),
                 title = "Select Country",
                 list = addressData,
@@ -465,7 +465,7 @@ class EditProfile : Fragment() {
                     mapOf<String, Any>("id" to it.id, "name" to it.stateName)
                 }
 
-                showListBottomSheet(
+                DateUtils.showListBottomSheet(
                     context = requireContext(),
                     title = "Select State",
                     list = stateMappedList,
@@ -507,7 +507,7 @@ class EditProfile : Fragment() {
                     )
                 }
 
-                showListBottomSheet(
+                DateUtils.showListBottomSheet(
                     context = requireContext(),
                     title = "Select City",
                     list = cityMappedList,
