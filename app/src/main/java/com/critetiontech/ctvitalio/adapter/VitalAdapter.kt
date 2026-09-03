@@ -45,30 +45,46 @@ class VitalAdapter(private val list: List<Vital>) :
             holder.title.text = "BP"
             // Show BP UI
             holder.value.visibility = View.GONE
-//            holder.unit.visibility = View.GONE
             holder.bpContainer.visibility = View.VISIBLE
 
+            holder.unit.visibility = View.VISIBLE
             holder.unit.text = " mmHg"
-            holder.sysValue.text = item.vitalValue?.toString() ?: "-"
+            holder.sysValue.text = item.vitalValue?.toInt()?.toString() ?: item.vitalValue?.toString() ?: "-"
 
             // ✅ Get corresponding DIA from original list
             val diaItem = list.find {
                 it.vitalName?.contains("BP_Dias", ignoreCase = true) == true
             }
 
-            holder.diaValue.text = diaItem?.vitalValue?.toString() ?: "-"
+            holder.diaValue.text = diaItem?.vitalValue?.toInt()?.toString() ?: diaItem?.vitalValue?.toString() ?: "-"
         } else {
 
-            holder.title.text = item.vitalName ?: "-"
+            val rawTitle = item.vitalName ?: ""
+            val formattedTitle = formatVitalTitle(rawTitle)
+            holder.title.text = formattedTitle
+
             // Normal vital
             holder.value.visibility = View.VISIBLE
             holder.bpContainer.visibility = View.GONE
-            holder.unit.visibility =
-                if (item.unit.isNullOrEmpty()) View.GONE else View.VISIBLE
 
             val displayValue = item.vmValueText ?: item.vitalValue?.toString() ?: "-"
             holder.value.text = displayValue
-            holder.unit.text = " " +item.unit ?: ""
+
+            val unitStr = item.unit?.trim() ?: ""
+            val rawNorm = normalizeString(rawTitle)
+            val formattedNorm = normalizeString(formattedTitle)
+            val unitNorm = normalizeString(unitStr)
+
+            val isSameAsTitle = unitNorm.isNotEmpty() && (unitNorm == rawNorm || unitNorm == formattedNorm)
+            val isAlreadyInValue = unitStr.isNotEmpty() && (displayValue.trim().endsWith(unitStr) || (unitStr == "%" && displayValue.contains("%")))
+
+            if (unitStr.isEmpty() || isSameAsTitle || isAlreadyInValue) {
+                holder.unit.visibility = View.GONE
+                holder.unit.text = ""
+            } else {
+                holder.unit.visibility = View.VISIBLE
+                holder.unit.text = " $unitStr"
+            }
         }
 
         // Severity / Time
@@ -101,6 +117,43 @@ class VitalAdapter(private val list: List<Vital>) :
                 holder.time.setTextColor(Color.DKGRAY)
             }
         }
+    }
+
+    private fun formatVitalTitle(name: String?): String {
+        if (name.isNullOrBlank()) return "-"
+        return when (name) {
+            "TimeInBed" -> "Time In Bed"
+            "TotalSleep" -> "Total Sleep"
+            "RestorativeSleep" -> "Restorative Sleep"
+            "Morningalertness", "MorningAlertness" -> "Morning Alertness"
+            "SleepScore" -> "Sleep Score"
+            "WaterIntake" -> "Water Intake"
+            "TossTurn" -> "Toss & Turn"
+            "ActiveHours" -> "Active Hours"
+            "ActiveMinutes" -> "Active Minutes"
+            "WeeklyActiveMinutes" -> "Weekly Active Minutes"
+            "SleepCycles" -> "Sleep Cycles"
+            "MovementIndex" -> "Movement Index"
+            "RecoveryIndex" -> "Recovery Index"
+            "StressScore" -> "Stress Score"
+            "HeartRate" -> "Heart Rate"
+            "RespRate" -> "Respiratory Rate"
+            "TotalSteps" -> "Total Steps"
+            "Sleep efficiency", "SleepEfficiency" -> "Sleep Efficiency"
+            "REM Sleep", "REMSleep" -> "REM Sleep"
+            "Deep Sleep", "DeepSleep" -> "Deep Sleep"
+            "Light Sleep", "LightSleep" -> "Light Sleep"
+            "NightRHR", "Night RHR" -> "Night RHR"
+            else -> {
+                name.replace("(?<=[a-z])(?=[A-Z])".toRegex(), " ")
+                    .replace("(?<=[A-Z])(?=[A-Z][a-z])".toRegex(), " ")
+                    .trim()
+            }
+        }
+    }
+
+    private fun normalizeString(s: String?): String {
+        return s?.lowercase()?.replace(Regex("[^a-z0-9]"), "") ?: ""
     }
 
     override fun getItemCount() = filteredList.size   // ✅ FIXED

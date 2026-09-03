@@ -1,26 +1,26 @@
 {
   "buildFiles": [
-    "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\libcxx_helper\\CMakeLists.txt"
+    "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\libcxx_helper\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
-      "C:\\Users\\CT-Animesh\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
+      "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
-    "C:\\Users\\CT-Animesh\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
+    "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
     "opencv_jni_shared::@6890427a1f51a3e7e1df": {
       "artifactName": "opencv_jni_shared",
       "abi": "x86",
-      "output": "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86\\libopencv_jni_shared.a",
+      "output": "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86\\libopencv_jni_shared.a",
       "runtimeFiles": []
     }
   }

@@ -210,14 +210,16 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val gson = Gson()
         return gson.fromJson(jsonString, InsightJson::class.java)
     }
-       fun decodeDailyCheckList(wrapperList: List<DailyCheckListWrapper>?): List<DailyCheckItem> {
+    fun decodeDailyCheckList(wrapperList: List<DailyCheckListWrapper>?): List<DailyCheckItem> {
         if (wrapperList.isNullOrEmpty()) return emptyList()
-
-        val gson = Gson()
-        val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
-
-        val jsonString = wrapperList[0].dailyChecklist
-        return gson.fromJson(jsonString, listType)
+        return try {
+            val jsonString = wrapperList[0].dailyChecklist ?: return emptyList()
+            if (jsonString.isBlank() || jsonString == "[]") return emptyList()
+            val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
+            Gson().fromJson(jsonString, listType) ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
 
@@ -628,6 +630,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val requestBody = mapOf("text" to data)
         JSONObject(requestBody).toString()
 
+        Log.d("RequestBody", requestBody.toString())
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(

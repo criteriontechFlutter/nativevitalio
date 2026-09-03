@@ -1,5 +1,5 @@
 {
-  "installationFolder": "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\build\\intermediates\\prefab_package\\debug\\prefab",
+  "installationFolder": "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\build\\intermediates\\prefab_package\\debug\\prefab",
   "gradlePath": ":opencv",
   "packageInfo": {
     "packageName": "opencv",
@@ -8,7 +8,7 @@
     "modules": [
       {
         "moduleName": "opencv_jni_shared",
-        "moduleHeaders": "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\native\\jni\\include",
+        "moduleHeaders": "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\native\\jni\\include",
         "moduleExportLibraries": [],
         "abis": []
       }

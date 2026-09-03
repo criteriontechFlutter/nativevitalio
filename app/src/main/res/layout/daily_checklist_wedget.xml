@@ -1,48 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dailyChecklistID"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/dailyChecklistID"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <!-- Row: progress bar + value -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    android:background="@drawable/bg_progress_track"
-    android:backgroundTint="@color/contbg"
-        android:orientation="vertical"
-      >
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="4dp"
+        tools:ignore="UselessParent">
 
-        <!-- Row: progress bar + value -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="6dp"
-            android:background="@drawable/bg_progress_track"
-            android:backgroundTint="@color/contbg"
-            tools:ignore="UselessParent">
+        <FrameLayout
+            android:id="@+id/progressContainer"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:clipToOutline="true">
+
+            <!-- 1. BASE LAYER (Unfilled: Dark/Black icon and text) -->
+            <LinearLayout
+                android:id="@+id/baseContentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <!-- Goal Icon (Black / Theme Dark) -->
+                <ImageView
+                    android:id="@+id/ivStepsIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/medicine"
+                    app:tint="@color/themeTextColorBW" />
+
+                <!-- Goal text (Black / Theme Dark) -->
+                <TextView
+                    android:id="@+id/tvStepsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/themeTextColorBW"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+
+            <!-- 2. FILLED LAYER (Progress mask: Width set to filledWidth, clips children) -->
             <FrameLayout
+                android:id="@+id/filledClipLayout"
                 android:layout_width="0dp"
-                android:layout_height="21dp"
-                android:layout_weight="1"
-                android:clipToOutline="true">
+                android:layout_height="match_parent"
+                android:clipChildren="true"
+                android:clipToOutline="true"
+                android:visibility="gone"
+                android:background="@drawable/bg_progress_fill_rounded">
 
-                <!-- Progress bar with red fill -->
-                <ProgressBar
-                    android:id="@+id/progressSteps"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="21dp"
-                    android:max="100"
-                    android:progress="10"
-
-                    android:backgroundTint="@color/contbg"
-                    android:indeterminateOnly="false"
-                    android:progressDrawable="@drawable/bg_progress_fill"/>
-
-                <!-- Overlay with icon + text -->
+                <!-- Mirrored Content (White icon and text, pinned to total container width) -->
                 <LinearLayout
+                    android:id="@+id/filledContentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -50,38 +75,48 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp">
 
-                    <!-- Medicine Icon (white) -->
+                    <!-- Goal Icon (White) -->
                     <ImageView
-                        android:id="@+id/ivStepsIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="14dp"
+                        android:id="@+id/ivStepsIconFilled"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:layout_marginEnd="6dp"
-
                         android:src="@drawable/medicine"
-                        app:tint="@color/themeTextColorBW" />
+                        app:tint="#FFFFFF" />
 
-                    <!-- Medicine text (white) -->
+                    <!-- Goal text (White) -->
                     <TextView
-                        android:id="@+id/tvStepsLabel"
+                        android:id="@+id/tvStepsLabelFilled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" "
-                        android:textColor="@color/themeTextColorBW"
-                        android:textSize="11sp"
+                        android:text=""
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:includeFontPadding="false"/>
+                        android:includeFontPadding="false" />
                 </LinearLayout>
             </FrameLayout>
 
-            <!-- Value text -->
-            <TextView
-                android:id="@+id/tvStepsValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="6,040"
-                android:textColor="@color/themeTextColorBW"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
+            <!-- Optional ProgressBar for backward compatibility -->
+            <ProgressBar
+                android:id="@+id/progressSteps"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="100"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <!-- Value text -->
+        <TextView
+            android:id="@+id/tvStepsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/themeTextColorBW"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
     </LinearLayout>
+</LinearLayout>
