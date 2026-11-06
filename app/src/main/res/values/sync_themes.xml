@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Sync" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/sync_page</item>
+        <item name="android:statusBarColor">@color/sync_header</item>
+        <item name="android:navigationBarColor">@color/sync_surface</item>
+        <item name="colorPrimary">@color/sync_accent</item>
+        <item name="colorAccent">@color/sync_accent</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="fontFamily">@font/lato_regular</item>
+    </style>
+</resources>

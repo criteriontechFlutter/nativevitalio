@@ -116,6 +116,11 @@
             android:name=".UI.MovieListActivity"
             android:exported="false" />
         <activity
+            android:name=".sync.ui.SyncActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Sync"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".UI.Splash"
             android:exported="true">
             <intent-filter>

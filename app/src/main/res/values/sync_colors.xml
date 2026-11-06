@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sync uses Vitalio's own theme colours, so it follows the app and its dark mode. -->
+    <color name="sync_header">@color/primaryBlue</color>
+    <color name="sync_page">@color/dashbg</color>
+    <color name="sync_surface">@color/contbg</color>
+    <color name="sync_ink">@color/themeTextColorBW</color>
+    <color name="sync_on_accent">#FFFFFF</color>
+    <color name="sync_on_header">#FFFFFF</color>
+
+    <!-- primaryBlue goes near-black in dark mode, so accents need their own night value. -->
+    <color name="sync_accent">#0079FF</color>
+    <color name="sync_tint">#E3F2FD</color>
+    <color name="sync_band">#D6E8FF</color>
+    <color name="sync_muted">#6B7280</color>
+    <color name="sync_rule">#ECEEF2</color>
+
+    <!-- The spec's one attention colour, for the Out of sync tick only. -->
+    <color name="sync_attention">#9C4B3A</color>
+</resources>

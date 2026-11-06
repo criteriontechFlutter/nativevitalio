@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sync_accent">#4DA3FF</color>
+    <color name="sync_tint">#1E3A55</color>
+    <color name="sync_band">#24405C</color>
+    <color name="sync_muted">#A9B4C2</color>
+    <color name="sync_rule">#3A4756</color>
+    <color name="sync_attention">#D98C78</color>
+</resources>

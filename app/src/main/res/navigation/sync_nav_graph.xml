@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sync_nav_graph"
+    app:startDestination="@id/sync_home">
+
+    <fragment android:id="@+id/sync_home" android:name="com.critetiontech.ctvitalio.sync.ui.SyncHomeFragment" />
+    <fragment android:id="@+id/sync_your_day" android:name="com.critetiontech.ctvitalio.sync.ui.SyncYourDayFragment" />
+    <fragment android:id="@+id/sync_read_back" android:name="com.critetiontech.ctvitalio.sync.ui.SyncReadBackFragment" />
+    <fragment android:id="@+id/sync_patterns" android:name="com.critetiontech.ctvitalio.sync.ui.SyncPatternsFragment" />
+    <fragment android:id="@+id/sync_experiments" android:name="com.critetiontech.ctvitalio.sync.ui.SyncExperimentsFragment" />
+    <fragment android:id="@+id/sync_states" android:name="com.critetiontech.ctvitalio.sync.ui.SyncStatesFragment" />
+    <fragment android:id="@+id/sync_account" android:name="com.critetiontech.ctvitalio.sync.ui.SyncAccountFragment" />
+    <fragment android:id="@+id/sync_placeholder" android:name="com.critetiontech.ctvitalio.sync.ui.SyncPlaceholderFragment">
+        <argument android:name="title_key" app:argType="string" />
+    </fragment>
+</navigation>

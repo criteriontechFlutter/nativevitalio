@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- A separate launcher icon for previewing Sync on dummy data. Debug builds only. -->
+        <activity-alias
+            android:name=".sync.ui.SyncPreviewLauncher"
+            android:exported="true"
+            android:label="Sync (preview)"
+            android:targetActivity=".sync.ui.SyncActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+</manifest>

@@ -20,3 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class **.R$* { *; }
+
+# Sync keeps these as JSON on the device; field names must survive between versions.
+-keep class com.critetiontech.ctvitalio.sync.domain.** { *; }
