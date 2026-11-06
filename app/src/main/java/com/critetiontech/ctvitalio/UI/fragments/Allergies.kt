@@ -14,6 +14,7 @@ import com.critetiontech.ctvitalio.adapter.AllergiesAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
 import com.critetiontech.ctvitalio.model.AllergyTypeItem
 import com.critetiontech.ctvitalio.utils.AddAllergyBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
@@ -64,7 +65,7 @@ class Allergies : Fragment(), AllergiesAdapter.SelectionListener {
         binding.addAllergiesBtn.setOnClickListener {
             if (allergyTypeList.isNotEmpty()) {
                 val sheet = AddAllergyBottomSheet.newInstance(allergyTypeList)
-                sheet.show(childFragmentManager, "AddAllergyBottomSheet")
+                sheet.showSafe(childFragmentManager, "AddAllergyBottomSheet")
             } else {
                 Toast.makeText(requireContext(), "Allergy types not loaded yet.", Toast.LENGTH_SHORT).show()
             }

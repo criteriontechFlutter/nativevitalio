@@ -42,6 +42,7 @@ import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.ConfirmationBottomSheet
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -211,14 +212,16 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val gson = Gson()
         return gson.fromJson(jsonString, InsightJson::class.java)
     }
-       fun decodeDailyCheckList(wrapperList: List<DailyCheckListWrapper>?): List<DailyCheckItem> {
+    fun decodeDailyCheckList(wrapperList: List<DailyCheckListWrapper>?): List<DailyCheckItem> {
         if (wrapperList.isNullOrEmpty()) return emptyList()
-
-        val gson = Gson()
-        val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
-
-        val jsonString = wrapperList[0].dailyChecklist
-        return gson.fromJson(jsonString, listType)
+        return try {
+            val jsonString = wrapperList[0].dailyChecklist ?: return emptyList()
+            if (jsonString.isBlank() || jsonString == "[]") return emptyList()
+            val listType = object : TypeToken<List<DailyCheckItem>>() {}.type
+            Gson().fromJson(jsonString, listType) ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
 
@@ -629,6 +632,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         val requestBody = mapOf("text" to data)
         JSONObject(requestBody).toString()
 
+        Log.d("RequestBody", requestBody.toString())
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.createApiService(
@@ -786,7 +790,11 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                 Toast.makeText(context, "$addedData saved successfully!", Toast.LENGTH_SHORT).show()
                             }
                         )
-                        bottomSheet.show((context as AppCompatActivity).supportFragmentManager, "ConfirmSheet")
+                        (context as? AppCompatActivity)?.let { activity ->
+                            if (!activity.isFinishing && !activity.isDestroyed) {
+                                bottomSheet.showSafe(activity.supportFragmentManager, "ConfirmSheet")
+                            }
+                        }
                     }
 
                 }  else {

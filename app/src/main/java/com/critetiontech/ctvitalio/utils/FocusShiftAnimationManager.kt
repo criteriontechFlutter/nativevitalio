@@ -23,7 +23,6 @@ class FocusShiftAnimationManager(
     private val ivRightHand: ImageView,
     private val layoutHands: View,
     private val ivSingleFinger: ImageView,
-    private val ambientGlow: View,
     private val onStateChanged: (State, String, String) -> Unit
 ) {
 

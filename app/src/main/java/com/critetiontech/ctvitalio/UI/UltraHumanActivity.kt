@@ -59,7 +59,7 @@ class UltraHumanActivity : AppCompatActivity() {
                 finish()
             } "FirstTime" -> {
             val intent = Intent(MyApplication.appContext, SignupActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             MyApplication.appContext.startActivity(intent)
             }
 
@@ -84,7 +84,7 @@ class UltraHumanActivity : AppCompatActivity() {
                 Log.d("OAuth", "Received refreshToken: $tokenType")
                 Log.d("OAuth", "Received refreshToken: $expiry")
                 viewModel.insertUltraHumanToken(accessToken, refreshToken, tokenType, expiry,source)
-                //Toast.makeText(this, "Check$refreshToken", Toast.LENGTH_LONG).show()
+                /* Toast.makeText(this, "Check$refreshToken", Toast.LENGTH_LONG).show() */
                 exchangeCodeForToken(accessToken)
             } else {
                 Log.e("OAuth", "No authorization code found in redirect URI")
@@ -116,7 +116,10 @@ class UltraHumanActivity : AppCompatActivity() {
             "W3hWLU2juogFGfgJBdpj3uuaI1n876CwvalFCIFEBKo",
             ResponseTypeValues.CODE,
             redirectUri
-        ).setScope("profile ring_data cgm_data ring_extended_data").build()
+
+        ).setCodeVerifier(null)
+            .setState("${PrefsManager().getPatient()?.emailID}|1")
+            .setScope("profile ring_data cgm_data ring_extended_data").build()
 
         val intent = authService!!.getAuthorizationRequestIntent(authRequest)
         startActivity(intent)

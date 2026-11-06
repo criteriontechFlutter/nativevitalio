@@ -1,3 +1,0 @@
-ninja: Entering directory `C:\Users\CT-Animesh\AndroidStudioProjects\nativevitalio\opencv\.cxx\Debug\5v552x38\x86_64'
-[1/1] Cleaning all built files...
-Cleaning... 2 files.

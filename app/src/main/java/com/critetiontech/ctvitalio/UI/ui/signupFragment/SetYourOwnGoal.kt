@@ -27,6 +27,7 @@ import com.critetiontech.ctvitalio.databinding.FragmentSetYourOwnGoalBinding
 import com.critetiontech.ctvitalio.model.SetGoalModel
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -216,7 +217,7 @@ class SetYourOwnGoal : Fragment() {
                      )
                 },
 
-                ).show(childFragmentManager, ConfirmUpdateBottomSheet.TAG)
+                ).showSafe(childFragmentManager, ConfirmUpdateBottomSheet.TAG)
         }
 
 

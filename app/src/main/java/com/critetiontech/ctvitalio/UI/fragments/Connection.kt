@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import com.critetiontech.ctvitalio.utils.showSafe
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -96,7 +97,7 @@ class Connection : Fragment() {
                             message = event.message,
                             buttonText = event.buttonText,
                             haptic = event.hapticType
-                        ).show(parentFragmentManager, "msg")
+                        ).showSafe(parentFragmentManager, "msg")
 
                     }
                 }

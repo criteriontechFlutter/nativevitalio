@@ -297,12 +297,14 @@ class new_corporate_dashboard : Fragment() {
         }
     }
     private fun setupPages() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.homepageId, Home())
-            .replace(R.id.healthSnapsPageId, HealthSnaps())
-            .replace(R.id.medicinePageId, Reminders())
-            .replace(R.id.challengesPageId, dashboard_challenges())
-            .commit()
+        if (!parentFragmentManager.isStateSaved && !parentFragmentManager.isDestroyed) {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.homepageId, Home())
+                .replace(R.id.healthSnapsPageId, HealthSnaps())
+                .replace(R.id.medicinePageId, Reminders())
+                .replace(R.id.challengesPageId, dashboard_challenges())
+                .commitAllowingStateLoss()
+        }
     }
     /** ------------------------------ */
     /** EVERYTHING BELOW UNCHANGED     */

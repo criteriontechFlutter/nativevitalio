@@ -17,7 +17,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,6 +27,7 @@ import com.critetiontech.ctvitalio.adapter.FluidOptionAdapter
 import com.critetiontech.ctvitalio.adapter.GlassSizeAdapter
 import com.critetiontech.ctvitalio.databinding.FragmentFluidBinding
 import com.critetiontech.ctvitalio.utils.CoffeVIew
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.critetiontech.ctvitalio.utils.GlassView
 import com.critetiontech.ctvitalio.utils.GreenTea
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
@@ -111,7 +111,7 @@ class FluidFragment : Fragment() {
         }
 
 
-        ovalMeterView.setOnTouchListener { v, event ->
+        ovalMeterView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN || event.action == MotionEvent.ACTION_MOVE) {
                 viewModel.setSelectedOutputProgress(ovalMeterView.getProgressValueInDouble())
                 val relativeY = event.y
@@ -453,7 +453,7 @@ class FluidFragment : Fragment() {
                     FluidAmountBottomSheet { selectedAmount ->
                         viewModel.setSelectedGlassSize(selectedAmount)
 
-                    }.show(parentFragmentManager, "FluidAmountBottomSheet")
+                    }.showSafe(parentFragmentManager, "FluidAmountBottomSheet")
                 }
             }
             binding.recyclerViewGlassSize.adapter = adapterGlassSize

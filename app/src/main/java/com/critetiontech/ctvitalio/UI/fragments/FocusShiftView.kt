@@ -12,12 +12,12 @@ import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentFocusShiftViewBinding
 import com.critetiontech.ctvitalio.utils.FocusShiftAnimationManager
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.critetiontech.ctvitalio.viewmodel.FocusShiftViewModel
 import kotlin.getValue
 
@@ -79,7 +79,6 @@ class FocusShiftView : Fragment() {
             ivRightHand = binding.ivRightHand,
             layoutHands = binding.layoutHands,
             ivSingleFinger = binding.ivSingleFinger,
-            ambientGlow = binding.ambientGlow,
             onStateChanged = { state, guide, description ->
                 viewModel.updateInstructions(guide, description)
                 // Start the 12-second exercise timer only after the countdown finishes and Stage 1 begins
@@ -261,7 +260,7 @@ class FocusShiftView : Fragment() {
             title = "Incomplete Session!",
             description = "Take a moment to finish your session mindfully. Completing the Focus Shift session will boost your progress stats."
         )
-        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
+        bottomSheet.showSafe(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun resumeSession() {
@@ -279,7 +278,11 @@ class FocusShiftView : Fragment() {
     }
 
     private fun exitFragment() {
-        if (!parentFragmentManager.popBackStackImmediate()) {
+        if (!parentFragmentManager.isStateSaved && !parentFragmentManager.isDestroyed) {
+            if (!parentFragmentManager.popBackStackImmediate()) {
+                activity?.finish()
+            }
+        } else {
             activity?.finish()
         }
     }

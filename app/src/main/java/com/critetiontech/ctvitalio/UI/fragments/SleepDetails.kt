@@ -426,9 +426,11 @@ class SleepDetails : Fragment() {
     // Open sleep graph fragment
     // -------------------------------------------
     private fun openSleepGraph() {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.sleepGraph, SleepGraphFragment())
-            .commit()
+        if (!childFragmentManager.isStateSaved && !childFragmentManager.isDestroyed) {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.sleepGraph, SleepGraphFragment())
+                .commitAllowingStateLoss()
+        }
     }
 
     // -------------------------------------------

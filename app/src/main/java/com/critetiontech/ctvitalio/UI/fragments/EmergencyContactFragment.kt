@@ -17,6 +17,7 @@ import com.critetiontech.ctvitalio.model.EmergencyContact
 import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
 import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
 import com.critetiontech.ctvitalio.viewmodel.EmergencyContactViewModel
+import com.critetiontech.ctvitalio.utils.showSafe
 
 
 class EmergencyContactFragment : Fragment() {
@@ -42,7 +43,7 @@ class EmergencyContactFragment : Fragment() {
 
         binding.emergencyAddButton.setOnClickListener {
             val bottomSheet = AddContactBottomSheet()
-            bottomSheet.show(parentFragmentManager, "AddContactBottomSheet")
+            bottomSheet.showSafe(parentFragmentManager, "AddContactBottomSheet")
         }
         viewModel.emergencyContactList.observe(viewLifecycleOwner) { _ ->
             PrefsManager().saveEmergency(viewModel.emergencyContactList.value?.size.toString())

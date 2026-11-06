@@ -215,6 +215,7 @@ data class Vital(
     val uhid: String? = null,
     val pmId: Int = 0,
     val vitalID: Int = 0,
+    val vitalId: Int = 0,
     var vitalName: String? = null,
     var colourCode: String? = null,
     var severityLevel: String? ="-",
@@ -465,17 +466,18 @@ data class FluidItem(
 )
 
 data class DailyCheckItem(
-    val vmId: Int,
-    val goalId: Int,
-    val isPinned: Int,
-    val targetValue: String,
-    val vitalValue: Double,
-    val totalFluid_L: Double,
-    val isGoalAchieved: Int,
-    val goalName: String,
-    val unit: String,
-    val glucoseCount: Int,
-
+    val vmId: Int = 0,
+    val goalId: Int = 0,
+    val isPinned: Int = 0,
+    val targetValue: String? = "0",
+    val vitalValue: Double = 0.0,
+    val totalFluid_L: Double = 0.0,
+    val isGoalAchieved: Int = 0,
+    val goalName: String? = "",
+    val unit: String? = "",
+    val glucoseCount: Int = 0,
+    val bpCount: Int = 0,
+    val vmValueText: String? = null
 )
 data class InsightJson(
     val date: String,
