@@ -24,6 +24,7 @@ import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
 import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
 import androidx.core.graphics.toColorInt
 import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 
 class Login : BaseActivity() {
 
@@ -174,7 +175,7 @@ class Login : BaseActivity() {
                     intent.putExtra("oldPassword", binding.passField.text.toString())
                     startActivity(intent)
                 }
-            ).show(supportFragmentManager,  ConfirmUpdateBottomSheet.TAG)
+            ).showSafe(supportFragmentManager,  ConfirmUpdateBottomSheet.TAG)
         } else {
             startActivity(Intent(this, Home::class.java))
         }

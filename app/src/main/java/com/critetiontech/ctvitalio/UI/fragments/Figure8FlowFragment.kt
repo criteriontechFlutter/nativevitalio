@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentFigure8FlowBinding
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 
 class Figure8FlowFragment : Fragment() {
 
@@ -290,7 +291,7 @@ class Figure8FlowFragment : Fragment() {
             title = "Incomplete Session!",
             description = "Take a moment to finish your session mindfully. Completing the Figure 8 Flow session will boost your progress stats."
         )
-        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
+        bottomSheet.showSafe(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun endSessionAndExit() {
@@ -304,7 +305,11 @@ class Figure8FlowFragment : Fragment() {
     }
 
     private fun exitFragment() {
-        if (!parentFragmentManager.popBackStackImmediate()) {
+        if (!parentFragmentManager.isStateSaved && !parentFragmentManager.isDestroyed) {
+            if (!parentFragmentManager.popBackStackImmediate()) {
+                activity?.finish()
+            }
+        } else {
             activity?.finish()
         }
     }

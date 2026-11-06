@@ -2,8 +2,26 @@ package com.critetiontech.ctvitalio.utils
 
 import NetworkUtils
 import android.graphics.Color
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
+
+fun DialogFragment.showSafe(manager: FragmentManager, tag: String? = null) {
+    if (manager.isStateSaved || manager.isDestroyed) return
+    try {
+        val tagName = tag ?: this::class.java.simpleName
+        val existingFragment = manager.findFragmentByTag(tagName)
+        if (existingFragment != null && existingFragment.isAdded) {
+            return
+        }
+        val ft = manager.beginTransaction()
+        ft.add(this, tagName)
+        ft.commitAllowingStateLoss()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
 
 fun Fragment.showRetrySnackbar(
     message: String = "No Internet Connection",

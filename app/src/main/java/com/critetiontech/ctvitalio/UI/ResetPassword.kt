@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.critetiontech.ctvitalio.databinding.ActivityResetPasswordBinding
 import com.critetiontech.ctvitalio.utils.MyApplication
 import com.critetiontech.ctvitalio.viewmodel.ResetPasswordViewModel
@@ -130,7 +131,7 @@ class ResetPassword : AppCompatActivity() {
 
                     },
 
-                    ).show(supportFragmentManager, ConfirmUpdateBottomSheet.TAG)
+                    ).showSafe(supportFragmentManager, ConfirmUpdateBottomSheet.TAG)
             } else {
             }
         }

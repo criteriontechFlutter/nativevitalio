@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Objects;
@@ -95,7 +96,7 @@ public class OmronDBProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         return null;
     }
 

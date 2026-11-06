@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.critetiontech.ctvitalio.databinding.FragmentCircleClockBinding
 
 class ClockCircleFragment : Fragment() {
@@ -262,7 +263,7 @@ class ClockCircleFragment : Fragment() {
             title = "Incomplete Session!",
             description = "Take a moment to finish your session mindfully. Completing the Clock Circle session will boost your progress stats."
         )
-        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
+        bottomSheet.showSafe(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun endSessionAndExit() {
@@ -276,7 +277,11 @@ class ClockCircleFragment : Fragment() {
     }
 
     private fun exitFragment() {
-        if (!parentFragmentManager.popBackStackImmediate()) {
+        if (!parentFragmentManager.isStateSaved && !parentFragmentManager.isDestroyed) {
+            if (!parentFragmentManager.popBackStackImmediate()) {
+                activity?.finish()
+            }
+        } else {
             activity?.finish()
         }
     }

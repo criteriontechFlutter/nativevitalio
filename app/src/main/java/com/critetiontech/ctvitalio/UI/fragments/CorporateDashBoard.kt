@@ -28,6 +28,7 @@ import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import com.critetiontech.ctvitalio.utils.showSafe
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -185,7 +186,7 @@ binding.upcomingchallengesID.visibility=if(list.isEmpty()) View.GONE else View.V
         }
         Handler(Looper.getMainLooper()).postDelayed({
 
-            GymOfferBottomSheet().show(parentFragmentManager, "GymOffer")
+            GymOfferBottomSheet().showSafe(parentFragmentManager, "GymOffer")
 
         }, 5000) // 3000 = 3 seconds delay
         challengesViewModel.getJoinedChallenge()

@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\libcxx_helper\\CMakeLists.txt"
+    "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\libcxx_helper\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
-      "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "C:\\Users\\CT-Animesh\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
       "-C",
-      "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
+      "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
-    "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "C:\\Users\\CT-Animesh\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
     "-C",
-    "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
+    "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
@@ -21,13 +21,13 @@
       "toolchain": "toolchain",
       "abi": "x86",
       "artifactName": "opencv_jni_shared",
-      "output": "C:\\CT_Project\\cursor_project\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86\\libopencv_jni_shared.a"
+      "output": "C:\\Users\\CT-Animesh\\AndroidStudioProjects\\nativevitalio\\opencv\\.cxx\\Debug\\5v552x38\\x86\\libopencv_jni_shared.a"
     }
   },
   "toolchains": {
     "toolchain": {
-      "cCompilerExecutable": "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
-      "cppCompilerExecutable": "C:\\Users\\CT-VishaS\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+      "cCompilerExecutable": "C:\\Users\\CT-Animesh\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\CT-Animesh\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
     }
   },
   "cFileExtensions": [],

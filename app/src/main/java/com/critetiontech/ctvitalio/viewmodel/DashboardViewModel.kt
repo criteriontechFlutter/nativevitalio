@@ -42,6 +42,7 @@ import com.critetiontech.ctvitalio.utils.ApiEndPoint
 import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
 import com.critetiontech.ctvitalio.utils.ConfirmationBottomSheet
 import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -788,7 +789,11 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                                 Toast.makeText(context, "$addedData saved successfully!", Toast.LENGTH_SHORT).show()
                             }
                         )
-                        bottomSheet.show((context as AppCompatActivity).supportFragmentManager, "ConfirmSheet")
+                        (context as? AppCompatActivity)?.let { activity ->
+                            if (!activity.isFinishing && !activity.isDestroyed) {
+                                bottomSheet.showSafe(activity.supportFragmentManager, "ConfirmSheet")
+                            }
+                        }
                     }
 
                 }  else {

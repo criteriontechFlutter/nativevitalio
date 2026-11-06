@@ -28,6 +28,7 @@ import com.critetiontech.ctvitalio.utils.FileUtil
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
 import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
@@ -179,7 +180,7 @@ class UploadReport : Fragment() {
                 .setSelection(today)
                 .build()
 
-            datePicker.show(parentFragmentManager, "date_picker")
+            datePicker.showSafe(parentFragmentManager, "date_picker")
 
             datePicker.addOnPositiveButtonClickListener { selectedDateMillis ->
                 if (selectedDateMillis > today) {

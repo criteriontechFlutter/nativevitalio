@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.critetiontech.ctvitalio.R
 import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
+import com.critetiontech.ctvitalio.utils.showSafe
 import com.critetiontech.ctvitalio.databinding.FragmentFivetoOneTechniqueProgressBinding
 import com.critetiontech.ctvitalio.viewmodel.FiveToOneViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -188,7 +189,7 @@ class FivetoOneTechniqueProgress : Fragment() {
             title = "Session Completed! 🎉",
             description = "Nice work! You've completed your grounding session. Save your progress now."
         )
-        bottomSheet.show(parentFragmentManager, EndSessionBottomSheet.TAG)
+        bottomSheet.showSafe(parentFragmentManager, EndSessionBottomSheet.TAG)
     }
 
     private fun loadStep() {
