@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.os.Build
 import android.util.Log
@@ -9,9 +9,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.adapter.WaterRecord
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
+import com.critetiontech.vitalioCorporate.adapter.WaterRecord
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPointCorporateModule
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.text.SimpleDateFormat

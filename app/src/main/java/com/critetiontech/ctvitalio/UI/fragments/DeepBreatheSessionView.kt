@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentDeepBreatheSessionViewBinding
-import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentDeepBreatheSessionViewBinding
+import com.critetiontech.vitalioCorporate.UI.ui.EndSessionBottomSheet
+import com.critetiontech.vitalioCorporate.utils.showSafe
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 

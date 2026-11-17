@@ -1,11 +1,11 @@
-﻿package com.critetiontech.ctvitalio.adapter
+﻿package com.critetiontech.vitalioCorporate.adapter
 
-import com.critetiontech.ctvitalio.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.FluidHistoryItemLayoutBinding
-import com.critetiontech.ctvitalio.model.ManualFoodItem
+import com.critetiontech.vitalioCorporate.databinding.FluidHistoryItemLayoutBinding
+import com.critetiontech.vitalioCorporate.model.ManualFoodItem
 import java.util.Locale
 
 class FluidIntakeLogAdapter (

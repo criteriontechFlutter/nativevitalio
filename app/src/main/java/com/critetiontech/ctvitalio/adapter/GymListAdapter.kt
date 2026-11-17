@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.Manifest
 import android.content.Intent
@@ -15,11 +15,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemGymListBinding
-import com.critetiontech.ctvitalio.model.Gym
-import com.critetiontech.ctvitalio.utils.LocationUtils
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ItemGymListBinding
+import com.critetiontech.vitalioCorporate.model.Gym
+import com.critetiontech.vitalioCorporate.utils.LocationUtils
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 import androidx.core.net.toUri
 
 class GymAdapter(

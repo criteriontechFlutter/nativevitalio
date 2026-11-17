@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
-import com.critetiontech.ctvitalio.adapter.NotificationAdapter
-import com.critetiontech.ctvitalio.adapter.VitalAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentNotificationBinding
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.adapter.DailyTipAdapter
+import com.critetiontech.vitalioCorporate.adapter.NotificationAdapter
+import com.critetiontech.vitalioCorporate.adapter.VitalAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentNotificationBinding
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
 
 
 class NotificationFragment : Fragment() {

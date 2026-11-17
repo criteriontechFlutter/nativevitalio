@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import PillReminderModel
 import PillTime
@@ -11,8 +11,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.databinding.FragmentIntakePillsBinding
-import com.critetiontech.ctvitalio.viewmodel.IntakePillsViewModel
+import com.critetiontech.vitalioCorporate.databinding.FragmentIntakePillsBinding
+import com.critetiontech.vitalioCorporate.viewmodel.IntakePillsViewModel
 
 class IntakePills : Fragment() {
 

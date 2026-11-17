@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.model
+package com.critetiontech.vitalioCorporate.model
 
 data class DietItemModel(
     val dietId: Int,

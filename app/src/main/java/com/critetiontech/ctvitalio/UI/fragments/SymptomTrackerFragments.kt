@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.SymptomsTrackerAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentSymptomTrackerFragmentsBinding
-import com.critetiontech.ctvitalio.model.SymptomDetail
-import com.critetiontech.ctvitalio.viewmodel.SymptomsTrackerViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.SymptomsTrackerAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentSymptomTrackerFragmentsBinding
+import com.critetiontech.vitalioCorporate.model.SymptomDetail
+import com.critetiontech.vitalioCorporate.viewmodel.SymptomsTrackerViewModel
 
 class SymptomTrackerFragments : Fragment() {
 

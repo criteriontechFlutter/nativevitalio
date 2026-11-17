@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter.omronAdapter;
+package com.critetiontech.vitalioCorporate.adapter.omronAdapter;
 
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.critetiontech.ctvitalio.UI.OmronActivity.BaseActivity;
-import com.critetiontech.ctvitalio.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.UI.OmronActivity.BaseActivity;
+import com.critetiontech.vitalioCorporate.Database.OmronDBConstans;
+import com.critetiontech.vitalioCorporate.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

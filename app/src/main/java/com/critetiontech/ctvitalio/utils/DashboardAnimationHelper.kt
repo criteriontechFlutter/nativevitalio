@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.graphics.RenderEffect
 import android.graphics.Shader
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.core.view.isVisible
-import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentCorporateDashBoardBinding
 
 object DashboardAnimationHelper {
 

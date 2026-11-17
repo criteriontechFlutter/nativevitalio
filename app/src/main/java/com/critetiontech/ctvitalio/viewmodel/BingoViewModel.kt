@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.critetiontech.ctvitalio.model.BingoTask
-import com.critetiontech.ctvitalio.storage.BingoPreferences
+import com.critetiontech.vitalioCorporate.model.BingoTask
+import com.critetiontech.vitalioCorporate.storage.BingoPreferences
 
 class BingoViewModel(application: Application) : AndroidViewModel(application) {
 

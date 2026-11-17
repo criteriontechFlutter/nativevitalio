@@ -1,13 +1,13 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.StatusApiResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.model.StatusApiResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 

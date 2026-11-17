@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import DosageChartView
 import android.animation.ValueAnimator
@@ -14,11 +14,11 @@ import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentWellnessMetricsBinding
-import com.critetiontech.ctvitalio.model.MovementIndexResponseValue
-import com.critetiontech.ctvitalio.model.MovementIndexViewModel
-import com.critetiontech.ctvitalio.model.VitalItem
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentWellnessMetricsBinding
+import com.critetiontech.vitalioCorporate.model.MovementIndexResponseValue
+import com.critetiontech.vitalioCorporate.model.MovementIndexViewModel
+import com.critetiontech.vitalioCorporate.model.VitalItem
 import java.text.SimpleDateFormat
 import java.util.Locale
 

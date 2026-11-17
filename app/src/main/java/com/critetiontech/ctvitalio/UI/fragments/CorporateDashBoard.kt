@@ -1,8 +1,8 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
 import DailyCheckItem
 import MoodData
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import SleepValue
 import SleepVital
 import Vital
@@ -28,7 +28,7 @@ import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.utils.showSafe
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -59,34 +59,34 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Visibility
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.BaseActivity
-import com.critetiontech.ctvitalio.UI.UltraHumanActivity
-import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
-import com.critetiontech.ctvitalio.adapter.DashboardAdapter
-import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
-import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.adapter.PriorityAction
-import com.critetiontech.ctvitalio.adapter.ProgressCard
-import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
-import com.critetiontech.ctvitalio.adapter.UpcomingAdapter
-import com.critetiontech.ctvitalio.adapter.VitalAdapter
-import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
-import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.DashboardAnimationHelper
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.utils.showRetrySnackbar
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
-import com.critetiontech.ctvitalio.viewmodel.WebSocketState
-import com.critetiontech.ctvitalio.widgets.GymOfferBottomSheet
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.BaseActivity
+import com.critetiontech.vitalioCorporate.UI.UltraHumanActivity
+import com.critetiontech.vitalioCorporate.adapter.DailyTipAdapter
+import com.critetiontech.vitalioCorporate.adapter.DashboardAdapter
+import com.critetiontech.vitalioCorporate.adapter.IndicatorAdapter
+import com.critetiontech.vitalioCorporate.adapter.MedicationReminderAdapter
+import com.critetiontech.vitalioCorporate.adapter.NewChallengedAdapter
+import com.critetiontech.vitalioCorporate.adapter.PriorityAction
+import com.critetiontech.vitalioCorporate.adapter.ProgressCard
+import com.critetiontech.vitalioCorporate.adapter.TabMedicineAdapter
+import com.critetiontech.vitalioCorporate.adapter.UpcomingAdapter
+import com.critetiontech.vitalioCorporate.adapter.VitalAdapter
+import com.critetiontech.vitalioCorporate.databinding.DailyChecklistWedgetBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.vitalioCorporate.databinding.SleepLayoutBinding
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.DashboardAnimationHelper
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.ToastUtils
+import com.critetiontech.vitalioCorporate.utils.showRetrySnackbar
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.PillsReminderViewModal
+import com.critetiontech.vitalioCorporate.viewmodel.WebSocketState
+import com.critetiontech.vitalioCorporate.widgets.GymOfferBottomSheet
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -1599,7 +1599,7 @@ viewModel.vitalList.observe(viewLifecycleOwner) { vitalList ->
         voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
 
         val request = Request.Builder()
-            .url(com.critetiontech.ctvitalio.networking.NetworkConfig.VOICE_WS_URL + "132")
+            .url(com.critetiontech.vitalioCorporate.networking.NetworkConfig.VOICE_WS_URL + "132")
             .build()
 
         val client = OkHttpClient()

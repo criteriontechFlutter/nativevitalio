@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.networking
+package com.critetiontech.vitalioCorporate.networking
 
-import com.critetiontech.ctvitalio.model.InsertMindfulnessRequest
-import com.critetiontech.ctvitalio.model.InsertMindfulnessResponse
+import com.critetiontech.vitalioCorporate.model.InsertMindfulnessRequest
+import com.critetiontech.vitalioCorporate.model.InsertMindfulnessResponse
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response

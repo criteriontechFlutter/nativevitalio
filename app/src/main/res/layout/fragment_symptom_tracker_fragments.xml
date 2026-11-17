@@ -82,7 +82,7 @@
 
         <!-- Optional Update Button -->
         <!--
-        <com.critetiontech.ctvitalio.utils.CustomRoundedButton
+        <com.critetiontech.vitalioCorporate.utils.CustomRoundedButton
             android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

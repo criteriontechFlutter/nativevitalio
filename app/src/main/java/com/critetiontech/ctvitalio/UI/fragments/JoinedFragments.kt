@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.critetiontech.ctvitalio.adapter.JoinedChallengesAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentJoinedFragmentsBinding
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.adapter.JoinedChallengesAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentJoinedFragmentsBinding
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
 
 
 class JoinedFragments : Fragment() {

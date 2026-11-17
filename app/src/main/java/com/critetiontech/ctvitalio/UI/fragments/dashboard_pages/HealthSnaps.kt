@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+package com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages
 
 import SleepValue
 import Vital
@@ -10,10 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentHealthSnapsBinding
-import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentHealthSnapsBinding
+import com.critetiontech.vitalioCorporate.databinding.SleepLayoutBinding
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
 
 class HealthSnaps : Fragment() {
     private var _binding: FragmentHealthSnapsBinding? = null

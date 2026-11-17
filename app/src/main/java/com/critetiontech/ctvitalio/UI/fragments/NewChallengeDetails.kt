@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -11,13 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeDetailsBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentNewChallengeDetailsBinding
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.model.DashboardActiveChallenges
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
 import kotlin.getValue
 
 class NewChallengeDetails : Fragment() {

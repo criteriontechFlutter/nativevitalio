@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 import SleepCycle
 import android.content.Context
 import android.graphics.*

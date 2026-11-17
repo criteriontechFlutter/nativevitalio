@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui
+package com.critetiontech.vitalioCorporate.UI.ui
 
 import android.app.Dialog
 import android.os.Bundle
@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.BottomSheetEndSessionBinding
-import com.critetiontech.ctvitalio.viewmodel.MindfulnessViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.BottomSheetEndSessionBinding
+import com.critetiontech.vitalioCorporate.viewmodel.MindfulnessViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

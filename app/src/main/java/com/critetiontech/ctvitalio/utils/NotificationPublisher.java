@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils;
+package com.critetiontech.vitalioCorporate.utils;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

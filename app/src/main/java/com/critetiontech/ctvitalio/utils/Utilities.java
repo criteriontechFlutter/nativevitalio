@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils;
+package com.critetiontech.vitalioCorporate.utils;
 
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -14,7 +14,7 @@ import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.R;
 
 import java.time.LocalTime;
 

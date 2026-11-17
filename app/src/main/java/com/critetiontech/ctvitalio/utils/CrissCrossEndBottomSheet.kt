@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 
 import android.app.Dialog
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.critetiontech.ctvitalio.databinding.BottomSheetCrissCrossEndBinding
+import com.critetiontech.vitalioCorporate.databinding.BottomSheetCrissCrossEndBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

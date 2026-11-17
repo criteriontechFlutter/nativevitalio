@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.OmronActivity;
+package com.critetiontech.vitalioCorporate.UI.OmronActivity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,14 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.critetiontech.ctvitalio.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.model.PairingDeviceData;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.utils.PreferencesManager;
-import com.critetiontech.ctvitalio.utils.Utilities;
-import com.critetiontech.ctvitalio.utils.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.critetiontech.vitalioCorporate.Database.OmronDBConstans;
+import com.critetiontech.vitalioCorporate.model.PairingDeviceData;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.utils.PreferencesManager;
+import com.critetiontech.vitalioCorporate.utils.Utilities;
+import com.critetiontech.vitalioCorporate.utils.sampleLog;
+import com.critetiontech.vitalioCorporate.R;
+import com.critetiontech.vitalioCorporate.utils.MyApplication;
 import com.intuit.sdp.BuildConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;
@@ -134,7 +134,7 @@ public class ActivityMainActivity extends BaseActivity {
         peripheralConfig.deviceSettings = deviceSettings;
         // Set Scan timeout interval (optional)
         peripheralConfig.timeoutInterval = Constants.CONNECTION_TIMEOUT;
-        // Set com.critetiontech.ctvitalio.UI.fragments.User Hash Id (mandatory)
+        // Set com.critetiontech.vitalioCorporate.UI.fragments.User Hash Id (mandatory)
         peripheralConfig.userHashId = "<email_address_of_user>"; // Set logged in user email
         // Set configuration for OmronPeripheralManager
         OmronPeripheralManager.sharedManager(MyApplication.Companion.getAppContext()).setConfiguration(peripheralConfig);
@@ -417,7 +417,7 @@ public class ActivityMainActivity extends BaseActivity {
             mTvTruReadInterval = addLayoutToScrollView(parentLayout3,res.getString(R.string.tru_read_interval));
             mTvSeqNum.setText(mSequenceNoString != null ? mSequenceNoString : "-");
         }
-        mTvUserSelected.setText("com.critetiontech.ctvitalio.UI.fragments.User " +  android.text.TextUtils.join(",",selectedUsers));
+        mTvUserSelected.setText("com.critetiontech.vitalioCorporate.UI.fragments.User " +  android.text.TextUtils.join(",",selectedUsers));
         transferBtn = findViewById(R.id.btn_transfer);
     }
 
@@ -469,7 +469,7 @@ public class ActivityMainActivity extends BaseActivity {
                     Object objectData;
                     objectData = vitalDataItem.get(OmronConstants.OMRONVitalData.UserIdKey);
                     if (objectData != null) {
-                        mTvUserSelected.setText("com.critetiontech.ctvitalio.UI.fragments.User " + objectData);
+                        mTvUserSelected.setText("com.critetiontech.vitalioCorporate.UI.fragments.User " + objectData);
                     }
 
                     objectData = vitalDataItem.get(OmronConstants.OMRONVitalData.SequenceKey);
@@ -532,7 +532,7 @@ public class ActivityMainActivity extends BaseActivity {
         notificationsAvailable.add("android.intent.action.PHONE_STATE");
         notificationsAvailable.add("com.google.android.gm");
         notificationsAvailable.add("android.provider.Telephony.SMS_RECEIVED");
-        notificationsAvailable.add(" com.critetiontech.ctvitalio");
+        notificationsAvailable.add(" com.critetiontech.vitalioCorporate");
         HashMap<String, Object> notificationSettings = new HashMap<String, Object>();
         notificationSettings.put(OmronConstants.OMRONDeviceNotificationSettingsKey, notificationsAvailable);
 

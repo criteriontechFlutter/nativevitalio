@@ -1,9 +1,9 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.critetiontech.ctvitalio.adapter.ChatItem
+import com.critetiontech.vitalioCorporate.adapter.ChatItem
 
 class ChatBotPageViewModel : ViewModel() {
 

@@ -1,17 +1,17 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.AllergyApiResponse
-import com.critetiontech.ctvitalio.model.AllergyGroup
-import com.critetiontech.ctvitalio.model.AllergyHistoryItem
-import com.critetiontech.ctvitalio.model.AllergyTypeItem
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.model.AllergyApiResponse
+import com.critetiontech.vitalioCorporate.model.AllergyGroup
+import com.critetiontech.vitalioCorporate.model.AllergyHistoryItem
+import com.critetiontech.vitalioCorporate.model.AllergyTypeItem
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
@@ -187,7 +187,7 @@ class AllergiesViewModel  (application: Application) : BaseViewModel(application
         onError: (String) -> Unit
     ) {
         val user = PrefsManager().getPatient() ?: run {
-            onError("com.critetiontech.ctvitalio.UI.fragments.User not found")
+            onError("com.critetiontech.vitalioCorporate.UI.fragments.User not found")
             return
         }
 

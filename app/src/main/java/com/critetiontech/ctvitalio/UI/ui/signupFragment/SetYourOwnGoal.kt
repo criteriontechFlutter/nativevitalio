@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.ui.signupFragment
+﻿package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.app.FragmentManager
 import android.content.Context
@@ -17,17 +17,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.Home
-import com.critetiontech.ctvitalio.UI.ResetPassword
-import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
-import com.critetiontech.ctvitalio.adapter.SetYourOwnGoalAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentSetYourOwnGoalBinding
-import com.critetiontech.ctvitalio.model.SetGoalModel
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.Home
+import com.critetiontech.vitalioCorporate.UI.ResetPassword
+import com.critetiontech.vitalioCorporate.UI.ui.ConfirmUpdateBottomSheet
+import com.critetiontech.vitalioCorporate.adapter.SetYourOwnGoalAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentSetYourOwnGoalBinding
+import com.critetiontech.vitalioCorporate.model.SetGoalModel
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.ToastUtils
+import com.critetiontech.vitalioCorporate.utils.showSafe
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.JsonElement

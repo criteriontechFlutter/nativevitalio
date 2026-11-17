@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
@@ -12,7 +12,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.content.ContextCompat
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import android.content.Intent
 import android.os.Build
@@ -10,10 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard
-import com.critetiontech.ctvitalio.databinding.ActivityDashboardBinding
-import com.critetiontech.ctvitalio.logging.LoggingManager
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.fragments.CorporateDashBoard
+import com.critetiontech.vitalioCorporate.databinding.ActivityDashboardBinding
+import com.critetiontech.vitalioCorporate.logging.LoggingManager
 import com.google.android.material.snackbar.Snackbar
 
 class Home :  BaseActivity() {
@@ -32,6 +32,8 @@ class Home :  BaseActivity() {
             navBarColor = android.R.color.white,
             lightIcons = true
         )
+        // Keep every nav-graph screen clear of the status bar, gesture bar and keyboard (Android 15+).
+        applySystemBarInsets(binding.root)
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController

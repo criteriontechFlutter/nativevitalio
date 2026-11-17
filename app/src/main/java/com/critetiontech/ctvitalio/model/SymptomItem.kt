@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.model
+package com.critetiontech.vitalioCorporate.model
 
 sealed class SymptomItem {
     data class DateHeader(val date: String) : SymptomItem()

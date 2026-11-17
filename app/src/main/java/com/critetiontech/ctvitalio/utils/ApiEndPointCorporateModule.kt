@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 class ApiEndPointCorporateModule {
     val getJoinedChallenge="api/CorporateChallenges/GetJoinedChallengesByEmployeeId"

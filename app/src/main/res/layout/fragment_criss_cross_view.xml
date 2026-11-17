@@ -85,7 +85,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Line and moving target guide overlay -->
-        <com.critetiontech.ctvitalio.utils.CrissCrossLineView
+        <com.critetiontech.vitalioCorporate.utils.CrissCrossLineView
             android:id="@+id/criss_cross_line_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

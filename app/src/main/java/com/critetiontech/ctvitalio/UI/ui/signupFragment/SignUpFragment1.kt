@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.databinding.FragmentSignUpFragment1Binding
+import com.critetiontech.vitalioCorporate.databinding.FragmentSignUpFragment1Binding
 
 class SignUpFragment1 : Fragment() {
     private lateinit var binding : FragmentSignUpFragment1Binding

@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 class IndicatorAdapter(private var count: Int) :
     RecyclerView.Adapter<IndicatorAdapter.IndicatorViewHolder>() {

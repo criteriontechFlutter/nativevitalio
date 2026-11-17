@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.DateUtils
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
@@ -19,12 +19,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.FluidIntakeLogAdapter
-import com.critetiontech.ctvitalio.adapter.FluidIntakeRangeAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentFluidInputHistoryBinding
-import com.critetiontech.ctvitalio.model.FluidPointGraph
-import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.FluidIntakeLogAdapter
+import com.critetiontech.vitalioCorporate.adapter.FluidIntakeRangeAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentFluidInputHistoryBinding
+import com.critetiontech.vitalioCorporate.model.FluidPointGraph
+import com.critetiontech.vitalioCorporate.viewmodel.FluidIntakeOuputViewModel
 
 class FluidInputHistoryFragment : Fragment() {
 

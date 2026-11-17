@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -13,10 +13,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.critetiontech.ctvitalio.model.AllergyTypeItem
-import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.BottomsheetAddAllergyBinding
+import com.critetiontech.vitalioCorporate.model.AllergyTypeItem
+import com.critetiontech.vitalioCorporate.viewmodel.AllergiesViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.BottomsheetAddAllergyBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson

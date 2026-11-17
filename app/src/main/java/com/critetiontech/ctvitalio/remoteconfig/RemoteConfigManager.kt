@@ -1,7 +1,7 @@
-package com.critetiontech.ctvitalio.remoteconfig
+package com.critetiontech.vitalioCorporate.remoteconfig
 
 import android.util.Log
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -165,5 +165,5 @@ object RemoteConfigManager {
     // ─────────────────────────────────────────────────────────────────────────
 
     private fun isDebug(): Boolean =
-        com.critetiontech.ctvitalio.BuildConfig.DEBUG
+        com.critetiontech.vitalioCorporate.BuildConfig.DEBUG
 }

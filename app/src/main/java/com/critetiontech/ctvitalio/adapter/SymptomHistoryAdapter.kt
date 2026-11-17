@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.SymptomDetail
-import com.critetiontech.ctvitalio.model.SymptomItem
-import com.critetiontech.ctvitalio.utils.FilterType
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.model.SymptomDetail
+import com.critetiontech.vitalioCorporate.model.SymptomItem
+import com.critetiontech.vitalioCorporate.utils.FilterType
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

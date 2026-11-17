@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -14,7 +14,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import Vital
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

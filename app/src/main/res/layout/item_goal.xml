@@ -41,7 +41,7 @@
 
 
                 <!-- Progress Arc -->
-                <com.critetiontech.ctvitalio.utils.SmartGoalCircularBar
+                <com.critetiontech.vitalioCorporate.utils.SmartGoalCircularBar
                     android:id="@+id/progressView"
                     visibleIf="@{!isGoal}"
                     android:layout_width="match_parent"

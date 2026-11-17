@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.databinding.FragmentWaterIntakeBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentWaterIntakeBinding
 
 
 class WaterLayout : Fragment() {

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.content.Context
 import android.graphics.Color
@@ -16,14 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.GoalsAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentSmartGoalBinding
-import com.critetiontech.ctvitalio.databinding.LayoutGoalMenuBinding
-import com.critetiontech.ctvitalio.model.EmployeeGoals
-import com.critetiontech.ctvitalio.model.GoalCategoryResponse
-import com.critetiontech.ctvitalio.utils.GoalMenuHandler
-import com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.GoalsAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentSmartGoalBinding
+import com.critetiontech.vitalioCorporate.databinding.LayoutGoalMenuBinding
+import com.critetiontech.vitalioCorporate.model.EmployeeGoals
+import com.critetiontech.vitalioCorporate.model.GoalCategoryResponse
+import com.critetiontech.vitalioCorporate.utils.GoalMenuHandler
+import com.critetiontech.vitalioCorporate.viewmodel.SmartGoalViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import androidx.core.graphics.drawable.toDrawable

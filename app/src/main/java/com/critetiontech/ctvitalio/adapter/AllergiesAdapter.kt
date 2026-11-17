@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
-import com.critetiontech.ctvitalio.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.DateUtils
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.model.AllergyHistoryItem
-import com.critetiontech.ctvitalio.databinding.ItemAllergyCardBinding
+import com.critetiontech.vitalioCorporate.model.AllergyHistoryItem
+import com.critetiontech.vitalioCorporate.databinding.ItemAllergyCardBinding
 
 
 class AllergiesAdapter : ListAdapter<AllergyHistoryItem, AllergiesAdapter.ViewHolder>(DiffCallback()) {

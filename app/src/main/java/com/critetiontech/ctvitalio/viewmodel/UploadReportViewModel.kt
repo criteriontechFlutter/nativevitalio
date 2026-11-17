@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import com.critetiontech.ctvitalio.networking.NetworkConfig
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.networking.NetworkConfig
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

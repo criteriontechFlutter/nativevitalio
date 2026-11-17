@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import Vital
 import android.content.Context
@@ -13,8 +13,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.R.id
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.R.id
 import java.util.Random
 
 class DashboardAdapter(

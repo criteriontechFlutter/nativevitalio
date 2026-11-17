@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.DateUtils
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -13,13 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.BPReadingAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentVitalHistoryBinding
-import com.critetiontech.ctvitalio.utils.BpDataPoint
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.VitalHistoryViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.BPReadingAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentVitalHistoryBinding
+import com.critetiontech.vitalioCorporate.utils.BpDataPoint
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.VitalHistoryViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 

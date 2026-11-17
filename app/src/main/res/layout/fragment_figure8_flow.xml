@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Centered Custom Figure 8 Path View -->
-    <com.critetiontech.ctvitalio.utils.Figure8View
+    <com.critetiontech.vitalioCorporate.utils.Figure8View
         android:id="@+id/figure8_view"
         android:layout_width="320dp"
         android:layout_height="320dp"

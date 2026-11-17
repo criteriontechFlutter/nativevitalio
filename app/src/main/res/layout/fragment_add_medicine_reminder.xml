@@ -471,7 +471,7 @@ android:visibility="gone"
 
     </ScrollView>
 
-    <com.critetiontech.ctvitalio.utils.CustomRoundedButton
+    <com.critetiontech.vitalioCorporate.utils.CustomRoundedButton
         android:id="@+id/addMedicine"
 
         android:layout_width="match_parent"

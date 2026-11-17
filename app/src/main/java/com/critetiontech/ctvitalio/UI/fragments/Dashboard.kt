@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import Vital
 import android.Manifest
 import android.annotation.SuppressLint
@@ -27,18 +27,18 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.DashboardAdapter
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.adapter.ToTakeAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentDashboardBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.showRetrySnackbar
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
-import com.critetiontech.ctvitalio.viewmodel.WebSocketState
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.DashboardAdapter
+import com.critetiontech.vitalioCorporate.adapter.NewChallengedAdapter
+import com.critetiontech.vitalioCorporate.adapter.ToTakeAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentDashboardBinding
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.showRetrySnackbar
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.PillsReminderViewModal
+import com.critetiontech.vitalioCorporate.viewmodel.WebSocketState
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -326,7 +326,7 @@ class Dashboard  : Fragment() {
         viewModel.setWebSocketState( WebSocketState.CONNECTING)
         voiceDialog?.findViewById<TextView>(R.id.voice_transcript)?.text = ""
 
-        val request = Request.Builder().url(com.critetiontech.ctvitalio.networking.NetworkConfig.VOICE_WS_URL + PrefsManager().getPatient()?.pid.toString()).build()
+        val request = Request.Builder().url(com.critetiontech.vitalioCorporate.networking.NetworkConfig.VOICE_WS_URL + PrefsManager().getPatient()?.pid.toString()).build()
         val client = OkHttpClient()
 
         webSocket = client.newWebSocket(request, object : WebSocketListener() {

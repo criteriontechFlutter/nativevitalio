@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivityChangePasswordBinding
-import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.ChangePasswordViewModel
-import com.critetiontech.ctvitalio.viewmodel.ForgotPasswordViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ActivityChangePasswordBinding
+import com.critetiontech.vitalioCorporate.databinding.ActivityForgotPasswordBinding
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.viewmodel.ChangePasswordViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.ForgotPasswordViewModel
 
 class ChangePassword : AppCompatActivity() {
     private lateinit var binding: ActivityChangePasswordBinding

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -13,10 +13,10 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
-import com.critetiontech.ctvitalio.utils.showSafe
-import com.critetiontech.ctvitalio.databinding.FragmentCircleClockBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.ui.EndSessionBottomSheet
+import com.critetiontech.vitalioCorporate.utils.showSafe
+import com.critetiontech.vitalioCorporate.databinding.FragmentCircleClockBinding
 
 class ClockCircleFragment : Fragment() {
 

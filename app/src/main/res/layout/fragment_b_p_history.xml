@@ -289,7 +289,7 @@
 
 
         <!-- Chart -->
-        <com.critetiontech.ctvitalio.utils.BPChartViewData
+        <com.critetiontech.vitalioCorporate.utils.BPChartViewData
             android:id="@+id/bpChart"
             android:layout_width="match_parent"
             android:layout_height="220dp"

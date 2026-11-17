@@ -21,11 +21,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentAddMedicineReminderBinding
-import com.critetiontech.ctvitalio.databinding.ItemMedicineBinding
-import com.critetiontech.ctvitalio.databinding.MedicineReminderScheduleDialogueBinding
-import com.critetiontech.ctvitalio.viewmodel.AddMedicineReminderViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentAddMedicineReminderBinding
+import com.critetiontech.vitalioCorporate.databinding.ItemMedicineBinding
+import com.critetiontech.vitalioCorporate.databinding.MedicineReminderScheduleDialogueBinding
+import com.critetiontech.vitalioCorporate.viewmodel.AddMedicineReminderViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.*

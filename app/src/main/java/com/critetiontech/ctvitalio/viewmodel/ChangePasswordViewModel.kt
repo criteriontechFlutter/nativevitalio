@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -9,12 +9,12 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.UI.Home
-import com.critetiontech.ctvitalio.UI.ResetPassword
-import com.critetiontech.ctvitalio.model.OtpResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.UI.Home
+import com.critetiontech.vitalioCorporate.UI.ResetPassword
+import com.critetiontech.vitalioCorporate.model.OtpResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import org.json.JSONException

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter.omronAdapter;
+package com.critetiontech.vitalioCorporate.adapter.omronAdapter;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.critetiontech.ctvitalio.UI.OmronActivity.BaseActivity;
-import com.critetiontech.ctvitalio.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.UI.OmronActivity.BaseActivity;
+import com.critetiontech.vitalioCorporate.Database.OmronDBConstans;
+import com.critetiontech.vitalioCorporate.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ public class VitalDataListAdapter extends RecyclerView.Adapter<VitalDataListAdap
             return;
         }
         String tvText = "";
-        tvText = tvText + "com.critetiontech.ctvitalio.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
+        tvText = tvText + "com.critetiontech.vitalioCorporate.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
         tvText = tvText + "Start Date  : " + setTime(mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.VITAL_DATA_OMRONVitalDataMeasurementDateKey))) + "\n";
         tvText = tvText + "Systolic " + " (mmHg)  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.VITAL_DATA_OMRONVitalDataSystolicKey)) + "\n";
         tvText = tvText + "Diastolic " + " (mmHg)  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.VITAL_DATA_OMRONVitalDataDiastolicKey)) + "\n";

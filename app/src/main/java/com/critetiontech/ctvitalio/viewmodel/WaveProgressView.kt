@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import kotlin.math.sin
 
 class WaveLiquidProgressView(context: Context, attrs: AttributeSet?) : View(context, attrs) {

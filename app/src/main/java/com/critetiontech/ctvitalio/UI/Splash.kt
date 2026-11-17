@@ -1,15 +1,15 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ActivitySplashBinding
-import com.critetiontech.ctvitalio.utils.FCMHelper
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ActivitySplashBinding
+import com.critetiontech.vitalioCorporate.utils.FCMHelper
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import com.google.firebase.FirebaseApp
 import androidx.core.net.toUri
 

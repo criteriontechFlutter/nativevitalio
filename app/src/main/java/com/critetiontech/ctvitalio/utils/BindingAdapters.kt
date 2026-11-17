@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

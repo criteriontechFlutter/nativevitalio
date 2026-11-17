@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,14 +10,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.critetiontech.ctvitalio.adapter.ChallengesAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
-import com.critetiontech.ctvitalio.databinding.FragmentChallengesBinding
-import com.critetiontech.ctvitalio.databinding.FragmentChatBinding
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
+import com.critetiontech.vitalioCorporate.adapter.ChallengesAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentAllergiesBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentChallengesBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentChatBinding
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.ChatViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 

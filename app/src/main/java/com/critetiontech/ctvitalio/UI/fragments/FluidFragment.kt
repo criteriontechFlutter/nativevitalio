@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
 import FluidAmountBottomSheet
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.Color
@@ -22,18 +22,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.FluidOptionAdapter
-import com.critetiontech.ctvitalio.adapter.GlassSizeAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentFluidBinding
-import com.critetiontech.ctvitalio.utils.CoffeVIew
-import com.critetiontech.ctvitalio.utils.showSafe
-import com.critetiontech.ctvitalio.utils.GlassView
-import com.critetiontech.ctvitalio.utils.GreenTea
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.utils.MilkView
-import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.FluidOptionAdapter
+import com.critetiontech.vitalioCorporate.adapter.GlassSizeAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentFluidBinding
+import com.critetiontech.vitalioCorporate.utils.CoffeVIew
+import com.critetiontech.vitalioCorporate.utils.showSafe
+import com.critetiontech.vitalioCorporate.utils.GlassView
+import com.critetiontech.vitalioCorporate.utils.GreenTea
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.utils.MilkView
+import com.critetiontech.vitalioCorporate.viewmodel.FluidIntakeOuputViewModel
 
 
 class FluidFragment : Fragment() {

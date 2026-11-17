@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import android.content.Intent
 import android.net.Uri
@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.OmronActivity.SplashScreen
-import com.critetiontech.ctvitalio.databinding.ActivityMaintenanceBinding
-import com.critetiontech.ctvitalio.remoteconfig.RemoteConfigManager
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.OmronActivity.SplashScreen
+import com.critetiontech.vitalioCorporate.databinding.ActivityMaintenanceBinding
+import com.critetiontech.vitalioCorporate.remoteconfig.RemoteConfigManager
 import kotlinx.coroutines.launch
 
 /**

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils;
+package com.critetiontech.vitalioCorporate.utils;
 
 /**
  * Created by Omron HealthCare Inc
@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.critetiontech.ctvitalio.model.PeripheralDevice;
+import com.critetiontech.vitalioCorporate.model.PeripheralDevice;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;

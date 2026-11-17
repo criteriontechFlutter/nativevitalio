@@ -1,6 +1,6 @@
 
 
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint

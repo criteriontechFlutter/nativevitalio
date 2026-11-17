@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
-import com.critetiontech.ctvitalio.model.ApiGenericResponse
+import com.critetiontech.vitalioCorporate.model.ApiGenericResponse
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement

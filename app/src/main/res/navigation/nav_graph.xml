@@ -6,7 +6,7 @@
 
     <!--<fragment
         android:id="@+id/uhidFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment1"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.SignUpFragment1"
         android:label="Enter UHID"
         tools:layout="@layout/fragment_sign_up_fragment1">
         <action
@@ -20,7 +20,7 @@
 <!--        android:text="signUpFragment2" />-->
     <fragment
         android:id="@+id/bloodGroupFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.BloodGroupFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.BloodGroupFragment"
         android:label="Select Blood Group"
         tools:layout="@layout/fragment_blood_group" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.WeightFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.WeightFragment"
         android:label="Enter Weight"
         tools:layout="@layout/fragment_weight" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/heightFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.HeightFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.HeightFragment"
         android:label="fragment_height"
         tools:layout="@layout/fragment_height" >
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/chronicConditionFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.ChronicConditionFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.ChronicConditionFragment"
         android:label="fragment_chronic_condition"
         tools:layout="@layout/fragment_chronic_condition" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/adressFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AdressFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.AdressFragment"
         android:label="AdressFragment" >
         <action
             android:id="@+id/action_adressFragment_to_weightFragment"
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/otherChronicDisease"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.OtherChronicDisease"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.OtherChronicDisease"
         android:label="OtherChronicDisease" >
         <action
             android:id="@+id/action_otherChronicDisease_to_familyDiseaseFragment"
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/familyDiseaseFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.FamilyDiseaseFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.FamilyDiseaseFragment"
         android:label="fragment_family_disease"
         tools:layout="@layout/fragment_family_disease" >
         <action
@@ -99,7 +99,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAccount2"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.CreateAccount"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.CreateAccount"
         android:label="CreateAccount" >
         <action
             android:id="@+id/action_createAccount2_to_bloodGroupFragment"
@@ -128,7 +128,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountSuccess"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AccountSuccess"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.AccountSuccess"
         android:label="AccountSuccess" >
         <action
             android:id="@+id/action_accountSuccess_to_setPreferences"
@@ -136,7 +136,7 @@
     </fragment>
     <fragment
         android:id="@+id/setPreferences"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SetPreferences"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.SetPreferences"
         android:label="SetPreferences" >
         <action
             android:id="@+id/action_setPreferences_to_setPreferenseFluidItake"
@@ -144,7 +144,7 @@
     </fragment>
     <fragment
         android:id="@+id/setPreferenseFluidItake"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SetPreferenseFluidItake"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.SetPreferenseFluidItake"
         android:label="SetPreferenseFluidItake" >
         <action
             android:id="@+id/action_setPreferenseFluidItake_to_completionScreen"
@@ -152,7 +152,7 @@
     </fragment>
     <fragment
         android:id="@+id/completionScreen"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.CompletionScreen"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.CompletionScreen"
         android:label="CompletionScreen" >
         <action
             android:id="@+id/action_completionScreen_to_completionDashboardReady"
@@ -160,11 +160,11 @@
     </fragment>
     <fragment
         android:id="@+id/completionDashboardReady"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.CompletionDashboardReady"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.CompletionDashboardReady"
         android:label="CompletionDashboardReady" />
     <fragment
         android:id="@+id/addYourPhoto"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.AddYourPhoto"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.AddYourPhoto"
         android:label="AddYourPhoto" >
         <action
             android:id="@+id/action_addYourPhoto_to_setYourOwnGoal"
@@ -172,6 +172,6 @@
     </fragment>
     <fragment
         android:id="@+id/setYourOwnGoal"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SetYourOwnGoal"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.SetYourOwnGoal"
         android:label="SetYourOwnGoal" />
 </navigation>

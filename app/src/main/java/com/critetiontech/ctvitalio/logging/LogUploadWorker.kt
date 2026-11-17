@@ -1,10 +1,10 @@
-package com.critetiontech.ctvitalio.logging
+package com.critetiontech.vitalioCorporate.logging
 
 import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient

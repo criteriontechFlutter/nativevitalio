@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemBotMessageBinding
-import com.critetiontech.ctvitalio.databinding.ItemBotWithOptionsBinding
-import com.critetiontech.ctvitalio.databinding.ItemUserMessageBinding
-import com.critetiontech.ctvitalio.model.BotMessage
+import com.critetiontech.vitalioCorporate.databinding.ItemBotMessageBinding
+import com.critetiontech.vitalioCorporate.databinding.ItemBotWithOptionsBinding
+import com.critetiontech.vitalioCorporate.databinding.ItemUserMessageBinding
+import com.critetiontech.vitalioCorporate.model.BotMessage
 
 class ChatBotAdapter(private val onOptionSelected: (String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

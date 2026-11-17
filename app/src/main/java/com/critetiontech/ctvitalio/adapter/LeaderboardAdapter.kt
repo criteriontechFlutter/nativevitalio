@@ -1,15 +1,15 @@
-﻿package com.critetiontech.ctvitalio.adapter
+﻿package com.critetiontech.vitalioCorporate.adapter
 
-import com.critetiontech.ctvitalio.model.LeaderboardItem
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.model.LeaderboardItem
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.fragments.User
-import com.critetiontech.ctvitalio.databinding.ItemPlayerBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.fragments.User
+import com.critetiontech.vitalioCorporate.databinding.ItemPlayerBinding
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import java.util.Locale
 import java.util.Locale.getDefault
 

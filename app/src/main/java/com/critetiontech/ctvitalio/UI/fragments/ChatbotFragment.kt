@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.ChatBotAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentChatbotBinding
-import com.critetiontech.ctvitalio.viewmodel.ChatViewModel
+import com.critetiontech.vitalioCorporate.adapter.ChatBotAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentChatbotBinding
+import com.critetiontech.vitalioCorporate.viewmodel.ChatViewModel
 
 
 class ChatbotFragment : Fragment() {

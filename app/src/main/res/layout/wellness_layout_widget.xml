@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content">
 
                         <!-- WAVE BACKGROUND -->
-                        <com.critetiontech.ctvitalio.utils.WaveView
+                        <com.critetiontech.vitalioCorporate.utils.WaveView
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:id="@+id/dashboardAnimatedCard"

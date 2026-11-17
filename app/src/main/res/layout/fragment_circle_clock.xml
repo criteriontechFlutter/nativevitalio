@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Centered Custom Clock Circle View -->
-    <com.critetiontech.ctvitalio.utils.ClockCircleView
+    <com.critetiontech.vitalioCorporate.utils.ClockCircleView
         android:id="@+id/clock_circle_view"
         android:layout_width="320dp"
         android:layout_height="320dp"

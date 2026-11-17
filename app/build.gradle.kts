@@ -7,14 +7,14 @@ plugins {
    }
 
 android {
-    namespace = "com.critetiontech.ctvitalio"
+    namespace = "com.critetiontech.vitalioCorporate"
     compileSdk = 35
 
     sourceSets["main"].resources.srcDir("libs")
 
 
     defaultConfig {
-        applicationId = "com.critetiontech.ctvitalio"
+        applicationId = "com.critetiontech.vitalioCorporate"
         minSdk = 24
         targetSdk = 35
         versionCode = 2
@@ -24,7 +24,7 @@ android {
             useSupportLibrary = true
         }
 
-        manifestPlaceholders["appAuthRedirectScheme"] = "com.critetiontech.ctvitalio"
+        manifestPlaceholders["appAuthRedirectScheme"] = "com.critetiontech.vitalioCorporate"
 
         // ── 16 KB page-size compliance ─────────────────────────────────────
         // Only 64-bit ABIs are supported on devices that use 16 KB pages.
@@ -107,11 +107,11 @@ dependencies {
     // OkHttp core + Okio (for ByteString.toByteString)
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okio:okio:3.9.0")
-    implementation("androidx.camera:camera-camera2:1.3.1")
-    implementation("androidx.camera:camera-lifecycle:1.3.1")
-    implementation("androidx.camera:camera-view:1.3.1")
+    implementation("androidx.camera:camera-camera2:1.4.2")
+    implementation("androidx.camera:camera-lifecycle:1.4.2")
+    implementation("androidx.camera:camera-view:1.4.2")
 // ML Kit QR Scanner
-    implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
     // ✅ This fixes the ListenableFuture error
     implementation("com.google.guava:guava:32.1.3-android")
     implementation(libs.shimmer)

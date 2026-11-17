@@ -1,6 +1,6 @@
 
 
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import HrData
 import HrvGraph
@@ -13,7 +13,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Canvas
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 import android.graphics.Color
 import android.graphics.Paint
@@ -41,18 +41,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
-import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
-import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
-import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
-import com.critetiontech.ctvitalio.databinding.IncludeProgressCardBinding
-import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
-import com.critetiontech.ctvitalio.model.SleepCycleView
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.SleepDetailsViewModel
+import com.critetiontech.vitalioCorporate.UI.constructorFiles.HeartRateGraphView
+import com.critetiontech.vitalioCorporate.databinding.ActivityForgotPasswordBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentEnergyTankBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentSleepDetailsBinding
+import com.critetiontech.vitalioCorporate.databinding.IncludeProgressCardBinding
+import com.critetiontech.vitalioCorporate.databinding.SleepLayoutBinding
+import com.critetiontech.vitalioCorporate.model.SleepCycleView
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.SleepDetailsViewModel
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
@@ -1000,7 +1000,7 @@ class SleepDetails : Fragment() {
         get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 }
 
-//package com.critetiontech.ctvitalio.UI.fragments
+//package com.critetiontech.vitalioCorporate.UI.fragments
 //
 //import HrData
 //import HrvGraph
@@ -1011,7 +1011,7 @@ class SleepDetails : Fragment() {
 //import android.content.Context
 //import android.content.res.Resources
 //import android.graphics.Canvas
-//import com.critetiontech.ctvitalio.R
+//import com.critetiontech.vitalioCorporate.R
 //
 //import android.graphics.Color
 //import android.graphics.Paint
@@ -1037,17 +1037,17 @@ class SleepDetails : Fragment() {
 //import androidx.fragment.app.Fragment
 //import androidx.lifecycle.ViewModelProvider
 //import androidx.navigation.fragment.findNavController
-//import com.critetiontech.ctvitalio.UI.constructorFiles.HeartRateGraphView
-//import com.critetiontech.ctvitalio.databinding.ActivityForgotPasswordBinding
-//import com.critetiontech.ctvitalio.databinding.FragmentEnergyTankBinding
-//import com.critetiontech.ctvitalio.databinding.FragmentSleepDetailsBinding
-//import com.critetiontech.ctvitalio.databinding.IncludeProgressCardBinding
-//import com.critetiontech.ctvitalio.databinding.SleepLayoutBinding
-//import com.critetiontech.ctvitalio.model.SleepCycleView
-//import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-//import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-//import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-//import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+//import com.critetiontech.vitalioCorporate.UI.constructorFiles.HeartRateGraphView
+//import com.critetiontech.vitalioCorporate.databinding.ActivityForgotPasswordBinding
+//import com.critetiontech.vitalioCorporate.databinding.FragmentEnergyTankBinding
+//import com.critetiontech.vitalioCorporate.databinding.FragmentSleepDetailsBinding
+//import com.critetiontech.vitalioCorporate.databinding.IncludeProgressCardBinding
+//import com.critetiontech.vitalioCorporate.databinding.SleepLayoutBinding
+//import com.critetiontech.vitalioCorporate.model.SleepCycleView
+//import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+//import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+//import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+//import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
 //import com.github.mikephil.charting.components.XAxis
 //import com.github.mikephil.charting.components.YAxis
 //import com.github.mikephil.charting.data.BarData

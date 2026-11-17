@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.WatchAdapter
-import com.critetiontech.ctvitalio.viewmodel.ConnectSmartWatchViewModel
-import com.critetiontech.ctvitalio.databinding.FragmentConnectSmartWatchBinding
+import com.critetiontech.vitalioCorporate.adapter.WatchAdapter
+import com.critetiontech.vitalioCorporate.viewmodel.ConnectSmartWatchViewModel
+import com.critetiontech.vitalioCorporate.databinding.FragmentConnectSmartWatchBinding
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import org.json.JSONObject
@@ -27,7 +27,7 @@ class ConnectSmartWatchFragment : Fragment() {
 
             val json = JSONObject(result.contents)
             val token = json.getString("token")
-            Log.d("Firestore", "com.critetiontech.ctvitalio.UI.fragments.User added result!${json}")
+            Log.d("Firestore", "com.critetiontech.vitalioCorporate.UI.fragments.User added result!${json}")
 
                 viewModel.insertWatchDetails(watchdata = json)
 

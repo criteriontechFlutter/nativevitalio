@@ -1,4 +1,4 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
 import DailyCheckItem
 import DailyCheckListWrapper
@@ -11,7 +11,7 @@ import MovementGraph
 import MovementItem
 import OxygenSaturation
 import PillReminderModel
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import QuickMetric
 import QuickMetricsTiled
 import SleepScore
@@ -27,12 +27,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
-import com.critetiontech.ctvitalio.adapter.PriorityAction
-import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
-import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.Database.appDatabase.AppDatabase
+import com.critetiontech.vitalioCorporate.adapter.PriorityAction
+import com.critetiontech.vitalioCorporate.adapter.PriorityActionWrapper
+import com.critetiontech.vitalioCorporate.model.DietItemModel
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch

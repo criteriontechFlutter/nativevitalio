@@ -278,7 +278,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/blood_pressure_log_item" />
 
-<!--                <com.critetiontech.ctvitalio.utils.FluidGraphView-->
+<!--                <com.critetiontech.vitalioCorporate.utils.FluidGraphView-->
 <!--                    android:id="@+id/fluidGraph"-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="300dp"-->
@@ -287,7 +287,7 @@
 
 <!--                    />-->
 
-                <com.critetiontech.ctvitalio.utils.BpChartView
+                <com.critetiontech.vitalioCorporate.utils.BpChartView
                     android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"

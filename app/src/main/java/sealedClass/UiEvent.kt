@@ -1,6 +1,6 @@
 package sealedClass
 
-import com.critetiontech.ctvitalio.model.HapticType
+import com.critetiontech.vitalioCorporate.model.HapticType
 
 sealed class UiEvent {
     data class ShowBottomSheet(

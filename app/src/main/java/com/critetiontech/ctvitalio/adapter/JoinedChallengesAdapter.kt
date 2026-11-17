@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
@@ -6,8 +6,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.JoinedChallengeItemBinding
-import com.critetiontech.ctvitalio.model.JoinedChallenge
+import com.critetiontech.vitalioCorporate.databinding.JoinedChallengeItemBinding
+import com.critetiontech.vitalioCorporate.model.JoinedChallenge
 import java.util.Random
 
 class JoinedChallengesAdapter (

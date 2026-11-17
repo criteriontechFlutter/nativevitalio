@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.UI.Home
-import com.critetiontech.ctvitalio.databinding.FragmentCompletionDashboardReadyBinding
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.UI.Home
+import com.critetiontech.vitalioCorporate.databinding.FragmentCompletionDashboardReadyBinding
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
 
 class CompletionDashboardReady : Fragment() {
 

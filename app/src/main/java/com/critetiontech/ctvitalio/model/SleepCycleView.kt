@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.model
+package com.critetiontech.vitalioCorporate.model
 import LegendItem
 import SleepCycle
 import SleepCyclesData
@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
- import com.critetiontech.ctvitalio.R
+ import com.critetiontech.vitalioCorporate.R
 import java.text.SimpleDateFormat
 import java.util.*
 val Int.dp: Int

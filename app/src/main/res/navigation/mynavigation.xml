@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashboard"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.CorporateDashBoard"
         android:label="fragment_dashboard">
         <action
             android:id="@+id/action_dashboard_to_drawer4"
@@ -143,11 +143,11 @@
     </fragment>
     <fragment
         android:id="@+id/allergies3"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.Allergies"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.Allergies"
         android:label="Allergies" />
     <fragment
         android:id="@+id/drawer4"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.drawer"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.drawer"
         android:label="drawer" >
         <action
             android:id="@+id/action_drawer4_to_allergies3"
@@ -170,7 +170,7 @@
     </fragment>
     <fragment
         android:id="@+id/symptomsFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SymptomsFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SymptomsFragment"
         android:label="SymptomsFragment" >
         <action
             android:id="@+id/action_symptomsFragment_to_symptomTrackerFragments"
@@ -181,7 +181,7 @@
     </fragment>
     <fragment
         android:id="@+id/symptomTrackerFragments"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SymptomTrackerFragments"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SymptomTrackerFragments"
         android:label="fragment_symptom_tracker_fragments"
         tools:layout="@layout/fragment_symptom_tracker_fragments" >
         <action
@@ -193,11 +193,11 @@
     </fragment>
     <fragment
         android:id="@+id/symptomHistory"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SymptomHistory"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SymptomHistory"
         android:label="SymptomHistory" />
     <fragment
         android:id="@+id/fluidFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FluidFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FluidFragment"
         android:label="fragment_fluid"
         tools:layout="@layout/fragment_fluid" >
         <action
@@ -212,15 +212,15 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragmentVitalio"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SettingsFragmentVitalio"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SettingsFragmentVitalio"
         android:label="SettingsFragmentVitalio" />
     <fragment
         android:id="@+id/fluidInputHistoryFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FluidInputHistoryFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FluidInputHistoryFragment"
         android:label="FluidInputHistoryFragment" />
     <fragment
         android:id="@+id/vitalDetail"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.VitalDetail"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.VitalDetail"
         android:label="VitalDetail" >
         <action
             android:id="@+id/action_vitalDetail_to_connection"
@@ -231,7 +231,7 @@
     </fragment>
     <fragment
         android:id="@+id/connection"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.Connection"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.Connection"
         android:label="Connection" >
         <action
             android:id="@+id/action_connection_to_devicesConnectivity"
@@ -239,19 +239,19 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ChatFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ChatFragment"
         android:label="ChatFragment" />
     <fragment
         android:id="@+id/dietChecklist"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.DietChecklist"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.DietChecklist"
         android:label="DietChecklist" />
     <fragment
         android:id="@+id/vitalHistoryFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.VitalHistoryFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.VitalHistoryFragment"
         android:label="VitalHistoryFragment" />
     <fragment
         android:id="@+id/uploadReport"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.UploadReport"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.UploadReport"
         android:label="UploadReport" >
         <action
             android:id="@+id/action_uploadReport_to_reportFieldsFragment"
@@ -262,19 +262,19 @@
     </fragment>
     <fragment
         android:id="@+id/reportFieldsFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ReportFieldsFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ReportFieldsFragment"
         android:label="ReportFieldsFragment" />
     <fragment
         android:id="@+id/fluidOutputFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FluidOutputFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FluidOutputFragment"
         android:label="FluidOutputFragment" />
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.NotificationFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.NotificationFragment"
         android:label="NotificationFragment" />
     <fragment
         android:id="@+id/uploadReportHistory"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.UploadReportHistory"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.UploadReportHistory"
         android:label="UploadReportHistory" >
         <action
             android:id="@+id/action_uploadReportHistory_to_uploadReport3"
@@ -285,19 +285,19 @@
     </fragment>
     <fragment
         android:id="@+id/editProfile3"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.EditProfile"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.EditProfile"
         android:label="EditProfile" />
     <fragment
         android:id="@+id/connectSmartWatchFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ConnectSmartWatchFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ConnectSmartWatchFragment"
         android:label="ConnectSmartWatchFragment" />
     <fragment
         android:id="@+id/devicesConnectivity"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.DevicesConnectivity"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.DevicesConnectivity"
         android:label="DevicesConnectivity" />
     <fragment
         android:id="@+id/voiceFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.VoiceFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.VoiceFragment"
         android:label="VoiceFragment" >
         <action
             android:id="@+id/action_voiceFragment_to_uploadReportHistory"
@@ -347,28 +347,28 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment2"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignUpFragment2"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.SignUpFragment2"
         android:label="SignUpFragment2" />
     <fragment
         android:id="@+id/signupSelectGenderFragment"
-        android:name="com.critetiontech.ctvitalio.UI.ui.signupFragment.SignupSelectGenderFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.ui.signupFragment.SignupSelectGenderFragment"
         android:label="SignupSelectGenderFragment" />
     <fragment
         android:id="@+id/emergencyContactFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.EmergencyContactFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.EmergencyContactFragment"
         android:label="EmergencyContactFragment" />
     <fragment
         android:id="@+id/intakePills"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.IntakePills"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.IntakePills"
         android:label="IntakePills" />
     <fragment
         android:id="@+id/waterLayout"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.WaterLayout"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.WaterLayout"
         android:label="fragment_water_layout"
         tools:layout="@layout/fragment_water_layout" />
     <fragment
         android:id="@+id/chatBotPage"
-        android:name="com.critetiontech.ctvitalio.UI.CTChatBot.ChatBotPage"
+        android:name="com.critetiontech.vitalioCorporate.UI.CTChatBot.ChatBotPage"
         android:label="ChatBotPage" >
         <action
             android:id="@+id/action_chatBotPage_to_vitalDetail"
@@ -406,11 +406,11 @@
     </fragment>
     <fragment
         android:id="@+id/imagePdfViewFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ImagePdfViewFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ImagePdfViewFragment"
         android:label="ImagePdfViewFragment" />
     <fragment
         android:id="@+id/challenges"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.Challenges"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.Challenges"
         android:label="fragment_challenges"
         tools:layout="@layout/fragment_challenges" >
         <action
@@ -419,15 +419,15 @@
     </fragment>
     <fragment
         android:id="@+id/leaderboardFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.LeaderboardFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.LeaderboardFragment"
         android:label="LeaderboardFragment" />
     <fragment
         android:id="@+id/challengeDetailsFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ChallengeDetailsFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ChallengeDetailsFragment"
         android:label="ChallengeDetailsFragment" />
     <fragment
         android:id="@+id/corporateDashBoard"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.CorporateDashBoard"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.CorporateDashBoard"
         android:label="CorporateDashBoard" >
         <action
             android:id="@+id/action_corporateDashBoard_to_moodFragment"
@@ -463,16 +463,16 @@
     </fragment>
     <fragment
         android:id="@+id/moodFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.MoodFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.MoodFragment"
         android:label="MoodFragment" />
     <fragment
         android:id="@+id/energyTank"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.EnergyTank"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.EnergyTank"
         android:label="fragment_energy_tank"
         tools:layout="@layout/fragment_energy_tank" />
     <fragment
         android:id="@+id/wellnessMetrics"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.WellnessMetrics"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.WellnessMetrics"
         android:label="WellnessMetrics" >
         <action
             android:id="@+id/action_wellnessMetrics_to_movemenetIndex"
@@ -492,11 +492,11 @@
     </fragment>
     <fragment
         android:id="@+id/sleepDetails"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SleepDetails"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SleepDetails"
         android:label="SleepDetails" />
     <fragment
         android:id="@+id/medicationFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.MedicationFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.MedicationFragment"
         android:label="MedicationFragment" >
         <action
             android:id="@+id/action_medicationFragment_to_addMedicineReminderFragment"
@@ -504,11 +504,11 @@
     </fragment>
     <fragment
         android:id="@+id/waterIntakeFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.WaterIntakeFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.WaterIntakeFragment"
         android:label="WaterIntakeFragment" />
     <fragment
         android:id="@+id/newChallengeFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.NewChallengeFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.NewChallengeFragment"
         android:label="fragment_new_challenge"
         tools:layout="@layout/fragment_new_challenge" />
     <fragment
@@ -529,7 +529,7 @@
         android:label="BikingFragment" />
     <fragment
         android:id="@+id/smartGoalFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SmartGoalFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SmartGoalFragment"
         android:label="fragment_smart_goal"
         tools:layout="@layout/fragment_smart_goal" >
         <action
@@ -538,11 +538,11 @@
     </fragment>
     <fragment
         android:id="@+id/setGoal"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SetGoal"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SetGoal"
         android:label="SetGoal" />
     <fragment
         android:id="@+id/mindfulnessFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.MindfulnessFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.MindfulnessFragment"
         android:label="fragment_mindfullness"
         tools:layout="@layout/fragment_mindfullness">
         <action
@@ -563,7 +563,7 @@
     </fragment>
     <fragment
         android:id="@+id/new_corporate_dashboard"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.dashboard_pages.new_corporate_dashboard"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages.new_corporate_dashboard"
         android:label="new_corporate_dashboard" >
         <action
             android:id="@+id/action_new_corporate_dashboard_to_energyTank"
@@ -604,7 +604,7 @@
     </fragment>
     <fragment
         android:id="@+id/home2"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.dashboard_pages.Home"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages.Home"
         android:label="Home" >
         <action
             android:id="@+id/action_home2_to_medicationFragment"
@@ -640,26 +640,26 @@
     </fragment>
     <fragment
         android:id="@+id/movemenetIndex"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.MovemenetIndex"
         android:label="fragment_movemenet_index"
         tools:layout="@layout/fragment_movemenet_index" />
     <fragment
         android:id="@+id/stressRhythm"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.StressRhythm"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.StressRhythm"
         android:label="StressRhythm" />
     <fragment
         android:id="@+id/brainWasteClearance"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.BrainWasteClearance"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.BrainWasteClearance"
         android:label="fragment_brain_waste_clearance"
         tools:layout="@layout/fragment_brain_waste_clearance" />
     <fragment
         android:id="@+id/dynamicRecovery"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.DynamicRecovery"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.DynamicRecovery"
         android:label="fragment_dynamic_recovery"
         tools:layout="@layout/fragment_dynamic_recovery" />
     <fragment
         android:id="@+id/BPHistory"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.BPHistory"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.BPHistory"
         android:label="fragment_b_p_history"
         tools:layout="@layout/fragment_b_p_history" >
         <action
@@ -668,7 +668,7 @@
     </fragment>
     <fragment
         android:id="@+id/glucoseHistory"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.GlucoseHistory"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.GlucoseHistory"
         android:label="GlucoseHistory" >
         <action
             android:id="@+id/action_glucoseHistory_to_connection"
@@ -676,19 +676,19 @@
     </fragment>
     <fragment
         android:id="@+id/newChallengeDetails"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.NewChallengeDetails"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.NewChallengeDetails"
         android:label="NewChallengeDetails" />
     <fragment
         android:id="@+id/gymListFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.GymListFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.GymListFragment"
         android:label="GymListFragment" />
     <fragment
         android:id="@+id/gymCheckInFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.GymCheckInFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.GymCheckInFragment"
         android:label="GymCheckInFragment" />
     <fragment
         android:id="@+id/mindfulnessView"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.MindfulnessView"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.MindfulnessView"
         android:label="MindfulnessView" >
         <action
             android:id="@+id/action_mindfulnessView_to_groundingTecniqueView"
@@ -699,7 +699,7 @@
     </fragment>
     <fragment
         android:id="@+id/groundingTecniqueView"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.GroundingTecniqueView"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.GroundingTecniqueView"
         android:label="GroundingTecniqueView" >
         <action
             android:id="@+id/action_groundingTecniqueView_to_fivetoOneTechniqueProgress"
@@ -734,19 +734,19 @@
     </fragment>
     <fragment
         android:id="@+id/boxBreathingFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.BoxBreathingFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.BoxBreathingFragment"
         android:label="BoxBreathingFragment" />
     <fragment
         android:id="@+id/fivetoOneTechniqueProgress"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FivetoOneTechniqueProgress"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FivetoOneTechniqueProgress"
         android:label="FivetoOneTechniqueProgress" />
     <fragment
         android:id="@+id/scavengerHuntProgress"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ScavengerHuntProgress"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ScavengerHuntProgress"
         android:label="ScavengerHuntProgress" />
     <fragment
         android:id="@+id/scavengerHunt"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ScavengerHunt"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ScavengerHunt"
         android:label="ScavengerHunt" >
         <action
             android:id="@+id/action_scavengerHunt_to_scavengerHuntProgress"
@@ -754,11 +754,11 @@
     </fragment>
     <fragment
         android:id="@+id/clockCircleFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.ClockCircleFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.ClockCircleFragment"
         android:label="ClockCircleFragment" />
     <fragment
         android:id="@+id/crissCrossFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.CrissCrossFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.CrissCrossFragment"
         android:label="CrissCrossFragment" >
         <action
             android:id="@+id/action_crissCrossFragment_to_crissCrossSession"
@@ -766,7 +766,7 @@
     </fragment>
     <fragment
         android:id="@+id/focusShiftView"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FocusShiftView"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FocusShiftView"
         android:label="FocusShiftView" >
         <action
             android:id="@+id/action_focusShiftView_to_focusSessionView"
@@ -774,7 +774,7 @@
     </fragment>
     <fragment
         android:id="@+id/figure8FlowFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.Figure8FlowFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.Figure8FlowFragment"
         android:label="Figure8FlowFragment" >
         <action
             android:id="@+id/action_figure8FlowFragment_to_figureFlowSession"
@@ -782,7 +782,7 @@
     </fragment>
     <fragment
         android:id="@+id/focusSessionView"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FocusSessionView"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FocusSessionView"
         android:label="FocusSessionView" >
         <action
             android:id="@+id/action_focusSessionView_to_focusShiftView"
@@ -790,7 +790,7 @@
     </fragment>
     <fragment
         android:id="@+id/figureFlowSession"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.FigureFlowSession"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.FigureFlowSession"
         android:label="FigureFlowSession" >
         <action
             android:id="@+id/action_figureFlowSession_to_figure8FlowFragment"
@@ -798,7 +798,7 @@
     </fragment>
     <fragment
         android:id="@+id/crissCrossSession"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.CrissCrossSession"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.CrissCrossSession"
         android:label="CrissCrossSession" >
         <action
             android:id="@+id/action_crissCrossSession_to_crissCrossFragment"
@@ -807,7 +807,7 @@
 
     <fragment
         android:id="@+id/bingoActivityFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.BingoActivityFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.BingoActivityFragment"
         android:label="BingoActivityFragment" >
         <action
             android:id="@+id/action_bingoActivityFragment_to_bingoCardPage"
@@ -816,12 +816,12 @@
 
     <fragment
         android:id="@+id/bingoCardPage"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.BingoCardPage"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.BingoCardPage"
         android:label="BingoCardPage" />
 
     <fragment
         android:id="@+id/deepBreatheSessionView"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.DeepBreatheSessionView"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.DeepBreatheSessionView"
         android:label="DeepBreatheSessionView" />
 
 </navigation>

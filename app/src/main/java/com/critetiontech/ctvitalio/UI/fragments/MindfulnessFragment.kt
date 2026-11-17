@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.MindfulnessActivityAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentMindfullnessBinding
-import com.critetiontech.ctvitalio.model.MindfulnessExercise
-import com.critetiontech.ctvitalio.viewmodel.WellnessViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.MindfulnessActivityAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentMindfullnessBinding
+import com.critetiontech.vitalioCorporate.model.MindfulnessExercise
+import com.critetiontech.vitalioCorporate.viewmodel.WellnessViewModel
 
 
 class MindfulnessFragment : Fragment() {

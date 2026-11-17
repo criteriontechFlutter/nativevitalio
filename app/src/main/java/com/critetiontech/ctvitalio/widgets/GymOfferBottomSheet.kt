@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.widgets
+package com.critetiontech.vitalioCorporate.widgets
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.LayoutBottomGymOfferBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.LayoutBottomGymOfferBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class GymOfferBottomSheet : BottomSheetDialogFragment() {

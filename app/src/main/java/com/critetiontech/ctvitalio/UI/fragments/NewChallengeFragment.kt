@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentNewChallengeBinding
-import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.NewChallengedAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentNewChallengeBinding
+import com.critetiontech.vitalioCorporate.model.NewChallengeModel
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
 
 class NewChallengeFragment : Fragment() {
     private lateinit var binding: FragmentNewChallengeBinding

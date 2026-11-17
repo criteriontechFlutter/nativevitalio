@@ -1,20 +1,20 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.EmployeeGoals
-import com.critetiontech.ctvitalio.model.GoalCategoryResponse
-import com.critetiontech.ctvitalio.model.GoalItem
-import com.critetiontech.ctvitalio.model.SmartGoalResponse
-import com.critetiontech.ctvitalio.model.SmartGoalResponseForAdded
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.model.EmployeeGoals
+import com.critetiontech.vitalioCorporate.model.GoalCategoryResponse
+import com.critetiontech.vitalioCorporate.model.GoalItem
+import com.critetiontech.vitalioCorporate.model.SmartGoalResponse
+import com.critetiontech.vitalioCorporate.model.SmartGoalResponseForAdded
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 

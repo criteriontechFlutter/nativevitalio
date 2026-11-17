@@ -1,9 +1,9 @@
-package com.critetiontech.ctvitalio.bindingAdapters
+package com.critetiontech.vitalioCorporate.bindingAdapters
 
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 @BindingAdapter("visibleIf")
 fun visibleIf(view: View, condition: Boolean) {

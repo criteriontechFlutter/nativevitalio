@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemFluidOptionBinding
-import com.critetiontech.ctvitalio.model.ManualFoodItem
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ItemFluidOptionBinding
+import com.critetiontech.vitalioCorporate.model.ManualFoodItem
 
 class FluidOptionAdapter(
     private val items: List<ManualFoodItem>,

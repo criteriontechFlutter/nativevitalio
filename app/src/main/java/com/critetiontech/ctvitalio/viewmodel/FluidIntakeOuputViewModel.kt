@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.DateUtils
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.graphics.Color
@@ -10,20 +10,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.viewmodel.BaseViewModel
-import com.critetiontech.ctvitalio.model.FluidOutput
-import com.critetiontech.ctvitalio.model.FluidOutputResponse
-import com.critetiontech.ctvitalio.model.FluidOutputSummary
-import com.critetiontech.ctvitalio.model.FluidOutputSummaryResponse
-import com.critetiontech.ctvitalio.model.FluidSummaryItem
-import com.critetiontech.ctvitalio.model.FluidSummaryResponse
-import com.critetiontech.ctvitalio.model.FluidType
-import com.critetiontech.ctvitalio.model.GlassSize
-import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
-import com.critetiontech.ctvitalio.model.ManualFoodItem
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.utils.ToastUtils
+import com.critetiontech.vitalioCorporate.viewmodel.BaseViewModel
+import com.critetiontech.vitalioCorporate.model.FluidOutput
+import com.critetiontech.vitalioCorporate.model.FluidOutputResponse
+import com.critetiontech.vitalioCorporate.model.FluidOutputSummary
+import com.critetiontech.vitalioCorporate.model.FluidOutputSummaryResponse
+import com.critetiontech.vitalioCorporate.model.FluidSummaryItem
+import com.critetiontech.vitalioCorporate.model.FluidSummaryResponse
+import com.critetiontech.vitalioCorporate.model.FluidType
+import com.critetiontech.vitalioCorporate.model.GlassSize
+import com.critetiontech.vitalioCorporate.model.ManualFoodAssignResponse
+import com.critetiontech.vitalioCorporate.model.ManualFoodItem
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -171,7 +171,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidIntakeDetails,
                         params = queryParams
@@ -220,7 +220,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 val queryParams = mapOf("UHID" to uhid)
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidOutputDaily,
                         params = queryParams
@@ -265,7 +265,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidIntakeDetailsByRange,
                         params = queryParams
@@ -319,7 +319,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidOutPutDetailsByRange ,
                         params = queryParams
@@ -367,7 +367,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                     )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicRawPost(
                         url = ApiEndPoint().savePatientOutput,
                         body = queryParams
@@ -417,7 +417,7 @@ class FluidIntakeOuputViewModel (application: Application) : BaseViewModel(appli
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicRawPost(
                         url = ApiEndPoint().savePatientIntake,
                         body = queryParams

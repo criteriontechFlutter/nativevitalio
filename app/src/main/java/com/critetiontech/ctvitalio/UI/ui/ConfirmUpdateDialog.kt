@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui
+package com.critetiontech.vitalioCorporate.UI.ui
 
 import android.app.Dialog
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.critetiontech.ctvitalio.databinding.DialogConfirmUpdateBinding
+import com.critetiontech.vitalioCorporate.databinding.DialogConfirmUpdateBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 

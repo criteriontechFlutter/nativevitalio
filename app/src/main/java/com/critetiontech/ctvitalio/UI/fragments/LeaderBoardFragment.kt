@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.model.LeaderboardItem
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.model.LeaderboardItem
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.LeaderboardAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentLeaderBoardBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.LeaderboardAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentLeaderBoardBinding
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

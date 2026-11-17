@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
 import android.app.AlertDialog
 import android.content.res.ColorStateList
@@ -18,9 +18,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentFamilyDiseaseBinding
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentFamilyDiseaseBinding
 
 class FamilyDiseaseFragment : Fragment() {
     private lateinit var binding: FragmentFamilyDiseaseBinding

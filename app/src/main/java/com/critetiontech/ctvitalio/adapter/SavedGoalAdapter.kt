@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemGoalBinding
-import com.critetiontech.ctvitalio.databinding.ItemSavedgoalHeaderBinding
-import com.critetiontech.ctvitalio.model.GoalCategoryResponse
-import com.critetiontech.ctvitalio.model.GoalItem
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ItemGoalBinding
+import com.critetiontech.vitalioCorporate.databinding.ItemSavedgoalHeaderBinding
+import com.critetiontech.vitalioCorporate.model.GoalCategoryResponse
+import com.critetiontech.vitalioCorporate.model.GoalItem
 
 class GoalsAdapter(
     private var items: List<Any>,

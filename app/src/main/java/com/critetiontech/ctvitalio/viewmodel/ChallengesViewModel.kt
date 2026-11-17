@@ -1,17 +1,17 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.critetiontech.ctvitalio.model.AllergyApiResponse
-import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
-import com.critetiontech.ctvitalio.model.PendingChallenge
-import com.critetiontech.ctvitalio.model.ResponseValueModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.critetiontech.vitalioCorporate.model.AllergyApiResponse
+import com.critetiontech.vitalioCorporate.model.DashboardActiveChallenges
+import com.critetiontech.vitalioCorporate.model.PendingChallenge
+import com.critetiontech.vitalioCorporate.model.ResponseValueModel
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPointCorporateModule
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch

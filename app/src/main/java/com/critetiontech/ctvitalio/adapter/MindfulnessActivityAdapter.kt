@@ -1,13 +1,13 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.MindfulnessItemLayoutBinding
-import com.critetiontech.ctvitalio.model.MindfulnessExercise
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.MindfulnessItemLayoutBinding
+import com.critetiontech.vitalioCorporate.model.MindfulnessExercise
 
 class MindfulnessActivityAdapter(
     private val onItemClick: (MindfulnessExercise) -> Unit = {}

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="handler"
-            type="com.critetiontech.ctvitalio.utils.GoalMenuHandler" />
+            type="com.critetiontech.vitalioCorporate.utils.GoalMenuHandler" />
     </data>
 
     <androidx.cardview.widget.CardView

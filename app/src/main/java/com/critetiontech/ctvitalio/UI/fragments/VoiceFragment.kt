@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.databinding.FragmentVoiceBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentVoiceBinding
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -151,7 +151,7 @@ class VoiceFragment : Fragment() {
             audioRecord?.stop()
             audioRecord?.release()
             vadThread?.interrupt()
-            webSocket?.close(1000, "com.critetiontech.ctvitalio.UI.fragments.User left")
+            webSocket?.close(1000, "com.critetiontech.vitalioCorporate.UI.fragments.User left")
         } catch (e: Exception) {
             Log.e("VAD", "Stop error: ${e.message}")
         }

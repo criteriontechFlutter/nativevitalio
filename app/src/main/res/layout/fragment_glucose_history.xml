@@ -308,7 +308,7 @@
                 <!-- Chart -->
 
 
-                <com.critetiontech.ctvitalio.utils.GlucoseTrendGraphView
+                <com.critetiontech.vitalioCorporate.utils.GlucoseTrendGraphView
                     android:id="@+id/glucoseGraph"
                     android:layout_width="match_parent"
                     android:background="@drawable/rounded_corners"

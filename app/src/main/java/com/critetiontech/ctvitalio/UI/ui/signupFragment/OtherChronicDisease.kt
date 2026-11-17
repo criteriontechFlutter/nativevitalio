@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,9 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentOtherChronicDiseaseBinding
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentOtherChronicDiseaseBinding
 
 
 class OtherChronicDisease : Fragment() {

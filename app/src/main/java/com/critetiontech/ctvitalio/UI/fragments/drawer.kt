@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -36,16 +36,16 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.BaseActivity
-import com.critetiontech.ctvitalio.databinding.FragmentDrawerBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.FileUtil
-import com.critetiontech.ctvitalio.utils.ImagePickerUtil
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.DrawerViewModel
-import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.BaseActivity
+import com.critetiontech.vitalioCorporate.databinding.FragmentDrawerBinding
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.FileUtil
+import com.critetiontech.vitalioCorporate.utils.ImagePickerUtil
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.DrawerViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.LoginViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Retrofit
 import java.io.ByteArrayOutputStream

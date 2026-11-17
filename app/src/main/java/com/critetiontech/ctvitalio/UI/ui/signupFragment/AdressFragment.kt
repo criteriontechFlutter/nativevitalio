@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
-import com.critetiontech.ctvitalio.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.DateUtils
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentAdressBinding
-import com.critetiontech.ctvitalio.model.CityModel
-import com.critetiontech.ctvitalio.model.StateModel
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentAdressBinding
+import com.critetiontech.vitalioCorporate.model.CityModel
+import com.critetiontech.vitalioCorporate.model.StateModel
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments;
+package com.critetiontech.vitalioCorporate.UI.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.critetiontech.ctvitalio.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.adapter.omronAdapter.VitalDataListAdapter;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.Database.OmronDBConstans;
+import com.critetiontech.vitalioCorporate.adapter.omronAdapter.VitalDataListAdapter;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.R;
 
 
 /**

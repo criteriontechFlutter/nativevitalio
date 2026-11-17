@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import Vital
 import android.graphics.Color
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 class VitalAdapter(private val list: List<Vital>) :
     RecyclerView.Adapter<VitalAdapter.VitalViewHolder>() {

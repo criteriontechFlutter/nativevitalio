@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter.omronAdapter;
+package com.critetiontech.vitalioCorporate.adapter.omronAdapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.critetiontech.ctvitalio.UI.OmronActivity.OmronConnectedDeviceList;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.UI.OmronActivity.OmronConnectedDeviceList;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.R;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
 
 
@@ -83,7 +83,7 @@ public class ConnectedDeviceAdapter extends BaseAdapter {
         String Info = item.get(OmronConstants.OMRONBLEConfigDevice.ModelDisplayName) + "(" + item.get(OmronConstants.OMRONBLEConfigDevice.Identifier) + ")";
         String UserNo = item.get(Constants.deviceInfoKeys.KEY_SELECTED_USER);
         if(!UserNo.equals("0")){
-            Info += "\n" + item.get(Constants.deviceInfoKeys.KEY_LOCAL_NAME) + "\ncom.critetiontech.ctvitalio.UI.fragments.User " + UserNo;
+            Info += "\n" + item.get(Constants.deviceInfoKeys.KEY_LOCAL_NAME) + "\ncom.critetiontech.vitalioCorporate.UI.fragments.User " + UserNo;
         }
         holder.tvModelName.setText(Info);
 

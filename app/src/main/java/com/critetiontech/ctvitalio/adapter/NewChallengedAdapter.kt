@@ -1,8 +1,8 @@
-﻿package com.critetiontech.ctvitalio.adapter
+﻿package com.critetiontech.vitalioCorporate.adapter
 
 
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -15,11 +15,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.NewChallengedJoinedBinding
-import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
-import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.NewChallengedJoinedBinding
+import com.critetiontech.vitalioCorporate.model.DashboardActiveChallenges
+import com.critetiontech.vitalioCorporate.model.NewChallengeModel
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 import java.util.Random
 class NewChallengedAdapter(
     private val challenges: MutableList<DashboardActiveChallenges>,

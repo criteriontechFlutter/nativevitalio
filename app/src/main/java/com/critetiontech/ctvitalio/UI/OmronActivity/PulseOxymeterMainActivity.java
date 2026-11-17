@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.OmronActivity;
+package com.critetiontech.vitalioCorporate.UI.OmronActivity;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -19,13 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.critetiontech.ctvitalio.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.model.PairingDeviceData;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.utils.PreferencesManager;
-import com.critetiontech.ctvitalio.utils.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.critetiontech.vitalioCorporate.Database.OmronDBConstans;
+import com.critetiontech.vitalioCorporate.model.PairingDeviceData;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.utils.PreferencesManager;
+import com.critetiontech.vitalioCorporate.utils.sampleLog;
+import com.critetiontech.vitalioCorporate.R;
+import com.critetiontech.vitalioCorporate.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerDataTransferListener;
@@ -113,7 +113,7 @@ public class PulseOxymeterMainActivity extends BaseActivity {
         peripheralConfig.deviceSettings = deviceSettings;
         // Set Scan timeout interval (optional)
         peripheralConfig.timeoutInterval = Constants.CONNECTION_TIMEOUT;
-        // Set com.critetiontech.ctvitalio.UI.fragments.User Hash Id (mandatory)
+        // Set com.critetiontech.vitalioCorporate.UI.fragments.User Hash Id (mandatory)
         peripheralConfig.userHashId = "<email_address_of_user>"; // Set logged in user email
         // Disclaimer: Read definition before usage
         peripheralConfig.enableAllDataRead = isHistoricDataRead;

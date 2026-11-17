@@ -2,7 +2,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 class ProgressAdapter(private var states: List<DotState>) :
     RecyclerView.Adapter<ProgressAdapter.ProgressViewHolder>() {

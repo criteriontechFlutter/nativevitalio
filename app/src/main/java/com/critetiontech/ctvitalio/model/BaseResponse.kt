@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.model // or your correct package
+package com.critetiontech.vitalioCorporate.model // or your correct package
 
 data class BaseResponse<T>(
     val status: Int,

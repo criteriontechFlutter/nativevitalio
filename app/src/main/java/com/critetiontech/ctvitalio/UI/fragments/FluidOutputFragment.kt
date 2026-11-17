@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.DateUtils
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -13,13 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.adapter.FluidOutputHistoryAdapter
-import com.critetiontech.ctvitalio.adapter.FluidOutputRangeAdapter
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentFluidOutputBinding
-import com.critetiontech.ctvitalio.viewmodel.FluidIntakeOuputViewModel
+import com.critetiontech.vitalioCorporate.adapter.FluidOutputHistoryAdapter
+import com.critetiontech.vitalioCorporate.adapter.FluidOutputRangeAdapter
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentFluidOutputBinding
+import com.critetiontech.vitalioCorporate.viewmodel.FluidIntakeOuputViewModel
 
 
 class FluidOutputFragment : Fragment() {

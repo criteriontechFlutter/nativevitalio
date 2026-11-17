@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.EmployeeActivity
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.model.EmployeeActivity
 
 class EmployeeActivityAdapter(
     private var list: List<EmployeeActivity>,

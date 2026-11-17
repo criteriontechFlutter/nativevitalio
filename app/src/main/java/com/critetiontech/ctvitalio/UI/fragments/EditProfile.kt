@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.DateUtils
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.DateUtils
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -25,12 +25,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentEditProfileBinding
-import com.critetiontech.ctvitalio.model.BloodGroup
-import com.critetiontech.ctvitalio.model.CityModel
-import com.critetiontech.ctvitalio.model.StateModel
-import com.critetiontech.ctvitalio.viewmodel.EditProfileViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentEditProfileBinding
+import com.critetiontech.vitalioCorporate.model.BloodGroup
+import com.critetiontech.vitalioCorporate.model.CityModel
+import com.critetiontech.vitalioCorporate.model.StateModel
+import com.critetiontech.vitalioCorporate.viewmodel.EditProfileViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.text.SimpleDateFormat

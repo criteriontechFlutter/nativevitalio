@@ -1,10 +1,10 @@
-//package com.critetiontech.ctvitalio.adapter
+//package com.critetiontech.vitalioCorporate.adapter
 //
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemMoodBinding
+import com.critetiontech.vitalioCorporate.databinding.ItemMoodBinding
 
 class MoodAdapter(private var moods: List<Mood> ) :
     RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {

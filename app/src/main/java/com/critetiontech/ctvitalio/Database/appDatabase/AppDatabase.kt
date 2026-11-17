@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Database.appDatabase
+package com.critetiontech.vitalioCorporate.Database.appDatabase
 
 import android.content.Context
 import androidx.room.Database

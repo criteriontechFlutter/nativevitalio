@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint

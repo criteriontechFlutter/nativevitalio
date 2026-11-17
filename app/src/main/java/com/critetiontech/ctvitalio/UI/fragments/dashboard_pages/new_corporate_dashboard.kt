@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+﻿package com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages
 
 import MoodData
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -30,14 +30,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.UltraHumanActivity
-import com.critetiontech.ctvitalio.databinding.FragmentNewCorporateDashboardBinding
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.UltraHumanActivity
+import com.critetiontech.vitalioCorporate.databinding.FragmentNewCorporateDashboardBinding
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.PillsReminderViewModal
 import net.openid.appauth.AuthorizationService
 
 class new_corporate_dashboard : Fragment() {

@@ -1,13 +1,13 @@
-package com.critetiontech.ctvitalio.UI.OmronActivity;
+package com.critetiontech.vitalioCorporate.UI.OmronActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.critetiontech.ctvitalio.UI.fragments.ActivityDataFragment;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.UI.fragments.ActivityDataFragment;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.R;
 
 
 /**

@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +10,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.AllergiesAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentAllergiesBinding
-import com.critetiontech.ctvitalio.model.AllergyTypeItem
-import com.critetiontech.ctvitalio.utils.AddAllergyBottomSheet
-import com.critetiontech.ctvitalio.utils.showSafe
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.AllergiesViewModel
+import com.critetiontech.vitalioCorporate.adapter.AllergiesAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentAllergiesBinding
+import com.critetiontech.vitalioCorporate.model.AllergyTypeItem
+import com.critetiontech.vitalioCorporate.utils.AddAllergyBottomSheet
+import com.critetiontech.vitalioCorporate.utils.showSafe
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.AllergiesViewModel
 
 
 class Allergies : Fragment(), AllergiesAdapter.SelectionListener {

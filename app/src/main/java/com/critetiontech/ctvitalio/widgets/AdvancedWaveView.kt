@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.widgets
+package com.critetiontech.vitalioCorporate.widgets
 
 
 import android.content.Context

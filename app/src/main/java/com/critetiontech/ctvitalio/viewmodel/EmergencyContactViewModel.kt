@@ -1,15 +1,15 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.EmergencyContact
-import com.critetiontech.ctvitalio.model.EmergencyContactResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.model.EmergencyContact
+import com.critetiontech.vitalioCorporate.model.EmergencyContactResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
@@ -127,7 +127,7 @@ class EmergencyContactViewModel (application: Application) : BaseViewModel(appli
 
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicRawPost(
                         url = ApiEndPoint().saveEmergencyContact,
                         body = requestBody

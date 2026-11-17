@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentGroundingTecniqueViewBinding
-import com.critetiontech.ctvitalio.databinding.FragmentScavengerHuntBinding
-import com.critetiontech.ctvitalio.databinding.FragmentScavengerHuntProgressBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentGroundingTecniqueViewBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentScavengerHuntBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentScavengerHuntProgressBinding
 
 class ScavengerHunt : Fragment() {
     private var _binding: FragmentScavengerHuntBinding? = null

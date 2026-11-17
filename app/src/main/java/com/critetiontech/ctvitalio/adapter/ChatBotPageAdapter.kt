@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +11,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.fragments.VitalHistoryFragment
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.fragments.VitalHistoryFragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.databinding.FragmentVitalHistoryBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentVitalHistoryBinding
 
 
 

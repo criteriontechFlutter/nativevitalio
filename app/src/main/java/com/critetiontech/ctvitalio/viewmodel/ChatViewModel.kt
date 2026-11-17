@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.os.Handler
@@ -12,13 +12,13 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.BotMessage
-import com.critetiontech.ctvitalio.model.ChatMessage
-import com.critetiontech.ctvitalio.model.ChatResponse
-import com.critetiontech.ctvitalio.model.ChatResponseRepo
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.ToastUtils
+import com.critetiontech.vitalioCorporate.model.BotMessage
+import com.critetiontech.vitalioCorporate.model.ChatMessage
+import com.critetiontech.vitalioCorporate.model.ChatResponse
+import com.critetiontech.vitalioCorporate.model.ChatResponseRepo
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.utils.ToastUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -188,7 +188,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
                 }
                 // API Call
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5100)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5100)
                     .dynamicMultipartPost(
                         url = ApiEndPoint().sentMessageChat,
                         parts = parts
@@ -222,7 +222,7 @@ class ChatViewModel (application: Application) : BaseViewModel(application) {
                 val queryParams = mapOf("sendFrom" to PrefsManager().getPatient()!!.pid, "sendTo" to PrefsManager().getPatient()!!.doctorID,"isPatient" to true,"groupId" to 0)
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5100)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5100)
                     .dynamicGet(
                         url = ApiEndPoint().getUserChat,
                         params = queryParams

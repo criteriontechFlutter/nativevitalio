@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 
-import com.critetiontech.ctvitalio.databinding.FragmentAccountSuccessBinding
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.databinding.FragmentAccountSuccessBinding
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
 
 
 class AccountSuccess : Fragment() {

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import android.content.Intent
 import android.graphics.BlurMaskFilter
@@ -10,12 +10,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
-import com.critetiontech.ctvitalio.utils.showSafe
-import com.critetiontech.ctvitalio.databinding.ActivityResetPasswordBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.ResetPasswordViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.ui.ConfirmUpdateBottomSheet
+import com.critetiontech.vitalioCorporate.utils.showSafe
+import com.critetiontech.vitalioCorporate.databinding.ActivityResetPasswordBinding
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.viewmodel.ResetPasswordViewModel
 
 class ResetPassword : AppCompatActivity() {
 

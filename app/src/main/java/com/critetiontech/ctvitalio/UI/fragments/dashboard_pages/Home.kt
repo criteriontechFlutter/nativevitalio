@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+﻿package com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import SleepVital
 import Vital
 import android.annotation.SuppressLint
@@ -23,19 +23,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.UltraHumanActivity
- import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
-import com.critetiontech.ctvitalio.adapter.IndicatorAdapter
-import com.critetiontech.ctvitalio.adapter.MedicationReminderAdapter
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.databinding.DailyChecklistWedgetBinding
-import com.critetiontech.ctvitalio.databinding.FragmentHomeBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.showRetrySnackbar
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.UltraHumanActivity
+ import com.critetiontech.vitalioCorporate.adapter.DailyTipAdapter
+import com.critetiontech.vitalioCorporate.adapter.IndicatorAdapter
+import com.critetiontech.vitalioCorporate.adapter.MedicationReminderAdapter
+import com.critetiontech.vitalioCorporate.adapter.NewChallengedAdapter
+import com.critetiontech.vitalioCorporate.databinding.DailyChecklistWedgetBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentHomeBinding
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.showRetrySnackbar
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.PillsReminderViewModal
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

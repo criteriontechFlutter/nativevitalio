@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import com.google.android.material.button.MaterialButton
 
 

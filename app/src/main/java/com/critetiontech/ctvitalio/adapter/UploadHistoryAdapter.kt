@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.model.UploadedReportItem
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.model.UploadedReportItem
+import com.critetiontech.vitalioCorporate.R
 
 
 class UploadHistoryAdapter(

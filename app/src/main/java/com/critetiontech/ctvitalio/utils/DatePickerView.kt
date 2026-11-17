@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,8 +8,8 @@ import android.view.MotionEvent
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.LinearLayout
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemCenterDatePickerBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ItemCenterDatePickerBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

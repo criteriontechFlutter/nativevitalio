@@ -1,8 +1,8 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 import android.content.Context
 import androidx.core.content.edit
-import com.critetiontech.ctvitalio.model.EmployeeGoal
-import com.critetiontech.ctvitalio.model.Patient
+import com.critetiontech.vitalioCorporate.model.EmployeeGoal
+import com.critetiontech.vitalioCorporate.model.Patient
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

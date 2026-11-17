@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import AllMedicine
 import Medicine
@@ -14,11 +14,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
- import com.critetiontech.ctvitalio.adapter.LoggedMedicineAdapter
-import com.critetiontech.ctvitalio.adapter.MedicineAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentMedicationBinding
-import com.critetiontech.ctvitalio.utils.VitalioCalendarView
-import com.critetiontech.ctvitalio.viewmodel.MedicationViewModel
+ import com.critetiontech.vitalioCorporate.adapter.LoggedMedicineAdapter
+import com.critetiontech.vitalioCorporate.adapter.MedicineAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentMedicationBinding
+import com.critetiontech.vitalioCorporate.utils.VitalioCalendarView
+import com.critetiontech.vitalioCorporate.viewmodel.MedicationViewModel
 import org.json.JSONObject
 
 class MedicationFragment : Fragment() {
@@ -69,7 +69,7 @@ class MedicationFragment : Fragment() {
 
         binding.fabAdd.setOnClickListener {
             findNavController().navigate(
-                com.critetiontech.ctvitalio.R.id.action_medicationFragment_to_addMedicineReminderFragment
+                com.critetiontech.vitalioCorporate.R.id.action_medicationFragment_to_addMedicineReminderFragment
             )
         }
     }

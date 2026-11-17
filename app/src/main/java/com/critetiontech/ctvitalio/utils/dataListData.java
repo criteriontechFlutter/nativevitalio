@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils;
+package com.critetiontech.vitalioCorporate.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;

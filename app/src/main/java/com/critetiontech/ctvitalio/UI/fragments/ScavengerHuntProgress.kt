@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 
 import android.Manifest
@@ -18,8 +18,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.databinding.FragmentScavengerHuntProgressBinding
-import com.critetiontech.ctvitalio.utils.ColorDetector
+import com.critetiontech.vitalioCorporate.databinding.FragmentScavengerHuntProgressBinding
+import com.critetiontech.vitalioCorporate.utils.ColorDetector
 import com.google.android.material.chip.Chip
 import java.io.File
 import org.opencv.android.OpenCVLoader

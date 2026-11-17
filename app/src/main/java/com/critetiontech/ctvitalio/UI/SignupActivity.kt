@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import ProgressAdapter
 import android.content.Intent
@@ -15,10 +15,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
-import com.critetiontech.ctvitalio.databinding.ActivitySignupBinding
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.ui.signupFragment.ProgressViewModel
+import com.critetiontech.vitalioCorporate.databinding.ActivitySignupBinding
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
 import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

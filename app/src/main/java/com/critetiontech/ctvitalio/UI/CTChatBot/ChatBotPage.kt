@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.CTChatBot
+package com.critetiontech.vitalioCorporate.UI.CTChatBot
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,10 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.ChatBotPageAdapter
-import com.critetiontech.ctvitalio.adapter.ChatItem
-import com.critetiontech.ctvitalio.databinding.FragmentChatBotPageBinding
-import com.critetiontech.ctvitalio.viewmodel.ChatBotPageViewModel
+import com.critetiontech.vitalioCorporate.adapter.ChatBotPageAdapter
+import com.critetiontech.vitalioCorporate.adapter.ChatItem
+import com.critetiontech.vitalioCorporate.databinding.FragmentChatBotPageBinding
+import com.critetiontech.vitalioCorporate.viewmodel.ChatBotPageViewModel
 
 class ChatBotPage : Fragment() {
     private lateinit var binding: FragmentChatBotPageBinding

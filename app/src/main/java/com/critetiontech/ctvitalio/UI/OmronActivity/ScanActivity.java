@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.OmronActivity;
+package com.critetiontech.vitalioCorporate.UI.OmronActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,14 +20,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
-import com.critetiontech.ctvitalio.adapter.omronAdapter.ScannedDevicesAdapter;
-import com.critetiontech.ctvitalio.model.PairingDeviceData;
-import com.critetiontech.ctvitalio.utils.Callback;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.utils.dataListData;
-import com.critetiontech.ctvitalio.utils.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.critetiontech.vitalioCorporate.adapter.omronAdapter.ScannedDevicesAdapter;
+import com.critetiontech.vitalioCorporate.model.PairingDeviceData;
+import com.critetiontech.vitalioCorporate.utils.Callback;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.utils.dataListData;
+import com.critetiontech.vitalioCorporate.utils.sampleLog;
+import com.critetiontech.vitalioCorporate.R;
+import com.critetiontech.vitalioCorporate.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.DeviceConfiguration.OmronPeripheralManagerConfig;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectListener;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.Interface.OmronPeripheralManagerConnectStateListener;
@@ -128,7 +128,7 @@ public class ScanActivity extends BaseActivity {
         peripheralConfig.deviceFilters = filterDevices;
         // Set Scan timeout interval (optional)
         peripheralConfig.timeoutInterval = Constants.CONNECTION_TIMEOUT;
-        // Set com.critetiontech.ctvitalio.UI.fragments.User Hash Id (mandatory)
+        // Set com.critetiontech.vitalioCorporate.UI.fragments.User Hash Id (mandatory)
         peripheralConfig.userHashId = "<email_address_of_user>"; // Set logged in user email
 
         ArrayList<HashMap> deviceSettings = new ArrayList<>();
@@ -488,7 +488,7 @@ public class ScanActivity extends BaseActivity {
             notificationsAvailable.add("android.intent.action.PHONE_STATE");
             notificationsAvailable.add("com.google.android.gm");
             notificationsAvailable.add("android.provider.Telephony.SMS_RECEIVED");
-            notificationsAvailable.add(" com.critetiontech.ctvitalio");
+            notificationsAvailable.add(" com.critetiontech.vitalioCorporate");
             HashMap<String, Object> notificationSettings = new HashMap<String, Object>();
             notificationSettings.put(OmronConstants.OMRONDeviceNotificationSettingsKey, notificationsAvailable);
 

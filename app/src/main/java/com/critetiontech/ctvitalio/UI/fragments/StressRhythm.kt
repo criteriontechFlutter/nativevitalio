@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
@@ -19,11 +19,11 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.fragments.MovemenetIndex.MovementEntrys
-import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
-import com.critetiontech.ctvitalio.databinding.FragmentStressRhythmBinding
-import com.critetiontech.ctvitalio.model.MovementIndexViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.fragments.MovemenetIndex.MovementEntrys
+import com.critetiontech.vitalioCorporate.databinding.FragmentMovemenetIndexBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentStressRhythmBinding
+import com.critetiontech.vitalioCorporate.model.MovementIndexViewModel
 import java.util.Calendar
 
 class StressRhythm : Fragment() {

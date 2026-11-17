@@ -227,7 +227,7 @@ Our Smart App!"
                 </LinearLayout>
 
                 <!-- Button -->
-                <com.critetiontech.ctvitalio.utils.CustomRoundedButton
+                <com.critetiontech.vitalioCorporate.utils.CustomRoundedButton
                     android:id="@+id/verify"
                     android:layout_width="0dp"
                     android:layout_height="48dp"

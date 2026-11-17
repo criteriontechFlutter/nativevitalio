@@ -1,9 +1,9 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
 import Mood
 import MoodAdapter
 import MoodData
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color
@@ -26,14 +26,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.BaseActivity
-import com.critetiontech.ctvitalio.databinding.FragmentMoodBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.ToastUtils
-import com.critetiontech.ctvitalio.viewmodel.MoodViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.BaseActivity
+import com.critetiontech.vitalioCorporate.databinding.FragmentMoodBinding
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.ToastUtils
+import com.critetiontech.vitalioCorporate.viewmodel.MoodViewModel
 import androidx.core.graphics.toColorInt
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 
 class MoodFragment : Fragment() {
 

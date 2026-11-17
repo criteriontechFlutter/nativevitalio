@@ -1,10 +1,10 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemWatchBinding
-import com.critetiontech.ctvitalio.model.WatchModel
+import com.critetiontech.vitalioCorporate.databinding.ItemWatchBinding
+import com.critetiontech.vitalioCorporate.model.WatchModel
 
 class WatchAdapter(
     private val onRemoveClick: (WatchModel) -> Unit

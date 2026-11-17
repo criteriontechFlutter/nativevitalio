@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
  import AllMedicine
  import Medicine
@@ -21,7 +21,7 @@ class MedicineAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context)
-            .inflate(com.critetiontech.ctvitalio.R.layout.item_medicine_data, parent, false)
+            .inflate(com.critetiontech.vitalioCorporate.R.layout.item_medicine_data, parent, false)
         return ViewHolder(view)
     }
 
@@ -36,20 +36,20 @@ class MedicineAdapter(
 
     private fun setMedicineIcon(imageView: ImageView, type: String?) {
         when (type?.trim()?.lowercase(Locale.getDefault())) {
-            "tablet", "tablets" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.tablet_2)
-            "capsule", "capsules" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.capsule)
-            "syrup" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.syrup)
-            "injection" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.syringe)
-            "drops" -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.ointment)
-            else -> imageView.setImageResource(com.critetiontech.ctvitalio.R.drawable.tablet_2) // default
+            "tablet", "tablets" -> imageView.setImageResource(com.critetiontech.vitalioCorporate.R.drawable.tablet_2)
+            "capsule", "capsules" -> imageView.setImageResource(com.critetiontech.vitalioCorporate.R.drawable.capsule)
+            "syrup" -> imageView.setImageResource(com.critetiontech.vitalioCorporate.R.drawable.syrup)
+            "injection" -> imageView.setImageResource(com.critetiontech.vitalioCorporate.R.drawable.syringe)
+            "drops" -> imageView.setImageResource(com.critetiontech.vitalioCorporate.R.drawable.ointment)
+            else -> imageView.setImageResource(com.critetiontech.vitalioCorporate.R.drawable.tablet_2) // default
         }
     }
 
     override fun getItemCount() = list.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvName: TextView = itemView.findViewById(com.critetiontech.ctvitalio.R.id.tvMedName)
-        val tvType: TextView = itemView.findViewById(com.critetiontech.ctvitalio.R.id.tvMedType)
-        val icon: ImageView = itemView.findViewById(com.critetiontech.ctvitalio.R.id.ivIcon)
+        val tvName: TextView = itemView.findViewById(com.critetiontech.vitalioCorporate.R.id.tvMedName)
+        val tvType: TextView = itemView.findViewById(com.critetiontech.vitalioCorporate.R.id.tvMedType)
+        val icon: ImageView = itemView.findViewById(com.critetiontech.vitalioCorporate.R.id.ivIcon)
     }
 }

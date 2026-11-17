@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.critetiontech.ctvitalio.viewmodel.SmartGoalViewModel" />
+            type="com.critetiontech.vitalioCorporate.viewmodel.SmartGoalViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

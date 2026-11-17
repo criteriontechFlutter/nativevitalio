@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.content.Context
 import android.util.AttributeSet
@@ -13,7 +13,7 @@ import androidx.core.view.NestedScrollingParent3
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 class CustomPullRefreshLayout @JvmOverloads constructor(
     context: Context,

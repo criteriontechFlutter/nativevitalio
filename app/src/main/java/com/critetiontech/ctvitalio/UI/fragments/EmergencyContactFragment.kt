@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.adapter.omronAdapter.EmergencyContactAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentEmergencyContactBinding
-import com.critetiontech.ctvitalio.model.EmergencyContact
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.viewmodel.EmergencyContactViewModel
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.adapter.omronAdapter.EmergencyContactAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentEmergencyContactBinding
+import com.critetiontech.vitalioCorporate.model.EmergencyContact
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.viewmodel.EmergencyContactViewModel
+import com.critetiontech.vitalioCorporate.utils.showSafe
 
 
 class EmergencyContactFragment : Fragment() {

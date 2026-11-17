@@ -1,10 +1,10 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemGlucoseLogBinding
-import com.critetiontech.ctvitalio.model.GlucoseLog
+import com.critetiontech.vitalioCorporate.databinding.ItemGlucoseLogBinding
+import com.critetiontech.vitalioCorporate.model.GlucoseLog
 
 class GlucoseAdapter(
     private var list: List<GlucoseLog>

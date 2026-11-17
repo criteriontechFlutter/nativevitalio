@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import SleepGraphData
 import android.graphics.Color
@@ -13,8 +13,8 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.critetiontech.ctvit.SleepKind
 import com.critetiontech.ctvit.SleepSegmentData
-import com.critetiontech.ctvitalio.databinding.FragmentSleepChartBinding
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.databinding.FragmentSleepChartBinding
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatDelegate
-import com.critetiontech.ctvitalio.utils.AppConstants.THEME_DARK
-import com.critetiontech.ctvitalio.utils.AppConstants.THEME_LIGHT
-import com.critetiontech.ctvitalio.utils.AppConstants.THEME_SYSTEM
+import com.critetiontech.vitalioCorporate.utils.AppConstants.THEME_DARK
+import com.critetiontech.vitalioCorporate.utils.AppConstants.THEME_LIGHT
+import com.critetiontech.vitalioCorporate.utils.AppConstants.THEME_SYSTEM
 
 /**
  * NetworkUtils.kt

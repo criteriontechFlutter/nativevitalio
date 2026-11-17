@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.graphics.Color
 import android.os.Build
@@ -12,11 +12,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.SymptomHistoryAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentSymptomHistoryBinding
-import com.critetiontech.ctvitalio.utils.FilterType
-import com.critetiontech.ctvitalio.viewmodel.SymptomsHistoryViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.SymptomHistoryAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentSymptomHistoryBinding
+import com.critetiontech.vitalioCorporate.utils.FilterType
+import com.critetiontech.vitalioCorporate.viewmodel.SymptomsHistoryViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="person"
-            type="com.critetiontech.ctvitalio.model.Person" />
+            type="com.critetiontech.vitalioCorporate.model.Person" />
 
         <variable
             name="showImage"

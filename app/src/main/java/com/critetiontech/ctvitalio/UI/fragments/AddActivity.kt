@@ -10,10 +10,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.EmployeeActivityAdapter
-import com.critetiontech.ctvitalio.adapter.MasterActivityAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentAddActivityBinding
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.EmployeeActivityAdapter
+import com.critetiontech.vitalioCorporate.adapter.MasterActivityAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentAddActivityBinding
 import com.example.vitalio_pragya.adapter.ActivityChipAdapter
 import com.example.vitalio_pragya.fragment.BikingFragment
 import com.example.vitalio_pragya.viewmodel.AddActivityViewModel

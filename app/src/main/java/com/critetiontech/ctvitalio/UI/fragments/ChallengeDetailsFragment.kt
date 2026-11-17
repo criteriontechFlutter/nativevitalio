@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -12,10 +12,10 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.adapter.ChallengeDetailsAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentChallengeDetailsBinding
-import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.adapter.ChallengeDetailsAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentChallengeDetailsBinding
+import com.critetiontech.vitalioCorporate.model.NewChallengeModel
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

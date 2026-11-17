@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.ActivityModel
-import com.critetiontech.ctvitalio.model.EmployeeActivity
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.model.ActivityModel
+import com.critetiontech.vitalioCorporate.model.EmployeeActivity
 import kotlin.collections.get
 
 class ActivityChipAdapter(

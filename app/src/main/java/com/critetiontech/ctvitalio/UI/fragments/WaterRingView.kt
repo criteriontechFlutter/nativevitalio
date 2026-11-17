@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -9,7 +9,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import kotlin.math.min
 
 

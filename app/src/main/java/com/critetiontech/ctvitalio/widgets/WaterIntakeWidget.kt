@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.widgets
+package com.critetiontech.vitalioCorporate.widgets
 
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 
 import android.app.PendingIntent
@@ -25,8 +25,8 @@ class WaterIntakeWidget : AppWidgetProvider() {
     }
 
     companion object {
-        private const val ACTION_ADD_WATER = "com.critetiontech.ctvitalio.ADD_WATER"
-        private const val ACTION_RESET = "com.critetiontech.ctvitalio.RESET"
+        private const val ACTION_ADD_WATER = "com.critetiontech.vitalioCorporate.ADD_WATER"
+        private const val ACTION_RESET = "com.critetiontech.vitalioCorporate.RESET"
 
         fun updateAppWidget(
             context: Context,
@@ -98,7 +98,7 @@ class WaterIntakeWidget : AppWidgetProvider() {
         )
 
         when (intent.action) {
-            "com.critetiontech.ctvitalio.ADD_WATER" -> {
+            "com.critetiontech.vitalioCorporate.ADD_WATER" -> {
                 val prefs = context.getSharedPreferences("water_intake", Context.MODE_PRIVATE)
                 val currentIntake = prefs.getInt("water_intake_ml", 0)
                 val newIntake = (currentIntake + 200).coerceAtMost(2000)

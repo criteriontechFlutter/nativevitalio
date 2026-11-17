@@ -1,14 +1,14 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.model.DietItemModel
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -45,7 +45,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams
@@ -102,7 +102,7 @@ class DietChecklistViewModel (application: Application) : BaseViewModel(applicat
 
                 // This response is of type Response<ResponseBody>
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .queryDynamicRawPost(
                         url = ApiEndPoint().intakeByDietID,
                         params = queryParams

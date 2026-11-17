@@ -8,7 +8,7 @@
         <!-- ViewModel Reference -->
         <variable
             name="vm"
-            type="com.critetiontech.ctvitalio.model.MovementIndexViewModel" />
+            type="com.critetiontech.vitalioCorporate.model.MovementIndexViewModel" />
 
         <!-- Latest Vital Values -->
         <variable name="movementIndex"   type="String" />
@@ -70,7 +70,7 @@
 
             </LinearLayout>
 
-            <com.critetiontech.ctvitalio.utils.CenterDatePickerView
+            <com.critetiontech.vitalioCorporate.utils.CenterDatePickerView
                 android:id="@+id/centerDatePicker"
                 android:layout_width="match_parent"
                 android:paddingBottom="8dp"
@@ -134,7 +134,7 @@
                                 app:tint="#CCCCCC" />
                         </LinearLayout>
 
-                        <com.critetiontech.ctvitalio.utils.ArcProgressView
+                        <com.critetiontech.vitalioCorporate.utils.ArcProgressView
                             android:id="@+id/circular_progress"
                             android:layout_width="match_parent"
                             android:layout_height="323dp"
@@ -842,7 +842,7 @@
                     </LinearLayout>
 
                     <!-- Arc Gauge -->
-                    <com.critetiontech.ctvitalio.utils.ArcGaugeView
+                    <com.critetiontech.vitalioCorporate.utils.ArcGaugeView
                         android:id="@+id/dy_recovery"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -1203,7 +1203,7 @@
 <!--                            android:layout_height="20dp"-->
 <!--                            android:src="@drawable/ic_arrow_right" />-->
 <!--                    </LinearLayout>-->
-<!--                    <com.critetiontech.ctvitalio.utils.StepProgressView-->
+<!--                    <com.critetiontech.vitalioCorporate.utils.StepProgressView-->
 <!--                        android:id="@+id/stepProgressView"-->
 <!--                        android:layout_width="wrap_content"-->
 <!--                        android:layout_height="wrap_content"-->
@@ -1445,7 +1445,7 @@
 <!--                        android:textColor="#2E4B60" />-->
 
 <!--                    &lt;!&ndash; Ticks + slider &ndash;&gt;-->
-<!--                    <com.critetiontech.ctvitalio.utils.RulerSeekBar-->
+<!--                    <com.critetiontech.vitalioCorporate.utils.RulerSeekBar-->
 <!--                        android:id="@+id/rulerSeekBar"-->
 <!--                        android:layout_width="match_parent"-->
 <!--                        android:layout_height="90dp"-->

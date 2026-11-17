@@ -1,6 +1,6 @@
 ﻿package com.example.vitalio_pragya.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.app.Application
 import android.content.Context
 import android.os.Build
@@ -10,12 +10,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.ActivityModel
-import com.critetiontech.ctvitalio.model.ActivityResponse
-import com.critetiontech.ctvitalio.model.EmployeeActivity
-import com.critetiontech.ctvitalio.model.EmployeeActivityResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
+import com.critetiontech.vitalioCorporate.model.ActivityModel
+import com.critetiontech.vitalioCorporate.model.ActivityResponse
+import com.critetiontech.vitalioCorporate.model.EmployeeActivity
+import com.critetiontech.vitalioCorporate.model.EmployeeActivityResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPointCorporateModule
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 

@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemEyeExerciseBinding
-import com.critetiontech.ctvitalio.model.EyeExercise
+import com.critetiontech.vitalioCorporate.databinding.ItemEyeExerciseBinding
+import com.critetiontech.vitalioCorporate.model.EyeExercise
 
 class EyeExerciseAdapter : ListAdapter<EyeExercise, EyeExerciseAdapter.EyeExerciseViewHolder>(DiffCallback()) {
 

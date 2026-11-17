@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter.omronAdapter;
+package com.critetiontech.vitalioCorporate.adapter.omronAdapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.critetiontech.ctvitalio.utils.PreferencesManager;
-import com.critetiontech.ctvitalio.utils.sampleLog;
+import com.critetiontech.vitalioCorporate.utils.PreferencesManager;
+import com.critetiontech.vitalioCorporate.utils.sampleLog;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;
-import com.critetiontech.ctvitalio.R;
+import com.critetiontech.vitalioCorporate.R;
 
 
 import org.json.JSONArray;

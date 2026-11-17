@@ -1,14 +1,14 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.BloodPressureReading
-import com.critetiontech.ctvitalio.model.VitalResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.model.BloodPressureReading
+import com.critetiontech.vitalioCorporate.model.VitalResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
@@ -44,7 +44,7 @@ class VitalHistoryViewModel(application: Application) : BaseViewModel(applicatio
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5082)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5082)
                     .dynamicGet(
                         url = ApiEndPoint().getBpRangeHistory,
                         params = queryParams

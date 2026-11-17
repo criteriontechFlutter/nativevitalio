@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.browser.R
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.databinding.ItemUpcomingBinding
-import com.critetiontech.ctvitalio.model.PendingChallenge
+import com.critetiontech.vitalioCorporate.databinding.ItemUpcomingBinding
+import com.critetiontech.vitalioCorporate.model.PendingChallenge
 
 class UpcomingAdapter(
     private val list: List<PendingChallenge>,

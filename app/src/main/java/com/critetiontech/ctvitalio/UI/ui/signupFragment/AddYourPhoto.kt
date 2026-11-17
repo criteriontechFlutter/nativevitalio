@@ -1,6 +1,6 @@
-﻿package com.critetiontech.ctvitalio.UI.ui.signupFragment
+﻿package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
@@ -17,9 +17,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentAddYourPhotoBinding
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentAddYourPhotoBinding
 import java.io.File
 
 class AddYourPhoto : Fragment() {

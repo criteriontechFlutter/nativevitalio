@@ -1,4 +1,4 @@
- package com.critetiontech.ctvitalio.UI.fragments
+ package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.Manifest
 import android.os.Bundle
@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.DailyTipAdapter
-import com.critetiontech.ctvitalio.adapter.GymAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentCorporateDashBoardBinding
-import com.critetiontech.ctvitalio.databinding.FragmentGymListBinding
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
-import com.critetiontech.ctvitalio.viewmodel.GymViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.DailyTipAdapter
+import com.critetiontech.vitalioCorporate.adapter.GymAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentCorporateDashBoardBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentGymListBinding
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.GymViewModel
 
 
  class GymListFragment : Fragment() {

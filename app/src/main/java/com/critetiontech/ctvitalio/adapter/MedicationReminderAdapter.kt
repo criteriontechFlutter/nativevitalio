@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 
 import android.graphics.Color
@@ -6,8 +6,8 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemMedicationReminderBinding
-import com.critetiontech.ctvitalio.model.Medicine
+import com.critetiontech.vitalioCorporate.databinding.ItemMedicationReminderBinding
+import com.critetiontech.vitalioCorporate.model.Medicine
 import java.text.SimpleDateFormat
 import java.util.*
 

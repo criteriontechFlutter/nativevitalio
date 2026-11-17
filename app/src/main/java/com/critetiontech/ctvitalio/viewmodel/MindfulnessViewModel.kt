@@ -1,15 +1,15 @@
-﻿package com.critetiontech.ctvitalio.viewmodel
+﻿package com.critetiontech.vitalioCorporate.viewmodel
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.model.InsertMindfulnessRequest
-import com.critetiontech.ctvitalio.model.InsertMindfulnessResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.repository.MindfulnessRepository
+import com.critetiontech.vitalioCorporate.model.InsertMindfulnessRequest
+import com.critetiontech.vitalioCorporate.model.InsertMindfulnessResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.repository.MindfulnessRepository
 import kotlinx.coroutines.launch
 
 class MindfulnessViewModel : ViewModel() {

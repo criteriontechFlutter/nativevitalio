@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter.omronAdapter;
+package com.critetiontech.vitalioCorporate.adapter.omronAdapter;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 
-import com.critetiontech.ctvitalio.Database.OmronDBConstans;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.UI.OmronActivity.BaseActivity;
+import com.critetiontech.vitalioCorporate.Database.OmronDBConstans;
+import com.critetiontech.vitalioCorporate.R;
+import com.critetiontech.vitalioCorporate.UI.OmronActivity.BaseActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +43,7 @@ public class PulseOxymeterDataListAdapter extends RecyclerView.Adapter<PulseOxym
             return;
         }
         String tvText = "";
-        tvText = tvText + "com.critetiontech.ctvitalio.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
+        tvText = tvText + "com.critetiontech.vitalioCorporate.UI.fragments.User  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.DEVICE_SELECTED_USER)) + "\n";
         tvText = tvText + "Start Date  : " + setTime(mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.OXYMETER_DATA_StartTimeKey))) + "\n";
         tvText = tvText + "SpO2 " + " (%) : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.OXYMETER_DATA_SpO2Key)) + "\n";
         tvText = tvText + "Pulse " + " (bpm)  : " + mCursor.getString(mCursor.getColumnIndex(OmronDBConstans.OXYMETER_DATA_PulseKey));

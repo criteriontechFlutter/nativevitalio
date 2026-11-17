@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemBingoBinding
-import com.critetiontech.ctvitalio.model.BingoTask
+import com.critetiontech.vitalioCorporate.databinding.ItemBingoBinding
+import com.critetiontech.vitalioCorporate.model.BingoTask
 
 class BingoAdapter(
     private var tasks: List<BingoTask>,

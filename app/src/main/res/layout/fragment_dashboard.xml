@@ -685,7 +685,7 @@ android:background="@color/primaryBlue"
                 tools:listitem="@layout/new_challenged_joined" />
 
             <!-- Custom Sleep Tracker View -->
-            <com.critetiontech.ctvitalio.utils.SleepTrackerView
+            <com.critetiontech.vitalioCorporate.utils.SleepTrackerView
                 android:id="@+id/sleepTrackerView"
                 android:layout_width="0dp"
                 android:layout_margin="@dimen/_16sdp"

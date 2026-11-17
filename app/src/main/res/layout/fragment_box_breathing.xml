@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Center Box Breathing View (Active Phase) -->
-    <com.critetiontech.ctvitalio.UI.BoxBreathingView
+    <com.critetiontech.vitalioCorporate.UI.BoxBreathingView
         android:id="@+id/boxBreathingView"
         android:layout_width="280dp"
         android:layout_height="280dp"

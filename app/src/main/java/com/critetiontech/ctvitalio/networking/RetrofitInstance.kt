@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.networking
+﻿package com.critetiontech.vitalioCorporate.networking
 
 // BuildConfig is generated at compile time – suppress any lint warning
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,7 +33,7 @@ object RetrofitInstance {
             .retryOnConnectionFailure(true)
             .apply {
                 // Only attach full-body logging in debug builds
-                if (com.critetiontech.ctvitalio.BuildConfig.DEBUG) {
+                if (com.critetiontech.vitalioCorporate.BuildConfig.DEBUG) {
                     addInterceptor(HttpLoggingInterceptor().apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     })

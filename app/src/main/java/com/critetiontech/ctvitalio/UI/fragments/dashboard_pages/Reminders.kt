@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+package com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages
 
 import android.os.Build
 import android.os.Bundle
@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.TabMedicineAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentRemindersBinding
-import com.critetiontech.ctvitalio.viewmodel.PillsReminderViewModal
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.TabMedicineAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentRemindersBinding
+import com.critetiontech.vitalioCorporate.viewmodel.PillsReminderViewModal
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

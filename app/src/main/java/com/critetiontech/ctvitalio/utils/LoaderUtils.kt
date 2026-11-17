@@ -1,9 +1,9 @@
-﻿package com.critetiontech.ctvitalio.utils
+﻿package com.critetiontech.vitalioCorporate.utils
 
 import android.app.Activity
 import android.app.Dialog
 import androidx.fragment.app.Fragment
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 
 /**
  * LoaderUtils.kt

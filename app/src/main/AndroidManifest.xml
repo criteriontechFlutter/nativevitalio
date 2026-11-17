@@ -66,8 +66,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.critetiontech.ctvitalio.ADD_WATER" />
-                <action android:name="com.critetiontech.ctvitalio.RESET" />
+                <action android:name="com.critetiontech.vitalioCorporate.ADD_WATER" />
+                <action android:name="com.critetiontech.vitalioCorporate.RESET" />
             </intent-filter>
 
             <meta-data
@@ -188,7 +188,7 @@
 
         <provider
             android:name=".Database.OmronDBProvider"
-            android:authorities="com.critetiontech.ctvitalio.Database.OmronDBProvider"
+            android:authorities="com.critetiontech.vitalioCorporate.Database.OmronDBProvider"
             android:exported="false" />
 
         <activity

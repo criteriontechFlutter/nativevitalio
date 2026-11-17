@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.model
+package com.critetiontech.vitalioCorporate.model
 data class SetGoalModel(
     val icon: Int,
     val name: String,

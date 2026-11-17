@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter.omronAdapter
+package com.critetiontech.vitalioCorporate.adapter.omronAdapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemEmergencyContactBinding
-import com.critetiontech.ctvitalio.model.EmergencyContact
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ItemEmergencyContactBinding
+import com.critetiontech.vitalioCorporate.model.EmergencyContact
 
 class EmergencyContactAdapter(
     private var contactList: List<EmergencyContact>,

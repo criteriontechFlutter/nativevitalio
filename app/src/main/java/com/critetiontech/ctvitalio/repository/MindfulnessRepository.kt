@@ -1,8 +1,8 @@
-package com.critetiontech.ctvitalio.repository
+package com.critetiontech.vitalioCorporate.repository
 
-import com.critetiontech.ctvitalio.model.InsertMindfulnessRequest
-import com.critetiontech.ctvitalio.model.InsertMindfulnessResponse
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.model.InsertMindfulnessRequest
+import com.critetiontech.vitalioCorporate.model.InsertMindfulnessResponse
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import retrofit2.Response
 
 class MindfulnessRepository {

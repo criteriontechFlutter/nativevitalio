@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.firebase
+package com.critetiontech.vitalioCorporate.firebase
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,8 +8,8 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.critetiontech.ctvitalio.MainActivity
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.MainActivity
+import com.critetiontech.vitalioCorporate.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.random.Random

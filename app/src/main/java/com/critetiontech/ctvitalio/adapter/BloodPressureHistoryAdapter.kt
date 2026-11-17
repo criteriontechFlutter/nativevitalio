@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.graphics.Color
 import android.util.Log
@@ -7,8 +7,8 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Visibility
-import com.critetiontech.ctvitalio.databinding.BloodPressureLogItemBinding
-import com.critetiontech.ctvitalio.model.BloodPressureReading
+import com.critetiontech.vitalioCorporate.databinding.BloodPressureLogItemBinding
+import com.critetiontech.vitalioCorporate.model.BloodPressureReading
 import androidx.core.graphics.toColorInt
 
 class BPReadingAdapter(

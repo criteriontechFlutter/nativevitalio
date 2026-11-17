@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.logging
+package com.critetiontech.vitalioCorporate.logging
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -6,8 +6,8 @@ import android.util.Log
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.UUID

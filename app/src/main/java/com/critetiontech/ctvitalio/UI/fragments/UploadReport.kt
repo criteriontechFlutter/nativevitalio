@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.Manifest
 import android.app.TimePickerDialog
@@ -22,13 +22,13 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import com.critetiontech.ctvitalio.adapter.UploadReportAdapter
-import com.critetiontech.ctvitalio.model.UploadReportItem
-import com.critetiontech.ctvitalio.utils.FileUtil
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentUploadReportBinding
-import com.critetiontech.ctvitalio.viewmodel.UploadReportViewModel
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.adapter.UploadReportAdapter
+import com.critetiontech.vitalioCorporate.model.UploadReportItem
+import com.critetiontech.vitalioCorporate.utils.FileUtil
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentUploadReportBinding
+import com.critetiontech.vitalioCorporate.viewmodel.UploadReportViewModel
+import com.critetiontech.vitalioCorporate.utils.showSafe
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch

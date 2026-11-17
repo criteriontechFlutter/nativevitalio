@@ -215,7 +215,7 @@
                     android:visibility="gone"
                     android:fillViewport="true"
                     android:scrollbars="none">
-                <com.critetiontech.ctvitalio.utils.FluidOutPutGraphView
+                <com.critetiontech.vitalioCorporate.utils.FluidOutPutGraphView
                     android:id="@+id/fluidGraph"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Database;
+package com.critetiontech.vitalioCorporate.Database;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

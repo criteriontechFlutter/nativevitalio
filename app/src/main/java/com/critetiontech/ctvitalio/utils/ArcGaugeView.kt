@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 
 import android.animation.ValueAnimator
@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.core.content.ContextCompat
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import kotlin.math.min
 
 class ArcGaugeView @JvmOverloads constructor(

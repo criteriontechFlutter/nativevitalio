@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.VitalDetailsAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentVitalDetailBinding
-import com.critetiontech.ctvitalio.viewmodel.VitalDetailsViewModel
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.VitalDetailsAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentVitalDetailBinding
+import com.critetiontech.vitalioCorporate.viewmodel.VitalDetailsViewModel
 
 class VitalDetail  : Fragment() {
 

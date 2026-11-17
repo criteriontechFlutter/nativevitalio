@@ -1,15 +1,15 @@
-﻿package com.critetiontech.ctvitalio.UI
+﻿package com.critetiontech.vitalioCorporate.UI
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
-import com.critetiontech.ctvitalio.databinding.ActivityUltraHumanBinding
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.viewmodel.DashboardViewModel
+import com.critetiontech.vitalioCorporate.databinding.ActivityUltraHumanBinding
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.viewmodel.DashboardViewModel
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
@@ -72,7 +72,7 @@ class UltraHumanActivity : AppCompatActivity() {
 
     private fun handleAuthRedirectIntent(intent: Intent) {
         val data = intent.data
-        if (data != null && data.scheme == "com.critetiontech.ctvitalio" && data.host == "callback") {
+        if (data != null && data.scheme == "com.critetiontech.vitalioCorporate" && data.host == "callback") {
             val accessToken = data.getQueryParameter("accessToken")
             val refreshToken = data.getQueryParameter("refreshToken")
             val tokenType = data.getQueryParameter("tokenType")

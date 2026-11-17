@@ -57,7 +57,7 @@
         android:background="@drawable/wave_container_background">
 
         <!-- Animated Wave View -->
-        <com.critetiontech.ctvitalio.widgets.AdvancedWaveView
+        <com.critetiontech.vitalioCorporate.widgets.AdvancedWaveView
             android:id="@+id/waveView"
             android:layout_width="match_parent"
             android:layout_height="200dp" />

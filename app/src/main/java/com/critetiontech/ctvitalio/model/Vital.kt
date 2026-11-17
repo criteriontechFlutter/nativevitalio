@@ -1,8 +1,8 @@
 import android.graphics.Color
-import com.critetiontech.ctvitalio.adapter.NotificationItem
-import com.critetiontech.ctvitalio.adapter.PriorityAction
-import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
-import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
+import com.critetiontech.vitalioCorporate.adapter.NotificationItem
+import com.critetiontech.vitalioCorporate.adapter.PriorityAction
+import com.critetiontech.vitalioCorporate.adapter.PriorityActionWrapper
+import com.critetiontech.vitalioCorporate.model.DashboardActiveChallengesWrapper
 
 // Main Response
 data class VitalsResponse(

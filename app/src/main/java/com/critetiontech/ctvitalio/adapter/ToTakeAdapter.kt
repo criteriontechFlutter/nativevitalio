@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import PillReminderModel
 import android.graphics.drawable.Drawable
@@ -12,8 +12,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 
 class ToTakeAdapter(
     private var items: MutableList<PillReminderModel>,

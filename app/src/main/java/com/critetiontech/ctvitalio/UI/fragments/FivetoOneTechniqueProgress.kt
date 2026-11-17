@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 
 import android.os.Bundle
@@ -11,11 +11,11 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
-import com.critetiontech.ctvitalio.utils.showSafe
-import com.critetiontech.ctvitalio.databinding.FragmentFivetoOneTechniqueProgressBinding
-import com.critetiontech.ctvitalio.viewmodel.FiveToOneViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.ui.EndSessionBottomSheet
+import com.critetiontech.vitalioCorporate.utils.showSafe
+import com.critetiontech.vitalioCorporate.databinding.FragmentFivetoOneTechniqueProgressBinding
+import com.critetiontech.vitalioCorporate.viewmodel.FiveToOneViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip

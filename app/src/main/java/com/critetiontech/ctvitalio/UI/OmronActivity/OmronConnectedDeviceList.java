@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.OmronActivity;
+package com.critetiontech.vitalioCorporate.UI.OmronActivity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -37,16 +37,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
-import com.critetiontech.ctvitalio.adapter.omronAdapter.ConnectedDeviceAdapter;
-import com.critetiontech.ctvitalio.model.PairingDeviceData;
-import com.critetiontech.ctvitalio.utils.Callback;
-import com.critetiontech.ctvitalio.utils.Constants;
-import com.critetiontech.ctvitalio.utils.PreferencesManager;
-import com.critetiontech.ctvitalio.utils.dataListData;
-import com.critetiontech.ctvitalio.utils.sampleLog;
-import com.critetiontech.ctvitalio.R;
-import com.critetiontech.ctvitalio.UI.Home;
-import com.critetiontech.ctvitalio.utils.MyApplication;
+import com.critetiontech.vitalioCorporate.adapter.omronAdapter.ConnectedDeviceAdapter;
+import com.critetiontech.vitalioCorporate.model.PairingDeviceData;
+import com.critetiontech.vitalioCorporate.utils.Callback;
+import com.critetiontech.vitalioCorporate.utils.Constants;
+import com.critetiontech.vitalioCorporate.utils.PreferencesManager;
+import com.critetiontech.vitalioCorporate.utils.dataListData;
+import com.critetiontech.vitalioCorporate.utils.sampleLog;
+import com.critetiontech.vitalioCorporate.R;
+import com.critetiontech.vitalioCorporate.UI.Home;
+import com.critetiontech.vitalioCorporate.utils.MyApplication;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.OmronPeripheralManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.LibraryManager.SharedManager;
 import com.omronhealthcare.OmronConnectivityLibrary.OmronLibrary.OmronUtility.OmronConstants;

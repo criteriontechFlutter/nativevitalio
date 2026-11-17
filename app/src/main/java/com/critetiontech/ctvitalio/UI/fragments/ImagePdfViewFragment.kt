@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
+import com.critetiontech.vitalioCorporate.R
 import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.databinding.FragmentImagePdfViewBinding
-import com.critetiontech.ctvitalio.databinding.FragmentUploadReportHistoryBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentImagePdfViewBinding
+import com.critetiontech.vitalioCorporate.databinding.FragmentUploadReportHistoryBinding
 import androidx.core.net.toUri
 
 //import com.github.barteksc.pdfviewer.PDFView

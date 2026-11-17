@@ -1,6 +1,6 @@
-package com.critetiontech.ctvitalio.ui.events
+package com.critetiontech.vitalioCorporate.ui.events
 
-import com.critetiontech.ctvitalio.model.HapticType
+import com.critetiontech.vitalioCorporate.model.HapticType
 
 /**
  * UiEvent.kt
@@ -9,7 +9,7 @@ import com.critetiontech.ctvitalio.model.HapticType
  * and consumed by their corresponding Activities/Fragments.
  *
  * Previously located in the incorrect top-level package `sealedClass`.
- * Now lives under `com.critetiontech.ctvitalio.ui.events`.
+ * Now lives under `com.critetiontech.vitalioCorporate.ui.events`.
  *
  * Usage in ViewModel:
  *   private val _uiEvent = MutableSharedFlow<UiEvent>()

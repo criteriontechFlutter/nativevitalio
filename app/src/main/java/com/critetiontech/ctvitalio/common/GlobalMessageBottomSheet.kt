@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.common
+package com.critetiontech.vitalioCorporate.common
 
 import android.app.Dialog
 import android.os.Build
@@ -11,9 +11,9 @@ import android.content.Context
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.BottomsheetMessageBinding
-import com.critetiontech.ctvitalio.model.HapticType
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.BottomsheetMessageBinding
+import com.critetiontech.vitalioCorporate.model.HapticType
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

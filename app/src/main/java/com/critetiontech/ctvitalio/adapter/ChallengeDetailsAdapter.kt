@@ -1,10 +1,10 @@
 ﻿
 
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 
 
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -17,11 +17,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.ItemParticipantBinding
-import com.critetiontech.ctvitalio.databinding.NewChallengedJoinedBinding
-import com.critetiontech.ctvitalio.model.NewChallengeModel
-import com.critetiontech.ctvitalio.model.Person
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.ItemParticipantBinding
+import com.critetiontech.vitalioCorporate.databinding.NewChallengedJoinedBinding
+import com.critetiontech.vitalioCorporate.model.NewChallengeModel
+import com.critetiontech.vitalioCorporate.model.Person
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Challenge

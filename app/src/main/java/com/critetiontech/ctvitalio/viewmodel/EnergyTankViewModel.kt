@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.utils.ApiEndPointCorporateModule
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import kotlinx.coroutines.launch
 
 class EnergyTankViewModel(application: Application) : BaseViewModel(application){

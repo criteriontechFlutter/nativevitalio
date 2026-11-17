@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,9 +21,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentMovemenetIndexBinding
-import com.critetiontech.ctvitalio.model.MovementIndexViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentMovemenetIndexBinding
+import com.critetiontech.vitalioCorporate.model.MovementIndexViewModel
 import java.util.Calendar
 
 

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments.dashboard_pages
+package com.critetiontech.vitalioCorporate.UI.fragments.dashboard_pages
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.UltraHumanActivity
-import com.critetiontech.ctvitalio.adapter.NewChallengedAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentDashboardChallengesBinding
-import com.critetiontech.ctvitalio.viewmodel.ChallengesViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.UltraHumanActivity
+import com.critetiontech.vitalioCorporate.adapter.NewChallengedAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentDashboardChallengesBinding
+import com.critetiontech.vitalioCorporate.viewmodel.ChallengesViewModel
 
 class dashboard_challenges : Fragment() {
 

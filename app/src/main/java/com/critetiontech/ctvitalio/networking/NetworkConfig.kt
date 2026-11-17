@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.networking
+package com.critetiontech.vitalioCorporate.networking
 
 /**
  * NetworkConfig.kt

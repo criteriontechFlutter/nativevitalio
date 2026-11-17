@@ -217,7 +217,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <!-- Confetti celebrate animation overlay -->
-    <com.critetiontech.ctvitalio.widgets.ConfettiView
+    <com.critetiontech.vitalioCorporate.widgets.ConfettiView
         android:id="@+id/confettiView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

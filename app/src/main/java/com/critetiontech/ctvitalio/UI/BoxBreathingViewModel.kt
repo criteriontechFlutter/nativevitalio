@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

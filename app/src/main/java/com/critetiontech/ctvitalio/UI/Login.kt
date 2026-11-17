@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI
+package com.critetiontech.vitalioCorporate.UI
 
 import android.content.Intent
 import android.os.*
@@ -13,16 +13,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.NestedScrollView
+import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.ConfirmUpdateBottomSheet
-import com.critetiontech.ctvitalio.databinding.ActivityLoginBinding
-import com.critetiontech.ctvitalio.model.Patient
-import com.critetiontech.ctvitalio.utils.PrefsManager
-import com.critetiontech.ctvitalio.viewmodel.LoginViewModel
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.ui.ConfirmUpdateBottomSheet
+import com.critetiontech.vitalioCorporate.databinding.ActivityLoginBinding
+import com.critetiontech.vitalioCorporate.model.Patient
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.viewmodel.LoginViewModel
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.utils.showSafe
 
 class Login : BaseActivity() {
 
@@ -52,10 +52,32 @@ class Login : BaseActivity() {
     }
 
     private fun setupInsets() {
+        // Android 15+ (targetSdk 35) forces edge-to-edge, so adjustResize no longer shrinks
+        // the window for the keyboard. Pad for status bar, nav bar and IME ourselves.
         ViewCompat.setOnApplyWindowInsetsListener(binding.mainScrollView) { v, insets ->
-            val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(v.paddingLeft, v.paddingTop, v.paddingRight, sys.bottom)
-            insets
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = maxOf(bars.bottom, ime.bottom)
+            )
+            if (insets.isVisible(WindowInsetsCompat.Type.ime())) {
+                scrollFormIntoView()
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    /** Form sits at the bottom of the scroll content, so scrolling to the end shows fields + Login button. */
+    private fun scrollFormIntoView() {
+        val scroll = binding.mainScrollView
+        scroll.post {
+            val bottom = scroll.getChildAt(0)?.height ?: return@post
+            scroll.smoothScrollTo(0, bottom)
         }
     }
 
@@ -84,10 +106,12 @@ class Login : BaseActivity() {
         binding.inputField.addTextChangedListener(watcher)
         binding.passField.addTextChangedListener(watcher)
 
-        // Scroll when input gains focus
-        binding.inputField.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) scrollToView(binding.mainScrollView, binding.inputField)
+        // Scroll when either input gains focus (IME may already be open)
+        val focusScroll = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) scrollFormIntoView()
         }
+        binding.inputField.onFocusChangeListener = focusScroll
+        binding.passField.onFocusChangeListener = focusScroll
 
         setupPasswordVisibilityToggle()
 
@@ -211,10 +235,6 @@ class Login : BaseActivity() {
                 ContextCompat.getColor(this, R.color.greyText)
             )
         }
-    }
-
-    private fun scrollToView(scroll: NestedScrollView, v: View) {
-        scroll.post { scroll.smoothScrollTo(0, v.top) }
     }
 
     override fun onStart() {

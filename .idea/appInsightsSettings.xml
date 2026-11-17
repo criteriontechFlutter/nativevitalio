@@ -32,7 +32,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.critetiontech.ctvitalio" />
+                  <option name="appId" value="com.critetiontech.vitalioCorporate" />
                   <option name="mobileSdkAppId" value="1:874216638219:android:bc015933702a02d5fc040e" />
                   <option name="projectId" value="smartheartfailureclinic" />
                   <option name="projectNumber" value="874216638219" />

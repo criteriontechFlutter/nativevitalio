@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.BingoAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentBingoCardPageBinding
-import com.critetiontech.ctvitalio.viewmodel.BingoViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.BingoAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentBingoCardPageBinding
+import com.critetiontech.vitalioCorporate.viewmodel.BingoViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class BingoCardPage : Fragment() {

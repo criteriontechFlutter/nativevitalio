@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import android.os.Handler
@@ -13,14 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.SymptomAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentSymtomsBinding
-import com.critetiontech.ctvitalio.interfaces.AdapterInterface
-import com.critetiontech.ctvitalio.model.ProblemWithIcon
-import com.critetiontech.ctvitalio.viewmodel.SymptomsViewModel
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.SymptomAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentSymtomsBinding
+import com.critetiontech.vitalioCorporate.interfaces.AdapterInterface
+import com.critetiontech.vitalioCorporate.model.ProblemWithIcon
+import com.critetiontech.vitalioCorporate.viewmodel.SymptomsViewModel
 
 class SymptomsFragment : Fragment() {
 

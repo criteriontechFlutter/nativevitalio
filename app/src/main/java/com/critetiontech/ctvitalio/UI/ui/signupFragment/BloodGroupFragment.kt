@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.ui.signupFragment
+package com.critetiontech.vitalioCorporate.UI.ui.signupFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.critetiontech.ctvitalio.adapter.BloodGroupAdapter
-import com.critetiontech.ctvitalio.model.BloodGroup
-import com.critetiontech.ctvitalio.viewmodel.RegistrationViewModel
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.UI.ui.signupFragment.ProgressViewModel
-import com.critetiontech.ctvitalio.databinding.FragmentBloodGroupBinding
-import com.critetiontech.ctvitalio.utils.LoaderUtils.hideLoading
-import com.critetiontech.ctvitalio.utils.LoaderUtils.showLoading
+import com.critetiontech.vitalioCorporate.adapter.BloodGroupAdapter
+import com.critetiontech.vitalioCorporate.model.BloodGroup
+import com.critetiontech.vitalioCorporate.viewmodel.RegistrationViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.UI.ui.signupFragment.ProgressViewModel
+import com.critetiontech.vitalioCorporate.databinding.FragmentBloodGroupBinding
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.hideLoading
+import com.critetiontech.vitalioCorporate.utils.LoaderUtils.showLoading
 
 class BloodGroupFragment : Fragment() {
 

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="symptomName"
-            type="com.critetiontech.ctvitalio.model.ProblemWithIcon"/>
+            type="com.critetiontech.vitalioCorporate.model.ProblemWithIcon"/>
     </data>
 
     <TextView

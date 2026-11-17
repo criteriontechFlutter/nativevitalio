@@ -10,7 +10,7 @@
     <!-- Option 1: Use FragmentContainerView (Recommended) -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/sleepChartFragment"
-        android:name="com.critetiontech.ctvitalio.UI.fragments.SleepGraphFragment"
+        android:name="com.critetiontech.vitalioCorporate.UI.fragments.SleepGraphFragment"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +19,7 @@
 
     <!-- Option 2: Use the custom view directly (Simpler) -->
     <!--
-    <com.yourpackage.com.critetiontech.ctvitalio.UI.view.SleepChartView
+    <com.yourpackage.com.critetiontech.vitalioCorporate.UI.view.SleepChartView
         android:id="@+id/sleepChartView"
         android:layout_width="match_parent"
         android:layout_height="400dp"

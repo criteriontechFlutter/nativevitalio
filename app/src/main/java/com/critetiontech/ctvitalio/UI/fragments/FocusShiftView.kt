@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -13,12 +13,12 @@ import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentFocusShiftViewBinding
-import com.critetiontech.ctvitalio.utils.FocusShiftAnimationManager
-import com.critetiontech.ctvitalio.UI.ui.EndSessionBottomSheet
-import com.critetiontech.ctvitalio.utils.showSafe
-import com.critetiontech.ctvitalio.viewmodel.FocusShiftViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentFocusShiftViewBinding
+import com.critetiontech.vitalioCorporate.utils.FocusShiftAnimationManager
+import com.critetiontech.vitalioCorporate.UI.ui.EndSessionBottomSheet
+import com.critetiontech.vitalioCorporate.utils.showSafe
+import com.critetiontech.vitalioCorporate.viewmodel.FocusShiftViewModel
 import kotlin.getValue
 
 // TODO: Rename parameter arguments, choose names that match

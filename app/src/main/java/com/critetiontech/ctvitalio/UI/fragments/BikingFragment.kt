@@ -12,9 +12,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentBikingBinding
-import com.critetiontech.ctvitalio.viewmodel.BinkingViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentBikingBinding
+import com.critetiontech.vitalioCorporate.viewmodel.BinkingViewModel
 import com.example.vitalio_pragya.viewmodel.AddActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat

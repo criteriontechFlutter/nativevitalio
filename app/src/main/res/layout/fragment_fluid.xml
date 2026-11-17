@@ -225,7 +225,7 @@
                     android:layout_gravity="center"/>
 
                 <!-- Glass animator/graphic -->
-                <com.critetiontech.ctvitalio.utils.GreenTea
+                <com.critetiontech.vitalioCorporate.utils.GreenTea
                     android:layout_width="230dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -234,7 +234,7 @@
                     />
 
 
-                <com.critetiontech.ctvitalio.utils.CoffeVIew
+                <com.critetiontech.vitalioCorporate.utils.CoffeVIew
                     android:layout_width="230dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -242,7 +242,7 @@
                     android:layout_gravity="center_horizontal"
                     />
 
-                <com.critetiontech.ctvitalio.utils.GlassView
+                <com.critetiontech.vitalioCorporate.utils.GlassView
                     android:layout_width="150dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -251,7 +251,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.JuiceView
+                <com.critetiontech.vitalioCorporate.utils.JuiceView
                     android:layout_width="140dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -259,7 +259,7 @@
                     android:layout_gravity="center"
                     />
 
-                <com.critetiontech.ctvitalio.utils.MilkView
+                <com.critetiontech.vitalioCorporate.utils.MilkView
                     android:layout_width="140dp"
                     android:layout_height="230dp"
                     android:visibility="gone"
@@ -406,7 +406,7 @@
                             android:layout_marginEnd="8dp">
                         </LinearLayout>
 
-                        <com.critetiontech.ctvitalio.utils.OvalFillMeterView
+                        <com.critetiontech.vitalioCorporate.utils.OvalFillMeterView
                             android:id="@+id/ovalMeterView"
                             android:layout_width="160dp"
                             android:layout_height="300dp"

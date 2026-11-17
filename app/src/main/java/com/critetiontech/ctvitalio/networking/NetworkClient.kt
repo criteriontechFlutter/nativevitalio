@@ -1,7 +1,7 @@
-﻿package com.critetiontech.ctvitalio.networking
+﻿package com.critetiontech.vitalioCorporate.networking
 
 // BuildConfig is generated at compile time
-import com.critetiontech.ctvitalio.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.MyApplication
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
@@ -25,7 +25,7 @@ object NetworkClient {
             .addInterceptor(NetworkConnectionInterceptor(MyApplication.appContext))
             .apply {
                 // Attach logging only in debug — never in release
-                if (com.critetiontech.ctvitalio.BuildConfig.DEBUG) {
+                if (com.critetiontech.vitalioCorporate.BuildConfig.DEBUG) {
                     addInterceptor(HttpLoggingInterceptor().apply {
                         level = HttpLoggingInterceptor.Level.BASIC
                     })

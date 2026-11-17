@@ -1,11 +1,11 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.critetiontech.ctvitalio.databinding.MovieLayoutBinding
-import com.critetiontech.ctvitalio.model.Result
+import com.critetiontech.vitalioCorporate.databinding.MovieLayoutBinding
+import com.critetiontech.vitalioCorporate.model.Result
 import java.util.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

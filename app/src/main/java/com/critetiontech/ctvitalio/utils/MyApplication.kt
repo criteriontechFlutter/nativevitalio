@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.utils
+package com.critetiontech.vitalioCorporate.utils
 
 import android.app.Application
 import android.app.NotificationChannel
@@ -9,7 +9,7 @@ import androidx.preference.PreferenceManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.critetiontech.ctvitalio.logging.LoggingManager
+import com.critetiontech.vitalioCorporate.logging.LoggingManager
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 

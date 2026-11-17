@@ -1,12 +1,12 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.MindfulnessItemLayoutBinding
-import com.critetiontech.ctvitalio.model.BreathingProtocol
+import com.critetiontech.vitalioCorporate.databinding.MindfulnessItemLayoutBinding
+import com.critetiontech.vitalioCorporate.model.BreathingProtocol
 
 class BreathingAdapter : ListAdapter<BreathingProtocol, BreathingAdapter.BreathingViewHolder>(DiffCallback()) {
 

@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.viewmodel
+package com.critetiontech.vitalioCorporate.viewmodel
 
 import DailyCheckItem
 import DailyCheckListWrapper
@@ -8,7 +8,7 @@ import InsightJson
 import MoodResponse
 import PillReminderModel
 import PillTime
-import com.critetiontech.ctvitalio.utils.PrefsManager
+import com.critetiontech.vitalioCorporate.utils.PrefsManager
 import QuickMetric
 import QuickMetricsTiled
 import SleepCycleItem
@@ -31,18 +31,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.model.DietItemModel
-import com.critetiontech.ctvitalio.model.FluidType
-import com.critetiontech.ctvitalio.model.ManualFoodAssignResponse
-import com.critetiontech.ctvitalio.model.ManualFoodItem
-import com.critetiontech.ctvitalio.model.SymptomDetail
-import com.critetiontech.ctvitalio.model.SymptomResponse
-import com.critetiontech.ctvitalio.utils.ApiEndPoint
-import com.critetiontech.ctvitalio.utils.ApiEndPointCorporateModule
-import com.critetiontech.ctvitalio.utils.ConfirmationBottomSheet
-import com.critetiontech.ctvitalio.utils.MyApplication
-import com.critetiontech.ctvitalio.utils.showSafe
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.model.DietItemModel
+import com.critetiontech.vitalioCorporate.model.FluidType
+import com.critetiontech.vitalioCorporate.model.ManualFoodAssignResponse
+import com.critetiontech.vitalioCorporate.model.ManualFoodItem
+import com.critetiontech.vitalioCorporate.model.SymptomDetail
+import com.critetiontech.vitalioCorporate.model.SymptomResponse
+import com.critetiontech.vitalioCorporate.utils.ApiEndPoint
+import com.critetiontech.vitalioCorporate.utils.ApiEndPointCorporateModule
+import com.critetiontech.vitalioCorporate.utils.ConfirmationBottomSheet
+import com.critetiontech.vitalioCorporate.utils.MyApplication
+import com.critetiontech.vitalioCorporate.utils.showSafe
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -53,16 +53,16 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.core.graphics.toColorInt
-import com.critetiontech.ctvitalio.Database.appDatabase.AppDatabase
-import com.critetiontech.ctvitalio.Database.appDatabase.VitalsEntity
-import com.critetiontech.ctvitalio.UI.SignupActivity
-import com.critetiontech.ctvitalio.adapter.NotificationItem
-import com.critetiontech.ctvitalio.adapter.PriorityAction
-import com.critetiontech.ctvitalio.adapter.PriorityActionWrapper
-import com.critetiontech.ctvitalio.model.DashboardActiveChallenges
-import com.critetiontech.ctvitalio.model.DashboardActiveChallengesWrapper
-import com.critetiontech.ctvitalio.networking.NetworkConfig
-import com.critetiontech.ctvitalio.networking.RetrofitInstance
+import com.critetiontech.vitalioCorporate.Database.appDatabase.AppDatabase
+import com.critetiontech.vitalioCorporate.Database.appDatabase.VitalsEntity
+import com.critetiontech.vitalioCorporate.UI.SignupActivity
+import com.critetiontech.vitalioCorporate.adapter.NotificationItem
+import com.critetiontech.vitalioCorporate.adapter.PriorityAction
+import com.critetiontech.vitalioCorporate.adapter.PriorityActionWrapper
+import com.critetiontech.vitalioCorporate.model.DashboardActiveChallenges
+import com.critetiontech.vitalioCorporate.model.DashboardActiveChallengesWrapper
+import com.critetiontech.vitalioCorporate.networking.NetworkConfig
+import com.critetiontech.vitalioCorporate.networking.RetrofitInstance
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -288,7 +288,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 val queryParams = mapOf("Uhid" to uhid, "intervalTimeInHour" to 24)
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFluidIntakeDetails,
                         params = queryParams
@@ -513,7 +513,7 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
                 )
 
                 val response = RetrofitInstance
-                    .createApiService(com.critetiontech.ctvitalio.networking.NetworkConfig.BASE_URL_5096)
+                    .createApiService(com.critetiontech.vitalioCorporate.networking.NetworkConfig.BASE_URL_5096)
                     .dynamicGet(
                         url = ApiEndPoint().getFoodIntake,
                         params = queryParams

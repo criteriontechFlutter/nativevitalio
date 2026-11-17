@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.Database;
+package com.critetiontech.vitalioCorporate.Database;
 
 import android.net.Uri;
 
@@ -8,7 +8,7 @@ import android.net.Uri;
 
 public class OmronDBConstans {
 
-    public static final String AUTHORITY = "com.critetiontech.ctvitalio.Database.OmronDBProvider";
+    public static final String AUTHORITY = "com.critetiontech.vitalioCorporate.Database.OmronDBProvider";
     public static final String DB_NAME = "omron_app.db";
     public static final int DB_VERSION = 1;
 

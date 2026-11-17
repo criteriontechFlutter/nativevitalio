@@ -1,9 +1,9 @@
-package com.critetiontech.ctvitalio.adapter
+package com.critetiontech.vitalioCorporate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.critetiontech.ctvitalio.databinding.ItemProgressCardBinding
+import com.critetiontech.vitalioCorporate.databinding.ItemProgressCardBinding
 
 data class ProgressCard(val emoji: String, val title: String, val subtitle: String)
 

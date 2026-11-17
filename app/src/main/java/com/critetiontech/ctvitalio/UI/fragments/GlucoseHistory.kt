@@ -1,4 +1,4 @@
-﻿package com.critetiontech.ctvitalio.UI.fragments
+﻿package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -18,12 +18,12 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.adapter.GlucoseAdapter
-import com.critetiontech.ctvitalio.databinding.FragmentGlucoseHistoryBinding
-import com.critetiontech.ctvitalio.model.WeeklyMapGraph
-import com.critetiontech.ctvitalio.model.dp
-import com.critetiontech.ctvitalio.viewmodel.GlucoseHistoryViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.adapter.GlucoseAdapter
+import com.critetiontech.vitalioCorporate.databinding.FragmentGlucoseHistoryBinding
+import com.critetiontech.vitalioCorporate.model.WeeklyMapGraph
+import com.critetiontech.vitalioCorporate.model.dp
+import com.critetiontech.vitalioCorporate.viewmodel.GlucoseHistoryViewModel
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

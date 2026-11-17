@@ -108,7 +108,7 @@
 <!--        android:background="#FFFFFF">-->
 
 <!--        &lt;!&ndash; Awake &ndash;&gt;-->
-<!--        <com.critetiontech.ctvitalio.UI.SleepStageBarView-->
+<!--        <com.critetiontech.vitalioCorporate.UI.SleepStageBarView-->
 <!--            android:id="@+id/awakeBar"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="47dp"  />-->
@@ -119,7 +119,7 @@
 <!--            android:background="@color/greyText"-->
 <!--            />-->
 <!--        &lt;!&ndash; REM Sleep &ndash;&gt;-->
-<!--        <com.critetiontech.ctvitalio.UI.SleepStageBarView-->
+<!--        <com.critetiontech.vitalioCorporate.UI.SleepStageBarView-->
 <!--            android:id="@+id/remBar"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="47dp"  />-->
@@ -129,7 +129,7 @@
 <!--            android:layout_height="1dp"-->
 <!--            android:background="@color/greyText"/>-->
 <!--        &lt;!&ndash; Light Sleep &ndash;&gt;-->
-<!--        <com.critetiontech.ctvitalio.UI.SleepStageBarView-->
+<!--        <com.critetiontech.vitalioCorporate.UI.SleepStageBarView-->
 <!--            android:id="@+id/lightBar"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="47dp"  />-->
@@ -139,7 +139,7 @@
 <!--            android:layout_height="1dp"-->
 <!--            android:background="@color/greyText"/>-->
 <!--        &lt;!&ndash; Deep Sleep &ndash;&gt;-->
-<!--        <com.critetiontech.ctvitalio.UI.SleepStageBarView-->
+<!--        <com.critetiontech.vitalioCorporate.UI.SleepStageBarView-->
 <!--            android:id="@+id/deepBar"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="47dp" />-->

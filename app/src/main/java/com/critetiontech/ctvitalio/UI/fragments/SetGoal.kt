@@ -1,4 +1,4 @@
-package com.critetiontech.ctvitalio.UI.fragments
+package com.critetiontech.vitalioCorporate.UI.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,10 +11,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.critetiontech.ctvitalio.R
-import com.critetiontech.ctvitalio.databinding.FragmentSetGoalBinding
-import com.critetiontech.ctvitalio.model.UnitConfig
-import com.critetiontech.ctvitalio.viewmodel.SetGoalViewModel
+import com.critetiontech.vitalioCorporate.R
+import com.critetiontech.vitalioCorporate.databinding.FragmentSetGoalBinding
+import com.critetiontech.vitalioCorporate.model.UnitConfig
+import com.critetiontech.vitalioCorporate.viewmodel.SetGoalViewModel
 import java.util.Calendar
 
 class SetGoal : Fragment() {
